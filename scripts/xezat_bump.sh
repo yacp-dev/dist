@@ -6,9 +6,9 @@
 # leaves behind under $T.
 #
 # If XEZAT_BUMP_MESSAGE is set (non-empty), it's passed as `xezat bump`'s
-# `-m` -- used by build-package.yml's `rebuild` input (same-version
-# toolchain rebuild, e.g. "Rebuild with gcc-14.2.0-1") to override
-# xezat's own default changelog message ("Version bump.", which wouldn't
+# `-m` -- set from scripts/changelog_message.sh for a release-only bump
+# (e.g. "Rebuild with gcc-14.4.0") to override xezat's own default
+# changelog message ("Version bump.", which wouldn't
 # say anything true here since PV didn't actually change). An env var
 # rather than a CLI flag here sidesteps having to shell-quote an
 # arbitrary message into this script's own invocation in build-package.yml.

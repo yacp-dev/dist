@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 # Prints the installed Cygwin gcc-core package's version (e.g.
-# "14.2.0-1"), for the rebuild changelog message ("Rebuild with
-# gcc-<version>", written via scripts/xezat_bump.sh's XEZAT_BUMP_MESSAGE
-# when build-package.yml's `rebuild` input is set). This is the actual
-# Cygwin package version, not `gcc --version`'s upstream-only string --
-# it also changes across a Cygwin-side packaging fix with no upstream gcc
-# version bump, which is exactly the kind of change a rebuild exists to
-# pick up.
+# "14.2.0-1"), for scripts/changelog_message.sh to decide whether a
+# release-only rebuild's changelog should say "Rebuild with gcc-<ver>"
+# (it strips the Cygwin release itself, matching yacp's convention). This
+# is the actual Cygwin package version, not `gcc --version`'s output, so
+# it lines up with the gcc-core-<ver> xezat records under a README's
+# "Build requirements".
 #
 # gcc-core is always installed as part of the base toolchain (see
 # build-package.yml's "Install Cygwin (base toolchain)" step), so this

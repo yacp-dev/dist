@@ -426,26 +426,33 @@ jobs:
       - name: Validate build via xezat
         run: bash -- scripts/xezat_validate.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
-      # Only meaningful for the `rebuild` input (Bump release above) --
-      # its changelog message names the toolchain a rebuild actually
-      # exists to pick up. gcc-core is always installed as part of the
-      # base toolchain (see Install Cygwin (base toolchain) above), so
-      # this doesn't need its own package install.
+      # Feeds Decide changelog message below. gcc-core is always
+      # installed as part of the base toolchain (see Install Cygwin (base
+      # toolchain) above), so this doesn't need its own package install.
       - name: Detect gcc-core version
         id: gcc-version
-        if: inputs.rebuild
+        if: ${{ !inputs.validate_only }}
         run: bash -- scripts/gcc_version.sh
+
+      # A release-only bump (`rebuild`, or a branch-rebuild re-run of
+      # one -- where `rebuild` itself is ignored) gets "Rebuild with
+      # gcc-<ver>"/"Rebuild" instead of xezat's default "Version bump.",
+      # decided by comparing against yacp's HEAD rather than trusting
+      # either input -- see changelog_message.sh.
+      - name: Decide changelog message
+        id: changelog
+        if: ${{ !inputs.validate_only }}
+        run: bash -- scripts/changelog_message.sh --dir yacp --package "${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --gcc-version "${{ steps.gcc-version.outputs.gcc_version }}"
 
       # Skipped entirely for validate_only: there's no PR to carry a
       # rewritten README to, and the changelog already has whatever entry
       # a real (or previously-failed) build already gave it -- rewriting
-      # it here (xezat's own default "Version bump." message, since no
-      # rebuild-specific one applies) would just clobber that with a
-      # message that isn't true, nothing was bumped.
+      # it here would just clobber that with a message that isn't true,
+      # nothing was bumped.
       - name: Update README via xezat
         if: ${{ !inputs.validate_only }}
         env:
-          XEZAT_BUMP_MESSAGE: ${{ inputs.rebuild && format('Rebuild with gcc-{0}', steps.gcc-version.outputs.gcc_version) || '' }}
+          XEZAT_BUMP_MESSAGE: ${{ steps.changelog.outputs.message }}
         run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       # cygport's `install` step (above) already runs postinst as part of
