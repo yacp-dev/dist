@@ -110,6 +110,38 @@ jobs:
       - name: Checkout dorgann
         uses: actions/checkout@v7
 
+      # dorgann's own default GITHUB_TOKEN is scoped to dorgann only and
+      # can't push to yacp, so everything touching yacp-dev/ports below
+      # uses a GitHub App installation token instead (doc/spec.md 4.4.1)
+      # -- an App rather than a PAT so the branches/PRs it creates are
+      # attributed to the App's own bot account, not to whoever owns the
+      # token. The App needs Contents: Read and write and Pull requests:
+      # Read and write on yacp-dev/ports.
+      - name: Generate yacp token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.DORGANN_APP_ID }}
+          private-key: ${{ secrets.DORGANN_APP_PRIVATE_KEY }}
+          owner: yacp-dev
+          repositories: ports
+
+      # create-pull-request's `author` defaults to github.actor (whoever
+      # ran workflow_dispatch), so without overriding it the commits
+      # would still count toward that person's contributions even though
+      # the PR itself is the bot's. The bot's noreply address needs its
+      # numeric user id, which the token step doesn't output directly.
+      # shell: bash explicitly, since windows-latest defaults to pwsh.
+      - name: Resolve bot identity
+        id: bot
+        shell: bash
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          id="$(gh api "/users/${APP_SLUG}[bot]" --jq .id)"
+          echo "identity=${APP_SLUG}[bot] <${id}+${APP_SLUG}[bot]@users.noreply.github.com>" >> "$GITHUB_OUTPUT"
+
       - name: Checkout yacp
         uses: actions/checkout@v7
         with:
@@ -126,13 +158,11 @@ jobs:
           # fix in as a plain uncommitted diff against this checkout
           # instead, which doesn't have that problem.
           #
-          # dorgann's own default GITHUB_TOKEN is scoped to dorgann only
-          # and can't push to yacp -- YACP_SECRET is a fine-grained PAT
-          # scoped to yacp-dev/ports with contents:write/pull-requests:write
-          # (doc/spec.md 4.4.1). Needed on checkout (not just on the
-          # Create Pull Request step below) since that's what determines
-          # which credentials `git push` inside this checkout uses.
-          token: ${{ secrets.YACP_SECRET }}
+          # The App token (see Generate yacp token above) is needed on
+          # checkout too, not just on the Create Pull Request step below,
+          # since that's what determines which credentials `git push`
+          # inside this checkout uses.
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Install Cygwin (base toolchain)
         uses: cygwin/cygwin-install-action@v6
@@ -228,7 +258,7 @@ jobs:
         id: auto-branch
         if: inputs.branch == '' && inputs.version != ''
         env:
-          GH_TOKEN: ${{ secrets.YACP_SECRET }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: bash -- scripts/detect_existing_branch.sh --repo yacp-dev/ports --package "${{ inputs.package }}" --version "${{ inputs.version }}"
 
       # Branch-rebuild mode (doc/spec.md 4.6): brings the target branch's
@@ -540,8 +570,25 @@ jobs:
         if: always() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success')
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step clean
 
+      # GitHub App installation tokens expire after 1 hour, and a full
+      # Windows build (plus a cold xezat gem compile) can easily outlast
+      # the one Generate yacp token minted at the start of the job -- so
+      # mint a fresh one for everything from here on (create-pull-request
+      # uses its own `token` input for the push too, overriding the
+      # credentials Checkout yacp persisted). Same condition as either
+      # Create Pull Request step below could run under.
+      - name: Refresh yacp token
+        id: app-token-pr
+        if: always() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success') && !inputs.validate_only
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.DORGANN_APP_ID }}
+          private-key: ${{ secrets.DORGANN_APP_PRIVATE_KEY }}
+          owner: yacp-dev
+          repositories: ports
+
       # Placed after the artifact upload so a problem here (still
-      # unvalidated as of Step 2 -- first real use of YACP_SECRET) can't
+      # unvalidated as of Step 2 -- first real use of the yacp token) can't
       # cost the dist artifact too.
       #
       # add-paths defaults to `git add -A` over the whole checkout if
@@ -567,8 +614,12 @@ jobs:
         if: ${{ !inputs.validate_only }}
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.YACP_SECRET }}
+          token: ${{ steps.app-token-pr.outputs.token }}
           path: yacp
+          # Attribute the commit to the App's bot too, not just the PR
+          # -- see Resolve bot identity above.
+          author: ${{ steps.bot.outputs.identity }}
+          committer: ${{ steps.bot.outputs.identity }}
           base: master
           add-paths: |
             ${{ inputs.package }}
@@ -617,7 +668,7 @@ jobs:
       - name: Mark Pull Request ready for review
         if: ${{ !inputs.validate_only }}
         env:
-          GH_TOKEN: ${{ secrets.YACP_SECRET }}
+          GH_TOKEN: ${{ steps.app-token-pr.outputs.token }}
         run: gh pr ready ${{ steps.create-pr.outputs.pull-request-number }} --repo yacp-dev/ports
 
       # Branch-rebuild mode's entry point (doc/spec.md 4.6). Mirrors
@@ -647,8 +698,11 @@ jobs:
         if: failure() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success') && !inputs.validate_only
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.YACP_SECRET }}
+          token: ${{ steps.app-token-pr.outputs.token }}
           path: yacp
+          # See Create Pull Request above.
+          author: ${{ steps.bot.outputs.identity }}
+          committer: ${{ steps.bot.outputs.identity }}
           # See Create Pull Request above -- redundant in practice, kept
           # as documentation.
           base: master

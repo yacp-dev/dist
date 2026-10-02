@@ -158,17 +158,19 @@ Whether the PR is merged/rejected has nothing to do with whether the package get
 ```yaml
 - uses: actions/checkout@v6
   with:
-    token: ${{ secrets.YACP_TOKEN }}
+    token: ${{ steps.app-token.outputs.token }}
     repository: yacp-dev/ports
 
 # cygport update etc. happens here
 
 - uses: peter-evans/create-pull-request@v8
   with:
-    token: ${{ secrets.YACP_TOKEN }}
+    token: ${{ steps.app-token.outputs.token }}
+    author: <app-slug>[bot] <<bot-user-id>+<app-slug>[bot]@users.noreply.github.com>
+    committer: <app-slug>[bot] <<bot-user-id>+<app-slug>[bot]@users.noreply.github.com>
 ```
 
-`dorgann`'s default `GITHUB_TOKEN` is only scoped to `dorgann`, so it cannot push to yacp as-is. Register a token with **`contents: write` / `pull-requests: write` permission on yacp-dev/ports** (a fine-grained PAT, or a GitHub App installation token) as a secret in `dorgann`, and pass it explicitly to both the checkout and create-pull-request steps. Since both repos are owned by the same account, there's no need to go through a fork (`push-to-fork`) — branches can be pushed directly to yacp.
+`dorgann`'s default `GITHUB_TOKEN` is only scoped to `dorgann`, so it cannot push to yacp as-is. Instead, a GitHub App (installed on yacp-dev, with **`contents: write` / `pull-requests: write`**) mints an installation token via `actions/create-github-app-token`, from the org secrets `DORGANN_APP_ID` / `DORGANN_APP_PRIVATE_KEY`, and that token is passed explicitly to both the checkout and create-pull-request steps. An App is used rather than a fine-grained PAT so the branches/PRs (and, via explicit `author`/`committer` — create-pull-request otherwise defaults `author` to `github.actor` — the commits too) are attributed to the App's `[bot]` account instead of showing up in a human's own activity. Installation tokens expire after 1 hour, so a fresh one is minted again right before the PR steps rather than reusing the one from the start of a long Windows build. The same App also serves yacp's `distribute.yml` for the reverse direction (`repository_dispatch` to dorgann, which needs `contents: write` on yacp-dev/dist). Since both repos are owned by the same account, there's no need to go through a fork (`push-to-fork`) — branches can be pushed directly to yacp.
 
 Note also that PRs created with the default `GITHUB_TOKEN` cannot trigger other workflows on `pull_request`/`push` (e.g. yacp's own CI checks) by design ([Triggering further workflow runs](https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs)), which is another reason a PAT/App token is the right design here.
 
@@ -280,7 +282,7 @@ Implemented as `.github/workflows/build-package.yml` / `scripts/*.sh`; the full 
 
 Add branch push and PR creation to yacp (4.4, 4.4.1) to the Step 1 workflow. This is where the fine-grained PAT / GitHub App token setup and permissions get validated. `package`/`version` remain manual inputs.
 
-Implemented via `peter-evans/create-pull-request` in the same workflow, checking out yacp with a fine-grained PAT (`YACP_SECRET`, scoped to yacp-dev/ports with `contents:write`/`pull-requests:write`, per 4.4.1) instead of the default `GITHUB_TOKEN`. Branch/commit-message/title are deterministic from `package`+`version` (`dorgann/<PN>-<PV>` / `<PN>-<PV>`, the latter matching yacp's own existing commit convention), so re-running for the same package/version updates the existing PR rather than piling up duplicates. Staging is restricted to the same pathspec `Show diff` already uses (`add-paths`, since it defaults to a plain `git add -A` over the whole checkout otherwise), and the cygport build tree is deleted first via cygport's own `clean` step -- otherwise the action's own internal `git stash --include-untracked` (used to restore the working tree after committing) walks into it and hits a symlink Windows Git can't index, aborting the whole step. Verified end-to-end against a real (kept-open) PR, [yacp-dev/ports#48](https://github.com/yacp-dev/ports/pull/48), containing exactly the three expected changed files (README, `.cygport`, `.src.patch`) and nothing else.
+Implemented via `peter-evans/create-pull-request` in the same workflow, checking out yacp with a fine-grained PAT (originally `YACP_SECRET`, scoped to yacp-dev/ports with `contents:write`/`pull-requests:write`; since replaced by a GitHub App installation token, per 4.4.1) instead of the default `GITHUB_TOKEN`. Branch/commit-message/title are deterministic from `package`+`version` (`dorgann/<PN>-<PV>` / `<PN>-<PV>`, the latter matching yacp's own existing commit convention), so re-running for the same package/version updates the existing PR rather than piling up duplicates. Staging is restricted to the same pathspec `Show diff` already uses (`add-paths`, since it defaults to a plain `git add -A` over the whole checkout otherwise), and the cygport build tree is deleted first via cygport's own `clean` step -- otherwise the action's own internal `git stash --include-untracked` (used to restore the working tree after committing) walks into it and hits a symlink Windows Git can't index, aborting the whole step. Verified end-to-end against a real (kept-open) PR, [yacp-dev/ports#48](https://github.com/yacp-dev/ports/pull/48), containing exactly the three expected changed files (README, `.cygport`, `.src.patch`) and nothing else.
 
 **Step 3: Automate version determination**
 
