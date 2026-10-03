@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin-devel libfyaml0 pkg-config
+sdesc: "Fully feature complete YAML parser (development)"
+ldesc: "A fancy 1.2 YAML and JSON parser/writer."
+external-source: libfyaml
+

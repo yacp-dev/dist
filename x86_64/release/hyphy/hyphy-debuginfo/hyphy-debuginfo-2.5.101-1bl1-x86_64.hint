@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: hyphy
+sdesc: "Debug info for hyphy"
+ldesc: "This package contains files necessary for debugging the
+hyphy package with gdb."
+

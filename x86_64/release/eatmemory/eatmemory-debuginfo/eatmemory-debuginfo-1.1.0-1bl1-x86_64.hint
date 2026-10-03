@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: eatmemory
+sdesc: "Debug info for eatmemory"
+ldesc: "This package contains files necessary for debugging the
+eatmemory package with gdb."
+

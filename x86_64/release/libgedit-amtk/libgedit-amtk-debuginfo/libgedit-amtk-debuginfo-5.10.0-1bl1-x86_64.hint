@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libgedit-amtk
+sdesc: "Debug info for libgedit-amtk"
+ldesc: "This package contains files necessary for debugging the
+libgedit-amtk package with gdb."
+

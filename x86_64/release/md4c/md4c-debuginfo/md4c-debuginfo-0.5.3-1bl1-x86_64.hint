@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: md4c
+sdesc: "Debug info for md4c"
+ldesc: "This package contains files necessary for debugging the
+md4c package with gdb."
+

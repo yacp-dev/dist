@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libarpack0 libgcc1 libopenblas libsuperlu7
+sdesc: "C++ linear algebra library (runtime)"
+ldesc: "Armadillo is a C++ linear algebra library (matrix maths) aiming towards a
+good balance between speed and ease of use. Integer, floating point and
+complex numbers are supported, as well as a subset of trigonometric and
+statistics functions."
+external-source: armadillo
+

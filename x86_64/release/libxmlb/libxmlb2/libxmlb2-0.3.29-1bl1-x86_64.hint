@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libglib2.0_0 liblzma5 libzstd1
+sdesc: "Library to help create and query binary XML blobs (runtime)"
+ldesc: "Library to help create and query binary XML blobs"
+external-source: libxmlb
+

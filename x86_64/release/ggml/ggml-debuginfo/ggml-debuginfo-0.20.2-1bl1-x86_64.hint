@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: ggml
+sdesc: "Debug info for ggml"
+ldesc: "This package contains files necessary for debugging the
+ggml package with gdb."
+

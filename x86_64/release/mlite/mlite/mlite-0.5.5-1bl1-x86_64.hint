@@ -1,0 +1,5 @@
+category: Utils
+requires: bash cygwin libgcc1 libmlite5_0 libQt5Core5 libstdc++6
+sdesc: "Useful classes originating from MeeGo Touch (utilities)"
+ldesc: "Useful classes originating from MeeGo Touch"
+

@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libexttextcat
+sdesc: "Debug info for libexttextcat"
+ldesc: "This package contains files necessary for debugging the
+libexttextcat package with gdb."
+

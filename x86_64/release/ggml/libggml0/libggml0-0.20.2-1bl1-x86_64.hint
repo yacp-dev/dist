@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1 libstdc++6
+sdesc: "Tensor library for machine learning (runtime)"
+ldesc: "Tensor library for machine learning"
+external-source: ggml
+

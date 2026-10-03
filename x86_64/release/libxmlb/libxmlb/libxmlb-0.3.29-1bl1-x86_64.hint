@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libglib2.0_0 libxmlb2
+sdesc: "Library to help create and query binary XML blobs (utilities)"
+ldesc: "Library to help create and query binary XML blobs"
+

@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: gravity
+sdesc: "Debug info for gravity"
+ldesc: "This package contains files necessary for debugging the
+gravity package with gdb."
+

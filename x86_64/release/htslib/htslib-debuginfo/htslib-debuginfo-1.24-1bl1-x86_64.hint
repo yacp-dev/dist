@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: htslib
+sdesc: "Debug info for htslib"
+ldesc: "This package contains files necessary for debugging the
+htslib package with gdb."
+

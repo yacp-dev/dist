@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libhdr_histogram6
+sdesc: "C port of the HdrHistogram (licensing & readmes)"
+ldesc: "C port of High Dynamic Range (HDR) Histogram"
+

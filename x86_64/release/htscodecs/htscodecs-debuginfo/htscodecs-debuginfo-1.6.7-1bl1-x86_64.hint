@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: htscodecs
+sdesc: "Debug info for htscodecs"
+ldesc: "This package contains files necessary for debugging the
+htscodecs package with gdb."
+
