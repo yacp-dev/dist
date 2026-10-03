@@ -106,6 +106,16 @@ add_for_inherit python3 python3 python3-devel
 add_for_inherit perl perl
 add_for_inherit ruby ruby-devel rubygems
 add_for_inherit lua lua liblua-devel
+# VCS-sourced packages (GIT_URI/SVN_URI/HG_URI instead of a SRC_URI
+# tarball): cygport's fetch shells out to the VCS client itself. These
+# used to work only by accident, via Git for Windows etc. leaking in
+# through the runner's Windows PATH -- confirmed by a real run
+# (minitrace, `inherit git`) failing "git is required to build this
+# package" once configure_cygport.sh restricted cygport's PATH to
+# /usr/bin.
+add_for_inherit git git
+add_for_inherit svn subversion
+add_for_inherit hg mercurial
 
 # Plain autotools packages (or ones with no inherit at all) want pkg-config,
 # same rule as scallywag.
