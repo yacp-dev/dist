@@ -327,7 +327,15 @@ jobs:
           # Cygwin's own libgit2-devel sidesteps it entirely; and
           # charlock_holmes, which needs ICU via pkg-config as
           # libicu-devel's icu-i18n/icu-io/icu-uc .pc files).
-          packages: ${{ steps.depends.outputs.extra_packages }} ${{ inputs.cygwin_packages }} libicu-devel pkg-config zlib-devel ruby-devel libgit2-devel
+          # python312-setuptools is for `cygport dep` (run by `xezat
+          # bump`): it reads a Python script's version via
+          # `from distutils.sysconfig import ...`, and distutils is gone
+          # from Python 3.12's stdlib -- setuptools' distutils shim brings
+          # it back. Without it that line fails under cygport's `set -e`
+          # and `cygport dep` silently prints nothing, leaving README's
+          # "Runtime requirements:" empty for any package shipping a
+          # python3-shebang script.
+          packages: ${{ steps.depends.outputs.extra_packages }} ${{ inputs.cygwin_packages }} libicu-devel pkg-config zlib-devel ruby-devel libgit2-devel python312-setuptools
           # See Install Cygwin (base toolchain) above for why this is
           # necessary at all -- same reasoning applies to every package
           # install in this job.
