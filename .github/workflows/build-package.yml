@@ -391,7 +391,20 @@ jobs:
         run: bash -- scripts/diagnose_patch_failure.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       - name: cygport compile
+        id: compile
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step compile
+
+      # configure_cygport.sh's acsite.m4 makes autoconf (run by
+      # cygautoreconf, inside src_compile) fail on an AX_*/PKG_* macro
+      # whose .m4 isn't installed -- usually a missing autoconf-archive or
+      # pkgconf in BUILD_REQUIRES (doc/spec.md 4.3.1). Pulls just those
+      # error lines out of cygport's own compile log for the Issue body,
+      # same idea as Diagnose patch failure above; scoped to compile's own
+      # failure via steps.compile.outcome.
+      - name: Diagnose undefined macro
+        id: diagnose-macro
+        if: failure() && steps.compile.outcome == 'failure'
+        run: bash -- scripts/diagnose_undefined_macro.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       # Non-fatal by design: a test suite failing (or hanging -- some
       # need a display, network access, or other things a CI runner
@@ -767,7 +780,7 @@ jobs:
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
-        run: bash -- scripts/report_build_failure.sh --repo ${{ github.repository }} --package "${{ inputs.package }}" --version "${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" --diagnostic-file "${{ steps.diagnose-patch.outputs.diagnostic_file }}"
+        run: bash -- scripts/report_build_failure.sh --repo ${{ github.repository }} --package "${{ inputs.package }}" --version "${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" --diagnostic-file "${{ steps.diagnose-patch.outputs.diagnostic_file }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}"
 
       # Genuinely last step, if: always() so it runs whichever of the
       # above actually fired. GitHub renders $GITHUB_STEP_SUMMARY as

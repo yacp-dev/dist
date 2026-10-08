@@ -27,11 +27,15 @@
 # problem -- and having it right in the Issue body, not one click away
 # in the run log, is what actually makes the Issue usable by whoever (or
 # whatever -- e.g. an AI agent assigned the Issue) fixes it next.
+# --macro-diagnostic-file is the same kind of exception, for
+# scripts/diagnose_undefined_macro.sh's output: just autoconf's own
+# undefined-macro error lines from the compile log.
 #
 # Usage:
 #   report_build_failure.sh --repo yacp-dev/dist --package foo --version 1.2.3 \
 #     --run-url https://github.com/yacp-dev/dist/actions/runs/123456789 \
-#     [--diagnostic-file /tmp/patch-diagnostic.txt]
+#     [--diagnostic-file /tmp/patch-diagnostic.txt] \
+#     [--macro-diagnostic-file /tmp/macro-diagnostic.txt]
 
 set -euo pipefail
 
@@ -40,6 +44,7 @@ package=""
 version=""
 run_url=""
 diagnostic_file=""
+macro_diagnostic_file=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -48,6 +53,7 @@ while [[ $# -gt 0 ]]; do
     --version) version="$2"; shift 2 ;;
     --run-url) run_url="$2"; shift 2 ;;
     --diagnostic-file) diagnostic_file="$2"; shift 2 ;;
+    --macro-diagnostic-file) macro_diagnostic_file="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -85,6 +91,13 @@ trap 'rm -f "$body_file"' EXIT
   if [[ -n "$diagnostic_file" && -s "$diagnostic_file" ]]; then
     printf '\n<details><summary>Patch failure diagnostic</summary>\n\n```\n'
     cat "$diagnostic_file"
+    printf '```\n\n</details>\n'
+  fi
+  # Likewise for diagnose_undefined_macro.sh, which only writes this
+  # when the compile log actually has autoconf undefined-macro errors.
+  if [[ -n "$macro_diagnostic_file" && -s "$macro_diagnostic_file" ]]; then
+    printf '\n<details><summary>Undefined autoconf macro diagnostic</summary>\n\n```\n'
+    cat "$macro_diagnostic_file"
     printf '```\n\n</details>\n'
   fi
 } >"$body_file"
