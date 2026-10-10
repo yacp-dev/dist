@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: bfs
+sdesc: "Debug info for bfs"
+ldesc: "This package contains files necessary for debugging the
+bfs package with gdb."
+

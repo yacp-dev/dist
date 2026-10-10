@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Simple C program to allocate memory from the command line"
+ldesc: "Simple C program to allocate memory from the command line"
+skip:
+
+homepage: https://github.com/julman99/eatmemory
+license: MIT

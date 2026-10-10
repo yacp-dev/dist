@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gobject-introspection libglib2.0-devel liblzma-devel libzstd-devel
+sdesc: "Library to help create and query binary XML blobs (utilities)"
+ldesc: "Library to help create and query binary XML blobs"
+skip:
+
+homepage: https://github.com/hughsie/libxmlb
+license: LGPL-2.1-or-later

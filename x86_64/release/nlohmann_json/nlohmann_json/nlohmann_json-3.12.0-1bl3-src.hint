@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "JSON for Modern C++"
+ldesc: "JSON for Modern C++"
+skip:
+
+homepage: https://github.com/nlohmann/json
+license: MIT

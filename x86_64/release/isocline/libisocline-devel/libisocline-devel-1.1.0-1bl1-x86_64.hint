@@ -1,0 +1,7 @@
+category: Libs
+requires: libisocline1 pkg-config
+sdesc: "Portable GNU readline alternative (development)"
+ldesc: "Isocline is a pure C library that can be used as an alternative to the GNU
+readline library."
+external-source: isocline
+

@@ -1,0 +1,11 @@
+category: Net
+requires: cygwin libdbi1 libglib2.0_0 libiconv2 libintl8 libiodbc2 libmariadb3 libpq5
+sdesc: "Command line utility which allows to use all libGammu features (runtime)"
+ldesc: "Gammu is command line utility and library to work with mobile phones
+from many vendors. Support for different models differs, but basic
+functions should work with majority of them. Program can work with
+contacts, messages (SMS, EMS and MMS), calendar, todos, filesystem,
+integrated radio, camera, etc. It also supports daemon mode to send and
+receive SMSes."
+external-source: gammu
+

@@ -1,0 +1,14 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Edge Addition Planarity Suite (utilities)"
+ldesc: "The primary purpose of this repository is to provide implementations of the
+edge addition planar graph embedding algorithm and related algorithms,
+including a planar graph drawing method, an isolator for a minimal subgraph
+obstructing planarity in non-planar graphs, outerplanar graph embedder and
+obstruction isolator algorithms, and tester/isolator algorithms for subgraphs
+homeomorphic to K2,3, K4, and K3,3. The C implementations in this repository
+are the reference implementations of algorithms."
+skip:
+
+homepage: https://github.com/graph-algorithms/edge-addition-planarity-suite
+license: BSD-3-Clause

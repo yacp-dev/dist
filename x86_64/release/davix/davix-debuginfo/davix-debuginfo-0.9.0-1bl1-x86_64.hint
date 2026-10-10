@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: davix
+sdesc: "Debug info for davix"
+ldesc: "This package contains files necessary for debugging the
+davix package with gdb."
+

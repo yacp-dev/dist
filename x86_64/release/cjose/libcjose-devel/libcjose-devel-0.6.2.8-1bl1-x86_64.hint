@@ -1,0 +1,6 @@
+category: Libs
+requires: libcjose0 libjansson-devel libssl-devel pkg-config
+sdesc: "C library implementing the Javascript Object Signing and Encryption (development)"
+ldesc: "C library implementing the Javascript Object Signing and Encryption"
+external-source: cjose
+

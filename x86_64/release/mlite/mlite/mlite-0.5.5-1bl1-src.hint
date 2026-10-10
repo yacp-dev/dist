@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libQt5Core-devel libglib2.0-devel
+sdesc: "Useful classes originating from MeeGo Touch (utilities)"
+ldesc: "Useful classes originating from MeeGo Touch"
+skip:
+
+homepage: https://github.com/sailfishos/mlite
+license: LGPL-2.1-or-later

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgmock-devel libgtest-devel
+sdesc: "Microbenchmark support library (licensing & readmes)"
+ldesc: "A library to support the benchmarking of functions, similar to unit-tests."
+skip:
+
+homepage: https://github.com/google/benchmark
+license: Apache-2.0

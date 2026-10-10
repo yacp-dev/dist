@@ -1,0 +1,6 @@
+category: Libs
+requires: libADLMIDI1 pkg-config
+sdesc: "MIDI play library with OPL3 (YMF262) emulator (development)"
+ldesc: "libADLMIDI is a free MIDI to WAV conversion library with OPL3 emulation."
+external-source: libADLMIDI
+

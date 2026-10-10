@@ -1,0 +1,8 @@
+category: Mail
+build-depends: cygport gettext-devel libgnutls-devel libgsasl-devel libidn2-devel libintl-devel libsecret1-devel
+sdesc: "POP3 client"
+ldesc: "mpop is a POP3 client: it retrieves mail from POP3 mailboxes."
+skip:
+
+homepage: https://marlam.de/mpop/
+license: GPL-3.0-or-later

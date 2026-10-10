@@ -1,0 +1,8 @@
+category: Libs
+requires: libtbb12 libtbbbind_2_5_3 libtbbmalloc2 pkg-config
+sdesc: "oneAPI Threading Building Blocks (development)"
+ldesc: "oneAPI Threading Building Blocks (oneTBB) lets you easily write parallel C++
+programs that take full advantage of multicore performance, that are portable,
+composable and have future-proof scalability."
+external-source: onetbb
+

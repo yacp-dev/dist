@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libADLMIDI1 libgcc1 libSDL2_2.0_0 libstdc++6
+sdesc: "MIDI play library with OPL3 (YMF262) emulator (utilities)"
+ldesc: "libADLMIDI is a free MIDI to WAV conversion library with OPL3 emulation."
+

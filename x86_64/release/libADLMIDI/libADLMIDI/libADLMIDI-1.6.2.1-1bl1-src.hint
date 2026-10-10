@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libSDL2-devel
+sdesc: "MIDI play library with OPL3 (YMF262) emulator (utilities)"
+ldesc: "libADLMIDI is a free MIDI to WAV conversion library with OPL3 emulation."
+skip:
+
+homepage: https://github.com/Wohlstand/libADLMIDI
+license: LGPL-3.0-or-later

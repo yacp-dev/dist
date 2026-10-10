@@ -1,0 +1,6 @@
+category: X11
+requires: cygwin libX11_6 libXext6
+sdesc: "X.Org libXxf86vm component (runtime)"
+ldesc: "X.Org libXxf86vm component."
+external-source: libXxf86vm
+

@@ -1,0 +1,8 @@
+category: X11
+build-depends: cygport libX11-devel libXext-devel xorg-util-macros
+sdesc: "X.Org libXxf86vm component (licensing & readmes)"
+ldesc: "X.Org libXxf86vm component."
+skip:
+
+homepage: https://www.x.org/
+license: MIT

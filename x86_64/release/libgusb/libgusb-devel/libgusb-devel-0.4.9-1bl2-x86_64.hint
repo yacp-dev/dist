@@ -1,0 +1,9 @@
+category: Libs
+requires: libglib2.0-devel libgusb2 libjson-glib1.0-devel libusb1.0-devel pkg-config
+sdesc: "GObject wrapper for libusb1 (development)"
+ldesc: "GUsb is a GObject wrapper for libusb1 that makes it easy to do asynchronous
+control, bulk and interrupt transfers with proper cancellation and integration
+into a mainloop. This makes it easy to integrate low level USB transfers with
+your high-level application or system daemon."
+external-source: libgusb
+

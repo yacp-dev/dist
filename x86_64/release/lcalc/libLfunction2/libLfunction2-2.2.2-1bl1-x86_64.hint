@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1 libstdc++6
+sdesc: "Package for working with L-functions (runtime)"
+ldesc: "Package for working with L-functions"
+external-source: lcalc
+

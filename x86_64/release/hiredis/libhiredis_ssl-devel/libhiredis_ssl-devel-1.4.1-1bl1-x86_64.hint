@@ -1,0 +1,6 @@
+category: Libs
+requires: libhiredis-devel libhiredis_ssl1 pkg-config
+sdesc: "Minimalistic C client for Redis >= 1.2 (development / SSL)"
+ldesc: "Hiredis is a minimalistic C client library for the Redis database."
+external-source: hiredis
+

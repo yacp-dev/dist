@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libbz2-devel zlib-devel
+sdesc: "Custom compression for CRAM and others (licensing & readmes)"
+ldesc: "This repository implements the custom CRAM codecs used for EXTERNAL block
+types. These consist of two variants of the rANS codec (8-bit and 16-bit
+renormalisation, with run-length encoding and bit-packing also supported in
+the latter), a dynamic arithmetic coder, and custom codecs for name/ID
+compression and quality score compression derived from fqzcomp."
+skip:
+
+homepage: https://github.com/samtools/htscodecs
+license: BSD-3-Clause

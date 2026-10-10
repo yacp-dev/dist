@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libzim
+sdesc: "Debug info for libzim"
+ldesc: "This package contains files necessary for debugging the
+libzim package with gdb."
+

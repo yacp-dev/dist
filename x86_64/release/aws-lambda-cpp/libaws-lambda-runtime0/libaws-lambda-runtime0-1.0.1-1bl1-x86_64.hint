@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libstdc++6
+sdesc: "C++ implementation of the AWS Lambda runtime (runtime)"
+ldesc: "C++ implementation of the AWS Lambda runtime"
+external-source: aws-lambda-cpp
+

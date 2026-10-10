@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libbz2-devel libcurl-devel libdeflate-devel libhtscodecs-devel liblzma-devel libssl-devel zlib-devel
+sdesc: "C library for high-throughput sequencing data formats (utilities)"
+ldesc: "HTSlib is an implementation of a unified C library for accessing common file
+formats, such as SAM, CRAM and VCF, used for high-throughput sequencing data,
+and is the core library used by samtools and bcftools."
+skip:
+
+homepage: https://github.com/samtools/htslib
+license: MIT AND BSD-3-Clause-Modification

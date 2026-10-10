@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: HdrHistogram_c
+sdesc: "Debug info for HdrHistogram_c"
+ldesc: "This package contains files necessary for debugging the
+HdrHistogram_c package with gdb."
+

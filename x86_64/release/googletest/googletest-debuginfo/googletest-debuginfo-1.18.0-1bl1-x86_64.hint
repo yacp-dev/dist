@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: googletest
+sdesc: "Debug info for googletest"
+ldesc: "This package contains files necessary for debugging the
+googletest package with gdb."
+

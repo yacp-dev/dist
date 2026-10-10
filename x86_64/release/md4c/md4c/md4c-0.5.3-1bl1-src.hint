@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C Markdown parser (utilities)"
+ldesc: "C Markdown parser. Fast. SAX-like interface. Compliant to CommonMark
+specification."
+skip:
+
+homepage: https://github.com/mity/md4c
+license: MIT

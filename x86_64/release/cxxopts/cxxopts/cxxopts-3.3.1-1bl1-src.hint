@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport libicu-devel
+sdesc: "Lightweight C++ command line option parser"
+ldesc: "Lightweight C++ command line option parser"
+skip:
+
+homepage: https://github.com/jarro2783/cxxopts
+license: MIT

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Portable GNU readline alternative (utilities)"
+ldesc: "Isocline is a pure C library that can be used as an alternative to the GNU
+readline library."
+skip:
+
+homepage: https://github.com/daanx/isocline
+license: MIT

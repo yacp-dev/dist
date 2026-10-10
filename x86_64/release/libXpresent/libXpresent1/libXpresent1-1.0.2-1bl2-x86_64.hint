@@ -1,0 +1,6 @@
+category: X11
+requires: cygwin libX11_6
+sdesc: "X.Org libXpresent component (runtime)"
+ldesc: "X.Org libXpresent component"
+external-source: libXpresent
+

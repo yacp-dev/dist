@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport autoconf-archive
+sdesc: "Powerful, yet simple, C++ unit testing framework (licensing & readmes)"
+ldesc: "Powerful, yet simple, C++ unit testing framework"
+skip:
+
+homepage: https://github.com/cpptest/cpptest
+license: LGPL-2.1-or-later

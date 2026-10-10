@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport autoconf-archive libbz2-devel libicu-devel libxml2-devel zlib-devel
+sdesc: "TiCC Utils Library (licensing & readmes)"
+ldesc: "This module contains useful functions for general use in the TiCC software
+stack and beyond."
+skip:
+
+homepage: https://github.com/LanguageMachines/ticcutils
+license: GPL-3.0-or-later

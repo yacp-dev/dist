@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C library implementing the Javascript Object Signing and Encryption (licensing & readmes)"
+ldesc: "C library implementing the Javascript Object Signing and Encryption"
+

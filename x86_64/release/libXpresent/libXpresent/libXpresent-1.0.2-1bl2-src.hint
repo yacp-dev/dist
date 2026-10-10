@@ -1,0 +1,8 @@
+category: X11
+build-depends: cygport libX11-devel libXext-devel libXfixes-devel libXrandr-devel xorgproto xorg-util-macros
+sdesc: "X.Org libXpresent component (licensing & readmes)"
+ldesc: "X.Org libXpresent component"
+skip:
+
+homepage: https://www.x.org/
+license: MIT

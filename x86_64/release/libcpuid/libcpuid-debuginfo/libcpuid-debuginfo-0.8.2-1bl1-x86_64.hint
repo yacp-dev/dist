@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libcpuid
+sdesc: "Debug info for libcpuid"
+ldesc: "This package contains files necessary for debugging the
+libcpuid package with gdb."
+

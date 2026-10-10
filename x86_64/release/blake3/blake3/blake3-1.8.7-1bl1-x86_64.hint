@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libblake3_0
+sdesc: "C implementation of the BLAKE3 cryptographic hash function (utilities)"
+ldesc: "C implementation of the BLAKE3 cryptographic hash function"
+

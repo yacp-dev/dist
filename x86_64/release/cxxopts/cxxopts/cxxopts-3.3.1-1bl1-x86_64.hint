@@ -1,0 +1,5 @@
+category: Devel
+requires: libicu-devel pkg-config
+sdesc: "Lightweight C++ command line option parser"
+ldesc: "Lightweight C++ command line option parser"
+

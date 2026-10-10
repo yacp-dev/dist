@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgmock-devel libgtest-devel
+sdesc: "YAML parser and emitter for C++ (licensing & readmes)"
+ldesc: "yaml-cpp is a YAML parser and emitter in C++ matching the YAML 1.2 spec."
+skip:
+
+homepage: https://github.com/jbeder/yaml-cpp
+license: MIT

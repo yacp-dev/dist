@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libexttextcat2.0_1
+sdesc: "Text categorization library (utilities)"
+ldesc: "Libexttextcat is an N-Gram-Based Text Categorization library primarily
+intended for language guessing."
+
