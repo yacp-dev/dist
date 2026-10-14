@@ -64,7 +64,10 @@
 # variables down; PKG_CONFIG, PKG_CONFIG_PATH etc. are allowed the same
 # way pkg.m4 allows them, since a configure.ac can use those in plain
 # shell code without pkg.m4 at all (confirmed locally: PKG_CONFIG_PATH
-# alone trips the forbid otherwise).
+# alone trips the forbid otherwise). Tokens that autoconf-archive's own
+# macros deliberately leave in configure (ax_pthread.m4's AC_EGREP_CPP
+# markers) are allowed here too, since they'd trip every package using
+# that macro rather than being one package's quirk.
 #
 # cygport reads this from (in order) $HOME/.config/cygport.conf,
 # $HOME/.cygport/cygport.conf, $HOME/.cygport.conf, or $HOME/.cygportrc --
@@ -86,6 +89,9 @@ m4_pattern_forbid([^_?PKG_[A-Z_]+$])
 dnl Same allow-list pkg.m4 itself has, for configure.ac files that use
 dnl these variables in plain shell code without pkg.m4.
 m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
+dnl Marker tokens autoconf-archive's own ax_pthread.m4 greps for via
+dnl AC_EGREP_CPP; they're meant to be left in configure as-is.
+m4_pattern_allow([^AX_PTHREAD_(ZOS_MISSING|CC_IS_CLANG)$])
 EOF
 
 cat > "$HOME/.cygportrc" <<'EOF'
