@@ -86,6 +86,11 @@ on:
         required: false
         type: boolean
         default: false
+      changelog_message:
+        description: "Changelog message for xezat bump (its -m), overriding the automatically decided one (\"Version bump.\"/\"Rebuild with gcc-<ver>\"/\"Rebuild\"). Ignored if validate_only is set."
+        required: false
+        type: string
+        default: ""
 
 # issues:write for report_build_failure.sh/close_failure_issue.sh
 # (doc/spec.md 4.5).
@@ -458,7 +463,9 @@ jobs:
       # one -- where `rebuild` itself is ignored) gets "Rebuild with
       # gcc-<ver>"/"Rebuild" instead of xezat's default "Version bump.",
       # decided by comparing against yacp's HEAD rather than trusting
-      # either input -- see changelog_message.sh.
+      # either input -- see changelog_message.sh. A non-empty
+      # `changelog_message` input overrides whatever this decides (see
+      # Update README via xezat below).
       - name: Decide changelog message
         id: changelog
         if: ${{ !inputs.validate_only }}
@@ -472,7 +479,7 @@ jobs:
       - name: Update README via xezat
         if: ${{ !inputs.validate_only }}
         env:
-          XEZAT_BUMP_MESSAGE: ${{ steps.changelog.outputs.message }}
+          XEZAT_BUMP_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
         run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       # cygport's `install` step (above) already runs postinst as part of
