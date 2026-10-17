@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libaegis
+sdesc: "Debug info for libaegis"
+ldesc: "This package contains files necessary for debugging the
+libaegis package with gdb."
+

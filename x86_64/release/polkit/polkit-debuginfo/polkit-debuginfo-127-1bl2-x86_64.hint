@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: polkit
+sdesc: "Debug info for polkit"
+ldesc: "This package contains files necessary for debugging the
+polkit package with gdb."
+

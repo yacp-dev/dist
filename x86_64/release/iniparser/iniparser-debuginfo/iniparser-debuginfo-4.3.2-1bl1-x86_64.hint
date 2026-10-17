@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: iniparser
+sdesc: "Debug info for iniparser"
+ldesc: "This package contains files necessary for debugging the
+iniparser package with gdb."
+

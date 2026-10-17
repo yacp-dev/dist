@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: alglib
+sdesc: "Debug info for alglib"
+ldesc: "This package contains files necessary for debugging the
+alglib package with gdb."
+

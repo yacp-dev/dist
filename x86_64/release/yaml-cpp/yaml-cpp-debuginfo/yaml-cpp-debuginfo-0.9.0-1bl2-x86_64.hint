@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: yaml-cpp
+sdesc: "Debug info for yaml-cpp"
+ldesc: "This package contains files necessary for debugging the
+yaml-cpp package with gdb."
+

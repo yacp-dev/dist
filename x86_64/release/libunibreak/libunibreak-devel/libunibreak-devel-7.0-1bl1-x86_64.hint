@@ -1,0 +1,6 @@
+category: Libs
+requires: libunibreak7 pkg-config
+sdesc: "Library to implement Unicode algorithms for line and word breaking (development)"
+ldesc: "Library to implement Unicode algorithms for line and word breaking"
+external-source: libunibreak
+

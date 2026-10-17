@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libg722
+sdesc: "Debug info for libg722"
+ldesc: "This package contains files necessary for debugging the
+libg722 package with gdb."
+

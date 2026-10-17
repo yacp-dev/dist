@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libssl-devel
+sdesc: "Minimalistic C client for Redis >= 1.2 (licensing & readmes)"
+ldesc: "Hiredis is a minimalistic C client library for the Redis database."
+skip:
+
+homepage: https://github.com/redis/hiredis
+license: BSD-3-Clause

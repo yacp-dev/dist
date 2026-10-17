@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libisal
+sdesc: "Debug info for libisal"
+ldesc: "This package contains files necessary for debugging the
+libisal package with gdb."
+

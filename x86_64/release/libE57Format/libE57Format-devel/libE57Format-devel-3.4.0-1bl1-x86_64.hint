@@ -1,0 +1,10 @@
+category: Libs
+requires: libE57Format3 pkg-config
+sdesc: "Library for reading & writing the E57 file format (development)"
+ldesc: "libE57Format is a C++ library which provides read & write support for the
+ASTM-standard E57 file format on Linux, macOS, and Windows. E57 files store 3D
+point cloud data (produced by 3D imaging systems such as laser scanners),
+attributes associated with 3D point data (color & intensity), and 2D images
+(photos taken using a 3D imaging system)."
+external-source: libE57Format
+

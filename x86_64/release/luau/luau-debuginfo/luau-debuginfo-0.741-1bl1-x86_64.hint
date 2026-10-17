@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: luau
+sdesc: "Debug info for luau"
+ldesc: "This package contains files necessary for debugging the
+luau package with gdb."
+

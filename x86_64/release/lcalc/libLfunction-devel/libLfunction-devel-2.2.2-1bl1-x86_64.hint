@@ -1,0 +1,6 @@
+category: Libs
+requires: libLfunction2 pkg-config
+sdesc: "Package for working with L-functions (development)"
+ldesc: "Package for working with L-functions"
+external-source: lcalc
+

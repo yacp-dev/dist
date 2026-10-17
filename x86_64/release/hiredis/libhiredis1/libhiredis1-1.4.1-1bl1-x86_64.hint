@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Minimalistic C client for Redis >= 1.2 (runtime)"
+ldesc: "Hiredis is a minimalistic C client library for the Redis database."
+external-source: hiredis
+

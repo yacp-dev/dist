@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: ifp-line
+sdesc: "Debug info for ifp-line"
+ldesc: "This package contains files necessary for debugging the
+ifp-line package with gdb."
+

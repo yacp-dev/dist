@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: pcsc-lite
+sdesc: "Debug info for pcsc-lite"
+ldesc: "This package contains files necessary for debugging the
+pcsc-lite package with gdb."
+

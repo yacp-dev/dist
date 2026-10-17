@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport ccache clang libxerces-c-devel
+sdesc: "Library for reading & writing the E57 file format (licensing & readmes)"
+ldesc: "libE57Format is a C++ library which provides read & write support for the
+ASTM-standard E57 file format on Linux, macOS, and Windows. E57 files store 3D
+point cloud data (produced by 3D imaging systems such as laser scanners),
+attributes associated with 3D point data (color & intensity), and 2D images
+(photos taken using a 3D imaging system)."
+skip:
+
+homepage: https://github.com/asmaloney/libE57Format
+license: BSL-1.0

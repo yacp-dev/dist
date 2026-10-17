@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: mlite
+sdesc: "Debug info for mlite"
+ldesc: "This package contains files necessary for debugging the
+mlite package with gdb."
+

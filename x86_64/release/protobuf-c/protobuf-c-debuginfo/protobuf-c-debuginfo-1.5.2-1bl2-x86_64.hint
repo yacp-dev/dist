@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: protobuf-c
+sdesc: "Debug info for protobuf-c"
+ldesc: "This package contains files necessary for debugging the
+protobuf-c package with gdb."
+

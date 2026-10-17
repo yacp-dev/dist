@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: cpu_features
+sdesc: "Debug info for cpu_features"
+ldesc: "This package contains files necessary for debugging the
+cpu_features package with gdb."
+

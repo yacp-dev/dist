@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: samurai
+sdesc: "Debug info for samurai"
+ldesc: "This package contains files necessary for debugging the
+samurai package with gdb."
+

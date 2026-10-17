@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: aws-lambda-cpp
+sdesc: "Debug info for aws-lambda-cpp"
+ldesc: "This package contains files necessary for debugging the
+aws-lambda-cpp package with gdb."
+

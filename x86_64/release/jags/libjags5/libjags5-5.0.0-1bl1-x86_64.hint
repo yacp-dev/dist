@@ -1,0 +1,8 @@
+category: Math
+requires: cygwin libgcc1 libgomp1 liblapack0 libstdc++6
+sdesc: "Just Another Gibbs Sampler (runtime)"
+ldesc: "JAGS is Just Another Gibbs Sampler. It is a program for analysis of Bayesian
+hierarchical models using Markov Chain Monte Carlo (MCMC) simulation not
+wholly unlike BUGS."
+external-source: jags
+

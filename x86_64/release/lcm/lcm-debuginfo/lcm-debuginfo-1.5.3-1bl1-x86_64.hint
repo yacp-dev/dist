@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: lcm
+sdesc: "Debug info for lcm"
+ldesc: "This package contains files necessary for debugging the
+lcm package with gdb."
+

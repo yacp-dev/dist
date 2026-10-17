@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: duktape
+sdesc: "Debug info for duktape"
+ldesc: "This package contains files necessary for debugging the
+duktape package with gdb."
+

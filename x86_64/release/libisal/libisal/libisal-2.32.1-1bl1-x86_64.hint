@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Intelligent Storage Acceleration Library (licensing & readmes)"
+ldesc: "ISA-L is a collection of optimized low-level functions targeting storage
+applications."
+

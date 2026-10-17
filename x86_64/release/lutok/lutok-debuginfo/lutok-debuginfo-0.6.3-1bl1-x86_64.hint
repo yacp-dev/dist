@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: lutok
+sdesc: "Debug info for lutok"
+ldesc: "This package contains files necessary for debugging the
+lutok package with gdb."
+

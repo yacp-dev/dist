@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: io_lib
+sdesc: "Debug info for io_lib"
+ldesc: "This package contains files necessary for debugging the
+io_lib package with gdb."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Small self-contained alternative to readline and libedit (runtime)"
+ldesc: "A minimal, zero-config, BSD licensed, readline replacement used in Redis,
+MongoDB, and Android."
+external-source: linenoise
+

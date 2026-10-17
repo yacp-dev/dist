@@ -1,0 +1,7 @@
+category: Libs
+requires: libmd4c0 pkg-config
+sdesc: "C Markdown parser (development)"
+ldesc: "C Markdown parser. Fast. SAX-like interface. Compliant to CommonMark
+specification."
+external-source: md4c
+

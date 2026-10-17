@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: edge-addition-planarity-suite
+sdesc: "Debug info for edge-addition-planarity-suite"
+ldesc: "This package contains files necessary for debugging the
+edge-addition-planarity-suite package with gdb."
+

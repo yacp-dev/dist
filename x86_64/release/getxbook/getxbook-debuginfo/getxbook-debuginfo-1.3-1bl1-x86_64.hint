@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: getxbook
+sdesc: "Debug info for getxbook"
+ldesc: "This package contains files necessary for debugging the
+getxbook package with gdb."
+

@@ -1,0 +1,6 @@
+category: Lua
+requires: liblua-devel liblutok3 pkg-config
+sdesc: "Lightweight C++ API for Lua (development)"
+ldesc: "Lutok is a lightweight C++ API library for Lua."
+external-source: lutok
+

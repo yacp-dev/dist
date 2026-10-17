@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: kma
+sdesc: "Debug info for kma"
+ldesc: "This package contains files necessary for debugging the
+kma package with gdb."
+

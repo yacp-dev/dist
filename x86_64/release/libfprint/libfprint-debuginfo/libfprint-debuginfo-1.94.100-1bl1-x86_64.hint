@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libfprint
+sdesc: "Debug info for libfprint"
+ldesc: "This package contains files necessary for debugging the
+libfprint package with gdb."
+

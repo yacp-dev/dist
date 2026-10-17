@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: delly
+sdesc: "Debug info for delly"
+ldesc: "This package contains files necessary for debugging the
+delly package with gdb."
+

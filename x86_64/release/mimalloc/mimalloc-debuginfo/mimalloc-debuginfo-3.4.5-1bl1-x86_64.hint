@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: mimalloc
+sdesc: "Debug info for mimalloc"
+ldesc: "This package contains files necessary for debugging the
+mimalloc package with gdb."
+

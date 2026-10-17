@@ -1,0 +1,7 @@
+category: Libs
+requires: libticcutils10 pkg-config
+sdesc: "TiCC Utils Library (development)"
+ldesc: "This module contains useful functions for general use in the TiCC software
+stack and beyond."
+external-source: ticcutils
+

@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: aaflib
+sdesc: "Debug info for aaflib"
+ldesc: "This package contains files necessary for debugging the
+aaflib package with gdb."
+

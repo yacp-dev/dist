@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: jp2a
+sdesc: "Debug info for jp2a"
+ldesc: "This package contains files necessary for debugging the
+jp2a package with gdb."
+

@@ -1,0 +1,14 @@
+category: X11
+build-depends: cygport asciidoc gettext-devel libdbus1-devel libGL-devel libglib2.0-devel libGLU-devel libICE-devel libiconv-devel libImlib2-devel libintl-devel libpango1.0-devel libpulse-devel libSM-devel libsndfile-devel libX11-devel libXcomposite-devel libXdamage-devel libXext-devel libXfixes-devel libXft-devel libXi-devel libXinerama-devel libXpresent-devel libXrandr-devel libXrender-devel libXss-devel
+sdesc: "Predecessor of the current E24 Enlightenment Window Manager"
+ldesc: "E16 is predecessor of the current E24 Enlightenment Window Manager, which is
+rather complete rewrite than incremental update of E16. Although most of the
+current development focus goes to E24, E16 is still under independent active
+development and some users prefer it to E24. In this sense E16 will keep its
+name while incrementing the versions from 1.0.0 unlike the mainstream
+Enlightenment manager, which is likely going to increment its E-suffix number.
+This page should summarize the links related to E16."
+skip:
+
+homepage: https://www.enlightenment.org/e16
+license: MIT

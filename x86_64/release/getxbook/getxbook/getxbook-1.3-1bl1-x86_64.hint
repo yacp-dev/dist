@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libssl3
+sdesc: "Tools to download ebooks from various sources"
+ldesc: "Tools to download ebooks from various sources"
+

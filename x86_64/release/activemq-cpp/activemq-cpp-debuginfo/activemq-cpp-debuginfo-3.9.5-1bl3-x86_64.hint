@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: activemq-cpp
+sdesc: "Debug info for activemq-cpp"
+ldesc: "This package contains files necessary for debugging the
+activemq-cpp package with gdb."
+

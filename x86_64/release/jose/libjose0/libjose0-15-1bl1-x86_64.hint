@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libjansson4 libssl3 zlib0
+sdesc: "Implementation of Javascript Object Signing and Encryption (runtime)"
+ldesc: "Jose is a C-language implementation of the Javascript Object Signing and
+Encryption standards."
+external-source: jose
+

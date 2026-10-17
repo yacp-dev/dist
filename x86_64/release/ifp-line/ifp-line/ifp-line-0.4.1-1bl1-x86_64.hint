@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libiconv2 libusb0
+sdesc: "Original command line utility and Midnight Commander plugin"
+ldesc: "Original command line utility and Midnight Commander plugin"
+

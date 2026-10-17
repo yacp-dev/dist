@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: h5utils
+sdesc: "Debug info for h5utils"
+ldesc: "This package contains files necessary for debugging the
+h5utils package with gdb."
+

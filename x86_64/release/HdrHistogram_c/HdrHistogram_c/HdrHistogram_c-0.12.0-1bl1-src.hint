@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport zlib-devel
+sdesc: "C port of the HdrHistogram (licensing & readmes)"
+ldesc: "C port of High Dynamic Range (HDR) Histogram"
+skip:
+
+homepage: https://github.com/HdrHistogram/HdrHistogram_c
+license: BSD-2-Clause

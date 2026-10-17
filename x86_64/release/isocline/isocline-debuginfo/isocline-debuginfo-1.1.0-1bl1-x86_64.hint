@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: isocline
+sdesc: "Debug info for isocline"
+ldesc: "This package contains files necessary for debugging the
+isocline package with gdb."
+

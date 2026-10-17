@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: cpuid2cpuflags
+sdesc: "Debug info for cpuid2cpuflags"
+ldesc: "This package contains files necessary for debugging the
+cpuid2cpuflags package with gdb."
+

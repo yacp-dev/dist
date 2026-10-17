@@ -1,0 +1,15 @@
+category: Libs
+requires: libbstring1 pkg-config
+sdesc: "fork of Paul Hsieh's Better String Library (development)"
+ldesc: "The Better String Library is an abstraction of a string data type which is
+superior to the C library char buffer string type. Among the features achieved are:
+ * Substantial mitigation of buffer overflow/overrun problems and other
+   failures that result from erroneous usage of the common C string library
+   functions
+ * Significantly simplified string manipulation
+ * High performance interoperability with other source/libraries which expect
+   '\0' terminated char buffers
+ * Improved overall performance of common string operations
+ * Functional equivalency with other more modern languages"
+external-source: bstring
+

@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: blake3
+sdesc: "Debug info for blake3"
+ldesc: "This package contains files necessary for debugging the
+blake3 package with gdb."
+
