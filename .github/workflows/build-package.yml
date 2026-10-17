@@ -276,7 +276,9 @@ jobs:
       # one of the two is ever non-empty.
       - name: Overlay branch content (branch-rebuild mode)
         if: inputs.branch != '' || steps.auto-branch.outputs.branch != ''
-        run: bash -- scripts/overlay_branch_package.sh --dir yacp --package "${{ inputs.package }}" --branch "${{ inputs.branch }}${{ steps.auto-branch.outputs.branch }}"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: bash -- scripts/overlay_branch_package.sh --dir yacp --repo yacp-dev/ports --base master --branch "${{ inputs.branch }}${{ steps.auto-branch.outputs.branch }}"
 
       # Four mutually exclusive paths now: a version bump, a branch
       # rebuild (explicit or auto-detected above, doc/spec.md 4.6), a
@@ -525,6 +527,10 @@ jobs:
       # first so the new files show up too. (Create Pull Request does its
       # own staging independently via add-paths, so this step's staging
       # isn't load-bearing for the PR itself -- it's just for this log.)
+      # The diff itself covers the whole index rather than just the
+      # package directory, so whatever Overlay branch content staged
+      # elsewhere (e.g. a renamed-away old package directory's deletion)
+      # shows up too.
       #
       # cygport's own build tree (<PN>-<PV>-<PR>.<arch>/) lives inside the
       # package directory too, and `git add -A` walks into it -- it's not
@@ -563,7 +569,7 @@ jobs:
         if: always() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success')
         run: |
           git -C yacp add -A -- ${{ inputs.package }} ":(exclude)${{ inputs.package }}/*.x86_64/**" ":(exclude)${{ inputs.package }}/*.x86_64.yml" ":(exclude)${{ inputs.package }}/*.tar.*"
-          git -C yacp diff --cached -- ${{ inputs.package }}
+          git -C yacp diff --cached
 
       - name: Upload dist artifact
         id: upload
