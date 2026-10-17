@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Renames a package's `.cygport` file (and any sibling files sharing the same
 # versioned basename, e.g. `<PN>-<PV>-<PR>.src.patch`) to a new version, using
-# util-linux's `rename` for the filename change and `sed` for a best-effort
+# util-linux's `rename` for the filename change and `perl` for a best-effort
 # substitution of the old bare version string inside each file's content (for
 # cases where SRC_URI etc. hardcode the version instead of referencing ${PV}).
-# Both tools are installed via the Cygwin `util-linux` and `sed` packages.
+# `rename` comes from the Cygwin `util-linux` package; `perl` is already
+# pulled in as a dependency of `cygport` itself.
 #
 # This does NOT replace `xezat bump` (which only regenerates README/changelog
 # after a build) -- xezat has no command that performs this rename itself.
@@ -79,16 +80,38 @@ fi
 new_basename="${pn}-${new_version}-1bl1"
 
 # Every sibling file sharing the old versioned basename (the .cygport file
-# itself, plus companions like "<PN>-<PV>-<PR>.src.patch") gets the same
-# literal old-version substitution applied to its content, then all of them
-# get renamed in one batch. Files that don't follow this versioned naming
-# (e.g. README) are left untouched.
+# itself, plus companions like "<PN>-<PV>-<PR>.src.patch") gets the old
+# version substituted in its content, then all of them get renamed in one
+# batch. Files that don't follow this versioned naming (e.g. README) are
+# left untouched.
+#
+# The match is literal (\Q...\E) and bounded: not preceded by a digit or
+# dot, and not followed by a digit or a dot+digit. A plain
+# `sed s/$old/$new/g` treated the version's dots as regex wildcards and
+# had no boundaries, so 1.0.3 matched the "130,3" in a .src.patch hunk
+# header (`@@ -130,3 ...`), corrupting it (confirmed by a real run:
+# libdecaf 1.0.5) -- and a dotless version like 14 would match any line
+# number or literal containing it.
+#
+# In a .src.patch only the ---/+++ header lines' top directory
+# (origsrc/<SRC_DIR>/, src/<SRC_DIR>/) is touched -- that's the only place
+# `cygport diff` itself puts the version. SRC_DIR isn't always <PN>-<PV>
+# (e.g. abPOA-1.5.6, aespipe-v2.4j), so the version is matched within that
+# component rather than the whole component being rebuilt. Hunk contents
+# are left alone: rewriting a version that appears in the patched code
+# itself is never what the recipe meant.
 shopt -s nullglob
 sibling_files=("$old_basename".*)
 shopt -u nullglob
 
+version_re='(?<![0-9.])\Q$ENV{OLD}\E(?![0-9]|\.[0-9])'
 for f in "${sibling_files[@]}"; do
-  sed -i "s/${old_version}/${new_version}/g" "$f"
+  if [[ "$f" == *.src.patch ]]; then
+    OLD="$old_version" NEW="$new_version" perl -pi -e \
+      "s{^((?:---|\\+\\+\\+) (?:origsrc|src)/)([^/]*)}{my (\$p, \$d) = (\$1, \$2); \$p . (\$d =~ s/${version_re}/\$ENV{NEW}/gr)}e" "$f"
+  else
+    OLD="$old_version" NEW="$new_version" perl -pi -e "s/${version_re}/\$ENV{NEW}/g" "$f"
+  fi
 done
 
 rename -- "$old_basename" "$new_basename" "${sibling_files[@]}"
