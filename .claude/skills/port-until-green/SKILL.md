@@ -91,10 +91,12 @@ scripts/failure_summary.sh --run <id> --package <pkg> --out <scratchpad>/<pkg>
 Read the Issue body first: when `xezat prep` or `cygport compile` fails, the
 workflow's diagnose steps put a focused diagnostic there (patch dry-runs at
 every `-p` level, undefined autoconf macros), which is usually more direct
-than the log. It only covers the `.src.patch`, though: when a `PATCH_URI`
-patch fails, cygport stops before unpacking finishes and the diagnostic
-just says the source tree doesn't exist — the log's `*** ERROR: patch
-<name> will not apply` line is the real cause. Then grep the saved log around the failed step (`error:`,
+than the log. For a `PATCH_URI` failure it lists every patch as applies /
+already applied (upstream has it, droppable) / will not apply, replayed
+against a fresh unpack — use that as your starting point for the
+still-needed check in Step 4. (Runs from before 2026-10-18 only diagnosed
+the `.src.patch`; there, the log's `*** ERROR: patch <name> will not
+apply` line is the cause.) Then grep the saved log around the failed step (`error:`,
 `Error`, `undefined reference`, `not found`, `FAILED`, `Hunk`, `*** `), and
 read enough context to be sure of the cause — the first error, not the
 last; later ones are often fallout. Errors that were retried and recovered
