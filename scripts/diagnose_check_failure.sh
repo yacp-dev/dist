@@ -60,7 +60,8 @@ fi
 
 # The first block of a test log that belongs to a failing test, capped.
 # meson's testlog.txt separates tests with "==== N/M ====" lines and
-# records "exit status: <n>"; ctest's LastTest.log separates them with
+# records "result: exit status <n>" (or e.g. "result: timeout"; 77 is a
+# skip); ctest's LastTest.log separates them with
 # "----" lines and says "Test Failed"; automake's per-test .log files
 # are named in test-suite.log's own FAIL lines, so its head is enough.
 first_failure_block() {
@@ -69,7 +70,7 @@ first_failure_block() {
     */testlog.txt)
       awk '/^=+ [0-9]+\/[0-9]+ =+$/ { if (bad) exit; block = ""; }
            { block = block $0 "\n" }
-           /^exit status:/ && $3 != "0" { bad = 1 }
+           /^result:/ && !/exit status (0|77)[[:space:]]*$/ { bad = 1 }
            END { if (bad) printf "%s", block }' "$log" | head -n 60
       ;;
     */LastTest.log)
@@ -84,7 +85,12 @@ first_failure_block() {
   esac
 }
 
-diagnostic="$(
+# A function rather than one big $( ... ): bash's parser misreads an
+# apostrophe inside a command substitution (in a comment, or in a
+# ${var:+...} word) as an opening quote -- Cygwin's bash failed this way
+# with "bad substitution" on a real run, /bin/bash 3.2 with "unexpected
+# EOF".
+build_diagnostic() {
   echo "cygport check failed. From $checklog:"
   echo
   # Totals first -- meson ("Ok:"/"Fail:"/"Timeout:"), ctest ("% tests
@@ -124,17 +130,19 @@ diagnostic="$(
   fi
   if [[ -n "$exe" && -f "$exe" ]]; then
     echo
-    echo "--- cygcheck $exe${test_path:+ (with the test's PATH)} ---"
+    echo "--- cygcheck $exe${test_path:+ (with the PATH meson gave the test)} ---"
     # Absolute paths: the test's own PATH needn't include /usr/bin.
     PATH="${test_path:-$PATH}" /usr/bin/cygcheck "$exe" 2>&1 | head -n 40
     echo
-    echo "--- running $exe directly${test_path:+ (with the test's PATH)} ---"
+    echo "--- running $exe directly${test_path:+ (with the PATH meson gave the test)} ---"
     run_out="$(cd "$(dirname "$exe")" && PATH="${test_path:-$PATH}" /usr/bin/timeout 20 "$exe" </dev/null 2>&1)"
     run_status=$?
     head -n 20 <<<"$run_out"
     echo "exit status: $run_status"
   fi
-)"
+}
+
+diagnostic="$(build_diagnostic)"
 
 echo "$diagnostic"
 
