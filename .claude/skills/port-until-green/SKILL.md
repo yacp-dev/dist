@@ -38,6 +38,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 
 - `scripts/dispatch_build.sh --package P (--version V | --branch B) [-f key=val ...]`
   — dispatches and prints `<run id> <run url>`.
+- `scripts/wait_run.sh --run ID [--interval SECS]` — waits for the run
+  (one API call every 90 s by default), prints `<conclusion> <run url>`,
+  and exits 0 only on success.
 - `scripts/failure_summary.sh --run ID --package P --out DIR` — failed step
   names, the open `build-failed` Issue body (where patch/macro diagnostics
   land), and the full failed log saved to `DIR` for grepping.
@@ -110,8 +113,10 @@ scripts/dispatch_build.sh --package <pkg> --version <ver>
 ```
 
 Then, using the run id it printed (wait for that output — don't guess
-the id), wait for it with `gh run watch <id> -R yacp-dev/dist --exit-status`
-run in the background (builds take a while; don't poll in a tight loop).
+the id), wait for it with `scripts/wait_run.sh --run <id>` run in the
+background (builds take a while). Don't use `gh run watch`: its 3-second
+refresh burns through the GitHub API rate limit that concurrent sessions
+share.
 
 - **Success** → confirm the PR is ready (`gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`),
   then check the test suite: `scripts/check_summary.sh --run <id>`.
