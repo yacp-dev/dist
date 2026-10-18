@@ -85,9 +85,10 @@ trap 'rm -f "$body_file"' EXIT
   printf '| Package | %s |\n| Version | %s |\n\n' "$package" "$version"
   printf 'Run: %s\n' "$run_url"
   # diagnose_patch_failure.sh only ever produces this file when it found
-  # both a .src.patch and cygport's own unpacked source tree to retry it
-  # against -- empty/missing here just means this failure wasn't that
-  # kind (or wasn't a patch-apply failure at all), not an error.
+  # a failed patch stage to retry -- PATCH_URI patches against the origsrc
+  # tree, or the .src.patch against $S -- empty/missing here just means
+  # this failure wasn't that kind (or wasn't a patch-apply failure at
+  # all), not an error.
   if [[ -n "$diagnostic_file" && -s "$diagnostic_file" ]]; then
     printf '\n<details><summary>Patch failure diagnostic</summary>\n\n```\n'
     cat "$diagnostic_file"
