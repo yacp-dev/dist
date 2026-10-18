@@ -164,15 +164,26 @@ build_diagnostic() {
 
   # meson prints each failing test's full environment and command on a
   # ">>> VAR=... /path/to/test.exe" line; otherwise fall back to the
-  # first .exe path that exists in the check log or, since ctest's check
-  # log names no paths, in the failing blocks (ctest's "Command:" line).
+  # first path that exists in the failing blocks (ctest's "Command:"
+  # line) or the check log. Blocks come first and the toolchain's own
+  # programs are skipped: the check log's compile lines name
+  # /usr/bin/gcc.exe, which nghttp3 1.18.0's diagnostic ran in place of
+  # the test. ctest names the test without .exe
+  # ("Command: \"/.../build/tests/main\""), so each path is also tried
+  # with it added.
   cmd_line="$(grep -m1 -E '^>>> .*\.exe' "$checklog")"
   exe="$(grep -oE '/[^ ]+\.exe' <<<"${cmd_line:-}" | tail -n1)"
   test_path="$(grep -oE '(^| )PATH=[^ ]+' <<<"${cmd_line:-}" | sed -E 's/^ ?PATH=//')"
   if [[ -z "$exe" ]]; then
-    for candidate in $(cat "$checklog" - <<<"${block:-}" | grep -oE '/[^ "]+\.exe' | awk '!seen[$0]++'); do
-      [[ -f "$candidate" ]] && { exe="$candidate"; break; }
-    done
+    while IFS= read -r candidate; do
+      [[ "$candidate" == /usr/* || "$candidate" == /bin/* ]] && continue
+      for path in "$candidate.exe" "$candidate"; do
+        [[ -f "$path" ]] && { exe="$path"; break 2; }
+      done
+    done < <(cat - "$checklog" <<<"${block:-}" \
+      | grep -oE '^Command: "[^"]+"|/[^ "]+\.exe' \
+      | sed -E 's/^Command: "(.*)"$/\1/' \
+      | awk '!seen[$0]++')
   fi
   if [[ -n "$exe" && -f "$exe" ]]; then
     echo
