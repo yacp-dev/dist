@@ -91,7 +91,10 @@ scripts/failure_summary.sh --run <id> --package <pkg> --out <scratchpad>/<pkg>
 Read the Issue body first: when `xezat prep` or `cygport compile` fails, the
 workflow's diagnose steps put a focused diagnostic there (patch dry-runs at
 every `-p` level, undefined autoconf macros), which is usually more direct
-than the log. Then grep the saved log around the failed step (`error:`,
+than the log. It only covers the `.src.patch`, though: when a `PATCH_URI`
+patch fails, cygport stops before unpacking finishes and the diagnostic
+just says the source tree doesn't exist — the log's `*** ERROR: patch
+<name> will not apply` line is the real cause. Then grep the saved log around the failed step (`error:`,
 `Error`, `undefined reference`, `not found`, `FAILED`, `Hunk`, `*** `), and
 read enough context to be sure of the cause — the first error, not the
 last; later ones are often fallout. Errors that were retried and recovered
@@ -150,9 +153,19 @@ Edit only files under the package directory. Common fixes:
   `.../debian/1.0.2-3/debian/patches/...`) → for each such patch, and each
   hunk of the `.src.patch` while you're at it, establish whether it's still
   needed: is the change already in the new upstream source? Does it still
-  apply (`patch -p1 --dry-run` against the extracted source)? Does the
-  distro have a newer version of the patch
+  apply? Does the distro have a newer version of the patch
   (`curl -s https://sources.debian.org/api/src/<pkg>/` lists versions)?
+  Test each against the extracted new source in `PATCH_URI` order, always
+  with `-N -f` — without them `patch` asks "Reversed (or previously
+  applied) patch detected! Assume -R?" and, non-interactively, says yes,
+  silently un-applying it:
+  - `patch -p1 -N -f --dry-run` succeeds → still needed; apply it for real
+    so later patches see the same tree cygport will.
+  - `patch -p1 -R -f --dry-run` succeeds → already upstream; drop it. (This
+    is what cygport's own "patch X already applied; skipping" means.)
+  - Neither → read the patch and grep the source: upstream often merged an
+    equivalent change that differs only in whitespace or context (then
+    drop it), or the code moved (then rebase it into the `.src.patch`).
   Drop a patch only when upstream has it or the problem it fixed is gone,
   and say which in the commit message and the final report — the user
   wants to know why each patch went or stayed.
