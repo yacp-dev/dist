@@ -342,6 +342,15 @@ jobs:
         if: inputs.branch != '' || steps.auto-branch.outputs.branch != '' || inputs.rebuild || inputs.validate_only
         run: bash -- scripts/detect_cygport_file.sh --dir "yacp/${{ inputs.package }}"
 
+      # yacp writes BUILD_REQUIRES one package per tab-indented line;
+      # rewrites a single-line or otherwise-indented list into that form
+      # so the PR carries it along with the bump. A no-op on a file
+      # already in that form. Skipped for validate_only, which has no PR
+      # to carry the change.
+      - name: Format BUILD_REQUIRES
+        if: ${{ !inputs.validate_only }}
+        run: bash -- scripts/format_build_requires.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+
       - name: Determine extra build dependencies
         id: depends
         run: bash -- scripts/cygport_depends.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
