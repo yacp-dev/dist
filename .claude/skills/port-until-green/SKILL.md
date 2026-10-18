@@ -127,7 +127,8 @@ failed:
 | How it failed | Likely cause | What to do |
 |---|---|---|
 | Every test fails the same way at startup (exit 127, `Cygwin runtime failure`, `error while loading shared libraries`) | The executables can't start at all — and the packaged ones likely can't either | Read the loader message. `cygcheck` naming a DLL "not found" → the in-tree DLL's directory isn't on `PATH` in `src_test` (e.g. `PATH=${B}/src:${PATH} ninja_test`). `Invalid relocation ... doesn't fit into 32 bits` → the exe reaches into the DLL through a 32-bit pseudo-relocation, usually because the import library marks functions as DATA. Confirm before changing anything: `gh run download <id> -R yacp-dev/dist`, unpack the `-devel` tarball, and `nm usr/lib/lib<name>.dll.a | grep -c ' T '` — zero code thunks (only `__imp_`/`__nm_` symbols) confirms it. One known cause is upstream forcing `-flto` into its own compile flags (`CFLAGS+=" -fno-lto"` overrides it, since cygport's flags come later on the command line). Fix on the branch (Step 4) — this counts as an attempt. |
-| Some tests fail, others pass | Real behavior differences on Cygwin, or tests that need what a CI runner lacks (network, display, root) | Read the failing block. Fix only when the cause is clear and Cygwin-specific (the same bar as a source patch); otherwise list the failing tests and their errors in the report and leave it to the user. |
+| Some tests fail, others pass | Real behavior differences on Cygwin, or tests that need what a CI runner lacks (network, display, root) | Read the failing block and the test's source. Fix only when the cause is clear and Cygwin-specific (the same bar as a source patch); otherwise list the failing tests and their errors in the report and leave it to the user. When the code is right and only the test's expectation is glibc-specific (e.g. getopt's wording: glibc `invalid option -- 'j'`, Cygwin `unknown option -- j`), the user prefers patching the test to accept Cygwin's output under a Cygwin check (`uname -o` = `Cygwin`) over leaving it failing. |
+| Tests about file permissions/ownership fail | The CI runner's NTFS ACLs: files and dirs created without an explicit mode lose all "other" bits there (seen in the dist artifact's own tarballs: `drwxrwx---`, `-rw-r-----`) | Environmental — report it as such, don't patch. To confirm, `tar tvJf` the artifact's tarballs and look at modes of files that weren't `install -m`'d. |
 | Timeout | A hanging test | Report it; mention `-f check_timeout_minutes=` if it just looks slow. |
 
 A guess that a re-run doesn't confirm is a wrong guess: revert it on the
@@ -202,9 +203,15 @@ Edit only files under the package directory. Common fixes:
   lines). Download the new source tarball from `SRC_URI`, extract it twice
   into `origsrc/` and `src/` in a scratch dir, apply the old patch to `src/`
   with `patch -p0`, resolve rejects by hand (drop hunks upstream already
-  merged), then regenerate with `diff -urN origsrc/<pkg>-<ver> src/<pkg>-<ver>`
+  merged), then regenerate with
+  `command diff -urN origsrc/<pkg>-<ver> src/<pkg>-<ver> | grep -v '^diff '`
   and save it under the new name `<pkg>-<ver>-<rel>.src.patch`, removing
   the old-version patch file if one remains. Leave out generated files.
+  (`command` skips a shell alias like `diff --color`; the `grep` drops the
+  `diff -urN ...` line GNU diff prints per file.) A package with no
+  `.src.patch` yet gets a new one the same way. The shape only has to be
+  good enough for `patch -p0` to apply: once a run succeeds, `xezat port`
+  replaces it with the real `cygport diff` output on the branch.
 - **A `PATCH_URI` patch fails, or a bump crosses versions it was written
   for** (often Debian/Fedora patches pinned to an old version, e.g.
   `.../debian/1.0.2-3/debian/patches/...`) → for each such patch, and each
