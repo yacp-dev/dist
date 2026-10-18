@@ -433,9 +433,23 @@ jobs:
       # timeout at all, rather than failing the workflow, which is what
       # made this easy to miss).
       - name: cygport check
+        id: check
         continue-on-error: true
         timeout-minutes: ${{ fromJSON(inputs.check_timeout_minutes) }}
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step check
+
+      # continue-on-error above leaves both the run and the step's own
+      # conclusion green when tests fail -- only steps.check.outcome
+      # says so -- and the reason sits in a test log that never leaves the
+      # runner (libeconf 0.8.6: 73/73 tests at exit status 127, nothing
+      # in the job log saying why). Pulls the summary, the first failing
+      # test's log block, and cygcheck/a direct run of its executable out
+      # for the job summary and the PR body below. No failure() here: the
+      # job is still succeeding at this point.
+      - name: Diagnose check failure
+        id: diagnose-check
+        if: steps.check.outcome == 'failure'
+        run: bash -- scripts/diagnose_check_failure.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       - name: cygport install
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ inputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step install
@@ -685,10 +699,17 @@ jobs:
           # reformatting better than expecting something to scrape a
           # human-facing code block. artifact-id is actions/upload-
           # artifact's own step output (v4+), not something computed here.
+          #
+          # The check line is empty unless cygport check failed, which
+          # otherwise leaves no trace on a green run (see Diagnose check
+          # failure); the diagnostic itself goes to the run summary rather
+          # than here, to keep a possibly long log excerpt out of the PR.
           body: |
             Version `${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
 
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            ${{ steps.check.outcome == 'failure' && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
 
             <!-- dorgann-meta: {"artifact_id":"${{ steps.upload.outputs.artifact-id }}"} -->
 
@@ -807,4 +828,4 @@ jobs:
       # the one whose output survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ inputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --issue-url "${{ steps.file-issue.outputs.issue_url }}${{ steps.close-issue.outputs.issue_url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ inputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --issue-url "${{ steps.file-issue.outputs.issue_url }}${{ steps.close-issue.outputs.issue_url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}"

@@ -31,8 +31,12 @@
 # Pull Request's own body already includes it) -- otherwise this would
 # just be a redundant duplicate of what the PR body already says.
 #
+# check_diagnostic_file is Diagnose check failure's output, set only when
+# cygport check failed -- which, being continue-on-error, nothing else
+# on a green run shows.
+#
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> --issue-url <url-or-empty> [--artifact-id <id-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> --issue-url <url-or-empty> [--artifact-id <id-or-empty>] [--check-diagnostic-file <path-or-empty>]
 
 set -euo pipefail
 
@@ -40,6 +44,7 @@ package=""
 pr_url=""
 issue_url=""
 artifact_id=""
+check_diagnostic_file=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -47,6 +52,7 @@ while [[ $# -gt 0 ]]; do
     --pr-url) pr_url="$2"; shift 2 ;;
     --issue-url) issue_url="$2"; shift 2 ;;
     --artifact-id) artifact_id="$2"; shift 2 ;;
+    --check-diagnostic-file) check_diagnostic_file="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -70,5 +76,15 @@ done
     echo '```'
     echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo ${GITHUB_REPOSITORY:-yacp-dev/dist}"
     echo '```'
+  fi
+  if [[ -n "$check_diagnostic_file" && -s "$check_diagnostic_file" ]]; then
+    echo
+    echo "<details><summary>cygport check failed (non-blocking)</summary>"
+    echo
+    echo '```'
+    cat "$check_diagnostic_file"
+    echo '```'
+    echo
+    echo "</details>"
   fi
 } >> "$GITHUB_STEP_SUMMARY"
