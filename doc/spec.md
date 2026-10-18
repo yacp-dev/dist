@@ -247,6 +247,18 @@ The fix keeps all of that CI on dorgann's side, and only asks yacp to accept ord
 
 Deliberately deferred for now (the second half of the two options this design was chosen from): automatically detecting a yacp-side push to one of these branches and re-triggering the rebuild via `repository_dispatch` (the same cross-repo mechanism `distribute.yml`/`publish.yml` already use for merge-triggered publishing, 4.4.2) — manual `workflow_dispatch` is enough to validate the mechanism first.
 
+### 4.7 Blocking a package's updates
+
+Some updates can't be done by fixing the recipe: e.g. every libgovirt release after 0.3.8 needs `rest-1.0` (librest >= 0.9), which no Cygwin package provides (yacp-dev/dist#91). Without a record of that, every dispatch would rediscover it the slow way — a windows-latest build, a draft PR and a build-failed Issue — for something a human already decided isn't buildable yet.
+
+Such a decision is recorded as an open Issue labelled `update-blocked`, with the same `dorgann-meta` comment as a build-failed Issue (4.5) minus the version, plus the reason and what would unblock it in free text:
+
+```markdown
+<!-- dorgann-meta: {"package":"foo"} -->
+```
+
+`build-package.yml`'s first job, `gate` (ubuntu-latest), runs `scripts/check_update_blocked.sh`, which looks the package up with `find_failure_issue.sh --label update-blocked`. If an Issue matches, it writes the Issue link to the job summary and a `::notice::`, and `build` is skipped as a whole, so the run ends green without bumping anything, and no PR or build-failed Issue is created. Only version updates (a bump, or a branch rebuild) are refused; `rebuild`/`validate_only` without `branch` build the version already in yacp, which the blocker doesn't affect. Closing the Issue unblocks the package.
+
 ## 5. Implementation Policy (separating workflow YAML from scripts)
 
 - Workflow YAML files should only contain "task invocation" — actual logic (Repology queries, build logic, etc.) is factored out into scripts.

@@ -9,6 +9,8 @@ name: build-package
 # out of numeric order, same as Step 6, since it doesn't depend on Steps
 # 3/4's daily-cron loop at all; only that loop's own skip-if-already-
 # failed check (4.2) is still deferred to whenever Step 4 lands.
+# A gate job refuses version updates for packages with an open
+# update-blocked Issue (doc/spec.md 4.7) before anything is built.
 #
 # xezat handles fetching/preparing sources (`xezat prep`, before the
 # build), regenerating the package's README/changelog (`xezat bump`,
@@ -99,7 +101,32 @@ permissions:
   issues: write
 
 jobs:
+  # Refuses the update up front while an open `update-blocked` Issue
+  # names the package (doc/spec.md 4.7) -- a separate ubuntu-latest job
+  # rather than a first step of build, since a job can't end early with
+  # success from inside a step, and skipping build as a whole saves
+  # guarding each of its steps. Only version updates (a bump or a branch
+  # rebuild) are refused: rebuild/validate_only build the version already
+  # in yacp, which the blocker doesn't affect.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      blocked: ${{ steps.check.outputs.blocked }}
+    steps:
+      - name: Checkout dorgann
+        if: inputs.branch != '' || !(inputs.rebuild || inputs.validate_only)
+        uses: actions/checkout@v7
+
+      - name: Check for update-blocked Issue
+        id: check
+        if: inputs.branch != '' || !(inputs.rebuild || inputs.validate_only)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash -- scripts/check_update_blocked.sh --repo "${{ github.repository }}" --package "${{ inputs.package }}"
+
   build:
+    needs: gate
+    if: needs.gate.outputs.blocked != 'true'
     runs-on: windows-latest
     steps:
       # windows-latest runners default to core.autocrlf=true, which
