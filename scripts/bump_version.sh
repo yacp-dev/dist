@@ -100,16 +100,54 @@ new_basename="${pn}-${new_version}-1bl1"
 # component rather than the whole component being rebuilt. Hunk contents
 # are left alone: rewriting a version that appears in the patched code
 # itself is never what the recipe meant.
+#
+# A .cygport also gets its PV-derived variable names renamed: cygport
+# derives a PKG_NAMES entry's variable names by turning its -+. into _, so
+# `lib${PN}_${PV}` in PKG_NAMES pairs with literal names like
+# libCatch2_3_15_3_CONTENTS. Before this, the dot-wildcard sed happened to
+# match 3_15_3 and wrote back libCatch2_3.16.1_CONTENTS, an invalid name,
+# leaving the DLL in no package (confirmed by a real run: Catch2 3.16.1).
+# Each PKG_NAMES entry is expanded the way cygport would for the old and
+# the new PV (${PV}, ${PV[n]}, $PV_MAJ, $PV_MAJ_MIN -- cygport's PV array
+# is the full version followed by its [-._]-separated parts -- plus a
+# literal old version, as in skyutils' lib${PN}2.8_4), and only names that
+# actually change get renamed. Matching the underscore form by shape alone
+# can't work: libCatch2_3_15_3's own "2_" looks just like part of a longer
+# version, and names that don't come from PV must stay as they are. This
+# runs before the plain version substitution below, since that rewrites
+# literal versions inside PKG_NAMES itself.
 shopt -s nullglob
 sibling_files=("$old_basename".*)
 shopt -u nullglob
 
 version_re='(?<![0-9.])\Q$ENV{OLD}\E(?![0-9]|\.[0-9])'
+# shellcheck disable=SC2016 # perl code, expanded by perl
+pkg_var_rename='
+  sub expand {
+    my ($s, $v) = @_;
+    my @pv = ($v, split /[-._]/, $v);
+    $s =~ s/\$\{PV\[(\d+)\]\}/$pv[$1]/g;
+    $s =~ s/\$\{?PV_MAJ_MIN\}?/$pv[1].$pv[2]/g;
+    $s =~ s/\$\{?PV_MAJ\}?/$pv[1]/g;
+    $s =~ s/\$\{?PV\}?(?![\w\[])/$v/g;
+    $s =~ s/\$\{?PN\}?(?!\w)/$ENV{PN}/g;
+    return $s;
+  }
+  if (/^PKG_NAMES="([^"]*)"/m) {
+    for my $entry (split " ", $1) {
+      my $o = expand($entry, $ENV{OLD});
+      my $n = expand($entry =~ s/'"${version_re}"'/$ENV{NEW}/gr, $ENV{NEW});
+      next if $o eq $n || "$o$n" =~ /\$/;
+      tr/-+./___/ for $o, $n;
+      s/^(\s*)\Q$o\E(?=_[A-Z])/$1$n/mg;
+    }
+  }'
 for f in "${sibling_files[@]}"; do
   if [[ "$f" == *.src.patch ]]; then
     OLD="$old_version" NEW="$new_version" perl -pi -e \
       "s{^((?:---|\\+\\+\\+) (?:origsrc|src)/)([^/]*)}{my (\$p, \$d) = (\$1, \$2); \$p . (\$d =~ s/${version_re}/\$ENV{NEW}/gr)}e" "$f"
   else
+    PN="$pn" OLD="$old_version" NEW="$new_version" perl -0pi -e "$pkg_var_rename" "$f"
     OLD="$old_version" NEW="$new_version" perl -pi -e "s/${version_re}/\$ENV{NEW}/g" "$f"
   fi
 done
