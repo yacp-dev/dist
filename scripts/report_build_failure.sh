@@ -22,14 +22,23 @@
 #
 # --diagnostic-file is a narrow, deliberate exception to that: unlike an
 # arbitrary log excerpt, scripts/diagnose_patch_failure.sh's output is
-# self-contained and inherently bounded (a handful of patch-level dry-run
-# attempts for one file), so it doesn't have the same "how many lines"
-# problem -- and having it right in the Issue body, not one click away
-# in the run log, is what actually makes the Issue usable by whoever (or
-# whatever -- e.g. an AI agent assigned the Issue) fixes it next.
+# self-contained (a handful of patch-level dry-run attempts for one
+# file), so it doesn't have the same "how many lines" problem -- and
+# having it right in the Issue body, not one click away in the run log,
+# is what actually makes the Issue usable by whoever (or whatever --
+# e.g. an AI agent assigned the Issue) fixes it next.
 # --macro-diagnostic-file is the same kind of exception, for
 # scripts/diagnose_undefined_macro.sh's output: just autoconf's own
 # undefined-macro error lines from the compile log.
+#
+# Self-contained isn't the same as small, though: a .src.patch touching
+# dozens of files makes each dry-run attempt list every one of them, and
+# libplctag-2.7.2's (47 files) pushed the body past GitHub's 65536-
+# character limit, so `gh issue create` failed and no Issue got filed at
+# all. Each diagnostic is therefore capped at diagnostic_max_bytes (two
+# of them plus the table stay well under the limit); both diagnose
+# scripts also print their full output to their own step's log, which
+# the truncation note points to.
 #
 # Usage:
 #   report_build_failure.sh --repo yacp-dev/dist --package foo --version 1.2.3 \
@@ -75,6 +84,23 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 body_file="$(mktemp)"
 trap 'rm -f "$body_file"' EXIT
 
+diagnostic_max_bytes=30000
+
+# Prints $1, or if it's over diagnostic_max_bytes, its first that many
+# bytes minus the last (possibly cut mid-line, or mid-character) line,
+# followed by a note saying where the rest is.
+print_bounded() {
+  local file="$1" size
+  size="$(wc -c <"$file" | tr -d ' ')"
+  if (( size <= diagnostic_max_bytes )); then
+    cat "$file"
+  else
+    head -c "$diagnostic_max_bytes" "$file" | sed '$d'
+    printf '[... truncated: %s of %s bytes shown -- the full diagnostic is in the run log]\n' \
+      "$diagnostic_max_bytes" "$size"
+  fi
+}
+
 # Built with printf '%s', not an interpolated heredoc, purely out of
 # habit/consistency with the rest of this repo's scripts -- there's no
 # untrusted content in these particular values (package/version/run_url
@@ -91,14 +117,14 @@ trap 'rm -f "$body_file"' EXIT
   # all), not an error.
   if [[ -n "$diagnostic_file" && -s "$diagnostic_file" ]]; then
     printf '\n<details><summary>Patch failure diagnostic</summary>\n\n```\n'
-    cat "$diagnostic_file"
+    print_bounded "$diagnostic_file"
     printf '```\n\n</details>\n'
   fi
   # Likewise for diagnose_undefined_macro.sh, which only writes this
   # when the compile log actually has autoconf undefined-macro errors.
   if [[ -n "$macro_diagnostic_file" && -s "$macro_diagnostic_file" ]]; then
     printf '\n<details><summary>Undefined autoconf macro diagnostic</summary>\n\n```\n'
-    cat "$macro_diagnostic_file"
+    print_bounded "$macro_diagnostic_file"
     printf '```\n\n</details>\n'
   fi
 } >"$body_file"
