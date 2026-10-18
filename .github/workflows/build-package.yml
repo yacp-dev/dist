@@ -442,8 +442,9 @@ jobs:
       # conclusion green when tests fail -- only steps.check.outcome
       # says so -- and the reason sits in a test log that never leaves the
       # runner (libeconf 0.8.6: 73/73 tests at exit status 127, nothing
-      # in the job log saying why). Pulls the summary, the first failing
-      # test's log block, and cygcheck/a direct run of its executable out
+      # in the job log saying why). Pulls the summary, up to 3 distinct
+      # failing tests' log blocks, and cygcheck/a direct run of the first
+      # failing executable out
       # for the job summary and the PR body below. No failure() here: the
       # job is still succeeding at this point.
       - name: Diagnose check failure

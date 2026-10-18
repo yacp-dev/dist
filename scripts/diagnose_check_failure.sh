@@ -17,7 +17,7 @@
 #
 # Meant to run right after cygport check when its outcome is failure,
 # while the build tree is still on disk. Same bounded shape as the other
-# diagnose_*.sh scripts: a summary and the first failure, not the whole
+# diagnose_*.sh scripts: a summary and the first few distinct failures, not the whole
 # log.
 #
 # Usage:
@@ -58,31 +58,66 @@ if [[ ! -f "${checklog:-}" ]]; then
   exit 0
 fi
 
-# The first block of a test log that belongs to a failing test, capped.
-# meson's testlog.txt separates tests with "==== N/M ====" lines and
-# records "result: exit status <n>" (or e.g. "result: timeout"; 77 is a
-# skip); ctest's LastTest.log separates them with
-# "----" lines and says "Test Failed"; automake's per-test .log files
-# are named in test-suite.log's own FAIL lines, so its head is enough.
-first_failure_block() {
-  local log="$1"
+# The blocks of a test log that belong to failing tests: up to 3, each
+# capped at 40 lines. meson's testlog.txt separates tests with
+# "==== N/M ====" lines and records "result: exit status <n>" (or e.g.
+# "result: timeout"; 77 is a skip); ctest's LastTest.log separates them
+# with "----" lines and says "Test Failed"; automake's per-test .log
+# files are named in test-suite.log's own FAIL lines, so its head is
+# enough.
+#
+# A block whose content -- minus the lines that differ per test anyway
+# (name, timing, command), and with the test's own name and any .exe path
+# masked out of the rest -- repeats an earlier one is counted instead of
+# shown: when a whole suite fails for one reason (libeconf 0.8.6: 73
+# tests, one loader error naming each test's own .exe), three copies of
+# it would crowd out nothing but themselves.
+failure_blocks() {
+  local log="$1" sep bad_re
   case "$log" in
     */testlog.txt)
-      awk '/^=+ [0-9]+\/[0-9]+ =+$/ { if (bad) exit; block = ""; }
-           { block = block $0 "\n" }
-           /^result:/ && !/exit status (0|77)[[:space:]]*$/ { bad = 1 }
-           END { if (bad) printf "%s", block }' "$log" | head -n 60
+      sep='^=+ [0-9]+/[0-9]+ =+$'
+      bad_re='^result:'
       ;;
     */LastTest.log)
-      awk '/^-{20,}/ { if (bad) exit; block = ""; }
-           { block = block $0 "\n" }
-           /Test Failed/ { bad = 1 }
-           END { if (bad) printf "%s", block }' "$log" | head -n 60
+      sep='^-{20,}'
+      bad_re='Test Failed'
       ;;
     *)
-      head -n 60 "$log"
+      head -n 40 "$log"
+      return
       ;;
   esac
+  awk -v sep="$sep" -v bad_re="$bad_re" -v max=3 -v cap=40 '
+    function flush() {
+      if (!bad) return
+      if (key in seen) { dup++; return }
+      seen[key] = 1
+      printf "%s", block
+      if (lines > cap) printf "... (%d more lines)\n", lines - cap
+      if (++shown >= max) { done = 1 }
+    }
+    $0 ~ sep { flush(); if (done) exit; block = ""; key = ""; name = ""; lines = 0; bad = 0 }
+    # meson "test:  suite:name", ctest "N/M Test: name"
+    /^test:/ || /^[0-9]+\/[0-9]+ Test:/ {
+      name = $NF; sub(/.*:/, "", name)
+      # gsub() below takes it as a regex; names like "c++" must stay literal.
+      gsub(/[][\\.^$*+?(){}|]/, "\\\\&", name)
+    }
+    {
+      if (++lines <= cap) block = block $0 "\n"
+      if ($0 !~ /^(test|start time|duration|command|[0-9]+\/[0-9]+ Test|Start testing|End testing|Test time|"[^"]*" (start|end) time):/ && $0 !~ sep) {
+        line = $0
+        gsub(/[^ ]*\.exe/, "<exe>", line)
+        if (name != "") gsub(name, "<test>", line)
+        key = key line "\n"
+      }
+    }
+    $0 ~ bad_re && !/exit status (0|77)[[:space:]]*$/ { bad = 1 }
+    END {
+      if (!done) flush()
+      if (dup) printf "\n(%d more failing test(s) with the same output as one above)\n", dup
+    }' "$log"
 }
 
 # A function rather than one big $( ... ): bash's parser misreads an
@@ -109,10 +144,10 @@ build_diagnostic() {
   shopt -s nullglob globstar
   test_logs=("$workdir"/**/meson-logs/testlog.txt "$workdir"/**/Testing/Temporary/LastTest.log "$workdir"/**/test-suite.log)
   for log in "${test_logs[@]}"; do
-    block="$(first_failure_block "$log")"
+    block="$(failure_blocks "$log")"
     [[ -n "$block" ]] || continue
     echo
-    echo "--- first failure in $log ---"
+    echo "--- failures in $log (first 3 distinct) ---"
     echo "$block"
     break
   done
