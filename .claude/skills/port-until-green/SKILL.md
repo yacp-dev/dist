@@ -169,6 +169,7 @@ Classify it, because the response differs:
 | Kind | Typical signs | What to do |
 |---|---|---|
 | Transient | mirror `connection error`, `download error`, HTTP 5xx, runner lost | No commit. Re-dispatch as is. Doesn't count toward the attempt limit, but give up after 3 in a row and report. |
+| Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `xezat prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `Bump version` mangled a file during its one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
 | No branch | failure happened before `Bump version` succeeded, so no branch/draft PR exists | If it's transient, re-dispatch. If it's the bump itself (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in `~/src/ports` with the renamed cygport, push, then dispatch with `--branch`. |
@@ -188,9 +189,20 @@ Edit only files under the package directory. Common fixes:
   see `scripts/cygport_depends.sh`) from both the Cygwin mirror and
   dist.yacp.dev, so this is the fix — not `-f cygwin_packages=`, which
   wouldn't persist into the recipe. Find the right package name by
-  searching https://cygwin.com/packages/ for the missing file. If the
-  dependency is another ports package that isn't published on
-  dist.yacp.dev, stop and report it.
+  searching https://cygwin.com/packages/ for the missing file. If no
+  package provides it (or not a new enough version), it's an unavailable
+  dependency — stop (Step 3), don't keep trying.
+
+  **Checking a dependency is unavailable.** Look in both package lists
+  the workflow installs from:
+  `curl -s https://mirrors.kernel.org/sourceware/cygwin/x86_64/setup.xz | xz -d`
+  and `curl -s https://dist.yacp.dev/x86_64/setup.ini`. In each `@ <name>`
+  stanza the first `version:` is curr; ones after `[test]` aren't
+  installed. Search by the file the build wants (`.pc`, `Config.cmake`,
+  header) via https://cygwin.com/packages/ too, since the package name
+  may not match. Also check whether yacp-dev/ports has a recipe for it
+  that just isn't published (`gh api repos/yacp-dev/ports/contents/<name>`)
+  — worth saying in the report, since publishing it is then the fix.
 - **Runtime dependency / `REQUIRES`** wrong → fix `REQUIRES`.
 - **ABI bump** (`libfoo1.so` → `libfoo2`, file list mismatches) → rename the
   `PKG_NAMES` entry and its `*_CONTENTS`/`*_SUMMARY` variables.
@@ -268,8 +280,13 @@ Then back to Step 2 with `--branch dorgann/<pkg>-<ver>`.
 - **dorgann-side cause, or a decision only the user can make** (which
   upstream to follow, dropping a subpackage, disabling a feature) → stop
   and ask.
-- **Blocked on something outside the recipe** (e.g. the new version needs
-  a library no Cygwin or dist.yacp.dev package provides) → stop and ask.
+- **Unavailable dependency** (Step 3), or otherwise blocked on something
+  outside the recipe → stop at once, regardless of how many attempts are
+  left, and report: what the new version requires (with the upstream
+  build file line), what Cygwin curr and dist.yacp.dev have instead (and
+  any `[test]` version), whether ports has an unpublished recipe for it,
+  and the recipe changes already worked out on the branch. Then ask
+  whether to skip the update.
   If the user chooses to skip the update, record it so later dispatches
   are refused: file an Issue in yacp-dev/dist labelled `update-blocked`
   whose body starts with `<!-- dorgann-meta: {"package":"<pkg>"} -->` and
