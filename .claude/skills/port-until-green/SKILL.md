@@ -253,6 +253,13 @@ Edit only files under the package directory. Common fixes:
 - **Source doesn't build on Cygwin** → patch the source the same way, add to
   the `.src.patch`. Prefer the smallest change that's clearly correct
   (a `__CYGWIN__` guard, a missing include) over disabling features.
+- **The `.src.patch` hardcodes the package version** (e.g. a hunk setting
+  `AC_INIT([foo], [1.6.0])`; the bump doesn't touch it, so it goes stale
+  silently) → drop that hunk and substitute `${PV}` in `origsrc` from a
+  `src_patch_hook` instead, so `cygport diff` doesn't pick it back up
+  (`movit`, `portage-utils` and `libklvanc` in ports do this):
+  `CYGPORT_USE_UNSTABLE_API=1`, then `cd ${origsrcdir}/${SRC_DIR}` and a
+  `sed -i` on the file. Check for this on every bump, even a green one.
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
   run failed anyway, look for the real failing step instead. Test suite
   failures on a green run are handled under Step 2.
