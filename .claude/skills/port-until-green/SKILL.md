@@ -49,6 +49,11 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 
 ## Step 1: Work out version and branch
 
+0. Check whether the package's updates are blocked:
+   `bash scripts/check_update_blocked.sh --repo yacp-dev/dist --package <pkg>`
+   (dorgann's own `scripts/`, run from the repo root). If it prints an
+   Issue URL, the workflow will skip the build anyway (doc/spec.md 4.7):
+   tell the user the Issue and its blocker, and stop.
 1. If ports already has a `dorgann/<pkg>-*` branch, that's the target —
    unless the user gave a different version:
    `gh api 'repos/yacp-dev/ports/branches?per_page=100' --paginate --jq '.[].name' | grep "^dorgann/<pkg>-"`.
@@ -263,6 +268,14 @@ Then back to Step 2 with `--branch dorgann/<pkg>-<ver>`.
 - **dorgann-side cause, or a decision only the user can make** (which
   upstream to follow, dropping a subpackage, disabling a feature) → stop
   and ask.
+- **Blocked on something outside the recipe** (e.g. the new version needs
+  a library no Cygwin or dist.yacp.dev package provides) → stop and ask.
+  If the user chooses to skip the update, record it so later dispatches
+  are refused: file an Issue in yacp-dev/dist labelled `update-blocked`
+  whose body starts with `<!-- dorgann-meta: {"package":"<pkg>"} -->` and
+  says what blocks it and how to unblock (yacp-dev/dist#91 is the
+  model). Then close the draft PR and the `build-failed` Issue, pointing
+  both at it.
 
 When stopping without success, report: the branch and draft PR URL, the
 last run URL, each attempt's error and what you tried, your best current
