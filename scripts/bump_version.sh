@@ -12,6 +12,14 @@
 #
 # Usage:
 #   bump_version.sh --dir yacp/googletest --version 1.18.0
+#   bump_version.sh --dir yacp/sfparse --version 0.0.0+git20260912 --git-rev <40-hex sha>
+#
+# A git-snapshot recipe (a literal 40-hex GIT_REV="..." -- most `inherit
+# git` ones in yacp) needs --git-rev, which replaces that GIT_REV: the
+# version string alone says nothing about which commit to build, so
+# without it the bump would build the old commit under the new version,
+# and succeed. GIT_REV values derived from ${PV} (tags) follow PV on
+# their own and need nothing.
 #
 # Input: CLI args only (no GitHub Actions context dependency, so this can be
 # run and debugged locally, given a Cygwin-flavored `rename`/`sed` on PATH).
@@ -25,11 +33,13 @@ set -euo pipefail
 
 dir=""
 new_version=""
+new_git_rev=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --dir) dir="$2"; shift 2 ;;
     --version) new_version="$2"; shift 2 ;;
+    --git-rev) new_git_rev="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -70,6 +80,18 @@ fi
 
 if [[ "$old_version" == "$new_version" ]]; then
   echo "Package $pn is already at version $new_version" >&2
+  exit 1
+fi
+
+git_rev_re='^GIT_REV="?[0-9a-f]{40}"?[[:space:]]*$'
+if grep -qE "$git_rev_re" "${cygport_files[0]}"; then
+  if [[ -z "$new_git_rev" ]]; then
+    echo "$pn is a git snapshot (literal GIT_REV in ${cygport_files[0]}): bumping the version alone would build the old commit under $new_version. Bump it by hand with the new GIT_REV (bump_version.sh --git-rev <sha>) on a dorgann/$pn-$new_version branch, then run this workflow with branch set to it." >&2
+    exit 1
+  fi
+  [[ "$new_git_rev" =~ ^[0-9a-f]{40}$ ]] || { echo "--git-rev must be a full 40-hex commit id: $new_git_rev" >&2; exit 1; }
+elif [[ -n "$new_git_rev" ]]; then
+  echo "--git-rev given, but ${cygport_files[0]} has no literal GIT_REV to replace" >&2
   exit 1
 fi
 
@@ -149,6 +171,9 @@ for f in "${sibling_files[@]}"; do
   else
     PN="$pn" OLD="$old_version" NEW="$new_version" perl -0pi -e "$pkg_var_rename" "$f"
     OLD="$old_version" NEW="$new_version" perl -pi -e "s/${version_re}/\$ENV{NEW}/g" "$f"
+    if [[ -n "$new_git_rev" ]]; then
+      REV="$new_git_rev" perl -pi -e 's/^(GIT_REV="?)[0-9a-f]{40}/$1$ENV{REV}/' "$f"
+    fi
   fi
 done
 
