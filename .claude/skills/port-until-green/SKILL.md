@@ -41,6 +41,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/failure_summary.sh --run ID --package P --out DIR` — failed step
   names, the open `build-failed` Issue body (where patch/macro diagnostics
   land), and the full failed log saved to `DIR` for grepping.
+- `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
+  bumps a git-snapshot package to upstream HEAD on its own branch (see
+  Step 1).
 
 ## Step 1: Work out version and branch
 
@@ -66,6 +69,30 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 3. Make sure `~/src/ports` exists (`gh repo clone yacp-dev/ports ~/src/ports`
    if not) and `git -C ~/src/ports fetch origin`.
 
+**Git snapshots** (`inherit git` with a literal `GIT_REV`, versioned
+`<base>+git<YYYYMMDD>`, e.g. `sfparse-0.0.0+git20251223`) take a different
+path: they track upstream HEAD, not releases, so skip the release lookup
+in 2, and don't let the workflow bump them. Its `Bump version` only
+renames files and substitutes the version string — `GIT_REV` would stay at
+the old commit, and the run would build the old source under the new
+version and *succeed*, producing a wrong PR that looks right. Instead:
+
+```bash
+scripts/git_snapshot_bump.sh --package <pkg> [--version <ver>] --dry-run   # check first
+scripts/git_snapshot_bump.sh --package <pkg> [--version <ver>]
+```
+
+It resolves the upstream HEAD from `GIT_URI` (GitHub only; honors
+`GIT_BRANCH`), names the version from the HEAD commit's UTC committer date,
+creates and pushes `dorgann/<pkg>-<ver>` with the files renamed via
+dorgann's own `bump_version.sh` and `GIT_REV` updated, and prints the
+branch. If the user gave a version that doesn't match HEAD's date, it
+refuses — ask which commit they meant. Then dispatch with `--branch`
+(Step 2), never `--version`. Before dispatching, check the `.src.patch`
+still applies to the new HEAD (shallow-clone it at `GIT_REV` and
+`patch -p0 -N -f --dry-run`; git cygclass trees are `origsrc/<repo>/`, no
+version in the path), and fix it on the branch first if not.
+
 Tell the user in one line what you settled on (package, version, new vs.
 existing branch) before dispatching.
 
@@ -75,7 +102,8 @@ existing branch) before dispatching.
 scripts/dispatch_build.sh --package <pkg> --version <ver>
 ```
 
-Then wait for it with `gh run watch <id> -R yacp-dev/dist --exit-status`
+Then, using the run id it printed (wait for that output — don't guess
+the id), wait for it with `gh run watch <id> -R yacp-dev/dist --exit-status`
 run in the background (builds take a while; don't poll in a tight loop).
 
 - **Success** → confirm the PR is ready (`gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`),
