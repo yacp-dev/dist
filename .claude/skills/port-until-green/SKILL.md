@@ -41,6 +41,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/failure_summary.sh --run ID --package P --out DIR` — failed step
   names, the open `build-failed` Issue body (where patch/macro diagnostics
   land), and the full failed log saved to `DIR` for grepping.
+- `scripts/check_summary.sh --run ID` — whether `cygport check` passed,
+  and its diagnostic if not (Step 2).
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
   bumps a git-snapshot package to upstream HEAD on its own branch (see
   Step 1).
@@ -107,8 +109,33 @@ the id), wait for it with `gh run watch <id> -R yacp-dev/dist --exit-status`
 run in the background (builds take a while; don't poll in a tight loop).
 
 - **Success** → confirm the PR is ready (`gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`),
-  and report: PR URL, run URL, attempts, and what you changed. Done.
+  then check the test suite: `scripts/check_summary.sh --run <id>`.
+  `cygport check` is continue-on-error, so a green run says nothing about
+  it. If it reports `check: FAILED`, go to "Test suite failures" below
+  before calling it done. Report: PR URL, run URL, attempts, what you
+  changed, and the check result.
 - **Failure** → Step 3.
+
+### Test suite failures
+
+The PR is already ready at this point, so this is about whether the
+package actually works, not about getting it built. The diagnostic from
+`check_summary.sh` shows the totals, the first failing test's log block,
+`cygcheck` of its executable, and a direct run of it. Classify by how it
+failed:
+
+| How it failed | Likely cause | What to do |
+|---|---|---|
+| Every test fails the same way at startup (exit 127, `Cygwin runtime failure`, `error while loading shared libraries`) | The executables can't start at all — and the packaged ones likely can't either | Read the loader message. `cygcheck` naming a DLL "not found" → the in-tree DLL's directory isn't on `PATH` in `src_test` (e.g. `PATH=${B}/src:${PATH} ninja_test`). `Invalid relocation ... doesn't fit into 32 bits` → the exe reaches into the DLL through a 32-bit pseudo-relocation, usually because the import library marks functions as DATA. Confirm before changing anything: `gh run download <id> -R yacp-dev/dist`, unpack the `-devel` tarball, and `nm usr/lib/lib<name>.dll.a | grep -c ' T '` — zero code thunks (only `__imp_`/`__nm_` symbols) confirms it. One known cause is upstream forcing `-flto` into its own compile flags (`CFLAGS+=" -fno-lto"` overrides it, since cygport's flags come later on the command line). Fix on the branch (Step 4) — this counts as an attempt. |
+| Some tests fail, others pass | Real behavior differences on Cygwin, or tests that need what a CI runner lacks (network, display, root) | Read the failing block. Fix only when the cause is clear and Cygwin-specific (the same bar as a source patch); otherwise list the failing tests and their errors in the report and leave it to the user. |
+| Timeout | A hanging test | Report it; mention `-f check_timeout_minutes=` if it just looks slow. |
+
+A guess that a re-run doesn't confirm is a wrong guess: revert it on the
+branch rather than leaving it in the recipe alongside the real fix.
+
+Re-run with `--branch` after a fix; the bot updates the same PR. Don't
+disable or skip tests to make check pass — a failing test that tells the
+truth is more useful than a passing one that doesn't.
 
 ## Step 3: Investigate
 
@@ -203,7 +230,8 @@ Edit only files under the package directory. Common fixes:
   the `.src.patch`. Prefer the smallest change that's clearly correct
   (a `__CYGWIN__` guard, a missing include) over disabling features.
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
-  run failed anyway, look for the real failing step instead.
+  run failed anyway, look for the real failing step instead. Test suite
+  failures on a green run are handled under Step 2.
 
 Keep fixes minimal and in the style of the existing recipe. Don't
 "fix" things the log doesn't show are broken.
