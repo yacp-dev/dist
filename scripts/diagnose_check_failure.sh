@@ -59,12 +59,15 @@ if [[ ! -f "${checklog:-}" ]]; then
 fi
 
 # The blocks of a test log that belong to failing tests: up to 3, each
-# capped at 40 lines. meson's testlog.txt separates tests with
+# capped at 40 lines (the first and last 20 of a longer one -- an abort
+# or crash message comes last). meson's testlog.txt separates tests with
 # "==== N/M ====" lines and records "result: exit status <n>" (or e.g.
-# "result: timeout"; 77 is a skip); ctest's LastTest.log separates them
-# with "----" lines and says "Test Failed"; automake's per-test .log
-# files are named in test-suite.log's own FAIL lines, so its head is
-# enough.
+# "result: timeout"; 77 is a skip); ctest's LastTest.log starts each test
+# with "N/M Testing: name" and says "Test Failed" -- its "----" lines
+# also come *inside* a test, around the output, so splitting on them
+# left only the "Test Failed" tail (spdlog 1.17.0: "Subprocess aborted"
+# and not a line of why); automake's per-test .log files are named in
+# test-suite.log's own FAIL lines, so its head is enough.
 #
 # A block whose content -- minus the lines that differ per test anyway
 # (name, timing, command), and with the test's own name and any .exe path
@@ -80,7 +83,7 @@ failure_blocks() {
       bad_re='^result:'
       ;;
     */LastTest.log)
-      sep='^-{20,}'
+      sep='^[0-9]+/[0-9]+ Testing: '
       bad_re='Test Failed'
       ;;
     *)
@@ -89,15 +92,21 @@ failure_blocks() {
       ;;
   esac
   awk -v sep="$sep" -v bad_re="$bad_re" -v max=3 -v cap=40 '
-    function flush() {
+    function flush(  i, half) {
       if (!bad) return
       if (key in seen) { dup++; return }
       seen[key] = 1
-      printf "%s", block
-      if (lines > cap) printf "... (%d more lines)\n", lines - cap
+      half = int(cap / 2)
+      for (i = 1; i <= lines; i++) {
+        if (lines > cap && i == half + 1) {
+          printf "... (%d lines omitted)\n", lines - 2 * half
+          i = lines - half + 1
+        }
+        print buf[i]
+      }
       if (++shown >= max) { done = 1 }
     }
-    $0 ~ sep { flush(); if (done) exit; block = ""; key = ""; name = ""; lines = 0; bad = 0 }
+    $0 ~ sep { flush(); if (done) exit; delete buf; key = ""; name = ""; lines = 0; bad = 0 }
     # meson "test:  suite:name", ctest "N/M Test: name"
     /^test:/ || /^[0-9]+\/[0-9]+ Test:/ {
       name = $NF; sub(/.*:/, "", name)
@@ -105,8 +114,9 @@ failure_blocks() {
       gsub(/[][\\.^$*+?(){}|]/, "\\\\&", name)
     }
     {
-      if (++lines <= cap) block = block $0 "\n"
-      if ($0 !~ /^(test|start time|duration|command|[0-9]+\/[0-9]+ Test|Start testing|End testing|Test time|"[^"]*" (start|end) time):/ && $0 !~ sep) {
+      buf[++lines] = $0
+      # ctest: "Test time =   5.58 sec", "\"name\" time elapsed: 00:00:05"
+      if ($0 !~ /^(test|start time|duration|command|[0-9]+\/[0-9]+ Test|Start testing|End testing|Test time|"[^"]*" (start|end) time):/ && $0 !~ /^Test time = |^"[^"]*" time elapsed:/ && $0 !~ sep) {
         line = $0
         gsub(/[^ ]*\.exe/, "<exe>", line)
         if (name != "") gsub(name, "<test>", line)
@@ -154,12 +164,13 @@ build_diagnostic() {
 
   # meson prints each failing test's full environment and command on a
   # ">>> VAR=... /path/to/test.exe" line; otherwise fall back to the
-  # first .exe path the check log mentions that exists.
+  # first .exe path that exists in the check log or, since ctest's check
+  # log names no paths, in the failing blocks (ctest's "Command:" line).
   cmd_line="$(grep -m1 -E '^>>> .*\.exe' "$checklog")"
   exe="$(grep -oE '/[^ ]+\.exe' <<<"${cmd_line:-}" | tail -n1)"
   test_path="$(grep -oE '(^| )PATH=[^ ]+' <<<"${cmd_line:-}" | sed -E 's/^ ?PATH=//')"
   if [[ -z "$exe" ]]; then
-    for candidate in $(grep -oE '/[^ ]+\.exe' "$checklog" | awk '!seen[$0]++'); do
+    for candidate in $(cat "$checklog" - <<<"${block:-}" | grep -oE '/[^ "]+\.exe' | awk '!seen[$0]++'); do
       [[ -f "$candidate" ]] && { exe="$candidate"; break; }
     done
   fi
