@@ -120,7 +120,7 @@ run in the background (builds take a while; don't poll in a tight loop).
 
 The PR is already ready at this point, so this is about whether the
 package actually works, not about getting it built. The diagnostic from
-`check_summary.sh` shows the totals, the first failing test's log block,
+`check_summary.sh` shows the totals, up to 3 distinct failing tests' log blocks,
 `cygcheck` of its executable, and a direct run of it. Classify by how it
 failed:
 

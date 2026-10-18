@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Reports whether a build-package run's `cygport check` failed, and if so
 # prints the workflow's own "Diagnose check failure" output (totals, the
-# first failing tests, the first failure's test log block, cygcheck and a
-# direct run of the failing executable).
+# first failing tests, up to 3 distinct failing tests' log blocks,
+# cygcheck and a direct run of the first failing executable).
 #
 # cygport check is continue-on-error, so the run and even the step's own
 # conclusion stay green when tests fail; the only trace is whether the
