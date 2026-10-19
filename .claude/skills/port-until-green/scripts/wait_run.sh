@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Waits for a build-package run to finish and exits with its result.
+# Waits for a yacp-dev/dist workflow run (build-package or publish) to
+# finish and exits with its result.
 #
 # Stands in for `gh run watch`, which refreshes every 3 seconds and
 # fetches the run and its jobs on each refresh: one watch over a 30-minute

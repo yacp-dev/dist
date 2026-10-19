@@ -1,7 +1,7 @@
 ---
 name: port-until-green
-description: Drive a yacp-dev/ports package update to a passing PR. Dispatches yacp-dev/dist's build-package workflow for the named package (creating the dorgann/<pkg>-<ver> branch, or rebuilding the one already there), and when the Windows/Cygwin build fails, investigates the log, fixes the recipe on that branch, commits, pushes and re-runs until it passes. Use this whenever the user names a ports/yacp package and wants it bumped, built, its PR made green, or its draft dorgann PR / build-failed Issue fixed — e.g. "/port-until-green knot", "ngtcp2 の PR 作って", "Catch2 のビルド直して" — even if they don't say "skill" or "workflow".
-argument-hint: <package> [version]
+description: Drive a yacp-dev/ports package update to a passing PR. Dispatches yacp-dev/dist's build-package workflow for the named package (creating the dorgann/<pkg>-<ver> branch, or rebuilding the one already there), and when the Windows/Cygwin build fails, investigates the log, fixes the recipe on that branch, commits, pushes and re-runs until it passes. Takes one argument: <pkg> (update to Repology's newest), <pkg>-<ver> (update to that version, or bump the release if it's the current one), or <pkg>-<ver>-<rel> (current release: build and deploy to dist; next release: gcc rebuild). Use this whenever the user names a ports/yacp package and wants it bumped, built, its PR made green, or its draft dorgann PR / build-failed Issue fixed — e.g. "/port-until-green knot", "ngtcp2 の PR 作って", "Catch2 のビルド直して" — even if they don't say "skill" or "workflow".
+argument-hint: <pkg> | <pkg>-<ver> | <pkg>-<ver>-<rel>
 ---
 
 # port-until-green
@@ -10,8 +10,16 @@ Get one package in [yacp-dev/ports](https://github.com/yacp-dev/ports) to a
 ready (non-draft) PR, by looping: build on dorgann's CI → read the failure →
 fix the recipe on the branch → build again.
 
-Arguments: `<package> [version]`. `<package>` is the package's directory
-name in ports (case matters: `Catch2`, not `catch2`).
+One argument, whose shape decides what to do (Step 1 resolves it):
+
+| Argument | Meaning |
+|---|---|
+| `<pkg>` | Update to the newest upstream version, found via Repology. Already current → say so and stop. |
+| `<pkg>-<ver>` | Update to `<ver>`. Equal to the version in ports → bump only the release (`1bl1` → `1bl2`). |
+| `<pkg>-<ver>-<rel>` | Equal to ports' version and release → build it as is and deploy it to dist (no PR). Same version, release one higher → gcc rebuild (`Rebuild with gcc-x.y.z`). Anything else → tell the user to give `<pkg>` or `<pkg>-<ver>` instead, and stop. |
+
+`<pkg>` is the package's directory name in ports (`Catch2`; the resolver
+also accepts `catch2`).
 
 ## How the pieces fit (read once)
 
@@ -36,9 +44,13 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
 
 Helpers bundled with this skill (paths relative to this SKILL.md):
 
+- `scripts/resolve_target.sh <arg>` — splits the argument into package,
+  version and release, compares them with the `.cygport` on ports'
+  master, and prints `key=value` lines including `mode=` (Step 1).
 - `scripts/dispatch_build.sh --package P (--version V | --branch B) [-f key=val ...]`
   — dispatches and prints `<run id> <run url>`.
-- `scripts/wait_run.sh --run ID [--interval SECS]` — waits for the run
+- `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
+  either workflow
   (one API call every 90 s by default), prints `<conclusion> <run url>`,
   and exits 0 only on success.
 - `scripts/failure_summary.sh --run ID --package P --out DIR` — failed step
@@ -50,39 +62,71 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   bumps a git-snapshot package to upstream HEAD on its own branch (see
   Step 1).
 
-## Step 1: Work out version and branch
+## Step 1: Resolve the argument
 
-0. Check whether the package's updates are blocked:
+```bash
+scripts/resolve_target.sh <arg>
+```
+
+It finds the package as the longest ports directory name the argument
+starts with (package names can contain dashes), then splits the rest into
+`<ver>[-<rel>]`. Act on its `mode=`:
+
+- **`latest`** (`<pkg>`) → find the newest upstream version on Repology:
+  `curl -s https://repology.org/api/v1/project/<name>` and take a
+  `"status": "newest"` entry's version (the project name may need
+  lowercasing or a prefix like `python:`; normalize the spelling to the
+  cygport's, e.g. `1_2_3` → `1.2.3`). Equal to `current_version` → tell
+  the user it's already up to date and stop. Otherwise carry on as
+  `bump` with that version. If Repology has no entry, or the "newest"
+  looks like a distro fork/prerelease, ask the user instead of guessing
+  — a wrong version means a wrong PR. (Git snapshots: see below.)
+- **`bump`** (`<pkg>-<ver>`, `<ver>` differs from ports) → a version
+  update to `<ver>`.
+- **`rebuild`** (`<pkg>-<ver>`, `<ver>` equals ports) → bump only the
+  release, e.g. `1bl1` → `1bl2`. `xezat bump` writes `Rebuild with
+  gcc-<ver>` if the gcc differs from the one in the README's build
+  requirements, else `Rebuild`.
+- **`gcc-rebuild`** (`<pkg>-<ver>-<rel>`, same version, `<rel>` is ports'
+  release + 1) → the same release bump, taken as a rebuild for a newer
+  gcc. The changelog message comes from `scripts/changelog_message.sh`,
+  which writes `Rebuild with gcc-<ver>` only when gcc actually changed, so
+  check that first: the README's gcc
+  (`gh api repos/yacp-dev/ports/contents/<pkg>/README -H 'Accept: application/vnd.github.raw' | sed -n 's/^[[:space:]]*gcc-core-\(.*\)-[^-]*$/\1/p' | head -n 1`)
+  against Cygwin curr's
+  (`curl -s https://mirrors.kernel.org/sourceware/cygwin/x86_64/setup.xz | xz -d | awk '/^@ gcc-core$/{f=1;next} f&&/^version:/{print $2; exit}'`,
+  minus its `-<release>`). Same → it would only say `Rebuild`; tell the
+  user gcc hasn't changed and ask whether to go ahead.
+- **`deploy`** (`<pkg>-<ver>-<rel>` equal to ports) → build the committed
+  recipe as is and publish it to dist. No branch, no PR.
+- **`invalid`** (exit status 2) → pass its `message=` on to the user: give
+  `<pkg>` or `<pkg>-<ver>` instead. Stop.
+
+For `bump` (and `latest` carried on as one):
+
+1. Check whether the package's updates are blocked:
    `bash scripts/check_update_blocked.sh --repo yacp-dev/dist --package <pkg>`
    (dorgann's own `scripts/`, run from the repo root). If it prints an
    Issue URL, the workflow will skip the build anyway (doc/spec.md 4.7):
-   tell the user the Issue and its blocker, and stop.
-1. If ports already has a `dorgann/<pkg>-*` branch, that's the target —
-   unless the user gave a different version:
-   `gh api 'repos/yacp-dev/ports/branches?per_page=100' --paginate --jq '.[].name' | grep "^dorgann/<pkg>-"`.
-   Also check `gh pr list -R yacp-dev/ports --head dorgann/<pkg>-<ver>` for
-   the existing PR.
-2. Otherwise, if no version was given, determine the latest upstream one:
-   - Current version: the `.cygport` filename in ports
-     (`gh api repos/yacp-dev/ports/contents/<pkg> --jq '.[].name'`,
-     `<pkg>-<ver>-<rel>.cygport`). Read the file for `HOMEPAGE`/`SRC_URI`.
-   - If those point at `github.com/<owner>/<repo>`: `gh api repos/<owner>/<repo>/releases/latest --jq .tag_name`,
-     falling back to `.../tags`. Normalize the tag (`v1.2.3` → `1.2.3`,
-     `foo-1.2.3` → `1.2.3`, `1_2_3` → `1.2.3` if that's how the cygport spells it).
-   - Cross-check with Repology: `curl -s https://repology.org/api/v1/project/<name>`
-     and take the `newest` entry's version (the project name may need
-     lowercasing or a prefix like `python:`).
-   - If the latest equals the current version, tell the user it's already
-     up to date and stop. If GitHub and Repology disagree, or the
-     "newest" looks like a distro fork/prerelease, ask the user instead of
-     guessing — a wrong version means a wrong PR.
-3. Make sure `~/src/ports` exists (`gh repo clone yacp-dev/ports ~/src/ports`
-   if not) and `git -C ~/src/ports fetch origin`.
+   tell the user the Issue and its blocker, and stop. (`rebuild`,
+   `gcc-rebuild` and `deploy` build the version already in ports, which a
+   blocker doesn't affect.)
+2. Look for an existing branch and PR:
+   `gh api 'repos/yacp-dev/ports/branches?per_page=100' --paginate --jq '.[].name' | grep "^dorgann/<pkg>-"`
+   and `gh pr list -R yacp-dev/ports --head dorgann/<pkg>-<ver>`. A branch
+   for the same version is rebuilt automatically by the dispatch. One for
+   a different version is worth mentioning to the user, but the version
+   from the argument (or Repology) is the target.
+
+For every mode except `deploy`, make sure `~/src/ports` exists
+(`gh repo clone yacp-dev/ports ~/src/ports` if not) and
+`git -C ~/src/ports fetch origin`.
 
 **Git snapshots** (`inherit git` with a literal `GIT_REV`, versioned
 `<base>+git<YYYYMMDD>`, e.g. `sfparse-0.0.0+git20251223`) take a different
-path: they track upstream HEAD, not releases, so skip the release lookup
-in 2, and don't let the workflow bump them. Its `Bump version` only
+path: they track upstream HEAD, not releases, so in `latest` mode skip
+the Repology lookup (pass no `--version` below), and don't let the
+workflow bump them. Its `Bump version` only
 renames files and substitutes the version string — `GIT_REV` would stay at
 the old commit, and the run would build the old source under the new
 version and *succeed*, producing a wrong PR that looks right. Instead:
@@ -103,14 +147,21 @@ still applies to the new HEAD (shallow-clone it at `GIT_REV` and
 `patch -p0 -N -f --dry-run`; git cygclass trees are `origsrc/<repo>/`, no
 version in the path), and fix it on the branch first if not.
 
-Tell the user in one line what you settled on (package, version, new vs.
-existing branch) before dispatching.
+Tell the user in one line what you settled on (mode, package, version,
+new vs. existing branch) before dispatching.
 
 ## Step 2: Build
 
 ```bash
-scripts/dispatch_build.sh --package <pkg> --version <ver>
+scripts/dispatch_build.sh --package <pkg> --version <ver>        # bump
+scripts/dispatch_build.sh --package <pkg> -f rebuild=true        # rebuild, gcc-rebuild
+scripts/dispatch_build.sh --package <pkg> -f validate_only=true  # deploy
 ```
+
+A `rebuild`/`gcc-rebuild` run creates `dorgann/<pkg>-<ver>` like a bump
+does, so on failure it's fixed and re-run with `--branch` the same way;
+the changelog message is decided again from the files on each run. For
+`deploy`, see "Deploying" below instead of the rest of this step.
 
 Then, using the run id it printed (wait for that output — don't guess
 the id), wait for it with `scripts/wait_run.sh --run <id>` run in the
@@ -147,6 +198,26 @@ branch rather than leaving it in the recipe alongside the real fix.
 Re-run with `--branch` after a fix; the bot updates the same PR. Don't
 disable or skip tests to make check pass — a failing test that tells the
 truth is more useful than a passing one that doesn't.
+
+### Deploying
+
+A `validate_only` run builds the recipe exactly as committed and uploads
+the dist artifact, without bumping anything or touching ports. Once
+`wait_run.sh` reports success, publish that artifact:
+
+```bash
+gh api repos/yacp-dev/dist/actions/runs/<id>/artifacts --jq '.artifacts[] | select(.name | endswith("-dist")) | .id'
+gh workflow run publish.yml -R yacp-dev/dist -f artifact_id=<artifact id>
+```
+
+`gh workflow run` prints the publish run's URL; wait for it with
+`wait_run.sh` too. Report the build run, the publish run, and the check
+result (`check_summary.sh`, as above).
+
+If the build fails, don't fix anything: the recipe is the one already
+merged in ports, and a fix needs a new release. Report the failure
+(Step 3's `failure_summary.sh` for the cause) and suggest
+`<pkg>-<ver>` to rebuild it with the fix as the next release.
 
 ## Step 3: Investigate
 
