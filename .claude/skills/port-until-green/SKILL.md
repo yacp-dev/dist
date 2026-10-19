@@ -177,8 +177,10 @@ share.
   then check the test suite: `scripts/check_summary.sh --run <id>`.
   `cygport check` is continue-on-error, so a green run says nothing about
   it. If it reports `check: FAILED`, go to "Test suite failures" below
-  before calling it done. Report: PR URL, run URL, attempts, what you
-  changed, and the check result.
+  before calling it done. Also make sure the recipe defines `LICENSE`,
+  `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
+  LICENSE" below. Report: PR URL, run URL, attempts, what you changed,
+  the check result, and the license you filled in (if any).
 - **Failure** → Step 3.
 
 ### Test suite failures
@@ -202,6 +204,64 @@ branch rather than leaving it in the recipe alongside the real fix.
 Re-run the same target after a fix; the bot updates the same PR. Don't
 disable or skip tests to make check pass — a failing test that tells the
 truth is more useful than a passing one that doesn't.
+
+### Missing LICENSE
+
+Without `LICENSE`, cygport logs `*** Warning: LICENSE not defined` at
+every step, and the `Validate build via xezat` step warns `LICENSE is
+not defined` / `LICENSE_URI is not defined`. Fill in whichever of the
+three is missing (keep any that are already there), from the new
+version's source: the tarball from `SRC_URI`, extracted into the
+scratchpad. Don't let a missing license hold up a red build. If you're
+committing a fix anyway (Step 4), add the license in that commit or in
+one next to it. On a branch you create yourself (a manual bump, a git
+snapshot), add it before the first dispatch. Not for `deploy`, which
+doesn't touch the recipe.
+
+Work out the license from, in this order of trust:
+
+1. The `SPDX-License-Identifier:` headers across the source
+   (`grep -rhoE 'SPDX-License-Identifier: [A-Za-z0-9.+-]+' . | sort | uniq -c`).
+2. A License section in the README, which often says which part is
+   under which license (libqmi: library LGPL-2.1-or-later, tools
+   GPL-2.0-or-later).
+3. The license text files themselves (`COPYING`, `COPYING.LIB`,
+   `LICENSE*`), by their headings, to tell the version apart. Use
+   `-or-later` only when the headers or the README say "or (at your
+   option) any later version"; otherwise use `-only`.
+4. Build metadata (meson `license:`, `pyproject.toml`, `Cargo.toml`,
+   `package.json`, `*.gemspec`) last: it is often vague or out of
+   date (libqmi's meson.build says `'GPL2'`).
+
+Then write it in the recipe's style, after `DESCRIPTION` and before
+`BUILD_REQUIRES`, the way `libiscsi` in ports does:
+
+```
+LICENSE="GPL-2.0-or-later AND LGPL-2.1-or-later"
+LICENSE_SPDX="SPDX-License-Identifier: GPL-2.0-or-later AND LGPL-2.1-or-later"
+LICENSE_URI="COPYING"
+```
+
+- `LICENSE` must be a valid SPDX expression: xezat checks it with the
+  `spdx` gem and logs an error if it isn't. Join licenses with `AND`
+  when different parts carry different ones, and with `OR` only when
+  upstream offers a choice.
+- `LICENSE_SPDX` is `SPDX-License-Identifier: ` followed by the same
+  expression.
+- `LICENSE_URI` is one path relative to `${S}` (xezat checks that it
+  exists; it can't take a list), or an `https://` URL. Use the main
+  license text file: `COPYING` or `LICENSE` in most recipes. When the
+  source sits in a subdirectory (`SRC_DIR`), the path is relative to
+  that.
+
+If the source contradicts itself (the headers don't match the license
+file), has no license file at all, or uses a custom or non-SPDX license,
+don't guess. Leave it out and tell the user what you found.
+
+Commit as `<pkg>-<ver> (add LICENSE)` and re-run the same target.
+Afterwards, check that `Validate build via xezat` no longer logs
+`LICENSE`/`LICENSE_URI` warnings or errors
+(`gh run view <id> -R yacp-dev/dist --log | grep -i 'licen'`).
 
 ### Deploying
 
@@ -340,6 +400,9 @@ Edit only files under the package directory. Common fixes:
   (`movit`, `portage-utils` and `libklvanc` in ports do this):
   `CYGPORT_USE_UNSTABLE_API=1`, then `cd ${origsrcdir}/${SRC_DIR}` and a
   `sed -i` on the file. Check for this on every bump, even a green one.
+- **No `LICENSE` / `LICENSE_SPDX` / `LICENSE_URI` in the recipe** →
+  fill them in from the source while you're on the branch (see "Missing
+  LICENSE" under Step 2).
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
   run failed anyway, look for the real failing step instead. Test suite
   failures on a green run are handled under Step 2.
