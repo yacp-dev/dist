@@ -26,7 +26,7 @@
 #
 # artifact_id is Upload dist artifact's own step output -- always passed
 # when set, but only worth printing a ready-to-run publish command for
-# when there's no PR (validate_only, doc/spec.md 4.4.2's "semi-automated"
+# when there's no PR (deploy mode, doc/spec.md 4.4.2's "semi-automated"
 # path assumes a PR body carries this same command otherwise, e.g. Create
 # Pull Request's own body already includes it) -- otherwise this would
 # just be a redundant duplicate of what the PR body already says.
@@ -70,7 +70,7 @@ done
     echo "- build-failed Issue: $issue_url"
   fi
   if [[ -n "$artifact_id" && -z "$pr_url" ]]; then
-    echo "- dist artifact: $artifact_id (no PR was created -- validate_only)"
+    echo "- dist artifact: $artifact_id (no PR was created -- deploy mode)"
     echo
     echo "To publish this build to gh-pages:"
     echo '```'

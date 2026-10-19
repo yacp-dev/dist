@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Auto-detects branch-rebuild mode (doc/spec.md 4.6) from package+version
-# alone, when `branch` wasn't given explicitly. If a
+# alone. If a
 # dorgann/<package>-<version> branch already exists in yacp -- most
 # commonly left over from an earlier failed run's own draft PR (doc/spec.md
-# 4.6) -- a plain workflow_dispatch with just package+version now
+# 4.6) -- a plain workflow_dispatch with the same target now
 # transparently rebuilds against it instead of running into
 # bump_version.sh's own "already at this version" refusal.
 #

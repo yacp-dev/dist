@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Bumps a package's cygport release number in place, for a same-version
-# "rebuild" (build-package.yml's `rebuild` input): picking up a newer
+# "rebuild" (build-package.yml's `rebuild`/`gcc-rebuild` modes): picking up a newer
 # toolchain (e.g. gcc) with no source changes, so PV stays the same but
 # PR needs to move so the new .tar.xz doesn't collide with the one
 # already published. Renames "<PN>-<PV>-<oldPR>.cygport" (and any sibling

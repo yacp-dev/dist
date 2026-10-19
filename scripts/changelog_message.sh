@@ -16,9 +16,9 @@
 #   "Rebuild".
 #
 # Decided from the files themselves rather than build-package.yml's
-# `rebuild` input, since a release-only bump also reaches here via
+# resolved mode, since a release-only bump also reaches here via
 # branch-rebuild mode (re-running a rebuild whose first attempt failed),
-# where `rebuild` is ignored -- confirmed by a real run (superlu
+# where the release isn't bumped again -- confirmed by a real run (superlu
 # 7.0.1-1bl2) that wrote "Version bump." for exactly that case.
 #
 # Usage:

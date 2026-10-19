@@ -27,14 +27,18 @@ The build only runs on dorgann's `windows-latest` CI (`.github/workflows/build-p
 in this repo, yacp-dev/dist). There's no local Cygwin, so every build
 attempt is a workflow run, ~5–30 min each. Key behaviors:
 
-- Dispatching with `package` + `version` bumps the recipe. On success the
-  workflow opens the PR on `dorgann/<pkg>-<ver>`; on failure it pushes the
-  same branch as a **draft** PR and files a `build-failed` Issue in
-  yacp-dev/dist — as long as the bump itself succeeded.
-- If `dorgann/<pkg>-<ver>` already exists, a `package`+`version` dispatch
-  automatically switches to branch-rebuild mode: it overlays the branch's
-  changes onto master and rebuilds. Passing `branch=dorgann/<pkg>-<ver>` is
-  equivalent. So after pushing a fix, just dispatch again.
+- The workflow takes one `target` input, in the same three shapes as this
+  skill's argument, and resolves it with the same
+  `scripts/resolve_target.sh` (doc/spec.md 4.3) — except a bare `<pkg>`,
+  which it refuses: Repology is looked up here, in Step 1.
+- A `<pkg>-<ver>` dispatch bumps the recipe (or only its release). On
+  success the workflow opens the PR on `dorgann/<pkg>-<ver>`; on failure
+  it pushes the same branch as a **draft** PR and files a `build-failed`
+  Issue in yacp-dev/dist — as long as the bump itself succeeded.
+- If `dorgann/<pkg>-<ver>` already exists, the dispatch automatically
+  switches to branch-rebuild mode: it overlays the branch's changes onto
+  master and rebuilds. So after pushing a fix, just dispatch the same
+  target again.
 - **The bot rewrites the branch on every run** (peter-evans/create-pull-request
   squashes everything into one `<pkg>-<ver>` commit and force-pushes). Your
   local branch is therefore stale after each run — always
@@ -44,11 +48,8 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
 
 Helpers bundled with this skill (paths relative to this SKILL.md):
 
-- `scripts/resolve_target.sh <arg>` — splits the argument into package,
-  version and release, compares them with the `.cygport` on ports'
-  master, and prints `key=value` lines including `mode=` (Step 1).
-- `scripts/dispatch_build.sh --package P (--version V | --branch B) [-f key=val ...]`
-  — dispatches and prints `<run id> <run url>`.
+- `scripts/dispatch_build.sh --target T [-f key=val ...]` — dispatches and
+  prints `<run id> <run url>`.
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
   either workflow
   (one API call every 90 s by default), prints `<conclusion> <run url>`,
@@ -65,10 +66,11 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 ## Step 1: Resolve the argument
 
 ```bash
-scripts/resolve_target.sh <arg>
+bash scripts/resolve_target.sh --repo yacp-dev/ports --target <arg>
 ```
 
-It finds the package as the longest ports directory name the argument
+(dorgann's own `scripts/`, run from the repo root — the workflow's gate
+job runs the same script.) It finds the package as the longest ports directory name the argument
 starts with (package names can contain dashes), then splits the rest into
 `<ver>[-<rel>]`. Act on its `mode=`:
 
@@ -141,8 +143,10 @@ It resolves the upstream HEAD from `GIT_URI` (GitHub only; honors
 creates and pushes `dorgann/<pkg>-<ver>` with the files renamed via
 dorgann's own `bump_version.sh` and `GIT_REV` updated, and prints the
 branch. If the user gave a version that doesn't match HEAD's date, it
-refuses — ask which commit they meant. Then dispatch with `--branch`
-(Step 2), never `--version`. Before dispatching, check the `.src.patch`
+refuses — ask which commit they meant. Then dispatch `<pkg>-<ver>`
+(Step 2), but only once that branch is pushed: it's the existing branch
+that makes the run a branch rebuild instead of the workflow's own bump.
+Before dispatching, check the `.src.patch`
 still applies to the new HEAD (shallow-clone it at `GIT_REV` and
 `patch -p0 -N -f --dry-run`; git cygclass trees are `origsrc/<repo>/`, no
 version in the path), and fix it on the branch first if not.
@@ -153,14 +157,14 @@ new vs. existing branch) before dispatching.
 ## Step 2: Build
 
 ```bash
-scripts/dispatch_build.sh --package <pkg> --version <ver>        # bump
-scripts/dispatch_build.sh --package <pkg> -f rebuild=true        # rebuild, gcc-rebuild
-scripts/dispatch_build.sh --package <pkg> -f validate_only=true  # deploy
+scripts/dispatch_build.sh --target <pkg>-<ver>          # bump, rebuild
+scripts/dispatch_build.sh --target <pkg>-<ver>-<rel>    # gcc-rebuild, deploy
 ```
 
-A `rebuild`/`gcc-rebuild` run creates `dorgann/<pkg>-<ver>` like a bump
-does, so on failure it's fixed and re-run with `--branch` the same way;
-the changelog message is decided again from the files on each run. For
+For `latest`, pass the version found in Step 1. A `rebuild`/`gcc-rebuild`
+run creates `dorgann/<pkg>-<ver>` like a bump does, so on failure it's
+fixed and re-run the same way (`<pkg>-<ver>` re-runs either); the
+changelog message is decided again from the files on each run. For
 `deploy`, see "Deploying" below instead of the rest of this step.
 
 Then, using the run id it printed (wait for that output — don't guess
@@ -195,13 +199,13 @@ failed:
 A guess that a re-run doesn't confirm is a wrong guess: revert it on the
 branch rather than leaving it in the recipe alongside the real fix.
 
-Re-run with `--branch` after a fix; the bot updates the same PR. Don't
+Re-run the same target after a fix; the bot updates the same PR. Don't
 disable or skip tests to make check pass — a failing test that tells the
 truth is more useful than a passing one that doesn't.
 
 ### Deploying
 
-A `validate_only` run builds the recipe exactly as committed and uploads
+A `deploy` run builds the recipe exactly as committed and uploads
 the dist artifact, without bumping anything or touching ports. Once
 `wait_run.sh` reports success, publish that artifact:
 
@@ -248,7 +252,7 @@ Classify it, because the response differs:
 | Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `xezat prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `Bump version` mangled a file during its one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
-| No branch | failure happened before `Bump version` succeeded, so no branch/draft PR exists | If it's transient, re-dispatch. If it's the bump itself (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in `~/src/ports` with the renamed cygport, push, then dispatch with `--branch`. |
+| No branch | failure happened before `Bump version` succeeded, so no branch/draft PR exists | If it's transient, re-dispatch. If it's the bump itself (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in `~/src/ports` with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
 
 ## Step 4: Fix, commit, push
 
@@ -351,7 +355,7 @@ git commit -am "<pkg>-<ver> (fix BUILD_REQUIRES)"   # git add new files first
 git push origin dorgann/<pkg>-<ver>
 ```
 
-Then back to Step 2 with `--branch dorgann/<pkg>-<ver>`.
+Then back to Step 2, dispatching `<pkg>-<ver>` again.
 
 ## Stopping
 

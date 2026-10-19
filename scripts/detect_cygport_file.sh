@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Finds the single `.cygport` file already present in --dir and extracts
-# its version, for branch-rebuild mode (build-package.yml's `branch`
-# input): when re-running a build against an existing
+# its version, for branch-rebuild mode (an existing branch for
+# build-package.yml's target): when re-running a build against an existing
 # `dorgann/<pkg>-<ver>` branch that a human has already amended by hand
 # (e.g. adding a missing BUILD_REQUIRES, or renaming PKG_NAMES for an ABI
 # bump) directly on yacp, the file is already at its target name --
