@@ -60,8 +60,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/check_summary.sh --run ID` — whether `cygport check` passed,
   and its diagnostic if not (Step 2).
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
-  bumps a git-snapshot package to upstream HEAD on its own branch (see
-  Step 1).
+  bumps a git-snapshot package to upstream HEAD on its own branch, in
+  its own worktree (see Step 1).
 - `scripts/distro_patches.sh --project NAME --version V --out DIR` —
   downloads the patches Debian, Fedora and Gentoo carry for version `V`
   (per Repology), each with a revision-pinned URL for `PATCH_URI` (see
@@ -127,7 +127,10 @@ For `bump` (and `latest` carried on as one):
 
 For every mode except `deploy`, make sure `~/src/ports` exists
 (`gh repo clone yacp-dev/ports ~/src/ports` if not) and
-`git -C ~/src/ports fetch origin`.
+`git -C ~/src/ports fetch origin`. Don't check out branches or edit
+files in `~/src/ports` itself: other sessions share it, and a `checkout`
+or `reset --hard` there can wipe their work. Branch work goes in a
+per-session worktree (Step 4).
 
 **Git snapshots** (`inherit git` with a literal `GIT_REV`, versioned
 `<base>+git<YYYYMMDD>`, e.g. `sfparse-0.0.0+git20251223`) take a different
@@ -147,7 +150,9 @@ It resolves the upstream HEAD from `GIT_URI` (GitHub only; honors
 `GIT_BRANCH`), names the version from the HEAD commit's UTC committer date,
 creates and pushes `dorgann/<pkg>-<ver>` with the files renamed via
 dorgann's own `bump_version.sh` and `GIT_REV` updated, and prints the
-branch. If the user gave a version that doesn't match HEAD's date, it
+branch. It does this in a new worktree, `~/src/ports-wt/<pkg>-<ver>`
+(path on stderr), and leaves it there: that's the `$wt` of Step 4, where
+any fix to the branch goes. If the user gave a version that doesn't match HEAD's date, it
 refuses — ask which commit they meant. Then dispatch `<pkg>-<ver>`
 (Step 2), but only once that branch is pushed: it's the existing branch
 that makes the run a branch rebuild instead of the workflow's own bump.
@@ -377,15 +382,24 @@ Classify it, because the response differs:
 | Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `xezat prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `Bump version` mangled a file during its one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
-| No branch | failure happened before `Bump version` succeeded, so no branch/draft PR exists | If it's transient, re-dispatch. If it's the bump itself (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in `~/src/ports` with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
+| No branch | failure happened before `Bump version` succeeded, so no branch/draft PR exists | If it's transient, re-dispatch. If it's the bump itself (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (as in Step 4, with `-B dorgann/<pkg>-<ver> "$wt" origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
 
 ## Step 4: Fix, commit, push
 
+Work in a worktree of your own, not in `~/src/ports` (see Step 1):
+
 ```bash
-cd ~/src/ports
-git fetch origin
-git checkout -B dorgann/<pkg>-<ver> origin/dorgann/<pkg>-<ver>
+git -C ~/src/ports fetch origin
+wt=~/src/ports-wt/<pkg>-<ver>
+git -C ~/src/ports worktree add -B dorgann/<pkg>-<ver> "$wt" origin/dorgann/<pkg>-<ver>
+cd "$wt"
 ```
+
+On later attempts, the worktree is already there; since the bot
+force-pushes the branch on every run, refresh it before editing:
+`git -C "$wt" fetch origin && git -C "$wt" reset --hard origin/dorgann/<pkg>-<ver>`.
+Once the loop is over (success or stopping) and everything is pushed,
+remove it: `git -C ~/src/ports worktree remove "$wt"`.
 
 Edit only files under the package directory. Common fixes:
 

@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Bumps a git-snapshot package (`inherit git` with a literal GIT_REV,
 # versioned <base>+git<YYYYMMDD>) to its upstream HEAD on a new
-# dorgann/<pkg>-<ver> branch in ~/src/ports, and pushes it.
+# dorgann/<pkg>-<ver> branch, and pushes it. The branch is checked out
+# in its own worktree (~/src/ports-wt/<pkg>-<ver>), not in ~/src/ports,
+# which other sessions share; the worktree is left in place for further
+# fixes on the branch.
 #
 # The workflow's own Bump version can't do this: it has no way to learn
 # the new commit, so bump_version.sh refuses a literal GIT_REV unless
@@ -18,12 +21,14 @@
 #
 # Usage:
 #   git_snapshot_bump.sh --package sfparse [--version 0.0.0+git20260912] [--dry-run]
-# Output: the branch name on stdout. With --dry-run, prints the version
-# and revision it would use and changes nothing.
+# Output: the branch name on stdout, and the worktree path on stderr.
+# With --dry-run, prints the version and revision it would use and
+# changes nothing.
 
 set -euo pipefail
 
 ports="${PORTS_DIR:-$HOME/src/ports}"
+worktrees="${PORTS_WORKTREES_DIR:-$HOME/src/ports-wt}"
 dorgann="$(cd "$(dirname "$0")/../../../.." && pwd)"
 package=""
 version=""
@@ -92,6 +97,11 @@ if git -C "$ports" ls-remote --exit-code --heads origin "$branch" >/dev/null; th
   echo "$branch already exists -- dispatch with --branch instead" >&2
   exit 1
 fi
+wt="$worktrees/$package-$version"
+if [[ -e "$wt" ]]; then
+  echo "$wt already exists -- remove it (git -C $ports worktree remove) or use it" >&2
+  exit 1
+fi
 
 shim="$(mktemp -d)"
 trap 'rm -rf "$shim"' EXIT
@@ -104,10 +114,11 @@ for f; do mv -- "$f" "${f/"$from"/$to}"; done
 EOF
 chmod +x "$shim/rename"
 
-cd "$ports"
-git checkout -q -B "$branch" origin/master
+git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
+cd "$wt"
 PATH="$shim:$PATH" bash "$dorgann/scripts/bump_version.sh" --dir "$package" --version "$version" --git-rev "$new_rev" >&2
 git add -A -- "$package"
 git commit -q -m "$package-$version"
 git push -q origin "$branch"
+echo "worktree: $wt" >&2
 echo "$branch"
