@@ -62,6 +62,10 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
   bumps a git-snapshot package to upstream HEAD on its own branch (see
   Step 1).
+- `scripts/distro_patches.sh --project NAME --version V --out DIR` —
+  downloads the patches Debian, Fedora and Gentoo carry for version `V`
+  (per Repology), each with a revision-pinned URL for `PATCH_URI` (see
+  "Distro patches" under Step 2).
 
 ## Step 1: Resolve the argument
 
@@ -171,7 +175,9 @@ Then, using the run id it printed (wait for that output — don't guess
 the id), wait for it with `scripts/wait_run.sh --run <id>` run in the
 background (builds take a while). Don't use `gh run watch`: its 3-second
 refresh burns through the GitHub API rate limit that concurrent sessions
-share.
+share. For `bump` (and `latest`), use the wait to go through "Distro
+patches" below; its result goes onto the branch once this run is done,
+whichever way it ends.
 
 - **Success** → confirm the PR is ready (`gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`),
   then check the test suite: `scripts/check_summary.sh --run <id>`.
@@ -179,9 +185,67 @@ share.
   it. If it reports `check: FAILED`, go to "Test suite failures" below
   before calling it done. Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
-  LICENSE" below. Report: PR URL, run URL, attempts, what you changed,
-  the check result, and the license you filled in (if any).
-- **Failure** → Step 3.
+  LICENSE" below. If distro patches are still to be added, commit them
+  now and re-run before reporting. Report: PR URL, run URL, attempts,
+  what you changed, the check result, the license you filled in (if
+  any), and the distro patches taken and skipped, with why.
+- **Failure** → Step 3. Distro patches waiting to be added go onto the
+  branch with the first fix (Step 4), in their own commit.
+
+### Distro patches
+
+Only for a version update (`bump`, `latest`; not rebuilds, `deploy` or
+git snapshots). Debian, Fedora and Gentoo often carry fixes for the very
+version being packaged — upstream backports, CVE fixes, fixes for a newer
+gcc — that Cygwin needs just as much. Gather them:
+
+```bash
+scripts/distro_patches.sh --project <repology name> --version <ver> --out <scratchpad>/<pkg>-distro
+```
+
+`<repology name>` is the one Step 1 used (or would have). It prints, per
+distro, the packaging revision it used, the lines saying how the patches
+are applied (Debian `series`, Fedora spec `Patch`/`%if` lines, Gentoo
+ebuild `PATCHES`), and each patch's local file and pinned URL. Nothing
+listed → no distro has this version yet; move on. Read each patch (its
+header, then the diff) and **skip** it when:
+
+- **it removes tests or weakens them** — skips, deletes or disables a
+  test, marks it XFAIL, lowers what it checks, or drops it from the
+  suite (`skip-memory-greedy-tests`, `no-lessopen-test`, "disable
+  network tests"). A longer timeout isn't a weakening, but it's a CI
+  matter, not the recipe's.
+- **it doesn't concern Cygwin x86_64** — another architecture or OS
+  (arm, ppc, s390x, riscv, alpha, i386/32-bit, big-endian, Hurd,
+  kFreeBSD), Linux-only machinery (systemd, SELinux, seccomp,
+  `/proc`, glibc-only APIs, Linux headers), or the distro's own
+  packaging policy (FHS paths, Debian's added man pages, branding,
+  reproducible-build tweaks, unbundling, default config, hardening
+  flags). Only Fedora's `%if` branches that a Cygwin build would take
+  count.
+- **it's already there** — the change is in the new upstream source
+  (`patch -p1 -R -f --dry-run` succeeds), in the recipe's `.src.patch`,
+  or already in `PATCH_URI` (a still-applying old-version URL of the same
+  patch is fine as it is; one that fails is Step 4's business).
+  The same fix carried by two distros is taken once.
+
+What's left is usually an upstream backport, a security fix, or a build
+fix for a newer toolchain or for portability. Don't take one you can't
+explain; when in doubt, skip it and say so in the report. Then check
+each candidate applies, in the order cygport would apply it: extract the
+new source, apply the recipe's `PATCH_URI` patches (`-N -f`, as in Step
+4), then the candidates in their distro's order, then the `.src.patch`.
+A candidate that doesn't apply, or that breaks the `.src.patch`, is
+reported, not rebased — it's an extra, not the job.
+
+Add the ones that apply to the end of `PATCH_URI` with the pinned URL the
+script printed (`.../debian/<full version>/...`, Fedora's and Gentoo's
+`.../<commit>/...`), not a branch URL such as `raw/rawhide/f/` that
+moves on. Commit them on their own, as `<pkg>-<ver> (add distro
+patches)`, with one line per patch in the body saying what it fixes. If
+a later run fails because of one, drop it rather than fixing it, and say
+so in the report. On a re-run of a branch whose `PATCH_URI` already has
+URLs pinned for this version, this was done before; don't repeat it.
 
 ### Test suite failures
 
