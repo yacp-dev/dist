@@ -181,9 +181,9 @@ Then, using the run id it printed (wait for that output — don't guess
 the id), wait for it with `scripts/wait_run.sh --run <id>` run in the
 background (builds take a while). Don't use `gh run watch`: its 3-second
 refresh burns through the GitHub API rate limit that concurrent sessions
-share. For `bump` (and `latest`), use the wait to go through "Distro
-patches" below; its result goes onto the branch once this run is done,
-whichever way it ends.
+share. For `bump`, `latest`, `rebuild` and `gcc-rebuild`, use the wait
+to go through "Distro patches" below; its result goes onto the branch
+once this run is done, whichever way it ends.
 
 - **Success** → confirm the PR is ready (`gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`),
   then check the test suite: `scripts/check_summary.sh --run <id>`.
@@ -200,10 +200,14 @@ whichever way it ends.
 
 ### Distro patches
 
-Only for a version update (`bump`, `latest`; not rebuilds, `deploy` or
-git snapshots). Debian, Fedora and Gentoo often carry fixes for the very
+For a version update (`bump`, `latest`) and for a rebuild (`rebuild`,
+`gcc-rebuild`); not for `deploy`, which doesn't touch the recipe, or git
+snapshots. Debian, Fedora and Gentoo often carry fixes for the very
 version being packaged — upstream backports, CVE fixes, fixes for a newer
-gcc — that Cygwin needs just as much. Gather them:
+gcc — that Cygwin needs just as much. A rebuild keeps the version but
+not the distros' view of it: they may have picked up fixes since the
+version was packaged, and a rebuild for a newer gcc is just when their
+gcc fixes matter. Gather them:
 
 ```bash
 scripts/distro_patches.sh --project <repology name> --version <ver> --out <scratchpad>/<pkg>-distro
@@ -250,8 +254,12 @@ script printed (`.../debian/<full version>/...`, Fedora's and Gentoo's
 moves on. Commit them on their own, as `<pkg>-<ver> (add distro
 patches)`, with one line per patch in the body saying what it fixes. If
 a later run fails because of one, drop it rather than fixing it, and say
-so in the report. On a re-run of a branch whose `PATCH_URI` already has
-URLs pinned for this version, this was done before; don't repeat it.
+so in the report. On a re-run of a branch whose `PATCH_URI` already
+adds URLs pinned for this version to master's, this was done before;
+don't repeat it. (Pinned URLs already in master's `PATCH_URI` — as a
+rebuild usually has, from the version's original bump — don't count:
+they're the "already there" case above, and the newer revisions may
+carry more.)
 
 ### Test suite failures
 
