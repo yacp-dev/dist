@@ -79,8 +79,9 @@ starts with (package names can contain dashes), then splits the rest into
 `<ver>[-<rel>]`. Act on its `mode=`:
 
 - **`latest`** (`<pkg>`) → find the newest upstream version on Repology:
-  `curl -s https://repology.org/api/v1/project/<name>` and take a
-  `"status": "newest"` entry's version (the project name may need
+  `curl -s -A 'dorgann port-until-green' https://repology.org/api/v1/project/<name>`
+  (without a User-Agent, Repology answers 200 with an empty body) and
+  take a `"status": "newest"` entry's version (the project name may need
   lowercasing or a prefix like `python:`; normalize the spelling to the
   cygport's, e.g. `1_2_3` → `1.2.3`). Equal to `current_version` → tell
   the user it's already up to date and stop. Otherwise carry on as
