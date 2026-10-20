@@ -13,6 +13,14 @@
 # rather than a CLI flag here sidesteps having to shell-quote an
 # arbitrary message into this script's own invocation in build-package.yml.
 #
+# --no-compiler-detection turns off xezat's guess of compilers from
+# source file extensions (C -> gcc-core, Lex -> flex, ...), which kept
+# listing build requirements that contradicted the ones the actual
+# build settled on. xezat then lists gcc-core/binutils only when the
+# packages ship compiled files (.exe/.dll/.a/.so), and gcc-fortran only
+# with libgfortran or .mod files -- so the README keeps the gcc-core-<ver>
+# line scripts/changelog_message.sh reads for "Rebuild with gcc-<ver>".
+#
 # Usage:
 #   xezat_bump.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport
 
@@ -36,7 +44,7 @@ cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
 if [[ -n "${XEZAT_BUMP_MESSAGE:-}" ]]; then
-  xezat bump "$cygport_file" -m "$XEZAT_BUMP_MESSAGE"
+  xezat bump "$cygport_file" --no-compiler-detection -m "$XEZAT_BUMP_MESSAGE"
 else
-  xezat bump "$cygport_file"
+  xezat bump "$cygport_file" --no-compiler-detection
 fi
