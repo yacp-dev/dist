@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 # Collects the patches Debian, Fedora and Gentoo carry for one upstream
-# version, as listed by Repology, so a version update can pick up the
-# ones that matter on Cygwin. Only entries whose Repology version equals
-# --version are used; for each source package the newest packaging
-# revision wins (Debian unstable's 1.5.7+dfsg-4 over trixie's -1).
+# version, so a version update can pick up the ones that matter on
+# Cygwin. Repology names each distro's source packages; their versions
+# come from the distro itself, since Repology can lag behind it (Fedora
+# rawhide at 0.19 while Repology still said 0.16): Debian's every
+# version on sources.debian.org, Fedora rawhide's spec, Gentoo's ebuilds
+# in the tree. Repology's own entries at --version are kept as a fallback
+# (a Fedora stable branch, a spec whose Version is a macro). For each
+# source package the newest packaging revision wins (Debian unstable's
+# 1.5.7+dfsg-4 over trixie's -1).
 #
 # Every patch is downloaded into --out and printed with a URL pinned to
 # that exact revision, ready for PATCH_URI: Debian's data/ URL carries
@@ -43,27 +48,42 @@ mkdir -p "$out"
 entries="$(curl -sf -A 'dorgann port-until-green' "https://repology.org/api/v1/project/$project")" ||
   { echo "Repology lookup failed for $project" >&2; exit 1; }
 
-# "<repo> <srcname> <origversion>" for one distro, newest revision per
-# srcname. mingw-* (Fedora's MinGW cross builds) aren't Cygwin's concern.
+# Source package names Repology knows for one distro, at any version.
+# mingw-* (Fedora's MinGW cross builds) aren't Cygwin's concern.
+srcnames() {
+  jq -r --arg p "$1" '
+    .[] | select(.repo | startswith($p))
+    | select(.srcname | startswith("mingw-") | not) | .srcname' <<<"$entries" | sort -u
+}
+
+# "<repo> <origversion>" for one distro's entries of one srcname at --version.
 matching() {
-  jq -r --arg v "$version" --arg p "$1" '
-    .[] | select(.repo | startswith($p)) | select(.version == $v)
-    | select(.srcname | startswith("mingw-") | not)
-    | "\(.repo) \(.srcname) \(.origversion // .version)"' <<<"$entries" |
-    sort -k2,2 -k3,3V | awk '{last[$2] = $0} END {for (s in last) print last[s]}'
+  jq -r --arg v "$version" --arg p "$1" --arg s "$2" '
+    .[] | select(.repo | startswith($p)) | select(.version == $v) | select(.srcname == $s)
+    | "\(.repo) \(.origversion // .version)"' <<<"$entries"
 }
 
 found=""
 
 echo "== Debian"
-while read -r repo src ver; do
-  [[ -n "$src" ]] || continue
+while read -r src; do
+  # Every version sources.debian.org has of --version (epoch, Debian
+  # revision and a +dfsg-style repack suffix stripped, as Repology does),
+  # plus Repology's own; the newest wins.
+  read -r area ver < <(
+    { curl -sf "https://sources.debian.org/api/src/$src/" |
+        jq -r --arg v "$version" '
+          .versions[]? | select(.version | sub("^[0-9]+:"; "") | sub("-[^-]*$"; "")
+                                         | sub("[+~](dfsg|ds|repack).*$"; "") == $v)
+          | "\(.area) \(.version)"' || true
+      matching debian "$src" | awk '{print "main", $2}'
+    } | sort -k2,2V | tail -n 1) || continue
   found=1
   prefix="${src:0:1}"; [[ "$src" == lib* ]] && prefix="${src:0:4}"
-  base="https://sources.debian.org/data/main/$prefix/$src/$ver/debian/patches"
+  base="https://sources.debian.org/data/$area/$prefix/$src/$ver/debian/patches"
   dir="$out/debian/$src"
   mkdir -p "$dir"
-  echo "-- $src $ver ($repo)"
+  echo "-- $src $ver"
   if ! curl -sf "$base/series" -o "$dir/series"; then
     echo "(no debian/patches/series)"
     continue
@@ -75,21 +95,33 @@ while read -r repo src ver; do
     curl -sf "$base/$name" -o "$dir/$name" && echo "$dir/$name  $base/$name" ||
       echo "(failed to fetch $base/$name)"
   done
-done < <(matching debian)
+done < <(srcnames debian)
 
 echo
 echo "== Fedora"
-while read -r repo src ver; do
-  [[ -n "$src" ]] || continue
+while read -r src; do
+  branches="$(curl -sf "https://src.fedoraproject.org/api/0/rpms/$src/git/branches?with_commits=true")" ||
+    { echo "-- $src: no branches on src.fedoraproject.org"; continue; }
+  # rawhide when its spec is at --version, else the newest branch
+  # Repology has at it (a stable branch, or rawhide behind a macro Version).
+  branch=""
+  sha="$(jq -r '.branches.rawhide // empty' <<<"$branches")"
+  if [[ -n "$sha" ]] && curl -sf "https://src.fedoraproject.org/rpms/$src/raw/$sha/f/$src.spec" |
+      sed -nE 's/^Version:[[:space:]]*//p' | head -n 1 | grep -qxF "$version"; then
+    branch=rawhide
+  else
+    branch="$(matching fedora "$src" | awk '{b = $1; sub(/^fedora_/, "", b)
+        if (b == "rawhide") print 9999, b; else if (b ~ /^[0-9]+$/) print b, "f" b}' |
+      sort -n | tail -n 1 | cut -d' ' -f2)"
+    [[ -n "$branch" ]] || continue
+    sha="$(jq -r --arg b "$branch" '.branches[$b] // empty' <<<"$branches")"
+    [[ -n "$sha" ]] || { echo "-- $src $version: branch $branch not found"; continue; }
+  fi
   found=1
-  branch="${repo#fedora_}"; [[ "$branch" == rawhide ]] || branch="f$branch"
-  sha="$(curl -sf "https://src.fedoraproject.org/api/0/rpms/$src/git/branches?with_commits=true" |
-    jq -r --arg b "$branch" '.branches[$b] // empty')"
-  [[ -n "$sha" ]] || { echo "-- $src $ver ($repo): branch $branch not found"; continue; }
   base="https://src.fedoraproject.org/rpms/$src/raw/$sha/f"
   dir="$out/fedora/$src"
   mkdir -p "$dir"
-  echo "-- $src $ver ($repo, $branch at $sha)"
+  echo "-- $src $version ($branch at $sha)"
   curl -sf "$base/$src.spec" -o "$dir/$src.spec" || { echo "(no $src.spec)"; continue; }
   grep -nE '^(Version|Patch[0-9]*):|^%(if|elif|else|endif|patch|autopatch|autosetup)' "$dir/$src.spec" |
     sed 's/^/spec: /'
@@ -109,32 +141,38 @@ while read -r repo src ver; do
           echo "(failed to fetch $base/$patch)" ;;
     esac
   done
-done < <(matching fedora)
+done < <(srcnames fedora)
 
 echo
 echo "== Gentoo"
-while read -r repo src ver; do
-  [[ -n "$src" ]] || continue
-  found=1
+while read -r src; do
   pn="${src#*/}"
-  sha="$(gh api "repos/gentoo/gentoo/commits?path=$src&per_page=1" --jq '.[0].sha')"
+  sha="$(gh api "repos/gentoo/gentoo/commits?path=$src&per_page=1" --jq '.[0].sha')" || continue
+  [[ -n "$sha" ]] || continue
+  # The newest ebuild of --version in the tree, -rN revisions included.
+  ebuild="$(gh api "repos/gentoo/gentoo/contents/$src?ref=$sha" --jq '.[].name' |
+    awk -v want="$pn-$version" '/\.ebuild$/ {
+      v = $0; sub(/\.ebuild$/, "", v); sub(/-r[0-9]+$/, "", v); if (v == want) print }' |
+    sort -V | tail -n 1)" || true
+  [[ -n "$ebuild" ]] || continue
+  found=1
   base="https://raw.githubusercontent.com/gentoo/gentoo/$sha/$src"
   dir="$out/gentoo/$src"
   mkdir -p "$dir/files"
-  echo "-- $src $ver ($sha)"
-  ebuild="$pn-$ver.ebuild"
-  curl -sf "$base/$ebuild" -o "$dir/$ebuild" || { echo "(no $ebuild)"; continue; }
+  echo "-- $src ${ebuild%.ebuild} ($sha)"
+  curl -sf "$base/$ebuild" -o "$dir/$ebuild" || { echo "(failed to fetch $ebuild)"; continue; }
   # PATCHES=( ... ) (or MESON_PATCHES etc.) spans lines; print the array whole, plus any other
   # line that applies a patch or names one (incl. patch tarballs in SRC_URI).
   awk '/^[[:space:]]*[A-Z_]*PATCHES=\(/ {p=1} p {print; if (/\)/) p=0; next}
        /eapply|FILESDIR|patch/ {print}' "$dir/$ebuild" | sed 's/^/ebuild: /'
   # files/ holds patches for every version in the directory; fetch the
-  # lot and let the ebuild lines above say which apply.
-  gh api "repos/gentoo/gentoo/contents/$src/files?ref=$sha" --jq '.[] | select(.type == "file") | .name' \
-    2>/dev/null | while read -r name; do
+  # lot and let the ebuild lines above say which apply. Many packages
+  # have no files/ at all.
+  { gh api "repos/gentoo/gentoo/contents/$src/files?ref=$sha" --jq '.[] | select(.type == "file") | .name' \
+      2>/dev/null || true; } | while read -r name; do
     curl -sf "$base/files/$name" -o "$dir/files/$name" &&
       echo "$dir/files/$name  $base/files/$name" || echo "(failed to fetch $base/files/$name)"
   done
-done < <(matching gentoo)
+done < <(srcnames gentoo)
 
-[[ -n "$found" ]] || echo "(no Debian/Fedora/Gentoo entry at $version on Repology)"
+[[ -n "$found" ]] || echo "(no Debian/Fedora/Gentoo package at $version)"

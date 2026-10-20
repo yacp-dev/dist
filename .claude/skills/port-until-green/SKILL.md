@@ -64,7 +64,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   its own worktree (see Step 1).
 - `scripts/distro_patches.sh --project NAME --version V --out DIR` —
   downloads the patches Debian, Fedora and Gentoo carry for version `V`
-  (per Repology), each with a revision-pinned URL for `PATCH_URI` (see
+  (Debian unstable, Fedora rawhide and the Gentoo tree, looked up
+  directly; Repology only names the source packages), each with a
+  revision-pinned URL for `PATCH_URI` (see
   "Distro patches" under Step 2).
 
 ## Step 1: Resolve the argument
@@ -213,7 +215,10 @@ gcc fixes matter. Gather them:
 scripts/distro_patches.sh --project <repology name> --version <ver> --out <scratchpad>/<pkg>-distro
 ```
 
-`<repology name>` is the one Step 1 used (or would have). It prints, per
+`<repology name>` is the one Step 1 used (or would have). Repology only
+supplies the distros' source package names: the versions are read from
+each distro directly, since Repology can lag (it had Fedora at
+libpciaccess 0.16 while rawhide was at 0.19). It prints, per
 distro, the packaging revision it used, the lines saying how the patches
 are applied (Debian `series`, Fedora spec `Patch`/`%if` lines, Gentoo
 ebuild `PATCHES`), and each patch's local file and pinned URL. Nothing
