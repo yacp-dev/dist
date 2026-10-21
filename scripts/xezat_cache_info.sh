@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# Computes what's needed to cache xezat's gem install (including
-# rugged/charlock_holmes's compiled native extensions, not just their
-# source) across workflow runs, and to make the gems' executables (xezat
-# itself included) runnable from later steps:
+# Computes what's needed to cache xezat's gem install across workflow
+# runs, and to make the gems' executables (xezat itself included)
+# runnable from later steps:
 #
 #   - gem_home: the Windows-style path to Ruby's gem directory, for
 #     actions/cache's `path:` input (which needs a real filesystem path,

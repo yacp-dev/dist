@@ -26,11 +26,10 @@ name: build-package
 # without it, the package directory's tracked README would never actually
 # change. Using xezat at
 # all was originally deferred as an unverified Windows-Ruby risk (xezat
-# depends on github-linguist, which pulls in native-extension gems:
+# then depended on github-linguist, which pulls in native-extension gems:
 # rugged and charlock_holmes), but now runs against a real Cygwin
 # ruby/gem (installed below) rather than the windows-latest runner's
-# preinstalled native Windows Ruby, which is a much more plausible
-# environment for those gems to build in -- xezat itself only works
+# preinstalled native Windows Ruby -- xezat itself only works
 # under genuine Cygwin anyway, since it sources the real /usr/bin/cygport
 # as a bash script.
 #
@@ -38,9 +37,7 @@ name: build-package
 # (scripts/xezat_install.sh) rather than a pinned RubyGems.org release, so
 # unreleased fixes are always picked up.
 #
-# Compiling rugged/charlock_holmes's native extensions from scratch is
-# slow (cmake-building vendored libgit2, linking ICU), so the gem
-# install is cached across runs -- see scripts/xezat_cache_info.sh for
+# The gem install is cached across runs -- see scripts/xezat_cache_info.sh for
 # why the cache key includes a hash of every installed Cygwin package's
 # version (and xezat's own HEAD commit) rather than being a fixed string.
 #
@@ -362,18 +359,10 @@ jobs:
       - name: Install Cygwin (extra dependencies)
         uses: cygwin/cygwin-install-action@v6
         with:
-          # libicu-devel/pkg-config/zlib-devel/ruby-devel/libgit2-devel
-          # are not for building the package -- they're for `gem install
-          # xezat` below (xezat depends on github-linguist -> rugged,
-          # which needs ruby.h from ruby-devel to compile its own Ruby C
-          # extension against, and links against Cygwin's own libgit2
-          # package via pkg-config (RUGGED_USE_SYSTEM_LIBRARIES=1 below)
-          # rather than cmake-building its vendored copy -- that vendored
-          # build hit a Cygwin/CMake-specific "CMAKE_SIZEOF_VOID_P is
-          # unset" failure detecting the compiler's pointer size, and
-          # Cygwin's own libgit2-devel sidesteps it entirely; and
-          # charlock_holmes, which needs ICU via pkg-config as
-          # libicu-devel's icu-i18n/icu-io/icu-uc .pc files).
+          # Nothing here is for `gem install xezat` below: xezat no longer
+          # depends on github-linguist, so none of its gems has a native
+          # extension to compile. Installing libgit2-devel for that used to
+          # hide a missing libssl-devel in a package's BUILD_REQUIRES.
           # python312-setuptools is for `cygport dep` (run by `xezat
           # bump`): it reads a Python script's version via
           # `from distutils.sysconfig import ...`, and distutils is gone
@@ -382,7 +371,7 @@ jobs:
           # and `cygport dep` silently prints nothing, leaving README's
           # "Runtime requirements:" empty for any package shipping a
           # python3-shebang script.
-          packages: ${{ steps.depends.outputs.extra_packages }} ${{ inputs.cygwin_packages }} libicu-devel pkg-config zlib-devel ruby-devel libgit2-devel python312-setuptools
+          packages: ${{ steps.depends.outputs.extra_packages }} ${{ inputs.cygwin_packages }} python312-setuptools
           # See Install Cygwin (base toolchain) above for why this is
           # necessary at all -- same reasoning applies to every package
           # install in this job.
@@ -400,8 +389,6 @@ jobs:
           key: xezat-gem-${{ runner.os }}-${{ steps.xezat-cache-info.outputs.version_hash }}
 
       - name: Install xezat (latest from GitHub)
-        env:
-          RUGGED_USE_SYSTEM_LIBRARIES: "1"
         run: bash -- scripts/xezat_install.sh
 
       # xezat's own `bashvar` (used by prep/bump/validate/port alike, via
