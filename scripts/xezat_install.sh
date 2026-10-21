@@ -2,9 +2,10 @@
 # Installs xezat from the HEAD of its GitHub repository (fd00/xezat)
 # instead of its latest RubyGems.org release, so this workflow always
 # builds against the newest xezat source, including changes not yet
-# published as a gem. See scripts/xezat_cache_info.sh for how the gem
-# install cache key stays in sync with this (it hashes in the same
-# repository's HEAD commit).
+# published as a gem. The install isn't cached across runs: xezat's
+# dependencies are all pure Ruby, so caching saves little, and a cache
+# would keep them at old versions that still satisfy xezat's `>=`
+# constraints instead of picking up their fixes.
 #
 # Clones into a RELATIVE path under the current directory rather than an
 # absolute /tmp/... one -- confirmed by a real run's diagnostics
@@ -56,3 +57,22 @@ fi
   gem build xezat.gemspec
   gem install --no-document ./xezat-*.gem
 )
+
+# Makes the gems' executables (xezat itself included) runnable from later
+# steps. Neither Gem.user_dir + "/bin" nor `gem environment`'s "EXECUTABLE
+# DIRECTORY" (/usr/bin) is where they land -- Cygwin's system-wide gem
+# config forces every install to add `--user-install --bindir $HOME/bin`
+# (visible as `gem environment`'s GEM CONFIGURATION entry
+# `"gem" => "--user-install --bindir /home/runneradmin/bin"`), confirmed by
+# the actual "gem install" warning ("You don't have
+# /home/runneradmin/bin in your PATH") in a real run. Each workflow step
+# is its own bash invocation (started fresh via `bash -- script.sh`, not a
+# login/interactive shell), so nothing sources a profile that would
+# normally add this to PATH -- without it, e.g. `xezat prep` fails with
+# "xezat: command not found" even though `gem install xezat` just
+# succeeded. GITHUB_PATH takes a Windows-style path.
+gem_bindir="$(cygpath -w "$(ruby -e 'print File.join(Dir.home, "bin")')")"
+echo "gem_bindir=$gem_bindir"
+if [[ -n "${GITHUB_PATH:-}" ]]; then
+  echo "$gem_bindir" >> "$GITHUB_PATH"
+fi

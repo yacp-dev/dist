@@ -141,7 +141,7 @@ title="$package-$version"
 # by a real run: "open /tmp/tmp.XXXXXXXX: The system cannot find the path
 # specified", the Windows API's own wording for a path it can't parse at
 # all). cygpath -w is the same POSIX->Windows conversion
-# scripts/xezat_cache_info.sh already relies on for the same reason. Kept
+# scripts/xezat_install.sh already relies on for the same reason. Kept
 # conditional so this script still runs as-is on a non-Cygwin box (e.g.
 # testing locally on macOS/Linux per doc/spec.md 5's reproducibility goal).
 body_file_native="$body_file"

@@ -37,10 +37,6 @@ name: build-package
 # (scripts/xezat_install.sh) rather than a pinned RubyGems.org release, so
 # unreleased fixes are always picked up.
 #
-# The gem install is cached across runs -- see scripts/xezat_cache_info.sh for
-# why the cache key includes a hash of every installed Cygwin package's
-# version (and xezat's own HEAD commit) rather than being a fixed string.
-#
 # Build dependencies are determined in two passes, mirroring how Cygwin's
 # own official CI (cygwin/scallywag) does it: a fixed base toolchain is
 # always installed first, then scripts/cygport_depends.sh asks cygport
@@ -377,16 +373,6 @@ jobs:
           # install in this job.
           site: "http://mirrors.kernel.org/sourceware/cygwin/ https://dist.yacp.dev/"
           check-sig: false
-
-      - name: Compute xezat cache info
-        id: xezat-cache-info
-        run: bash -- scripts/xezat_cache_info.sh
-
-      - name: Cache xezat gem install
-        uses: actions/cache@v6
-        with:
-          path: ${{ steps.xezat-cache-info.outputs.gem_home }}
-          key: xezat-gem-${{ runner.os }}-${{ steps.xezat-cache-info.outputs.version_hash }}
 
       - name: Install xezat (latest from GitHub)
         run: bash -- scripts/xezat_install.sh
