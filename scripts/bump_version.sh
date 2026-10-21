@@ -123,6 +123,16 @@ new_basename="${pn}-${new_version}-1bl1"
 # are left alone: rewriting a version that appears in the patched code
 # itself is never what the recipe meant.
 #
+# A .cygport's PATCH_URI is left alone too: a literal version there names
+# the version a patch was written for, not the one being built -- a
+# Debian revision (.../debian/0.7.5-1/...), a Gentoo or Fedora file name
+# (files/<pn>-<ver>-fix.patch), a local patch file that isn't renamed.
+# Substituting it pointed the URL at something that doesn't exist
+# (confirmed by a real run: msolve 0.11.0 fetched .../debian/0.11.0-1/...,
+# a 404, where Debian only had 0.11.0-2). The old URL still fetches the
+# old patch, and the build's patch diagnosis then says whether it's
+# still needed.
+#
 # A .cygport also gets its PV-derived variable names renamed: cygport
 # derives a PKG_NAMES entry's variable names by turning its -+. into _, so
 # `lib${PN}_${PV}` in PKG_NAMES pairs with literal names like
@@ -170,7 +180,7 @@ for f in "${sibling_files[@]}"; do
       "s{^((?:---|\\+\\+\\+) (?:origsrc|src)/)([^/]*)}{my (\$p, \$d) = (\$1, \$2); \$p . (\$d =~ s/${version_re}/\$ENV{NEW}/gr)}e" "$f"
   else
     PN="$pn" OLD="$old_version" NEW="$new_version" perl -0pi -e "$pkg_var_rename" "$f"
-    OLD="$old_version" NEW="$new_version" perl -pi -e "s/${version_re}/\$ENV{NEW}/g" "$f"
+    OLD="$old_version" NEW="$new_version" perl -0pi -e "s{(^PATCH_URI\\+?=(?:\"[^\"]*\"|\\S*))|${version_re}}{defined \$1 ? \$1 : \$ENV{NEW}}gme" "$f"
     if [[ -n "$new_git_rev" ]]; then
       REV="$new_git_rev" perl -pi -e 's/^(GIT_REV="?)[0-9a-f]{40}/$1$ENV{REV}/' "$f"
     fi
