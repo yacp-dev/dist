@@ -35,8 +35,11 @@
 # cygport check failed -- which, being continue-on-error, nothing else
 # on a green run shows.
 #
+# audit_file/audit_warnings are Audit recipe's outputs; the report is
+# shown whenever there is one, opened when it has warnings.
+#
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> --issue-url <url-or-empty> [--artifact-id <id-or-empty>] [--check-diagnostic-file <path-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> --issue-url <url-or-empty> [--artifact-id <id-or-empty>] [--check-diagnostic-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
 
 set -euo pipefail
 
@@ -45,6 +48,8 @@ pr_url=""
 issue_url=""
 artifact_id=""
 check_diagnostic_file=""
+audit_file=""
+audit_warnings=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -53,6 +58,8 @@ while [[ $# -gt 0 ]]; do
     --issue-url) issue_url="$2"; shift 2 ;;
     --artifact-id) artifact_id="$2"; shift 2 ;;
     --check-diagnostic-file) check_diagnostic_file="$2"; shift 2 ;;
+    --audit-file) audit_file="$2"; shift 2 ;;
+    --audit-warnings) audit_warnings="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -83,6 +90,20 @@ done
     echo
     echo '```'
     cat "$check_diagnostic_file"
+    echo '```'
+    echo
+    echo "</details>"
+  fi
+  if [[ -n "$audit_file" && -s "$audit_file" ]]; then
+    echo
+    if [[ -n "$audit_warnings" ]]; then
+      echo "<details open><summary>Recipe audit: $audit_warnings warning(s)</summary>"
+    else
+      echo "<details><summary>Recipe audit: no warnings</summary>"
+    fi
+    echo
+    echo '```'
+    cat "$audit_file"
     echo '```'
     echo
     echo "</details>"

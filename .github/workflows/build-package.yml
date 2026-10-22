@@ -481,6 +481,19 @@ jobs:
       - name: Validate build via xezat
         run: bash -- scripts/xezat_validate.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
+      # xezat validate only checks that LICENSE is valid SPDX and that
+      # every BUILD_REQUIRES package is installed. This checks LICENSE
+      # against the source's own headers and license texts, and each
+      # BUILD_REQUIRES package for evidence the build used it (a DLL
+      # import, a file the compiler read, a mention in the logs) -- both
+      # go stale silently in a recipe carried from version to version.
+      # Warnings only, so continue-on-error too: the report goes to the
+      # run summary, the PR body just says there is one.
+      - name: Audit recipe
+        id: audit
+        continue-on-error: true
+        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+
       # Feeds Decide changelog message below. gcc-core is always
       # installed as part of the base toolchain (see Install Cygwin (base
       # toolchain) above), so this doesn't need its own package install.
@@ -718,12 +731,15 @@ jobs:
           # otherwise leaves no trace on a green run (see Diagnose check
           # failure); the diagnostic itself goes to the run summary rather
           # than here, to keep a possibly long log excerpt out of the PR.
+          # Likewise the audit line, unless Audit recipe warned.
           body: |
             Version `${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
 
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             ${{ steps.check.outcome == 'failure' && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
+
+            ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES -- see the run summary.', steps.audit.outputs.warnings) || '' }}
 
             <!-- dorgann-meta: {"artifact_id":"${{ steps.upload.outputs.artifact-id }}"} -->
 
@@ -842,4 +858,4 @@ jobs:
       # the one whose output survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --issue-url "${{ steps.file-issue.outputs.issue_url }}${{ steps.close-issue.outputs.issue_url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --issue-url "${{ steps.file-issue.outputs.issue_url }}${{ steps.close-issue.outputs.issue_url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}"
