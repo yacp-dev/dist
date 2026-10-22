@@ -27,22 +27,33 @@
 # multiple versions -- or, after a PKG_NAMES change, orphaned old
 # subpackage directories -- side by side.
 #
+# --exclude-debuginfo leaves every <PN>-debuginfo binary package out of
+# the release area -- both the ones in this artifact and any already on
+# gh-pages from earlier publishes. GitHub rejects any pushed file over
+# 100 MB, which a debuginfo tarball can exceed (mlpack-debuginfo 4.8.0:
+# 177 MB), and they take up most of the Pages site's 1 GB limit too.
+# Nothing depends on a -debuginfo package, so setup.ini stays consistent
+# without them.
+#
 # Output: prints the published binary package names (space-separated) to
 # stdout, and if GITHUB_OUTPUT is set, appends `published_packages=<list>`
 # there.
 #
 # Usage:
-#   layout_release_area.sh --artifact-dir artifact --gh-pages-dir gh-pages
+#   layout_release_area.sh --artifact-dir artifact --gh-pages-dir gh-pages \
+#     [--exclude-debuginfo]
 
 set -euo pipefail
 
 artifact_dir=""
 gh_pages_dir=""
+exclude_debuginfo=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --artifact-dir) artifact_dir="$2"; shift 2 ;;
     --gh-pages-dir) gh_pages_dir="$2"; shift 2 ;;
+    --exclude-debuginfo) exclude_debuginfo=true; shift ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -82,12 +93,21 @@ for src_pkg_dir in "$dist_dir"/*/; do
   # lua-libucl) -- preserve its own name as-is.
   for subpkg_dir in "$src_pkg_dir"*/; do
     subpkg_name="$(basename "$subpkg_dir")"
+    if [[ "$exclude_debuginfo" == true && "$subpkg_name" == *-debuginfo ]]; then
+      echo "Skipping $subpkg_name (--exclude-debuginfo)" >&2
+      continue
+    fi
     mkdir -p "$target_src_dir/$subpkg_name"
     cp "$subpkg_dir"*.hint "$subpkg_dir"*.tar.* "$target_src_dir/$subpkg_name/"
     published+=("$subpkg_name")
   done
 done
 shopt -u nullglob
+
+if [[ "$exclude_debuginfo" == true ]]; then
+  find "$release_dir" -mindepth 2 -maxdepth 2 -type d -name '*-debuginfo' \
+    -print -exec rm -rf {} + >&2
+fi
 
 if [[ ${#published[@]} -eq 0 ]]; then
   echo "No .hint files found under $dist_dir" >&2

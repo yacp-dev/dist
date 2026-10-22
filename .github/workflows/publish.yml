@@ -97,9 +97,12 @@ jobs:
       - name: Configure custom domain (CNAME)
         run: bash -- scripts/ensure_gh_pages_cname.sh --dir gh-pages --domain dist.yacp.dev
 
+      # --exclude-debuginfo: debuginfo tarballs can exceed GitHub's 100 MB
+      # per-file push limit (see layout_release_area.sh), so they're left
+      # out of dist for now.
       - name: Lay out release area
         id: layout
-        run: bash -- scripts/layout_release_area.sh --artifact-dir artifact --gh-pages-dir gh-pages
+        run: bash -- scripts/layout_release_area.sh --artifact-dir artifact --gh-pages-dir gh-pages --exclude-debuginfo
 
       - uses: actions/setup-python@v7
         with:
