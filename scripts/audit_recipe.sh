@@ -237,7 +237,15 @@ audit_license() {
     fi
   done < "$tmp/headers"
   for base in "${!text_ids[@]}"; do
-    [[ -n "${recipe_base[$base]:-}" ]] || warn "${text_ids[$base]} is a ${text_names[$base]} license text but LICENSE doesn't include it"
+    [[ -n "${recipe_base[$base]:-}" ]] && continue
+    # LGPL-3.0 is written as additional permissions on top of GPL-3.0, so
+    # LGPL-3.0 projects ship the GPL-3.0 text too (giza: COPYING next to
+    # COPYING.LESSER).
+    if [[ "$base" == gpl-3.0 && -n "${recipe_base[lgpl-3.0]:-}" ]]; then
+      say "${text_ids[$base]} is the GPL-3.0 text that LGPL-3.0 builds on -- fine"
+      continue
+    fi
+    warn "${text_ids[$base]} is a ${text_names[$base]} license text but LICENSE doesn't include it"
   done
 
   # Something LICENSE says that the source doesn't.
