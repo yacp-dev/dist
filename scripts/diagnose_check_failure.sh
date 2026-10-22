@@ -75,8 +75,17 @@ fi
 # shown: when a whole suite fails for one reason (libeconf 0.8.6: 73
 # tests, one loader error naming each test's own .exe), three copies of
 # it would crowd out nothing but themselves.
+#
+# For testlog.txt, which blocks failed is taken from meson's own verdict
+# in the check log ("58/320 suite - name  FAIL  ..."), passed in as the
+# test numbers: the block's "result:" line can't tell, since it says
+# "exit status 1" for a should_fail test meson counts as EXPECTEDFAIL
+# too (muon 0.7.0: badnum.meson filled a slot while 231 real failures
+# showed none). Without those numbers, "result:" is only looked for in
+# the block's header -- a test's stdout can have a "result:" line of its
+# own (muon 0.7.0's toolchain.meson, exit status 0).
 failure_blocks() {
-  local log="$1" sep bad_re
+  local log="$1" failed_nums="${2:-}" sep bad_re
   case "$log" in
     */testlog.txt)
       sep='^=+ [0-9]+/[0-9]+ =+$'
@@ -91,7 +100,8 @@ failure_blocks() {
       return
       ;;
   esac
-  awk -v sep="$sep" -v bad_re="$bad_re" -v max=3 -v cap=40 '
+  awk -v sep="$sep" -v bad_re="$bad_re" -v failed_nums="$failed_nums" -v max=3 -v cap=40 '
+    BEGIN { n = split(failed_nums, f, " "); for (i = 1; i <= n; i++) failed[f[i]] = 1 }
     function flush(  i, half) {
       if (!bad) return
       if (key in seen) { dup++; return }
@@ -106,7 +116,13 @@ failure_blocks() {
       }
       if (++shown >= max) { done = 1 }
     }
-    $0 ~ sep { flush(); if (done) exit; delete buf; key = ""; name = ""; lines = 0; bad = 0 }
+    $0 ~ sep {
+      flush(); if (done) exit; delete buf; key = ""; name = ""; lines = 0; bad = 0; body = 0
+      # meson "==== 58/320 ====": the test number
+      if (n) { num = $0; sub(/^=+ /, "", num); sub(/\/.*/, "", num); bad = (num in failed) }
+    }
+    # meson "---- stdout ----"/"---- stderr ----" end the header
+    /^-+ std(out|err) -+$/ { body = 1 }
     # meson "test:  suite:name", ctest "N/M Test: name"
     /^test:/ || /^[0-9]+\/[0-9]+ Test:/ {
       name = $NF; sub(/.*:/, "", name)
@@ -123,7 +139,7 @@ failure_blocks() {
         key = key line "\n"
       }
     }
-    $0 ~ bad_re && !/exit status (0|77)[[:space:]]*$/ { bad = 1 }
+    !n && !body && $0 ~ bad_re && !/exit status (0|77)[[:space:]]*$/ { bad = 1 }
     END {
       if (!done) flush()
       if (dup) printf "\n(%d more failing test(s) with the same output as one above)\n", dup
@@ -143,7 +159,7 @@ build_diagnostic() {
   # failing tests, since a suite where everything fails would otherwise
   # bury the totals under dozens of near-identical lines.
   grep -E '^(Ok|Fail|Expected Fail|Unexpected Pass|Skipped|Timeout): |tests passed|^# (TOTAL|PASS|FAIL|ERROR|XPASS):' "$checklog" | head -n 10
-  failing="$(grep -E '^ *[0-9]+/[0-9]+ .* (FAIL|TIMEOUT|ERROR) |\*\*\*(Failed|Exception|Timeout)|^(FAIL|ERROR): ' "$checklog")"
+  failing="$(grep -E '^ *[0-9]+/[0-9]+ .* (FAIL|TIMEOUT|ERROR|UNEXPECTEDPASS) |\*\*\*(Failed|Exception|Timeout)|^(FAIL|ERROR): ' "$checklog")"
   if [[ -n "$failing" ]]; then
     echo
     head -n 10 <<<"$failing"
@@ -153,8 +169,14 @@ build_diagnostic() {
 
   shopt -s nullglob globstar
   test_logs=("$workdir"/**/meson-logs/testlog.txt "$workdir"/**/Testing/Temporary/LastTest.log "$workdir"/**/test-suite.log)
+  # meson's verdict lines (" 58/320 suite - name  FAIL  0.45s ..."): the
+  # test numbers, for picking testlog.txt's blocks (see failure_blocks).
+  meson_failed="$(grep -E '^ *[0-9]+/[0-9]+ ' <<<"${failing:-}" | sed -E 's|^ *([0-9]+)/.*|\1|' | tr '\n' ' ')"
   for log in "${test_logs[@]}"; do
-    block="$(failure_blocks "$log")"
+    case "$log" in
+      */testlog.txt) block="$(failure_blocks "$log" "$meson_failed")" ;;
+      *) block="$(failure_blocks "$log")" ;;
+    esac
     [[ -n "$block" ]] || continue
     echo
     echo "--- failures in $log (first 3 distinct) ---"
