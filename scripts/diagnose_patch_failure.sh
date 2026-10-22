@@ -36,7 +36,7 @@
 #
 # Output: prints the diagnostic to stdout; if GITHUB_OUTPUT is set, also
 # writes it to a temp file and appends `diagnostic_file=<path>` there
-# (for report_build_failure.sh to embed in the Issue body) -- only when
+# (for write_job_summary.sh to show in the run summary) -- only when
 # there was something to diagnose, so a skipped/inapplicable run leaves
 # it as the empty string a skipped step's outputs already are.
 

@@ -1,6 +1,6 @@
 ---
 name: port-until-green
-description: Drive a yacp-dev/ports package update to a passing PR. Dispatches yacp-dev/dist's build-package workflow for the named package (creating the dorgann/<pkg>-<ver> branch, or rebuilding the one already there), and when the Windows/Cygwin build fails, investigates the log, fixes the recipe on that branch, commits, pushes and re-runs until it passes. Takes one argument: <pkg> (update to Repology's newest), <pkg>-<ver> (update to that version, or bump the release if it's the current one), or <pkg>-<ver>-<rel> (current release: build and deploy to dist; next release: gcc rebuild). Use this whenever the user names a ports/yacp package and wants it bumped, built, its PR made green, or its draft dorgann PR / build-failed Issue fixed — e.g. "/port-until-green knot", "ngtcp2 の PR 作って", "Catch2 のビルド直して" — even if they don't say "skill" or "workflow".
+description: Drive a yacp-dev/ports package update to a passing PR. Dispatches yacp-dev/dist's build-package workflow for the named package (creating the dorgann/<pkg>-<ver> branch, or rebuilding the one already there), and when the Windows/Cygwin build fails, investigates the log, fixes the recipe on that branch, commits, pushes and re-runs until it passes. Takes one argument: <pkg> (update to Repology's newest), <pkg>-<ver> (update to that version, or bump the release if it's the current one), or <pkg>-<ver>-<rel> (current release: build and deploy to dist; next release: gcc rebuild). Use this whenever the user names a ports/yacp package and wants it bumped, built, its PR made green, or its draft dorgann PR fixed — e.g. "/port-until-green knot", "ngtcp2 の PR 作って", "Catch2 のビルド直して" — even if they don't say "skill" or "workflow".
 argument-hint: <pkg> | <pkg>-<ver> | <pkg>-<ver>-<rel>
 ---
 
@@ -33,8 +33,10 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
   which it refuses: Repology is looked up here, in Step 1.
 - A `<pkg>-<ver>` dispatch bumps the recipe (or only its release). On
   success the workflow opens the PR on `dorgann/<pkg>-<ver>`; on failure
-  it pushes the same branch as a **draft** PR and files a `build-failed`
-  Issue in yacp-dev/dist — as long as the bump itself succeeded.
+  it pushes the same branch as a **draft** PR — as long as the bump
+  itself succeeded — and puts patch/macro diagnostics in the run summary.
+  No Issue is filed: the branch and draft PR are the record of a failed
+  version.
 - If `dorgann/<pkg>-<ver>` already exists, the dispatch automatically
   switches to branch-rebuild mode: it overlays the branch's changes onto
   master and rebuilds. So after pushing a fix, just dispatch the same
@@ -54,9 +56,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   either workflow
   (one API call every 90 s by default), prints `<conclusion> <run url>`,
   and exits 0 only on success.
-- `scripts/failure_summary.sh --run ID --package P --out DIR` — failed step
-  names, the open `build-failed` Issue body (where patch/macro diagnostics
-  land), and the full failed log saved to `DIR` for grepping.
+- `scripts/failure_summary.sh --run ID --out DIR` — failed step names,
+  the patch/macro diagnostics (when those diagnose steps ran), and the
+  full failed log saved to `DIR` for grepping.
 - `scripts/check_summary.sh --run ID` — whether `cygport check` passed,
   and its diagnostic if not (Step 2).
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
@@ -369,11 +371,11 @@ merged in ports, and a fix needs a new release. Report the failure
 ## Step 3: Investigate
 
 ```bash
-scripts/failure_summary.sh --run <id> --package <pkg> --out <scratchpad>/<pkg>
+scripts/failure_summary.sh --run <id> --out <scratchpad>/<pkg>
 ```
 
-Read the Issue body first: when `xezat prep` or `cygport compile` fails, the
-workflow's diagnose steps put a focused diagnostic there (patch dry-runs at
+Read the diagnostics first: when `xezat prep` or `cygport compile` fails, the
+workflow's diagnose steps produce a focused diagnostic (patch dry-runs at
 every `-p` level, undefined autoconf macros), which is usually more direct
 than the log. For a `PATCH_URI` failure it lists every patch as applies /
 already applied (upstream has it, droppable) / will not apply, replayed
@@ -533,8 +535,7 @@ Then back to Step 2, dispatching `<pkg>-<ver>` again.
   are refused: file an Issue in yacp-dev/dist labelled `update-blocked`
   whose body starts with `<!-- dorgann-meta: {"package":"<pkg>"} -->` and
   says what blocks it and how to unblock (yacp-dev/dist#91 is the
-  model). Then close the draft PR and the `build-failed` Issue, pointing
-  both at it.
+  model). Then close the draft PR, pointing it at the Issue.
 
 When stopping without success, report: the branch and draft PR URL, the
 last run URL, each attempt's error and what you tried, your best current

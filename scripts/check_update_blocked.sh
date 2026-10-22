@@ -3,13 +3,15 @@
 # (doc/spec.md 4.7) names the package -- e.g. libgovirt, whose every
 # release after 0.3.8 needs a librest no Cygwin package provides. Without
 # this, each dispatch would rediscover the same blocker the slow way: a
-# windows-latest build, a draft PR and a build-failed Issue, all for
-# something a human already decided isn't buildable yet.
+# windows-latest build and a draft PR, all for something a human already
+# decided isn't buildable yet.
 #
-# The Issue is matched the same way as build-failed ones (by the package
-# field in its dorgann-meta comment, via find_failure_issue.sh), so the
-# body only needs `<!-- dorgann-meta: {"package":"foo"} -->`; closing the
-# Issue is what unblocks the package.
+# The Issue is matched by the package field inside its `dorgann-meta`
+# HTML comment -- a literal JSON substring match, not a title search --
+# so the body only needs `<!-- dorgann-meta: {"package":"foo"} -->`;
+# closing the Issue is what unblocks the package. The needle goes to jq
+# via --arg rather than into the program string, so a package name can't
+# break out of the filter.
 #
 # Usage: check_update_blocked.sh --repo yacp-dev/dist --package foo
 # Output: if blocked, prints the Issue URL, appends `blocked=true` and
@@ -32,8 +34,10 @@ done
 [[ -n "$repo" ]] || { echo "--repo is required" >&2; exit 1; }
 [[ -n "$package" ]] || { echo "--package is required" >&2; exit 1; }
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-number="$(bash -- "$script_dir/find_failure_issue.sh" --repo "$repo" --package "$package" --label update-blocked)"
+needle="\"package\":\"$package\""
+number="$(gh issue list --repo "$repo" --label update-blocked --state open --limit 100 --json number,body |
+  jq -r --arg needle "$needle" '.[] | select(.body | contains($needle)) | .number' |
+  head -n1)"
 
 if [[ -z "$number" ]]; then
   echo "No open update-blocked Issue for $package -- proceeding" >&2

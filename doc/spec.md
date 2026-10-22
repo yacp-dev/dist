@@ -19,7 +19,7 @@ Without using external storage, a database, or any paid service, the whole syste
 - The scripts that implement update checking, building, and PR creation
 - The GitHub Actions workflow definitions (`.github/workflows/`) that invoke them
 
-`packages.yml` is **not** a state file — it is simply an array of monitored package names (details in 4.2.2). The "currently packaged version" is fetched from yacp itself, and the "record of build failures" is fetched from Issues, each time they're needed, so there's no need for `packages.yml` to duplicate that state.
+`packages.yml` is **not** a state file — it is simply an array of monitored package names (details in 4.2.2). The "currently packaged version" is fetched from yacp itself, and the "record of build failures" is the `dorgann/<pkg>-<ver>` branch and its draft PR in yacp (4.5), each looked up when needed, so there's no need for `packages.yml` to duplicate that state.
 
 ### 2.2 `gh-pages` branch
 
@@ -64,13 +64,13 @@ As noted above, this repository's operational pattern is "adding a new version a
 [daily cron]
   └─ check-updates job (one job, sequential)
        - Check versions via Repology etc. for every package in packages.yml
-       - Compare recorded failures (Issues) against the latest version to decide whether a retry is needed
+       - Compare recorded failures (draft PRs) against the latest version to decide whether a retry is needed
        - Output the JSON list of "packages that need a build this time"
   └─ build job (matrix, only starts if check-updates' output is non-empty)
        - Runs as an independent job per package, in parallel (fail-fast: false)
        - Updates the cygport file, builds, uploads artifacts
-       - On success: create a PR against yacp / close the corresponding Issue if any (reflecting the devel package to gh-pages is NOT automated — it's manual)
-       - On failure: file an Issue
+       - On success: create a PR against yacp, or mark the existing draft PR ready (reflecting the devel package to gh-pages is NOT automated — it's manual)
+       - On failure: push the bump as a draft PR
 ```
 
 ### 4.2 Daily update check (check-updates)
@@ -80,7 +80,7 @@ As noted above, this repository's operational pattern is "adding a new version a
   1. Fetch the **current version** from yacp itself (4.2.2).
   2. Fetch the **latest version** from Repology / the GitHub Releases API (4.2.1).
   3. If current == latest, **no update** (skip).
-  4. If current < latest, and there is already an open failure Issue (4.5) for that latest version, **skip** (already failed against the same version last time). Otherwise, **mark it for build**.
+  4. If current < latest, and a `dorgann/<pkg>-<latest>` branch with an open draft PR already exists (4.5), **skip** (already failed against the same version last time). Otherwise, **mark it for build**.
 - Output: a JSON array of package names to build. An empty array on days with no updates.
 
 #### 4.2.1 How to check upstream versions (finalized)
@@ -108,7 +108,7 @@ As noted above, this repository's operational pattern is "adding a new version a
 
 The "currently packaged version" is not stored in `packages.yml`; it's fetched each time from the corresponding package's cygport file in yacp itself (`yacp-dev/ports`), via the GitHub Contents API or a lightweight checkout, parsing variables such as `VERSION=`. Since `HOMEPAGE`/`SRC_URI` can be read at the same time, the GitHub auto-detection from 4.2.1 happens at this same point.
 
-This way, `packages.yml` only needs to be managed via PRs for adding/removing packages, and never needs to duplicate state like version info or Issue numbers (all state lives in yacp itself and in Issues).
+This way, `packages.yml` only needs to be managed via PRs for adding/removing packages, and never needs to duplicate state like version info or Issue numbers (all state lives in yacp itself, its dorgann branches/PRs, and `update-blocked` Issues).
 
 #### 4.2.3 Deliberately pausing version tracking (finalized)
 
@@ -161,7 +161,7 @@ autoconf only forbids its own macro prefixes (`^_?A[CHUMST]_`, `^_?m4_`, `^_?AS_
 
 How it works (`scripts/configure_cygport.sh`): it writes `$HOME/.cygport-autoconf/acsite.m4` containing `m4_pattern_forbid([^_?AX_[A-Z0-9_]+$])` and `m4_pattern_forbid([^_?PKG_[A-Z_]+$])` (the latter catches a missing pkgconf/`pkg.m4`, plus the same `m4_pattern_allow` for `PKG_CONFIG`, `PKG_CONFIG_PATH`, ... that `pkg.m4` itself has), and exports `AUTOCONF="autoconf -B $HOME/.cygport-autoconf"` from `~/.cygportrc`. autoconf reads `acsite.m4` from its include path, autoreconf runs `$AUTOCONF`, and cygport's `cygautoreconf` only exports `AUTOCONF` without overriding it. The upstream `configure.ac` is never touched. Macros a package bundles itself (e.g. `m4/ax_*.m4` via `AC_CONFIG_MACRO_DIRS`) and names inside `#`/`dnl` comments still pass.
 
-When it fires: `cygport compile` fails (cygautoreconf runs inside `src_compile`) with `autoreconf: running: autoconf -B ...` followed by `error: undefined or overquoted macro: AX_...` (autoconf 2.72+; 2.69 says `possibly undefined macro`). The `Diagnose undefined macro` step (`scripts/diagnose_undefined_macro.sh`) pulls just those error lines out of cygport's compile log into the build-failed Issue (4.5).
+When it fires: `cygport compile` fails (cygautoreconf runs inside `src_compile`) with `autoreconf: running: autoconf -B ...` followed by `error: undefined or overquoted macro: AX_...` (autoconf 2.72+; 2.69 says `possibly undefined macro`). The `Diagnose undefined macro` step (`scripts/diagnose_undefined_macro.sh`) pulls just those error lines out of cygport's compile log into the run summary (4.5).
 
 What to do: add the package providing the macro to that package's `.cygport` `BUILD_REQUIRES` by hand — `autoconf-archive` for `AX_*`, `pkgconf` for `PKG_*` — and re-run through branch-rebuild mode (4.6). dorgann never adds `BUILD_REQUIRES` on its own. If the flagged token is a false positive (a legitimate shell variable or the like that happens to match), add a patch to that package's `.src.patch` putting `m4_pattern_allow([^TOKEN$])` in its `configure.ac`. A false positive that comes from an autoconf-archive macro itself rather than from the package (e.g. `AX_PTHREAD_ZOS_MISSING`/`AX_PTHREAD_CC_IS_CLANG`, the `AC_EGREP_CPP` markers `ax_pthread.m4` leaves in `configure` on purpose, `_AX_CODE_COVERAGE_GCOV_PROG_WITH`, a shell variable `ax_code_coverage.m4` sets, or `AX_COMPILER_VENDOR`, which `ax_cflags_warn_all.m4` names in a warning message) would hit every package using that macro, so it goes into the `m4_pattern_allow` list in `acsite.m4` instead.
 
@@ -172,7 +172,7 @@ Limitations: a `.cygport` that sets `NO_AUTOCONF=1` (cygautoreconf then skips au
 - The updated cygport file, patches, and README are turned into a PR against yacp (using `peter-evans/create-pull-request`).
 - Build artifacts (dist) are uploaded as an Actions artifact, downloadable from the run page. **Retention stays at the repository's default (90 days)** and is not changed.
 - The **decision** of whether to publish something as a devel package on gh-pages (chapter 3) is not automated. If the decision is made to publish, the **actual work** happens via the manual `workflow_dispatch` workflow described in 4.4.2 (build artifacts are not mechanically funneled to gh-pages for everything).
-- If there's an open failure Issue for the same package, it is closed.
+- If the run was a branch rebuild of a draft PR (4.6), that PR is marked ready for review.
 
 Whether the PR is merged/rejected has nothing to do with whether the package gets published as a devel package on gh-pages (merging into yacp doesn't necessarily mean it should be published on gh-pages, and conversely a still-open PR might get its contents checked and published anyway). So the PR carries no gh-pages-publishing information. The 4.4.2 workflow is self-contained, looking only at `dorgann`'s own Actions artifacts.
 
@@ -224,24 +224,13 @@ on:
 
 ### 4.5 On failure (finalized)
 
-An Issue is filed, made up of two parts:
+**No Issue is filed.** The failed bump is pushed as a draft PR on `dorgann/<pkg>-<ver>` (4.6), and that branch/draft PR is the record that this version failed: a later dispatch of the same target rebuilds it, and the check-updates step (4.2) can tell an already-failed version from a new one by the branch name alone.
 
-**Label**: tagged `build-failed`, so the Issues screen can be filtered with `label:build-failed`.
+Until 2026-10-22 a `build-failed` Issue (package/version in a `dorgann-meta` comment, a link to the run, and the patch/macro diagnostics) was filed on every failure and closed on the next success. Once failures were being fixed by the port-until-green skill's retry loop, each Issue was open for minutes and only ever duplicated what the draft PR and the run already said, so it was dropped.
 
-**Structured metadata at the top of the body**: the package name and version are embedded in the body in structured form, not as free text in the title. In addition to a human-readable Markdown table, a JSON blob is also included as an HTML comment to make parsing more reliable (a Markdown table can be mis-parsed if formatting breaks or if a log line happens to contain `|`, so the HTML comment is treated as the source of truth for machine parsing).
+**Diagnostics go to the run summary**: the workflow's `Diagnose patch failure`/`Diagnose undefined macro` steps (4.3.1) write a focused diagnostic, which `write_job_summary.sh` shows at the top of the run page (each one capped in size; the full text stays in the diagnose step's own log). The draft PR's body links to the run.
 
-```markdown
-<!-- dorgann-meta: {"package":"foo","version":"1.2.3"} -->
-
-| Field   | Value |
-|---------|-------|
-| Package | foo   |
-| Version | 1.2.3 |
-```
-
-The check-updates step extracts `package`/`version` from the `dorgann-meta` HTML comment of any open `build-failed` Issue via a regex, and compares it against the latest version (see 4.2). If the design only checked "does an Issue exist" without recording the version, then once upstream published a new version the build would be skipped forever, so it's essential to compare the recorded version against the latest one.
-
-**Link to the Actions run**: rather than copying a log excerpt into the Issue body, the body just links to the run. Reasoning, settled after actually using this on a couple of real failures: a fixed `tail -n 200` is a poor fit either way — long enough to bloat the Issue in the common case, yet not guaranteed to actually contain the relevant error for a build that fails many steps and hundreds of lines into a verbose one (e.g. a `meson`/`cmake` configure log). The run itself keeps the complete, unclipped log for the repository's full retention period (90 days by default — the same window build artifacts live for, per 4.4), which is long enough to investigate and fix a failure in practice; an excerpt would only ever be a lossy, harder-to-search copy of what's already sitting one click away.
+**No log excerpt**: a fixed `tail -n 200` is a poor fit either way — long enough to bloat the summary in the common case, yet not guaranteed to actually contain the relevant error for a build that fails many steps and hundreds of lines into a verbose one (e.g. a `meson`/`cmake` configure log). The run itself keeps the complete, unclipped log for the repository's full retention period (90 days by default — the same window build artifacts live for, per 4.4), which is long enough to investigate and fix a failure in practice. The diagnostics above are the exception because they're self-contained (one patch's dry-runs, or autoconf's own error lines), not an arbitrary cut of the log.
 
 ### 4.6 Branch-rebuild mode: manual fixes beyond a version bump
 
@@ -254,7 +243,7 @@ The fix keeps all of that CI on dorgann's side, and only asks yacp to accept ord
 - **On failure, dorgann now also pushes a *draft* PR** to the same deterministic branch a successful run would use (`dorgann/<pkg>-<ver>`), containing whatever `Bump version` (or `Detect existing cygport`, see below) already produced — typically just the renamed, version-substituted `.cygport`, since the build itself didn't get far enough to touch the README/changelog. This is the concrete starting point a human pulls, edits by hand (`BUILD_REQUIRES`, `PKG_NAMES`, ...), and pushes straight back to that same branch.
 - **`build-package.yml` gained a `branch` input.** When given, `Checkout yacp` still checks out yacp-dev/ports's own default branch as usual (see below for why), and a new `Overlay branch content` step (`scripts/overlay_branch_package.sh`) applies every file the branch changed relative to its merge base with master (listed via GitHub's compare API) — `git rm`-ing removed files and a rename's old path, and checking everything else out from the branch, since `git checkout <treeish> -- <path>` only adds/updates files, never deletes ones the working tree already has but the source treeish doesn't (which matters here, since a version bump deletes the old-version `.cygport`/`.src.patch`). Going by the branch's own changes rather than the package directory name means a fix that renames the package directory itself (e.g. `JAGS/` → `jags/`) still lands its old directory's deletion in the PR. This shows up as a plain uncommitted diff against master, so `Bump version` is swapped for `Detect existing cygport` (`scripts/detect_cygport_file.sh`, read-only: finds the sole `.cygport` now in the directory and parses its version) exactly as before — the branch's `.cygport` is already at its target name, so there's nothing left to rename. Every later step reads through whichever of the two ran (their outputs are concatenated in each expression, e.g. `${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}` — exactly one is ever non-empty), so the rest of the pipeline doesn't need to know which path produced it.
 - A human re-triggers the rebuild manually with the same target: `gh workflow run build-package.yml -f target=<pkg>-<ver>`. If it now passes, the normal `Create Pull Request` step (not the draft one) updates the same branch/PR, and a following `gh pr ready` step explicitly marks it ready for review. Leaving `draft` unset on `Create Pull Request` (defaulting to `false`) does **not** un-draft an already-draft PR on its own, despite what the action's own docs implied — confirmed by a real branch-rebuild success where the title/body updated correctly but `isDraft` stayed `true` until `gh pr ready` was added.
-- The branch is never named in the inputs: a **Detect existing branch** step runs for every mode but `deploy`, and checks whether `dorgann/<package>-<version>` already exists in yacp (a plain `gh api repos/{owner}/{repo}/branches/{branch}` call, no local checkout needed for this check). If it does, this run automatically behaves as a branch-rebuild rather than attempting a fresh bump that would just fail on `bump_version.sh`'s own "already at this version" refusal -- so re-running with the exact same `-f target=<pkg>-<ver>` invocation is enough once a branch/draft PR/Issue already exists for that version. A release-only rebuild's branch is named after the unchanged version too, so a failed `<pkg>-<ver>` (or `<pkg>-<ver>-<rel>` gcc) rebuild is re-run the same way. (An explicit `branch` input existed until 2026-10-19, when `target` replaced the separate `package`/`version`/`branch`/`rebuild`/`validate_only` inputs.)
+- The branch is never named in the inputs: a **Detect existing branch** step runs for every mode but `deploy`, and checks whether `dorgann/<package>-<version>` already exists in yacp (a plain `gh api repos/{owner}/{repo}/branches/{branch}` call, no local checkout needed for this check). If it does, this run automatically behaves as a branch-rebuild rather than attempting a fresh bump that would just fail on `bump_version.sh`'s own "already at this version" refusal -- so re-running with the exact same `-f target=<pkg>-<ver>` invocation is enough once a branch/draft PR already exists for that version. A release-only rebuild's branch is named after the unchanged version too, so a failed `<pkg>-<ver>` (or `<pkg>-<ver>-<rel>` gcc) rebuild is re-run the same way. (An explicit `branch` input existed until 2026-10-19, when `target` replaced the separate `package`/`version`/`branch`/`rebuild`/`validate_only` inputs.)
 
 **Why `Checkout yacp` doesn't just check out `branch` directly** (the first design tried, and reverted after a real failure): `peter-evans/create-pull-request` determines its "working base" from whatever ref was actually checked out, and reconciles that against the `branch:`/`base:` inputs it's given by rebasing — replaying only the commits made *during that run* on top of `base`. A branch-rebuild run that ends up making no new commits (e.g. it fails again, the same way the original build did) has nothing to replay, so that reconciliation collapsed the entire target branch down to be byte-identical to `master` and then deleted it outright, treating it as a PR whose change was no longer needed (`Branch '...' no longer differs from base branch 'master'` / `Deleting branch '...'`, confirmed by a real run against libucl, which silently destroyed the human's already-pushed fix along with the branch). Overlaying just the one directory's content on top of a normal `master` checkout avoids this class of problem entirely, since the human's fix is now an ordinary uncommitted diff — precisely the shape this action already handles correctly.
 
@@ -262,15 +251,15 @@ Deliberately deferred for now (the second half of the two options this design wa
 
 ### 4.7 Blocking a package's updates
 
-Some updates can't be done by fixing the recipe: e.g. every libgovirt release after 0.3.8 needs `rest-1.0` (librest >= 0.9), which no Cygwin package provides (yacp-dev/dist#91). Without a record of that, every dispatch would rediscover it the slow way — a windows-latest build, a draft PR and a build-failed Issue — for something a human already decided isn't buildable yet.
+Some updates can't be done by fixing the recipe: e.g. every libgovirt release after 0.3.8 needs `rest-1.0` (librest >= 0.9), which no Cygwin package provides (yacp-dev/dist#91). Without a record of that, every dispatch would rediscover it the slow way — a windows-latest build and a draft PR — for something a human already decided isn't buildable yet.
 
-Such a decision is recorded as an open Issue labelled `update-blocked`, with the same `dorgann-meta` comment as a build-failed Issue (4.5) minus the version, plus the reason and what would unblock it in free text:
+Such a decision is recorded as an open Issue labelled `update-blocked`, with a `dorgann-meta` HTML comment naming the package (a Markdown table can be mis-parsed if formatting breaks, so the comment is the source of truth for machine parsing), plus the reason and what would unblock it in free text:
 
 ```markdown
 <!-- dorgann-meta: {"package":"foo"} -->
 ```
 
-`build-package.yml`'s first job, `gate` (ubuntu-latest), resolves the `target` input into a mode (`scripts/resolve_target.sh`, 4.3) and runs `scripts/check_update_blocked.sh`, which looks the package up with `find_failure_issue.sh --label update-blocked`. If an Issue matches, it writes the Issue link to the job summary and a `::notice::`, and `build` is skipped as a whole, so the run ends green without bumping anything, and no PR or build-failed Issue is created. Only version updates (`bump` mode, including a branch rebuild of one) are refused; `rebuild`/`gcc-rebuild`/`deploy` build the version already in yacp, which the blocker doesn't affect. Closing the Issue unblocks the package.
+`build-package.yml`'s first job, `gate` (ubuntu-latest), resolves the `target` input into a mode (`scripts/resolve_target.sh`, 4.3) and runs `scripts/check_update_blocked.sh`, which looks for an open `update-blocked` Issue whose `dorgann-meta` names the package. If an Issue matches, it writes the Issue link to the job summary and a `::notice::`, and `build` is skipped as a whole, so the run ends green without bumping anything, and no PR is created. Only version updates (`bump` mode, including a branch rebuild of one) are refused; `rebuild`/`gcc-rebuild`/`deploy` build the version already in yacp, which the blocker doesn't affect. Closing the Issue unblocks the package.
 
 ## 5. Implementation Policy (separating workflow YAML from scripts)
 
@@ -329,17 +318,11 @@ Replace the manual version with automatic determination via Repology / the GitHu
 
 Reusing the "process one package" logic built through Step 3, add a check-updates job (4.2) that scans all of `packages.yml`, and a build job that expands only the updated packages into a matrix (4.3), triggered automatically via `schedule: cron`.
 
-**Step 5: File an Issue on failure (done)**
+**Step 5: Record failures (done, then reduced)**
 
-Add Issue filing on build failure (label, metadata, run link — 4.5), and skip logic for the next loop (4.2).
+Originally: file a `build-failed` Issue on build failure (label, `dorgann-meta`, run link), update it in place on a repeat failure, and close it on the next success, with the Issue's recorded version to drive the skip logic of the next loop (4.2). Implemented as two steps in `build-package.yml` and `scripts/{report_build_failure,close_failure_issue,find_failure_issue}.sh`.
 
-Implemented as two new steps in `.github/workflows/build-package.yml` / `scripts/{report_build_failure,close_failure_issue,find_failure_issue}.sh`, out of numeric order like Step 6 — it has no dependency on Steps 3/4's daily-cron loop, only on there being a build job at all. **File failure Issue** is the job's last step, with its own `if: failure()` (so it runs regardless of which earlier step failed — bump, cygport build, xezat, Create Pull Request, ...); **Close failure Issue** has no `if:` of its own and so only runs on the success path, per GitHub Actions' implicit `if: success()` for steps that don't declare one.
-
-One design point not fully spelled out in 4.5 itself, resolved here: **avoiding duplicate Issues across repeat failures**. `find_failure_issue.sh` searches open `build-failed` Issues for one whose `dorgann-meta` comment already names the same package (a literal JSON substring match via `jq --arg`, not a title search — the title also carries the version and changes on every failure). `report_build_failure.sh` reuses this to edit the existing Issue in place (fresh version) rather than piling up a new one on every retry; `close_failure_issue.sh` reuses it the same way to find what to close.
-
-The original design also called for a log excerpt in the Issue body; dropped after actually using this against a couple of real failures, in favor of just the run link — see 4.5 for the reasoning.
-
-The `skip logic for the next loop (4.2)` — comparing an open Issue's recorded version against the latest before deciding whether to retry — has nothing to run it yet (that's check-updates, part of Step 3/4's daily-cron loop, not implemented), but the Issue side is already in the exact shape 4.2 expects to read back (`dorgann-meta`'s `version` field).
+Removed on 2026-10-22 (see 4.5): the draft PR on `dorgann/<pkg>-<ver>` (4.6) already records a failed version, the diagnostics moved to the run summary, and the 4.2 skip logic reads the branch instead of an Issue.
 
 **Step 6: Publish devel packages to gh-pages (done)**
 

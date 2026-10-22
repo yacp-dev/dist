@@ -6,8 +6,8 @@
 # src_compile, so this shows up as a `cygport compile` failure, often
 # buried under a verbose autoreconf log -- and the fix (adding
 # autoconf-archive/pkgconf to BUILD_REQUIRES) is mechanical enough that
-# having the macro names right in the build-failed Issue is what makes
-# it actionable without opening the run at all.
+# having the macro names right in the run summary is what makes it
+# actionable without digging through the log.
 #
 # Meant to run as an `if: failure()`-conditioned step right after cygport
 # compile, while that run's log ($logdir/<PF>-compile.log, which cygport
@@ -20,7 +20,7 @@
 #
 # Output: prints the diagnostic to stdout; if GITHUB_OUTPUT is set, also
 # writes it to a temp file and appends `diagnostic_file=<path>` there
-# (for report_build_failure.sh to embed in the Issue body) -- only when
+# (for write_job_summary.sh to show in the run summary) -- only when
 # there was something to diagnose, so a compile failure of any other
 # kind leaves it as the empty string a skipped step's outputs already are.
 

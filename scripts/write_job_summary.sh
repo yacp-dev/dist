@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Writes a short "what happened" summary (yacp PR link, build-failed
-# Issue link) to $GITHUB_STEP_SUMMARY, which GitHub renders as Markdown
+# Writes a short "what happened" summary (yacp PR link, diagnostics) to
+# $GITHUB_STEP_SUMMARY, which GitHub renders as Markdown
 # right at the top of the run page -- unlike a plain log line, which
 # stays buried until someone opens this specific job and finds the right
 # step.
@@ -18,11 +18,11 @@
 # invoked the same single-line `bash -- scripts/foo.sh` way as every
 # other script in this workflow.
 #
-# pr_url/issue_url are each meant to be the concatenation of the (at most
-# one non-empty) PR/Issue step outputs in build-package.yml -- whichever
-# mutually exclusive success/failure-path step actually ran is the one
-# whose output survives -- so an empty string here just means that kind
-# of link doesn't apply to this run, not an error.
+# pr_url is meant to be the concatenation of the (at most one non-empty)
+# Create Pull Request/Create draft Pull Request step outputs in
+# build-package.yml -- whichever mutually exclusive success/failure-path
+# step actually ran is the one whose output survives -- so an empty
+# string here just means there's no PR for this run, not an error.
 #
 # artifact_id is Upload dist artifact's own step output -- always passed
 # when set, but only worth printing a ready-to-run publish command for
@@ -30,6 +30,15 @@
 # path assumes a PR body carries this same command otherwise, e.g. Create
 # Pull Request's own body already includes it) -- otherwise this would
 # just be a redundant duplicate of what the PR body already says.
+#
+# patch_diagnostic_file/macro_diagnostic_file are Diagnose patch
+# failure's/Diagnose undefined macro's outputs, set only when xezat prep/
+# cygport compile failed and there was something to diagnose. Each is
+# capped at diagnostic_max_bytes: a .src.patch touching dozens of files
+# makes every dry-run attempt list all of them (libplctag-2.7.2's, 47
+# files, ran past 65536 characters), and a step summary over 1 MiB isn't
+# shown at all. Both diagnose scripts also print their full output to
+# their own step's log, which the truncation note points to.
 #
 # check_diagnostic_file is Diagnose check failure's output, set only when
 # cygport check failed -- which, being continue-on-error, nothing else
@@ -39,14 +48,15 @@
 # shown whenever there is one, opened when it has warnings.
 #
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> --issue-url <url-or-empty> [--artifact-id <id-or-empty>] [--check-diagnostic-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--patch-diagnostic-file <path-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
 
 set -euo pipefail
 
 package=""
 pr_url=""
-issue_url=""
 artifact_id=""
+patch_diagnostic_file=""
+macro_diagnostic_file=""
 check_diagnostic_file=""
 audit_file=""
 audit_warnings=""
@@ -55,8 +65,9 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --package) package="$2"; shift 2 ;;
     --pr-url) pr_url="$2"; shift 2 ;;
-    --issue-url) issue_url="$2"; shift 2 ;;
     --artifact-id) artifact_id="$2"; shift 2 ;;
+    --patch-diagnostic-file) patch_diagnostic_file="$2"; shift 2 ;;
+    --macro-diagnostic-file) macro_diagnostic_file="$2"; shift 2 ;;
     --check-diagnostic-file) check_diagnostic_file="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
@@ -67,14 +78,43 @@ done
 [[ -n "$package" ]] || { echo "--package is required" >&2; exit 1; }
 [[ -n "${GITHUB_STEP_SUMMARY:-}" ]] || { echo "GITHUB_STEP_SUMMARY must be set" >&2; exit 1; }
 
+diagnostic_max_bytes=200000
+
+# Prints $1, or if it's over diagnostic_max_bytes, its first that many
+# bytes minus the last (possibly cut mid-line, or mid-character) line,
+# followed by a note saying where the rest is.
+print_bounded() {
+  local file="$1" size
+  size="$(wc -c <"$file" | tr -d ' ')"
+  if (( size <= diagnostic_max_bytes )); then
+    cat "$file"
+  else
+    head -c "$diagnostic_max_bytes" "$file" | sed '$d'
+    printf '[... truncated: %s of %s bytes shown -- the full diagnostic is in the diagnose step'\''s own log]\n' \
+      "$diagnostic_max_bytes" "$size"
+  fi
+}
+
+# Prints a collapsible block of file $2 titled $1 when $2 is a non-empty
+# file; $3 is "open" to show it expanded.
+print_details() {
+  local title="$1" file="$2" open="${3:-}"
+  [[ -n "$file" && -s "$file" ]] || return 0
+  echo
+  echo "<details${open:+ open}><summary>$title</summary>"
+  echo
+  echo '```'
+  print_bounded "$file"
+  echo '```'
+  echo
+  echo "</details>"
+}
+
 {
   echo "### dorgann: $package"
   echo
   if [[ -n "$pr_url" ]]; then
     echo "- yacp PR: $pr_url"
-  fi
-  if [[ -n "$issue_url" ]]; then
-    echo "- build-failed Issue: $issue_url"
   fi
   if [[ -n "$artifact_id" && -z "$pr_url" ]]; then
     echo "- dist artifact: $artifact_id (no PR was created -- deploy mode)"
@@ -84,16 +124,9 @@ done
     echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo ${GITHUB_REPOSITORY:-yacp-dev/dist}"
     echo '```'
   fi
-  if [[ -n "$check_diagnostic_file" && -s "$check_diagnostic_file" ]]; then
-    echo
-    echo "<details><summary>cygport check failed (non-blocking)</summary>"
-    echo
-    echo '```'
-    cat "$check_diagnostic_file"
-    echo '```'
-    echo
-    echo "</details>"
-  fi
+  print_details "xezat prep failed: patch diagnostic" "$patch_diagnostic_file" open
+  print_details "cygport compile failed: undefined autoconf macros" "$macro_diagnostic_file" open
+  print_details "cygport check failed (non-blocking)" "$check_diagnostic_file"
   if [[ -n "$audit_file" && -s "$audit_file" ]]; then
     echo
     if [[ -n "$audit_warnings" ]]; then
