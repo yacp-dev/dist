@@ -370,6 +370,12 @@ jobs:
           site: "http://mirrors.kernel.org/sourceware/cygwin/ https://dist.yacp.dev/"
           check-sig: false
 
+      # shared-mime-info's postinstall can fail inside the install action
+      # without failing the step, leaving GIO/gdk-pixbuf unable to sniff
+      # any file type. See the script for the failure it fixes.
+      - name: Refresh MIME database
+        run: bash -- scripts/refresh_mime_database.sh
+
       - name: Install xezat (latest from GitHub)
         run: bash -- scripts/xezat_install.sh
 
