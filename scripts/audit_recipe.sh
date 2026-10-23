@@ -17,9 +17,11 @@
 # those into $D/usr/src/debug/$PF for the debuginfo package). Files of a
 # backend the build leaves out don't count (ggml's Apache-2.0 SYCL and
 # OpenVINO sources, gperftools' 0BSD vendor/aw-backtrace). The texts at
-# the top of $S are the project's own and always count; one further down
-# (vendor/libbacktrace/LICENSE) counts when a compiled source sits below
-# it, and a REUSE text when a shipped header names it. With no binaries
+# the top of $S are the project's own and always count, except for a
+# section that names its own files on a "Files:" line (draco's MIT one
+# for a docs script): that counts when one of those files ships. A text
+# further down (vendor/libbacktrace/LICENSE) counts when a compiled
+# source sits below it, and a REUSE text when a shipped header names it. With no binaries
 # in $D, $D is all that ships; with binaries but no $D/usr/src/debug --
 # no debuginfo -- what was compiled is unknown, and all of $S counts.
 #
@@ -173,6 +175,73 @@ identify_license_text() {
   return 0
 }
 
+# A top-level license text made of sections, each saying which files it
+# covers with a "Files:" line (Debian copyright style), as draco's
+# LICENSE does: Apache-2.0 for the project, then MIT for
+# docs/assets/js/ASCIIMathML.js and the Unlicense for
+# docs/assets/css/pygments/*. A section counts when one of its files
+# ships -- compiled, or installed into $D under the same name -- and,
+# like the rest, when what ships is unknown. The text before the first
+# "Files:" line is the project's own and always counts. Sections are
+# split at "Files:" lines and at lines of ---------- or ==========.
+# Called from audit_license, whose locals it fills in.
+audit_license_sections() {
+  local f="$1" rel="$2" sec scope ids id pat m hit
+  rm -rf "$tmp/sections"
+  mkdir "$tmp/sections"
+  awk -v dir="$tmp/sections" '
+    BEGIN { n = 0 }
+    function next_section() { n++; content = 0 }
+    /^(----------|==========)/ { next_section(); files = 0; next }
+    /^Files:[[:space:]]/ {
+      if (content) next_section()
+      sub(/^Files:[[:space:]]*/, "")
+      print > (dir "/" n ".files"); files = 1; next
+    }
+    files && /^[[:space:]]+[^[:space:]]/ { print > (dir "/" n ".files"); next }
+    { files = 0; print > (dir "/" n); if ($0 ~ /[^[:space:]]/) content = 1 }
+  ' "$f"
+
+  for sec in $(find "$tmp/sections" -type f ! -name '*.files' -print | sed 's#.*/##' | sort -n); do
+    sec="$tmp/sections/$sec"
+    ids="$(identify_license_text "$sec" | sort -u | tr '\n' ' ')"
+    ids="${ids% }"
+    [[ -n "$ids" ]] || continue
+    if [[ -f "$sec.files" ]]; then
+      scope="$(tr -s '[:space:]' ' ' < "$sec.files")"
+      scope="${scope# }"
+      scope="${scope% }"
+      if [[ -n "$shipped_known" ]]; then
+        hit=""
+        for pat in $scope; do
+          while IFS= read -r m; do
+            if grep -qxF "$m" "$tmp/compiled" || grep -qxF "${m##*/}" "$tmp/installed_names"; then
+              hit="$m"
+              break 2
+            fi
+          done < <(cd "$S" && compgen -G "$pat" | while IFS= read -r m; do
+                     if [[ -d "$m" ]]; then find "$m" -type f; else printf '%s\n' "$m"; fi
+                   done)
+        done
+        if [[ -z "$hit" ]]; then
+          say "License text $rel (Files: $scope): $ids -- none of these files ships, LICENSE needn't include it"
+          continue
+        fi
+        say "License text $rel (Files: $scope): $ids (shipped: e.g. $hit)"
+      else
+        say "License text $rel (Files: $scope): $ids"
+      fi
+    else
+      say "License text $rel: $ids"
+    fi
+    for id in $ids; do
+      text_ids["$(license_base "$id")"]="$rel"
+      text_names["$(license_base "$id")"]="$id"
+      found_base["$(license_base "$id")"]=1
+    done
+  done
+}
+
 audit_license() {
   say "== LICENSE =="
   if [[ -z "$LICENSE" ]]; then
@@ -264,12 +333,21 @@ audit_license() {
   local reuse=("$S"/LICENSES/*.txt)
   shopt -u nullglob
 
+  # Basenames of what $D installs, to tell whether a file a license text
+  # section names (below) ships without being compiled: a header, a doc.
+  find "$D" \( -path "$D/usr/lib/debug" -o -path "$D/usr/src/debug" \) -prune -o -type f -print 2>/dev/null \
+    | sed 's#.*/##' | sort -u > "$tmp/installed_names"
+
   declare -A seen_text=() text_ids=() text_names=()
   local ids rel
   for f in "${texts[@]}"; do
     rel="${f#"$S"/}"
     [[ -n "${seen_text[$rel]:-}" ]] && continue
     seen_text["$rel"]=1
+    if grep -qE '^Files:[[:space:]]' "$f"; then
+      audit_license_sections "$f" "$rel"
+      continue
+    fi
     ids="$(identify_license_text "$f" | sort -u | tr '\n' ' ')"
     ids="${ids% }"
     say "License text $rel: ${ids:-(not recognized)}"
