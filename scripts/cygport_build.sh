@@ -37,9 +37,4 @@ done
 cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
-# stdin from /dev/null: on the runner it's a pipe that never closes, and
-# gmt 6.7.0's cmake configure blocked on it for hours, in one of its
-# execute_process version queries (ogr2ogr/gdal_translate/gm/ffmpeg/gs),
-# while the same configure with </dev/null took 0.2 s. Nothing in a CI
-# build should read from the terminal.
-cygport "$cygport_file" "$step" </dev/null
+cygport "$cygport_file" "$step"
