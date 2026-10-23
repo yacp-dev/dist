@@ -84,10 +84,27 @@ build_requires="$(get_var BUILD_REQUIRES)"
 depend="$(get_var DEPEND)"
 inherited="$(get_var INHERITED)"
 cross_host="$(get_var CROSS_HOST)"
+requires="$(get_var REQUIRES)"
+pn="$(get_var PN)"
+pkg_names="$(get_var PKG_NAMES)"
 
 declare -A extra=()
 for pkg in $build_requires $depend; do
   extra["$pkg"]=1
+done
+
+# Runtime REQUIRES aren't needed to build, but have to be installed all the
+# same: `xezat bump` looks each one up in /etc/setup/installed.db to write
+# the README's runtime requirements, and crashes ("comparison of String with
+# nil failed") on one that isn't there -- seen with fetch-crl's
+# REQUIRES="perl-libwww-perl". Being installed also lets `cygport dep` find
+# the dependencies it would otherwise miss on a clean runner (it only maps
+# e.g. `use LWP` to a package when LWP.pm is present). A package this same
+# recipe builds can't be installed from anywhere, so it's left out.
+for pkg in $requires; do
+  if [[ " $pn $pkg_names " != *" $pkg "* ]]; then
+    extra["$pkg"]=1
+  fi
 done
 
 # Cygclasses that imply extra build-time packages, mirrored from
