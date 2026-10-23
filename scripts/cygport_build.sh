@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Runs a single step of the cygport build pipeline (compile, check,
-# install, list, package, postinst, or clean). download/prep are done
+# install, list, package, or clean). download/prep are done
 # beforehand by `xezat prep` (see
 # xezat_prep.sh), which also copies the package's README into the build
 # tree -- running them again here would re-apply patches that are already

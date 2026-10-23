@@ -527,19 +527,19 @@ jobs:
       # `install` runs `src_install && __src_postinst`), which is what
       # embeds $C/README into $D as /usr/share/doc/Cygwin/$PN.README --
       # but at that point $C/README was still the pre-bump copy xezat
-      # prep put there. Now that xezat bump has rewritten it, postinst
-      # needs to run again on its own (cygport also exposes it as a
-      # standalone step for exactly this) to re-embed the updated README
-      # into $D, and package needs to run again too so the actual dist
-      # archive picks up that change -- otherwise the shipped package
-      # would carry the stale changelog forever.
+      # prep put there. Now that xezat bump has rewritten it, it has to be
+      # re-embedded, and package needs to run again too so the actual
+      # dist archive picks up that change -- otherwise the shipped package
+      # would carry the stale changelog forever. Not by re-running
+      # `cygport postinst`: its doc install isn't idempotent (a second
+      # pass adds README.md next to README) -- see embed_readme.sh.
       # Both skipped for deploy along with Update README via xezat
       # above -- there's no updated README to re-embed, so the package
       # step above (before it, using whatever README was already
       # committed) is already the real dist artifact.
-      - name: cygport postinst
+      - name: Embed updated README
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step postinst
+        run: bash -- scripts/embed_readme.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       - name: cygport package (with updated README)
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
