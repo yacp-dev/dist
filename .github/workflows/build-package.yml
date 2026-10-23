@@ -479,7 +479,8 @@ jobs:
 
       # xezat validate only checks that LICENSE is valid SPDX and that
       # every BUILD_REQUIRES package is installed. This checks LICENSE
-      # against the source's own headers and license texts, and each
+      # against the headers and license texts of what the packages ship
+      # (installed files and the sources compiled into them), and each
       # BUILD_REQUIRES package for evidence the build used it (a DLL
       # import, a file the compiler read, a mention in the logs) -- both
       # go stale silently in a recipe carried from version to version.

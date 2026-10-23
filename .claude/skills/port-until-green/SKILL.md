@@ -303,10 +303,24 @@ one next to it. On a branch you create yourself (a manual bump, a git
 snapshot), add it before the first dispatch. Not for `deploy`, which
 doesn't touch the recipe.
 
+`LICENSE` covers what the binary packages ship, and only that: the
+files they install, and the sources compiled into their binaries. Code
+the build leaves out -- a backend it doesn't enable, a vendored
+library it doesn't compile, tests, examples, the build system's own
+scripts -- doesn't count, whatever its license (gperftools 2.19.1:
+`BSD-3-Clause`, though `vendor/aw-backtrace` carries 0BSD and GPL
+headers, since it isn't built on Cygwin). Which sources were compiled
+is what the debuginfo package's `usr/src/debug/<PF>/` lists (`tar tJf`
+its tarball from the run's dist artifact), or, before a green run, what
+the build files compile for the options the recipe passes. A vendored
+library's own license text (`vendor/<lib>/LICENSE`) counts when its
+sources are among them.
+
 Work out the license from, in this order of trust:
 
-1. The `SPDX-License-Identifier:` headers across the source
-   (`grep -rhoE 'SPDX-License-Identifier: [A-Za-z0-9.+-]+' . | sort | uniq -c`).
+1. The `SPDX-License-Identifier:` headers across the shipped files
+   (`grep -rhoE 'SPDX-License-Identifier: [A-Za-z0-9.+-]+' . | sort | uniq -c`
+   over the whole tree, then drop what only unshipped files carry).
 2. A License section in the README, which often says which part is
    under which license (libqmi: library LGPL-2.1-or-later, tools
    GPL-2.0-or-later).
@@ -346,7 +360,10 @@ don't guess. Leave it out and tell the user what you found.
 Commit as `<pkg>-<ver> (add LICENSE)` and re-run the same target.
 Afterwards, check that `Validate build via xezat` no longer logs
 `LICENSE`/`LICENSE_URI` warnings or errors
-(`gh run view <id> -R yacp-dev/dist --log | grep -i 'licen'`).
+(`gh run view <id> -R yacp-dev/dist --log | grep -i 'licen'`), and
+that `Audit recipe`'s `== LICENSE ==` section has no `WARNING:` lines;
+it applies the same shipped-files rule, and says which licenses it left
+out as unshipped.
 
 ### Deploying
 

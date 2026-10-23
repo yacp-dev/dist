@@ -8,16 +8,20 @@
 # upstream has relicensed or dropped a dependency.
 #
 # LICENSE is compared against the SPDX-License-Identifier headers across
-# $S, REUSE's LICENSES/*.txt, and the license texts at the top of $S (and
+# $S, REUSE's LICENSES/*.txt, and the license texts in $S (and
 # LICENSE_URI), told apart by their own wording. A license text can't say
 # -only from -or-later, so those are only compared against the headers.
-# LICENSE describes what the binary packages ship, so a header license
-# missing from LICENSE is only warned about when a shipped file carries
-# it: one installed into $D, or a source file the build compiled (cygport
-# copies those into $D/usr/src/debug/$PF for the debuginfo package).
-# Files of a backend the build leaves out don't count (ggml's
-# Apache-2.0 SYCL and OpenVINO sources). Without $D/usr/src/debug -- no
-# debuginfo -- what was compiled is unknown, and all of $S counts.
+# LICENSE describes what the binary packages ship, and only that: a
+# license counts, both ways, when a shipped file carries it -- one
+# installed into $D, or a source file the build compiled (cygport copies
+# those into $D/usr/src/debug/$PF for the debuginfo package). Files of a
+# backend the build leaves out don't count (ggml's Apache-2.0 SYCL and
+# OpenVINO sources, gperftools' 0BSD vendor/aw-backtrace). The texts at
+# the top of $S are the project's own and always count; one further down
+# (vendor/libbacktrace/LICENSE) counts when a compiled source sits below
+# it, and a REUSE text when a shipped header names it. With no binaries
+# in $D, $D is all that ships; with binaries but no $D/usr/src/debug --
+# no debuginfo -- what was compiled is unknown, and all of $S counts.
 #
 # For BUILD_REQUIRES, each package's installed file list
 # (/etc/setup/<pkg>.lst.gz) is matched against evidence of use, strongest
@@ -125,7 +129,9 @@ license_base() {
 # a text it doesn't know.
 identify_license_text() {
   local text
-  text="$(tr -s '[:space:]' ' ' < "$1")"
+  # Without line-leading comment marks: libbacktrace's LICENSE is "# "-
+  # prefixed, which would split "used to # endorse" below.
+  text="$(sed -E 's@^[[:space:]]*(#+|//+|\*+|;+|--)[[:space:]]?@@' "$1" | tr -s '[:space:]' ' ')"
   local gnu name ver
   for gnu in "GNU GENERAL PUBLIC LICENSE:GPL" "GNU LESSER GENERAL PUBLIC LICENSE:LGPL" \
              "GNU LIBRARY GENERAL PUBLIC LICENSE:LGPL" "GNU AFFERO GENERAL PUBLIC LICENSE:AGPL"; do
@@ -142,13 +148,20 @@ identify_license_text() {
   if [[ "$text" == *"Redistribution and use in source and binary forms"* ]]; then
     if [[ "$text" == *"advertising materials"* ]]; then
       echo "BSD-4-Clause"
-    elif [[ "$text" == *"Neither the name"* || "$text" == *"may be used to endorse or promote"* ]]; then
+    elif [[ "$text" == *"Neither the name"* || "$text" == *"used to endorse or promote"* ]]; then
       echo "BSD-3-Clause"
     else
       echo "BSD-2-Clause"
     fi
   fi
-  [[ "$text" == *"Permission to use, copy, modify, and"*"distribute this software for any purpose with or without fee is hereby granted"* ]] && echo "ISC"
+  # 0BSD is ISC without the condition to keep the notice.
+  if [[ "$text" == *"Permission to use, copy, modify, and"*"distribute this software for any purpose with or without fee is hereby granted"* ]]; then
+    if [[ "$text" == *"provided that the above copyright notice"* ]]; then
+      echo "ISC"
+    else
+      echo "0BSD"
+    fi
+  fi
   [[ "$text" == *"provided 'as-is', without any express or implied warranty"*"Altered source versions must be plainly marked"* ]] && echo "Zlib"
   [[ "$text" == *"Boost Software License - Version 1.0"* ]] && echo "BSL-1.0"
   [[ "$text" == *"This is free and unencumbered software released into the public domain"* ]] && echo "Unlicense"
@@ -183,11 +196,22 @@ audit_license() {
     | spdx_ids | sort -u > "$tmp/header_files"
   cut -f2 "$tmp/header_files" | sort | uniq -c | sort -rn > "$tmp/headers"
 
-  # The same for the files the packages ship (see the top of this file).
+  # The same for the files the packages ship (see the top of this file),
+  # and the compiled sources among them, as paths relative to $S.
   declare -A shipped=()
   local shipped_known=""
+  : > "$tmp/compiled"
   if [[ -d "$D/usr/src/debug" ]]; then
     shipped_known=1
+    find "$D/usr/src/debug" -mindepth 2 -type f 2>/dev/null | while IFS= read -r f; do
+      f="${f#"$D"/usr/src/debug/*/}"
+      [[ -f "$S/$f" ]] && printf '%s\n' "$f"
+    done | sort -u > "$tmp/compiled"
+  elif [[ -z "$(find "$D" -path "$D/usr/lib/debug" -prune -o -type f \
+         \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' -o -iname '*.a' \) -print 2>/dev/null | head -1)" ]]; then
+    shipped_known=1
+  fi
+  if [[ -n "$shipped_known" ]]; then
     while read -r count id; do
       shipped["$id"]="$count"
     done < <(find "$D" -path "$D/usr/lib/debug" -prune -o -type f -print0 2>/dev/null \
@@ -197,13 +221,30 @@ audit_license() {
       | spdx_ids | sort -u | cut -f2 | sort | uniq -c)
   fi
 
-  declare -A found_base=()
+  # A license only a shipped file outside $S carries (a generated
+  # header installed into $D) is checked like the rest.
+  for id in "${!shipped[@]}"; do
+    cut -f2 "$tmp/header_files" | grep -qxF "$id" || printf '%s %s\n' "${shipped[$id]}" "$id" >> "$tmp/headers"
+  done
+
+  # What the packages are found to carry: the shipped headers' licenses
+  # and the license texts that count. LICENSE is checked against these
+  # both ways. Without shipped_known, every header in $S counts.
+  declare -A found_base=() shipped_base=()
   local count
+  for id in "${!shipped[@]}"; do
+    shipped_base["$(license_base "$id")"]=1
+  done
   if [[ -s "$tmp/headers" ]]; then
     say "SPDX-License-Identifier headers in the source:"
     while read -r count id; do
-      say "  $id: $count file(s)"
-      found_base["$(license_base "$id")"]=1
+      if [[ -n "$shipped_known" ]]; then
+        say "  $id: $count file(s), ${shipped[$id]:-none} of them shipped"
+        [[ -n "${shipped[$id]:-}" ]] && found_base["$(license_base "$id")"]=1
+      else
+        say "  $id: $count file(s)"
+        found_base["$(license_base "$id")"]=1
+      fi
     done < "$tmp/headers"
   else
     say "No SPDX-License-Identifier headers in the source"
@@ -238,8 +279,48 @@ audit_license() {
       found_base["$(license_base "$id")"]=1
     done
   done
+
+  # License texts further down, usually of vendored code: they count
+  # when a compiled source sits below them. Unrecognized ones are left
+  # out -- at that depth, LICENSE* also matches source files.
+  local dir covered
+  while IFS= read -r -d '' f; do
+    rel="${f#"$S"/}"
+    [[ -n "${seen_text[$rel]:-}" ]] && continue
+    seen_text["$rel"]=1
+    ids="$(identify_license_text "$f" | sort -u | tr '\n' ' ')"
+    ids="${ids% }"
+    [[ -n "$ids" ]] || continue
+    dir="${rel%/*}"
+    if [[ ! -s "$tmp/compiled" ]]; then
+      say "License text $rel: $ids (not checked: which of the source the packages carry is unknown)"
+      continue
+    fi
+    covered="$(awk -v d="$dir/" 'index($0, d) == 1 { print; exit }' "$tmp/compiled")"
+    if [[ -z "$covered" ]]; then
+      say "License text $rel: $ids -- nothing below $dir/ is compiled into the packages, LICENSE needn't include it"
+      continue
+    fi
+    say "License text $rel: $ids (compiled into the packages: e.g. $covered)"
+    for id in $ids; do
+      text_ids["$(license_base "$id")"]="$rel"
+      text_names["$(license_base "$id")"]="$id"
+      found_base["$(license_base "$id")"]=1
+    done
+  done < <(find "$S" -mindepth 2 \( -name .git -o -name CYGWIN-PATCHES -o -path "$S/LICENSES" \) -prune -o -type f \
+             \( -iname 'COPYING*' -o -iname 'LICENSE*' -o -iname 'LICENCE*' -o -iname 'COPYRIGHT*' -o -iname 'UNLICENSE*' \) \
+             -print0 2>/dev/null | sort -z)
+
   for f in "${reuse[@]}"; do
     id="$(basename "$f" .txt)"
+    if [[ -n "$shipped_known" && -z "${shipped_base[$(license_base "$id")]:-}" ]]; then
+      if [[ -n "${recipe_base[$(license_base "$id")]:-}" ]]; then
+        say "License text ${f#"$S"/} (no shipped file's header names it)"
+      else
+        say "License text ${f#"$S"/} -- no shipped file's header names it, LICENSE needn't include it"
+      fi
+      continue
+    fi
     say "License text ${f#"$S"/}"
     text_ids["$(license_base "$id")"]="${f#"$S"/}"
     text_names["$(license_base "$id")"]="$id"
@@ -282,9 +363,11 @@ audit_license() {
     say "Couldn't tell any license from the source -- check LICENSE by hand"
     return
   fi
+  local where="in the source"
+  [[ -n "$shipped_known" ]] && where="of what the packages ship"
   for r in "${recipe[@]}"; do
     [[ -n "${found_base[$(license_base "$r")]:-}" ]] \
-      || warn "LICENSE has $r but no header or license text in the source says so"
+      || warn "LICENSE has $r but no header or license text $where says so"
   done
 }
 
