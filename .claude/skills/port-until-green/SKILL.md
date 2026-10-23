@@ -34,7 +34,7 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
 - A `<pkg>-<ver>` dispatch bumps the recipe (or only its release). On
   success the workflow opens the PR on `dorgann/<pkg>-<ver>`; on failure
   it pushes the same branch as a **draft** PR — as long as the bump
-  itself succeeded — and puts patch/macro diagnostics in the run summary.
+  itself succeeded — and puts undefined-macro diagnostics in the run summary.
   No Issue is filed: the branch and draft PR are the record of a failed
   version.
 - If `dorgann/<pkg>-<ver>` already exists, the dispatch automatically
@@ -57,7 +57,7 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   (one API call every 90 s by default), prints `<conclusion> <run url>`,
   and exits 0 only on success.
 - `scripts/failure_summary.sh --run ID --out DIR` — failed step names,
-  the patch/macro diagnostics (when those diagnose steps ran), and the
+  the undefined-macro diagnostic (when that diagnose step ran), and the
   full failed log saved to `DIR` for grepping.
 - `scripts/check_summary.sh --run ID` — whether `cygport check` passed,
   and its diagnostic if not (Step 2).
@@ -391,15 +391,11 @@ merged in ports, and a fix needs a new release. Report the failure
 scripts/failure_summary.sh --run <id> --out <scratchpad>/<pkg>
 ```
 
-Read the diagnostics first: when `xezat prep` or `cygport compile` fails, the
-workflow's diagnose steps produce a focused diagnostic (patch dry-runs at
-every `-p` level, undefined autoconf macros), which is usually more direct
-than the log. For a `PATCH_URI` failure it lists every patch as applies /
-already applied (upstream has it, droppable) / will not apply, replayed
-against a fresh unpack — use that as your starting point for the
-still-needed check in Step 4. (Runs from before 2026-10-18 only diagnosed
-the `.src.patch`; there, the log's `*** ERROR: patch <name> will not
-apply` line is the cause.) Then grep the saved log around the failed step (`error:`,
+Read the diagnostic first: when `cygport compile` fails on undefined
+autoconf macros, the workflow lists them, which is more direct than the
+log. A patch that doesn't apply shows up in the `xezat prep` log as
+`*** ERROR: patch <name> will not apply`; find which hunks fail by
+applying it to the new source yourself in Step 4. Then grep the saved log around the failed step (`error:`,
 `Error`, `undefined reference`, `not found`, `FAILED`, `Hunk`, `*** `), and
 read enough context to be sure of the cause — the first error, not the
 last; later ones are often fallout. Errors that were retried and recovered

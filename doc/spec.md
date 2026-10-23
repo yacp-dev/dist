@@ -228,7 +228,7 @@ on:
 
 Until 2026-10-22 a `build-failed` Issue (package/version in a `dorgann-meta` comment, a link to the run, and the patch/macro diagnostics) was filed on every failure and closed on the next success. Once failures were being fixed by the port-until-green skill's retry loop, each Issue was open for minutes and only ever duplicated what the draft PR and the run already said, so it was dropped.
 
-**Diagnostics go to the run summary**: the workflow's `Diagnose patch failure`/`Diagnose undefined macro` steps (4.3.1) write a focused diagnostic, which `write_job_summary.sh` shows at the top of the run page (each one capped in size; the full text stays in the diagnose step's own log). The draft PR's body links to the run.
+**Diagnostics go to the run summary**: the workflow's `Diagnose undefined macro` step (4.3.1) writes a focused diagnostic, which `write_job_summary.sh` shows at the top of the run page (capped in size; the full text stays in the diagnose step's own log). The draft PR's body links to the run.
 
 **No log excerpt**: a fixed `tail -n 200` is a poor fit either way — long enough to bloat the summary in the common case, yet not guaranteed to actually contain the relevant error for a build that fails many steps and hundreds of lines into a verbose one (e.g. a `meson`/`cmake` configure log). The run itself keeps the complete, unclipped log for the repository's full retention period (90 days by default — the same window build artifacts live for, per 4.4), which is long enough to investigate and fix a failure in practice. The diagnostics above are the exception because they're self-contained (one patch's dry-runs, or autoconf's own error lines), not an arbitrary cut of the log.
 

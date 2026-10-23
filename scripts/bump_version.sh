@@ -130,8 +130,7 @@ new_basename="${pn}-${new_version}-1bl1"
 # Substituting it pointed the URL at something that doesn't exist
 # (confirmed by a real run: msolve 0.11.0 fetched .../debian/0.11.0-1/...,
 # a 404, where Debian only had 0.11.0-2). The old URL still fetches the
-# old patch, and the build's patch diagnosis then says whether it's
-# still needed.
+# old patch, and if it no longer applies, the build fails on it.
 #
 # A .cygport also gets its PV-derived variable names renamed: cygport
 # derives a PKG_NAMES entry's variable names by turning its -+. into _, so

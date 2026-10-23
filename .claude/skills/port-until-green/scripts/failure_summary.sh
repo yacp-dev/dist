@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Summarizes a failed build-package run: which steps failed, the
-# workflow's own patch/macro diagnostics (the Diagnose patch failure/
-# Diagnose undefined macro steps, which succeed and so aren't in
-# --log-failed), and the full failed-step log saved to a file. `gh run view --log-failed`
+# workflow's own undefined-macro diagnostic (the Diagnose undefined macro
+# step, which succeeds and so isn't in --log-failed), and the full
+# failed-step log saved to a file. `gh run view --log-failed`
 # labels every line "UNKNOWN STEP" and runs to thousands of lines, so it is
 # saved for grepping rather than printed.
 #
@@ -41,7 +41,7 @@ awk -F'\t' '$2 == "failure" { print "- " $1 }' <<<"$steps"
 # names): the third tab-separated field is "<timestamp> <line>"; drop the
 # timestamp and the step's own ##[group] preamble.
 diagnose_steps=()
-for name in "Diagnose patch failure" "Diagnose undefined macro"; do
+for name in "Diagnose undefined macro"; do
   if awk -F'\t' -v n="$name" '$1 == n && $2 == "success" { found = 1 } END { exit !found }' <<<"$steps"; then
     diagnose_steps+=("$name")
   fi

@@ -428,23 +428,6 @@ jobs:
         id: prep
         run: bash -- scripts/xezat_prep.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
-      # cygport's own "patch ... will not apply" (from xezat prep above,
-      # which is what actually invokes `cygport ... prep`) never says
-      # which file/hunk/line conflicts -- cygpatch() (lib/src_prep.cygpart)
-      # discards the patch tool's own diagnostic at every level it tries
-      # (confirmed against cygport's source, and against a real failure,
-      # yacp-dev/dist#23). Rerunning the dry-run ourselves, without that
-      # suppression, against the same unpacked source tree (still on disk
-      # here -- a step failing doesn't tear down the rest of the job's
-      # filesystem) surfaces the real mismatch. Scoped to prep's own
-      # failure specifically (not just failure() generally, e.g. a later
-      # cygport compile failure has nothing to do with patch application)
-      # via steps.prep.outcome.
-      - name: Diagnose patch failure
-        id: diagnose-patch
-        if: failure() && steps.prep.outcome == 'failure'
-        run: bash -- scripts/diagnose_patch_failure.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
-
       - name: cygport compile
         id: compile
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step compile
@@ -454,8 +437,9 @@ jobs:
       # whose .m4 isn't installed -- usually a missing autoconf-archive or
       # pkgconf in BUILD_REQUIRES (doc/spec.md 4.3.1). Pulls just those
       # error lines out of cygport's own compile log for the run summary,
-      # same idea as Diagnose patch failure above; scoped to compile's own
-      # failure via steps.compile.outcome.
+      # while it's still on disk (a step failing doesn't tear down the
+      # rest of the job's filesystem); scoped to compile's own failure via
+      # steps.compile.outcome.
       - name: Diagnose undefined macro
         id: diagnose-macro
         if: failure() && steps.compile.outcome == 'failure'
@@ -871,4 +855,4 @@ jobs:
       # survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --patch-diagnostic-file "${{ steps.diagnose-patch.outputs.diagnostic_file }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}"

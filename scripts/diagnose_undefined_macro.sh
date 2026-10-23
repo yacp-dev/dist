@@ -11,8 +11,7 @@
 #
 # Meant to run as an `if: failure()`-conditioned step right after cygport
 # compile, while that run's log ($logdir/<PF>-compile.log, which cygport
-# itself tees src_compile's output into) is still on disk. Same
-# self-contained, bounded shape as diagnose_patch_failure.sh: only the
+# itself tees src_compile's output into) is still on disk. Only the
 # matching error lines, never a general log excerpt (doc/spec.md 4.5).
 #
 # Usage:
@@ -43,8 +42,7 @@ done
 cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
-# Same `cygport <file> vars <NAME>` mechanism diagnose_patch_failure.sh
-# uses for S.
+# `cygport <file> vars logdir` prints a `logdir=...` declaration.
 logdir_decl="$(cygport "$cygport_file" vars logdir 2>/dev/null)"
 if [[ -z "$logdir_decl" ]]; then
   echo "diagnose_undefined_macro.sh: 'cygport $cygport_file vars logdir' returned nothing -- can't locate the compile log" >&2

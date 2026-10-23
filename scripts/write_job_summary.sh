@@ -31,14 +31,12 @@
 # Pull Request's own body already includes it) -- otherwise this would
 # just be a redundant duplicate of what the PR body already says.
 #
-# patch_diagnostic_file/macro_diagnostic_file are Diagnose patch
-# failure's/Diagnose undefined macro's outputs, set only when xezat prep/
-# cygport compile failed and there was something to diagnose. Each is
-# capped at diagnostic_max_bytes: a .src.patch touching dozens of files
-# makes every dry-run attempt list all of them (libplctag-2.7.2's, 47
-# files, ran past 65536 characters), and a step summary over 1 MiB isn't
-# shown at all. Both diagnose scripts also print their full output to
-# their own step's log, which the truncation note points to.
+# macro_diagnostic_file is Diagnose undefined macro's output, set only
+# when cygport compile failed and there was something to diagnose. It and
+# check_diagnostic_file are capped at diagnostic_max_bytes, since a step
+# summary over 1 MiB isn't shown at all. The diagnose scripts also print
+# their full output to their own step's log, which the truncation note
+# points to.
 #
 # check_diagnostic_file is Diagnose check failure's output, set only when
 # cygport check failed -- which, being continue-on-error, nothing else
@@ -48,14 +46,13 @@
 # shown whenever there is one, opened when it has warnings.
 #
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--patch-diagnostic-file <path-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
 
 set -euo pipefail
 
 package=""
 pr_url=""
 artifact_id=""
-patch_diagnostic_file=""
 macro_diagnostic_file=""
 check_diagnostic_file=""
 audit_file=""
@@ -66,7 +63,6 @@ while [[ $# -gt 0 ]]; do
     --package) package="$2"; shift 2 ;;
     --pr-url) pr_url="$2"; shift 2 ;;
     --artifact-id) artifact_id="$2"; shift 2 ;;
-    --patch-diagnostic-file) patch_diagnostic_file="$2"; shift 2 ;;
     --macro-diagnostic-file) macro_diagnostic_file="$2"; shift 2 ;;
     --check-diagnostic-file) check_diagnostic_file="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
@@ -124,7 +120,6 @@ print_details() {
     echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo ${GITHUB_REPOSITORY:-yacp-dev/dist}"
     echo '```'
   fi
-  print_details "xezat prep failed: patch diagnostic" "$patch_diagnostic_file" open
   print_details "cygport compile failed: undefined autoconf macros" "$macro_diagnostic_file" open
   print_details "cygport check failed (non-blocking)" "$check_diagnostic_file"
   if [[ -n "$audit_file" && -s "$audit_file" ]]; then
