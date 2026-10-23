@@ -11,6 +11,13 @@
 # $S, REUSE's LICENSES/*.txt, and the license texts at the top of $S (and
 # LICENSE_URI), told apart by their own wording. A license text can't say
 # -only from -or-later, so those are only compared against the headers.
+# LICENSE describes what the binary packages ship, so a header license
+# missing from LICENSE is only warned about when a shipped file carries
+# it: one installed into $D, or a source file the build compiled (cygport
+# copies those into $D/usr/src/debug/$PF for the debuginfo package).
+# Files of a backend the build leaves out don't count (ggml's
+# Apache-2.0 SYCL and OpenVINO sources). Without $D/usr/src/debug -- no
+# debuginfo -- what was compiled is unknown, and all of $S counts.
 #
 # For BUILD_REQUIRES, each package's installed file list
 # (/etc/setup/<pkg>.lst.gz) is matched against evidence of use, strongest
@@ -173,7 +180,22 @@ audit_license() {
     'SPDX-License-Identifier:[[:space:]]*[A-Za-z0-9.+() -]+' "$S" 2>/dev/null \
     | tr '\0' '\t' \
     | sed -E 's/\tSPDX-License-Identifier:[[:space:]]*/\t/' \
-    | spdx_ids | sort -u | cut -f2 | sort | uniq -c | sort -rn > "$tmp/headers"
+    | spdx_ids | sort -u > "$tmp/header_files"
+  cut -f2 "$tmp/header_files" | sort | uniq -c | sort -rn > "$tmp/headers"
+
+  # The same for the files the packages ship (see the top of this file).
+  declare -A shipped=()
+  local shipped_known=""
+  if [[ -d "$D/usr/src/debug" ]]; then
+    shipped_known=1
+    while read -r count id; do
+      shipped["$id"]="$count"
+    done < <(find "$D" -path "$D/usr/lib/debug" -prune -o -type f -print0 2>/dev/null \
+      | xargs -0 -r grep -HIoE --null 'SPDX-License-Identifier:[[:space:]]*[A-Za-z0-9.+() -]+' 2>/dev/null \
+      | tr '\0' '\t' \
+      | sed -E 's/\tSPDX-License-Identifier:[[:space:]]*/\t/' \
+      | spdx_ids | sort -u | cut -f2 | sort | uniq -c)
+  fi
 
   declare -A found_base=()
   local count
@@ -225,9 +247,16 @@ audit_license() {
   done
 
   # Something the source says that LICENSE doesn't.
-  local base r
+  local base r example
   while read -r count id; do
     base="$(license_base "$id")"
+    if [[ -n "$shipped_known" && -z "${shipped[$id]:-}" ]]; then
+      if [[ -z "${recipe[${id,,}]:-}" ]]; then
+        example="$(awk -F '\t' -v id="$id" '$2 == id { print $1; exit }' "$tmp/header_files")"
+        say "The $id headers ($count file(s), e.g. ${example#"$S"/}) are all in files the packages don't ship -- LICENSE needn't include it"
+      fi
+      continue
+    fi
     if [[ -z "${recipe_base[$base]:-}" ]]; then
       warn "the source has $id headers ($count file(s)) but LICENSE doesn't include it"
     elif [[ -z "${recipe[${id,,}]:-}" && "${id,,}" != "$base" ]]; then
