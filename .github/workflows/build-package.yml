@@ -39,7 +39,9 @@ name: build-package
 # always installed first, then scripts/cygport_depends.sh asks cygport
 # itself (via `cygport <file> vars ...`) what extra packages the specific
 # cygport file needs. cygwin_packages remains available as a manual
-# fallback for whatever the auto-detection doesn't cover.
+# fallback for whatever the auto-detection doesn't cover. The base
+# toolchain's tarballs are cached across runs
+# (scripts/cygwin_package_cache.sh); the extra dependencies are not.
 
 on:
   workflow_dispatch:
@@ -191,9 +193,26 @@ jobs:
           # inside this checkout uses.
           token: ${{ steps.app-token.outputs.token }}
 
+      # Brings back the base toolchain's tarballs from the newest earlier
+      # run, so setup.exe only downloads what changed since. See
+      # scripts/cygwin_package_cache.sh for why, and for how the cache is
+      # kept from growing. The key itself never matches; restore-keys
+      # picks the most recently saved cache.
+      - name: Restore Cygwin package cache
+        id: package-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: D:\cygwin-packages
+          key: cygwin-base
+          restore-keys: cygwin-base-
+
       - name: Install Cygwin (base toolchain)
+        id: cygwin-base
         uses: cygwin/cygwin-install-action@v6
         with:
+          # Pinned to what the action picks anyway on windows-latest, so
+          # its package directory is the D:\cygwin-packages cached above.
+          work-vol: "D:"
           # cygport itself already depends on autoconf/automake/libtool/
           # make/binutils etc., but not on a compiler -- see doc/spec.md
           # and scripts/cygport_depends.sh for why gcc isn't detected
@@ -229,6 +248,20 @@ jobs:
           # so check-sig's default (true) would reject every package
           # dorgann's own gh-pages site actually serves.
           check-sig: false
+
+      # Only a cache, so neither step may fail the build.
+      - name: Trim Cygwin package cache
+        id: package-cache-key
+        continue-on-error: true
+        run: bash -- scripts/cygwin_package_cache.sh '${{ steps.cygwin-base.outputs.package-cache }}'
+
+      - name: Save Cygwin package cache
+        if: steps.package-cache-key.outputs.key != '' && steps.package-cache-key.outputs.key != steps.package-cache.outputs.cache-matched-key
+        continue-on-error: true
+        uses: actions/cache/save@v6
+        with:
+          path: D:\cygwin-packages
+          key: ${{ steps.package-cache-key.outputs.key }}
 
       # Once Cygwin is installed, its own git ends up ahead of Git for
       # Windows on PATH for the rest of the job -- including in steps
