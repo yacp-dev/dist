@@ -109,10 +109,10 @@ export AUTOCONF="autoconf -B $HOME/.cygport-autoconf"
 
 make()
 {
-	/usr/bin/make V=1 VERBOSE=1 $*
+	/usr/bin/make V=1 VERBOSE=1 "$@"
 }
 ninja()
 {
-	/usr/bin/ninja -v $*
+	/usr/bin/ninja -v "$@"
 }
 EOF
