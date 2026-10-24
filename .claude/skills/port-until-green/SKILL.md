@@ -40,7 +40,10 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
 - If `dorgann/<pkg>-<ver>` already exists, the dispatch automatically
   switches to branch-rebuild mode: it overlays the branch's changes onto
   master and rebuilds. So after pushing a fix, just dispatch the same
-  target again.
+  target again. A version update uses this from the start: the
+  preflight (Step 1b) bumps the recipe here, fixes what it can tell
+  will fail, and pushes the branch before the first dispatch, so the
+  workflow's own `Bump version` only runs when there's no branch yet.
 - **The bot rewrites the branch on every run** (peter-evans/create-pull-request
   squashes everything into one `<pkg>-<ver>` commit and force-pushes). Your
   local branch is therefore stale after each run — always
@@ -61,6 +64,10 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   full failed log saved to `DIR` for grepping.
 - `scripts/check_summary.sh --run ID` — whether `cygport check` passed,
   and its diagnostic if not (Step 2).
+- `scripts/preflight_bump.sh --package P --version V --work DIR [--source URL]` —
+  bumps the recipe to `V` on a local `dorgann/P-V` branch in its own
+  worktree (committed, not pushed), and reports what would fail: patches
+  that don't apply to the new source, the SOVERSION, LICENSE (Step 1b).
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
   bumps a git-snapshot package to upstream HEAD on its own branch, in
   its own worktree (see Step 1).
@@ -125,9 +132,10 @@ For `bump` (and `latest` carried on as one):
 2. Look for an existing branch and PR:
    `gh api 'repos/yacp-dev/ports/branches?per_page=100' --paginate --jq '.[].name' | grep "^dorgann/<pkg>-"`
    and `gh pr list -R yacp-dev/ports --head dorgann/<pkg>-<ver>`. A branch
-   for the same version is rebuilt automatically by the dispatch. One for
-   a different version is worth mentioning to the user, but the version
-   from the argument (or Repology) is the target.
+   for the same version is rebuilt automatically by the dispatch: skip
+   Step 1b. One for a different version is worth mentioning to the user,
+   but the version from the argument (or Repology) is the target.
+3. No branch for this version → Step 1b before dispatching.
 
 For every mode except `deploy`, make sure `~/src/ports` exists
 (`gh repo clone yacp-dev/ports ~/src/ports` if not) and
@@ -168,6 +176,85 @@ version in the path), and fix it on the branch first if not.
 Tell the user in one line what you settled on (mode, package, version,
 new vs. existing branch) before dispatching.
 
+## Step 1b: Preflight (version updates without a branch)
+
+For `bump` (and `latest` carried on as one) when Step 1 found no
+`dorgann/<pkg>-<ver>` branch; not for git snapshots, which
+`git_snapshot_bump.sh` handles. The workflow's own bump only renames
+files, so whatever the new version breaks in the recipe — a patch
+upstream merged or that no longer applies, a SOVERSION bump, a
+`PATCH_URI` pinned to the old version — costs a whole run to find out.
+Most of it shows without building:
+
+```bash
+scripts/preflight_bump.sh --package <pkg> --version <ver> --work <scratchpad>/<pkg>-<ver>-preflight
+```
+
+It creates the worktree `~/src/ports-wt/<pkg>-<ver>` (Step 4's `$wt`) on
+a new `dorgann/<pkg>-<ver>` branch, with the same bump the workflow would
+make, committed as `<pkg>-<ver>` but not pushed. Then it downloads the new
+source and prints a report. Go through it, fixing on the branch:
+
+- **Source** — `SRC_URI didn't resolve` (a cygclass sets it, e.g.
+  `inherit github`) → rerun with `--source <url>` after removing the
+  worktree and branch it made. A download or `git clone` that fails,
+  or an `SRC_DIR` that isn't in the tarball, means the recipe needs a
+  fix for the new version (a renamed tag or tarball layout): fix
+  `SRC_URI`/`GIT_TAG`/`SRC_DIR`, then go on with the rest by hand
+  against that source.
+- **Patches**, each in the order cygport applies them:
+  - `applies` → nothing to do.
+  - `ALREADY IN SOURCE` → upstream has it: drop it from `PATCH_URI`, or
+    from the `.src.patch` (regenerated as in Step 4).
+  - `FAILS` on a `PATCH_URI` download → usually a URL built from `${PV}`
+    or a distro branch that moved on. Look for the same patch for the new
+    version (`distro_patches.sh`, below); if upstream merged it, drop it.
+    If it no longer exists anywhere, check whether the new source still
+    needs it before dropping it.
+  - `FAILS` on hunks of a `PATCH_URI` patch → same: the distro's newer
+    revision of it, or drop it if upstream took it in another form (look at the
+    failing hunk against the new source). Don't rebase a distro patch by
+    hand into `PATCH_URI`; if it's really needed and nobody carries it for
+    this version, fold it into the `.src.patch` and say so in the report.
+  - `FAILS` on the `.src.patch` → rebase it as in Step 4 (".src.patch no
+    longer applies"). The work dir already holds `origsrc/` (with
+    `PATCH_URI` applied) and `src/` laid out the way that recipe expects;
+    `src/` is unpatched where the patch failed.
+  - A `note:` about hooks (`src_unpack_hook`, `DISTCLEANFILES`, ...)
+    means cygport changes the tree before patching in ways the script
+    doesn't reproduce: treat a `FAILS` there as a lead, not a result.
+- **SOVERSION** — compare the current DLLs with what the new source sets
+  (for libtool, the computed `-version-info` suffix; for CMake/meson, the
+  `SOVERSION`/`soversion` value, following its variables in the build
+  file). If it changed, rename the runtime `PKG_NAMES` entry and its
+  `*_CONTENTS`/`*_SUMMARY` variables (the ABI bump fix in Step 4). If the
+  DLL isn't pinned (`a runtime package's DLL isn't pinned`), pin it to
+  `usr/bin/cyg*-N.dll` in its own commit, `<pkg>-<ver> (pin SOVERSION in
+  runtime CONTENTS)`. An override in the recipe or `.src.patch` (e.g.
+  `-DSOVERSION=`) where upstream now sets its own is worth dropping in
+  favor of upstream's. If you can't tell the new number with confidence,
+  leave the name as it is: with the DLL pinned, a wrong guess fails
+  `cygport package` with "Packages are missing files", which says which
+  DLL it built.
+- **LICENSE** — anything `MISSING`, or a `LICENSE_URI` that isn't in the
+  new source → see "Missing LICENSE" below.
+
+Also go through "Distro patches" (under Step 2) now, so they're in the
+first run rather than added after it.
+
+Leave what only a build can show (new build dependencies, compile and
+test failures) to the run: don't guess them from the source. Commit each
+fix on its own, as `<pkg>-<ver> (<what>)`, then push and go to Step 2:
+
+```bash
+git -C "$wt" push -u origin dorgann/<pkg>-<ver>
+```
+
+The dispatch then finds the branch and rebuilds it. If nothing needed
+fixing, push the bump commit alone: the run is the same as the
+workflow's own bump. Say in one line what the preflight found and fixed
+before dispatching.
+
 ## Step 2: Build
 
 ```bash
@@ -185,9 +272,11 @@ Then, using the run id it printed (wait for that output — don't guess
 the id), wait for it with `scripts/wait_run.sh --run <id>` run in the
 background (builds take a while). Don't use `gh run watch`: its 3-second
 refresh burns through the GitHub API rate limit that concurrent sessions
-share. For `bump`, `latest`, `rebuild` and `gcc-rebuild`, use the wait
-to go through "Distro patches" below; its result goes onto the branch
-once this run is done, whichever way it ends.
+share. For `rebuild` and `gcc-rebuild` (and a `bump` whose branch already
+existed, if its `PATCH_URI` doesn't have them yet), use the wait to go
+through "Distro patches" below; its result goes onto the branch once
+this run is done, whichever way it ends. A `bump` that went through Step 1b
+already has them.
 
 - **Success** → confirm the PR is ready (`gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`),
   then check the test suite: `scripts/check_summary.sh --run <id>`.
@@ -299,8 +388,8 @@ three is missing (keep any that are already there), from the new
 version's source: the tarball from `SRC_URI`, extracted into the
 scratchpad. Don't let a missing license hold up a red build. If you're
 committing a fix anyway (Step 4), add the license in that commit or in
-one next to it. On a branch you create yourself (a manual bump, a git
-snapshot), add it before the first dispatch. Not for `deploy`, which
+one next to it. On a branch you create yourself (Step 1b, a manual bump, a
+git snapshot), add it before the first dispatch. Not for `deploy`, which
 doesn't touch the recipe.
 
 `LICENSE` covers what the binary packages ship, and only that: the
@@ -410,7 +499,7 @@ Classify it, because the response differs:
 | Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `xezat prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `Bump version` mangled a file during its one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
-| No branch | failure happened before `Bump version` succeeded, so no branch/draft PR exists | If it's transient, re-dispatch. If it's the bump itself (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (as in Step 4, with `-B dorgann/<pkg>-<ver> "$wt" origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
+| No branch | failure happened before `Bump version`/`Bump release` succeeded, so no branch/draft PR exists (a version update normally has its branch from Step 1b already) | If it's transient, re-dispatch. If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (as in Step 4, with `-B dorgann/<pkg>-<ver> "$wt" origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
 
 ## Step 4: Fix, commit, push
 
@@ -423,7 +512,8 @@ git -C ~/src/ports worktree add -B dorgann/<pkg>-<ver> "$wt" origin/dorgann/<pkg
 cd "$wt"
 ```
 
-On later attempts, the worktree is already there; since the bot
+After Step 1b (or `git_snapshot_bump.sh`), and on later attempts, the
+worktree is already there; since the bot
 force-pushes the branch on every run, refresh it before editing:
 `git -C "$wt" fetch origin && git -C "$wt" reset --hard origin/dorgann/<pkg>-<ver>`.
 Once the loop is over (success or stopping) and everything is pushed,

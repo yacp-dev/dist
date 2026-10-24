@@ -103,16 +103,7 @@ if [[ -e "$wt" ]]; then
   exit 1
 fi
 
-shim="$(mktemp -d)"
-trap 'rm -rf "$shim"' EXIT
-# util-linux `rename FROM TO FILE...`: replaces the first FROM in each name.
-cat > "$shim/rename" <<'EOF'
-#!/usr/bin/env bash
-[[ "$1" == "--" ]] && shift
-from="$1" to="$2"; shift 2
-for f; do mv -- "$f" "${f/"$from"/$to}"; done
-EOF
-chmod +x "$shim/rename"
+shim="$(cd "$(dirname "$0")/bin" && pwd)"
 
 git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
 cd "$wt"
