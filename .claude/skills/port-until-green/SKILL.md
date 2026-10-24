@@ -284,7 +284,13 @@ already has them.
   it. If it reports `check: FAILED`, go to "Test suite failures" below
   before calling it done. Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
-  LICENSE" below. If distro patches are still to be added, commit them
+  LICENSE" below. Then look at `Audit recipe`'s `== Runtime
+  requirements ==` section (`gh run view <id> -R yacp-dev/dist --log |
+  grep -A8 '== Runtime requirements =='`): a `WARNING:` there means the
+  README the PR carries lists no runtime requirements, or will once an
+  import library's DLL can't be found -- fix it on the branch (see
+  "README's runtime requirements empty" in Step 4) and re-run. If distro
+  patches are still to be added, commit them
   now and re-run before reporting. Report: PR URL, run URL, attempts,
   what you changed, the check result, the license you filled in (if
   any), and the distro patches taken and skipped, with why.
@@ -600,6 +606,18 @@ Edit only files under the package directory. Common fixes:
 - **No `LICENSE` / `LICENSE_SPDX` / `LICENSE_URI` in the recipe** →
   fill them in from the source while you're on the branch (see "Missing
   LICENSE" under Step 2).
+- **README's runtime requirements empty** (`Audit recipe` warns, `Update
+  README via xezat` logs `which: no <dll>`) → `cygport dep` stopped at a
+  DLL it couldn't find and printed nothing. Usually that's an import
+  library installed next to a dlopen()ed plugin (BehaviorTree.CPP 4.10.0:
+  `usr/share/behaviortree_cpp/bt_plugins/lib*_dyn.dll.a`): nothing links
+  against a plugin, so remove them in `src_install` after the install
+  call (`rm -f ${D}/usr/share/<dir>/*.dll.a`) rather than pointing
+  `DEPS_PATH` at them. Check first that the DLL is really only loaded at
+  runtime (`dlopen`/`LoadLibrary`, a plugin directory) and that no
+  installed CMake/pkg-config file names the import library. A DLL other
+  packages do link against belongs in `usr/bin`, with its import library
+  in `usr/lib`.
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
   run failed anyway, look for the real failing step instead. Test suite
   failures on a green run are handled under Step 2.

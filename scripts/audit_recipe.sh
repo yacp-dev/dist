@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Cross-checks two things in a cygport recipe that `xezat validate`
-# doesn't: whether LICENSE matches what the source itself says, and
-# whether every BUILD_REQUIRES package is actually used by the build.
+# Cross-checks three things in a cygport recipe that `xezat validate`
+# doesn't: whether LICENSE matches what the source itself says, whether
+# every BUILD_REQUIRES package is actually used by the build, and whether
+# README's runtime requirements came out at all.
 # xezat only checks that LICENSE is a valid SPDX expression (and that
 # LICENSE_URI exists) and that each BUILD_REQUIRES package is installed
 # -- a recipe carried over from an old version keeps both long after
@@ -38,8 +39,19 @@
 # warns; a human (or port-until-green) confirms by rebuilding without it
 # and comparing the package contents.
 #
-# Meant to run after cygport package, while $S/$B/$D and the logs are
-# still on disk. Never fails the build: every finding is a warning.
+# For the runtime requirements, `xezat bump` writes what `cygport dep`
+# prints, and `cygport dep` prints nothing -- exit status 0 -- once one
+# `which` in it fails under cygport's `set -e`. The one known to fail is
+# for an import library whose DLL isn't in $D/usr/bin, $DEPS_PATH or
+# /usr/bin: BehaviorTree.CPP 4.10.0 installed its dlopen()ed plugins'
+# .dll.a next to them in usr/share/behaviortree_cpp/bt_plugins. Such an
+# import library is of no use anyway (nothing links against a plugin),
+# so it's flagged on its own, besides an empty list in $C/README for a
+# package that ships binaries.
+#
+# Meant to run after cygport package and `xezat bump`, while $S/$B/$D,
+# the logs and $C/README are still on disk. Never fails the build: every
+# finding is a warning.
 #
 # Usage:
 #   audit_recipe.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport
@@ -68,12 +80,12 @@ cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
 # Same `cygport <file> vars <NAME>` mechanism as the diagnose_*.sh.
-vars_decl="$(cygport "$cygport_file" vars S B D logdir BUILD_REQUIRES LICENSE LICENSE_URI 2>/dev/null)"
+vars_decl="$(cygport "$cygport_file" vars S B D C logdir BUILD_REQUIRES DEPS_PATH LICENSE LICENSE_URI 2>/dev/null)"
 if [[ -z "$vars_decl" ]]; then
   echo "audit_recipe.sh: 'cygport $cygport_file vars ...' returned nothing -- nothing to audit" >&2
   exit 0
 fi
-S="" B="" D="" logdir="" BUILD_REQUIRES="" LICENSE="" LICENSE_URI=""
+S="" B="" D="" C="" logdir="" BUILD_REQUIRES="" DEPS_PATH="" LICENSE="" LICENSE_URI=""
 eval "$vars_decl"
 
 if [[ ! -d "$S" || ! -d "$D" ]]; then
@@ -564,11 +576,52 @@ audit_build_requires() {
   done
 }
 
-audit_license
-audit_build_requires
+audit_runtime_requires() {
+  say ""
+  say "== Runtime requirements =="
 
-if (( warnings > 0 )); then
+  # Import libraries whose DLL cygport dep's `which` can't find. A
+  # cross toolchain's sys-root holds another host's libraries.
+  local implib dll d found
+  while IFS= read -r -d '' implib; do
+    dll="$(dlltool -I "$implib" 2>/dev/null | head -n 1)"
+    [[ -n "$dll" ]] || continue
+    found=""
+    for d in /usr/bin ${DEPS_PATH//:/ }; do
+      if [[ -e "$D$d/$dll" || -e "$d/$dll" ]]; then
+        found=1
+        break
+      fi
+    done
+    [[ -n "$found" ]] && continue
+    warn "${implib#"$D"/}: import library of $dll, which isn't in usr/bin -- next to a dlopen()ed plugin it's of no use (remove it in src_install), and cygport dep can't resolve it, which leaves README's runtime requirements empty"
+  done < <(find "$D" -type f -name '*.dll.a' -not -path '*/sys-root/*' -print0 2>/dev/null)
+
+  if [[ ! -f "$C/README" ]]; then
+    say "no README in \$C to check"
+    return
+  fi
+  local requires
+  requires="$(awk '/^Runtime requirements:/ { f = 1; next } f && /^[[:space:]]*$/ { exit } f' "$C/README")"
+  if [[ -n "$requires" ]]; then
+    say "README lists $(printf '%s\n' "$requires" | wc -l | tr -d ' ') runtime requirement(s)"
+  elif [[ -n "$(find "$D" -type f \( -iname '*.exe' -o -iname '*.dll' \) -not -path '*/usr/src/debug/*' -print -quit 2>/dev/null)" ]]; then
+    warn "README's runtime requirements are empty, though the packages ship binaries -- cygport dep printed nothing (look for \"which: no\" in Update README via xezat's log)"
+  else
+    say "README lists no runtime requirements (no binaries shipped)"
+  fi
+}
+
+audit_license
+before=$warnings
+audit_build_requires
+build_requires_warnings=$((warnings - before))
+audit_runtime_requires
+
+if (( build_requires_warnings > 0 )); then
   report+=("" "$warnings warning(s). A build that passes without a BUILD_REQUIRES package can still have lost a feature: compare the package contents before dropping it.")
+elif (( warnings > 0 )); then
+  report+=("" "$warnings warning(s).")
 fi
 
 printf '%s\n' "${report[@]}"

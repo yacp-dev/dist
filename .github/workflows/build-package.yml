@@ -500,20 +500,6 @@ jobs:
       - name: Validate build via xezat
         run: bash -- scripts/xezat_validate.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
-      # xezat validate only checks that LICENSE is valid SPDX and that
-      # every BUILD_REQUIRES package is installed. This checks LICENSE
-      # against the headers and license texts of what the packages ship
-      # (installed files and the sources compiled into them), and each
-      # BUILD_REQUIRES package for evidence the build used it (a DLL
-      # import, a file the compiler read, a mention in the logs) -- both
-      # go stale silently in a recipe carried from version to version.
-      # Warnings only, so continue-on-error too: the report goes to the
-      # run summary, the PR body just says there is one.
-      - name: Audit recipe
-        id: audit
-        continue-on-error: true
-        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
-
       # Feeds Decide changelog message below. gcc-core is always
       # installed as part of the base toolchain (see Install Cygwin (base
       # toolchain) above), so this doesn't need its own package install.
@@ -544,6 +530,23 @@ jobs:
         env:
           XEZAT_BUMP_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
         run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+
+      # xezat validate only checks that LICENSE is valid SPDX and that
+      # every BUILD_REQUIRES package is installed. This checks LICENSE
+      # against the headers and license texts of what the packages ship
+      # (installed files and the sources compiled into them), and each
+      # BUILD_REQUIRES package for evidence the build used it (a DLL
+      # import, a file the compiler read, a mention in the logs) -- both
+      # go stale silently in a recipe carried from version to version.
+      # It also checks that README's runtime requirements came out, since
+      # `cygport dep` (run by xezat bump) prints nothing on a failure
+      # without failing, which is why it runs after Update README via
+      # xezat. Warnings only, so continue-on-error too: the report goes to
+      # the run summary, the PR body just says there is one.
+      - name: Audit recipe
+        id: audit
+        continue-on-error: true
+        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       # cygport's `install` step (above) already runs postinst as part of
       # itself (see cygport's own src_postinst.cygpart/bin/cygport.in:
@@ -759,7 +762,7 @@ jobs:
 
             ${{ steps.check.outcome == 'failure' && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
 
-            ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES -- see the run summary.', steps.audit.outputs.warnings) || '' }}
+            ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
 
             <!-- dorgann-meta: {"artifact_id":"${{ steps.upload.outputs.artifact-id }}"} -->
 
