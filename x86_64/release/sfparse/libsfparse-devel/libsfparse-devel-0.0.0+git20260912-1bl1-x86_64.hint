@@ -1,0 +1,6 @@
+category: Libs
+requires: libsfparse0 pkg-config
+sdesc: "Structured Field Values parser (development)"
+ldesc: "Structured Field Values parser"
+external-source: sfparse
+

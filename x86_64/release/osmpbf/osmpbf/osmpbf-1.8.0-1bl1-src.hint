@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libprotobuf-devel zlib-devel
+sdesc: "Tools related to PBF (an alternative to XML format) (sample data)"
+ldesc: "Osmpbf is a Java/C library to read and write OpenStreetMap PBF files. PBF
+(Protocol buffer Binary Format) is a binary file format for OpenStreetMap data
+that uses Google Protocol Buffers as low-level storage."
+skip:
+
+homepage: https://wiki.openstreetmap.org/wiki/PBF_Format
+license: LGPL-3.0-or-later

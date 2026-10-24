@@ -1,0 +1,7 @@
+category: Libs
+requires: libhackrf0 pkg-config
+sdesc: "Library for communicating with HackRF SDR platform (development)"
+ldesc: "This repository contains host software (Linux/Windows) for HackRF, a project
+to produce a low cost, open source software radio platform."
+external-source: hackrf
+

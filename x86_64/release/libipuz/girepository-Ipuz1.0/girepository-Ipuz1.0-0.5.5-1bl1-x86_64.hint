@@ -1,0 +1,6 @@
+category: Libs
+requires: girepository-GLib2.0 girepository-Json1.0 libglib2.0-devel libipuz0.5
+sdesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc. (GObject Introspection data)"
+ldesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc."
+external-source: libipuz
+

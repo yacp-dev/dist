@@ -1,0 +1,8 @@
+category: Net
+requires: bash cygwin libcrypt2 libfreeradius-client2
+sdesc: "RADIUS client library (licensing & readmes)"
+ldesc: "FreeRADIUS Client is a framework and library for writing RADIUS Clients which
+additionally includes radlogin, a flexible RADIUS aware login replacement, a
+command line program to send RADIUS accounting records and a utility to query
+the status of a (Merit) RADIUS server."
+

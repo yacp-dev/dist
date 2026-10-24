@@ -1,0 +1,8 @@
+category: Archive
+build-depends: cygport zlib-devel
+sdesc: "Gzip recovery toolkit"
+ldesc: "Recover data from a corrupted gzip file"
+skip:
+
+homepage: https://github.com/arenn/gzrt
+license: GPL-2.0-or-later

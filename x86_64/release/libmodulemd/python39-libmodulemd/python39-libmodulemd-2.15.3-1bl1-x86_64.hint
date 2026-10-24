@@ -1,0 +1,6 @@
+category: Libs
+requires: python39 python39-gi
+sdesc: "C Library for manipulating module metadata files (python39 bindings)"
+ldesc: "C Library for manipulating module metadata files"
+external-source: libmodulemd
+

@@ -1,0 +1,6 @@
+category: Utils
+requires: cygwin libgcc1 libstdc++6 zlib0
+sdesc: "Utility to convert files in xfig format to OpenOffice.org /LibreOffice.org Draw format"
+ldesc: "The fig2sxd program converts files in XFig format into OpenOffice.org /
+LibreOffice.org Draw format."
+

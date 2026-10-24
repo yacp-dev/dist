@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "C++ base library of Heinz Maier-Leibnitz Zentrum"
+ldesc: "C++ base library of Heinz Maier-Leibnitz Zentrum"
+skip:
+
+homepage: https://jugit.fz-juelich.de/mlz/lib/heinz
+license: 0BSD

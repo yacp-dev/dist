@@ -1,0 +1,5 @@
+category: Devel
+requires: 
+sdesc: "C++ base library of Heinz Maier-Leibnitz Zentrum"
+ldesc: "C++ base library of Heinz Maier-Leibnitz Zentrum"
+

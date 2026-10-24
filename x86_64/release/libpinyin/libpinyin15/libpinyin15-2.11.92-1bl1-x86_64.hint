@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libdb18.1 libgcc1 libglib2.0_0 libstdc++6
+sdesc: "Library to deal with pinyin (runtime)"
+ldesc: "The libpinyin project aims to provide the algorithms core for intelligent
+sentence-based Chinese pinyin input methods."
+external-source: libpinyin
+

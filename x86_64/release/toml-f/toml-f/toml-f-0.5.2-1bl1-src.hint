@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran libtest-drive-devel
+sdesc: "TOML parser for Fortran (licensing & readmes)"
+ldesc: "A TOML parser implementation for data serialization and deserialization in
+Fortran."
+skip:
+
+homepage: https://github.com/toml-f/toml-f
+license: Apache-2.0 OR MIT

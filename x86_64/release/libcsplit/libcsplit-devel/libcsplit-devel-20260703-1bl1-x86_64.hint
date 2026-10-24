@@ -1,0 +1,6 @@
+category: Libs
+requires: libcsplit1 pkg-config
+sdesc: "Library for cross-platform C split string functions (development)"
+ldesc: "libcsplit is a library for cross-platform C split string functions."
+external-source: libcsplit
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgfortran5 libtoml-f0
+sdesc: "Bringing TOML blooms to JSON land (runtime)"
+ldesc: "Bringing TOML blooms to JSON land"
+external-source: jonquil
+

@@ -1,0 +1,5 @@
+category: Archive
+requires: cygwin zlib0
+sdesc: "Gzip recovery toolkit"
+ldesc: "Recover data from a corrupted gzip file"
+

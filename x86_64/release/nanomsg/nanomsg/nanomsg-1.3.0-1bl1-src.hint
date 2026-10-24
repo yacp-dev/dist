@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Simple high-performance implementation of several scalability protocols (utilities)"
+ldesc: "Nanomsg is a socket library that provides several common communication
+patterns. It aims to make the networking layer fast, scalable, and easy to
+use. Implemented in C, it works on a wide range of operating systems with no
+further dependencies."
+skip:
+
+homepage: https://github.com/nanomsg/nanomsg
+license: MIT

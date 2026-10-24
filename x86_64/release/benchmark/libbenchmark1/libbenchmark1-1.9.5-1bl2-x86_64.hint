@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Microbenchmark support library (runtime)"
+ldesc: "A library to support the benchmarking of functions, similar to unit-tests."
+external-source: benchmark
+

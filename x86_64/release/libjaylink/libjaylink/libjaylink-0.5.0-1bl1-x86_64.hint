@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library to access J-Link devices (licensing & readmes)"
+ldesc: "libjaylink is a shared library written in C to access SEGGER J-Link and
+compatible devices."
+

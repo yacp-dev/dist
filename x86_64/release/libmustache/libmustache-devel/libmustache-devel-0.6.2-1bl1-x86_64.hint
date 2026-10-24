@@ -1,0 +1,6 @@
+category: Libs
+requires: libmustache6 libyaml-devel pkg-config
+sdesc: "C++ implementation of Mustache (development)"
+ldesc: "C++ implementation of Mustache"
+external-source: libmustache
+

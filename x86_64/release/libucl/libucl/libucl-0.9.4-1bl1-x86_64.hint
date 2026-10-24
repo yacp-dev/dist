@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libucl5
+sdesc: "Universal configuration library parser (licensing & readmes)"
+ldesc: "UCL is heavily infused by nginx configuration as the example of a convenient
+configuration system."
+

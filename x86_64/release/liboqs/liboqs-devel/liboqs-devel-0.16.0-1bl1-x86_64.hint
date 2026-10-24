@@ -1,0 +1,6 @@
+category: Libs
+requires: liboqs9 libssl-devel pkg-config
+sdesc: "C library for prototyping and experimenting with quantum-resistant cryptography (development)"
+ldesc: "C library for prototyping and experimenting with quantum-resistant cryptography"
+external-source: liboqs
+

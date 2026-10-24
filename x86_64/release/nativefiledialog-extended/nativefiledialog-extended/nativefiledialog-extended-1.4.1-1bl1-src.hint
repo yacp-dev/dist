@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libglib2.0-devel libgtk3-devel
+sdesc: "Cross platform (Windows, Mac, Linux) native file dialog library (licensing & readmes)"
+ldesc: "A small C library with that portably invokes native file open, folder select
+and file save dialogs. Write dialog code once and have it pop up native
+dialogs on all supported platforms. Avoid linking large dependencies like
+wxWidgets and Qt."
+skip:
+
+homepage: https://github.com/btzy/nativefiledialog-extended
+license: Zlib

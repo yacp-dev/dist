@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport liblinenoise-devel
+sdesc: "Embeddable Javascript engine (utilities)"
+ldesc: "Duktape is an embeddable Javascript engine, with a focus on portability and
+compact footprint."
+skip:
+
+homepage: https://duktape.org/
+license: MIT

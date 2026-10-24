@@ -1,0 +1,16 @@
+category: Libs
+requires: cygwin libiconv2
+sdesc: "Library for working with WFM, EMF and EMF+ images (runtime)"
+ldesc: "libUEMF is a portable C99 implementation for reading and writing Windows
+Metafile, Enhanced Metafile, and Enhanced Metafile Plus (WMF, EMF, and EMF+)
+files. libUEMF avoids collisions with Microsoft defined functions and values,
+so portable programs which use it and have a Windows version do not require
+any conditional logic to separate the native GDI/GDI+ support from the
+equivalent functions provided by libUEMF. libUEMF does not implement GDI/GDI+
+calls. Instead, for each metafile record type, and each object type
+incorporated into such a record, it provides corresponding *_set, *_get,
+*_print, and *_swap functions. Additional functions are provided for
+assembling the metafile in memory, debugging, and providing any needed byte
+swapping (an EMF file's internal data representation is always Little Endian.)"
+external-source: libuemf
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Portable and simple API for accessing Allen-Bradley PLC data (utilities)"
+ldesc: "This library for Linux and Windows (not heavily tested) provides a means of
+accessing PLCs to read and write simple data."
+skip:
+
+homepage: https://github.com/libplctag/libplctag
+license: MPL-2.0

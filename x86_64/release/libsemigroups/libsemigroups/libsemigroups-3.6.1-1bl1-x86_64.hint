@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "C++ library for semigroups and monoids (licensing & readmes)"
+ldesc: "libsemigroups is a C++ library for semigroups and monoids; it is partly based
+on Algorithms for computing finite semigroups, Expository Slides, and
+Semigroupe 2.01 by Jean-Eric Pin."
+

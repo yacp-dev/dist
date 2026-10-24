@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libglib2.0_0
+sdesc: "General purpose TCP-IP emulator (runtime)"
+ldesc: "libslirp is a user-mode networking library used by virtual machines,
+containers or various tools."
+external-source: libslirp
+

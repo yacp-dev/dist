@@ -1,0 +1,7 @@
+category: Devel
+requires: 
+sdesc: "Binary-based efficient object serialization library (C++)"
+ldesc: "MessagePack is a binary-based efficient object serialization library. It
+enables to exchange structured objects between many languages like JSON. But
+unlike JSON, it is very fast and small."
+

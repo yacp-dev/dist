@@ -1,0 +1,7 @@
+category: Libs
+requires: libcurl-devel libicu-devel libkiwix14 libmicrohttpd-devel libxapian-devel libzim-devel pkg-config zlib-devel
+sdesc: "Common code base for all Kiwix ports (development)"
+ldesc: "The Libkiwix provides the Kiwix software suite core. It contains the code
+shared by all Kiwix ports (Windows, GNU/Linux, macOS, Android, iOS, ...)."
+external-source: libkiwix
+

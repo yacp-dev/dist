@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libeconf0
+sdesc: "Enhanced config file parser, which merges config files placed in several locations into one (utilities)"
+ldesc: "libeconf is a highly flexible and configureable library to parse and manage
+key=value configuration files. It reads configuration file snippets from
+different directories and builds the final configuration file for the
+application from it."
+

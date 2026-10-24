@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library for some string essentials (runtime)"
+ldesc: "Some essentials for string handling (and a bit more)."
+external-source: libestr
+

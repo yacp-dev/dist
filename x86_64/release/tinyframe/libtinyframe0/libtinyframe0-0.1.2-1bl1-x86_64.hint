@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Minimalistic Frame Streams library (runtime)"
+ldesc: "tinyframe is a minimalistic library for reading and writing the Frame Streams
+protocol."
+external-source: tinyframe
+

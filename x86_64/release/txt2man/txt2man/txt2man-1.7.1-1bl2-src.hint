@@ -1,0 +1,9 @@
+category: Text
+build-depends: cygport 
+sdesc: "Text to man page"
+ldesc: "Txt2man converts flat ASCII text to man page format. It is a shell
+script using gnu awk, that should run on any Unix like system."
+skip:
+
+homepage: https://github.com/mvertes/txt2man
+license: GPL-2.0-or-later

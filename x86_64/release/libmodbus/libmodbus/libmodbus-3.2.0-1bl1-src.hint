@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Free software library to send/receive data according to the Modbus protocol (licensing & readmes)"
+ldesc: "libmodbus is a C library designed to provide a fast and robust implementation
+of the Modbus protocol. It runs on Linux, Mac OS X, FreeBSD, QNX and Windows."
+skip:
+
+homepage: https://github.com/stephane/libmodbus/
+license: LGPL-2.1-or-later

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcmocka-devel
+sdesc: "Embeddable Multicast DNS Daemon (utilities)"
+ldesc: "Embeddable Multicast DNS Daemon"
+skip:
+
+homepage: https://github.com/troglobit/mdnsd
+license: BSD-3-Clause

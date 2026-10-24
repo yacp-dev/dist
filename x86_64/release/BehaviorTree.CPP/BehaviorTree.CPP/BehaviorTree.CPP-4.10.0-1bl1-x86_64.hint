@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbehaviortree_cpp4 libgcc1 libstdc++6
+sdesc: "Behavior Trees Library in C++ (utilities)"
+ldesc: "Behavior Trees Library in C++"
+

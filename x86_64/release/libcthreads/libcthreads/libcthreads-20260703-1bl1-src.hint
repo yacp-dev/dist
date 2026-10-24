@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel
+sdesc: "Library for cross-platform C threads functions (licensing & readmes)"
+ldesc: "libcthreads is a library for cross-platform C threads functions."
+skip:
+
+homepage: https://github.com/libyal/libcthreads
+license: LGPL-3.0-or-later

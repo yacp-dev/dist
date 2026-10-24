@@ -1,0 +1,7 @@
+category: Utils
+requires: perl perl-libwww-perl perl_base perl-libwww-perl
+sdesc: "Retrieve certificate revocation lists (CRLs)"
+ldesc: "The fetch-crl utility will retrieve certificate revocation lists (CRLs) for a
+set of installed trust anchors, based on crl_url files or IGTF-style info
+files. It will install these for use with OpenSSL, NSS or third-party tools."
+

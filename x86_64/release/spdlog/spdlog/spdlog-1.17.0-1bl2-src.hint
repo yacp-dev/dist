@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbenchmark-devel libCatch2-devel libfmt-devel
+sdesc: "Fast C++ logging library (licensing & readmes)"
+ldesc: "Very fast, header-only/compiled, C++ logging library."
+skip:
+
+homepage: https://github.com/gabime/spdlog
+license: MIT

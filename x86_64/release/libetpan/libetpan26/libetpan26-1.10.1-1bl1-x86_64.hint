@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libdb18.1 libiconv2 libsasl2_3 libssl3 zlib0
+sdesc: "Mail Framework for C Language (runtime)"
+ldesc: "The purpose of this mail library is to provide a portable, efficient framework
+for different kinds of mail access: IMAP, SMTP, POP and NNTP."
+external-source: libetpan
+

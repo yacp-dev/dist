@@ -1,0 +1,7 @@
+category: Libs
+requires: libaaf0 pkg-config
+sdesc: "Implementation of the mathematical construct of affine arithmetics in C++ (development)"
+ldesc: "The aaflib is an implementation of the mathematical construct of affine
+arithmetics in C++."
+external-source: aaflib
+

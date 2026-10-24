@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Embeddable Multicast DNS Daemon (runtime)"
+ldesc: "Embeddable Multicast DNS Daemon"
+external-source: mdnsd
+

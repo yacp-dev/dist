@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libbrotli-devel libev-devel libgnutls-devel libnghttp3-devel
+sdesc: "Effort to implement IETF QUIC protocol (licensing & readmes)"
+ldesc: "ngtcp2 project is an effort to implement QUIC protocol which is now being
+discussed in IETF QUICWG for its standardization."
+skip:
+
+homepage: https://github.com/ngtcp2/ngtcp2
+license: MIT

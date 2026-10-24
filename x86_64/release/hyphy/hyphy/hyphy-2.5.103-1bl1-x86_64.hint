@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libcurl4 libgcc1 libgomp1 libstdc++6 zlib0
+sdesc: "Hypothesis Testing using Phylogenies"
+ldesc: "HyPhy (Hypothesis Testing using Phylogenies) is an open-source software
+package for the analysis of genetic sequences (in particular the inference of
+natural selection) using techniques in phylogenetics, molecular evolution, and
+machine learning. It features a rich scripting language for limitless
+customization of analyses."
+

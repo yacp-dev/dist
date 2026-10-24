@@ -1,0 +1,8 @@
+category: Libs
+requires: libflint-devel libgmp-devel libmpfr-devel libmsolve4 pkg-config
+sdesc: "Library for Polynomial System Solving through Algebraic Methods (development)"
+ldesc: "msolve is an open source C library implementing computer algebra algorithms
+for solving polynomial systems (with rational coefficients or coefficients in
+a prime field)."
+external-source: msolve
+

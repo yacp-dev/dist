@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel libgtest-devel
+sdesc: "C++ implementation of the AWS Lambda runtime (licensing & readmes)"
+ldesc: "C++ implementation of the AWS Lambda runtime"
+skip:
+
+homepage: https://github.com/awslabs/aws-lambda-cpp
+license: Apache-2.0

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "VANC Processing Framework (utilities)"
+ldesc: "Libklvanc is a library which can be used for parsing/generation of Vertical
+Ancillary Data (VANC) commonly found in the Serial Digital Interface (SDI)
+wire protocol."
+skip:
+
+homepage: https://github.com/stoth68000/libklvanc
+license: LGPL-2.1-or-later

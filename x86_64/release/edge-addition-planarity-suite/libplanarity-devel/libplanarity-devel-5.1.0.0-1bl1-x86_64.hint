@@ -1,0 +1,12 @@
+category: Libs
+requires: libplanarity4 pkg-config
+sdesc: "Edge Addition Planarity Suite (development)"
+ldesc: "The primary purpose of this repository is to provide implementations of the
+edge addition planar graph embedding algorithm and related algorithms,
+including a planar graph drawing method, an isolator for a minimal subgraph
+obstructing planarity in non-planar graphs, outerplanar graph embedder and
+obstruction isolator algorithms, and tester/isolator algorithms for subgraphs
+homeomorphic to K2,3, K4, and K3,3. The C implementations in this repository
+are the reference implementations of algorithms."
+external-source: edge-addition-planarity-suite
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: python3 python312
+sdesc: "Protocol Buffers with small code size (python312 bindings)"
+ldesc: "Nanopb is a small code-size Protocol Buffers implementation in ansi C. It is
+especially suitable for use in microcontrollers, but fits any memory
+restricted system."
+external-source: nanopb
+

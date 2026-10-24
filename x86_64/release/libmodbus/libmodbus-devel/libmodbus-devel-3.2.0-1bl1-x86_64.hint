@@ -1,0 +1,7 @@
+category: Libs
+requires: libmodbus5 pkg-config
+sdesc: "Free software library to send/receive data according to the Modbus protocol (development)"
+ldesc: "libmodbus is a C library designed to provide a fast and robust implementation
+of the Modbus protocol. It runs on Linux, Mac OS X, FreeBSD, QNX and Windows."
+external-source: libmodbus
+

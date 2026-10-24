@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C and C++ Task Scheduler for creating parallel programs (runtime)"
+ldesc: "A permissively licensed C and C++ Task Scheduler for creating parallel
+programs. Requires C++11 support."
+external-source: enkiTS
+

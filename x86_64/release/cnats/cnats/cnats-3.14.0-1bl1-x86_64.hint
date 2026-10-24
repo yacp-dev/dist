@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C client for NATS (licensing & readmes)"
+ldesc: "A C client for the NATS messaging system."
+

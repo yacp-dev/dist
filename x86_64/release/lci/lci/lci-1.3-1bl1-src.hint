@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport 
+sdesc: "LOLCODE interpreter"
+ldesc: "Lci is a LOLCODE interpreter written in C and is designed to be correct,
+portable, fast, and precisely documented."
+skip:
+
+homepage: https://github.com/justinmeza/lci
+license: GPL-3.0-or-later

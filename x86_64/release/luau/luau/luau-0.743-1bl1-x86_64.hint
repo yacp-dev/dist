@@ -1,0 +1,5 @@
+category: Interpreters
+requires: cygwin libgcc1 libisocline1 libstdc++6
+sdesc: "Fast, small, safe, gradually typed embeddable scripting language derived from Lua"
+ldesc: "Fast, small, safe, gradually typed embeddable scripting language derived from Lua"
+

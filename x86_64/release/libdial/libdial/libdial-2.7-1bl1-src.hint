@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcairo-devel libglib2.0-devel libgtk3-devel libintl-devel libpango1.0-devel
+sdesc: "Library needed by tzclock (licensing & readmes)"
+ldesc: "Library needed by tzclock"
+skip:
+
+homepage: https://theknight.co.uk/
+license: GPL-3.0-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libusb1.0
+sdesc: "Library to control your iBuddy device (runtime)"
+ldesc: "Library to control your iBuddy device"
+external-source: libibuddy
+

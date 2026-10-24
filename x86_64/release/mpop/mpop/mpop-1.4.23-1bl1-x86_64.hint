@@ -1,0 +1,5 @@
+category: Mail
+requires: cygwin libgnutls30 libgsasl18 libidn2_0 libintl8 libsecret1_0
+sdesc: "POP3 client"
+ldesc: "mpop is a POP3 client: it retrieves mail from POP3 mailboxes."
+

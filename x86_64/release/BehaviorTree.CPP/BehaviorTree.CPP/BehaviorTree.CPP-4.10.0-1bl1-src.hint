@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel libminitrace-devel libsqlite3-devel libtinyxml2-devel libzmq-devel
+sdesc: "Behavior Trees Library in C++ (utilities)"
+ldesc: "Behavior Trees Library in C++"
+skip:
+
+homepage: https://github.com/BehaviorTree/BehaviorTree.CPP
+license: MIT AND (MIT-0 OR Unlicense)

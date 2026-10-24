@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgfortran5 libmctc-lib0 libmulticharge0
+sdesc: "Electronegativity equilibration model for atomic partial charges (utilities)"
+ldesc: "Electronegativity equilibration model for atomic partial charges"
+

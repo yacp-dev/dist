@@ -1,0 +1,7 @@
+category: Libs
+requires: libexttextcat2.0_1 pkg-config
+sdesc: "Text categorization library (development)"
+ldesc: "Libexttextcat is an N-Gram-Based Text Categorization library primarily
+intended for language guessing."
+external-source: libexttextcat
+

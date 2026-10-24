@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcurl-devel libnpupnp-devel
+sdesc: "C++ wrapper for libupnp (licensing & readmes)"
+ldesc: "Libupnpp can be used to implement UPnP devices and services, or Control
+Points."
+skip:
+
+homepage: https://www.lesbonscomptes.com/upmpdcli/libupnpp-refdoc/libupnpp-ctl.html
+license: LGPL-2.1-or-later

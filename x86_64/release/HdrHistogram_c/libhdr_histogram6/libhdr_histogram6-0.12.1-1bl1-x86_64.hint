@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin zlib0
+sdesc: "C port of the HdrHistogram (runtime)"
+ldesc: "C port of High Dynamic Range (HDR) Histogram"
+external-source: HdrHistogram_c
+

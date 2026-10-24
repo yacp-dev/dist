@@ -1,0 +1,6 @@
+category: Libs
+requires: libclocale1 pkg-config
+sdesc: "Library for cross-platform C locale functions (development)"
+ldesc: "libclocale is a library for cross-platform C locale functions."
+external-source: libclocale
+

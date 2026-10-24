@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran libhdf5-devel zlib-devel
+sdesc: "Library for reading and writing matlab files (utilities)"
+ldesc: "matio is an C library for reading and writing Matlab MAT files."
+skip:
+
+homepage: https://github.com/tbeu/matio
+license: BSD-2-Clause

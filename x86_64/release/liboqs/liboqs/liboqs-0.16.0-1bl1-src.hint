@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libssl-devel python3-pytest python3-requests
+sdesc: "C library for prototyping and experimenting with quantum-resistant cryptography (licensing & readmes)"
+ldesc: "C library for prototyping and experimenting with quantum-resistant cryptography"
+skip:
+
+homepage: https://github.com/open-quantum-safe/liboqs
+license: MIT

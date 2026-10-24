@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libfolia22 libgcc1 libicu76 libstdc++6 libticcutils10 libucto6
+sdesc: "Advanced rule-based unicode-aware tokenizer (utilities)"
+ldesc: "Ucto tokenizes text files: it separates words from punctuation, and splits
+sentences. It offers several other basic preprocessing steps such as changing
+case that you can all use to make your text suited for further processing such
+as indexing, part-of-speech tagging, or machine translation."
+

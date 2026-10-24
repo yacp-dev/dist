@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libcurl-devel libgtest-devel libssl-devel libuuid-devel libxml2-devel nlohmann_json
+sdesc: "High-performance file management over WebDAV / HTTP (utilities)"
+ldesc: "Davix aims to make the task of managing files over HTTP-based protocols
+simple. It is being developed by IT-ST at CERN, and while the project's
+purpose is its use on the CERN grid, the functionality offered is generic."
+skip:
+
+homepage: https://github.com/cern-fts/davix
+license: LGPL-2.1-or-later

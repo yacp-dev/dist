@@ -1,0 +1,14 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Formatted Output with tex-like syntax support (utilities)"
+ldesc: "The utftex program and underlying libtexprintf library provide tools to pretty
+print math in mono-space fonts, using a tex-like syntax. It produces UTF-8
+encoded text. The program was inspired by asciiTeX, and the improved asciiTeX
+fork. However, utftex supports much more TeX syntax and contains extensive
+Unicode tables to map latex commands to Unicode symbols. Use
+libtexprintf/utftex to unlock the math capabilities of Unicode in mono-space
+text applications."
+skip:
+
+homepage: https://github.com/bartp5/libtexprintf
+license: GPL-3.0-or-later

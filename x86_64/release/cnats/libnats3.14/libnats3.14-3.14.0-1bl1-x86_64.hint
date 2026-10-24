@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libprotobuf-c1 libsodium26 libssl3
+sdesc: "C client for NATS (runtime)"
+ldesc: "A C client for the NATS messaging system."
+external-source: cnats
+

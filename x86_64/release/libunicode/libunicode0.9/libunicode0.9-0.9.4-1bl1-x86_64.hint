@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Modern C++20 Unicode Library (runtime)"
+ldesc: "Modern C++20 Unicode Library"
+external-source: libunicode
+

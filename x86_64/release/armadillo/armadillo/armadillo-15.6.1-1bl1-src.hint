@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libarpack-devel liblapack-devel libsuperlu-devel
+sdesc: "C++ linear algebra library (licensing & readmes)"
+ldesc: "Armadillo is a C++ linear algebra library (matrix maths) aiming towards a
+good balance between speed and ease of use. Integer, floating point and
+complex numbers are supported, as well as a subset of trigonometric and
+statistics functions."
+skip:
+
+homepage: https://sourceforge.net/projects/arma/
+license: Apache-2.0

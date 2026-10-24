@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libdb-devel libglib2.0-devel
+sdesc: "Library to deal with pinyin (utilities)"
+ldesc: "The libpinyin project aims to provide the algorithms core for intelligent
+sentence-based Chinese pinyin input methods."
+skip:
+
+homepage: https://github.com/libpinyin/libpinyin
+license: GPL-3.0-or-later

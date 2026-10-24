@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libgcc1 libstdc++6 zlib0
+sdesc: "Macromolecular crystallography library and utilities (runtime)"
+ldesc: "Macromolecular crystallography library and utilities"
+external-source: gemmi
+

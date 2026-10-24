@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel
+sdesc: "Library for cross-platform C error functions (licensing & readmes)"
+ldesc: "libcerror is a library for cross-platform C error functions."
+skip:
+
+homepage: https://github.com/libyal/libcerror
+license: LGPL-3.0-or-later

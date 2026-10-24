@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libargp-devel libcurl-devel libssl-devel libzstd-devel
+sdesc: "File format designed for highly efficient deltas while maintaining good compression (utilities)"
+ldesc: "zchunk is a compressed file format that splits the file into independent
+chunks. This allows you to only download changed chunks when downloading a new
+version of the file, and also makes zchunk files efficient over rsync."
+skip:
+
+homepage: https://github.com/zchunk/zchunk
+license: BSD-2-Clause

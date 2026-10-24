@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel
+sdesc: "Library for cross-platform C split string functions (licensing & readmes)"
+ldesc: "libcsplit is a library for cross-platform C split string functions."
+skip:
+
+homepage: https://github.com/libyal/libcsplit
+license: LGPL-3.0-or-later

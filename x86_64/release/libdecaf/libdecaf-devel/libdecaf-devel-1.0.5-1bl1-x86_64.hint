@@ -1,0 +1,6 @@
+category: Libs
+requires: libdecaf0 pkg-config
+sdesc: "Fast, strong elliptic curve cryptography (development)"
+ldesc: "Ed448-Goldilocks is a new elliptic curve for cryptography."
+external-source: libdecaf
+

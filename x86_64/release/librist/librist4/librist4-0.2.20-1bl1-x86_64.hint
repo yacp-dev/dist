@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcjson1 liblz4_1 libmbedcrypto5
+sdesc: "Library that can be used to add the RIST protocol to applications (runtime)"
+ldesc: "Library that can be used to add the RIST protocol to applications"
+external-source: librist
+

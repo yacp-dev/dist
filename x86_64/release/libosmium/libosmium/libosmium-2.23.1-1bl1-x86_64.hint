@@ -1,0 +1,5 @@
+category: Devel
+requires: 
+sdesc: "Fast and flexible C++ library for working with OpenStreetMap data"
+ldesc: "Fast and flexible C++ library for working with OpenStreetMap data"
+

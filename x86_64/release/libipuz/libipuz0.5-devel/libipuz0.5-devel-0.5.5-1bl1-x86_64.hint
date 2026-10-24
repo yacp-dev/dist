@@ -1,0 +1,6 @@
+category: Libs
+requires: libglib2.0-devel libipuz0.5 libjson-glib1.0-devel pkg-config
+sdesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc. (development)"
+ldesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc."
+external-source: libipuz
+

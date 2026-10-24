@@ -1,0 +1,6 @@
+category: Libs
+requires: libcpptest1 pkg-config
+sdesc: "Powerful, yet simple, C++ unit testing framework (development)"
+ldesc: "Powerful, yet simple, C++ unit testing framework"
+external-source: cpptest
+
