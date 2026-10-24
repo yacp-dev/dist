@@ -11,11 +11,15 @@
 # keeps step names (unlike --log-failed), so the step can be cut out of
 # it.
 #
+# A passing check that ran no tests leaves "check-empty: <reason>" in
+# the Detect empty check step's log (detect_empty_check.sh); that's
+# reported as "check: empty" rather than "check: passed".
+#
 # Usage:
 #   check_summary.sh --run 123456789
-# Output: "check: passed", "check: FAILED" plus the diagnostic, or
-# "check: unknown" when the run never reached check or predates the
-# diagnose step.
+# Output: "check: passed", "check: empty" plus the end of the check log,
+# "check: FAILED" plus the diagnostic, or "check: unknown" when the run
+# never reached check or predates the diagnose step.
 
 set -euo pipefail
 
@@ -45,7 +49,19 @@ if [[ -z "$diagnose" ]]; then
   exit 0
 fi
 if [[ "$diagnose" == "skipped" ]]; then
-  echo "check: passed"
+  # Third tab-separated field is "<timestamp> <line>", as below.
+  empty="$(gh run view "$run" -R "$repo" --log |
+    perl -pe 's/\e\[[0-9;]*m//g' |
+    awk -F'\t' '$2 == "Detect empty check" { sub(/^[^ ]+ /, "", $3); print $3 }' |
+    sed -n '/^check-empty: /,$p')"
+  if [[ -n "$empty" ]]; then
+    first="${empty%%$'\n'*}"
+    echo "check: empty (${first#check-empty: })"
+    echo
+    tail -n +2 <<<"$empty"
+  else
+    echo "check: passed"
+  fi
   exit 0
 fi
 

@@ -486,6 +486,17 @@ jobs:
         if: steps.check.outcome == 'failure'
         run: bash -- scripts/diagnose_check_failure.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
+      # A check that ran no tests passes just the same (a src_test of
+      # `:`, cygtest finding no check/test target, ctest/meson finding
+      # none), so a green check alone doesn't say the suite was reached.
+      # Says so in the job summary and the PR body, for whoever fixes the
+      # recipe to look at whether upstream has tests src_test misses.
+      - name: Detect empty check
+        id: empty-check
+        if: steps.check.outcome == 'success'
+        continue-on-error: true
+        run: bash -- scripts/detect_empty_check.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+
       - name: cygport install
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step install
 
@@ -756,13 +767,16 @@ jobs:
           # otherwise leaves no trace on a green run (see Diagnose check
           # failure); the diagnostic itself goes to the run summary rather
           # than here, to keep a possibly long log excerpt out of the PR.
-          # Likewise the audit line, unless Audit recipe warned.
+          # Likewise the empty-check line, unless check ran no tests, and
+          # the audit line, unless Audit recipe warned.
           body: |
             Version `${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
 
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             ${{ steps.check.outcome == 'failure' && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
+
+            ${{ steps.empty-check.outputs.reason && format('**`cygport check` ran no tests** ({0}).', steps.empty-check.outputs.reason) || '' }}
 
             ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
 
@@ -860,4 +874,4 @@ jobs:
       # survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --check-empty-reason "${{ steps.empty-check.outputs.reason }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}"

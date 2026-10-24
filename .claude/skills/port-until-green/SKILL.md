@@ -64,7 +64,7 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   the undefined-macro diagnostic (when that diagnose step ran), and the
   full failed log saved to `DIR` for grepping.
 - `scripts/check_summary.sh --run ID` — whether `cygport check` passed,
-  and its diagnostic if not (Step 2).
+  ran no tests (`check: empty`), or failed, with its diagnostic (Step 2).
 - `scripts/preflight_bump.sh --package P --version V --work DIR [--source URL]` —
   bumps the recipe to `V` on a local `dorgann/P-V` branch in its own
   worktree (committed, not pushed), and reports what would fail: patches
@@ -357,7 +357,7 @@ already has them.
   then check the test suite: `scripts/check_summary.sh --run <id>`.
   `cygport check` is continue-on-error, so a green run says nothing about
   it. If it reports `check: FAILED`, go to "Test suite failures" below
-  before calling it done. Also make sure the recipe defines `LICENSE`,
+  before calling it done; if `check: empty`, go to "Empty test suite". Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
   LICENSE" below. Then look at `Audit recipe`'s `== Runtime
   requirements ==` section (`gh run view <id> -R yacp-dev/dist --log |
@@ -459,6 +459,30 @@ branch rather than leaving it in the recipe alongside the real fix.
 Re-run the same target after a fix; the bot updates the same PR. Don't
 disable or skip tests to make check pass — a failing test that tells the
 truth is more useful than a passing one that doesn't.
+
+### Empty test suite
+
+`check: empty` means check passed without running a single test:
+src_test printed nothing, or cygtest/ctest/meson/automake/pytest said
+there were none (the reason is in parentheses). Whether that's right
+depends on upstream, so look at the source before reporting it:
+
+- Upstream has no tests (no `test`/`tests`/`t` directory, no
+  `check`/`test` target, no `enable_testing()`/`add_test`, no meson
+  `test()`, no pytest/unittest files) → nothing to fix; say so in the
+  report.
+- Upstream has tests the build doesn't reach → fix it on the branch
+  (Step 4; counts as an attempt) when the fix is a recipe change: a
+  configure option that turns them on (`-DBUILD_TESTING=ON`,
+  `-D<PROJECT>_BUILD_TESTS=ON`, `-Dtests=true`, `--enable-tests`), or a
+  src_test that runs the target upstream actually has (`make check` in
+  a subdirectory, a test script). Don't add `BUILD_REQUIRES` for a
+  test framework that isn't in Cygwin; report it instead.
+- A recipe whose src_test is deliberately `:`, with a comment saying
+  why (needs network, hangs on Cygwin), stays that way.
+
+A re-run that turns `empty` into `FAILED` goes on to "Test suite
+failures"; one that gets `passed` is done.
 
 ### Missing LICENSE
 

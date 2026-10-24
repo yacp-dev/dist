@@ -42,11 +42,14 @@
 # cygport check failed -- which, being continue-on-error, nothing else
 # on a green run shows.
 #
+# check_empty_reason is Detect empty check's output, set only when
+# cygport check passed without running any tests.
+#
 # audit_file/audit_warnings are Audit recipe's outputs; the report is
 # shown whenever there is one, opened when it has warnings.
 #
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--check-empty-reason <text-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
 
 set -euo pipefail
 
@@ -55,6 +58,7 @@ pr_url=""
 artifact_id=""
 macro_diagnostic_file=""
 check_diagnostic_file=""
+check_empty_reason=""
 audit_file=""
 audit_warnings=""
 
@@ -65,6 +69,7 @@ while [[ $# -gt 0 ]]; do
     --artifact-id) artifact_id="$2"; shift 2 ;;
     --macro-diagnostic-file) macro_diagnostic_file="$2"; shift 2 ;;
     --check-diagnostic-file) check_diagnostic_file="$2"; shift 2 ;;
+    --check-empty-reason) check_empty_reason="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
@@ -122,6 +127,10 @@ print_details() {
   fi
   print_details "cygport compile failed: undefined autoconf macros" "$macro_diagnostic_file" open
   print_details "cygport check failed (non-blocking)" "$check_diagnostic_file"
+  if [[ -n "$check_empty_reason" ]]; then
+    echo
+    echo "- cygport check ran no tests: $check_empty_reason -- see whether upstream has a test suite src_test doesn't reach"
+  fi
   if [[ -n "$audit_file" && -s "$audit_file" ]]; then
     echo
     if [[ -n "$audit_warnings" ]]; then
