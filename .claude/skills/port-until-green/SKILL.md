@@ -77,6 +77,27 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   directly; Repology only names the source packages), each with a
   revision-pinned URL for `PATCH_URI` (see
   "Distro patches" under Step 2).
+- `scripts/cmux_status.sh "<text>"` / `--clear` — shows the package and
+  phase as a status pill on this session's cmux workspace (a no-op
+  outside cmux). See "Status pill" below.
+
+### Status pill
+
+Keep the user able to tell at a glance which package this session is on.
+Set the pill once Step 1 has settled the target, and update it at each
+phase change, as `<pkg>-<ver> · <phase>`:
+
+| When | Phase text |
+|---|---|
+| Step 1b | `preflight` |
+| Each dispatch (Step 2) | `build #N running` (N = attempt, transient re-runs included) |
+| Step 3/4 | `fixing build #N` |
+| Deploy publish | `publishing` |
+
+Run it alongside the step's own command, not as an extra turn. When
+the loop ends — success, stopping, or Step 1 stopping early (already up
+to date, blocked, invalid) — clear it with `scripts/cmux_status.sh --clear`
+as the last action before reporting.
 
 ## Step 1: Resolve the argument
 
