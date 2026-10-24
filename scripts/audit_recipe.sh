@@ -146,7 +146,15 @@ identify_license_text() {
   done
   [[ "$text" == *"Apache License"*"Version 2.0"* ]] && echo "Apache-2.0"
   [[ "$text" == *"Mozilla Public License Version 2.0"* || "$text" == *"Mozilla Public License, v. 2.0"* ]] && echo "MPL-2.0"
-  [[ "$text" == *"Permission is hereby granted, free of charge, to any person obtaining a copy"* ]] && echo "MIT"
+  # MIT-0 is MIT without the condition to keep the notice (minicoro's
+  # LICENSE, compiled into BehaviorTree.CPP).
+  if [[ "$text" == *"Permission is hereby granted, free of charge, to any person obtaining a copy"* ]]; then
+    if [[ "$text" == *"The above copyright notice and this permission notice"* ]]; then
+      echo "MIT"
+    else
+      echo "MIT-0"
+    fi
+  fi
   if [[ "$text" == *"Redistribution and use in source and binary forms"* ]]; then
     if [[ "$text" == *"advertising materials"* ]]; then
       echo "BSD-4-Clause"
