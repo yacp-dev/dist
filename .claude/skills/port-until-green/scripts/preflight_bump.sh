@@ -25,8 +25,11 @@
 #      list and the recipe's *_CONTENTS), next to every SOVERSION-setting
 #      line in the new source's build files, with the libtool/CMake/meson
 #      number worked out where it's a literal.
-#   5. Whether LICENSE, LICENSE_SPDX and LICENSE_URI are set, and whether
-#      LICENSE_URI exists in the new source.
+#   5. Whether LICENSE, LICENSE_SPDX and LICENSE_URI are set, whether
+#      LICENSE_URI exists in the new source, and the license texts (as
+#      audit_recipe.sh recognizes them) of licenses LICENSE lacks, marked
+#      when added or changed since the current version, plus the ones the
+#      new version dropped (the current source is downloaded for that).
 #
 # Only reports: nothing beyond the bump is changed, and nothing is
 # pushed. Git snapshots (literal GIT_REV) go through git_snapshot_bump.sh
@@ -75,6 +78,9 @@ else
   exit 1
 fi
 
+# identify_license_text and friends, shared with the recipe audit.
+source "$dorgann/scripts/license_text.sh"
+
 branch="dorgann/$package-$version"
 wt="$worktrees/$package-$version"
 
@@ -112,32 +118,35 @@ echo "work:     $work"
 # patches are evaluated the way cygport would see them (bin/cygport.in
 # defines PN, PV as an array, P, ... before sourcing the recipe), but only
 # their own assignments, not the whole recipe. Anything with a command
-# substitution is left out.
-assignments="$(perl -0ne '
-  while (/^((?:SRC_URI|SRC_DIR|PATCH_URI|GIT_URI|GIT_TAG|GIT_BRANCH|GIT_MODULE|GIT_SUBDIR)\+?=(?:"(?:[^"\\]|\\.)*"|'\''[^'\'']*'\''|\S*))/mg) {
-    my $a = $1;
-    print "$a\n" unless $a =~ /\$\(|`/;
-  }' "$cygport")"
-recipe_vars="$(
-  set -f
-  PN="$package"
-  PR="${pf##*-}"
-  PVP=(${version//[-._]/ })
-  PV=("$version" "${PVP[@]}")
-  P="$PN-$version"
-  PVR="$version-$PR"
-  PF="$pf"
-  PV_MAJ="${PV[1]}"
-  PV_MAJ_MIN="${PV[1]}.${PV[2]:-}"
-  NAME="$PN" VERSION="$version" RELEASE="$PR"
-  SRC_URI="" SRC_DIR="" PATCH_URI="" GIT_URI="" GIT_TAG="" GIT_BRANCH="" GIT_MODULE="" GIT_SUBDIR=""
-  set +u
-  eval "$assignments"
-  for v in SRC_URI SRC_DIR PATCH_URI GIT_URI GIT_TAG GIT_BRANCH GIT_MODULE GIT_SUBDIR; do
-    printf '%s=%q\n' "$v" "$(echo ${!v})"
-  done
-)"
-eval "$recipe_vars"
+# substitution is left out. Prints them as assignments to eval.
+recipe_vars() {
+  local file="$1" ver="$2" file_pf="$3" assignments
+  assignments="$(perl -0ne '
+    while (/^((?:SRC_URI|SRC_DIR|PATCH_URI|GIT_URI|GIT_TAG|GIT_BRANCH|GIT_MODULE|GIT_SUBDIR)\+?=(?:"(?:[^"\\]|\\.)*"|'\''[^'\'']*'\''|\S*))/mg) {
+      my $a = $1;
+      print "$a\n" unless $a =~ /\$\(|`/;
+    }' "$file")"
+  (
+    set -f
+    PN="$package"
+    PR="${file_pf##*-}"
+    PVP=(${ver//[-._]/ })
+    PV=("$ver" "${PVP[@]}")
+    P="$PN-$ver"
+    PVR="$ver-$PR"
+    PF="$file_pf"
+    PV_MAJ="${PV[1]}"
+    PV_MAJ_MIN="${PV[1]}.${PV[2]:-}"
+    NAME="$PN" VERSION="$ver" RELEASE="$PR"
+    SRC_URI="" SRC_DIR="" PATCH_URI="" GIT_URI="" GIT_TAG="" GIT_BRANCH="" GIT_MODULE="" GIT_SUBDIR=""
+    set +u
+    eval "$assignments"
+    for v in SRC_URI SRC_DIR PATCH_URI GIT_URI GIT_TAG GIT_BRANCH GIT_MODULE GIT_SUBDIR; do
+      printf '%s=%q\n' "$v" "$(echo ${!v})"
+    done
+  )
+}
+eval "$(recipe_vars "$cygport" "$version" "$pf")"
 
 inherits="$(sed -nE 's/^inherit[[:space:]]+//p' "$cygport" | tr '\n' ' ')"
 
@@ -215,6 +224,41 @@ if [[ -n "$source_ok" && ! -d "$work/origsrc/$SRC_DIR" ]]; then
   source_ok=""
 fi
 [[ -n "$source_ok" ]] && echo "S = origsrc/$SRC_DIR"
+
+# The current version's source too, for the license texts the new one
+# adds, changes or drops (5.). Only the primary source; a --source URL
+# is reused with the version swapped. Prints its $S, or nothing.
+old_pf="$(basename "$old_cygport" .cygport)"
+old_version="${old_pf%-*}"
+old_version="${old_version#"$package"-}"
+old_source() {
+  local SRC_URI SRC_DIR PATCH_URI GIT_URI GIT_TAG GIT_BRANCH GIT_MODULE GIT_SUBDIR module entry file
+  git -C "$ports" show "origin/master:$old_cygport" > "$work/old.cygport"
+  eval "$(recipe_vars "$work/old.cygport" "$old_version" "$old_pf")"
+  mkdir -p "$work/old/dl" "$work/old/origsrc"
+  if [[ " $(sed -nE 's/^inherit[[:space:]]+//p' "$work/old.cygport" | tr '\n' ' ') " == *" git "* ]]; then
+    [[ -n "$GIT_URI" && -n "$GIT_TAG" ]] || return 0
+    module="${GIT_MODULE:-$(basename "${GIT_URI%/}" .git)}"
+    git clone -q --depth 1 --branch "$GIT_TAG" "$GIT_URI" "$work/old/origsrc/$module" 2>/dev/null || return 0
+    SRC_DIR="$module${GIT_SUBDIR:+/$GIT_SUBDIR}"
+  else
+    set -f
+    entry="${SRC_URI%% *}"
+    set +f
+    [[ -n "$source_override" ]] && entry="${source_override//"$version"/"$old_version"}"
+    [[ -n "$entry" && "$entry" != *'$'* ]] || return 0
+    file="$(fetch "$entry" "$work/old/dl")" || return 0
+    case "$file" in
+      *.tar|*.tar.*|*.tgz|*.tbz|*.tbz2|*.txz|*.zip) tar -xf "$file" -C "$work/old/origsrc" || return 0 ;;
+      *) return 0 ;;
+    esac
+    SRC_DIR="${SRC_DIR:-$package-$old_version}"
+  fi
+  [[ -d "$work/old/origsrc/$SRC_DIR" ]] && echo "$work/old/origsrc/$SRC_DIR"
+  return 0
+}
+old_s=""
+[[ -n "$source_ok" ]] && old_s="$(old_source)"
 
 # 3. Patches, as cygpatch applies them: the first -pN (0..5) whose dry run
 # succeeds, plain then --binary; a reverse dry run succeeding means the
@@ -339,4 +383,70 @@ if [[ -n "$license_uri" && "$license_uri" != *://* && -n "$source_ok" ]]; then
   [[ -e "$work/origsrc/$SRC_DIR/$license_uri" ]] &&
     echo "LICENSE_URI $license_uri exists in the new source" ||
     echo "LICENSE_URI $license_uri is NOT in the new source"
+fi
+
+# License texts whose license LICENSE doesn't include, marked when the
+# new version added or changed them since the current one, and the ones
+# it dropped (a license LICENSE may no longer need). A vendored library's
+# text counts only if the build compiles what it covers (port-until-green's
+# "Missing LICENSE"), which only the build files tell: BehaviorTree.CPP
+# compiled its vendored minicoro (MIT-0 OR Unlicense) for releases before
+# the recipe's MIT said so. Unrecognized texts below the top level are
+# left out, as audit_recipe.sh does: at that depth LICENSE* matches
+# source files too.
+license_texts() {
+  local root="$1" f rel ids
+  while IFS= read -r -d '' f; do
+    rel="${f#"$root"/}"
+    ids="$(identify_license_text "$f" | sort -u | tr '\n' ' ')"
+    ids="${ids% }"
+    [[ -z "$ids" && "$rel" == */* ]] && continue
+    printf '%s\t%s\n' "$rel" "${ids:-unrecognized}"
+  done < <(license_text_files "$root")
+}
+if [[ -n "$source_ok" ]]; then
+  license="$(sed -nE 's/^LICENSE="?([^"]*)"?$/\1/p' "$cygport")"
+  declare -A recipe_base=() old_texts=()
+  while IFS=$'\t' read -r _ id; do
+    recipe_base["$(license_base "$id")"]=1
+  done < <(printf 'recipe\t%s\n' "$license" | spdx_ids)
+  license_texts "$work/origsrc/$SRC_DIR" > "$work/license-texts.new"
+  if [[ -n "$old_s" ]]; then
+    license_texts "$old_s" > "$work/license-texts.old"
+    while IFS=$'\t' read -r rel ids; do
+      old_texts["$rel"]="$ids"
+    done < "$work/license-texts.old"
+  else
+    echo "(the $old_version source didn't download: nothing marked new or gone)"
+  fi
+  lacking=""
+  while IFS=$'\t' read -r rel ids; do
+    missing=""
+    for id in $ids; do
+      [[ "$id" == unrecognized || -n "${recipe_base[$(license_base "$id")]:-}" ]] || missing+=" $id"
+    done
+    mark=""
+    if [[ -n "$old_s" ]]; then
+      if [[ -z "${old_texts[$rel]+x}" ]]; then
+        mark=" (new since $old_version)"
+      elif [[ "${old_texts[$rel]}" != "$ids" ]]; then
+        mark=" (changed since $old_version, was ${old_texts[$rel]})"
+      fi
+      unset 'old_texts[$rel]'
+    fi
+    if [[ -n "$missing" ]]; then
+      lacking+="  $rel$mark: $ids -- LICENSE lacks${missing}"$'\n'
+    elif [[ "$ids" == unrecognized ]]; then
+      lacking+="  $rel$mark: unrecognized -- read it"$'\n'
+    fi
+  done < "$work/license-texts.new"
+  if [[ -n "$lacking" ]]; then
+    echo "license texts of licenses LICENSE doesn't include (one counts only if the build compiles what it covers -- see the build files):"
+    printf '%s' "$lacking"
+  else
+    echo "every recognized license text's license is in LICENSE"
+  fi
+  for rel in "${!old_texts[@]}"; do
+    echo "  $rel (gone since $old_version): ${old_texts[$rel]} -- check LICENSE still needs it"
+  done
 fi

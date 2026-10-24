@@ -237,7 +237,17 @@ source and prints a report. Go through it, fixing on the branch:
   `cygport package` with "Packages are missing files", which says which
   DLL it built.
 - **LICENSE** — anything `MISSING`, or a `LICENSE_URI` that isn't in the
-  new source → see "Missing LICENSE" below.
+  new source → see "Missing LICENSE" below. Each license text listed
+  with `LICENSE lacks` (usually a vendored library's, under `3rdparty/`,
+  `vendor/`, ...) → check whether the build compiles what it covers,
+  for the options the recipe passes (`USE_VENDORED_*=OFF` and the like
+  leave it out), and add its license to `LICENSE` if so, in the same
+  `<pkg>-<ver> (fix LICENSE)` commit (BehaviorTree.CPP: minicoro's
+  `MIT-0 OR Unlicense`, compiled since before 4.10.0, while the recipe
+  said `MIT`). The gap may predate this version: what's marked `new
+  since`/`changed since` arrived with it, the rest was already missing.
+  A text `gone since` the current version may leave a license in
+  `LICENSE` that nothing ships any more.
 
 Also go through "Distro patches" (under Step 2) now, so they're in the
 first run rather than added after it.
