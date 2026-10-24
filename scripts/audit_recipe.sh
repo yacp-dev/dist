@@ -31,10 +31,12 @@
 # first: a binary in $D (or, for test-only dependencies, in $B) importing
 # one of its DLLs; one of its files showing up in the compiler's own
 # dependency output (.d/.deps files, `ninja -t deps`); one of its
-# commands, .pc/m4/cmake names or -l flags appearing in the build logs.
-# The last is weak -- configure's "checking for foo... no" mentions a
-# tool it then doesn't use -- but a package with none of the three is
-# most likely left over. Building fine without a package still doesn't
+# commands, .pc/m4/cmake names or -l flags appearing in the build logs;
+# one of its commands named in the strings of a binary in $D or $B (one
+# run through system() that no log shows, like abpoa's `dot`). The last
+# two are weak -- configure's "checking for foo... no" mentions a tool
+# it then doesn't use, and a command name can be just a word in a
+# string -- but a package with none of them is most likely left over. Building fine without a package still doesn't
 # prove it unused (configure may silently drop a feature), so this only
 # warns; a human (or port-until-green) confirms by rebuilding without it
 # and comparing the package contents.
@@ -388,15 +390,19 @@ audit_build_requires() {
   fi
 
   # DLLs that the binaries import, from $D and (tests, helper tools
-  # built and run during the build) $B.
+  # built and run during the build) $B, and the strings in them, for
+  # commands they run through system()/exec without the build logging it.
   local tree
   for tree in D B; do
     if [[ -d "${!tree}" ]]; then
       find "${!tree}" -type f \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' \) -print0 2>/dev/null \
         | xargs -0 -r objdump -p 2>/dev/null \
         | sed -n 's/^[[:space:]]*DLL Name: //p' | tr '[:upper:]' '[:lower:]' | sort -u > "$tmp/imports.$tree"
+      find "${!tree}" -type f \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' \) -print0 2>/dev/null \
+        | xargs -0 -r strings -a 2>/dev/null | sort -u > "$tmp/strings.$tree"
     else
       : > "$tmp/imports.$tree"
+      : > "$tmp/strings.$tree"
     fi
   done
 
@@ -479,6 +485,26 @@ audit_build_requires() {
     fi
     if [[ -n "$hit" ]]; then
       say "$pkg: probably used -- the build logs mention ${hit% } (weak: a configure check that came out \"no\" counts too)"
+      continue
+    fi
+
+    # Its commands named in a binary's strings: run at runtime or by a
+    # test (abpoa's system("dot ..."), which no log shows).
+    sed -nE 's#^/usr/bin/([^/]+)$#\1#p' "$tmp/files" | grep -viE '\.dll$' | sed 's/\.exe$//' \
+      | awk 'length >= 3' | sort -u > "$tmp/commands"
+    hit=""
+    if [[ -s "$tmp/commands" ]]; then
+      for tree in D B; do
+        hit="$(grep -ohFw -f "$tmp/commands" "$tmp/strings.$tree" 2>/dev/null | sort | uniq -c | sort -rn | head -3 | awk '{print $2}' | tr '\n' ' ')"
+        [[ -n "$hit" ]] && break
+      done
+    fi
+    if [[ -n "$hit" ]]; then
+      if [[ "$tree" == D ]]; then
+        say "$pkg: probably used -- the package's binaries name its command(s) ${hit% } (weak: run at runtime, or just a word in a string)"
+      else
+        say "$pkg: probably used -- binaries in the build tree (tests?) name its command(s) ${hit% } (weak: just a word in a string counts too)"
+      fi
       continue
     fi
 
