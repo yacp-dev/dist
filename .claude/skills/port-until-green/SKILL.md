@@ -68,7 +68,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/preflight_bump.sh --package P --version V --work DIR [--source URL]` —
   bumps the recipe to `V` on a local `dorgann/P-V` branch in its own
   worktree (committed, not pushed), and reports what would fail: patches
-  that don't apply to the new source, the SOVERSION, LICENSE (Step 1b).
+  that don't apply to the new source, the SOVERSION, LICENSE, a
+  superseded Python (Step 1b).
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
   bumps a git-snapshot package to upstream HEAD on its own branch, in
   its own worktree (see Step 1).
@@ -303,6 +304,15 @@ source and prints a report. Go through it, fixing on the branch:
   since`/`changed since` arrived with it, the rest was already missing.
   A text `gone since` the current version may leave a license in
   `LICENSE` that nothing ships any more.
+- **Python** — `lines naming another Python` (e.g. `python39-devel`
+  while Cygwin curr's `python3-devel` pulls in `python312-devel`) →
+  switch `BUILD_REQUIRES` to `python3-devel`, rename the bindings
+  subpackage to the default's name (`python39-${PN}` →
+  `python312-${PN}`, with its `*_CONTENTS`/`*_SUMMARY`; no `OBSOLETES`,
+  the old package stays in dist) and pin its CONTENTS to
+  `usr/lib/python3.N` (log4cplus in ports), in its own commit,
+  `<pkg>-<ver> (switch to python3)`. A build on the old Python goes
+  green, so no run would point it out (fastjet-3.5.1, yacp-dev/ports#348).
 
 Also go through "Distro patches" (under Step 2) now, so they're in the
 first run rather than added after it.

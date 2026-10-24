@@ -30,6 +30,11 @@
 #      audit_recipe.sh recognizes them) of licenses LICENSE lacks, marked
 #      when added or changed since the current version, plus the ones the
 #      new version dropped (the current source is downloaded for that).
+#   6. The recipe's lines naming a versioned Python (python39-devel,
+#      python39-${PN}, usr/lib/python3.9) other than the one Cygwin curr's
+#      python3-devel pulls in, and python CONTENTS not pinned to it. A
+#      build on a superseded Python goes green, so no run would say so
+#      (fastjet-3.5.1 was still on python39).
 #
 # Only reports: nothing beyond the bump is changed, and nothing is
 # pushed. Git snapshots (literal GIT_REV) go through git_snapshot_bump.sh
@@ -449,4 +454,40 @@ if [[ -n "$source_ok" ]]; then
   for rel in "${!old_texts[@]}"; do
     echo "  $rel (gone since $old_version): ${old_texts[$rel]} -- check LICENSE still needs it"
   done
+fi
+
+# 6. Python. Cygwin curr's default Python is what python3-devel depends
+# on (python312-devel at the time of writing); anything older in the
+# recipe builds fine, so only this tells.
+echo
+echo "== Python =="
+if ! grep -q 'python' "$cygport"; then
+  echo "the recipe doesn't name python"
+else
+  default_py="$(curl -sL --retry 2 https://mirrors.kernel.org/sourceware/cygwin/x86_64/setup.xz | xz -dc 2>/dev/null |
+    awk '/^@ /{f=($2=="python3-devel"); next} f&&/^\[/{exit} f&&/^depends2:/{print; exit}' |
+    grep -oE 'python3[0-9]+-devel' | head -n 1)" || true
+  default_py="${default_py%-devel}"
+  if [[ -z "$default_py" ]]; then
+    echo "couldn't read python3-devel's dependency from Cygwin's setup.xz -- check by hand"
+  else
+    default_dotted="3.${default_py#python3}"
+    echo "Cygwin curr's python3-devel: $default_py"
+    # pythonNN / python3.N, as package names, variable names or paths.
+    stale="$(grep -nE 'python3\.?[0-9]+' "$cygport" | while IFS= read -r line; do
+      for v in $(grep -oE 'python3\.?[0-9]+' <<<"${line#*:}" | sed -E 's/python3\.?/3/'); do
+        if [[ "$v" != "${default_py#python}" ]]; then echo "  $line"; break; fi
+      done
+    done)" || true
+    if [[ -n "$stale" ]]; then
+      echo "lines naming another Python:"
+      printf '%s\n' "$stale"
+      echo "  -> switch to python3-devel and $default_py-\${PN} (its *_CONTENTS/*_SUMMARY too, no OBSOLETES)"
+    else
+      echo "no other Python named"
+    fi
+    if grep -E 'usr/lib/python3(\*|/|["[:space:]])' <<<"$contents" >/dev/null; then
+      echo "  -> a python package's CONTENTS isn't pinned: pin it to usr/lib/python$default_dotted"
+    fi
+  fi
 fi
