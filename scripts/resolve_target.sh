@@ -20,6 +20,10 @@
 #   deploy       pkg-ver-rel      -- ver and rel equal yacp: build as is,
 #                                    no PR (validate-only)
 #   invalid      pkg-ver-rel      -- anything else (exit status 2)
+#   new          pkg-ver          -- pkg isn't on master, but
+#                                    dorgann/pkg-ver carries its draft
+#                                    recipe: build that branch (release
+#                                    is the branch's, current_* empty)
 #
 # Usage: resolve_target.sh --repo yacp-dev/ports --target superlu-7.0.1-1bl2
 # Output: key=value lines on stdout (mode, package, version, release,
@@ -64,7 +68,45 @@ if [[ -z "$package" ]]; then
     target="$package${target:${#package}}"
   fi
 fi
-[[ -n "$package" ]] || { echo "No package in $repo matches '$target'" >&2; exit 1; }
+
+# A package not on master yet is built from its draft recipe, pushed by
+# hand as dorgann/<pkg>-<ver> (doc/spec.md 4.8): the package is then the
+# longest directory name on that branch, and its .cygport has to be at
+# exactly the target's version. Looked up even when master matched,
+# since a new foo-bar would otherwise be taken for master's foo at
+# version bar-<ver>.
+branch=""
+if gh api "repos/$repo/branches/dorgann/$target" >/dev/null 2>&1; then
+  branch_package="$(match "$target" "$(gh api "repos/$repo/git/trees/dorgann/$target" --jq '.tree[] | select(.type == "tree") | .path')")"
+  if (( ${#branch_package} > ${#package} )); then
+    package="$branch_package"
+    branch="dorgann/$target"
+  fi
+fi
+[[ -n "$package" ]] || { echo "No package in $repo matches '$target' (a new package needs its recipe pushed as dorgann/<pkg>-<ver> first)" >&2; exit 1; }
+
+if [[ -n "$branch" ]]; then
+  cygport_file="$(gh api "repos/$repo/contents/$package?ref=$branch" --jq '.[].name' | grep '\.cygport$' || true)"
+  [[ "$(grep -c . <<<"$cygport_file")" -eq 1 ]] || { echo "Expected exactly one .cygport in $repo/$package on $branch, found: ${cygport_file:-none}" >&2; exit 1; }
+  name="${cygport_file%.cygport}"
+  name="${name#"$package"-}"
+  version="${name%-*}"
+  release="${name##*-}"
+  [[ "$target" == "$package-$version" ]] || { echo "$branch carries $cygport_file, not $target" >&2; exit 1; }
+
+  result="mode=new
+package=$package
+version=$version
+release=$release
+current_version=
+current_release=
+cygport_file=$cygport_file"
+  echo "$result"
+  if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+    echo "$result" >> "$GITHUB_OUTPUT"
+  fi
+  exit 0
+fi
 
 rest="${target#"$package"}"
 rest="${rest#-}"

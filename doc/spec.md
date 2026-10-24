@@ -137,6 +137,7 @@ This has the side effect of stopping monitoring for the whole package (a real ne
   | `<pkg>-<ver>-<rel>`, `<rel>` = yacp's + 1 | `gcc-rebuild` | Same as `rebuild`, for a newer gcc (`Rebuild with gcc-<ver>`) |
   | `<pkg>-<ver>-<rel>` = yacp's | `deploy` | Build as committed, no PR, just the dist artifact for 4.4.2 |
   | `<pkg>` | `latest` | Refused (needs a version; see Step 3 in chapter 7) |
+  | `<pkg>-<ver>`, `<pkg>` only on `dorgann/<pkg>-<ver>` | `new` | Build the branch's draft recipe (4.8) |
   | anything else | `invalid` | Refused |
 
   Except for `deploy`, an existing `dorgann/<pkg>-<ver>` branch turns the run into a branch rebuild (4.6). `cygwin_packages`, `check_timeout_minutes` and `changelog_message` remain as optional tuning inputs.
@@ -260,6 +261,12 @@ Such a decision is recorded as an open Issue labelled `update-blocked`, with a `
 ```
 
 `build-package.yml`'s first job, `gate` (ubuntu-latest), resolves the `target` input into a mode (`scripts/resolve_target.sh`, 4.3) and runs `scripts/check_update_blocked.sh`, which looks for an open `update-blocked` Issue whose `dorgann-meta` names the package. If an Issue matches, it writes the Issue link to the job summary and a `::notice::`, and `build` is skipped as a whole, so the run ends green without bumping anything, and no PR is created. Only version updates (`bump` mode, including a branch rebuild of one) are refused; `rebuild`/`gcc-rebuild`/`deploy` build the version already in yacp, which the blocker doesn't affect. Closing the Issue unblocks the package.
+
+### 4.8 New packages
+
+A package that isn't in yacp yet has no `.cygport` on master to bump, so nothing for dorgann to start from mechanically. Instead, its draft recipe is written outside dorgann (by the port-until-green skill, from xezat's `cygport.erb` template, the one `xezat init` uses) and pushed to yacp as `dorgann/<pkg>-<ver>`, with no README (xezat writes one on the first successful build) and no PR. A human reviews that branch on GitHub first; once it's OK, dispatching `<pkg>-<ver>` builds it.
+
+`resolve_target.sh` finds such a package on the branch rather than on master: when `dorgann/<target>` exists and has a directory that is a longer match for the target than any on master (so a new `foo-bar` isn't taken for master's `foo` at version `bar-<ver>`), the mode is `new`, the package is that directory, and the version and release come from its sole `.cygport`, which has to be at exactly the target's version. From there the build is an ordinary branch rebuild (4.6), with nothing specific to `new` in `build-package.yml`: `Detect existing branch` finds the branch, `Overlay branch content` adds the whole directory to the master checkout, and `Detect existing cygport` reads it. `changelog_message.sh` finds no `.cygport` on master and leaves the message empty, and `xezat bump`, given no README, writes one whose changelog starts with the initial release. cygport install had no README to embed then, so `embed_readme.sh` installs that one into `usr/share/doc/Cygwin/<PN>.README` for the second `cygport package`, rather than only replacing an embedded one: the first binary ships it, as the README's own file list (which xezat bump always gives it) says. On success the PR is created as for any branch rebuild; on failure the draft PR is, and fixes go onto the branch as in 4.6. `update-blocked` Issues (4.7) aren't checked: they block updates of a package already in yacp.
 
 ## 5. Implementation Policy (separating workflow YAML from scripts)
 

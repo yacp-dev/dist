@@ -19,7 +19,8 @@ One argument, whose shape decides what to do (Step 1 resolves it):
 | `<pkg>-<ver>-<rel>` | Equal to ports' version and release → build it as is and deploy it to dist (no PR). Same version, release one higher → gcc rebuild (`Rebuild with gcc-x.y.z`). Anything else → tell the user to give `<pkg>` or `<pkg>-<ver>` instead, and stop. |
 
 `<pkg>` is the package's directory name in ports (`Catch2`; the resolver
-also accepts `catch2`).
+also accepts `catch2`). A package not in ports yet takes `<pkg>-<ver>`
+too: see "New packages" below.
 
 ## How the pieces fit (read once)
 
@@ -140,6 +141,39 @@ starts with (package names can contain dashes), then splits the rest into
   recipe as is and publish it to dist. No branch, no PR.
 - **`invalid`** (exit status 2) → pass its `message=` on to the user: give
   `<pkg>` or `<pkg>-<ver>` instead. Stop.
+- **`new`** (`<pkg>-<ver>`, `<pkg>` only on `dorgann/<pkg>-<ver>`) → a
+  draft recipe the user has reviewed (see "New packages"). Skip Step 1b
+  and go to Step 2: the dispatch rebuilds that branch.
+- **`No package in yacp-dev/ports matches`** (exit status 1) → if the
+  user means a package that isn't in ports yet, see "New packages".
+
+### New packages
+
+A package not in ports yet gets a draft recipe, pushed for the user to
+review on GitHub before anything is built (doc/spec.md 4.8):
+
+1. Start from xezat's template, the one `xezat init` writes
+   (`~/src/xezat/share/xezat/template/cygport.erb`; `HOMEPAGE`/`SRC_URI`
+   shapes in `share/xezat/repository/*.yaml`), and fit it to the new
+   source, read from the scratchpad: `SRC_DIR` if the tarball's top
+   directory isn't `${P}`, the build system's cygclass, a runtime
+   package named after upstream's SOVERSION with its DLL pinned
+   (`usr/bin/cyg*-N.dll`), only `*_CONTENTS` the install will actually
+   produce, `BUILD_REQUIRES` for what the build files need (each
+   available, as in "Checking a dependency is unavailable"), and
+   `LICENSE` as in "Missing LICENSE". Follow ports' style (a similar
+   recipe there is the best reference). No README: xezat writes it on
+   the first green build.
+2. In a worktree on a new branch from master
+   (`git -C ~/src/ports worktree add -b dorgann/<pkg>-<ver> ~/src/ports-wt/<pkg>-<ver> origin/master`),
+   add `<pkg>/<pkg>-<ver>-1bl1.cygport`, commit it as `<pkg>-<ver>`, and
+   push the branch. No PR, no dispatch.
+3. Stop and give the user the compare URL
+   (`https://github.com/yacp-dev/ports/compare/master...dorgann/<pkg>-<ver>`)
+   with what you decided and why. Keep the worktree for review fixes.
+
+Once the user OKs it, `/port-until-green <pkg>-<ver>` resolves to `new`
+and carries on from Step 2 like any branch rebuild.
 
 For `bump` (and `latest` carried on as one):
 

@@ -47,7 +47,7 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: "What to build, decided by its shape (scripts/resolve_target.sh): <pkg>-<ver> updates to <ver>, or bumps only the release (1bl1 -> 1bl2) if <ver> is yacp's current one; <pkg>-<ver>-<rel> builds yacp's current release as is for publishing (no PR), or with the next release does a gcc rebuild. An existing dorgann/<pkg>-<ver> branch is rebuilt instead (doc/spec.md 4.6)."
+        description: "What to build, decided by its shape (scripts/resolve_target.sh): <pkg>-<ver> updates to <ver>, or bumps only the release (1bl1 -> 1bl2) if <ver> is yacp's current one; <pkg>-<ver>-<rel> builds yacp's current release as is for publishing (no PR), or with the next release does a gcc rebuild. An existing dorgann/<pkg>-<ver> branch is rebuilt instead (doc/spec.md 4.6) -- which is also how a package not in yacp yet is built, from the draft recipe pushed there (4.8)."
         required: true
         type: string
       cygwin_packages:
@@ -81,7 +81,9 @@ jobs:
   # doesn't resolve fails here, before a Windows runner is spent on it.
   # Only version updates (`bump`) are refused for a blocker: the other
   # modes build the version already in yacp, which the blocker doesn't
-  # affect.
+  # affect, or (`new`) a package not in yacp yet, which nothing blocks.
+  # `new` needs nothing of its own below: its dorgann/<pkg>-<ver> branch
+  # makes it a branch rebuild like any other (doc/spec.md 4.8).
   gate:
     runs-on: ubuntu-latest
     outputs:

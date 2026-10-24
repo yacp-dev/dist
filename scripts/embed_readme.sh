@@ -14,9 +14,13 @@
 # pass's .lst, doesn't mention. Copying just this one file keeps $D what
 # a single cygport run would have made.
 #
-# Only replaces a README postinst actually embedded: none there means
-# cygport left it out (RESTRICT=postinst_doc, or no $C/README), and this
-# doesn't second-guess that.
+# None embedded means cygport left it out: RESTRICT=postinst_doc or
+# python-wheel's per-package docs (_CYGPORT_INTERNAL_multi_doc_, where
+# cygport never embeds one), which this doesn't second-guess, or no
+# $C/README at install time -- a new package's first build (doc/spec.md
+# 4.8), whose README only exists once xezat bump has written it. That
+# one is installed here, since xezat bump lists
+# usr/share/doc/Cygwin/$PN.README among the package's files regardless.
 #
 # Usage (paths relative to the package directory, e.g. yacp/googletest):
 #   embed_readme.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport
@@ -41,17 +45,17 @@ cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
 # Same `cygport <file> vars <NAME>` mechanism as the diagnose_*.sh.
-vars_decl="$(cygport "$cygport_file" vars C D PN)"
-C="" D="" PN=""
+vars_decl="$(cygport "$cygport_file" vars C D PN RESTRICT _CYGPORT_INTERNAL_multi_doc_)"
+C="" D="" PN="" RESTRICT="" _CYGPORT_INTERNAL_multi_doc_=""
 eval "$vars_decl"
-[[ -n "$C" && -n "$D" && -n "$PN" ]] || { echo "embed_readme.sh: 'cygport $cygport_file vars C D PN' didn't give all three" >&2; exit 1; }
+[[ -n "$C" && -n "$D" && -n "$PN" ]] || { echo "embed_readme.sh: 'cygport $cygport_file vars C D PN ...' didn't give C, D and PN" >&2; exit 1; }
 
 dest="$D/usr/share/doc/Cygwin/$PN.README"
-if [[ ! -f "$dest" ]]; then
-  echo "embed_readme.sh: no $dest from cygport install -- nothing to replace"
+if [[ ! -f "$dest" ]] && [[ " $RESTRICT " == *" postinst_doc "* || -n "$_CYGPORT_INTERNAL_multi_doc_" ]]; then
+  echo "embed_readme.sh: no $dest from cygport install (RESTRICT=postinst_doc or per-package docs) -- nothing to replace"
   exit 0
 fi
-[[ -f "$C/README" ]] || { echo "embed_readme.sh: $dest is there but $C/README isn't" >&2; exit 1; }
+[[ -f "$C/README" ]] || { echo "embed_readme.sh: $C/README isn't there to embed" >&2; exit 1; }
 
-install -m0644 "$C/README" "$dest"
+install -D -m0644 "$C/README" "$dest"
 echo "embed_readme.sh: $C/README -> $dest"
