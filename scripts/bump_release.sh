@@ -17,7 +17,7 @@
 #   bump_release.sh --dir yacp/googletest
 #
 # Input: CLI args only (no GitHub Actions context dependency, so this can
-# be run and debugged locally, given a Cygwin-flavored `rename` on PATH).
+# be run and debugged locally, macOS included: the rename is a plain `mv`).
 # Output: prints the new .cygport basename, and if GITHUB_OUTPUT is set,
 # appends `cygport_file=<basename>` there.
 
@@ -88,7 +88,9 @@ shopt -s nullglob
 sibling_files=("$old_basename".*)
 shopt -u nullglob
 
-rename -- "$old_basename" "$new_basename" "${sibling_files[@]}"
+for f in "${sibling_files[@]}"; do
+  mv -- "$f" "${new_basename}${f#"$old_basename"}"
+done
 
 new_cygport_file="${new_basename}.cygport"
 echo "Bumped $pn release: $old_release -> $new_release (${#sibling_files[@]} file(s))"
