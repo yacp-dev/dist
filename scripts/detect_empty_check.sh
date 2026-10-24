@@ -11,7 +11,9 @@
 #   - src_test printed nothing (the check log is only __log_init's
 #     header: the cygport version and the PF/S/B/... = lines)
 #   - cygtest's "No testsuite detected."
-#   - make's "Nothing to be done for 'check'/'test'"
+#   - top-level make's "Nothing to be done for 'check'/'test'" (a
+#     recursive make prints it as make[N] for each subdirectory without
+#     tests, even when another one runs the suite: mecab-0.996)
 #   - ctest's "No tests were found", meson's "No tests defined.",
 #     automake's "# TOTAL: 0", pytest's "collected 0 items"/"no tests ran"
 # A suite that ran but printed none of the totals these runners print
@@ -69,7 +71,7 @@ if [[ -z "${body//[[:space:]]/}" ]]; then
   reason="src_test printed nothing"
 elif grep -q 'No testsuite detected' <<<"$body"; then
   reason="cygtest found no check or test target"
-elif grep -qE "Nothing to be done for [\`'\"](check|test)['\"]" <<<"$body"; then
+elif grep -qE "^make: Nothing to be done for [\`'\"](check|test)['\"]" <<<"$body"; then
   reason="make's check/test target does nothing"
 elif grep -q 'No tests were found' <<<"$body"; then
   reason="ctest found no tests"
