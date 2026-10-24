@@ -755,7 +755,10 @@ Then back to Step 2, dispatching `<pkg>-<ver>` again.
   are refused: file an Issue in yacp-dev/dist labelled `update-blocked`
   whose body starts with `<!-- dorgann-meta: {"package":"<pkg>"} -->` and
   says what blocks it and how to unblock (yacp-dev/dist#91 is the
-  model). Then close the draft PR, pointing it at the Issue.
+  model). Then close the draft PR, pointing it at the Issue, and delete
+  the branch (`gh api -X DELETE
+  repos/yacp-dev/ports/git/refs/heads/dorgann/<pkg>-<ver>`, plus the
+  local one in `~/src/ports`): the closed PR keeps its diff.
 
 When stopping without success, report: the branch and draft PR URL, the
 last run URL, each attempt's error and what you tried, your best current
