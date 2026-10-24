@@ -11,6 +11,11 @@
 # keeps step names (unlike --log-failed), so the step can be cut out of
 # it.
 #
+# Right after a run completes, the jobs API can still list its steps as
+# they were mid-run (cygport check in_progress, the ones after it
+# pending, no conclusions), so the step list is re-read until no step
+# is left unfinished.
+#
 # A passing check that ran no tests leaves "check-empty: <reason>" in
 # the Detect empty check step's log (detect_empty_check.sh); that's
 # reported as "check: empty" rather than "check: passed".
@@ -35,8 +40,20 @@ done
 
 [[ -n "$run" ]] || { echo "--run is required" >&2; exit 1; }
 
-steps="$(gh run view "$run" -R "$repo" --json jobs \
-  --jq '.jobs[].steps[] | select(.name == "cygport check" or .name == "Diagnose check failure") | .name + "\t" + .conclusion')"
+# First line: "running", or how many steps are still unfinished.
+for attempt in 1 2 3 4 5 6 7 8 9 10; do
+  out="$(gh run view "$run" -R "$repo" --json status,jobs \
+    --jq '(if .status != "completed" then "running" else [.jobs[].steps[] | select(.status != "completed")] | length end),
+          (.jobs[].steps[] | select(.name == "cygport check" or .name == "Diagnose check failure") | .name + "\t" + .conclusion)')"
+  unfinished="${out%%$'\n'*}"
+  [[ "$unfinished" == running || "$unfinished" == 0 ]] && break
+  if [[ $attempt == 10 ]]; then
+    echo "check: unknown (the run's step list is still unfinished; try again in a minute)"
+    exit 0
+  fi
+  sleep 15
+done
+steps="$(tail -n +2 <<<"$out")"
 check="$(awk -F'\t' '$1 == "cygport check" { print $2 }' <<<"$steps")"
 diagnose="$(awk -F'\t' '$1 == "Diagnose check failure" { print $2 }' <<<"$steps")"
 
