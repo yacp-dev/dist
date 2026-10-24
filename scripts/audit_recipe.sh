@@ -22,7 +22,9 @@
 # section that names its own files on a "Files:" line (draco's MIT one
 # for a docs script): that counts when one of those files ships. A text
 # further down (vendor/libbacktrace/LICENSE) counts when a compiled
-# source sits below it, and a REUSE text when a shipped header names it. With no binaries
+# source sits below it, as does one in a <name>-src directory CMake's
+# FetchContent cloned into $B (forge's extern/fg_glm-src/copying.txt),
+# and a REUSE text when a shipped header names it. With no binaries
 # in $D, $D is all that ships; with binaries but no $D/usr/src/debug --
 # no debuginfo -- what was compiled is unknown, and all of $S counts.
 #
@@ -198,7 +200,9 @@ audit_license() {
   cut -f2 "$tmp/header_files" | sort | uniq -c | sort -rn > "$tmp/headers"
 
   # The same for the files the packages ship (see the top of this file),
-  # and the compiled sources among them, as paths relative to $S.
+  # and the compiled sources among them, as paths relative to $S -- or
+  # to $B, for sources fetched into the build tree (cygport maps both to
+  # /usr/src/debug/$PF).
   declare -A shipped=()
   local shipped_known=""
   : > "$tmp/compiled"
@@ -206,7 +210,7 @@ audit_license() {
     shipped_known=1
     find "$D/usr/src/debug" -mindepth 2 -type f 2>/dev/null | while IFS= read -r f; do
       f="${f#"$D"/usr/src/debug/*/}"
-      [[ -f "$S/$f" ]] && printf '%s\n' "$f"
+      [[ -f "$S/$f" || -f "$B/$f" ]] && printf '%s\n' "$f"
     done | sort -u > "$tmp/compiled"
   elif [[ -z "$(find "$D" -path "$D/usr/lib/debug" -prune -o -type f \
          \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' -o -iname '*.a' \) -print 2>/dev/null | head -1)" ]]; then
@@ -292,10 +296,16 @@ audit_license() {
 
   # License texts further down, usually of vendored code: they count
   # when a compiled source sits below them. Unrecognized ones are left
-  # out -- at that depth, LICENSE* also matches source files.
+  # out -- at that depth, LICENSE* also matches source files. The same
+  # goes for code CMake's FetchContent cloned at configure time, into
+  # <name>-src under $B (forge's glm, MIT, in extern/fg_glm-src).
   local dir covered
   while IFS= read -r -d '' f; do
-    rel="${f#"$S"/}"
+    if [[ "$f" == "$S"/* ]]; then
+      rel="${f#"$S"/}"
+    else
+      rel="${f#"$B"/}"
+    fi
     [[ -n "${seen_text[$rel]:-}" ]] && continue
     seen_text["$rel"]=1
     ids="$(identify_license_text "$f" | sort -u | tr '\n' ' ')"
@@ -319,7 +329,11 @@ audit_license() {
     done
   done < <(find "$S" -mindepth 2 \( -name .git -o -name CYGWIN-PATCHES -o -path "$S/LICENSES" \) -prune -o -type f \
              \( -iname 'COPYING*' -o -iname 'LICENSE*' -o -iname 'LICENCE*' -o -iname 'COPYRIGHT*' -o -iname 'UNLICENSE*' \) \
-             -print0 2>/dev/null | sort -z)
+             -print0 2>/dev/null | sort -z
+           [[ -n "$B" && "$B" != "$S" ]] \
+             && find "$B" -name .git -prune -o -type f -path "$B/*-src/*" \
+                  \( -iname 'COPYING*' -o -iname 'LICENSE*' -o -iname 'LICENCE*' -o -iname 'COPYRIGHT*' -o -iname 'UNLICENSE*' \) \
+                  -print0 2>/dev/null | sort -z)
 
   for f in "${reuse[@]}"; do
     id="$(basename "$f" .txt)"
