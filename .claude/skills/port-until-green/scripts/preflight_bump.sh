@@ -2,14 +2,22 @@
 # Bumps a package to a new version on a local dorgann/<pkg>-<ver> branch
 # and checks, before any CI run, what the workflow's mechanical bump
 # would get wrong: patches that no longer apply, a SOVERSION that moved,
-# a LICENSE that's missing. Fixing those first and pushing the branch
-# makes the first dispatch a branch rebuild (doc/spec.md 4.6) of a recipe
-# that already accounts for them, instead of a run that fails on them.
+# a LICENSE that's missing. A --version equal to master's is a rebuild
+# (rebuild/gcc-rebuild): only the release is bumped, the way the
+# workflow's Bump release does, and the same checks run against the
+# current source -- what went stale in the recipe since it was last
+# bumped doesn't surface in a green run either (uvwasi-0.0.23 passed
+# -DVERSION, -DWITH_SYSTEM_LIBUV and -DBUILD_STATIC_LIBS that nothing
+# read, found only on its gcc rebuild). Fixing those first and pushing
+# the branch makes the first dispatch a branch rebuild (doc/spec.md 4.6)
+# of a recipe that already accounts for them, instead of a run that
+# fails on them.
 #
 # Steps:
 #   1. A worktree ~/src/ports-wt/<pkg>-<ver> on a new dorgann/<pkg>-<ver>
 #      branch from origin/master, with the files renamed by dorgann's own
-#      scripts/bump_version.sh (the same bump the workflow does), committed
+#      scripts/bump_version.sh, or bump_release.sh for a rebuild (the same
+#      bump the workflow does), committed
 #      as <pkg>-<ver> but NOT pushed: fixes go on top, then the caller
 #      pushes and dispatches.
 #   2. The new version's source, from the bumped recipe's SRC_URI (or
@@ -29,7 +37,8 @@
 #      LICENSE_URI exists in the new source, and the license texts (as
 #      audit_recipe.sh recognizes them) of licenses LICENSE lacks, marked
 #      when added or changed since the current version, plus the ones the
-#      new version dropped (the current source is downloaded for that).
+#      new version dropped (the current source is downloaded for that;
+#      not for a rebuild, where it's the same source).
 #   6. The recipe's lines naming a versioned Python (python39-devel,
 #      python39-${PN}, usr/lib/python3.9) other than the one Cygwin curr's
 #      python3-devel pulls in, and python CONTENTS not pinned to it. A
@@ -108,9 +117,19 @@ if git -C "$ports" show "origin/master:$old_cygport" | grep -qE '^GIT_REV="?[0-9
   exit 1
 fi
 
+old_pf="$(basename "$old_cygport" .cygport)"
+old_version="${old_pf%-*}"
+old_version="${old_version#"$package"-}"
+rebuild=""
+[[ "$version" == "$old_version" ]] && rebuild=1
+
 # 1. Bump.
 git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
-PATH="$here/bin:$PATH" bash "$dorgann/scripts/bump_version.sh" --dir "$wt/$package" --version "$version" >/dev/null
+if [[ -n "$rebuild" ]]; then
+  bash "$dorgann/scripts/bump_release.sh" --dir "$wt/$package" >/dev/null
+else
+  PATH="$here/bin:$PATH" bash "$dorgann/scripts/bump_version.sh" --dir "$wt/$package" --version "$version" >/dev/null
+fi
 git -C "$wt" add -A -- "$package"
 git -C "$wt" commit -q -m "$package-$version"
 
@@ -121,6 +140,7 @@ pf="$(basename "$cygport" .cygport)"
 
 echo "worktree: $wt"
 echo "branch:   $branch (committed locally, not pushed)"
+[[ -n "$rebuild" ]] && echo "rebuild:  $version is master's version -- release bumped to ${pf##*-}"
 echo "work:     $work"
 
 # 2. Source. The variables cygport needs to place the source and the
@@ -237,9 +257,6 @@ fi
 # The current version's source too, for the license texts the new one
 # adds, changes or drops (5.). Only the primary source; a --source URL
 # is reused with the version swapped. Prints its $S, or nothing.
-old_pf="$(basename "$old_cygport" .cygport)"
-old_version="${old_pf%-*}"
-old_version="${old_version#"$package"-}"
 old_source() {
   local SRC_URI SRC_DIR PATCH_URI GIT_URI GIT_TAG GIT_BRANCH GIT_MODULE GIT_SUBDIR module entry file
   git -C "$ports" show "origin/master:$old_cygport" > "$work/old.cygport"
@@ -267,7 +284,7 @@ old_source() {
   return 0
 }
 old_s=""
-[[ -n "$source_ok" ]] && old_s="$(old_source)"
+[[ -n "$source_ok" && -z "$rebuild" ]] && old_s="$(old_source)"
 
 # 3. Patches, as cygpatch applies them: the first -pN (0..5) whose dry run
 # succeeds, plain then --binary; a reverse dry run succeeding means the
@@ -425,7 +442,7 @@ if [[ -n "$source_ok" ]]; then
     while IFS=$'\t' read -r rel ids; do
       old_texts["$rel"]="$ids"
     done < "$work/license-texts.old"
-  else
+  elif [[ -z "$rebuild" ]]; then
     echo "(the $old_version source didn't download: nothing marked new or gone)"
   fi
   lacking=""
