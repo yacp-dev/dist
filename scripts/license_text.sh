@@ -59,9 +59,14 @@ identify_license_text() {
   done
   [[ "$text" == *"Apache License"*"Version 2.0"* ]] && echo "Apache-2.0"
   [[ "$text" == *"Mozilla Public License Version 2.0"* || "$text" == *"Mozilla Public License, v. 2.0"* ]] && echo "MPL-2.0"
+  # NCSA opens with MIT's grant but keeps its notice with "the above
+  # copyright notice, this list of conditions" instead (LLVM's, whose
+  # code capstone's arch/ disassemblers derive from).
+  if [[ "$text" == *"University of Illinois/NCSA Open Source License"* ]]; then
+    echo "NCSA"
   # MIT-0 is MIT without the condition to keep the notice (minicoro's
   # LICENSE, compiled into BehaviorTree.CPP).
-  if [[ "$text" == *"Permission is hereby granted, free of charge, to any person obtaining a copy"* ]]; then
+  elif [[ "$text" == *"Permission is hereby granted, free of charge, to any person obtaining a copy"* ]]; then
     if [[ "$text" == *"The above copyright notice and this permission notice"* ]]; then
       echo "MIT"
     else
