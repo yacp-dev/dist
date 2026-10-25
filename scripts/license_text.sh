@@ -3,9 +3,10 @@
 # Needs bash 4+ (${var,,}).
 
 # Splits SPDX expressions ("<key>\t<expression>" lines) into one
-# "<key>\t<id>" line per license, dropping AND/OR, parentheses and WITH
-# exceptions. The deprecated GNU ids are mapped to what SPDX says they
-# mean: a bare GPL-2.0 is GPL-2.0-only, GPL-2.0+ is GPL-2.0-or-later.
+# "<key>\t<id>" line per license, dropping AND/OR, parentheses, WITH
+# exceptions and a trailing period. The deprecated GNU ids are mapped to
+# what SPDX says they mean: a bare GPL-2.0 is GPL-2.0-only, GPL-2.0+ is
+# GPL-2.0-or-later.
 spdx_ids() {
   awk -F '\t' '
     function norm(t) {
@@ -25,6 +26,8 @@ spdx_ids() {
         u = toupper(t)
         if (u == "AND" || u == "OR") continue
         if (u == "WITH") { skip = 1; continue }
+        # A header ending its sentence ("BSD-3-Clause.") is the same id.
+        sub(/\.+$/, "", t)
         if (t !~ /^[A-Za-z0-9][A-Za-z0-9.+-]*$/ || t !~ /[A-Za-z]/) continue
         print $1 "\t" norm(t)
       }
