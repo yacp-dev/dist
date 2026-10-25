@@ -69,7 +69,10 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   bumps the recipe to `V` on a local `dorgann/P-V` branch in its own
   worktree (committed, not pushed), and reports what would fail: patches
   that don't apply to the new source, the SOVERSION, LICENSE, a
-  superseded Python (Step 1b).
+  superseded Python, unused CMake `-D` variables (Step 1b).
+- `scripts/unused_cmake_args.sh --recipe F --source DIR [--old-source DIR]` —
+  the `-D` variables a cmake recipe passes that no build file in `DIR`
+  reads (preflight runs it; also usable on its own).
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
   bumps a git-snapshot package to upstream HEAD on its own branch, in
   its own worktree (see Step 1).
@@ -313,6 +316,16 @@ source and prints a report. Go through it, fixing on the branch:
   `usr/lib/python3.N` (log4cplus in ports), in its own commit,
   `<pkg>-<ver> (switch to python3)`. A build on the old Python goes
   green, so no run would point it out (fastjet-3.5.1, yacp-dev/ports#348).
+- **CMake options** — each `-D` variable listed there is one no
+  `CMakeLists.txt`/`*.cmake` in the patched source names. Before
+  dropping it, grep the source for the option's stem: a name built from
+  other variables (`${PROJECT_NAME}_BUILD_TESTS`) doesn't show up as a
+  word. Then drop it from `CYGCMAKE_ARGS` in its own commit,
+  `<pkg>-<ver> (drop unused CYGCMAKE_ARGS)`. The final word is CMake's
+  own `Manually-specified variables were not used by the project`
+  warning in the `cygport compile` log, which also lists cygport's
+  `CMAKE_Fortran_*`/`CMAKE_LEGACY_CYGWIN_WIN32` (not the recipe's).
+  (onnx's `-DONNX_BUILD_BENCHMARKS`, unread since before 1.20.1.)
 
 Also go through "Distro patches" (under Step 2) now, so they're in the
 first run rather than added after it.

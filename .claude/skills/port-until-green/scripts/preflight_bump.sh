@@ -35,6 +35,10 @@
 #      python3-devel pulls in, and python CONTENTS not pinned to it. A
 #      build on a superseded Python goes green, so no run would say so
 #      (fastjet-3.5.1 was still on python39).
+#   7. For a cmake recipe, the -D<VAR> it passes that no build file in the
+#      patched source reads (unused_cmake_args.sh). CMake only warns about
+#      them in the compile log, which nobody reads on a green run (onnx's
+#      -DONNX_BUILD_BENCHMARKS, unread since before 1.20.1).
 #
 # Only reports: nothing beyond the bump is changed, and nothing is
 # pushed. Git snapshots (literal GIT_REV) go through git_snapshot_bump.sh
@@ -488,6 +492,24 @@ else
     fi
     if grep -E 'usr/lib/python3(\*|/|["[:space:]])' <<<"$contents" >/dev/null; then
       echo "  -> a python package's CONTENTS isn't pinned: pin it to usr/lib/python$default_dotted"
+    fi
+  fi
+fi
+
+# 7. CMake options, read against src/ so that a variable only the
+# .src.patch reads (cctz's -DSOVERSION) counts as read.
+if [[ " $inherits " == *" cmake "* ]]; then
+  echo
+  echo "== CMake options =="
+  if [[ -z "$source_ok" ]]; then
+    echo "skipped: no source"
+  else
+    unused="$(bash "$here/unused_cmake_args.sh" --recipe "$cygport" --source "$work/src/$SRC_DIR" ${old_s:+--old-source "$old_s"})"
+    if [[ -n "$unused" ]]; then
+      echo "-D variables no build file reads (a name built from other variables doesn't show here):"
+      sed 's/^/  /' <<<"$unused"
+    else
+      echo "every -D variable is read by a build file"
     fi
   fi
 fi
