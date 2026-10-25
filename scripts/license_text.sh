@@ -101,6 +101,7 @@ identify_license_text() {
   [[ "$text" == *"The Artistic License 2.0"* ]] && echo "Artistic-2.0"
   [[ "$text" == *"CC0 1.0 Universal"* ]] && echo "CC0-1.0"
   [[ "$text" == *"PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2"* ]] && echo "PSF-2.0"
+  [[ "$text" == *"Server Side Public License, version 1"* ]] && echo "SSPL-1.0"
   return 0
 }
 
