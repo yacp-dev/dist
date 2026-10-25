@@ -329,7 +329,8 @@ normally fine as they are):
   `<pkg>-<ver> (switch to python3)`. A build on the old Python goes
   green, so no run would point it out (fastjet-3.5.1, yacp-dev/ports#348).
 - **CMake options** — each `-D` variable listed there is one no
-  `CMakeLists.txt`/`*.cmake` in the patched source names. Before
+  `CMakeLists.txt`/`*.cmake` in the patched source names outside
+  comments and `message()` calls. Before
   dropping it, grep the source for the option's stem: a name built from
   other variables (`${PROJECT_NAME}_BUILD_TESTS`) doesn't show up as a
   word. Then drop it from `CYGCMAKE_ARGS` in its own commit,
@@ -337,7 +338,8 @@ normally fine as they are):
   own `Manually-specified variables were not used by the project`
   warning in the `cygport compile` log, which also lists cygport's
   `CMAKE_Fortran_*`/`CMAKE_LEGACY_CYGWIN_WIN32` (not the recipe's).
-  (onnx's `-DONNX_BUILD_BENCHMARKS`, unread since before 1.20.1.)
+  It misses one only printed in the configure summary, since printing
+  it reads it (uvwasi's `UVWASI_BUILD_TESTS`). (onnx's `-DONNX_BUILD_BENCHMARKS`, unread since before 1.20.1.)
 
 Also go through "Distro patches" (under Step 2) now, so they're in the
 first run rather than added after it.

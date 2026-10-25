@@ -7,7 +7,11 @@
 #
 # A variable counts as read when its name appears as a word in any
 # CMakeLists.txt, *.cmake or *.cmake.in under the source, vendored
-# directories included (a subproject may read it). Not checked, since
+# directories included (a subproject may read it), outside comments and
+# message() calls: a variable only shown in the configure summary
+# changes nothing (uvwasi's UVWASI_BUILD_TESTS, printed under "Build
+# tests:" while BUILD_TESTING decided), and CMake doesn't warn about it
+# either, since printing it reads it. Not checked, since
 # CMake's own modules read them: CMAKE_*, BUILD_SHARED_LIBS,
 # BUILD_TESTING, and <Pkg>_* for a find_package(<Pkg>) in the source.
 # A name built from other variables (${PROJECT_NAME}_BUILD_TESTS) can't
@@ -49,9 +53,21 @@ build_files() {
   find "$1" -type f \( -name CMakeLists.txt -o -name '*.cmake' -o -name '*.cmake.in' \) -print0
 }
 
-# Whether a build file under $1 names $2 as a word.
+# Whether a build file under $1 names $2 as a word, leaving out
+# comments and message() calls.
 reads() {
-  build_files "$1" | xargs -0 grep -qwF -e "$2" 2>/dev/null
+  build_files "$1" | perl -0e '
+    my $v = shift;
+    while (my $f = <STDIN>) {
+      chomp $f;
+      open(my $fh, "<", $f) or next;
+      my $s = do { local $/; <$fh> };
+      $s =~ s/#\[(=*)\[.*?\]\1\]//gs;
+      $s =~ s/("(?:[^"\\]|\\.)*")|#[^\n]*/defined $1 ? $1 : ""/ge;
+      $s =~ s/\bmessage\s*\((?:[^()"]|"(?:[^"\\]|\\.)*"|\((?:[^()"]|"(?:[^"\\]|\\.)*")*\))*\)//gi;
+      exit 0 if $s =~ /(?<![A-Za-z0-9_])\Q$v\E(?![A-Za-z0-9_])/;
+    }
+    exit 1' "$2" 2>/dev/null
 }
 
 # A find_package() of the project itself (onnx's examples look up ONNX)
