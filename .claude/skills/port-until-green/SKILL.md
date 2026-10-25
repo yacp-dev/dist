@@ -132,7 +132,9 @@ starts with (package names can contain dashes), then splits the rest into
 - **`rebuild`** (`<pkg>-<ver>`, `<ver>` equals ports) → bump only the
   release, e.g. `1bl1` → `1bl2`. `xezat bump` writes `Rebuild with
   gcc-<ver>` if the gcc differs from the one in the README's build
-  requirements, else `Rebuild`.
+  requirements, else `Rebuild`. A rebuild for a fix the packages
+  ship (a `.pc`, `REQUIRES`, a missing file) says what it fixes
+  instead: see `changelog_message` in Step 2.
 - **`gcc-rebuild`** (`<pkg>-<ver>-<rel>`, same version, `<rel>` is ports'
   release + 1) → the same release bump, taken as a rebuild for a newer
   gcc. The changelog message comes from `scripts/changelog_message.sh`,
@@ -369,6 +371,15 @@ run creates `dorgann/<pkg>-<ver>` like a bump does, so on failure it's
 fixed and re-run the same way (`<pkg>-<ver>` re-runs either); the
 changelog message is decided again from the files on each run. For
 `deploy`, see "Deploying" below instead of the rest of this step.
+
+A rebuild done to fix what the packages ship, not for a new gcc
+(uvwasi-0.0.23-1bl3: a broken `uvwasi.pc` and the `-devel` package's
+missing `libuv-devel`), gets a changelog line saying so rather than
+`Rebuild`: pass `-f changelog_message="Fix <what>"` on every dispatch,
+since each run writes the README's entry anew. Keep it short, in the
+style of ports' READMEs (`Fix uvwasi.pc`, `Fix *.cmake`). Fixes the
+preflight makes on its own (unused `-D` variables, LICENSE) don't
+change the packages and leave the message alone.
 
 Then, using the run id it printed (wait for that output — don't guess
 the id), wait for it with `scripts/wait_run.sh --run <id>` run in the
