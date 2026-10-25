@@ -24,7 +24,9 @@
 # further down (vendor/libbacktrace/LICENSE) counts when a compiled
 # source sits below it, as does one in a <name>-src directory CMake's
 # FetchContent cloned into $B (forge's extern/fg_glm-src/copying.txt),
-# and a REUSE text when a shipped header names it. With no binaries
+# and a REUSE text when a shipped header names it, or a whole license
+# text in a compiled source's header comment with no SPDX line (MIT in
+# libarchive-qt's lib/lz4dec.c). With no binaries
 # in $D, $D is all that ships; with binaries but no $D/usr/src/debug --
 # no debuginfo -- what was compiled is unknown, and all of $S counts.
 #
@@ -334,6 +336,41 @@ audit_license() {
              && find "$B" -name .git -prune -o -type f -path "$B/*-src/*" \
                   \( -iname 'COPYING*' -o -iname 'LICENSE*' -o -iname 'LICENCE*' -o -iname 'COPYRIGHT*' -o -iname 'UNLICENSE*' \) \
                   -print0 2>/dev/null | sort -z)
+
+  # A license whose whole text is in a compiled source's header comment,
+  # with no SPDX line or license file to go with it (libarchive-qt's
+  # lib/lz4dec.c, smallz4cat under MIT). Only the top of the file is
+  # read; GNU notices ("either version 3 of the License") aren't the
+  # license text and aren't recognized. grep picks the candidates first,
+  # since a fork per compiled source is slow on Cygwin.
+  if [[ -s "$tmp/compiled" ]]; then
+    declare -A header_text_count=() header_text_example=()
+    while IFS= read -r -d '' f; do
+      if [[ "$f" == "$S"/* ]]; then
+        rel="${f#"$S"/}"
+      else
+        rel="${f#"$B"/}"
+      fi
+      head -n 80 "$f" > "$tmp/header_text"
+      for id in $(identify_license_text "$tmp/header_text" | sort -u); do
+        header_text_count["$id"]=$((${header_text_count[$id]:-0} + 1))
+        [[ -n "${header_text_example[$id]:-}" ]] || header_text_example["$id"]="$rel"
+      done
+    done < <(while IFS= read -r rel; do
+               if [[ -f "$S/$rel" ]]; then
+                 printf '%s\0' "$S/$rel"
+               else
+                 printf '%s\0' "$B/$rel"
+               fi
+             done < "$tmp/compiled" \
+             | xargs -0 -r grep -lIE --null -- 'Permission is hereby granted|Redistribution and use in source|Apache License|Mozilla Public License|Permission to use, copy, modify|provided .as-is.|Boost Software License|unencumbered software|Eclipse Public License|Artistic License|CC0 1\.0|PYTHON SOFTWARE FOUNDATION' 2>/dev/null)
+    for id in "${!header_text_count[@]}"; do
+      say "License text in compiled sources' headers: $id: ${header_text_count[$id]} file(s), e.g. ${header_text_example[$id]}"
+      text_ids["$(license_base "$id")"]="the header of ${header_text_example[$id]}"
+      text_names["$(license_base "$id")"]="$id"
+      found_base["$(license_base "$id")"]=1
+    done
+  fi
 
   for f in "${reuse[@]}"; do
     id="$(basename "$f" .txt)"
