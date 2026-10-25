@@ -98,6 +98,8 @@ dnl Name autoconf-archive's own ax_cflags_warn_all.m4 prints in a warning.
 m4_pattern_allow([^AX_COMPILER_VENDOR$])
 dnl Shell variable autoconf-archive's own ax_check_gnu_make.m4 sets.
 m4_pattern_allow([^AX_CHECK_GNU_MAKE_HEADLINE$])
+dnl Shell variables autoconf-archive's own ax_file_escapes.m4 sets.
+m4_pattern_allow([^AX_(DOLLAR|SRB|SLB|BS|DQ)$])
 EOF
 
 cat > "$HOME/.cygportrc" <<'EOF'
