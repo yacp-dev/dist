@@ -276,8 +276,11 @@ audit_license() {
   find "$D" \( -path "$D/usr/lib/debug" -o -path "$D/usr/src/debug" \) -prune -o -type f -print 2>/dev/null \
     | sed 's#.*/##' | sort -u > "$tmp/installed_names"
 
-  declare -A seen_text=() text_ids=() text_names=()
-  local ids rel
+  declare -A seen_text=() text_ids=() text_names=() header_base=()
+  local ids rel base
+  while read -r count id; do
+    header_base["$(license_base "$id")"]=1
+  done < "$tmp/headers"
   for f in "${texts[@]}"; do
     rel="${f#"$S"/}"
     [[ -n "${seen_text[$rel]:-}" ]] && continue
@@ -290,6 +293,15 @@ audit_license() {
     ids="${ids% }"
     say "License text $rel: ${ids:-(not recognized)}"
     for id in $ids; do
+      # A text naming several licenses says which part is under which
+      # (libwebsockets' LICENSE: Apache-2.0 for the mbedtls wrapper
+      # only), so one whose headers are all in unshipped files doesn't
+      # count.
+      base="$(license_base "$id")"
+      if [[ "$ids" == *" "* && -n "$shipped_known" && -n "${header_base[$base]:-}" && -z "${shipped_base[$base]:-}" ]]; then
+        say "  $id: its SPDX headers are all in files the packages don't ship -- not counted from this text"
+        continue
+      fi
       text_ids["$(license_base "$id")"]="$rel"
       text_names["$(license_base "$id")"]="$id"
       found_base["$(license_base "$id")"]=1
