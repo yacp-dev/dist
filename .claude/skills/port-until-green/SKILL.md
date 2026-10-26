@@ -454,10 +454,14 @@ header, then the diff) and **skip** it when:
   flags). Only Fedora's `%if` branches that a Cygwin build would take
   count.
 - **it's already there** — the change is in the new upstream source
-  (`patch -p1 -R -f --dry-run` succeeds), in the recipe's `.src.patch`,
-  or already in `PATCH_URI` (a still-applying old-version URL of the same
-  patch is fine as it is; one that fails is Step 4's business).
-  The same fix carried by two distros is taken once.
+  (`patch -p1 -R -f --dry-run` succeeds) or already in `PATCH_URI` (a
+  still-applying old-version URL of the same patch is fine as it is; one
+  that fails is Step 4's business). The same fix carried by two distros
+  is taken once. One the recipe's `.src.patch` already makes is *not*
+  skipped: the `.src.patch` is for changes nobody else provides, so take
+  the distro patch and drop the same change from the `.src.patch`
+  (libsquish-1.15-1bl4: Debian's `fixup-pkgconfig.patch` for the
+  `.src.patch`'s `-lsquish` hunk).
 
 What's left is usually an upstream backport, a security fix, or a build
 fix for a newer toolchain or for portability. Don't take one you can't
@@ -465,8 +469,11 @@ explain; when in doubt, skip it and say so in the report. Then check
 each candidate applies, in the order cygport would apply it: extract the
 new source, apply the recipe's `PATCH_URI` patches (`-N -f`, as in Step
 4), then the candidates in their distro's order, then the `.src.patch`.
-A candidate that doesn't apply, or that breaks the `.src.patch`, is
-reported, not rebased — it's an extra, not the job.
+A candidate that doesn't apply, or that breaks the `.src.patch` other
+than where the two make the same change, is reported, not rebased —
+it's an extra, not the job. Where they do make the same change, remove
+those lines from the `.src.patch` hunk (keep the rest of it) and check
+again that it applies on top of the candidate.
 
 Add the ones that apply to the end of `PATCH_URI` with the pinned URL the
 script printed (`.../debian/<full version>/...`, Fedora's and Gentoo's
