@@ -332,7 +332,8 @@ normally fine as they are):
   green, so no run would point it out (fastjet-3.5.1, yacp-dev/ports#348).
 - **CMake options** — each `-D` variable listed there is one no
   `CMakeLists.txt`/`*.cmake` in the patched source names outside
-  comments and `message()` calls. Before
+  comments and `message()` calls, and no `configure_file()` header
+  template (`*.h.in`, `*.h.cmake`) names at all. Before
   dropping it, grep the source for the option's stem: a name built from
   other variables (`${PROJECT_NAME}_BUILD_TESTS`) doesn't show up as a
   word. Then drop it from `CYGCMAKE_ARGS` in its own commit,
