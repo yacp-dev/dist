@@ -54,11 +54,15 @@ build_files() {
 }
 
 # Whether a build file under $1 names $2 as a word, leaving out
-# comments and message() calls.
+# comments and message() calls. The file list is read whole before
+# perl can exit on a match: otherwise find dies of SIGPIPE, and
+# pipefail turns a found variable into an unused one (libwebsockets'
+# 342 build files).
 reads() {
   build_files "$1" | perl -0e '
     my $v = shift;
-    while (my $f = <STDIN>) {
+    my @files = <STDIN>;
+    for my $f (@files) {
       chomp $f;
       open(my $fh, "<", $f) or next;
       my $s = do { local $/; <$fh> };
