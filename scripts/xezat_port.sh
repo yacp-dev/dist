@@ -28,6 +28,18 @@
 # (but valid) config file avoids that crash while leaving portdir unset
 # there, so --portdir below is what actually gets used.
 #
+# The .src.patch `xezat port` brings back is `cygport diff`'s, which
+# leaves out whatever cygport's diff excludes (`*.h.in`, `config.h`,
+# generated autotools files, DIFF_EXCLUDES): a change the recipe's own
+# .src.patch made to such a file builds green in this run, then silently
+# drops out of the committed patch, and the next build of the recipe
+# fails without it (libquo-1.4.1: hwloc's include/hwloc/autogen/
+# config.h.in). So before overwriting it, the files the old patch
+# changes are compared with the new one's, and any that went missing are
+# reported as a warning, in the run summary and as `dropped_files=` in
+# GITHUB_OUTPUT for the PR body. Such a change belongs in a PATCH_URI
+# patch of its own, applied to origsrc, which `cygport diff` never sees.
+#
 # Usage (paths relative to the package directory, e.g. yacp/googletest):
 #   xezat_port.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport
 
@@ -46,6 +58,16 @@ done
 
 [[ -n "$dir" ]] || { echo "--dir is required" >&2; exit 1; }
 [[ -n "$cygport_file" ]] || { echo "--file is required" >&2; exit 1; }
+
+# The files a patch changes, relative to ${S}: cygport diff's headers
+# name them as src/<top>/<path> (origsrc/ on the --- side), a git-style
+# patch as b/<path>. Sorted, for comm.
+patched_files() {
+  sed -n 's/^+++ \([^	]*\).*/\1/p' "$1" \
+    | grep -v '^/dev/null$' \
+    | sed -e 's|^src/[^/]*/||' -e 's|^b/||' \
+    | sort -u
+}
 
 dir_abs="$(cd "$dir" && pwd)"
 pn="$(basename "$dir_abs")"
@@ -70,5 +92,26 @@ shopt -s nullglob
 src_patches=("$scratch/$pn"/*.src.patch)
 shopt -u nullglob
 if [[ ${#src_patches[@]} -gt 0 ]]; then
-  cp -f "${src_patches[0]}" "$dir_abs/"
+  new_patch="${src_patches[0]}"
+  old_patch="$dir_abs/$(basename "$new_patch")"
+  if [[ -f "$old_patch" ]]; then
+    dropped="$(comm -23 <(patched_files "$old_patch") <(patched_files "$new_patch") | tr '\n' ' ' | sed 's/ $//')"
+    if [[ -n "$dropped" ]]; then
+      echo "::warning title=.src.patch lost changes::cygport diff left out changes the recipe's .src.patch made to: $dropped -- move them into a PATCH_URI patch of their own"
+      if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+        echo "dropped_files=$dropped" >> "$GITHUB_OUTPUT"
+      fi
+      if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
+        {
+          echo "### .src.patch lost changes"
+          echo
+          echo "\`cygport diff\` (via \`xezat port\`) left these files out of the regenerated \`$(basename "$new_patch")\`, though the recipe's own patch changed them. This build had the changes; the committed recipe won't. Move them into a \`PATCH_URI\` patch of their own:"
+          echo
+          for f in $dropped; do echo "- \`$f\`"; done
+          echo
+        } >> "$GITHUB_STEP_SUMMARY"
+      fi
+    fi
+  fi
+  cp -f "$new_patch" "$dir_abs/"
 fi

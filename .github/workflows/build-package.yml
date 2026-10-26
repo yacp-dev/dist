@@ -589,8 +589,11 @@ jobs:
       # why. `xezat port` is what copies it (plus the cygport file itself
       # and any src.patch) back. Skipped for deploy: nothing was
       # bumped/rewritten to port back, and there's no PR to carry it
-      # to anyway.
+      # to anyway. It also warns when the regenerated .src.patch no longer
+      # changes a file the recipe's own did (cygport diff's excludes, e.g.
+      # `*.h.in`), which the PR body then says.
       - name: Copy build results back via xezat port
+        id: port
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         run: bash -- scripts/xezat_port.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
@@ -768,7 +771,8 @@ jobs:
           # failure); the diagnostic itself goes to the run summary rather
           # than here, to keep a possibly long log excerpt out of the PR.
           # Likewise the empty-check line, unless check ran no tests, and
-          # the audit line, unless Audit recipe warned.
+          # the audit line, unless Audit recipe warned, and the
+          # .src.patch line, unless xezat port's patch lost a file.
           body: |
             Version `${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
 
@@ -779,6 +783,8 @@ jobs:
             ${{ steps.empty-check.outputs.reason && format('**`cygport check` ran no tests** ({0}).', steps.empty-check.outputs.reason) || '' }}
 
             ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
+
+            ${{ steps.port.outputs.dropped_files && format('**`.src.patch` lost changes**: `cygport diff` left out `{0}`, which this build patched but the committed recipe no longer does -- move them into a `PATCH_URI` patch of their own.', steps.port.outputs.dropped_files) || '' }}
 
             <!-- dorgann-meta: {"artifact_id":"${{ steps.upload.outputs.artifact-id }}"} -->
 

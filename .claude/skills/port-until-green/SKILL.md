@@ -402,7 +402,12 @@ already has them.
   grep -A8 '== Runtime requirements =='`): a `WARNING:` there means the
   README the PR carries lists no runtime requirements, or will once an
   import library's DLL can't be found -- fix it on the branch (see
-  "README's runtime requirements empty" in Step 4) and re-run. If distro
+  "README's runtime requirements empty" in Step 4) and re-run. A
+  `.src.patch lost changes` line in the PR body (a warning from `Copy
+  build results back via xezat port`) means the committed recipe no
+  longer reproduces this build: move the named files' changes into a
+  `PATCH_URI` patch (see "Source doesn't build on Cygwin" in Step 4)
+  and re-run. If distro
   patches are still to be added, commit them
   now and re-run before reporting. Report: PR URL, run URL, attempts,
   what you changed, the check result, the license you filled in (if
@@ -733,6 +738,16 @@ Edit only files under the package directory. Common fixes:
 - **Source doesn't build on Cygwin** → patch the source the same way, add to
   the `.src.patch`. Prefer the smallest change that's clearly correct
   (a `__CYGWIN__` guard, a missing include) over disabling features.
+  A change to a file `cygport diff` excludes -- in an autotools
+  package `*.h.in`, `config.h` and generated files such as `configure`
+  or `Makefile.in` (the list is `pkg_pkg.cygpart`'s `default_excludes`,
+  plus the recipe's `DIFF_EXCLUDES`) -- goes in a patch
+  file of its own in the package directory instead, listed in
+  `PATCH_URI` (`git diff`-style `a/`/`b/` paths relative to `${S}`, a
+  few header lines saying why). In the `.src.patch` it builds green
+  once, then `xezat port` regenerates the patch without it and the
+  next build fails (libquo-1.4.1: the bundled hwloc's
+  `include/hwloc/autogen/config.h.in`, now `hwloc-cygwin-uint64.patch`).
 - **The `.src.patch` hardcodes the package version** (e.g. a hunk setting
   `AC_INIT([foo], [1.6.0])`; the bump doesn't touch it, so it goes stale
   silently) → drop that hunk and substitute `${PV}` in `origsrc` from a
