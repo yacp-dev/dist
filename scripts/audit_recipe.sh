@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Cross-checks three things in a cygport recipe that `xezat validate`
+# Cross-checks four things in a cygport recipe that `xezat validate`
 # doesn't: whether LICENSE matches what the source itself says, whether
-# every BUILD_REQUIRES package is actually used by the build, and whether
-# README's runtime requirements came out at all.
+# every BUILD_REQUIRES package is actually used by the build, what the
+# build looked for that a Cygwin package not in BUILD_REQUIRES has, and
+# whether README's runtime requirements came out at all.
 # xezat only checks that LICENSE is a valid SPDX expression (and that
 # LICENSE_URI exists) and that each BUILD_REQUIRES package is installed
 # -- a recipe carried over from an old version keeps both long after
@@ -64,7 +65,8 @@
 #
 # Output: prints the report to stdout; if GITHUB_OUTPUT is set, also
 # writes it to a temp file and appends `report_file=<path>` there, plus
-# `warnings=<n>` when there was at least one warning.
+# `warnings=<n>` when there was at least one warning and
+# `candidates=<pkg> ...` when the build missed a dependency Cygwin has.
 
 set -uo pipefail # NOT -e: greps finding nothing are the common case here
 
@@ -575,6 +577,89 @@ audit_build_requires() {
   done
 }
 
+# What the build looked for and didn't find, that a Cygwin package
+# provides: an optional dependency missing from BUILD_REQUIRES leaves
+# out part of the package without failing anything (libwebsockets
+# 5.0.0's HLS plugin, built only when pkg-config finds ffmpeg). Read
+# from pkg-config's "Package 'x' not found" / "No package 'x' found",
+# meson's "Dependency x found: NO" and CMake's "Could not find a package
+# configuration file provided by "X"", in the compile log (configure
+# runs there for cmake and meson) and config.log / meson-log.txt, and
+# looked up with cygcheck -p, which searches the file lists of every
+# package on cygwin.com. dist.yacp.dev's packages aren't searched.
+# Candidates, not warnings: adding one changes what the package ships.
+audit_missing_deps() {
+  say ""
+  say "== Dependencies the build didn't find =="
+
+  local logs=() f
+  shopt -s nullglob
+  logs+=("$logdir"/*-compile.log)
+  shopt -u nullglob
+  if [[ -d "$B" ]]; then
+    while IFS= read -r -d '' f; do
+      logs+=("$f")
+    done < <(find "$B" -maxdepth 4 -type f \( -name config.log -o -name meson-log.txt \) -print0 2>/dev/null)
+  fi
+  if [[ ${#logs[@]} -eq 0 ]]; then
+    say "no compile log to read"
+    return
+  fi
+
+  # "pc <name>" or "cmake <Name>", one per line.
+  {
+    grep -ohE "Package '[^']+'(, required by '[^']*',)? not found|No package '[^']+' found" "${logs[@]}" 2>/dev/null \
+      | sed -E "s/^[^']*'([^']+)'.*/pc \1/"
+    grep -ohE "[Dd]ependency [^ ]+ found: NO" "${logs[@]}" 2>/dev/null \
+      | sed -E 's/^[Dd]ependency ([^ ]+) found: NO/pc \1/'
+    grep -ohE 'Could not find a package configuration file provided by "[^"]+"' "${logs[@]}" 2>/dev/null \
+      | sed -E 's/.*"([^"]+)"/cmake \1/'
+  } | sort -u > "$tmp/missing"
+  if [[ ! -s "$tmp/missing" ]]; then
+    say "nothing the build looked for went missing"
+    return
+  fi
+  if ! command -v cygcheck >/dev/null; then
+    say "no cygcheck to look them up with"
+    return
+  fi
+
+  local kind name re pkgs pkg installed
+  while read -r kind name; do
+    # Basic regular expressions, as cygwin.com's package-grep takes, with
+    # no ^ to anchor them: usr/lib or usr/share leaves out the mingw64
+    # cross packages' sys-root. A CMake config sits one or two
+    # directories down (lib/cmake/<name>/, share/<name>/cmake/).
+    re="$(printf '%s' "$name" | sed 's/[][\.*^$]/\\&/g')"
+    if [[ "$kind" == pc ]]; then
+      re="usr/\\(lib\\|share\\)/pkgconfig/$re\\.pc\$"
+    else
+      re="usr/\\(lib\\|share\\)/\\([^/]*/\\)\\{1,2\\}\\(${re}Config\\|${re,,}-config\\)\\.cmake\$"
+    fi
+    cygcheck -p "$re" > "$tmp/found" 2>/dev/null
+    if ! grep -qE '^Found [0-9]+ match' "$tmp/found"; then
+      say "$name ($kind): cygcheck -p couldn't look it up"
+      continue
+    fi
+    pkgs="$(sed -nE 's/^[^ ]+ - ([^:]+): .*/\1/p' "$tmp/found" | sort -u | tr '\n' ' ')"
+    pkgs="${pkgs% }"
+    if [[ -z "$pkgs" ]]; then
+      say "$name ($kind): not in any Cygwin package"
+      continue
+    fi
+    installed=""
+    for pkg in $pkgs; do
+      [[ -f "/etc/setup/$pkg.lst.gz" ]] && installed="$pkg"
+    done
+    if [[ -n "$installed" ]]; then
+      say "$name ($kind): in $installed, which is installed -- a version requirement it doesn't meet?"
+      continue
+    fi
+    say "$name ($kind): Cygwin has it in $pkgs -- not in BUILD_REQUIRES"
+    candidates+=($pkgs)
+  done < "$tmp/missing"
+}
+
 audit_runtime_requires() {
   say ""
   say "== Runtime requirements =="
@@ -615,6 +700,8 @@ audit_license
 before=$warnings
 audit_build_requires
 build_requires_warnings=$((warnings - before))
+candidates=()
+audit_missing_deps
 audit_runtime_requires
 
 if (( build_requires_warnings > 0 )); then
@@ -631,6 +718,9 @@ if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
   echo "report_file=$output" >> "$GITHUB_OUTPUT"
   if (( warnings > 0 )); then
     echo "warnings=$warnings" >> "$GITHUB_OUTPUT"
+  fi
+  if (( ${#candidates[@]} > 0 )); then
+    echo "candidates=$(printf '%s\n' "${candidates[@]}" | sort -u | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
   fi
 fi
 exit 0

@@ -45,11 +45,12 @@
 # check_empty_reason is Detect empty check's output, set only when
 # cygport check passed without running any tests.
 #
-# audit_file/audit_warnings are Audit recipe's outputs; the report is
-# shown whenever there is one, opened when it has warnings.
+# audit_file/audit_warnings/audit_candidates are Audit recipe's
+# outputs; the report is shown whenever there is one, opened when it has
+# warnings or names Cygwin packages the build missed.
 #
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--check-empty-reason <text-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--check-empty-reason <text-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-candidates <pkgs-or-empty>]
 
 set -euo pipefail
 
@@ -61,6 +62,7 @@ check_diagnostic_file=""
 check_empty_reason=""
 audit_file=""
 audit_warnings=""
+audit_candidates=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -72,6 +74,7 @@ while [[ $# -gt 0 ]]; do
     --check-empty-reason) check_empty_reason="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
+    --audit-candidates) audit_candidates="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -135,6 +138,8 @@ print_details() {
     echo
     if [[ -n "$audit_warnings" ]]; then
       echo "<details open><summary>Recipe audit: $audit_warnings warning(s)</summary>"
+    elif [[ -n "$audit_candidates" ]]; then
+      echo "<details open><summary>Recipe audit: no warnings, but Cygwin has dependencies the build didn't find</summary>"
     else
       echo "<details><summary>Recipe audit: no warnings</summary>"
     fi

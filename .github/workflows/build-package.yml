@@ -551,6 +551,9 @@ jobs:
       # BUILD_REQUIRES package for evidence the build used it (a DLL
       # import, a file the compiler read, a mention in the logs) -- both
       # go stale silently in a recipe carried from version to version.
+      # It lists what the build looked for and didn't find that a Cygwin
+      # package not in BUILD_REQUIRES provides (cygcheck -p), since a
+      # missing optional dependency drops part of the package silently.
       # It also checks that README's runtime requirements came out, since
       # `cygport dep` (run by xezat bump) prints nothing on a failure
       # without failing, which is why it runs after Update README via
@@ -771,8 +774,10 @@ jobs:
           # failure); the diagnostic itself goes to the run summary rather
           # than here, to keep a possibly long log excerpt out of the PR.
           # Likewise the empty-check line, unless check ran no tests, and
-          # the audit line, unless Audit recipe warned, and the
-          # .src.patch line, unless xezat port's patch lost a file.
+          # the audit line, unless Audit recipe warned, the dependencies
+          # line, unless it named Cygwin packages the build looked for and
+          # didn't find, and the .src.patch line, unless xezat port's
+          # patch lost a file.
           body: |
             Version `${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
 
@@ -783,6 +788,8 @@ jobs:
             ${{ steps.empty-check.outputs.reason && format('**`cygport check` ran no tests** ({0}).', steps.empty-check.outputs.reason) || '' }}
 
             ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
+
+            ${{ steps.audit.outputs.candidates && format('**Dependencies the build didn''t find**: Cygwin has them in `{0}`, not in `BUILD_REQUIRES` -- adding them may build more of the package; see the run summary.', steps.audit.outputs.candidates) || '' }}
 
             ${{ steps.port.outputs.dropped_files && format('**`.src.patch` lost changes**: `cygport diff` left out `{0}`, which this build patched but the committed recipe no longer does -- move them into a `PATCH_URI` patch of their own.', steps.port.outputs.dropped_files) || '' }}
 
@@ -880,4 +887,4 @@ jobs:
       # survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --check-empty-reason "${{ steps.empty-check.outputs.reason }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --check-empty-reason "${{ steps.empty-check.outputs.reason }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-candidates "${{ steps.audit.outputs.candidates }}"

@@ -408,11 +408,25 @@ already has them.
   build results back via xezat port`) means the committed recipe no
   longer reproduces this build: move the named files' changes into a
   `PATCH_URI` patch (see "Source doesn't build on Cygwin" in Step 4)
-  and re-run. If distro
+  and re-run. A `Dependencies the build didn't find` line in the PR
+  body names Cygwin packages that provide something the build looked
+  for and went without (the audit's `== Dependencies the build didn't
+  find ==` section says which pkg-config module or CMake package each
+  is for). For each, find the lookup in the build files and what it
+  gates: one that builds more of the package -- a plugin, a backend,
+  a feature upstream turns on when it's found (libwebsockets 5.0.0's
+  HLS plugin, with ffmpeg) -- or its tests, goes into `BUILD_REQUIRES`
+  in one commit, `<pkg>-<ver> (add <what> to BUILD_REQUIRES for
+  <feature>)`, then re-run. Leave out one the recipe turned off on
+  purpose (a `-D...=OFF`, a `--disable-...`), one only a fallback
+  probes after what it found first (`pkg_search_module(... a b)`),
+  and one for an example or another OS; say which and why in the
+  report. If distro
   patches are still to be added, commit them
   now and re-run before reporting. Report: PR URL, run URL, attempts,
   what you changed, the check result, the license you filled in (if
-  any), and the distro patches taken and skipped, with why.
+  any), the dependencies added and left out, and the distro patches
+  taken and skipped, with why.
 - **Failure** → Step 3. Distro patches waiting to be added go onto the
   branch with the first fix (Step 4), in their own commit.
 
