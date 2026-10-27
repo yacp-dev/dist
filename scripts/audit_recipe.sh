@@ -940,9 +940,25 @@ EOF
     if [[ ${#missing[@]} -eq 0 ]]; then
       say "$rel ($sub): needs ${owners% } -- all required"
     else
+      # Only what adding brings in the rest: mongo-cxx-driver's
+      # libmongocxx-devel misses libmongoc2-devel, and with it libbson2-devel,
+      # libssl-devel, ... which libmongoc2-devel requires.
+      local -A brings=()
+      local q
       for p in "${missing[@]}"; do
-        warn "$rel ($sub): find_package() needs $p (for ${why_of[$p]}), which $sub doesn't require -- add it to ${sub//[-+.]/_}_REQUIRES"
+        reqs="$(closure "$p")"
+        for q in "${missing[@]}"; do
+          [[ "$q" != "$p" ]] && grep -qxF "$q" <<< "$reqs" && brings["$p"]+=" $q"
+        done
       done
+      for p in "${missing[@]}"; do
+        for q in "${!brings[@]}"; do
+          # A cycle keeps both.
+          [[ " ${brings[$q]} " == *" $p "* && " ${brings[$p]:-} " != *" $q "* ]] && continue 2
+        done
+        warn "$rel ($sub): find_package() needs $p (for ${why_of[$p]})$([[ -n "${brings[$p]:-}" ]] && echo ", and through it${brings[$p]}"), which $sub doesn't require -- add $p to ${sub//[-+.]/_}_REQUIRES"
+      done
+      unset brings
     fi
     unset why_of
   done
