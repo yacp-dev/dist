@@ -404,6 +404,12 @@ already has them.
   README the PR carries lists no runtime requirements, or will once an
   import library's DLL can't be found -- fix it on the branch (see
   "README's runtime requirements empty" in Step 4) and re-run. A
+  `WARNING:` in `== CMake config requirements ==` names a package
+  that `find_package()` of an installed CMake config needs and its
+  subpackage doesn't require (mongo-c-driver 2.5.7: OpenSSL, SASL2
+  and libutf8proc for `libmongoc2-devel`): add it to that
+  `<sub>_REQUIRES` in one commit, `<pkg>-<ver> (fix <sub> REQUIRES)`,
+  and re-run. A
   `.src.patch lost changes` line in the PR body (a warning from `Copy
   build results back via xezat port`) means the committed recipe no
   longer reproduces this build: move the named files' changes into a

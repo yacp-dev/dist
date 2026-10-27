@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# Cross-checks four things in a cygport recipe that `xezat validate`
+# Cross-checks five things in a cygport recipe that `xezat validate`
 # doesn't: whether LICENSE matches what the source itself says, whether
 # every BUILD_REQUIRES package is actually used by the build, what the
-# build looked for that a Cygwin package not in BUILD_REQUIRES has, and
-# whether README's runtime requirements came out at all.
+# build looked for that a Cygwin package not in BUILD_REQUIRES has,
+# whether README's runtime requirements came out at all, and whether
+# each installed CMake package config's dependencies are in its
+# subpackage's requires.
 # xezat only checks that LICENSE is a valid SPDX expression (and that
 # LICENSE_URI exists) and that each BUILD_REQUIRES package is installed
 # -- a recipe carried over from an old version keeps both long after
@@ -92,12 +94,12 @@ cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
 # Same `cygport <file> vars <NAME>` mechanism as the diagnose_*.sh.
-vars_decl="$(cygport "$cygport_file" vars S B D C logdir BUILD_REQUIRES DEPS_PATH LICENSE LICENSE_URI 2>/dev/null)"
+vars_decl="$(cygport "$cygport_file" vars PN PVR S B D C logdir BUILD_REQUIRES DEPS_PATH LICENSE LICENSE_URI 2>/dev/null)"
 if [[ -z "$vars_decl" ]]; then
   echo "audit_recipe.sh: 'cygport $cygport_file vars ...' returned nothing -- nothing to audit" >&2
   exit 0
 fi
-S="" B="" D="" C="" logdir="" BUILD_REQUIRES="" DEPS_PATH="" LICENSE="" LICENSE_URI=""
+PN="" PVR="" S="" B="" D="" C="" logdir="" BUILD_REQUIRES="" DEPS_PATH="" LICENSE="" LICENSE_URI=""
 eval "$vars_decl"
 
 if [[ ! -d "$S" || ! -d "$D" ]]; then
@@ -696,6 +698,218 @@ audit_runtime_requires() {
   fi
 }
 
+# What a consumer's find_package() of each CMake package config in $D
+# needs installed, against what the subpackage shipping it requires.
+# cygport derives a -devel package's requires from its .pc Requires/Libs,
+# .la and .dll.a files, never from a CMake config's find_dependency()
+# calls or the files its imported targets link: mongo-c-driver 2.5.7's
+# mongocConfig.cmake finds OpenSSL, SASL2 and libutf8proc, its .pc only
+# bson2, so libmongoc2-devel required none of them and mongo-cxx-driver's
+# find_package(mongoc) failed. Each config is loaded in a bare project
+# (-D<Name>_DIR at it, $D/usr on CMAKE_PREFIX_PATH for its siblings),
+# and what that touched -- the files CMake read (--trace), the paths in
+# its cache and in the imported targets' properties -- beyond what the
+# same project without find_package() touches is looked up: under $D in
+# the subpackages' tarballs, elsewhere with cygcheck -f. Each package
+# found must be in the subpackage's requires, directly or through
+# theirs (setup.ini's, from setup's package cache).
+audit_cmake_requires() {
+  say ""
+  say "== CMake config requirements =="
+
+  local configs=() f
+  while IFS= read -r -d '' f; do
+    configs+=("$f")
+  done < <(find "$D/usr" -type f \( -name '*Config.cmake' -o -name '*-config.cmake' \) \
+             -not -path '*/sys-root/*' -not -path '*/usr/src/debug/*' -not -path '*/usr/share/doc/*' -print0 2>/dev/null | sort -z)
+  if [[ ${#configs[@]} -eq 0 ]]; then
+    say "no CMake package config installed"
+    return
+  fi
+  if ! command -v cmake >/dev/null || ! command -v cygcheck >/dev/null; then
+    say "no cmake or cygcheck to load them with"
+    return
+  fi
+
+  # The subpackages, their files and their requires, from cygport's dist.
+  local distdir hint sub tarball
+  distdir="$(dirname "$D")/dist/$PN"
+  : > "$tmp/sub_files"
+  declare -A sub_requires=()
+  while IFS= read -r -d '' hint; do
+    sub="$(basename "$hint" "-$PVR.hint")"
+    sub_requires["$sub"]="$(sed -n 's/^requires: *//p' "$hint")"
+    tarball="${hint%.hint}.tar.xz"
+    [[ -f "$tarball" ]] || continue
+    tar tJf "$tarball" 2>/dev/null | grep -v '/$' | sed "s#^#$sub\t/#" >> "$tmp/sub_files"
+  done < <(find "$distdir" -name "*-$PVR.hint" -not -name "*-src.hint" -not -name "*-debuginfo-*" -print0 2>/dev/null)
+  if [[ ${#sub_requires[@]} -eq 0 ]]; then
+    say "no hints in $distdir -- run after cygport package"
+    return
+  fi
+
+  # Installed packages by their full names, as cygcheck -f prints them.
+  declare -A pkg_of=()
+  local name full
+  while read -r name full _; do
+    pkg_of["${full%.tar.*}"]="$name"
+  done < <(tail -n +2 /etc/setup/installed.db 2>/dev/null)
+
+  # Every package's requires, for the transitive ones.
+  declare -A deps_of=()
+  local cache ini
+  cache="$(awk '/^last-cache/ { getline; sub(/^[[:space:]]+/, ""); print; exit }' /etc/setup/setup.rc 2>/dev/null)"
+  if [[ -n "$cache" ]]; then
+    cache="$(cygpath -u "$cache" 2>/dev/null)"
+    while IFS= read -r -d '' ini; do
+      while read -r name full; do
+        deps_of["$name"]+=" $full"
+      done < <(case "$ini" in *.xz) xz -dc "$ini" ;; *) cat "$ini" ;; esac 2>/dev/null | awk '
+        /^@ / { name = $2; first = 1; next }
+        /^\[/ { first = 0 }
+        first && /^(depends2|requires):/ {
+          sub(/^[^:]*:[[:space:]]*/, ""); gsub(/,/, " ")
+          # Version constraints, "foo (>= 1.0)".
+          gsub(/\([^)]*\)/, "")
+          print name, $0
+        }')
+    done < <(find "$cache" -maxdepth 4 \( -path '*/x86_64/setup.xz' -o -path '*/x86_64/setup.ini' \) -print0 2>/dev/null)
+  fi
+  for sub in "${!sub_requires[@]}"; do
+    deps_of["$sub"]="${sub_requires[$sub]}"
+  done
+
+  closure() {
+    local -A seen=()
+    local queue=("$1") p q
+    while [[ ${#queue[@]} -gt 0 ]]; do
+      p="${queue[0]}"
+      queue=("${queue[@]:1}")
+      [[ -n "${seen[$p]:-}" ]] && continue
+      seen["$p"]=1
+      for q in ${deps_of[$p]:-}; do
+        [[ -n "${seen[$q]:-}" ]] || queue+=("$q")
+      done
+    done
+    printf '%s\n' "${!seen[@]}"
+  }
+
+  # What a bare project touches: the files it read, its cache's paths,
+  # and its imported targets' properties. $1 is the config to load, or
+  # empty for the baseline.
+  touched() {
+    local cfg="$1" work="$2" pkgname=""
+    mkdir -p "$work/src"
+    {
+      echo 'cmake_minimum_required(VERSION 3.21)'
+      echo 'project(probe LANGUAGES C CXX)'
+      if [[ -n "$cfg" ]]; then
+        pkgname="$(basename "$cfg" .cmake)"
+        case "$pkgname" in
+          *-config) pkgname="${pkgname%-config}" ;;
+          *) pkgname="${pkgname%Config}" ;;
+        esac
+        echo "find_package($pkgname REQUIRED CONFIG)"
+      fi
+      cat <<'EOF'
+get_directory_property(targets IMPORTED_TARGETS)
+set(out "")
+foreach(t IN LISTS targets)
+  get_target_property(cfgs ${t} IMPORTED_CONFIGURATIONS)
+  set(props INTERFACE_LINK_LIBRARIES INTERFACE_INCLUDE_DIRECTORIES INTERFACE_LINK_DIRECTORIES IMPORTED_LOCATION IMPORTED_IMPLIB)
+  if(cfgs)
+    foreach(c IN LISTS cfgs)
+      string(TOUPPER "${c}" c)
+      list(APPEND props IMPORTED_LOCATION_${c} IMPORTED_IMPLIB_${c} IMPORTED_LINK_INTERFACE_LIBRARIES_${c})
+    endforeach()
+  endif()
+  foreach(p IN LISTS props)
+    get_target_property(v ${t} ${p})
+    if(v)
+      string(APPEND out "${v}\n")
+    endif()
+  endforeach()
+endforeach()
+file(WRITE "${CMAKE_BINARY_DIR}/targets.txt" "${out}")
+EOF
+    } > "$work/src/CMakeLists.txt"
+    local args=(-S "$work/src" -B "$work/build" --trace-format=json-v1 --trace-redirect="$work/trace.json"
+                -DCMAKE_PREFIX_PATH="$D/usr")
+    command -v ninja >/dev/null && args+=(-G Ninja)
+    [[ -n "$cfg" ]] && args+=("-D${pkgname}_DIR=$(dirname "$cfg")")
+    cmake "${args[@]}" > "$work/log" 2>&1
+    local rc=$?
+    {
+      grep -oE '"file":"[^"]+"' "$work/trace.json" 2>/dev/null | sed -E 's/^"file":"(.*)"$/\1/'
+      sed -nE 's/^[^#/][^:=]*:(FILEPATH|PATH)=//p' "$work/build/CMakeCache.txt" 2>/dev/null | tr ';' '\n'
+      tr ';' '\n' < "$work/build/targets.txt" 2>/dev/null
+    } | grep -oE '/[^;<>$"[:space:]]+' \
+      | sed -E 's#^/lib/#/usr/lib/#; s#^/bin/#/usr/bin/#; :a; s#/[^/]+/\.\./#/#; ta' \
+      | while IFS= read -r f; do [[ -f "$f" ]] && printf '%s\n' "$f"; done | sort -u > "$work/files"
+    return $rc
+  }
+
+  touched "" "$tmp/cmprobe/base" > /dev/null 2>&1
+  if [[ ! -s "$tmp/cmprobe/base/files" ]]; then
+    say "a bare CMake project doesn't configure -- nothing to compare against ($(grep -m1 -E 'Error|error' "$tmp/cmprobe/base/log"))"
+    return
+  fi
+
+  local i=0 cfg rel owner owners reqs missing p why
+  declare -A owner_cache=()
+  for cfg in "${configs[@]}"; do
+    i=$((i + 1))
+    rel="${cfg#"$D"/}"
+    sub="$(awk -F'\t' -v f="/$rel" '$2 == f { print $1; exit }' "$tmp/sub_files")"
+    if [[ -z "$sub" ]]; then
+      say "$rel: in no subpackage"
+      continue
+    fi
+    if ! touched "$cfg" "$tmp/cmprobe/$i"; then
+      say "$rel ($sub): find_package() fails in a bare project, here where its build requirements are installed -- $(grep -m1 -A2 'CMake Error' "$tmp/cmprobe/$i/log" | tr -s '[:space:]' ' ')"
+      continue
+    fi
+
+    # Owning package of each file it touched that the baseline didn't.
+    declare -A why_of=()
+    while IFS= read -r f; do
+      case "$f" in "$tmp"/*|"$B"/*|"$S"/*) continue ;; esac
+      if [[ "$f" == "$D"/* ]]; then
+        owner="$(awk -F'\t' -v f="${f#"$D"}" '$2 == f { print $1; exit }' "$tmp/sub_files")"
+      else
+        if [[ -z "${owner_cache[$f]+x}" ]]; then
+          full="$(cygcheck -f "$f" 2>/dev/null | head -n 1 | tr -d '\r')"
+          owner_cache["$f"]=""
+          [[ -n "$full" ]] && owner_cache["$f"]="${pkg_of[$full]:-$(sed -E 's/-[0-9][^-]*-[0-9][^-]*(-x86_64)?$//' <<< "$full")}"
+        fi
+        owner="${owner_cache[$f]}"
+      fi
+      [[ -n "$owner" && "$owner" != "$sub" && "$owner" != cmake ]] || continue
+      [[ -n "${why_of[$owner]:-}" ]] || why_of["$owner"]="${f#"$D"}"
+    done < <(comm -13 "$tmp/cmprobe/base/files" "$tmp/cmprobe/$i/files")
+
+    if [[ ${#why_of[@]} -eq 0 ]]; then
+      say "$rel ($sub): needs nothing beyond what any CMake project does"
+      unset why_of
+      continue
+    fi
+    reqs="$(closure "$sub")"
+    missing=()
+    for owner in $(printf '%s\n' "${!why_of[@]}" | sort); do
+      grep -qxF "$owner" <<< "$reqs" || missing+=("$owner")
+    done
+    owners="$(printf '%s\n' "${!why_of[@]}" | sort | tr '\n' ' ')"
+    if [[ ${#missing[@]} -eq 0 ]]; then
+      say "$rel ($sub): needs ${owners% } -- all required"
+    else
+      for p in "${missing[@]}"; do
+        warn "$rel ($sub): find_package() needs $p (for ${why_of[$p]}), which $sub doesn't require -- add it to ${sub//[-+.]/_}_REQUIRES"
+      done
+    fi
+    unset why_of
+  done
+}
+
 audit_license
 before=$warnings
 audit_build_requires
@@ -703,6 +917,7 @@ build_requires_warnings=$((warnings - before))
 candidates=()
 audit_missing_deps
 audit_runtime_requires
+audit_cmake_requires
 
 if (( build_requires_warnings > 0 )); then
   report+=("" "$warnings warning(s). A build that passes without a BUILD_REQUIRES package can still have lost a feature: compare the package contents before dropping it.")
