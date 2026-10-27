@@ -40,10 +40,14 @@
 # dependency output (.d/.deps files, `ninja -t deps`); one of its
 # commands, .pc/m4/cmake names or -l flags appearing in the build logs;
 # one of its commands named in the strings of a binary in $D or $B (one
-# run through system() that no log shows, like abpoa's `dot`). The last
-# two are weak -- configure's "checking for foo... no" mentions a tool
-# it then doesn't use, and a command name can be just a word in a
-# string -- but a package with none of them is most likely left over. Building fine without a package still doesn't
+# run through system() that no log shows, like abpoa's `dot`); once
+# cygport check ran, one of its commands that a test script checks for,
+# spawns or names by path (ngircd's testsuite: `type telnet`, expect's
+# `spawn telnet`, `[ -x /usr/bin/pgrep ]`). The last three are weak --
+# configure's "checking for foo... no" mentions a tool it then doesn't
+# use, a command name can be just a word in a string, and a test that
+# checks for a command may skip itself without it -- but a package with
+# none of them is most likely left over. Building fine without a package still doesn't
 # prove it unused (configure may silently drop a feature), so this only
 # warns; a human (or port-until-green) confirms by rebuilding without it
 # and comparing the package contents.
@@ -501,6 +505,21 @@ audit_build_requires() {
       -o -name CMakeConfigureLog.yaml -o -name CMakeOutput.log -o -name aclocal.m4 \) -print0 2>/dev/null)
   fi
 
+  # Test scripts, when cygport check ran: a test suite often drives a
+  # command it checks for and spawns itself, which neither a log nor a
+  # binary names (ngircd's testsuite: `type telnet`, then expect's
+  # `spawn telnet 127.0.0.1 6789`).
+  local scripts=()
+  shopt -s nullglob
+  local checklogs=("$logdir"/*-check.log)
+  shopt -u nullglob
+  if (( ${#checklogs[@]} > 0 )); then
+    while IFS= read -r -d '' f; do
+      scripts+=("$f")
+    done < <(find "$S" ${B:+"$B"} -type f -size -1024k \
+      -regex '.*/\(t\|tests?\|testsuite\|checks?\)/.*' -print0 2>/dev/null)
+  fi
+
   local pkg lst dll implib hit names
   for pkg in $BUILD_REQUIRES; do
     lst="/etc/setup/$pkg.lst.gz"
@@ -575,7 +594,23 @@ audit_build_requires() {
       continue
     fi
 
-    warn "$pkg: no evidence of use -- no DLL of it imported, none of its files read by the compiler, not mentioned in the build logs"
+    # Its commands checked for or spawned by a test script, or named by
+    # their path (ngircd's getpid.sh: `[ -x /usr/bin/pgrep ]`).
+    hit=""
+    if [[ -s "$tmp/commands" && ${#scripts[@]} -gt 0 ]]; then
+      local cmd_re
+      cmd_re="$(sed 's/[][\.*^$+?(){}|]/\\&/g' "$tmp/commands" | paste -sd '|' -)"
+      hit="$(grep -ohIE "(^|[^[:alnum:]_-])((spawn|command[[:space:]]+-v|which|type([[:space:]]+-[pP])?|hash)[[:space:]]+(-[[:alnum:]]+[[:space:]]+)*|(/usr)?/bin/)($cmd_re)([^[:alnum:]_.-]|$)" \
+          "${scripts[@]}" 2>/dev/null \
+        | sed -E 's/^[^[:alnum:]_-]//; s/[^[:alnum:]_.-]$//; s#.*[[:space:]/]##' \
+        | sort | uniq -c | sort -rn | head -3 | awk '{print $2}' | tr '\n' ' ')"
+    fi
+    if [[ -n "$hit" ]]; then
+      say "$pkg: probably used -- the test scripts check for, spawn or name ${hit% } (weak: a test that skips itself without it counts too)"
+      continue
+    fi
+
+    warn "$pkg: no evidence of use -- no DLL of it imported, none of its files read by the compiler, not mentioned in the build logs or the test scripts"
   done
 }
 
