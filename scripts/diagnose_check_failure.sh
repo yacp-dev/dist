@@ -214,9 +214,16 @@ build_diagnostic() {
     PATH="${test_path:-$PATH}" /usr/bin/cygcheck "$exe" 2>&1 | head -n 40
     echo
     echo "--- running $exe directly${test_path:+ (with the PATH meson gave the test)} ---"
-    run_out="$(cd "$(dirname "$exe")" && PATH="${test_path:-$PATH}" /usr/bin/timeout 20 "$exe" </dev/null 2>&1)"
+    # -k: a test that handles SIGTERM can go on running after it
+    # (libgnunetchat 0.8.0: GNUnet's scheduler starts a shutdown that
+    # waits on services nobody runs, and the step hung until the 6-hour
+    # job limit). Into a file rather than $(...): a process the test left
+    # behind would hold the pipe open, and $(...) waits for its EOF.
+    run_log="$(mktemp)"
+    (cd "$(dirname "$exe")" && PATH="${test_path:-$PATH}" /usr/bin/timeout -k 5 20 "$exe" </dev/null >"$run_log" 2>&1)
     run_status=$?
-    head -n 20 <<<"$run_out"
+    head -n 20 "$run_log"
+    rm -f "$run_log"
     echo "exit status: $run_status"
   fi
 }

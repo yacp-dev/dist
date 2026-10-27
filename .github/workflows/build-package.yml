@@ -480,10 +480,14 @@ jobs:
       # failing tests' log blocks, and cygcheck/a direct run of the first
       # failing executable out
       # for the job summary and the PR body below. No failure() here: the
-      # job is still succeeding at this point.
+      # job is still succeeding at this point. timeout-minutes in case
+      # running the executable hangs anyway: without it, the step waits
+      # until the 6-hour job limit and the run is cancelled with no PR.
       - name: Diagnose check failure
         id: diagnose-check
         if: steps.check.outcome == 'failure'
+        continue-on-error: true
+        timeout-minutes: 5
         run: bash -- scripts/diagnose_check_failure.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
 
       # A check that ran no tests passes just the same (a src_test of
