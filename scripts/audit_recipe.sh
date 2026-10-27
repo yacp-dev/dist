@@ -737,12 +737,15 @@ audit_cmake_requires() {
   : > "$tmp/sub_files"
   declare -A sub_requires=()
   while IFS= read -r -d '' hint; do
-    sub="$(basename "$hint" "-$PVR.hint")"
+    # <sub>-<PVR>-<arch>.hint, or <sub>-<PVR>.hint from an older cygport.
+    sub="$(basename "$hint")"
+    sub="${sub%-"$PVR"*}"
     sub_requires["$sub"]="$(sed -n 's/^requires: *//p' "$hint")"
     tarball="${hint%.hint}.tar.xz"
     [[ -f "$tarball" ]] || continue
     tar tJf "$tarball" 2>/dev/null | grep -v '/$' | sed "s#^#$sub\t/#" >> "$tmp/sub_files"
-  done < <(find "$distdir" -name "*-$PVR.hint" -not -name "*-src.hint" -not -name "*-debuginfo-*" -print0 2>/dev/null)
+  done < <(find "$distdir" \( -name "*-$PVR.hint" -o -name "*-$PVR-*.hint" \) -not -name "*-src.hint" \
+             -not -name "*-debuginfo-*" -print0 2>/dev/null)
   if [[ ${#sub_requires[@]} -eq 0 ]]; then
     say "no hints in $distdir -- run after cygport package"
     return
