@@ -203,7 +203,7 @@ fetch() {
   url="${entry%%#/*}"
   if [[ "$entry" == *'#/'* ]]; then name="${entry##*#/}"; else name="${url##*/}"; name="${name%%\?*}"; fi
   url="$(mirror_url "$url")" || { echo "unsupported mirror"; return 1; }
-  code="$(curl -sL --retry 2 -A 'dorgann port-until-green' -o "$dir/$name" -w '%{http_code}' "$url")" || code="${code:-000}"
+  code="$(curl -sL --retry 2 -o "$dir/$name" -w '%{http_code}' "$url")" || code="${code:-000}"
   [[ "$code" == 2* ]] || { echo "HTTP $code from $url"; return 1; }
   echo "$dir/$name"
 }

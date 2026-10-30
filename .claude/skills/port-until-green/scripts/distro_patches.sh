@@ -45,7 +45,7 @@ done
 
 mkdir -p "$out"
 
-entries="$(curl -sf -A 'dorgann port-until-green' "https://repology.org/api/v1/project/$project")" ||
+entries="$(curl -sf "https://repology.org/api/v1/project/$project")" ||
   { echo "Repology lookup failed for $project" >&2; exit 1; }
 
 # Source package names Repology knows for one distro, at any version.
