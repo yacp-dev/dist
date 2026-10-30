@@ -56,9 +56,11 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
   master and rebuilds. So after pushing a fix, just dispatch the same
   target again. A version update or rebuild uses this from the start:
   the preflight (Step 1b) bumps the recipe here, fixes what it can tell
-  will fail, and pushes the branch before the first dispatch, so the
-  workflow's own `Bump version`/`Bump release` only runs when there's
-  no branch yet.
+  will fail, and pushes the branch before the first dispatch. The workflow
+  never bumps a version itself: a `bump` run with no branch is refused
+  (**Require existing branch for version bump**). Only a release rebuild
+  with no branch (`rebuild`/`gcc-rebuild`) still gets its own bump,
+  `Bump release`.
 - **The bot rewrites the branch on every run** (peter-evans/create-pull-request
   squashes everything into one `<pkg>-<ver>` commit and force-pushes). Your
   local branch is therefore stale after each run — always
@@ -225,8 +227,8 @@ per-session worktree (Step 4).
 **Git snapshots** (`inherit git` with a literal `GIT_REV`, versioned
 `<base>+git<YYYYMMDD>`, e.g. `sfparse-0.0.0+git20251223`) take a different
 path: they track upstream HEAD, not releases, so in `latest` mode skip
-the Repology lookup (pass no `--version` below), and don't let the
-workflow bump them. Its `Bump version` only
+the Repology lookup (pass no `--version` below), and don't bump them
+with the workflow's version bump either. `bump_version.sh` only
 renames files and substitutes the version string — `GIT_REV` would stay at
 the old commit, and the run would build the old source under the new
 version and *succeed*, producing a wrong PR that looks right. Instead:
@@ -245,7 +247,7 @@ branch. It does this in a new worktree, `~/src/ports-wt/<pkg>-<ver>`
 any fix to the branch goes. If the user gave a version that doesn't match HEAD's date, it
 refuses — ask which commit they meant. Then dispatch `<pkg>-<ver>`
 (Step 2), but only once that branch is pushed: it's the existing branch
-that makes the run a branch rebuild instead of the workflow's own bump.
+that makes the run a branch rebuild; without it the workflow refuses a bump.
 Before dispatching, check the `.src.patch`
 still applies to the new HEAD (shallow-clone it at `GIT_REV` and
 `patch -p0 -N -f --dry-run`; git cygclass trees are `origsrc/<repo>/`, no
@@ -258,8 +260,8 @@ new vs. existing branch) before dispatching.
 
 For `bump` (and `latest` carried on as one), `rebuild` and `gcc-rebuild`
 when Step 1 found no `dorgann/<pkg>-<ver>` branch; not for git
-snapshots, which `git_snapshot_bump.sh` handles. The workflow's own bump
-only renames files, so whatever the new version breaks in the recipe — a
+snapshots, which `git_snapshot_bump.sh` handles. `bump_version.sh` only
+renames files, so whatever the new version breaks in the recipe — a
 patch upstream merged or that no longer applies, a SOVERSION bump, a
 `PATCH_URI` pinned to the old version — costs a whole run to find out.
 A rebuild keeps the source, but not the recipe's view of it: what went
@@ -368,9 +370,8 @@ git -C "$wt" push -u origin dorgann/<pkg>-<ver>
 ```
 
 The dispatch then finds the branch and rebuilds it. If nothing needed
-fixing, push the bump commit alone: the run is the same as the
-workflow's own bump. Say in one line what the preflight found and fixed
-before dispatching.
+fixing, push the bump commit alone: the run builds exactly that bump. Say
+in one line what the preflight found and fixed before dispatching.
 
 ## Step 2: Build
 
@@ -686,8 +687,8 @@ Classify it, because the response differs:
 | Transient | mirror `connection error`, `download error`, HTTP 5xx, runner lost | No commit. Re-dispatch as is. Doesn't count toward the attempt limit, but give up after 3 in a row and report. |
 | Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `xezat prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
-| dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `Bump version` mangled a file during its one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
-| No branch | failure happened before `Bump version`/`Bump release` succeeded, so no branch/draft PR exists (a version update normally has its branch from Step 1b already) | If it's transient, re-dispatch. If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (as in Step 4, with `-B dorgann/<pkg>-<ver> "$wt" origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
+| dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `bump_version.sh` mangled a file during the preflight's one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
+| No branch | the run was refused by **Require existing branch for version bump** (a `bump` target with no `dorgann/<pkg>-<ver>` on yacp), or failed before `Detect existing cygport`/`Bump release` succeeded, so no branch/draft PR exists | A refusal means Step 1b never pushed the branch: go back to Step 1b. If it's transient, re-dispatch. If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (as in Step 4, with `-B dorgann/<pkg>-<ver> "$wt" origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
 
 ## Step 4: Fix, commit, push
 

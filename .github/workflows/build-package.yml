@@ -47,7 +47,7 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: "What to build, decided by its shape (scripts/resolve_target.sh): <pkg>-<ver> updates to <ver>, or bumps only the release (1bl1 -> 1bl2) if <ver> is yacp's current one; <pkg>-<ver>-<rel> builds yacp's current release as is for publishing (no PR), or with the next release does a gcc rebuild. An existing dorgann/<pkg>-<ver> branch is rebuilt instead (doc/spec.md 4.6) -- which is also how a package not in yacp yet is built, from the draft recipe pushed there (4.8)."
+        description: "What to build, decided by its shape (scripts/resolve_target.sh): <pkg>-<ver> updates to <ver>, or bumps only the release (1bl1 -> 1bl2) if <ver> is yacp's current one; <pkg>-<ver>-<rel> builds yacp's current release as is for publishing (no PR), or with the next release does a gcc rebuild. An existing dorgann/<pkg>-<ver> branch is rebuilt instead (doc/spec.md 4.6), and a version update has to come with its branch, which port-until-green's preflight pushes; that is also how a package not in yacp yet is built, from the draft recipe pushed there (4.8)."
         required: true
         type: string
       cygwin_packages:
@@ -335,31 +335,26 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: bash -- scripts/overlay_branch_package.sh --dir yacp --repo yacp-dev/ports --base master --branch "${{ steps.auto-branch.outputs.branch }}"
 
-      # Four mutually exclusive paths: a version bump (`bump`), a branch
-      # rebuild (auto-detected above, doc/spec.md 4.6), a same-version
-      # release rebuild (`rebuild`/`gcc-rebuild`), or a validate-only
-      # build of whatever's already committed (`deploy`, for validating/
-      # publishing an already-merged fix dorgann never actually built) --
-      # exactly one of Bump version / Bump release / Detect existing
-      # cygport's rename-or-not applies. Every step below still reads
-      # through the concatenation of just the first and last steps'
-      # outputs (e.g. "${{ steps.bump.outputs.X }}${{ steps.detect.outputs.X }}"),
-      # which is always exactly one non-empty value since a skipped step's
-      # outputs are the empty string, not an error -- Bump release and
-      # deploy deliberately have no outputs of their own and instead let
-      # Detect existing cygport (widened below to also cover both) pick
-      # up whatever's on disk (renamed, for Bump release; as-is from the
-      # yacp checkout, for deploy), so nothing below needs touching for
-      # either to slot in.
-      - name: Bump version
-        id: bump
+      # Two mutually exclusive paths: a branch rebuild (auto-detected above,
+      # doc/spec.md 4.6), or a same-version release rebuild (`rebuild`/
+      # `gcc-rebuild`, no branch involved), plus a validate-only build of
+      # whatever's already committed (`deploy`, for validating/publishing
+      # an already-merged fix dorgann never actually built). A version bump
+      # (`bump`) has no step of its own: its bump is made by port-until-green's
+      # preflight (Step 1b) on dorgann/<pkg>-<ver>, which must already be
+      # pushed, so it's refused here when that branch is missing.
+      # Every step below reads steps.detect.outputs, which Detect existing
+      # cygport sets on all paths that get this far.
+      - name: Require existing branch for version bump
         if: steps.auto-branch.outputs.branch == '' && needs.gate.outputs.mode == 'bump'
-        run: bash -- scripts/bump_version.sh --dir "yacp/${{ needs.gate.outputs.package }}" --version "${{ needs.gate.outputs.version }}"
+        run: |
+          echo "::error::No dorgann/${{ needs.gate.outputs.package }}-${{ needs.gate.outputs.version }} branch. Start the update with port-until-green so its preflight creates and pushes the branch."
+          exit 1
 
       # Same-version rebuild (no branch involved): bumps only the release
       # number (1bl1 -> 1bl2), for picking up a newer toolchain with no
-      # source changes -- unlike Bump version above, which refuses to
-      # touch a package already at the requested version. An existing
+      # source changes -- unlike a version bump, which refuses to touch a
+      # package already at the requested version. An existing
       # branch always wins: it already carries the bumped release.
       - name: Bump release (rebuild mode)
         if: steps.auto-branch.outputs.branch == '' && (needs.gate.outputs.mode == 'rebuild' || needs.gate.outputs.mode == 'gcc-rebuild')
@@ -367,7 +362,6 @@ jobs:
 
       - name: Detect existing cygport (branch/release-rebuild mode)
         id: detect
-        if: steps.auto-branch.outputs.branch != '' || needs.gate.outputs.mode != 'bump'
         run: bash -- scripts/detect_cygport_file.sh --dir "yacp/${{ needs.gate.outputs.package }}"
 
       # yacp writes BUILD_REQUIRES one package per tab-indented line;
@@ -377,11 +371,11 @@ jobs:
       # to carry the change.
       - name: Format BUILD_REQUIRES
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/format_build_requires.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/format_build_requires.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       - name: Determine extra build dependencies
         id: depends
-        run: bash -- scripts/cygport_depends.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/cygport_depends.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       - name: Install Cygwin (extra dependencies)
         uses: cygwin/cygwin-install-action@v6
@@ -428,11 +422,11 @@ jobs:
 
       - name: xezat prep
         id: prep
-        run: bash -- scripts/xezat_prep.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/xezat_prep.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       - name: cygport compile
         id: compile
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step compile
+        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step compile
 
       # configure_cygport.sh's acsite.m4 makes autoconf (run by
       # cygautoreconf, inside src_compile) fail on an AX_*/PKG_* macro
@@ -445,7 +439,7 @@ jobs:
       - name: Diagnose undefined macro
         id: diagnose-macro
         if: failure() && steps.compile.outcome == 'failure'
-        run: bash -- scripts/diagnose_undefined_macro.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/diagnose_undefined_macro.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # Non-fatal by design: a test suite failing (or hanging -- some
       # need a display, network access, or other things a CI runner
@@ -470,7 +464,7 @@ jobs:
         id: check
         continue-on-error: true
         timeout-minutes: ${{ fromJSON(inputs.check_timeout_minutes) }}
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step check
+        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step check
 
       # continue-on-error above leaves both the run and the step's own
       # conclusion green when tests fail -- only steps.check.outcome
@@ -488,7 +482,7 @@ jobs:
         if: steps.check.outcome == 'failure'
         continue-on-error: true
         timeout-minutes: 5
-        run: bash -- scripts/diagnose_check_failure.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/diagnose_check_failure.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # A check that ran no tests passes just the same (a src_test of
       # `:`, cygtest finding no check/test target, ctest/meson finding
@@ -499,23 +493,23 @@ jobs:
         id: empty-check
         if: steps.check.outcome == 'success'
         continue-on-error: true
-        run: bash -- scripts/detect_empty_check.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/detect_empty_check.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       - name: cygport install
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step install
+        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step install
 
       # Purely informational -- cygport's own `list` step (__list_files)
       # prints the staged install tree ($D) to the log, so a run's output
       # makes it easy to eyeball what actually got installed where
       # without needing to reproduce the build locally.
       - name: cygport list
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step list
+        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step list
 
       - name: cygport package
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step package
+        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
       - name: Validate build via xezat
-        run: bash -- scripts/xezat_validate.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/xezat_validate.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # Feeds Decide changelog message below. gcc-core is always
       # installed as part of the base toolchain (see Install Cygwin (base
@@ -535,7 +529,7 @@ jobs:
       - name: Decide changelog message
         id: changelog
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/changelog_message.sh --dir yacp --package "${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --gcc-version "${{ steps.gcc-version.outputs.gcc_version }}"
+        run: bash -- scripts/changelog_message.sh --dir yacp --package "${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --gcc-version "${{ steps.gcc-version.outputs.gcc_version }}"
 
       # Skipped entirely for deploy: there's no PR to carry a
       # rewritten README to, and the changelog already has whatever entry
@@ -546,7 +540,7 @@ jobs:
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         env:
           XEZAT_BUMP_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
-        run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # xezat validate only checks that LICENSE is valid SPDX and that
       # every BUILD_REQUIRES package is installed. This checks LICENSE
@@ -566,7 +560,7 @@ jobs:
       - name: Audit recipe
         id: audit
         continue-on-error: true
-        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # cygport's `install` step (above) already runs postinst as part of
       # itself (see cygport's own src_postinst.cygpart/bin/cygport.in:
@@ -585,11 +579,11 @@ jobs:
       # committed) is already the real dist artifact.
       - name: Embed updated README
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/embed_readme.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/embed_readme.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       - name: cygport package (with updated README)
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step package
+        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
       # xezat bump only rewrites the build tree's own README copy ($C),
       # never the package directory's tracked one -- see xezat_port.sh for
@@ -602,14 +596,14 @@ jobs:
       - name: Copy build results back via xezat port
         id: port
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/xezat_port.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/xezat_port.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # Mainly so a run's log makes it easy to eyeball whether xezat
       # bump/port did the right thing, without waiting for the Create
-      # Pull Request step below or opening its PR. bump_version.sh
-      # renamed the old .cygport/.src.patch on disk (a plain filesystem
-      # rename, not `git mv`), so their new names are untracked as far as
-      # git is concerned -- plain `git diff` never shows untracked files
+      # Pull Request step below or opening its PR. Bump release's rename
+      # and the branch overlay can leave changes uncommitted (a plain
+      # filesystem rename, not `git mv`), so new names can be untracked as
+      # far as git is concerned -- plain `git diff` never shows untracked files
       # at all, only changes to files it already tracks. Stage everything
       # first so the new files show up too. (Create Pull Request does its
       # own staging independently via add-paths, so this step's staging
@@ -650,10 +644,10 @@ jobs:
       # if: always() (rather than the default success-only) so this still
       # shows the rename even when a later step -- cygport compile, most
       # commonly -- is what actually failed (doc/spec.md 4.6): there's
-      # nothing to show yet if Bump version/Detect existing cygport itself
-      # is what failed, hence the outcome check.
+      # nothing to show yet if Detect existing cygport itself is what
+      # failed, hence the outcome check.
       - name: Show diff
-        if: always() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success')
+        if: always() && steps.detect.outcome == 'success'
         run: |
           git -C yacp add -A -- ${{ needs.gate.outputs.package }} ":(exclude)${{ needs.gate.outputs.package }}/*.x86_64/**" ":(exclude)${{ needs.gate.outputs.package }}/*.x86_64.yml" ":(exclude)${{ needs.gate.outputs.package }}/*.tar.*"
           git -C yacp diff --cached
@@ -662,7 +656,7 @@ jobs:
         id: upload
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}-dist
+          name: ${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}-dist
           # A `**/dist/**` glob has to walk every subdirectory to find
           # matches, including .../<pn>-<pv>-<pr>.x86_64/build/ -- which
           # contains files coming out of the Cygwin build (e.g. a checked-
@@ -694,8 +688,8 @@ jobs:
       # (doc/spec.md 4.6) -- not just the success-only Create Pull
       # Request below.
       - name: cygport clean
-        if: always() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success')
-        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.bump.outputs.cygport_file }}${{ steps.detect.outputs.cygport_file }}" --step clean
+        if: always() && steps.detect.outcome == 'success'
+        run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step clean
 
       # GitHub App installation tokens expire after 1 hour, and a full
       # Windows build (plus a cold xezat gem compile) can easily outlast
@@ -706,7 +700,7 @@ jobs:
       # Create Pull Request step below could run under.
       - name: Refresh yacp token
         id: app-token-pr
-        if: always() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success') && needs.gate.outputs.mode != 'deploy'
+        if: always() && steps.detect.outcome == 'success' && needs.gate.outputs.mode != 'deploy'
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.DORGANN_APP_ID }}
@@ -753,12 +747,12 @@ jobs:
             :(exclude)${{ needs.gate.outputs.package }}/*.x86_64/**
             :(exclude)${{ needs.gate.outputs.package }}/*.x86_64.yml
             :(exclude)${{ needs.gate.outputs.package }}/*.tar.*
-          branch: dorgann/${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}
+          branch: dorgann/${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}
           delete-branch: true
           # "<PN>-<PV>", no colon or verb, matches yacp's own existing
           # commit message convention (checked against its git history).
-          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}"
-          title: "${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}"
+          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
+          title: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
           # Leaving `draft` unset (defaults to false) does NOT un-draft an
           # existing draft PR on update, contrary to what
           # peter-evans/create-pull-request's own docs implied -- confirmed
@@ -783,7 +777,7 @@ jobs:
           # didn't find, and the .src.patch line, unless xezat port's
           # patch lost a file.
           body: |
-            Version `${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
+            Version `${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
 
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
@@ -823,14 +817,13 @@ jobs:
       # re-running this workflow for the same package/version updates the
       # same branch/PR either action created), but only runs on the
       # failure path, and only if there's actually something to push --
-      # Bump version/Detect existing cygport succeeding means the package
-      # directory has at least a rename to show, even though the build
-      # itself failed later. This gives a human a concrete branch to pull,
+      # Detect existing cygport succeeding means the package directory was
+      # read successfully, even though the build itself failed later. This gives a human a concrete branch to pull,
       # fix by hand (add a missing BUILD_REQUIRES, rename PKG_NAMES for an
       # ABI bump, ...), and push straight back to -- at which point
       # re-running this workflow with the same <package>-<version> picks
-      # the fix up (skipping the bump, since it's already done) and
-      # re-validates it for real.
+      # the fix up (the branch already carries the bump) and re-validates
+      # it for real.
       #
       # deploy is excluded explicitly here too (matching Create
       # Pull Request above) rather than relying on there being no diff to
@@ -838,11 +831,11 @@ jobs:
       # peter-evans/create-pull-request happens to no-op gracefully
       # ("Branch ... is not ahead of base 'master' and will not be
       # created") when deploy genuinely has nothing to commit, but
-      # that's an implicit consequence of there being no bump, not a
-      # guarantee -- explicit is safer than depending on it.
+      # that's an implicit consequence of deploy having no bump of its own,
+      # not a guarantee -- explicit is safer than depending on it.
       - name: Create draft Pull Request (on failure)
         id: create-draft-pr
-        if: failure() && (steps.bump.outcome == 'success' || steps.detect.outcome == 'success') && needs.gate.outputs.mode != 'deploy'
+        if: failure() && steps.detect.outcome == 'success' && needs.gate.outputs.mode != 'deploy'
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token-pr.outputs.token }}
@@ -858,22 +851,22 @@ jobs:
             :(exclude)${{ needs.gate.outputs.package }}/*.x86_64/**
             :(exclude)${{ needs.gate.outputs.package }}/*.x86_64.yml
             :(exclude)${{ needs.gate.outputs.package }}/*.tar.*
-          branch: dorgann/${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}
+          branch: dorgann/${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}
           delete-branch: true
           draft: true
-          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}"
+          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
           # Same "<PN>-<PV>" title as Create Pull Request above -- whether
           # it built is what draft status and the body are for, not the
           # title. Keeping it identical also means the eventual successful
           # re-run doesn't need to change the title at all, only the draft
           # status (Mark Pull Request ready for review) and body.
-          title: "${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}"
+          title: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
           body: |
-            Version `${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`, but the build failed -- see the run summary and log below for what's wrong.
+            Version `${{ steps.detect.outputs.version }}`, but the build failed -- see the run summary and log below for what's wrong.
 
-            Push a fix directly onto this branch (`dorgann/${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }}`), then re-run the build against it:
+            Push a fix directly onto this branch (`dorgann/${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}`), then re-run the build against it:
             ```
-            gh workflow run build-package.yml -f target=${{ needs.gate.outputs.package }}-${{ steps.bump.outputs.version }}${{ steps.detect.outputs.version }} --repo ${{ github.repository }}
+            gh workflow run build-package.yml -f target=${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }} --repo ${{ github.repository }}
             ```
 
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

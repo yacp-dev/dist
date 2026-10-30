@@ -6,7 +6,7 @@
 # which other sessions share; the worktree is left in place for further
 # fixes on the branch.
 #
-# The workflow's own Bump version can't do this: it has no way to learn
+# The workflow can't do this: it has no way to learn
 # the new commit, so bump_version.sh refuses a literal GIT_REV unless
 # given --git-rev. Doing the bump here (with --git-rev) and then
 # dispatching with --branch skips that step entirely (branch-rebuild
