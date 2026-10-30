@@ -831,7 +831,7 @@ Then back to Step 2, dispatching `<pkg>-<ver>` again.
 ## Stopping
 
 - **Success** → report as in Step 2.
-- **5 non-transient failed attempts** (counting the first build) → stop.
+- **10 non-transient failed attempts** (counting the first build) → stop.
 - **Same error twice in a row after a fix meant for it** → step back and
   rethink rather than repeating the same fix; if you still have no new idea,
   stop.
