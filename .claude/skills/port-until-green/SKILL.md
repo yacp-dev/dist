@@ -1,7 +1,20 @@
 ---
 name: port-until-green
-description: Drive a yacp-dev/ports package update to a passing PR. Dispatches yacp-dev/dist's build-package workflow for the named package (creating the dorgann/<pkg>-<ver> branch, or rebuilding the one already there), and when the Windows/Cygwin build fails, investigates the log, fixes the recipe on that branch, commits, pushes and re-runs until it passes. Takes one argument: <pkg> (update to Repology's newest), <pkg>-<ver> (update to that version, or bump the release if it's the current one), or <pkg>-<ver>-<rel> (current release: build and deploy to dist; next release: gcc rebuild). Use this whenever the user names a ports/yacp package and wants it bumped, built, its PR made green, or its draft dorgann PR fixed — e.g. "/port-until-green knot", "ngtcp2 の PR 作って", "Catch2 のビルド直して" — even if they don't say "skill" or "workflow".
-argument-hint: <pkg> | <pkg>-<ver> | <pkg>-<ver>-<rel>
+description: >-
+  Drive a yacp-dev/ports package update to a passing PR. Dispatches
+  yacp-dev/dist's build-package workflow for the named package
+  (creating the dorgann/<pkg>-<ver> branch, or rebuilding the one
+  already there), and when the Windows/Cygwin build fails, investigates
+  the log, fixes the recipe on that branch, commits, pushes and re-runs
+  until it passes. Takes one argument: <pkg> (update to Repology's
+  newest), <pkg>-<ver> (update to that version, or bump the release if
+  it's the current one), or <pkg>-<ver>-<rel> (current release: build
+  and deploy to dist; next release: gcc rebuild). Use this whenever the
+  user names a ports/yacp package and wants it bumped, built, its PR
+  made green, or its draft dorgann PR fixed — e.g. "/port-until-green
+  knot", "ngtcp2 の PR 作って", "Catch2 のビルド直して" — even if
+  they don't say "skill" or "workflow".
+argument-hint: "<pkg> | <pkg>-<ver> | <pkg>-<ver>-<rel>"
 ---
 
 # port-until-green
