@@ -77,7 +77,22 @@ if [[ "$diagnose" == "skipped" ]]; then
     echo
     tail -n +2 <<<"$empty"
   else
-    echo "check: passed"
+    # Some upstream test drivers (libosip2's src/test/tst) exit 0 even when
+    # unit tests fail and only print "unit testing failed: N", so the check
+    # step passes with failures in it. Read that summary from the step's log.
+    unit="$(gh run view "$run" -R "$repo" --log |
+      perl -pe 's/\e\[[0-9;]*m//g' |
+      awk -F'\t' '$2 == "cygport check" { sub(/^[^ ]+ /, "", $3); print $3 }' |
+      grep '^unit testing ' || true)"
+    failed="$(sed -n 's/^unit testing failed: *//p' <<<"$unit")"
+    if [[ -n "$failed" && "$failed" != 0 ]]; then
+      total="$(sed -n 's/^unit testing total : *//p' <<<"$unit")"
+      echo "check: FAILED ($failed of $total unit tests failed, though cygport check passed)"
+      echo
+      echo "$unit"
+    else
+      echo "check: passed"
+    fi
   fi
   exit 0
 fi
