@@ -1,5 +1,8 @@
 name: build-package
 
+# The run list shows this title, so each package's runs can be told apart.
+run-name: build-package ${{ inputs.target }}
+
 # Step 1 (doc/spec.md, chapter 7): validates that a cygport build
 # actually works on a windows-latest Actions runner.
 # Step 2: adds PR creation against yacp (doc/spec.md 4.4.1). `target`
