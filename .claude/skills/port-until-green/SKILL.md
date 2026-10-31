@@ -72,6 +72,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 
 - `scripts/dispatch_build.sh --target T [-f key=val ...]` — dispatches and
   prints `<run id> <run url>`.
+- `scripts/run_decision.sh --target T [-f key=val ...]` — says whether to
+  re-run the last run's failed jobs, wait for it, or dispatch (Step 2).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
   either workflow
   (one API call every 90 s by default), prints `<conclusion> <run url>`,
@@ -394,6 +396,27 @@ scripts/dispatch_build.sh --target <pkg>-<ver>          # bump, rebuild
 scripts/dispatch_build.sh --target <pkg>-<ver>-<rel>    # gcc-rebuild, deploy
 ```
 
+To build again after a fix, ask `scripts/run_decision.sh` first, with the
+same `-f` arguments you'd dispatch with:
+
+```bash
+scripts/run_decision.sh --target <pkg>-<ver> [-f changelog_message="..."]
+```
+
+- `rerun <id>` → `gh run rerun <id> -R yacp-dev/dist --failed`, then wait on
+  `<id>`. Same run, attempt N+1. The branch's recipe is fetched afresh, so
+  the fix is in; nothing under `.github/` or `scripts/` changed on main and
+  the inputs are the same, so the run's own code is still right.
+- `wait <id>` → a run is still queued or in progress: wait on it, don't
+  start another.
+- `dispatch <reason>` → `dispatch_build.sh` as above (a new run). The
+  reason says why: inputs changed, dorgann's workflow or scripts changed on
+  main, the last run succeeded, or no earlier run is recorded.
+
+It reads the record `dispatch_build.sh` writes for each run (main SHA and
+inputs, in `~/.local/state/port-until-green/runs/`), so a run dispatched
+before that existed counts as no record: dispatch.
+
 For `latest`, pass the version found in Step 1. A `rebuild`/`gcc-rebuild`
 run creates `dorgann/<pkg>-<ver>` like a bump does, so on failure it's
 fixed and re-run the same way (`<pkg>-<ver>` re-runs either); the
@@ -554,7 +577,7 @@ failed:
 A guess that a re-run doesn't confirm is a wrong guess: revert it on the
 branch rather than leaving it in the recipe alongside the real fix.
 
-Re-run the same target after a fix; the bot updates the same PR. Don't
+Build again after the fix (Step 2's `run_decision.sh`); the bot updates the same PR. Don't
 disable or skip tests to make check pass — a failing test that tells the
 truth is more useful than a passing one that doesn't.
 
@@ -840,7 +863,7 @@ git commit -am "<pkg>-<ver> (fix BUILD_REQUIRES)"   # git add new files first
 git push origin dorgann/<pkg>-<ver>
 ```
 
-Then back to Step 2, dispatching `<pkg>-<ver>` again.
+Then back to Step 2: `run_decision.sh` for `<pkg>-<ver>`, then rerun or dispatch.
 
 ## Stopping
 
