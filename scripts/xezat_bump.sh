@@ -40,8 +40,16 @@ done
 [[ -n "$dir" ]] || { echo "--dir is required" >&2; exit 1; }
 [[ -n "$cygport_file" ]] || { echo "--file is required" >&2; exit 1; }
 
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+
 cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
+
+# Stops xezat's Asciidoc detector from listing asciidoc as a build
+# requirement (see xezat_skip_asciidoc_detector.rb). Only this bump's
+# xezat process gets it; RUBYOPT from the job's env is kept.
+RUBYOPT="-r${script_dir}/xezat_skip_asciidoc_detector.rb ${RUBYOPT:-}"
+export RUBYOPT
 
 if [[ -n "${XEZAT_BUMP_MESSAGE:-}" ]]; then
   xezat bump "$cygport_file" --no-compiler-detection -m "$XEZAT_BUMP_MESSAGE"
