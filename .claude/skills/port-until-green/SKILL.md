@@ -608,7 +608,7 @@ failures"; one that gets `passed` is done.
 ### Missing LICENSE
 
 Without `LICENSE`, cygport logs `*** Warning: LICENSE not defined` at
-every step, and the `Validate build via xezat` step warns `LICENSE is
+every step, and the `Validate build` step warns `LICENSE is
 not defined` / `LICENSE_URI is not defined`. Fill in whichever of the
 three is missing (keep any that are already there), from the new
 version's source: the tarball from `SRC_URI`, extracted into the
@@ -656,8 +656,8 @@ LICENSE_SPDX="SPDX-License-Identifier: GPL-2.0-or-later AND LGPL-2.1-or-later"
 LICENSE_URI="COPYING"
 ```
 
-- `LICENSE` must be a valid SPDX expression: xezat checks it with the
-  `spdx` gem and logs an error if it isn't. Join licenses with `AND`
+- `LICENSE` must be a valid SPDX expression (nothing checks it
+  automatically any more; Audit recipe compares it with the source). Join licenses with `AND`
   when different parts carry different ones, and with `OR` only when
   upstream offers a choice.
 - `LICENSE_SPDX` is `SPDX-License-Identifier: ` followed by the same
@@ -673,7 +673,7 @@ file), has no license file at all, or uses a custom or non-SPDX license,
 don't guess. Leave it out and tell the user what you found.
 
 Commit as `<pkg>-<ver> (add LICENSE)` and re-run the same target.
-Afterwards, check that `Validate build via xezat` no longer logs
+Afterwards, check that `Validate build` no longer logs
 `LICENSE`/`LICENSE_URI` warnings or errors
 (`gh run view <id> -R yacp-dev/dist --log | grep -i 'licen'`), and
 that `Audit recipe`'s `== LICENSE ==` section has no `WARNING:` lines;

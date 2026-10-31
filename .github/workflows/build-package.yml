@@ -511,8 +511,8 @@ jobs:
       - name: cygport package
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
-      - name: Validate build via xezat
-        run: bash -- scripts/xezat_validate.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
+      - name: Validate build
+        run: bash -- scripts/validate_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # Feeds Decide changelog message below. gcc-core is always
       # installed as part of the base toolchain (see Install Cygwin (base
@@ -545,9 +545,12 @@ jobs:
           XEZAT_BUMP_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
         run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
-      # xezat validate only checks that LICENSE is valid SPDX and that
-      # every BUILD_REQUIRES package is installed. This checks LICENSE
-      # against the headers and license texts of what the packages ship
+      # validate_recipe.sh only checks that LICENSE is set and that every
+      # BUILD_REQUIRES package is installed (plus the BOM, CATEGORY,
+      # HOMEPAGE/LICENSE_URI reachability, *-config, *.pc and AppStream
+      # path).
+      # This checks LICENSE against the headers and license texts of what
+      # the packages ship
       # (installed files and the sources compiled into them), and each
       # BUILD_REQUIRES package for evidence the build used it (a DLL
       # import, a file the compiler read, a mention in the logs) -- both

@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
-# Cross-checks five things in a cygport recipe that `xezat validate`
-# doesn't: whether LICENSE matches what the source itself says, whether
-# every BUILD_REQUIRES package is actually used by the build, what the
-# build looked for that a Cygwin package not in BUILD_REQUIRES has,
+# Cross-checks five things in a cygport recipe that validate_recipe.sh
+# doesn't, plus a HOMEPAGE that redirects and a *.pc that names the build
+# tree: whether LICENSE matches what the source itself says, whether every
+# BUILD_REQUIRES package is actually used by the build, what the build
+# looked for that a Cygwin package not in BUILD_REQUIRES has,
 # whether README's runtime requirements came out at all, and whether
 # each installed CMake package config's dependencies are in its
 # subpackage's requires.
-# xezat only checks that LICENSE is a valid SPDX expression (and that
-# LICENSE_URI exists) and that each BUILD_REQUIRES package is installed
-# -- a recipe carried over from an old version keeps both long after
-# upstream has relicensed or dropped a dependency.
+# validate_recipe.sh only checks that LICENSE is set (and that LICENSE_URI
+# exists) and that each BUILD_REQUIRES package is installed -- a recipe
+# carried over from an old version keeps both long after upstream has
+# relicensed or dropped a dependency.
 #
 # LICENSE is compared against the SPDX-License-Identifier headers across
 # $S, REUSE's LICENSES/*.txt, and the license texts in $S (and
@@ -98,12 +99,12 @@ cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
 # Same `cygport <file> vars <NAME>` mechanism as the diagnose_*.sh.
-vars_decl="$(cygport "$cygport_file" vars PN PVR S B D C logdir BUILD_REQUIRES DEPS_PATH LICENSE LICENSE_URI 2>/dev/null)"
+vars_decl="$(cygport "$cygport_file" vars PN PVR S B D C logdir BUILD_REQUIRES DEPS_PATH HOMEPAGE LICENSE LICENSE_URI 2>/dev/null)"
 if [[ -z "$vars_decl" ]]; then
   echo "audit_recipe.sh: 'cygport $cygport_file vars ...' returned nothing -- nothing to audit" >&2
   exit 0
 fi
-PN="" PVR="" S="" B="" D="" C="" logdir="" BUILD_REQUIRES="" DEPS_PATH="" LICENSE="" LICENSE_URI=""
+PN="" PVR="" S="" B="" D="" C="" logdir="" BUILD_REQUIRES="" DEPS_PATH="" HOMEPAGE="" LICENSE="" LICENSE_URI=""
 eval "$vars_decl"
 
 if [[ ! -d "$S" || ! -d "$D" ]]; then
@@ -182,6 +183,60 @@ audit_license_sections() {
       text_ids["$(license_base "$id")"]="$rel"
       text_names["$(license_base "$id")"]="$id"
       found_base["$(license_base "$id")"]=1
+    done
+  done
+}
+
+# HOMEPAGE that redirects (3xx, as validate_recipe.sh warns about for any
+# non-200): the recipe should name the URL it redirects to, not the old
+# one. Only the first hop is followed -- curl's redirect_url -- so a
+# chain of redirects is reported as its first target.
+audit_homepage() {
+  [[ -n "$HOMEPAGE" ]] || return
+  local out code target
+  out="$(curl -s -o /dev/null --max-time 30 -w '%{http_code} %{redirect_url}' "$HOMEPAGE" 2>/dev/null)"
+  code="${out%% *}"
+  target="${out#* }"
+  case "$code" in
+    3??)
+      say ""
+      say "== HOMEPAGE =="
+      if [[ -n "$target" ]]; then
+        warn "HOMEPAGE $HOMEPAGE redirects ($code) to $target -- set HOMEPAGE to that URL"
+      else
+        warn "HOMEPAGE $HOMEPAGE redirects ($code) without a Location -- check where it points and set HOMEPAGE to that"
+      fi
+      ;;
+  esac
+}
+
+# A *.pc file under $D that names the build tree ($S, $B, $D, $C) or a
+# /cygdrive, /home or /tmp path -- prefix, libdir, Libs, Cflags -- works
+# on this build and nowhere else, so the .pc itself has to be fixed (a
+# ${prefix}-relative path, or a patch of the .pc in src_patch or
+# src_install), not the build output. validate_recipe.sh reports what
+# pkg-config makes of the .pc; this says which line to fix.
+audit_pc_files() {
+  local -a pats=()
+  local p pcdir pcfile hits hit printed=0
+  for p in "$S" "$B" "$D" "$C"; do
+    [[ -n "$p" && "$p" != / ]] && pats+=("$p")
+  done
+  printf '%s\n' "${pats[@]}" > "$tmp/pc-patterns"
+  for pcdir in "$D/usr/lib/pkgconfig" "$D/usr/share/pkgconfig"; do
+    for pcfile in "$pcdir"/*.pc; do
+      [[ -f "$pcfile" ]] || continue
+      hits="$( { grep -nF -f "$tmp/pc-patterns" "$pcfile"; grep -nE '/cygdrive/|/home/|/tmp/' "$pcfile"; } 2>/dev/null | sort -t: -k1,1n -u)"
+      [[ -n "$hits" ]] || continue
+      if (( ! printed )); then
+        say ""
+        say "== *.pc =="
+        printed=1
+      fi
+      while IFS= read -r hit; do
+        [[ -n "$hit" ]] || continue
+        warn "${pcfile#"$D"/}:${hit%%:*} names the build tree: ${hit#*:} -- fix the .pc itself (a \${prefix}-relative path, or a patch of it in src_patch or src_install)"
+      done <<< "$hits"
     done
   done
 }
@@ -964,6 +1019,8 @@ EOF
   done
 }
 
+audit_homepage
+audit_pc_files
 audit_license
 before=$warnings
 audit_build_requires
