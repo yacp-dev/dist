@@ -1,0 +1,30 @@
+HOMEPAGE="@HOMEPAGE@"
+SRC_URI="@SRC_URI@"
+
+CATEGORY="@CATEGORY@"
+SUMMARY="@SUMMARY@"
+DESCRIPTION="@DESCRIPTION@"
+
+LICENSE=""
+LICENSE_SPDX="SPDX-License-Identifier: "
+LICENSE_URI=""
+
+PKG_NAMES="
+	@PKG@
+	lib@BASE@0
+	lib@BASE@-devel
+"
+@VAR@_CONTENTS="
+	usr/bin/*.exe
+	usr/share
+"
+lib@BASEVAR@0_CONTENTS="
+	usr/bin/*.dll
+"
+lib@BASEVAR@_devel_CONTENTS="
+	usr/include
+	usr/lib
+"
+@VAR@_SUMMARY="${SUMMARY} (licensing & readmes)"
+lib@BASEVAR@0_SUMMARY="${SUMMARY} (runtime)"
+lib@BASEVAR@_devel_SUMMARY="${SUMMARY} (development)"

@@ -99,6 +99,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   directly; Repology only names the source packages), each with a
   revision-pinned URL for `PATCH_URI` (see
   "Distro patches" under Step 2).
+- `scripts/new_recipe.sh --package P --version V --source URL --homepage URL [--dry-run]` —
+  creates the draft recipe for a package not in ports yet, from
+  `scripts/templates/recipe.in` (New packages, Step 1).
 - `scripts/cmux_status.sh "<text>"` / `--clear` — shows the package and
   phase as a status pill on this session's cmux workspace (a no-op
   outside cmux). See "Status pill" below.
@@ -174,22 +177,25 @@ starts with (package names can contain dashes), then splits the rest into
 A package not in ports yet gets a draft recipe, pushed for the user to
 review on GitHub before anything is built (doc/spec.md 4.8):
 
-1. Start from xezat's template, the one `xezat init` writes
-   (`~/src/xezat/share/xezat/template/cygport.erb`; `HOMEPAGE`/`SRC_URI`
-   shapes in `share/xezat/repository/*.yaml`), and fit it to the new
-   source, read from the scratchpad: `SRC_DIR` if the tarball's top
-   directory isn't `${P}`, the build system's cygclass, a runtime
-   package named after upstream's SOVERSION with its DLL pinned
-   (`usr/bin/cyg*-N.dll`), only `*_CONTENTS` the install will actually
-   produce, `BUILD_REQUIRES` for what the build files need (each
-   available, as in "Checking a dependency is unavailable"), and
-   `LICENSE` as in "Missing LICENSE". Follow ports' style (a similar
-   recipe there is the best reference). No README: xezat writes it on
-   the first green build.
-2. In a worktree on a new branch from master
-   (`git -C ~/src/ports worktree add -b dorgann/<pkg>-<ver> ~/src/ports-wt/<pkg>-<ver> origin/master`),
-   add `<pkg>/<pkg>-<ver>-1bl1.cygport`, commit it as `<pkg>-<ver>`, and
-   push the branch. No PR, no dispatch.
+1. Generate the skeleton from `templates/recipe.in` (no xezat needed),
+   in a new worktree on `dorgann/<pkg>-<ver>` from master, committed as
+   `<pkg>-<ver>` but not pushed:
+   `scripts/new_recipe.sh --package <pkg> --version <ver> --source <SRC_URI> --homepage <HOMEPAGE> [--category C] [--summary S] [--description D]`
+   It refuses if the package is already in ports or the branch is on
+   origin. `--dry-run` prints the recipe without touching git. Then fit
+   the skeleton to the new source, read from the scratchpad: `SRC_DIR`
+   if the tarball's top directory isn't `${P}`, the build system's
+   cygclass, `inherit`, the runtime package named after upstream's
+   SOVERSION with its DLL pinned (`usr/bin/cyg*-N.dll`), only
+   `*_CONTENTS` the install will actually produce, `BUILD_REQUIRES` for
+   what the build files need (each available, as in "Checking a
+   dependency is unavailable"), and `LICENSE` as in "Missing LICENSE".
+   The template's `lib<name>0` names assume a plain `lib`-prefixed
+   runtime; fix them when upstream says otherwise. Follow ports' style
+   (a similar recipe there is the best reference). No README: xezat
+   writes it on the first green build.
+2. Commit the fitted recipe on that branch, then push it. No PR, no
+   dispatch.
 3. Stop and give the user the compare URL
    (`https://github.com/yacp-dev/ports/compare/master...dorgann/<pkg>-<ver>`)
    with what you decided and why. Keep the worktree for review fixes.
