@@ -1,0 +1,13 @@
+category: Libs
+requires: cygwin libbz2_1 libgcc1 libintl8 libstdc++6 libxml2 zlib0
+sdesc: "Library for working with SBML (the Systems Biology Markup Language) (runtime)"
+ldesc: "LibSBML is a programming library that helps you read, write, manipulate,
+translate, and validate files and data streams in the SBML (Systems Biology
+Markup Language) format. Developers can embed the library in their
+applications, saving themselves the work of implementing their own parsing,
+manipulation and validation software. At the API level, libSBML provides the
+same interface to data structures independently of whether the model
+originated in SBML Level 1, 2 or 3. LibSBML understands all Levels and
+Versions of SBML, and supports all SBML Level 3 packages."
+external-source: libsbml
+

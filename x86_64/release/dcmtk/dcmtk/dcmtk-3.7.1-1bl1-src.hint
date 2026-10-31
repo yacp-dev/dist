@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libiconv-devel libintl-devel libopenjp2-devel libpng-devel libsndfile-devel libssl-devel libtiff-devel libwrap-devel libxml2-devel openjpeg2 zlib-devel
+sdesc: "DICOM Toolkit (utilities)"
+ldesc: "DCMTK is a collection of libraries and applications implementing large parts
+the DICOM standard. It includes software for examining, constructing and
+converting DICOM image files, handling offline media, sending and receiving
+images over a network connection, as well as demonstrative image storage and
+worklist servers."
+skip:
+
+homepage: https://dicom.offis.de/dcmtk/
+license: BSD-3-Clause AND BSD-2-Clause AND BSD-4-Clause AND BSD-4.3TAHOE AND Apache-2.0 AND IJG AND ISC AND MIT AND (MIT OR WTFPL)

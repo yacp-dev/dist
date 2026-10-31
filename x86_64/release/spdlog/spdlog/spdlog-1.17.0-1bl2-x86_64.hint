@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Fast C++ logging library (licensing & readmes)"
+ldesc: "Very fast, header-only/compiled, C++ logging library."
+

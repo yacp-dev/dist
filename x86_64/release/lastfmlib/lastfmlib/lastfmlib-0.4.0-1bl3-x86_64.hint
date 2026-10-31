@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C/C++ library to scrobble your played tracks on last.fm (licensing & readmes)"
+ldesc: "C/C++ library to scrobble your played tracks on last.fm"
+

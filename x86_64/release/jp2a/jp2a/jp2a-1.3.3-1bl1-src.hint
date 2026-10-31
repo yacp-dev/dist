@@ -1,0 +1,9 @@
+category: Graphics
+build-depends: cygport libcurl-devel libexif-devel libjpeg-devel libncurses-devel libpng-devel libwebp-devel
+sdesc: "Convert JPG images to ASCII"
+ldesc: "jp2a is a small utility that converts JPG images to ASCII. It's written in C
+and released under the GPL."
+skip:
+
+homepage: https://github.com/Talinx/jp2a/
+license: GPL-2.0-or-later

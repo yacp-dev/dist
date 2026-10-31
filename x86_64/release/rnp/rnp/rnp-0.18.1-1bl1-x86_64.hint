@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libjson-c5 librnp0 libstdc++6
+sdesc: "High performance C++ OpenPGP library (utilities)"
+ldesc: "High performance C++ OpenPGP library"
+

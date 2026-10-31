@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Mail Framework for C Language (licensing & readmes)"
+ldesc: "The purpose of this mail library is to provide a portable, efficient framework
+for different kinds of mail access: IMAP, SMTP, POP and NNTP."
+

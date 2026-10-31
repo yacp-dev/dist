@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libQt5Core-devel libQt5Gui-devel libQt5Quick-devel
+sdesc: "Library for accessing the ofono daemon (licensing & readmes)"
+ldesc: "A library for accessing the ofono daemon, and a declarative plugin for it.
+This allows accessing ofono in qtquick and friends."
+skip:
+
+homepage: https://github.com/sailfishos/libqofono
+license: LGPL-2.1-or-later

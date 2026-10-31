@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libglib2.0_0 librepo0 python312
+sdesc: "Repodata downloading library (python312 bindings)"
+ldesc: "A library providing C and Python (libcURL like) API for downloading linux
+repository metadata and packages"
+external-source: librepo
+

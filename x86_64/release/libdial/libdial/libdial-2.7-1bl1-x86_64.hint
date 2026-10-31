@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library needed by tzclock (licensing & readmes)"
+ldesc: "Library needed by tzclock"
+

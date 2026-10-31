@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Implementation of the Actor Model for C++ (licensing & readmes)"
+ldesc: "An Open Source Implementation of the Actor Model in C++"
+

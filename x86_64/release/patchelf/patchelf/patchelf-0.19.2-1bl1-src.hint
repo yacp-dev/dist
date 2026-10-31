@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Modify dynamic ELF executables"
+ldesc: "PatchELF is a small utility to modify the dynamic linker and RPATH of ELF
+executables."
+skip:
+
+homepage: https://github.com/NixOS/patchelf
+license: GPL-3.0-or-later

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libboost-devel zlib-devel
+sdesc: "Basic library package to develop the RoboCup Soccer Simulation client and tools (utilities)"
+ldesc: "The librcsc is the basic library package to develop the RoboCup Soccer
+Simulation client and tools."
+skip:
+
+homepage: https://github.com/helios-base/librcsc
+license: LGPL-3.0-or-later

@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libgtest-devel libtiff-devel
+sdesc: "Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K) (utilities)"
+ldesc: "Open source implementation of High-throughput JPEG2000 (HTJ2K), also known as
+JPH, JPEG2000 Part 15, ISO/IEC 15444-15, and ITU-T T.814. Here, we are
+interested in implementing the HTJ2K only, supporting features that are
+defined in JPEG2000 Part 1 (for example, for wavelet transform, only
+reversible 5/3 and irreversible 9/7 are supported)."
+skip:
+
+homepage: https://github.com/aous72/OpenJPH
+license: BSD-2-Clause

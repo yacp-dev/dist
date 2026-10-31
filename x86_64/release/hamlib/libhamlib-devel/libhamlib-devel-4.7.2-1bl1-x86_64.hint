@@ -1,0 +1,8 @@
+category: Libs
+requires: libhamlib4 libusb1.0-devel pkg-config
+sdesc: "Library to control radio transceivers and receivers (development)"
+ldesc: "The Hamlib project's purpose is to develop flexible and portable shared
+libraries that offer a standardized API to control any radio oriented
+equipment through a computer interface."
+external-source: hamlib
+

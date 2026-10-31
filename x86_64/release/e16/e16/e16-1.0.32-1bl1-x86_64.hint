@@ -1,0 +1,11 @@
+category: X11
+requires: bash coreutils cygwin libdbus1_3 libGL1 libglib2.0_0 libGLU1 libICE6 libiconv2 libImlib2_1 libintl8 libpango1.0_0 libpulse0 libSM6 libsndfile1 libX11_6 libXcomposite1 libXdamage1 libXext6 libXfixes3 libXft2 libXi6 libXinerama1 libXpresent1 libXrandr2 libXrender1 libXss1 python3
+sdesc: "Predecessor of the current E24 Enlightenment Window Manager"
+ldesc: "E16 is predecessor of the current E24 Enlightenment Window Manager, which is
+rather complete rewrite than incremental update of E16. Although most of the
+current development focus goes to E24, E16 is still under independent active
+development and some users prefer it to E24. In this sense E16 will keep its
+name while incrementing the versions from 1.0.0 unlike the mainstream
+Enlightenment manager, which is likely going to increment its E-suffix number.
+This page should summarize the links related to E16."
+

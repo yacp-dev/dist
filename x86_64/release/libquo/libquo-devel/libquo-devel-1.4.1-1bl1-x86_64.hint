@@ -1,0 +1,8 @@
+category: Libs
+requires: libquo8 pkg-config
+sdesc: "Dynamic execution environments for coupled, thread-heterogeneous MPI+X applications (development)"
+ldesc: "QUO (as in 'status quo') is a runtime library that aids in accommodating
+thread-level heterogeneity in dynamic, phased MPI+X applications comprising
+single- and multi-threaded libraries."
+external-source: libquo
+

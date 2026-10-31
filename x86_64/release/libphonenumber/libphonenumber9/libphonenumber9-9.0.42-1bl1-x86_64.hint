@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libabseil2608.0.0 libboost_system1.66 libboost_thread1.66 libgcc1 libicu76 libprotobuf32 libre2_11 libstdc++6
+sdesc: "Google's common Java, C++ and JavaScript library for parsing, formatting, and validating international phone numbers (runtime)"
+ldesc: "Google's common Java, C++ and JavaScript library for parsing, formatting,
+and validating international phone numbers. The Java version is optimized for
+running on smartphones, and is used by the Android framework since 4.0 (Ice
+Cream Sandwich)."
+external-source: libphonenumber
+

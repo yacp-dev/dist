@@ -1,0 +1,8 @@
+category: Libs
+requires: libprimecount8 libprimesieve-devel pkg-config
+sdesc: "Fast prime counting function implementations (development)"
+ldesc: "primecount is a command-line program and C/C++ library that counts the number
+of primes ≤ x (maximum 10^31) using highly optimized implementations of the
+combinatorial prime counting algorithms."
+external-source: primecount
+

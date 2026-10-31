@@ -1,0 +1,8 @@
+category: Security
+requires: cygwin libglib2.0_0 libgusb2 libpixman1_0 libssl3
+sdesc: "Toolkit for fingerprint scanner (runtime)"
+ldesc: "libfprint is an open source software library designed to make it easy for
+application developers to add support for consumer fingerprint readers to
+their software."
+external-source: libfprint
+

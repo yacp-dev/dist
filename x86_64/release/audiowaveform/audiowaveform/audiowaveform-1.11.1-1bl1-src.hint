@@ -1,0 +1,11 @@
+category: Audio
+build-depends: cygport libboost-devel libgd-devel libgmock-devel libgtest-devel libid3tag-devel libmad-devel libsndfile-devel
+sdesc: "C++ program to generate waveform data and render waveform images from audio files"
+ldesc: "audiowaveform is a C++ command-line application that generates waveform data
+from either MP3, WAV, or FLAC format audio files. Waveform data can be used to
+produce a visual rendering of the audio, similar in appearance to audio
+editing applications."
+skip:
+
+homepage: https://codeberg.org/chrisn/audiowaveform
+license: GPL-3.0-or-later

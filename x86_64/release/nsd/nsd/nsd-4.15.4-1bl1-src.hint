@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport bison flex libevent-devel libfstrm-devel libprotobuf-c-devel libssl-devel libzone-devel protobuf-c
+sdesc: "Name server daemon"
+ldesc: "The NLnet Labs Name Server Daemon (NSD) is an authoritative DNS name server.
+It has been developed for operations in environments where speed, reliability,
+stability and security are of high importance."
+skip:
+
+homepage: https://www.nlnetlabs.nl/projects/nsd/about/
+license: BSD-3-Clause

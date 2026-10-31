@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport gcc-fortran libevent-devel libhwloc-devel libopenmpi-devel zlib-devel
+sdesc: "Parallel netCDF (utilities)"
+ldesc: "Parallel netCDF (PnetCDF), a collaborative work of Argonne National Laboratory
+and Northwestern University, is a parallel I/O library for accessing NetCDF
+files in CDF-1, 2, and 5 formats. The CDF-5 file format, an extension of
+CDF-2, supports more data types and allows users to use 64-bit integers to
+define large dimensions, attributes, variables (> 2B array elements)."
+skip:
+
+homepage: https://parallel-netcdf.github.io/
+license: NetCDF AND BSD-3-Clause

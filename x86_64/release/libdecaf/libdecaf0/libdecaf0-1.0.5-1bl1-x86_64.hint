@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Fast, strong elliptic curve cryptography (runtime)"
+ldesc: "Ed448-Goldilocks is a new elliptic curve for cryptography."
+external-source: libdecaf
+

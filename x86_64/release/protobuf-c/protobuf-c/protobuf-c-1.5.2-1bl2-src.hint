@@ -1,0 +1,13 @@
+category: Libs
+build-depends: cygport libprotobuf-devel
+sdesc: "Protocol Buffers implementation in C (utilities)"
+ldesc: "This is protobuf-c, a C implementation of the Google Protocol Buffers data
+serialization format. It includes libprotobuf-c, a pure C library that
+implements protobuf encoding and decoding, and protoc-c, a code generator that
+converts Protocol Buffer .proto files to C descriptor code, based on the
+original protoc. protobuf-c formerly included an RPC implementation; that code
+has been split out into the protobuf-c-rpc project."
+skip:
+
+homepage: https://github.com/protobuf-c/protobuf-c
+license: BSD-2-Clause

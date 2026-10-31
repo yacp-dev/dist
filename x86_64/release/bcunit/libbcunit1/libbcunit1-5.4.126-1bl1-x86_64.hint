@@ -1,0 +1,7 @@
+category: Devel
+requires: cygwin libncursesw10
+sdesc: "Fork of the defunct project CUnit (runtime)"
+ldesc: "This is BCUnit, a fork of the defunct project CUnit, with several fixes and
+patches applied."
+external-source: bcunit
+

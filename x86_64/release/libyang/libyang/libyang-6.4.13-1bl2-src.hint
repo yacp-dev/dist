@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcmocka-devel libpcre-devel libxxhash-devel
+sdesc: "YANG data modeling language library (utilities)"
+ldesc: "libyang is a YANG data modelling language parser and toolkit written (and
+providing API) in C."
+skip:
+
+homepage: https://github.com/CESNET/libyang
+license: BSD-3-Clause

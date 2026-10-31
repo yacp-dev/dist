@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Kinematics and Dynamics Library (runtime)"
+ldesc: "This package contains a recent version of the Kinematics and Dynamics
+Library (KDL), distributed by the Orocos Project."
+external-source: orocos-kdl
+

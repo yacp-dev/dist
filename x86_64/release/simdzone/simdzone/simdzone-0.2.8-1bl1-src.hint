@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcmocka-devel
+sdesc: "Fast and standards compliant DNS zone parser (utilities)"
+ldesc: "Fast and standards compliant DNS zone parser"
+skip:
+
+homepage: https://github.com/NLnetLabs/simdzone
+license: BSD-3-Clause AND BSD-2-Clause AND ISC

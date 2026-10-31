@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "TOML parser for Fortran (licensing & readmes)"
+ldesc: "A TOML parser implementation for data serialization and deserialization in
+Fortran."
+

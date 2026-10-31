@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libavcodec-devel libavformat-devel libavutil-devel libbrotli-devel libdbus1-devel libevent-devel libglib2.0-devel libsqlite3-devel libssl-devel libswresample-devel libswscale-devel libuv-devel zlib-devel
+sdesc: "C Websockets Server Library (utilities)"
+ldesc: "libwebsockets is a lightweight GPL2 http and websocket server that hides all
+the protocol handshakes and detail from the user code driving the server."
+skip:
+
+homepage: https://github.com/warmcat/libwebsockets
+license: CC0-1.0 AND BSD-3-Clause AND MIT AND Zlib

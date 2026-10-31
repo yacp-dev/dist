@@ -1,0 +1,6 @@
+category: Libs
+requires: libmdnsd2 pkg-config
+sdesc: "Embeddable Multicast DNS Daemon (development)"
+ldesc: "Embeddable Multicast DNS Daemon"
+external-source: mdnsd
+

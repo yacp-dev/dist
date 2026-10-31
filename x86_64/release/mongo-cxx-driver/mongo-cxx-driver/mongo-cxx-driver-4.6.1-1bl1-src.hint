@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libCatch2-devel libbson2-devel libmongoc2-devel
+sdesc: "C++ Driver for MongoDB (licensing and readmes)"
+ldesc: "C++ Driver for MongoDB"
+skip:
+
+homepage: https://github.com/mongodb/mongo-cxx-driver
+license: Apache-2.0

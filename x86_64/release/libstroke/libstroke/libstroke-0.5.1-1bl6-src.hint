@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libX11-devel
+sdesc: "Stroke (mouse gesture) translation library (licensing & readmes)"
+ldesc: "Stroke (mouse gesture) translation library"
+skip:
+
+homepage: https://sources.archlinux.org/other/packages/libstroke/
+license: GPL-2.0-only

@@ -1,0 +1,6 @@
+category: Libs
+requires: libzone0 pkg-config
+sdesc: "Fast and standards compliant DNS zone parser (development)"
+ldesc: "Fast and standards compliant DNS zone parser"
+external-source: simdzone
+

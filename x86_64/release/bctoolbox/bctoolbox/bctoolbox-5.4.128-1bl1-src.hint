@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libbcunit-devel libdecaf-devel libiconv-devel libncurses-devel libssl-devel
+sdesc: "Utilities library used by Belledonne Communications softwares (utilities)"
+ldesc: "Utilities library used by Belledonne Communications softwares like belle-sip,
+mediastreamer2 and linphone."
+skip:
+
+homepage: https://github.com/BelledonneCommunications/bctoolbox
+license: GPL-3.0-or-later

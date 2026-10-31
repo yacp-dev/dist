@@ -1,0 +1,6 @@
+category: Libs
+requires: libbox2d3 pkg-config
+sdesc: "2D Physics Engine for Games (development)"
+ldesc: "Box2D is an open source C++ engine for simulating rigid bodies in 2D."
+external-source: box2d
+

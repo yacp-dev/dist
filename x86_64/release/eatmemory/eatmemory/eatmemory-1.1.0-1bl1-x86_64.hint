@@ -1,0 +1,5 @@
+category: Devel
+requires: cygwin
+sdesc: "Simple C program to allocate memory from the command line"
+ldesc: "Simple C program to allocate memory from the command line"
+

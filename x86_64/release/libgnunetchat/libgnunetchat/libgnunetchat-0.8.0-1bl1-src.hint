@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport check gnunet libgnunet-devel
+sdesc: "Client-side library for applications to utilize the Messenger service of GNUnet (utilities)"
+ldesc: "Client-side library for applications to utilize the Messenger service of GNUnet"
+skip:
+
+homepage: https://www.gnunet.org/
+license: AGPL-3.0-or-later

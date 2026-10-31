@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libmd4c0
+sdesc: "C Markdown parser (utilities)"
+ldesc: "C Markdown parser. Fast. SAX-like interface. Compliant to CommonMark
+specification."
+

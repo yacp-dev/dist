@@ -1,0 +1,6 @@
+category: Libs
+requires: girepository-GLib2.0 libglib2.0-devel libmodulemd2
+sdesc: "C Library for manipulating module metadata files (GObject Introspection data)"
+ldesc: "C Library for manipulating module metadata files"
+external-source: libmodulemd
+

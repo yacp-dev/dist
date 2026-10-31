@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Libraries to write tests in C, C++ and shell (runtime / c)"
+ldesc: "ATF, or Automated Testing Framework, is a collection of libraries to write
+test programs in C, C++ and POSIX shell."
+external-source: atf
+

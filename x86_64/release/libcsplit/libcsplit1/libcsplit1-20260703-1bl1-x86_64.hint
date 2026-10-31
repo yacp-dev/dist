@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for cross-platform C split string functions (runtime)"
+ldesc: "libcsplit is a library for cross-platform C split string functions."
+external-source: libcsplit
+

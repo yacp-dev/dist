@@ -1,0 +1,6 @@
+category: Libs
+requires: librnp0 pkg-config
+sdesc: "High performance C++ OpenPGP library (development)"
+ldesc: "High performance C++ OpenPGP library"
+external-source: rnp
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libaudiofile-devel libbz2-devel libgcrypt-devel libglib2.0-devel zlib-devel
+sdesc: "ZX Spectrum emulator support library (licensing & readmes)"
+ldesc: "libspectrum is a library designed to make the input and output of some ZX
+Spectrum emulator files slightly easier."
+skip:
+
+homepage: http://fuse-emulator.sf.net/libspectrum.php
+license: GPL-2.0-or-later AND MIT

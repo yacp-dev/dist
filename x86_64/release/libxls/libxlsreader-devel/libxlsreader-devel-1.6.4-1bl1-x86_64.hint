@@ -1,0 +1,8 @@
+category: Libs
+requires: libxlsreader8 pkg-config
+sdesc: "Read binary Excel files from C/C++ (development)"
+ldesc: "This is libxls, a C library for reading Excel files in the nasty old binary
+OLE format, plus a command-line tool for converting XLS to CSV (named,
+appropriately enough, xls2csv)."
+external-source: libxls
+

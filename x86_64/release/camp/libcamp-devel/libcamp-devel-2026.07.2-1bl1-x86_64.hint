@@ -1,0 +1,7 @@
+category: Libs
+requires: libcamp0 pkg-config
+sdesc: "Concepts And Meta-Programming library (development)"
+ldesc: "Compiler agnostic metaprogramming library providing concepts, type operations
+and tuples for C++ and cuda"
+external-source: camp
+

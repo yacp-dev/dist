@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Minimalistic Frame Streams library (licensing & readmes)"
+ldesc: "tinyframe is a minimalistic library for reading and writing the Frame Streams
+protocol."
+skip:
+
+homepage: https://codeberg.org/DNS-OARC/tinyframe
+license: LGPL-3.0-or-later

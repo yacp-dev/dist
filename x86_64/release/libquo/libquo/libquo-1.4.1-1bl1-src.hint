@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gcc-fortran libevent-devel libhwloc-devel liblevel-zero-devel libopenmpi-devel openmpi zlib-devel
+sdesc: "Dynamic execution environments for coupled, thread-heterogeneous MPI+X applications (utilities)"
+ldesc: "QUO (as in 'status quo') is a runtime library that aids in accommodating
+thread-level heterogeneity in dynamic, phased MPI+X applications comprising
+single- and multi-threaded libraries."
+skip:
+
+homepage: https://github.com/lanl/libquo
+license: BSD-3-Clause AND ISC AND LicenseRef-scancode-ibm-dhcp

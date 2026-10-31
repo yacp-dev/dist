@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Implementations of SIMD instruction sets"
+ldesc: "Implementations of SIMD instruction sets"
+skip:
+
+homepage: https://github.com/simd-everywhere/simde
+license: MIT AND CC0-1.0

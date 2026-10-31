@@ -1,0 +1,6 @@
+category: Libs
+requires: libestr0 pkg-config
+sdesc: "Library for some string essentials (development)"
+ldesc: "Some essentials for string handling (and a bit more)."
+external-source: libestr
+

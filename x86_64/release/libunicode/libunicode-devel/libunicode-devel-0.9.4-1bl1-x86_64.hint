@@ -1,0 +1,6 @@
+category: Libs
+requires: libunicode0.9
+sdesc: "Modern C++20 Unicode Library (development)"
+ldesc: "Modern C++20 Unicode Library"
+external-source: libunicode
+

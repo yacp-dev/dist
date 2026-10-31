@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libboost-devel libssl-devel
+sdesc: "Cross platform C++ library for MIME format and SMTP, POP3 and IMAP protocols (licensing & readmes)"
+ldesc: "mailio is a cross platform C++ library for MIME format and SMTP, POP3 and IMAP
+protocols. It is based on the standard C++ 17 and Boost library."
+skip:
+
+homepage: https://github.com/karastojko/mailio
+license: BSD-2-Clause

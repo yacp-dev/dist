@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "UPnP IGD control point (utilities)"
+ldesc: "UPnP IGD control point"
+skip:
+
+homepage: https://github.com/miniupnp/miniupnp
+license: BSD-3-Clause

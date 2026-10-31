@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbrotlidec1 libbrotlienc1 libdbus1_3 libevent2.1_7 libglib2.0_0 libssl3 libuv1 zlib0
+sdesc: "C Websockets Server Library (runtime)"
+ldesc: "libwebsockets is a lightweight GPL2 http and websocket server that hides all
+the protocol handshakes and detail from the user code driving the server."
+external-source: libwebsockets
+

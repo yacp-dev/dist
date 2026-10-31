@@ -1,0 +1,6 @@
+category: Utils
+requires: cygwin libboost_program_options1.66 libbz2_1 libexpat1 libgcc1 liblz4_1 libstdc++6 zlib0
+sdesc: "Command line tool for working with OpenStreetMap data"
+ldesc: "A multipurpose command line tool for working with OpenStreetMap data based on
+the Osmium library."
+

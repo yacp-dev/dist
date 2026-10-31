@@ -1,0 +1,6 @@
+category: Libs
+requires: python3
+sdesc: "Common code base for all Kiwix ports (utilities)"
+ldesc: "The Libkiwix provides the Kiwix software suite core. It contains the code
+shared by all Kiwix ports (Windows, GNU/Linux, macOS, Android, iOS, ...)."
+

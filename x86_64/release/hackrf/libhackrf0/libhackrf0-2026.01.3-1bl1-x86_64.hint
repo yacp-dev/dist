@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libusb1.0
+sdesc: "Library for communicating with HackRF SDR platform (runtime)"
+ldesc: "This repository contains host software (Linux/Windows) for HackRF, a project
+to produce a low cost, open source software radio platform."
+external-source: hackrf
+

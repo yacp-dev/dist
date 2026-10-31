@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Mustache text templates for modern C++"
+ldesc: "Mustache text templates for modern C++"
+skip:
+
+homepage: https://github.com/kainjow/Mustache
+license: BSL-1.0

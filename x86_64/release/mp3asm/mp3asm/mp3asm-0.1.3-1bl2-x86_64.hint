@@ -1,0 +1,5 @@
+category: Audio
+requires: cygwin
+sdesc: "Command line tool to clean and edit mp3 files"
+ldesc: "Command line tool to clean and edit mp3 files"
+

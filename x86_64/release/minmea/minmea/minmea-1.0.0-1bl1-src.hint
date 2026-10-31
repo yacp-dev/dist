@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport check
+sdesc: "lightweight GPS NMEA 0183 parser library in pure C (licensing & readmes)"
+ldesc: "Minmea is a minimalistic GPS parser library written in pure C intended for
+resource-constrained platforms, especially microcontrollers and other embedded
+systems."
+skip:
+
+homepage: https://github.com/kosma/minmea
+license: WTFPL OR MIT OR LGPL-3.0-or-later

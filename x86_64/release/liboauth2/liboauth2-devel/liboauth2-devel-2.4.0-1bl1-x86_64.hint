@@ -1,0 +1,7 @@
+category: Libs
+requires: libcjose-devel libcurl-devel libhiredis-devel libjansson-devel libmemcached-devel liboauth2_1 libpcre2-devel libssl-devel pkg-config
+sdesc: "OAuth 2.x and OpenID Connect C library (development)"
+ldesc: "Generic library to build C-based OAuth 2.x and OpenID Connect servers and
+clients e.g. web-server plugins."
+external-source: liboauth2
+

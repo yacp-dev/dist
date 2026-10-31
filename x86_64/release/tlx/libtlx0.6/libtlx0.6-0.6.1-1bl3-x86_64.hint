@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Collection of Sophisticated C++ Data Structures, Algorithms, and Miscellaneous Helpers (runtime)"
+ldesc: "Collection of Sophisticated C++ Data Structures, Algorithms, and Miscellaneous Helpers"
+external-source: tlx
+

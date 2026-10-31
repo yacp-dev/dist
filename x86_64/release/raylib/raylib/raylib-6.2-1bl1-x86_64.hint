@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Simple and easy-to-use library to learn videogames programming (licensing & readmes)"
+ldesc: "raylib is highly inspired by Borland BGI graphics lib and by XNA framework and
+it's specially well suited for prototyping, tooling, graphical applications,
+embedded systems and education."
+

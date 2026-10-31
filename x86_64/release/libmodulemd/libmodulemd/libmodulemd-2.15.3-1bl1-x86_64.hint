@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libglib2.0_0 libmodulemd2 libyaml0_2
+sdesc: "C Library for manipulating module metadata files (utilities)"
+ldesc: "C Library for manipulating module metadata files"
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport autoconf-archive libfastjson-devel libestr-devel libpcre2-devel
+sdesc: "Fast samples-based log normalization library (utilities)"
+ldesc: "Briefly described, liblognorm is a tool to normalize log data."
+skip:
+
+homepage: https://www.liblognorm.com/
+license: Apache-2.0 AND LGPL-2.1-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Tiny 2D vector graphics library (runtime)"
+ldesc: "PlutoVG is a standalone 2D vector graphics library in C."
+external-source: plutovg
+

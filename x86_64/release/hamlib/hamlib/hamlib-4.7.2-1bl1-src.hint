@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport liblua-devel libreadline-devel libusb1.0-devel libxml2-devel lua perl python3-devel swig
+sdesc: "Library to control radio transceivers and receivers (utilities)"
+ldesc: "The Hamlib project's purpose is to develop flexible and portable shared
+libraries that offer a standardized API to control any radio oriented
+equipment through a computer interface."
+skip:
+
+homepage: https://github.com/Hamlib/Hamlib/
+license: LGPL-2.1-or-later AND GPL-2.0-or-later

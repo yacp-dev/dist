@@ -1,0 +1,7 @@
+category: Libs
+requires: libdicom1 pkg-config
+sdesc: "C library for reading DICOM files (development)"
+ldesc: "libdicom is a C library and a set of command-line tools for reading DICOM WSI
+files."
+external-source: libdicom
+

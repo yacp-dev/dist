@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library for converting ANSI, ASCII, and other formats to PNG (licensing & readmes)"
+ldesc: "libansilove is a library to convert ANSi and artscene related file format
+into PNG images."
+

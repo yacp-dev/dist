@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Stroke (mouse gesture) translation library (runtime)"
+ldesc: "Stroke (mouse gesture) translation library"
+external-source: libstroke
+

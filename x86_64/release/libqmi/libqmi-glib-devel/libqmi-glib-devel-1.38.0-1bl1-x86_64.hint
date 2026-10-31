@@ -1,0 +1,7 @@
+category: Libs
+requires: libglib2.0-devel libmbim-glib-devel libqmi-glib5 pkg-config
+sdesc: "QMI modem protocol helper library (development)"
+ldesc: "This package contains the libraries that make it easier to use QMI
+functionality from applications that use glib."
+external-source: libqmi
+

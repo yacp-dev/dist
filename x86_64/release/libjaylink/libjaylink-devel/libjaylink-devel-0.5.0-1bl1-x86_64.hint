@@ -1,0 +1,7 @@
+category: Libs
+requires: libjaylink0 libusb1.0-devel pkg-config
+sdesc: "Library to access J-Link devices (development)"
+ldesc: "libjaylink is a shared library written in C to access SEGGER J-Link and
+compatible devices."
+external-source: libjaylink
+

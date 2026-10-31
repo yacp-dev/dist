@@ -1,0 +1,8 @@
+category: Graphics
+requires: cygwin libfontconfig1 libfreetype6 libiconv2 libjpeg8 libpng16 libtiff7 libwebp7 libX11_6 libXcursor1 libXext6 libXi6 zlib0
+sdesc: "16-bit RGB full color painting application"
+ldesc: "AzPainter is a full color painting application for Unix-like systems for
+illustration drawing.  It is not suitable for dot editing or pixel-art.
+Since the color is handled internally with 16-bit precision (15-bit fixed
+point), color accuracy is increased at the expense of more memory usage."
+

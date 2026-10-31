@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Fast and accurate double to string conversion (licensing & readmes)"
+ldesc: "Minimalistic C / D implementation of Fabian Loitsch's Grisu-algorithm. Grisu
+converts floating point numbers to an optimal decimal string representation
+without loss of precision."
+

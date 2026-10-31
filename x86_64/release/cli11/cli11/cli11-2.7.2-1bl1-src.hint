@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Command line parser for C++11"
+ldesc: "CLI11 is a command line parser for C++11 and beyond that provides a rich
+feature set with a simple and intuitive interface."
+skip:
+
+homepage: https://github.com/CLIUtils/CLI11
+license: BSD-3-Clause

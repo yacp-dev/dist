@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Scientific plotting library for C/Fortran (licensing & readmes)"
+ldesc: "A 2D scientific plotting library built on cairo. Provides uniform output to
+pdf, ps, png and X-Windows. Written in C with no dependencies (other than
+cairo) as a direct replacement for PGPLOT."
+

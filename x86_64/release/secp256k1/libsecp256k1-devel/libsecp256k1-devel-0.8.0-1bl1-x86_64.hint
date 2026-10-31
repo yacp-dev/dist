@@ -1,0 +1,6 @@
+category: Libs
+requires: libsecp256k1_7 pkg-config
+sdesc: "Optimized C library for EC operations on curve secp256k1 (development)"
+ldesc: "Optimized C library for EC operations on curve secp256k1"
+external-source: secp256k1
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libtest-drive0 pkg-config
+sdesc: "Simple testing framework (development)"
+ldesc: "Simple testing framework"
+external-source: test-drive
+

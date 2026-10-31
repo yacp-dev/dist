@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libcthreads-devel
+sdesc: "Library for cross-platform C data functions (licensing & readmes)"
+ldesc: "libcdata is a library for cross-platform C data functions."
+skip:
+
+homepage: https://github.com/libyal/libcdata
+license: LGPL-3.0-or-later

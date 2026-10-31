@@ -1,0 +1,6 @@
+category: Libs
+requires: libunivalue0 pkg-config
+sdesc: "C++ universal value object and JSON library (development)"
+ldesc: "A universal value object, with JSON encoding (output) and decoding (input)."
+external-source: univalue
+

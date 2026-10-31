@@ -1,0 +1,7 @@
+category: Libs
+requires: libqofonoext1 pkg-config
+sdesc: "C++ API for Jolla ofono extensions (development)"
+ldesc: "A library for accessing Sailfish OS specific ofono extensions, and a
+declarative plugin for it."
+external-source: libqofonoext
+

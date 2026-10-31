@@ -1,0 +1,7 @@
+category: Libs
+requires: libsquish0.0 pkg-config
+sdesc: "Open source DXT compression library (development)"
+ldesc: "The squish library (abbreviated to libsquish) is an open source DXT
+compression library written in C++."
+external-source: libsquish
+

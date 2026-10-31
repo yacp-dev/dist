@@ -1,0 +1,11 @@
+category: Devel
+build-depends: cygport liblutok-devel libsqlite3-devel
+sdesc: "Testing framework for infrastructure software"
+ldesc: "Kyua is a testing framework for infrastructure software, originally designed
+to equip BSD-based operating systems with a test suite. This means that Kyua
+is lightweight and simple, and that Kyua integrates well with various build
+systems and continuous integration frameworks."
+skip:
+
+homepage: https://github.com/freebsd/kyua
+license: BSD-3-Clause

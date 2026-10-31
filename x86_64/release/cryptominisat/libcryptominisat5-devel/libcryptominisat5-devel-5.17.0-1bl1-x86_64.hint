@@ -1,0 +1,7 @@
+category: Math
+requires: libcryptominisat5_5.17 pkg-config
+sdesc: "Advanced SAT solver (development)"
+ldesc: "CryptoMiniSat is a modern, multi-threaded, feature-rich, simplifying SAT
+solver."
+external-source: cryptominisat
+

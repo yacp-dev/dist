@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel
+sdesc: "Library for cross-platform C notification functions (licensing & readmes)"
+ldesc: "libcnotify is a library for cross-platform C notification functions."
+skip:
+
+homepage: https://github.com/libyal/libcnotify
+license: LGPL-3.0-or-later

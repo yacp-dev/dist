@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libboost_system1.66 libgcc1 libstdc++6 zlib0
+sdesc: "Basic library package to develop the RoboCup Soccer Simulation client and tools (runtime)"
+ldesc: "The librcsc is the basic library package to develop the RoboCup Soccer
+Simulation client and tools."
+external-source: librcsc
+

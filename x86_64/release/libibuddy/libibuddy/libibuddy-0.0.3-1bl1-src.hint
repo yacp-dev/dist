@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libusb1.0-devel
+sdesc: "Library to control your iBuddy device (licensing & readmes)"
+ldesc: "Library to control your iBuddy device"
+skip:
+
+homepage: https://github.com/rosorio/libibuddy
+license: ISC

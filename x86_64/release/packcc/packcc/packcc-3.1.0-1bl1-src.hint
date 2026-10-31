@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Packrat parser generator"
+ldesc: "PackCC is a packrat parser generator for C."
+skip:
+
+homepage: https://github.com/arithy/packcc
+license: MIT

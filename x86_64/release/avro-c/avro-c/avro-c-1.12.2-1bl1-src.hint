@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport asciidoc libjansson-devel liblzma-devel libsnappy-devel zlib-devel
+sdesc: "Data serialization system (utilities)"
+ldesc: "Apache Avro(TM) is a data serialization system."
+skip:
+
+homepage: https://avro.apache.org/
+license: Apache-2.0

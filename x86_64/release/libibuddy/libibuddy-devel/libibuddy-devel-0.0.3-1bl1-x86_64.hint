@@ -1,0 +1,6 @@
+category: Libs
+requires: libibuddy0 pkg-config
+sdesc: "Library to control your iBuddy device (development)"
+ldesc: "Library to control your iBuddy device"
+external-source: libibuddy
+

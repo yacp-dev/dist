@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Portable GNU readline alternative (runtime)"
+ldesc: "Isocline is a pure C library that can be used as an alternative to the GNU
+readline library."
+external-source: isocline
+

@@ -1,0 +1,7 @@
+category: Graphics
+requires: cygwin libdeflate0 libgcc1 libstdc++6
+sdesc: "Per-Face Texture Mapping for Production Rendering (runtime)"
+ldesc: "Ptex is a texture mapping system developed by Walt Disney Animation Studios
+for production-quality rendering."
+external-source: ptex
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libjonquil0 libtoml-f-devel pkg-config
+sdesc: "Bringing TOML blooms to JSON land (development)"
+ldesc: "Bringing TOML blooms to JSON land"
+external-source: jonquil
+

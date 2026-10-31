@@ -1,0 +1,6 @@
+category: Libs
+requires: libcdata1 pkg-config
+sdesc: "Library for cross-platform C data functions (development)"
+ldesc: "libcdata is a library for cross-platform C data functions."
+external-source: libcdata
+

@@ -1,0 +1,5 @@
+category: Security
+requires: cygwin libcurl4 libssl3 libxml2
+sdesc: "LastPass command line interface tool"
+ldesc: "Command line interface to LastPass.com."
+

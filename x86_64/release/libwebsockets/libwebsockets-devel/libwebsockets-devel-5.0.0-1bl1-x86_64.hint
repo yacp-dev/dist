@@ -1,0 +1,7 @@
+category: Libs
+requires: libwebsockets22 pkg-config
+sdesc: "C Websockets Server Library (development)"
+ldesc: "libwebsockets is a lightweight GPL2 http and websocket server that hides all
+the protocol handshakes and detail from the user code driving the server."
+external-source: libwebsockets
+

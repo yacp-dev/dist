@@ -1,0 +1,9 @@
+category: Math
+requires: liblinear6 pkg-config
+sdesc: "Library for Large Linear Classification (development)"
+ldesc: "liblinear is an open source library for large-scale linear classification. It
+supports logistic regression and linear support vector machines. It provides
+easy-to-use command-line tools and library calls for users and developers.
+Comprehensive documents are available for both beginners and advanced users."
+external-source: liblinear
+

@@ -1,0 +1,8 @@
+category: Security
+requires: libp11_3 pkg-config
+sdesc: "PKCS11 wrapper library (development)"
+ldesc: "This is a higher than PKCS 11 library to access PKCS 11 objects. It is
+designed to integrate with applications that use openssl. Note, however, that
+the libp11 library is not thread safe."
+external-source: libp11
+

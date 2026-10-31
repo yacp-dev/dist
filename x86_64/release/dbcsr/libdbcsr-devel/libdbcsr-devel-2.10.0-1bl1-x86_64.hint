@@ -1,0 +1,7 @@
+category: Libs
+requires: libdbcsr2.10 pkg-config
+sdesc: "Distributed Block Compressed Sparse Row matrix library (development)"
+ldesc: "DBCSR is a library designed to efficiently perform sparse matrix-matrix
+multiplication, among other operations."
+external-source: dbcsr
+

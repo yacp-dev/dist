@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgd-devel
+sdesc: "Library for converting ANSI, ASCII, and other formats to PNG (licensing & readmes)"
+ldesc: "libansilove is a library to convert ANSi and artscene related file format
+into PNG images."
+skip:
+
+homepage: https://github.com/ansilove/libansilove
+license: BSD-2-Clause

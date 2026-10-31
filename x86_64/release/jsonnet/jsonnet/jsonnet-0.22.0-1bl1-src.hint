@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgmock-devel libgtest-devel nlohmann_json
+sdesc: "Data templating language (utilities)"
+ldesc: "Data templating language"
+skip:
+
+homepage: https://github.com/google/jsonnet
+license: Apache-2.0 AND MIT AND BSD-2-Clause AND BSL-1.0 AND RSA-MD

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "High-performance MongoDB driver for C (utilities)"
+ldesc: "The MongoDB C Driver, also known as “libmongoc”, is a library for using
+MongoDB from C applications, and for writing MongoDB drivers in higher-level
+languages."
+

@@ -1,0 +1,10 @@
+category: Video
+build-depends: cygport gettext-devel gobject-introspection libglib2.0-devel libgstinterfaces1.0-devel libgstreamer1.0-devel libgtk3-devel libintl-devel libusb1.0-devel libxml2-devel python312-gi zlib-devel
+sdesc: "Library for video acquisition using Genicam cameras (utilities)"
+ldesc: "Aravis is a glib/gobject based library for video acquisition using Genicam
+cameras. It currently only implements an ethernet camera protocol used for
+industrial cameras."
+skip:
+
+homepage: https://github.com/AravisProject/aravis
+license: LGPL-2.1-or-later

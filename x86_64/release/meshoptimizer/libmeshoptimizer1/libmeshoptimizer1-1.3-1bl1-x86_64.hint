@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Mesh optimization library that makes meshes smaller and faster to render (runtime)"
+ldesc: "Mesh optimization library that makes meshes smaller and faster to render"
+external-source: meshoptimizer
+

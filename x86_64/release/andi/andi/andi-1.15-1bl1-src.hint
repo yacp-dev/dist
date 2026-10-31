@@ -1,0 +1,12 @@
+category: Science
+build-depends: cygport libdivsufsort-devel libglib2.0-devel libgsl-devel
+sdesc: "Efficient Estimation of Evolutionary Distances"
+ldesc: "This is the andi program for estimating the evolutionary distance between
+closely related genomes. These distances can be used to rapidly infer
+phylogenies for big sets of genomes. Because andi does not compute full
+alignments, it is so efficient that it scales even up to thousands of
+bacterial genomes."
+skip:
+
+homepage: https://github.com/EvolBioInf/andi
+license: GPL-3.0-or-later

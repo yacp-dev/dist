@@ -1,0 +1,7 @@
+category: Security
+requires: 
+sdesc: "PKCS11 wrapper library (licensing & readmes)"
+ldesc: "This is a higher than PKCS 11 library to access PKCS 11 objects. It is
+designed to integrate with applications that use openssl. Note, however, that
+the libp11 library is not thread safe."
+

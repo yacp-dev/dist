@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ library for the efficient computation of scattering form factors (Fourier shape transforms) of arbitrary polyhedra (runtime)"
+ldesc: "C++ library for the efficient computation of scattering form factors (Fourier shape transforms) of arbitrary polyhedra"
+external-source: libformfactor
+

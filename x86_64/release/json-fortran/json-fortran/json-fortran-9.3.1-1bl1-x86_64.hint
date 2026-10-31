@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Fortran 2008 JSON API (licensing & readmes)"
+ldesc: "A user-friendly, thread-safe, and object-oriented API for reading and writing
+JSON files, written in modern Fortran."
+

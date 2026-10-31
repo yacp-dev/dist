@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgomp1
+sdesc: "Video stabilization library (runtime)"
+ldesc: "Vidstab is a video stabilization library which can be plugged-in with Ffmpeg
+and Transcode."
+external-source: vidstab
+

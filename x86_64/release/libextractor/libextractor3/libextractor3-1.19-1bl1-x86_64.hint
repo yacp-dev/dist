@@ -1,0 +1,12 @@
+category: Libs
+requires: cygwin file libapparmor1 libarchive13 libbz2_1 libexiv2_28 libFLAC14 libgcc1 libgdk_pixbuf2.0_0 libgif7 libglib2.0_0 libgsf1_114 libgstinterfaces1.0_0 libgstreamer1.0_0 libiconv2 libintl8 libjpeg8 libltdl7 libmpeg2_0 libsmf0 libstdc++6 libtiff7 libvorbis0 libvorbisfile3 rpm zlib0
+sdesc: "Library to extract meta data from files (runtime)"
+ldesc: "GNU Libextractor is a library used to extract meta data from files. The goal
+is to provide developers of file-sharing networks, browsers or WWW-indexing
+bots with a universal library to obtain simple keywords and meta data to match
+against queries and to show to users instead of only relying on filenames.
+libextractor contains the shell command extract that, similar to the
+well-known file command, can extract meta data from a file and print the
+results to stdout."
+external-source: libextractor
+

@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin libgcc1 libnuml1 libsbml5 libstdc++6
+sdesc: "SED-ML library based on libSBML (runtime)"
+ldesc: "Some time ago I developed libSedML a C# library that fully supports SED-ML for
+SBML as well as CellML models for creation of the description just as for the
+execution of Simulation Experiments. However, frequently the question to a C++
+based library comes up. This project makes use of libSBML XML layer as well as
+code generation as starting point to produce a library for reading and writing
+of SED-ML models."
+external-source: libsedml
+

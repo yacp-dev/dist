@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libredwg0 python312
+sdesc: "Free C library to read and write DWG files (python312 bindings)"
+ldesc: "GNU LibreDWG is a free C library to handle DWG files. It aims to be a free
+replacement for the OpenDWG libraries. DWG is the native file format of
+AutoCAD."
+external-source: libredwg
+

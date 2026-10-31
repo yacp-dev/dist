@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libssl3 libstdc++6
+sdesc: "Implementation of the Actor Model for C++ (runtime)"
+ldesc: "An Open Source Implementation of the Actor Model in C++"
+external-source: actor-framework
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Portable C implementations of the AEGIS family (licensing & readmes)"
+ldesc: "Portable C implementations of the AEGIS family of high-performance
+authenticated ciphers (AEGIS-128L, AEGIS-128X2, AEGIS-128X4, AEGIS-256,
+AEGIS-256X2, AEGIS-256X4), with runtime CPU detection."
+skip:
+
+homepage: https://github.com/aegis-aead/libaegis
+license: MIT

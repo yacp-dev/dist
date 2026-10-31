@@ -1,0 +1,7 @@
+category: Net
+requires: cygwin libfpconv0 libgcc1 libhdr_histogram6 liblinenoise0 libssl3 libtcmalloc4 libvalkey0 libvalkey_tls0
+sdesc: "Flexible distributed key-value datastore"
+ldesc: "Valkey is a high-performance data structure server that primarily serves
+key/value workloads. It supports a wide range of native structures and an
+extensible plugin system for adding new data structures and access patterns."
+

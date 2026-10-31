@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libflint16 libgmp10 libgomp1
+sdesc: "Library for Polynomial System Solving through Algebraic Methods (licensing & readmes)"
+ldesc: "msolve is an open source C library implementing computer algebra algorithms
+for solving polynomial systems (with rational coefficients or coefficients in
+a prime field)."
+

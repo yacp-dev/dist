@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1 libmetis0 libstdc++6
+sdesc: "Numerical linear algebra software package (runtime)"
+ldesc: "Ginkgo is a high-performance linear algebra library for manycore systems, with
+a focus on sparse solution of linear systems. It is implemented using modern
+C++ (you will need at least C++14 compliant compiler to build it), with GPU
+kernels implemented in CUDA and HIP."
+external-source: ginkgo
+

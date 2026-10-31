@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport 
+sdesc: "Recursive DNS/DNSCurve server and comandline tool to debug DNS/DNSCurve"
+ldesc: "Dq is a package with DNS/DNSCurve related software. It contains a recursive
+DNS server with DNSCurve support called dqcache and also a commandline tool to
+debug DNS/DNScurve called dq."
+skip:
+
+homepage: https://github.com/janmojzis/dq
+license: CC0-1.0

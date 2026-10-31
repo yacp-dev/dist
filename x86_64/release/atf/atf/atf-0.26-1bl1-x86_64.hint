@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libatf-c++2 libatf-c1 libgcc1 libstdc++6 pkg-config
+sdesc: "Libraries to write tests in C, C++ and shell (utilities)"
+ldesc: "ATF, or Automated Testing Framework, is a collection of libraries to write
+test programs in C, C++ and POSIX shell."
+

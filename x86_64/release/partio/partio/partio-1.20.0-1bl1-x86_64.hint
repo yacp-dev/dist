@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libGL1 libGLU1 libglut3 libgtest0 libpartio1 libstdc++6 python3 python312-partio python312-pytest
+sdesc: "Library for particle IO and manipulation (utilities)"
+ldesc: "This is the initial source code release of partio a tool we used for particle
+reading/writing. It started out as an abstraction for the commonalities in
+particle models (i.e. accessing many attributes associated with an index or
+entity)."
+

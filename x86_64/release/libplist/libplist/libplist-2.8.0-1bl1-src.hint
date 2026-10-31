@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library to handle Apple Property List format in binary or XML (utilities)"
+ldesc: "Library to handle Apple Property List format in binary or XML"
+skip:
+
+homepage: https://github.com/libimobiledevice/libplist
+license: LGPL-2.1-or-later

@@ -1,0 +1,8 @@
+category: Libs
+requires: 
+sdesc: "Open PDU smpp packaging and unpackaging tool (licensing & readmes)"
+ldesc: "This work is directed to C programmers with basic knowledge in SMPP protocol,
+at least in the specification and handling of sessions. Extending the
+development of the library, the scope of the same might involve a development
+of protocols on TCP/IP."
+

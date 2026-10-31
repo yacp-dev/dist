@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Simple, small, C++ XML parser (runtime)"
+ldesc: "TinyXML is a simple, small, C++ XML parser that can be easily integrating into
+other programs."
+external-source: tinyxml
+

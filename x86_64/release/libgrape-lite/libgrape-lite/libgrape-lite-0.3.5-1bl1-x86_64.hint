@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libgflags2.2 libglog2 libgomp1 libgrape-lite0 libopenmpi40 librdkafka++1 libstdc++6
+sdesc: "C++ library for parallel graph processing (utilities)"
+ldesc: "libgrape-lite is a C++ library from Alibaba for parallel graph processing."
+

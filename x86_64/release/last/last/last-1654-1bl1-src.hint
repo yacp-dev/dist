@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport zlib-devel
+sdesc: "Find & align related regions of sequences"
+ldesc: "LAST is designed for moderately large data (e.g. genomes, DNA reads,
+proteomes)."
+skip:
+
+homepage: https://gitlab.com/mcfrith/last
+license: GPL-3.0-or-later

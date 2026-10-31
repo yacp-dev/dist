@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "oneAPI Level Zero Specification Headers and Loader (licensing & readmes)"
+ldesc: "oneAPI Level Zero Specification Headers and Loader"
+skip:
+
+homepage: https://github.com/oneapi-src/level-zero
+license: MIT

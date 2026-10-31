@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libcjson-devel libcurl-devel liblz4-devel libsasl2-devel libssl-devel libzstd-devel zlib-devel
+sdesc: "Apache Kafka C/C++ library (licensing & readmes)"
+ldesc: "librdkafka is a C library implementation of the Apache Kafka protocol,
+providing Producer, Consumer and Admin clients. It was designed with message
+delivery reliability and high performance in mind, current figures exceed 1
+million msgs/second for the producer and 3 million msgs/second for the
+consumer."
+skip:
+
+homepage: https://github.com/confluentinc/librdkafka
+license: BSD-2-Clause

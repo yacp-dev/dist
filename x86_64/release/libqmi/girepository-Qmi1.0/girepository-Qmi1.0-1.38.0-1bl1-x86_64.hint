@@ -1,0 +1,7 @@
+category: Libs
+requires: girepository-GLib2.0 libglib2.0-devel libqmi-glib5
+sdesc: "QMI modem protocol helper library (GObject Introspection data)"
+ldesc: "This package contains the libraries that make it easier to use QMI
+functionality from applications that use glib."
+external-source: libqmi
+

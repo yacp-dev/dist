@@ -1,0 +1,8 @@
+category: Libs
+requires: libnpupnp13 pkg-config
+sdesc: "Replacing the venerable pupnp/libupnp (development)"
+ldesc: "The libupnpp library, which provides the C++ interface for upmpdcli and
+upplay, used to rely on the venerable libupnp library (a.k.a pupnp: Portable
+UPnP) to provide the base UPnP protocol functionality."
+external-source: libnpupnp
+

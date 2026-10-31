@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Get Remaining Time library (licensing & readmes)"
+ldesc: "A simple wrapper library that provides a unified get-remaining-time interface
+for multiple parallel job scheduling systems."
+skip:
+
+homepage: https://github.com/LLNL/libyogrt
+license: LGPL-2.1-only

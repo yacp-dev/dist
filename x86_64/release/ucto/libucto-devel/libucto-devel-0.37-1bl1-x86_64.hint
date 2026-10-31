@@ -1,0 +1,9 @@
+category: Libs
+requires: libucto6 pkg-config
+sdesc: "Advanced rule-based unicode-aware tokenizer (development)"
+ldesc: "Ucto tokenizes text files: it separates words from punctuation, and splits
+sentences. It offers several other basic preprocessing steps such as changing
+case that you can all use to make your text suited for further processing such
+as indexing, part-of-speech tagging, or machine translation."
+external-source: ucto
+

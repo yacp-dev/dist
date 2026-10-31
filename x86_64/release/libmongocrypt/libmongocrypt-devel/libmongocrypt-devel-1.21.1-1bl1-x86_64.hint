@@ -1,0 +1,6 @@
+category: Libs
+requires: libbson2-devel libmongocrypt0 pkg-config
+sdesc: "C library for Client Side Encryption (development)"
+ldesc: "The companion C library for client side encryption in drivers."
+external-source: libmongocrypt
+

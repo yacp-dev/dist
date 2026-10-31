@@ -1,0 +1,5 @@
+category: Libs
+requires: bash
+sdesc: "C++ Driver for MongoDB (licensing and readmes)"
+ldesc: "C++ Driver for MongoDB"
+

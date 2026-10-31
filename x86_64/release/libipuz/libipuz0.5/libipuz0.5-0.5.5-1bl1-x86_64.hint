@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libglib2.0_0 libintl8 libjson-glib1.0_0
+sdesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc. (runtime)"
+ldesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc."
+external-source: libipuz
+

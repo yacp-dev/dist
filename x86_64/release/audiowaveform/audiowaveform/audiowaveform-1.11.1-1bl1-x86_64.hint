@@ -1,0 +1,8 @@
+category: Audio
+requires: cygwin libboost_filesystem1.66 libboost_program_options1.66 libboost_regex1.66 libboost_system1.66 libgcc1 libgd3 libid3tag0 libmad0 libsndfile1 libstdc++6
+sdesc: "C++ program to generate waveform data and render waveform images from audio files"
+ldesc: "audiowaveform is a C++ command-line application that generates waveform data
+from either MP3, WAV, or FLAC format audio files. Waveform data can be used to
+produce a visual rendering of the audio, similar in appearance to audio
+editing applications."
+

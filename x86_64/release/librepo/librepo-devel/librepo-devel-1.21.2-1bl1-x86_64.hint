@@ -1,0 +1,7 @@
+category: Libs
+requires: libcurl-devel libglib2.0-devel librepo0 libssl-devel libxml2-devel libzck-devel pkg-config
+sdesc: "Repodata downloading library (development)"
+ldesc: "A library providing C and Python (libcURL like) API for downloading linux
+repository metadata and packages"
+external-source: librepo
+

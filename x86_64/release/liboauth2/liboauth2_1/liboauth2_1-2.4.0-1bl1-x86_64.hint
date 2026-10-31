@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcjose0 libcurl4 libhiredis1 libjansson4 libmemcached11 libpcre2_8_0 libssl3
+sdesc: "OAuth 2.x and OpenID Connect C library (runtime)"
+ldesc: "Generic library to build C-based OAuth 2.x and OpenID Connect servers and
+clients e.g. web-server plugins."
+external-source: liboauth2
+

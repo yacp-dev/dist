@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library for applying dithering to PCM audio sources (runtime)"
+ldesc: "Library for applying dithering to PCM audio sources"
+external-source: libgdither
+

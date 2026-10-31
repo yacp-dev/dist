@@ -1,0 +1,6 @@
+category: Libs
+requires: libavro24 liblzma-devel pkg-config zlib-devel
+sdesc: "Data serialization system (development)"
+ldesc: "Apache Avro(TM) is a data serialization system."
+external-source: avro-c
+

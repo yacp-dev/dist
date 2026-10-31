@@ -1,0 +1,12 @@
+category: Net
+requires: cygwin libgnunetutil23
+sdesc: "Framework for distributed, secure and privacy-preserving applications (runtime / regex)"
+ldesc: "GNUnet is peer-to-peer framework providing a network abstractions and
+applications focusing on security and privacy.  So far, we have
+created applications for anonymous file-sharing, decentralized naming
+and identity management, decentralized and confidential telephony and
+tunneling IP traffic over GNUnet.  GNUnet is currently developed by a
+worldwide group of independent free software developers.  GNUnet is a
+GNU package (https://www.gnu.org/)."
+external-source: gnunet
+

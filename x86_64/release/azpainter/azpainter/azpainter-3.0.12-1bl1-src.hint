@@ -1,0 +1,11 @@
+category: Graphics
+build-depends: cygport libfontconfig-devel libfreetype-devel libiconv-devel libjpeg-devel libpng-devel libtiff-devel libwebp-devel libX11-devel libXcursor-devel libXext-devel libXi-devel ninja zlib-devel
+sdesc: "16-bit RGB full color painting application"
+ldesc: "AzPainter is a full color painting application for Unix-like systems for
+illustration drawing.  It is not suitable for dot editing or pixel-art.
+Since the color is handled internally with 16-bit precision (15-bit fixed
+point), color accuracy is increased at the expense of more memory usage."
+skip:
+
+homepage: https://gitlab.com/azelpg/azpainter
+license: GPL-3.0-or-later

@@ -1,0 +1,6 @@
+category: Security
+requires: libeidviewer0
+sdesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government (development / eidviewer)"
+ldesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government"
+external-source: eid-mw
+

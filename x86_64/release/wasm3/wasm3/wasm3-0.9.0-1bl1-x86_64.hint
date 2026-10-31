@@ -1,0 +1,5 @@
+category: Interpreters
+requires: cygwin libgcc1 libuvwasi0
+sdesc: "Fastest WebAssembly interpreter"
+ldesc: "A high performance WebAssembly interpreter written in C."
+

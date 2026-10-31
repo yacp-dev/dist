@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libfyaml0
+sdesc: "Fully feature complete YAML parser (utilities)"
+ldesc: "A fancy 1.2 YAML and JSON parser/writer."
+

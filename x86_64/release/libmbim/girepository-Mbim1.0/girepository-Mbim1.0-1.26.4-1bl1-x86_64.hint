@@ -1,0 +1,7 @@
+category: Libs
+requires: girepository-GLib2.0 libglib2.0-devel libmbim-glib4
+sdesc: "Glib-based library for talking to WWAN modems and devices (GObject Introspection data)"
+ldesc: "libmbim is a glib-based library for talking to WWAN modems and devices which
+speak the Mobile Interface Broadband Model (MBIM) protocol."
+external-source: libmbim
+

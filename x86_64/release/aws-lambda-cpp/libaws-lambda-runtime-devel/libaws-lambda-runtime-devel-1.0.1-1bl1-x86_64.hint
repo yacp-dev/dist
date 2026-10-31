@@ -1,0 +1,6 @@
+category: Libs
+requires: bash libaws-lambda-runtime0 pkg-config
+sdesc: "C++ implementation of the AWS Lambda runtime (development)"
+ldesc: "C++ implementation of the AWS Lambda runtime"
+external-source: aws-lambda-cpp
+

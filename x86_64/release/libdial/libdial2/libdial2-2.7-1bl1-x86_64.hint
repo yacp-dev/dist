@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcairo2 libglib2.0_0 libgtk3_0 libintl8 libpango1.0_0
+sdesc: "Library needed by tzclock (runtime)"
+ldesc: "Library needed by tzclock"
+external-source: libdial
+

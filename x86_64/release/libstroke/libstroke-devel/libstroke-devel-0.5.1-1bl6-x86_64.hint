@@ -1,0 +1,6 @@
+category: Libs
+requires: libstroke0 pkg-config
+sdesc: "Stroke (mouse gesture) translation library (development)"
+ldesc: "Stroke (mouse gesture) translation library"
+external-source: libstroke
+

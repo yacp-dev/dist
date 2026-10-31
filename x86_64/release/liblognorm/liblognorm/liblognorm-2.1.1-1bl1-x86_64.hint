@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libestr0 libfastjson4 liblognorm5
+sdesc: "Fast samples-based log normalization library (utilities)"
+ldesc: "Briefly described, liblognorm is a tool to normalize log data."
+

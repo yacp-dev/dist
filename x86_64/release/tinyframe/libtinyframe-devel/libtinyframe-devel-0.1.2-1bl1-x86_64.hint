@@ -1,0 +1,7 @@
+category: Libs
+requires: libtinyframe0 pkg-config
+sdesc: "Minimalistic Frame Streams library (development)"
+ldesc: "tinyframe is a minimalistic library for reading and writing the Frame Streams
+protocol."
+external-source: tinyframe
+

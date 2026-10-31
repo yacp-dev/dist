@@ -1,0 +1,10 @@
+category: Libs
+requires: libcjson-devel libcurl-devel liblz4-devel librdkafka1 libsasl2-devel libssl-devel libzstd-devel pkg-config zlib-devel
+sdesc: "Apache Kafka C/C++ library (development)"
+ldesc: "librdkafka is a C library implementation of the Apache Kafka protocol,
+providing Producer, Consumer and Admin clients. It was designed with message
+delivery reliability and high performance in mind, current figures exceed 1
+million msgs/second for the producer and 3 million msgs/second for the
+consumer."
+external-source: librdkafka
+

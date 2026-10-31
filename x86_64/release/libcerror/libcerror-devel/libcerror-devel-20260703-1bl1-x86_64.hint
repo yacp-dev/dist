@@ -1,0 +1,6 @@
+category: Libs
+requires: libcerror1 pkg-config
+sdesc: "Library for cross-platform C error functions (development)"
+ldesc: "libcerror is a library for cross-platform C error functions."
+external-source: libcerror
+

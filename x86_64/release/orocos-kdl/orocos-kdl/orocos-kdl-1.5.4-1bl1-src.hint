@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport cppunit libboost-devel eigen3
+sdesc: "Kinematics and Dynamics Library (licensing & readmes)"
+ldesc: "This package contains a recent version of the Kinematics and Dynamics
+Library (KDL), distributed by the Orocos Project."
+skip:
+
+homepage: https://github.com/orocos/orocos_kinematics_dynamics
+license: LGPL-2.1-or-later

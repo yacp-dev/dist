@@ -1,0 +1,7 @@
+category: Math
+requires: bash cygwin libgfortran5 libgomp1 liblis0 libopenmpi40 libopenmpifh40
+sdesc: "Library of Iterative Solvers for Linear Systems (utilities)"
+ldesc: "Lis, a Library of Iterative Solvers for linear systems, is a scalable parallel
+library for solving systems of linear equations and standard eigenvalue
+problems with real sparse matrices using iterative methods."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libjsonfortran9.3 pkg-config
+sdesc: "Fortran 2008 JSON API (development)"
+ldesc: "A user-friendly, thread-safe, and object-oriented API for reading and writing
+JSON files, written in modern Fortran."
+external-source: json-fortran
+

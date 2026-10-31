@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcurl4 libglib2.0_0 libgpgme45 libssl3 libxml2 libzck1
+sdesc: "Repodata downloading library (runtime)"
+ldesc: "A library providing C and Python (libcURL like) API for downloading linux
+repository metadata and packages"
+external-source: librepo
+

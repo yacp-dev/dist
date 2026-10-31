@@ -1,0 +1,8 @@
+category: X11
+build-depends: cygport libglib2.0-devel libgtk3-devel
+sdesc: "Simple and lightweight GTK calendar"
+ldesc: "Gsimplecal is a lightweight calendar applet written in C++ using GTK."
+skip:
+
+homepage: https://github.com/dmedvinsky/gsimplecal
+license: BSD-3-Clause

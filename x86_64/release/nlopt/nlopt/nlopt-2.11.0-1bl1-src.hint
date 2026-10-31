@@ -1,0 +1,11 @@
+category: Math
+build-depends: cygport gcc-fortran libgmp-devel libguile3.0-devel octave-devel python3-devel python312-numpy swig
+sdesc: "Non-linear optimization library (licensing & readmes)"
+ldesc: "NLopt is a free/open-source library for nonlinear optimization, providing a
+common interface for a number of different free optimization routines
+available online as well as original implementations of various other
+algorithms."
+skip:
+
+homepage: https://github.com/stevengj/nlopt
+license: LGPL-2.1-or-later AND MIT AND BSD-3-Clause

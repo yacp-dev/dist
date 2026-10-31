@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libuv1
+sdesc: "WASI syscall API built atop libuv (runtime)"
+ldesc: "uvwasi implements the WASI system call API. Under the hood, uvwasi leverages
+libuv where possible for maximum portability."
+external-source: uvwasi
+

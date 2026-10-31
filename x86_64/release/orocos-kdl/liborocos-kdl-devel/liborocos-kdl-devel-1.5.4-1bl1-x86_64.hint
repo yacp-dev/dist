@@ -1,0 +1,7 @@
+category: Libs
+requires: liborocos-kdl1.5 pkg-config eigen3
+sdesc: "Kinematics and Dynamics Library (development)"
+ldesc: "This package contains a recent version of the Kinematics and Dynamics
+Library (KDL), distributed by the Orocos Project."
+external-source: orocos-kdl
+

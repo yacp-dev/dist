@@ -1,0 +1,9 @@
+category: Utils
+build-depends: cygport libboost-devel libbz2-devel libexpat-devel liblz4-devel libosmium nlohmann_json protozero zlib-devel
+sdesc: "Command line tool for working with OpenStreetMap data"
+ldesc: "A multipurpose command line tool for working with OpenStreetMap data based on
+the Osmium library."
+skip:
+
+homepage: https://github.com/osmcode/osmium-tool
+license: GPL-3.0-or-later
