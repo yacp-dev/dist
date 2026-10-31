@@ -212,6 +212,14 @@ For `bump` (and `latest` carried on as one):
    for the same version is rebuilt automatically by the dispatch: skip
    Step 1b. One for a different version is worth mentioning to the user,
    but the version from the argument (or Repology) is the target.
+   If the branch exists, also find the runs that built it. The run title
+   is always `build-package`, so match on the target instead: list the
+   recent runs (`gh run list -R yacp-dev/dist --workflow build-package.yml --limit 20`),
+   and for each, `gh run view <id> -R yacp-dev/dist --log | grep -m1 'TARGET: <pkg>-<ver>'`.
+   Note the newest matching run: if one is still queued or in progress,
+   wait for it instead of dispatching again; if it's green, check its
+   `cygport check` and Audit output (Step 2) before reporting the PR as
+   ready; if it's red, go to Step 3 with it.
 3. No branch for this version → Step 1b before dispatching.
 
 For `rebuild` and `gcc-rebuild`, do 2. and 3. too: a rebuild goes
