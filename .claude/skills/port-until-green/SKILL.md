@@ -106,25 +106,17 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/new_recipe.sh --package P --version V --source URL --homepage URL [--dry-run]` —
   creates the draft recipe for a package not in ports yet, from
   `scripts/templates/recipe.in` (New packages, Step 1).
-- `scripts/cmux_status.sh "<text>"` / `--clear` — shows the package and
-  phase as a status pill on this session's cmux workspace (a no-op
-  outside cmux). See "Status pill" below.
+- `scripts/cmux_status.sh "<text>"` / `--clear` — shows the package as a
+  status pill on this session's cmux workspace (a no-op outside cmux).
+  See "Status pill" below.
 
 ### Status pill
 
 Keep the user able to tell at a glance which package this session is on.
-Set the pill once Step 1 has settled the target, and update it at each
-phase change, as `<pkg>-<ver> · <phase>`:
-
-| When | Phase text |
-|---|---|
-| Step 1b | `preflight` |
-| Each dispatch (Step 2) | `build #N running` (N = attempt, transient re-runs included) |
-| Step 3/4 | `fixing build #N` |
-| Deploy publish | `publishing` |
-
-Run it alongside the step's own command, not as an extra turn. When
-the loop ends — success, stopping, or Step 1 stopping early (already up
+Set the pill once, at the start of Step 1b, as the bare package name and
+version, `<pkg>-<ver>`, and leave it as is for the rest of the run: no
+per-phase updates (no `build #N running`, `fixing build #N`, `publishing`).
+When the loop ends — success, stopping, or Step 1 stopping early (already up
 to date, blocked, invalid) — clear it with `scripts/cmux_status.sh --clear`
 as the last action before reporting.
 
