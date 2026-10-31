@@ -96,9 +96,11 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   bumps a git-snapshot package to upstream HEAD on its own branch, in
   its own worktree (see Step 1).
 - `scripts/distro_patches.sh --project NAME --version V --out DIR` —
-  downloads the patches Debian, Fedora and Gentoo carry for version `V`
-  (Debian unstable, Fedora rawhide and the Gentoo tree, looked up
-  directly; Repology only names the source packages), each with a
+  downloads the patches Debian, Fedora, Gentoo, AUR and PLD carry for
+  version `V` (or, where a distro has no such version, its newest one in
+  the same major, marked `(not V: …)`; Debian unstable, Fedora rawhide,
+  the Gentoo tree, the AUR's current PKGBUILD and PLD's master spec, looked
+  up directly; Repology only names the source packages), each with a
   revision-pinned URL for `PATCH_URI` (see
   "Distro patches" under Step 2).
 - `scripts/new_recipe.sh --package P --version V --source URL --homepage URL [--dry-run]` —
@@ -490,7 +492,7 @@ already has them.
 
 For a version update (`bump`, `latest`) and for a rebuild (`rebuild`,
 `gcc-rebuild`); not for `deploy`, which doesn't touch the recipe, or git
-snapshots. Debian, Fedora and Gentoo often carry fixes for the very
+snapshots. Debian, Fedora, Gentoo, AUR and PLD often carry fixes for the very
 version being packaged — upstream backports, CVE fixes, fixes for a newer
 gcc — that Cygwin needs just as much. A rebuild keeps the version but
 not the distros' view of it: they may have picked up fixes since the
@@ -507,8 +509,15 @@ each distro directly, since Repology can lag (it had Fedora at
 libpciaccess 0.16 while rawhide was at 0.19). It prints, per
 distro, the packaging revision it used, the lines saying how the patches
 are applied (Debian `series`, Fedora spec `Patch`/`%if` lines, Gentoo
-ebuild `PATCHES`), and each patch's local file and pinned URL. Nothing
-listed → no distro has this version yet; move on. Read each patch (its
+ebuild `PATCHES`, AUR `source=`, PLD spec `Patch` lines), and each patch's
+local file and pinned URL. A distro with no package at this version gets
+its newest one in the same major (`1.5.6` → `1.5.7`), marked `(not
+<ver>: …)` in the header: that patch was written for another version, so
+it's tried like any other, and it's taken only when it applies (or it's
+already upstream, which drops it). AUR has only each package's current
+PKGBUILD, and PLD's spec is read from the master branch of the
+`pld-linux` GitHub mirror. Nothing listed → no distro has this major
+version either; move on. Read each patch (its
 header, then the diff) and **skip** it when:
 
 - **it removes tests or weakens them** — skips, deletes or disables a
@@ -547,7 +556,7 @@ those lines from the `.src.patch` hunk (keep the rest of it) and check
 again that it applies on top of the candidate.
 
 Add the ones that apply to the end of `PATCH_URI` with the pinned URL the
-script printed (`.../debian/<full version>/...`, Fedora's and Gentoo's
+script printed (`.../debian/<full version>/...`, Fedora's, Gentoo's, AUR's and PLD's
 `.../<commit>/...`), not a branch URL such as `raw/rawhide/f/` that
 moves on. Commit them on their own, as `<pkg>-<ver> (add distro
 patches)`, with one line per patch in the body saying what it fixes. If
