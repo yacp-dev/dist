@@ -102,8 +102,10 @@ identify_license_text() {
   [[ "$text" == *"provided 'as-is', without any express or implied warranty"*"Altered source versions must be plainly marked"* ]] && echo "Zlib"
   [[ "$text" == *"Boost Software License - Version 1.0"* ]] && echo "BSL-1.0"
   [[ "$text" == *"This is free and unencumbered software released into the public domain"* ]] && echo "Unlicense"
-  [[ "$text" == *"Eclipse Public License - v 2.0"* ]] && echo "EPL-2.0"
-  [[ "$text" == *"Eclipse Public License - v 1.0"* ]] && echo "EPL-1.0"
+  # The space after the dash isn't always there (adolc's LICENSE: "Eclipse
+  # Public License -v 1.0").
+  [[ "$text" =~ Eclipse\ Public\ License\ -\ ?v\ 2\.0 ]] && echo "EPL-2.0"
+  [[ "$text" =~ Eclipse\ Public\ License\ -\ ?v\ 1\.0 ]] && echo "EPL-1.0"
   [[ "$text" == *"The Artistic License 2.0"* ]] && echo "Artistic-2.0"
   [[ "$text" == *"CC0 1.0 Universal"* ]] && echo "CC0-1.0"
   [[ "$text" == *"PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2"* ]] && echo "PSF-2.0"
