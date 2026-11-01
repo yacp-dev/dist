@@ -470,7 +470,8 @@ already has them.
   view <id> -R yacp-dev/dist --log | grep -E -A8 '== (Recipe|\*-config|\*\.pc|AppStream) =='`)
   is something to fix on the branch before calling it done: a
   `HOMEPAGE` that redirects (set it to the URL the warning names), an
-  invalid `CATEGORY`, a `.pc`/`*-config` whose version, prefix or
+  invalid `CATEGORY`, a `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of
+  place ("Where things go in a recipe" in Step 4), a `.pc`/`*-config` whose version, prefix or
   `-l` libraries are wrong or that names the build tree (fix it in
   `src_install` or a `PATCH_URI` patch), a file in
   `/usr/share/appdata` (move it to `/usr/share/metainfo`). One commit
@@ -969,6 +970,22 @@ Edit only files under the package directory. Common fixes:
 
 Keep fixes minimal and in the style of the existing recipe. Don't
 "fix" things the log doesn't show are broken.
+
+**Where things go in a recipe.** Whenever you add or touch one of these,
+and in a recipe you've just bumped even if a run didn't complain:
+
+- `PATCH_URI` on the line right after `SRC_URI`, no blank line between
+  them, then the blank line before `CATEGORY`.
+- `LICENSE`, `LICENSE_SPDX`, `LICENSE_URI` after `DESCRIPTION`, one blank
+  line between, and before `BUILD_REQUIRES`.
+- `BUILD_REQUIRES` tab-indented, one package per line, even a short list.
+- Everything else in the order cygport uses it; each `<sub>_REQUIRES` at
+  the end, after the last `*_SUMMARY`. Show where a new variable would go
+  before writing it.
+
+`Audit recipe`'s `== Recipe ==` warns about the first, second and fourth
+(`audit/recipe_order.awk`), a position inherited from master included.
+Fix those as `<pkg>-<ver> (fix recipe order)`.
 
 Commit following ports' convention — `<pkg>-<ver> (fix <what>)`, e.g.
 `cpu_features-0.11.0 (fix BUILD_REQUIRES)` — and push:

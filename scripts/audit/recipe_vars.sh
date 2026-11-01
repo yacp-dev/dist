@@ -5,8 +5,9 @@
 # copied into dorgann), HOMEPAGE and LICENSE_URI answer 200 (a HOMEPAGE
 # that redirects is warned with the URL to set instead), LICENSE is set
 # (no SPDX validation; the LICENSE section compares it with the source),
-# and every BUILD_REQUIRES package is installed (/etc/setup/installed.db,
-# overridable with AUDIT_INSTALLED_DB for tests).
+# every BUILD_REQUIRES package is installed (/etc/setup/installed.db,
+# overridable with AUDIT_INSTALLED_DB for tests), and PATCH_URI, *_REQUIRES
+# and LICENSE are where ports' recipes keep them (audit/recipe_order.awk).
 #
 # None of this needs the build to have got anywhere, so the section runs
 # whichever step failed -- a BUILD_REQUIRES package that isn't installed
@@ -18,6 +19,7 @@
 # Resolved now: audit_recipe.sh sources this before it cd's into the
 # package directory, and a relative BASH_SOURCE wouldn't survive that.
 recipe_vars_categories="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/data/categories.yml"
+recipe_vars_order_awk="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/recipe_order.awk"
 
 audit_recipe_vars() {
   local categories="$recipe_vars_categories" installed_db cat pkg header=0
@@ -97,6 +99,11 @@ audit_recipe_vars() {
       done
     fi
   fi
+
+  local misplaced
+  while IFS= read -r misplaced; do
+    [[ -n "$misplaced" ]] && rwarn "$misplaced"
+  done < <(awk -f "$recipe_vars_order_awk" "$cygport_file")
 
   unset -f rwarn check_url
 }

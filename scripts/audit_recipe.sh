@@ -2,8 +2,9 @@
 # The one report on what a build-package run's build left for the next
 # build to fix. The first section is about what the recipe says, and
 # needs no build: no BOM, a valid CATEGORY, HOMEPAGE and LICENSE_URI
-# answering 200 (a redirect named with the URL to set), LICENSE set, and
-# every BUILD_REQUIRES package installed (audit/recipe_vars.sh). Two are
+# answering 200 (a redirect named with the URL to set), LICENSE set,
+# every BUILD_REQUIRES package installed, and PATCH_URI, *_REQUIRES and
+# LICENSE where recipes keep them (audit/recipe_vars.sh). Two are
 # about the build itself, from its logs: the autoconf macros a failed
 # `cygport compile` couldn't find (audit/undefined_macros.sh), and what
 # `cygport check` did -- failed, ran no tests, passed, and which tests it
