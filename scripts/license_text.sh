@@ -68,15 +68,21 @@ identify_license_text() {
   if [[ "$text" == *"University of Illinois/NCSA Open Source License"* ]]; then
     echo "NCSA"
   # MIT-0 is MIT without the condition to keep the notice (minicoro's
-  # LICENSE, compiled into BehaviorTree.CPP).
+  # LICENSE, compiled into BehaviorTree.CPP). The condition may name
+  # several notices (htslib's bgzip.c: "The above copyright notices and
+  # this permission notice").
   elif [[ "$text" == *"Permission is hereby granted, free of charge, to any person obtaining a copy"* ]]; then
-    if [[ "$text" == *"The above copyright notice and this permission notice"* ]]; then
+    if [[ "$text" == *"The above copyright notice and this permission notice"* ||
+          "$text" == *"The above copyright notices and this permission notice"* ]]; then
       echo "MIT"
     else
       echo "MIT-0"
     fi
   fi
-  if [[ "$text" == *"Redistribution and use in source and binary forms"* ]]; then
+  # The BSD licenses grant it "provided that" conditions are met; a grant
+  # with none ("... with or without modification, are permitted.", the
+  # public-domain fallback of Solar Designer's md5.c in htslib) isn't one.
+  if [[ "$text" == *"Redistribution and use in source and binary forms"*"provided that"* ]]; then
     if [[ "$text" == *"advertising materials"* ]]; then
       echo "BSD-4-Clause"
     elif [[ "$text" == *"Neither the name"* || "$text" == *"used to endorse or promote"* ]]; then

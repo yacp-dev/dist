@@ -480,6 +480,12 @@ audit_license() {
   local where="in the source"
   [[ -n "$shipped_known" ]] && where="of what the packages ship"
   for r in "${recipe[@]}"; do
+    # A LicenseRef names a license SPDX doesn't list (htslib's public-domain
+    # md5.c), which no text here identifies.
+    if [[ "$r" == LicenseRef-* ]]; then
+      say "LICENSE has $r -- not an SPDX license, check it by hand"
+      continue
+    fi
     [[ -n "${found_base[$(license_base "$r")]:-}" ]] \
       || warn "LICENSE has $r but no header or license text $where says so"
   done
