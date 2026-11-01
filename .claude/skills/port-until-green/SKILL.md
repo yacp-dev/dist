@@ -521,7 +521,8 @@ already has them.
   and one for an example or another OS; say which and why in the
   report. If distro
   patches are still to be added, commit them
-  now and re-run before reporting. Report: PR URL, run URL, attempts,
+  now and re-run before reporting. Then write the final report in the
+  format of "Final report" below: PR URL, run URL, attempts,
   what you changed, the check result, the license you filled in (if
   any), the dependencies added and left out, and the distro patches
   taken and skipped, with why.
@@ -805,7 +806,8 @@ gh workflow run publish.yml -R yacp-dev/dist -f artifact_id=<artifact id>
 ```
 
 `gh workflow run` prints the publish run's URL; wait for it with
-`wait_run.sh` too. Report the build run, the publish run, and the check
+`wait_run.sh` too. Then write the final report in the format of
+"Final report" below: the build run, the publish run, and the check
 result (`check_summary.sh`, as above).
 
 If the build fails, don't fix anything: the recipe is the one already
@@ -1004,7 +1006,63 @@ Then back to Step 2: `run_decision.sh` for `<pkg>-<ver>`, then rerun or dispatch
   repos/yacp-dev/ports/git/refs/heads/dorgann/<pkg>-<ver>`, plus the
   local one in `~/src/ports`): the closed PR keeps its diff.
 
-When stopping without success, report: the branch and draft PR URL, the
+When stopping without success, report in the format of "Final report"
+below (a lean report is fine, but always include the PR/Run links and
+the attempts list): the branch and draft PR URL, the
 last run URL, each attempt's error and what you tried, your best current
 diagnosis, and what you'd try next. Leave the branch in a pushed state
 — don't leave local-only changes.
+
+## Final report
+
+End every run — on success and on stopping alike, and also when Step 1
+stops early (already up to date, blocked, invalid) — with this shaped
+report, in the conversation's language. One report, not a running log:
+the conversation already holds the details, the report is the summary.
+
+```markdown
+## <Done|Stopped>: <pkg>-<ver>
+
+**PR**: <url>
+**Run**: <url> (<N> attempts | <publish run URL> for deploy)
+
+| Item | Result |
+|---|---|
+| Target | <mode and what it means: 1.9 → 1.10 version update / release rebuild / gcc rebuild / deploy> |
+| Branch | <created new / existed, what was pushed> |
+| `cygport check` | <passed / FAILED / empty / not reached> |
+
+### Attempts and fixes
+
+<One line per attempt: the failing step, the one-line error, and the
+fix — e.g. "1. `cygport compile`: `/usr/share/gettext/config.rpath`
+missing. **Fix**: added `gettext-devel` to `BUILD_REQUIRES`.">
+<When the first run passed: "No failures — built green on the first attempt."
+with one line on why (preflight had cleared the risk).>
+
+### Preflight and patches
+
+<What the preflight found and fixed on the branch, what was clean; patches
+dropped/rebased and distro patches taken/skipped, each with the why.>
+<Omit the section when everything was clean and there were no patches.>
+
+### Left as is
+
+<Every WARNING left without a fix and every dependency left out of
+`BUILD_REQUIRES`, one line each with the reason; likewise skipped tests
+left failing, with the cause. Omit when empty.>
+
+### Diagnosis and next step
+
+<Stopped only: the current best diagnosis, what to try next, and the
+decision needed from the user. Always include it on stop; omit on success.>
+```
+
+- Drop a whole section rather than leaving an empty heading; keep the
+  `### Attempts and fixes` numbering aligned with actual runs (reruns of
+  the same failed job count as one attempt line each).
+- Link the PR and run as plain URLs; name the mode (`bump`, `rebuild`,
+  `gcc-rebuild`, `deploy`, `new`) so the user can tell what happened
+  without opening anything.
+- For `deploy`, the Run line carries the build run and the publish run;
+  keep the Target row naming both.
