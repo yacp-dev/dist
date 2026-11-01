@@ -440,7 +440,9 @@ already has them.
   then check the test suite: `scripts/check_summary.sh --run <id>`.
   `cygport check` is continue-on-error, so a green run says nothing about
   it. If it reports `check: FAILED`, go to "Test suite failures" below
-  before calling it done; if `check: empty`, go to "Empty test suite". Also make sure the recipe defines `LICENSE`,
+  before calling it done; if `check: empty`, go to "Empty test suite";
+  if a `check-skipped:` list follows the verdict (with any of the
+  three), go to "Skipped tests" as well. Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
   LICENSE" below. Then look at `Audit recipe`'s `== Runtime
   requirements ==` section (`gh run view <id> -R yacp-dev/dist --log |
@@ -605,6 +607,34 @@ depends on upstream, so look at the source before reporting it:
 
 A re-run that turns `empty` into `FAILED` goes on to "Test suite
 failures"; one that gets `passed` is done.
+
+### Skipped tests
+
+A skipped test counts as passed, or isn't counted, so `check: passed`
+can hide part of the suite not running. `check_summary.sh` lists them
+after the verdict (`check-skipped: N test(s)`, from the `Detect skipped
+tests` step): ctest's `***Skipped`/`***Not Run`, meson's and automake's
+`SKIP`, pytest's skipped totals, and each ctest test whose own output
+says it skipped. cygport's steps run with the Windows directories left
+out of `PATH` (`scripts/cygwin_path.sh`), so a tool the recipe doesn't
+install makes a test skip itself (or fail as `command not found`)
+instead of running a same-named Windows one -- before that, libavif
+1.4.2's ImageMagick tests ran System32's `convert.exe` and failed with
+`Invalid drive specification.`. For each skipped test, find why (the
+line it printed, the test script, or the build file that disabled it):
+
+- A tool or library the test looks for and Cygwin has (a script's
+  `command -v`, a `find_program()`/`find_package()` that drops the test)
+  → add it to `BUILD_REQUIRES` in one commit, `<pkg>-<ver> (add <what>
+  to BUILD_REQUIRES for tests)`, and re-run (libavif 1.4.2:
+  `ImageMagick`). Check its curr version has what the test calls
+  (ImageMagick 7's `magick`).
+- Disabled because an upstream option that's off by default isn't on
+  (libavif's `test_cmd_stdin`, behind `AVIF_LIBXML2`, default `OFF`) →
+  turning it on adds a feature, not a test: say so in the report and
+  leave it to the user.
+- Needs what the runner lacks (network, display, root), another OS, or
+  a dependency Cygwin doesn't have → list it in the report.
 
 ### Missing LICENSE
 

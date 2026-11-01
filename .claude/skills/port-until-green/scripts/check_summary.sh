@@ -20,11 +20,16 @@
 # the Detect empty check step's log (detect_empty_check.sh); that's
 # reported as "check: empty" rather than "check: passed".
 #
+# Tests check skipped, passed or failed, are listed after that in the
+# Detect skipped tests step's "check-skipped: N test(s)" report
+# (detect_skipped_tests.sh), since a skip counts as a pass.
+#
 # Usage:
 #   check_summary.sh --run 123456789
 # Output: "check: passed", "check: empty" plus the end of the check log,
 # "check: FAILED" plus the diagnostic, or "check: unknown" when the run
-# never reached check or predates the diagnose step.
+# never reached check or predates the diagnose step; then the skipped
+# tests, if any.
 
 set -euo pipefail
 
@@ -61,6 +66,21 @@ if [[ -z "$check" || "$check" == "skipped" ]]; then
   echo "check: unknown (cygport check didn't run)"
   exit 0
 fi
+
+# Whichever way the verdict below comes out, follow it with the skipped
+# tests (empty before the Detect skipped tests step existed).
+print_skipped() {
+  local skipped
+  skipped="$(gh run view "$run" -R "$repo" --log 2>/dev/null |
+    perl -pe 's/\e\[[0-9;]*m//g' |
+    awk -F'\t' '$2 == "Detect skipped tests" { sub(/^[^ ]+ /, "", $3); print $3 }' |
+    sed -n '/^check-skipped: /,$p')" || true
+  if [[ -n "$skipped" ]]; then
+    echo
+    echo "$skipped"
+  fi
+}
+trap print_skipped EXIT
 if [[ -z "$diagnose" ]]; then
   echo "check: unknown (run predates the Diagnose check failure step; grep the cygport check step of 'gh run view $run --log' for Fail:/FAILED)"
   exit 0

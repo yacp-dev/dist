@@ -498,6 +498,19 @@ jobs:
         continue-on-error: true
         run: bash -- scripts/detect_empty_check.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
+      # A skipped test counts as passed (or isn't counted), so neither the
+      # check outcome nor Detect empty check says the suite didn't cover
+      # it -- and a skip is often a missing BUILD_REQUIRES: libavif
+      # 1.4.2's ImageMagick tests skip themselves when it's absent (with
+      # PATH limited to Cygwin, see cygwin_path.sh; before that they ran
+      # System32's convert.exe and failed). Lists them for the job summary
+      # and the PR body, whether check passed or failed.
+      - name: Detect skipped tests
+        id: skipped-tests
+        if: steps.check.outcome == 'success' || steps.check.outcome == 'failure'
+        continue-on-error: true
+        run: bash -- scripts/detect_skipped_tests.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
+
       - name: cygport install
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step install
 
@@ -777,8 +790,8 @@ jobs:
           # otherwise leaves no trace on a green run (see Diagnose check
           # failure); the diagnostic itself goes to the run summary rather
           # than here, to keep a possibly long log excerpt out of the PR.
-          # Likewise the empty-check line, unless check ran no tests, and
-          # the audit line, unless Audit recipe warned, the dependencies
+          # Likewise the empty-check line, unless check ran no tests, the
+          # skipped-tests line, unless check skipped some, and the audit line, unless Audit recipe warned, the dependencies
           # line, unless it named Cygwin packages the build looked for and
           # didn't find, and the .src.patch line, unless xezat port's
           # patch lost a file.
@@ -790,6 +803,8 @@ jobs:
             ${{ steps.check.outcome == 'failure' && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
 
             ${{ steps.empty-check.outputs.reason && format('**`cygport check` ran no tests** ({0}).', steps.empty-check.outputs.reason) || '' }}
+
+            ${{ steps.skipped-tests.outputs.count && format('**`cygport check` skipped {0} test(s)** -- a tool or library missing from `BUILD_REQUIRES` may be why; see the run summary.', steps.skipped-tests.outputs.count) || '' }}
 
             ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
 
@@ -890,4 +905,4 @@ jobs:
       # survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --check-empty-reason "${{ steps.empty-check.outputs.reason }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-candidates "${{ steps.audit.outputs.candidates }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --check-empty-reason "${{ steps.empty-check.outputs.reason }}" --check-skipped-file "${{ steps.skipped-tests.outputs.report_file }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-candidates "${{ steps.audit.outputs.candidates }}"

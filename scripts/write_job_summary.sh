@@ -45,12 +45,15 @@
 # check_empty_reason is Detect empty check's output, set only when
 # cygport check passed without running any tests.
 #
+# check_skipped_file is Detect skipped tests' report, set only when
+# cygport check skipped tests, passed or failed.
+#
 # audit_file/audit_warnings/audit_candidates are Audit recipe's
 # outputs; the report is shown whenever there is one, opened when it has
 # warnings or names Cygwin packages the build missed.
 #
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--check-empty-reason <text-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-candidates <pkgs-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--check-empty-reason <text-or-empty>] [--check-skipped-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-candidates <pkgs-or-empty>]
 
 set -euo pipefail
 
@@ -60,6 +63,7 @@ artifact_id=""
 macro_diagnostic_file=""
 check_diagnostic_file=""
 check_empty_reason=""
+check_skipped_file=""
 audit_file=""
 audit_warnings=""
 audit_candidates=""
@@ -72,6 +76,7 @@ while [[ $# -gt 0 ]]; do
     --macro-diagnostic-file) macro_diagnostic_file="$2"; shift 2 ;;
     --check-diagnostic-file) check_diagnostic_file="$2"; shift 2 ;;
     --check-empty-reason) check_empty_reason="$2"; shift 2 ;;
+    --check-skipped-file) check_skipped_file="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
     --audit-candidates) audit_candidates="$2"; shift 2 ;;
@@ -134,6 +139,7 @@ print_details() {
     echo
     echo "- cygport check ran no tests: $check_empty_reason -- see whether upstream has a test suite src_test doesn't reach"
   fi
+  print_details "cygport check skipped tests -- a tool or library missing from BUILD_REQUIRES may be why" "$check_skipped_file" open
   if [[ -n "$audit_file" && -s "$audit_file" ]]; then
     echo
     if [[ -n "$audit_warnings" ]]; then

@@ -28,6 +28,11 @@
 
 set -uo pipefail # NOT -e: greps finding nothing, and the test executable failing, are expected here
 
+# The direct run below sees the PATH cygport check ran with (Windows
+# directories left out, see cygwin_path.sh), so it fails the same way.
+source "$(dirname "$0")/cygwin_path.sh"
+restrict_path_to_cygwin
+
 dir=""
 cygport_file=""
 

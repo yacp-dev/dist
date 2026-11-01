@@ -14,8 +14,14 @@
 #
 # Usage (paths relative to the package directory, e.g. yacp/googletest):
 #   cygport_build.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport --step compile
+#
+# cygport runs with the Windows directories left out of PATH (see
+# cygwin_path.sh): a tool missing from BUILD_REQUIRES then fails as
+# missing rather than resolving to a same-named Windows one.
 
 set -euo pipefail
+
+source "$(dirname "$0")/cygwin_path.sh"
 
 dir=""
 cygport_file=""
@@ -37,4 +43,5 @@ done
 cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
+restrict_path_to_cygwin
 cygport "$cygport_file" "$step"
