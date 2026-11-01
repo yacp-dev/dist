@@ -145,6 +145,13 @@ fi
 PN="" PV="" PVR="" CATEGORY="" S="" B="" D="" C="" logdir="" checklog="" workdir="" BUILD_REQUIRES="" DEPS_PATH="" HOMEPAGE="" LICENSE="" LICENSE_URI=""
 eval "$vars_decl"
 
+# The PATH cygport itself runs with, which is where cygport dep looks for
+# a DLL: .cygportrc's, with what /etc/profile.d adds for installed packages
+# (lapack's /usr/lib/lapack; see configure_cygport.sh). This script is a
+# non-login shell, so its own PATH doesn't have those. In a subshell, so
+# this script keeps its own PATH; if cygport prints nothing, it's that one.
+cygport_path="$(eval "$(cygport "$cygport_file" vars PATH 2>/dev/null)"; printf '%s' "$PATH")"
+
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
@@ -841,10 +848,12 @@ audit_runtime_requires() {
   find "$D" -type f \( -iname '*.exe' -o -iname '*.dll' \) -not -path '*/usr/src/debug/*' -print0 2>/dev/null \
     | xargs -0 -r objdump -p 2>/dev/null \
     | sed -n 's/^[[:space:]]*DLL Name: //p' | sort -u > "$tmp/runtime_imports"
+  local search_dirs
+  IFS=: read -r -a search_dirs <<<"/usr/bin:${DEPS_PATH:+$DEPS_PATH:}$cygport_path"
   while IFS= read -r dll; do
     [[ "${dll,,}" == cyg*.dll ]] || continue
     found=""
-    for d in /usr/bin ${DEPS_PATH//:/ }; do
+    for d in "${search_dirs[@]}"; do
       if [[ -e "$d/$dll" ]]; then
         found=1
         break
