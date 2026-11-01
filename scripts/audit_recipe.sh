@@ -62,7 +62,8 @@
 # run through system() that no log shows, like abpoa's `dot`); once
 # cygport check ran, one of its commands that a test script checks for,
 # spawns or names by path (ngircd's testsuite: `type telnet`, expect's
-# `spawn telnet`, `[ -x /usr/bin/pgrep ]`). The last three are weak --
+# `spawn telnet`, `[ -x /usr/bin/pgrep ]`; wolfssh's scripts/fwd.test:
+# `command -v nc`). The last three are weak --
 # configure's "checking for foo... no" mentions a tool it then doesn't
 # use, a command name can be just a word in a string, and a test that
 # checks for a command may skip itself without it -- but a package with
@@ -556,7 +557,8 @@ audit_build_requires() {
   # Test scripts, when cygport check ran: a test suite often drives a
   # command it checks for and spawns itself, which neither a log nor a
   # binary names (ngircd's testsuite: `type telnet`, then expect's
-  # `spawn telnet 127.0.0.1 6789`).
+  # `spawn telnet 127.0.0.1 6789`). Besides the usual test directories,
+  # a *.test anywhere is one (wolfssh's scripts/fwd.test).
   local scripts=()
   shopt -s nullglob
   local checklogs=("$logdir"/*-check.log)
@@ -565,7 +567,7 @@ audit_build_requires() {
     while IFS= read -r -d '' f; do
       scripts+=("$f")
     done < <(find "$S" ${B:+"$B"} -type f -size -1024k \
-      -regex '.*/\(t\|tests?\|testsuite\|checks?\)/.*' -print0 2>/dev/null)
+      \( -regex '.*/\(t\|tests?\|testsuite\|checks?\)/.*' -o -name '*.test' \) -print0 2>/dev/null)
   fi
 
   local pkg lst dll implib hit names
@@ -633,7 +635,8 @@ audit_build_requires() {
     # Its commands named in a binary's strings: run at runtime or by a
     # test (abpoa's system("dot ..."), which no log shows).
     sed -nE 's#^/usr/bin/([^/]+)$#\1#p' "$tmp/files" | grep -viE '\.dll$' | sed 's/\.exe$//' \
-      | awk 'length >= 3' | sort -u > "$tmp/commands"
+      | sort -u > "$tmp/tools"
+    awk 'length >= 3' "$tmp/tools" > "$tmp/commands"
     hit=""
     if [[ -s "$tmp/commands" ]]; then
       for tree in D B; do
@@ -651,11 +654,13 @@ audit_build_requires() {
     fi
 
     # Its commands checked for or spawned by a test script, or named by
-    # their path (ngircd's getpid.sh: `[ -x /usr/bin/pgrep ]`).
+    # their path (ngircd's getpid.sh: `[ -x /usr/bin/pgrep ]`). What has
+    # to precede the name keeps a short one from matching any word, so this
+    # takes the 1- and 2-letter commands too (netcat's nc).
     hit=""
-    if [[ -s "$tmp/commands" && ${#scripts[@]} -gt 0 ]]; then
+    if [[ -s "$tmp/tools" && ${#scripts[@]} -gt 0 ]]; then
       local cmd_re
-      cmd_re="$(sed 's/[][\.*^$+?(){}|]/\\&/g' "$tmp/commands" | paste -sd '|' -)"
+      cmd_re="$(sed 's/[][\.*^$+?(){}|]/\\&/g' "$tmp/tools" | paste -sd '|' -)"
       hit="$(grep -ohIE "(^|[^[:alnum:]_-])((spawn|command[[:space:]]+-v|which|type([[:space:]]+-[pP])?|hash)[[:space:]]+(-[[:alnum:]]+[[:space:]]+)*|(/usr)?/bin/)($cmd_re)([^[:alnum:]_.-]|$)" \
           "${scripts[@]}" 2>/dev/null \
         | sed -E 's/^[^[:alnum:]_-]//; s/[^[:alnum:]_.-]$//; s#.*[[:space:]/]##' \
