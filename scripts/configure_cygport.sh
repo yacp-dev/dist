@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configures cygport's DISTDIR so `cygport fetch` (called by `xezat prep`)
+# Configures cygport's DISTDIR so `cygport fetch` (called by cygport_prep.sh)
 # saves downloaded source tarballs there instead of its default location:
 # whatever the current working directory happens to be when fetch runs
 # (see cygport's own lib/src_fetch.cygpart -- it only moves the downloaded

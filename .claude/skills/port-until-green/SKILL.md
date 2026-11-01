@@ -465,7 +465,7 @@ already has them.
   -- `FETCHCONTENT_SOURCE_DIR_<NAME>` in `CYGCMAKE_ARGS`, or a source
   directory upstream falls back to, moved there from a
   `src_unpack_hook` (which needs `CYGPORT_USE_UNSTABLE_API=1` right
-  above it, or cygport skips it with a warning in the `xezat prep`
+  above it, or cygport skips it with a warning in the `cygport prep`
   log). One commit, `<pkg>-<ver> (take <name> from SRC_URI)`, dropping
   `git` from `BUILD_REQUIRES` if only the clone needed it, then re-run
   (libavif 1.4.2: libargparse into `ext/libargparse`). Its license
@@ -753,7 +753,7 @@ scripts/failure_summary.sh --run <id> --out <scratchpad>/<pkg>
 
 Read the diagnostic first: when `cygport compile` fails on undefined
 autoconf macros, the workflow lists them, which is more direct than the
-log. A patch that doesn't apply shows up in the `xezat prep` log as
+log. A patch that doesn't apply shows up in the `cygport prep` log as
 `*** ERROR: patch <name> will not apply`; find which hunks fail by
 applying it to the new source yourself in Step 4. Then grep the saved log around the failed step (`error:`,
 `Error`, `undefined reference`, `not found`, `FAILED`, `Hunk`, `*** `), and
@@ -768,7 +768,7 @@ Classify it, because the response differs:
 |---|---|---|
 | Transient | mirror `connection error`, `download error`, HTTP 5xx, runner lost | No commit. Re-run the same run's failed jobs: `gh run rerun <id> -R yacp-dev/dist --failed`. It stays one run with attempt N+1, and uses the same commit and inputs, which is what a transient retry needs. Doesn't count toward the attempt limit, but give up after 3 in a row and report. Wait on the same run id again. |
 | Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
-| Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `xezat prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
+| Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `cygport prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `bump_version.sh` mangled a file during the preflight's one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
 | No branch | the run was refused by **Require existing branch for version bump** (a `bump` target with no `dorgann/<pkg>-<ver>` on yacp), or failed before `Detect existing cygport`/`Bump release` succeeded, so no branch/draft PR exists | A refusal means Step 1b never pushed the branch: go back to Step 1b. If it's transient, re-run it with `--failed` (as in the Transient row). If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (as in Step 4, with `-B dorgann/<pkg>-<ver> "$wt" origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
 

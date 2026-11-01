@@ -10,7 +10,7 @@
 # failure, libgedit-amtk 5.10.0, yacp-dev/dist's own build-package.yml run
 # 32853901332, and against the committed cygport file itself decoding as
 # clean UTF-8, ruling out the package's own content) kills parsing
-# entirely, with cygport prep (and xezat bump/validate/port, which all
+# entirely, with xezat prep at the time (and xezat bump/port, which
 # call Xezat#variables too) aborting with no indication of which
 # variable or why.
 #

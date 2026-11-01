@@ -12,15 +12,14 @@ run-name: build-package ${{ inputs.target }}
 # A gate job refuses version updates for packages with an open
 # update-blocked Issue (doc/spec.md 4.7) before anything is built.
 #
-# xezat handles fetching/preparing sources (`xezat prep`, before the
-# build), regenerating the package's README/changelog (`xezat bump`,
-# after it), and copying the build's results (cygport file, README,
+# Sources are fetched and prepared with plain `cygport fetch`/`prep`
+# (cygport_prep.sh, before the build), which then copies the package
+# directory's README into the build tree, as `xezat prep` does -- that
+# copy is what `xezat bump` later reads and appends a changelog entry to.
+# xezat regenerates the package's README/changelog (`xezat bump`, after
+# the build) and copies the build's results (cygport file, README,
 # src.patch) back into the package directory (`xezat port`, after that).
-# `xezat prep` copies the package directory's README into the build tree,
-# which is what `xezat bump` later reads and appends a changelog entry to
-# -- that copy step is why xezat prep is used here instead of a plain
-# `cygport ... download`/`prep` (which would leave xezat bump editing a
-# stale/absent README). `xezat bump` only ever writes back to that same
+# `xezat bump` only ever writes back to that same
 # build-tree copy, never to the package directory -- `xezat port` is what
 # copies it (and the cygport file itself, and any src.patch) back out;
 # without it, the package directory's tracked README would never actually
@@ -287,7 +286,7 @@ jobs:
       # whichever git that plain (non-bash) step resolves to, which at
       # that point in the job (before Cygwin's installed) is Git for
       # Windows -- never Cygwin's own git, which is what `cygport fetch`
-      # actually shells out to (via xezat prep, itself a `bash --` step)
+      # actually shells out to (via cygport_prep.sh, itself a `bash --` step)
       # for every upstream source clone from here on. Left at whatever
       # Cygwin's git defaults to, a patch generated against a plain LF
       # checkout can fail to apply against a CRLF-converted one at every
@@ -302,7 +301,7 @@ jobs:
         run: git config --global --add safe.directory '*'
 
       # Must run after Cygwin is installed (and installed early, before
-      # anything that could invoke `cygport fetch`, i.e. `xezat prep`
+      # anything that could invoke `cygport fetch`, i.e. `cygport prep`
       # below): a bare `bash` on windows-latest resolves to Git for
       # Windows' bash until cygwin-install-action puts Cygwin's own bash
       # ahead of it on PATH, and the two have different $HOME values --
@@ -411,7 +410,7 @@ jobs:
       - name: Install xezat (latest from GitHub)
         run: bash -- scripts/xezat_install.sh
 
-      # xezat's own `bashvar` (used by prep/bump/validate/port alike, via
+      # xezat's own `bashvar` (used by bump and port alike, via
       # Xezat#variables) dies outright on a single invalid UTF-8 byte
       # anywhere in cygport's internal variable dump, not just this
       # package's own cygport file's variables (confirmed against a real
@@ -423,9 +422,9 @@ jobs:
       - name: Configure bashvar diagnostic patch
         run: bash -- scripts/configure_bashvar_diagnostic.sh
 
-      - name: xezat prep
+      - name: cygport prep
         id: prep
-        run: bash -- scripts/xezat_prep.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/cygport_prep.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       - name: cygport compile
         id: compile

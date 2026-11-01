@@ -68,7 +68,7 @@ fi
 # /home/runneradmin/bin in your PATH") in a real run. Each workflow step
 # is its own bash invocation (started fresh via `bash -- script.sh`, not a
 # login/interactive shell), so nothing sources a profile that would
-# normally add this to PATH -- without it, e.g. `xezat prep` fails with
+# normally add this to PATH -- without it, e.g. `xezat bump` fails with
 # "xezat: command not found" even though `gem install xezat` just
 # succeeded. GITHUB_PATH takes a Windows-style path.
 gem_bindir="$(cygpath -w "$(ruby -e 'print File.join(Dir.home, "bin")')")"

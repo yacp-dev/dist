@@ -4,7 +4,7 @@
 #
 # cygport's `install` step already embedded it once (postinst's
 # __prepdoc: `newins ${C}/README ${PN}.README` into
-# /usr/share/doc/Cygwin), but from the pre-bump copy xezat prep put in
+# /usr/share/doc/Cygwin), but from the pre-bump copy cygport_prep.sh put in
 # $C. Running `cygport postinst` again to refresh it would also re-run
 # the rest of __prepdoc, and that isn't idempotent: dodoc installs only
 # the first of FOO, FOO.md, FOO.rst, FOO.txt it finds, skipping any
