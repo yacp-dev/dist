@@ -31,55 +31,34 @@
 # Pull Request's own body already includes it) -- otherwise this would
 # just be a redundant duplicate of what the PR body already says.
 #
-# macro_diagnostic_file is Diagnose undefined macro's output, set only
-# when cygport compile failed and there was something to diagnose. It and
-# check_diagnostic_file are capped at diagnostic_max_bytes, since a step
-# summary over 1 MiB isn't shown at all. The diagnose scripts also print
-# their full output to their own step's log, which the truncation note
-# points to.
-#
-# check_diagnostic_file is Diagnose check failure's output, set only when
-# cygport check failed -- which, being continue-on-error, nothing else
-# on a green run shows.
-#
-# check_empty_reason is Detect empty check's output, set only when
-# cygport check passed without running any tests.
-#
-# check_skipped_file is Detect skipped tests' report, set only when
-# cygport check skipped tests, passed or failed.
-#
-# audit_file/audit_warnings/audit_candidates are Audit recipe's
-# outputs; the report is shown whenever there is one, opened when it has
-# warnings or names Cygwin packages the build missed.
+# audit_file/audit_warnings/audit_open are Audit recipe's outputs: the
+# one report on the build (undefined autoconf macros, what cygport check
+# did) and the recipe. It's shown whenever there is one, opened when
+# audit_open says something in it is worth a look, and capped at
+# diagnostic_max_bytes, since a step summary over 1 MiB isn't shown at
+# all; the full report stays in Audit recipe's own log, which the
+# truncation note points to.
 #
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--macro-diagnostic-file <path-or-empty>] [--check-diagnostic-file <path-or-empty>] [--check-empty-reason <text-or-empty>] [--check-skipped-file <path-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-candidates <pkgs-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>]
 
 set -euo pipefail
 
 package=""
 pr_url=""
 artifact_id=""
-macro_diagnostic_file=""
-check_diagnostic_file=""
-check_empty_reason=""
-check_skipped_file=""
 audit_file=""
 audit_warnings=""
-audit_candidates=""
+audit_open=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --package) package="$2"; shift 2 ;;
     --pr-url) pr_url="$2"; shift 2 ;;
     --artifact-id) artifact_id="$2"; shift 2 ;;
-    --macro-diagnostic-file) macro_diagnostic_file="$2"; shift 2 ;;
-    --check-diagnostic-file) check_diagnostic_file="$2"; shift 2 ;;
-    --check-empty-reason) check_empty_reason="$2"; shift 2 ;;
-    --check-skipped-file) check_skipped_file="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
-    --audit-candidates) audit_candidates="$2"; shift 2 ;;
+    --audit-open) audit_open="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -99,24 +78,9 @@ print_bounded() {
     cat "$file"
   else
     head -c "$diagnostic_max_bytes" "$file" | sed '$d'
-    printf '[... truncated: %s of %s bytes shown -- the full diagnostic is in the diagnose step'\''s own log]\n' \
+    printf '[... truncated: %s of %s bytes shown -- the full report is in the Audit recipe step'\''s own log]\n' \
       "$diagnostic_max_bytes" "$size"
   fi
-}
-
-# Prints a collapsible block of file $2 titled $1 when $2 is a non-empty
-# file; $3 is "open" to show it expanded.
-print_details() {
-  local title="$1" file="$2" open="${3:-}"
-  [[ -n "$file" && -s "$file" ]] || return 0
-  echo
-  echo "<details${open:+ open}><summary>$title</summary>"
-  echo
-  echo '```'
-  print_bounded "$file"
-  echo '```'
-  echo
-  echo "</details>"
 }
 
 {
@@ -133,25 +97,12 @@ print_details() {
     echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo ${GITHUB_REPOSITORY:-yacp-dev/dist}"
     echo '```'
   fi
-  print_details "cygport compile failed: undefined autoconf macros" "$macro_diagnostic_file" open
-  print_details "cygport check failed (non-blocking)" "$check_diagnostic_file"
-  if [[ -n "$check_empty_reason" ]]; then
-    echo
-    echo "- cygport check ran no tests: $check_empty_reason -- see whether upstream has a test suite src_test doesn't reach"
-  fi
-  print_details "cygport check skipped tests -- a tool or library missing from BUILD_REQUIRES may be why" "$check_skipped_file" open
   if [[ -n "$audit_file" && -s "$audit_file" ]]; then
     echo
-    if [[ -n "$audit_warnings" ]]; then
-      echo "<details open><summary>Recipe audit: $audit_warnings warning(s)</summary>"
-    elif [[ -n "$audit_candidates" ]]; then
-      echo "<details open><summary>Recipe audit: no warnings, but Cygwin has dependencies the build didn't find</summary>"
-    else
-      echo "<details><summary>Recipe audit: no warnings</summary>"
-    fi
+    echo "<details${audit_open:+ open}><summary>Audit: ${audit_warnings:-no} warning(s)$([[ -n "$audit_open" && -z "$audit_warnings" ]] && echo ", but see the report")</summary>"
     echo
     echo '```'
-    cat "$audit_file"
+    print_bounded "$audit_file"
     echo '```'
     echo
     echo "</details>"

@@ -79,10 +79,12 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   (one API call every 90 s by default), prints `<conclusion> <run url>`,
   and exits 0 only on success.
 - `scripts/failure_summary.sh --run ID --out DIR` — failed step names,
-  the undefined-macro diagnostic (when that diagnose step ran), and the
-  full failed log saved to `DIR` for grepping.
-- `scripts/check_summary.sh --run ID` — whether `cygport check` passed,
-  ran no tests (`check: empty`), or failed, with its diagnostic (Step 2).
+  the `== Undefined macros ==` section of `Audit recipe` (when compile
+  hit one), and the full failed log saved to `DIR` for grepping.
+- `scripts/check_summary.sh --run ID` — the `== Check ==` section of
+  `Audit recipe`: whether `cygport check` passed, ran no tests
+  (`check: empty`), or failed, with its diagnostic, and the tests it
+  skipped (Step 2).
 - `scripts/preflight_bump.sh --package P --version V --work DIR [--source URL]` —
   bumps the recipe to `V` (only its release, when `V` is the current
   version) on a local `dorgann/P-V` branch in its own
@@ -662,8 +664,8 @@ failures"; one that gets `passed` is done.
 
 A skipped test counts as passed, or isn't counted, so `check: passed`
 can hide part of the suite not running. `check_summary.sh` lists them
-after the verdict (`check-skipped: N test(s)`, from the `Detect skipped
-tests` step): ctest's `***Skipped`/`***Not Run`, meson's and automake's
+after the verdict (`check-skipped: N test(s)`, from `Audit recipe`'s
+Check section): ctest's `***Skipped`/`***Not Run`, meson's and automake's
 `SKIP`, pytest's skipped totals, and each ctest test whose own output
 says it skipped. cygport's steps run with the Windows directories left
 out of `PATH` (`scripts/cygwin_path.sh`), so a tool the recipe doesn't

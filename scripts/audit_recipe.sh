@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# The one report on what a build-package run's build left for the next
+# build to fix. Two sections are about the build itself, from its logs:
+# the autoconf macros a failed `cygport compile` couldn't find
+# (audit/undefined_macros.sh), and what `cygport check` did -- failed,
+# ran no tests, passed, and which tests it skipped (audit/check.sh).
+# The rest is about the recipe, once the package was built:
+#
 # Cross-checks five things in a cygport recipe that validate_recipe.sh
 # doesn't, plus a HOMEPAGE that redirects and a *.pc that names the build
 # tree: whether LICENSE matches what the source itself says, whether every
@@ -65,28 +72,41 @@
 # so it's flagged on its own, besides an empty list in $C/README for a
 # package that ships binaries.
 #
-# Meant to run after cygport package and `xezat bump`, while $S/$B/$D,
-# the logs and $C/README are still on disk. Never fails the build: every
-# finding is a warning.
+# Meant to run after `xezat bump` whether or not the build got that far
+# (if: always()), while $S/$B/$D, the logs and $C/README are still on
+# disk: each section looks only at what's there. The Check section runs
+# when --check-outcome is success or failure (steps.check.outcome), the
+# recipe sections when --package-outcome is success (cygport package's
+# steps.<id>.outcome) -- an install that failed halfway leaves a $D
+# that says nothing. Never fails the build: every finding is a warning.
 #
 # Usage:
-#   audit_recipe.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport
+#   audit_recipe.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport \
+#     [--check-outcome success|failure|skipped|] [--package-outcome success|...]
 #
 # Output: prints the report to stdout; if GITHUB_OUTPUT is set, also
 # writes it to a temp file and appends `report_file=<path>` there, plus
-# `warnings=<n>` when there was at least one warning and
+# `warnings=<n>` when there was at least one warning,
 # `candidates=<pkg> ...` when the build missed a dependency Cygwin has,
-# and `downloads=<name> ...` when it downloaded something itself.
+# `downloads=<name> ...` when it downloaded something itself,
+# `check=failed|empty|passed|unknown` when check ran, with
+# `check_empty_reason=<reason>` for empty, `check_skipped=<n>` when it
+# skipped tests, and `open=true` when any of these (or an undefined
+# macro) is worth opening the report for.
 
 set -uo pipefail # NOT -e: greps finding nothing are the common case here
 
 dir=""
 cygport_file=""
+check_outcome=""
+package_outcome=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --dir) dir="$2"; shift 2 ;;
     --file) cygport_file="$2"; shift 2 ;;
+    --check-outcome) check_outcome="$2"; shift 2 ;;
+    --package-outcome) package_outcome="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -97,23 +117,21 @@ done
 # spdx_ids, license_base, identify_license_text -- shared with
 # port-until-green's preflight_bump.sh.
 source "$(dirname "$0")/license_text.sh"
+source "$(dirname "$0")/cygwin_path.sh"
+source "$(dirname "$0")/audit/undefined_macros.sh"
+source "$(dirname "$0")/audit/check.sh"
 
 cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
-# Same `cygport <file> vars <NAME>` mechanism as the diagnose_*.sh.
-vars_decl="$(cygport "$cygport_file" vars PN PVR S B D C logdir BUILD_REQUIRES DEPS_PATH HOMEPAGE LICENSE LICENSE_URI 2>/dev/null)"
+# `cygport <file> vars <NAME>` prints a `NAME=...` declaration for each.
+vars_decl="$(cygport "$cygport_file" vars PN PVR S B D C logdir checklog workdir BUILD_REQUIRES DEPS_PATH HOMEPAGE LICENSE LICENSE_URI 2>/dev/null)"
 if [[ -z "$vars_decl" ]]; then
   echo "audit_recipe.sh: 'cygport $cygport_file vars ...' returned nothing -- nothing to audit" >&2
   exit 0
 fi
-PN="" PVR="" S="" B="" D="" C="" logdir="" BUILD_REQUIRES="" DEPS_PATH="" HOMEPAGE="" LICENSE="" LICENSE_URI=""
+PN="" PVR="" S="" B="" D="" C="" logdir="" checklog="" workdir="" BUILD_REQUIRES="" DEPS_PATH="" HOMEPAGE="" LICENSE="" LICENSE_URI=""
 eval "$vars_decl"
-
-if [[ ! -d "$S" || ! -d "$D" ]]; then
-  echo "audit_recipe.sh: \$S ('$S') or \$D ('$D') isn't there -- run after cygport install" >&2
-  exit 0
-fi
 
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
@@ -245,6 +263,7 @@ audit_pc_files() {
 }
 
 audit_license() {
+  say ""
   say "== LICENSE =="
   if [[ -z "$LICENSE" ]]; then
     say "LICENSE isn't set in the recipe (see port-until-green's \"Missing LICENSE\")"
@@ -1093,18 +1112,37 @@ EOF
   done
 }
 
-audit_homepage
-audit_pc_files
-audit_license
-before=$warnings
-audit_build_requires
-build_requires_warnings=$((warnings - before))
+macro_errors=0
+check_verdict="" check_empty_reason="" check_skipped=""
+build_requires_warnings=0
 candidates=()
-audit_missing_deps
 downloads=()
-audit_build_downloads
-audit_runtime_requires
-audit_cmake_requires
+
+audit_undefined_macros
+audit_check
+if [[ "$package_outcome" != success ]]; then
+  echo "audit_recipe.sh: cygport package didn't succeed (outcome '${package_outcome:-none}') -- recipe sections skipped" >&2
+elif [[ ! -d "$S" || ! -d "$D" ]]; then
+  echo "audit_recipe.sh: \$S ('$S') or \$D ('$D') isn't there -- recipe sections skipped" >&2
+else
+  audit_homepage
+  audit_pc_files
+  audit_license
+  before=$warnings
+  audit_build_requires
+  build_requires_warnings=$((warnings - before))
+  audit_missing_deps
+  audit_build_downloads
+  audit_runtime_requires
+  audit_cmake_requires
+fi
+
+# The sections each start with a blank line.
+[[ ${#report[@]} -gt 0 && -z "${report[0]}" ]] && report=("${report[@]:1}")
+if (( ${#report[@]} == 0 )); then
+  echo "audit_recipe.sh: nothing to report" >&2
+  exit 0
+fi
 
 if (( build_requires_warnings > 0 )); then
   report+=("" "$warnings warning(s). A build that passes without a BUILD_REQUIRES package can still have lost a feature: compare the package contents before dropping it.")
@@ -1126,6 +1164,19 @@ if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
   fi
   if (( ${#downloads[@]} > 0 )); then
     echo "downloads=$(printf '%s\n' "${downloads[@]}" | sort -u | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
+  fi
+  if [[ -n "$check_verdict" ]]; then
+    echo "check=$check_verdict" >> "$GITHUB_OUTPUT"
+  fi
+  if [[ -n "$check_empty_reason" ]]; then
+    echo "check_empty_reason=$check_empty_reason" >> "$GITHUB_OUTPUT"
+  fi
+  if [[ -n "$check_skipped" ]]; then
+    echo "check_skipped=$check_skipped" >> "$GITHUB_OUTPUT"
+  fi
+  if (( warnings > 0 || ${#candidates[@]} > 0 || ${#downloads[@]} > 0 )) ||
+    [[ -n "$check_skipped" || "$check_verdict" == failed || "$check_verdict" == empty ]]; then
+    echo "open=true" >> "$GITHUB_OUTPUT"
   fi
 fi
 exit 0

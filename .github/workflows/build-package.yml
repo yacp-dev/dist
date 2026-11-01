@@ -430,19 +430,6 @@ jobs:
         id: compile
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step compile
 
-      # configure_cygport.sh's acsite.m4 makes autoconf (run by
-      # cygautoreconf, inside src_compile) fail on an AX_*/PKG_* macro
-      # whose .m4 isn't installed -- usually a missing autoconf-archive or
-      # pkgconf in BUILD_REQUIRES (doc/spec.md 4.3.1). Pulls just those
-      # error lines out of cygport's own compile log for the run summary,
-      # while it's still on disk (a step failing doesn't tear down the
-      # rest of the job's filesystem); scoped to compile's own failure via
-      # steps.compile.outcome.
-      - name: Diagnose undefined macro
-        id: diagnose-macro
-        if: failure() && steps.compile.outcome == 'failure'
-        run: bash -- scripts/diagnose_undefined_macro.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
-
       # Non-fatal by design: a test suite failing (or hanging -- some
       # need a display, network access, or other things a CI runner
       # doesn't have) says something about the package worth knowing, but
@@ -451,7 +438,9 @@ jobs:
       # the failure so later steps still run; timeout-minutes caps how
       # long a hang can hold the job (check_timeout_minutes input,
       # default 10 -- override per-run for a package with a genuinely
-      # slow test suite).
+      # slow test suite). What it did -- why it failed, whether it ran
+      # any tests, which it skipped -- is in Audit recipe's Check
+      # section, since the outcome alone says none of that.
       #
       # fromJSON() is required despite `check_timeout_minutes` already
       # being declared `type: number`: workflow_dispatch inputs are still
@@ -468,48 +457,6 @@ jobs:
         timeout-minutes: ${{ fromJSON(inputs.check_timeout_minutes) }}
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step check
 
-      # continue-on-error above leaves both the run and the step's own
-      # conclusion green when tests fail -- only steps.check.outcome
-      # says so -- and the reason sits in a test log that never leaves the
-      # runner (libeconf 0.8.6: 73/73 tests at exit status 127, nothing
-      # in the job log saying why). Pulls the summary, up to 3 distinct
-      # failing tests' log blocks, and cygcheck/a direct run of the first
-      # failing executable out
-      # for the job summary and the PR body below. No failure() here: the
-      # job is still succeeding at this point. timeout-minutes in case
-      # running the executable hangs anyway: without it, the step waits
-      # until the 6-hour job limit and the run is cancelled with no PR.
-      - name: Diagnose check failure
-        id: diagnose-check
-        if: steps.check.outcome == 'failure'
-        continue-on-error: true
-        timeout-minutes: 5
-        run: bash -- scripts/diagnose_check_failure.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
-
-      # A check that ran no tests passes just the same (a src_test of
-      # `:`, cygtest finding no check/test target, ctest/meson finding
-      # none), so a green check alone doesn't say the suite was reached.
-      # Says so in the job summary and the PR body, for whoever fixes the
-      # recipe to look at whether upstream has tests src_test misses.
-      - name: Detect empty check
-        id: empty-check
-        if: steps.check.outcome == 'success'
-        continue-on-error: true
-        run: bash -- scripts/detect_empty_check.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
-
-      # A skipped test counts as passed (or isn't counted), so neither the
-      # check outcome nor Detect empty check says the suite didn't cover
-      # it -- and a skip is often a missing BUILD_REQUIRES: libavif
-      # 1.4.2's ImageMagick tests skip themselves when it's absent (with
-      # PATH limited to Cygwin, see cygwin_path.sh; before that they ran
-      # System32's convert.exe and failed). Lists them for the job summary
-      # and the PR body, whether check passed or failed.
-      - name: Detect skipped tests
-        id: skipped-tests
-        if: steps.check.outcome == 'success' || steps.check.outcome == 'failure'
-        continue-on-error: true
-        run: bash -- scripts/detect_skipped_tests.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
-
       - name: cygport install
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step install
 
@@ -521,6 +468,7 @@ jobs:
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step list
 
       - name: cygport package
+        id: package
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
       - name: Validate build
@@ -575,10 +523,24 @@ jobs:
       # without failing, which is why it runs after Update README via
       # xezat. Warnings only, so continue-on-error too: the report goes to
       # the run summary, the PR body just says there is one.
+      #
+      # It's also the report on the build itself, for whoever fixes the
+      # recipe next: the undefined autoconf macros a failed compile hit
+      # (configure_cygport.sh's acsite.m4, doc/spec.md 4.3.1), and what
+      # cygport check did -- why it failed, that it ran no tests, which
+      # tests it skipped. So it runs whichever step failed (!cancelled()),
+      # and each section reads only what that build left: the Check
+      # section when check ran, the recipe sections when cygport package
+      # succeeded. timeout-minutes because the Check section runs a
+      # failing test executable directly (itself bounded by timeout(1)):
+      # without it a hang waits out the 6-hour job limit and the run is
+      # cancelled with no PR.
       - name: Audit recipe
         id: audit
+        if: ${{ !cancelled() && steps.detect.outcome == 'success' }}
         continue-on-error: true
-        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
+        timeout-minutes: 20
+        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --check-outcome "${{ steps.check.outcome }}" --package-outcome "${{ steps.package.outcome }}"
 
       # cygport's `install` step (above) already runs postinst as part of
       # itself (see cygport's own src_postinst.cygpart/bin/cygport.in:
@@ -786,9 +748,10 @@ jobs:
           # artifact's own step output (v4+), not something computed here.
           #
           # The check line is empty unless cygport check failed, which
-          # otherwise leaves no trace on a green run (see Diagnose check
-          # failure); the diagnostic itself goes to the run summary rather
-          # than here, to keep a possibly long log excerpt out of the PR.
+          # otherwise leaves no trace on a green run (see Audit recipe's
+          # Check section); the diagnostic itself goes to the run summary
+          # rather than here, to keep a possibly long log excerpt out of
+          # the PR.
           # Likewise the empty-check line, unless check ran no tests, the
           # skipped-tests line, unless check skipped some, the downloads
           # line, unless the build fetched something itself, and the audit line, unless Audit recipe warned, the dependencies
@@ -800,11 +763,11 @@ jobs:
 
             Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-            ${{ steps.check.outcome == 'failure' && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
+            ${{ (steps.check.outcome == 'failure' || steps.audit.outputs.check == 'failed') && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
 
-            ${{ steps.empty-check.outputs.reason && format('**`cygport check` ran no tests** ({0}).', steps.empty-check.outputs.reason) || '' }}
+            ${{ steps.audit.outputs.check_empty_reason && format('**`cygport check` ran no tests** ({0}).', steps.audit.outputs.check_empty_reason) || '' }}
 
-            ${{ steps.skipped-tests.outputs.count && format('**`cygport check` skipped {0} test(s)** -- a tool or library missing from `BUILD_REQUIRES` may be why; see the run summary.', steps.skipped-tests.outputs.count) || '' }}
+            ${{ steps.audit.outputs.check_skipped && format('**`cygport check` skipped {0} test(s)** -- a tool or library missing from `BUILD_REQUIRES` may be why; see the run summary.', steps.audit.outputs.check_skipped) || '' }}
 
             ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
 
@@ -907,4 +870,4 @@ jobs:
       # survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --macro-diagnostic-file "${{ steps.diagnose-macro.outputs.diagnostic_file }}" --check-diagnostic-file "${{ steps.diagnose-check.outputs.diagnostic_file }}" --check-empty-reason "${{ steps.empty-check.outputs.reason }}" --check-skipped-file "${{ steps.skipped-tests.outputs.report_file }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-candidates "${{ steps.audit.outputs.candidates }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}"

@@ -1,35 +1,26 @@
 #!/usr/bin/env bash
-# Reports whether a build-package run's `cygport check` failed, and if so
-# prints the workflow's own "Diagnose check failure" output (totals, the
+# Reports what a build-package run's `cygport check` did, from the Check
+# section of the workflow's Audit recipe report (scripts/audit/check.sh):
+# its verdict line -- "check: FAILED" with the diagnostic (totals, the
 # first failing tests, up to 3 distinct failing tests' log blocks,
-# cygcheck and a direct run of the first failing executable).
+# cygcheck and a direct run of the first failing executable), "check:
+# empty (<reason>)" with the end of the check log, "check: passed" --
+# then "check-skipped: N test(s)" and the skipped tests, if any.
 #
 # cygport check is continue-on-error, so the run and even the step's own
-# conclusion stay green when tests fail; the only trace is whether the
-# Diagnose check failure step ran (it's gated on steps.check.outcome)
-# and, for a timeout, the check step's own log. `gh run view --log`
-# keeps step names (unlike --log-failed), so the step can be cut out of
-# it.
+# conclusion stay green when tests fail; only the report says so.
+# `gh run view --log` keeps step names (unlike --log-failed), so the
+# step's output can be cut out of it.
 #
 # Right after a run completes, the jobs API can still list its steps as
 # they were mid-run (cygport check in_progress, the ones after it
 # pending, no conclusions), so the step list is re-read until no step
 # is left unfinished.
 #
-# A passing check that ran no tests leaves "check-empty: <reason>" in
-# the Detect empty check step's log (detect_empty_check.sh); that's
-# reported as "check: empty" rather than "check: passed".
-#
-# Tests check skipped, passed or failed, are listed after that in the
-# Detect skipped tests step's "check-skipped: N test(s)" report
-# (detect_skipped_tests.sh), since a skip counts as a pass.
-#
 # Usage:
 #   check_summary.sh --run 123456789
-# Output: "check: passed", "check: empty" plus the end of the check log,
-# "check: FAILED" plus the diagnostic, or "check: unknown" when the run
-# never reached check or predates the diagnose step; then the skipped
-# tests, if any.
+# Output: the Check section as above, or "check: unknown (...)" when the
+# run never reached check or predates the Check section.
 
 set -euo pipefail
 
@@ -49,7 +40,7 @@ done
 for attempt in 1 2 3 4 5 6 7 8 9 10; do
   out="$(gh run view "$run" -R "$repo" --json status,jobs \
     --jq '(if .status != "completed" then "running" else [.jobs[].steps[] | select(.status != "completed")] | length end),
-          (.jobs[].steps[] | select(.name == "cygport check" or .name == "Diagnose check failure") | .name + "\t" + .conclusion)')"
+          (.jobs[].steps[] | select(.name == "cygport check" or .name == "Audit recipe") | .name + "\t" + .conclusion)')"
   unfinished="${out%%$'\n'*}"
   [[ "$unfinished" == running || "$unfinished" == 0 ]] && break
   if [[ $attempt == 10 ]]; then
@@ -60,68 +51,28 @@ for attempt in 1 2 3 4 5 6 7 8 9 10; do
 done
 steps="$(tail -n +2 <<<"$out")"
 check="$(awk -F'\t' '$1 == "cygport check" { print $2 }' <<<"$steps")"
-diagnose="$(awk -F'\t' '$1 == "Diagnose check failure" { print $2 }' <<<"$steps")"
+audit="$(awk -F'\t' '$1 == "Audit recipe" { print $2 }' <<<"$steps")"
 
 if [[ -z "$check" || "$check" == "skipped" ]]; then
   echo "check: unknown (cygport check didn't run)"
   exit 0
 fi
-
-# Whichever way the verdict below comes out, follow it with the skipped
-# tests (empty before the Detect skipped tests step existed).
-print_skipped() {
-  local skipped
-  skipped="$(gh run view "$run" -R "$repo" --log 2>/dev/null |
-    perl -pe 's/\e\[[0-9;]*m//g' |
-    awk -F'\t' '$2 == "Detect skipped tests" { sub(/^[^ ]+ /, "", $3); print $3 }' |
-    sed -n '/^check-skipped: /,$p')" || true
-  if [[ -n "$skipped" ]]; then
-    echo
-    echo "$skipped"
-  fi
-}
-trap print_skipped EXIT
-if [[ -z "$diagnose" ]]; then
-  echo "check: unknown (run predates the Diagnose check failure step; grep the cygport check step of 'gh run view $run --log' for Fail:/FAILED)"
-  exit 0
-fi
-if [[ "$diagnose" == "skipped" ]]; then
-  # Third tab-separated field is "<timestamp> <line>", as below.
-  empty="$(gh run view "$run" -R "$repo" --log |
-    perl -pe 's/\e\[[0-9;]*m//g' |
-    awk -F'\t' '$2 == "Detect empty check" { sub(/^[^ ]+ /, "", $3); print $3 }' |
-    sed -n '/^check-empty: /,$p')"
-  if [[ -n "$empty" ]]; then
-    first="${empty%%$'\n'*}"
-    echo "check: empty (${first#check-empty: })"
-    echo
-    tail -n +2 <<<"$empty"
-  else
-    # Some upstream test drivers (libosip2's src/test/tst) exit 0 even when
-    # unit tests fail and only print "unit testing failed: N", so the check
-    # step passes with failures in it. Read that summary from the step's log.
-    unit="$(gh run view "$run" -R "$repo" --log |
-      perl -pe 's/\e\[[0-9;]*m//g' |
-      awk -F'\t' '$2 == "cygport check" { sub(/^[^ ]+ /, "", $3); print $3 }' |
-      grep '^unit testing ' || true)"
-    failed="$(sed -n 's/^unit testing failed: *//p' <<<"$unit")"
-    if [[ -n "$failed" && "$failed" != 0 ]]; then
-      total="$(sed -n 's/^unit testing total : *//p' <<<"$unit")"
-      echo "check: FAILED ($failed of $total unit tests failed, though cygport check passed)"
-      echo
-      echo "$unit"
-    else
-      echo "check: passed"
-    fi
-  fi
+if [[ -z "$audit" || "$audit" == "skipped" ]]; then
+  echo "check: unknown (Audit recipe didn't run; grep the cygport check step of 'gh run view $run --log' for Fail:/FAILED)"
   exit 0
 fi
 
-echo "check: FAILED"
-echo
-# Third tab-separated field is "<timestamp> <line>"; drop the timestamp
-# and the step's own ##[group] preamble.
-gh run view "$run" -R "$repo" --log |
+# Third tab-separated field is "<timestamp> <line>"; drop the timestamp.
+# The section runs from its "== Check ==" header to the next header, or
+# to the report's closing "N warning(s)." line.
+section="$(gh run view "$run" -R "$repo" --log |
   perl -pe 's/\e\[[0-9;]*m//g' |
-  awk -F'\t' '$2 == "Diagnose check failure" { sub(/^[^ ]+ /, "", $3); print $3 }' |
-  sed -n '/^cygport check failed/,$p'
+  awk -F'\t' '$2 == "Audit recipe" { sub(/^[^ ]+ /, "", $3); print $3 }' |
+  awk '/^== Check ==$/ { on = 1; next } on && (/^== .* ==$/ || /^[0-9]+ warning\(s\)/ || /^##\[/) { exit } on' |
+  sed -e :a -e '/^\n*$/{$d;N;ba' -e '}')"
+
+if [[ -z "$section" ]]; then
+  echo "check: unknown (no Check section in Audit recipe's log -- the run predates it; see its Diagnose check failure / Detect empty check / Detect skipped tests steps)"
+  exit 0
+fi
+echo "$section"

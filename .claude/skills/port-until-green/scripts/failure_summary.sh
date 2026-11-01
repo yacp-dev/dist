@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Summarizes a failed build-package run: which steps failed, the
-# workflow's own undefined-macro diagnostic (the Diagnose undefined macro
-# step, which succeeds and so isn't in --log-failed), and the full
+# undefined-macro section of the workflow's Audit recipe report (that
+# step is continue-on-error, so it isn't in --log-failed), and the full
 # failed-step log saved to a file. `gh run view --log-failed`
 # labels every line "UNKNOWN STEP" and runs to thousands of lines, so it is
 # saved for grepping rather than printed.
@@ -36,24 +36,16 @@ steps="$(gh run view "$run" -R "$repo" --json jobs \
 echo "== Failed steps"
 awk -F'\t' '$2 == "failure" { print "- " $1 }' <<<"$steps"
 
-# Each diagnose step only runs when its own step failed. Cut its output
-# out of `gh run view --log` (which, unlike --log-failed, keeps step
-# names): the third tab-separated field is "<timestamp> <line>"; drop the
-# timestamp and the step's own ##[group] preamble.
-diagnose_steps=()
-for name in "Diagnose undefined macro"; do
-  if awk -F'\t' -v n="$name" '$1 == n && $2 == "success" { found = 1 } END { exit !found }' <<<"$steps"; then
-    diagnose_steps+=("$name")
-  fi
-done
-if (( ${#diagnose_steps[@]} > 0 )); then
-  full_log="$(gh run view "$run" -R "$repo" --log | perl -pe 's/\e\[[0-9;]*m//g')"
-  for name in "${diagnose_steps[@]}"; do
-    echo
-    echo "== $name"
-    awk -F'\t' -v n="$name" '$2 == n { sub(/^[^ ]+ /, "", $3); print $3 }' <<<"$full_log" |
-      sed '1,/^##\[endgroup\]/d'
-  done
+# Audit recipe runs whichever step failed. Cut its Undefined macros
+# section out of `gh run view --log` (which, unlike --log-failed, keeps
+# step names): the third tab-separated field is "<timestamp> <line>".
+macros="$(gh run view "$run" -R "$repo" --log |
+  perl -pe 's/\e\[[0-9;]*m//g' |
+  awk -F'\t' '$2 == "Audit recipe" { sub(/^[^ ]+ /, "", $3); print $3 }' |
+  awk '/^== Undefined macros ==$/ { on = 1; print; next } on && (/^$/ || /^== .* ==$/ || /^##\[/) { exit } on')" || true
+if [[ -n "$macros" ]]; then
+  echo
+  echo "$macros"
 fi
 
 log="$out/run-$run-failed.log"

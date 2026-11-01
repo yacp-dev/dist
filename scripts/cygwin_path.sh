@@ -14,7 +14,7 @@
 # expand, hostname, whoami, tar, curl, ssh and a WSL bash.exe; the runner
 # image adds Windows builds of python, perl, cmake and more. Without them,
 # a missing tool fails as missing (or a test skips itself, which
-# detect_skipped_tests.sh reports), and the fix -- a BUILD_REQUIRES
+# Audit recipe's Check section reports), and the fix -- a BUILD_REQUIRES
 # entry -- is plain from the log.
 #
 # Usage:

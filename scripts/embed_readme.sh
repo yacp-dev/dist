@@ -44,7 +44,7 @@ done
 cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
-# Same `cygport <file> vars <NAME>` mechanism as the diagnose_*.sh.
+# Same `cygport <file> vars <NAME>` mechanism as audit_recipe.sh.
 vars_decl="$(cygport "$cygport_file" vars C D PN RESTRICT _CYGPORT_INTERNAL_multi_doc_)"
 C="" D="" PN="" RESTRICT="" _CYGPORT_INTERNAL_multi_doc_=""
 eval "$vars_decl"
