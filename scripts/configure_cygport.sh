@@ -100,6 +100,10 @@ dnl Shell variable autoconf-archive's own ax_check_gnu_make.m4 sets.
 m4_pattern_allow([^AX_CHECK_GNU_MAKE_HEADLINE$])
 dnl Shell variables autoconf-archive's own ax_file_escapes.m4 sets.
 m4_pattern_allow([^AX_(DOLLAR|SRB|SLB|BS|DQ)$])
+dnl Shell variables autoconf-archive's own ax_lib_postgresql.m4 sets.
+m4_pattern_allow([^_AX_LIB_POSTGRESQL_OLD_(CPPFLAGS|LDFLAGS|LIBS)$])
+dnl Shell variable autoconf-archive's own ax_boost_base.m4 sets.
+m4_pattern_allow([^_AX_BOOST_BASE_TONUMERICVERSION_RET$])
 EOF
 
 cat > "$HOME/.cygportrc" <<'EOF'
