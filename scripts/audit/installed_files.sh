@@ -1,0 +1,158 @@
+# Sourced by audit_recipe.sh: the "*-config", "*.pc" and "AppStream"
+# sections, on what the packages install for other builds to use. These
+# checks (but the build-tree one) used to be the Validate build step
+# (validate_recipe.sh, which replaced `xezat validate`). They read $D, so
+# audit_recipe.sh runs them only once `cygport package` succeeded.
+#
+# Each section's header is printed only when it has a warning.
+
+# Where a -l library may live, as xezat looked it up: $D/usr/lib, then
+# /usr/lib, /usr/lib/w32api and the compiler's own library directory --
+# gcc-core's /usr/lib/gcc/<target>/<major>, taken from gcc itself so it
+# doesn't need the version parsed out of cygcheck's output.
+installed_lib_dirs() {
+  local libgcc
+  lib_dirs=("$D/usr/lib" /usr/lib /usr/lib/w32api)
+  libgcc="$(gcc -print-libgcc-file-name 2>/dev/null)"
+  [[ "$libgcc" == /* ]] && lib_dirs+=("$(dirname "$libgcc")")
+}
+
+# Prints "<owner> --libs: -l<name> not found ..." for each -l in <libs>
+# that's in none of lib_dirs.
+missing_libs() { # <owner> <libs>
+  local owner="$1" opt lib dir
+  for opt in $2; do
+    [[ "$opt" == -l* ]] || continue
+    lib="${opt#-l}"
+    for dir in "${lib_dirs[@]}"; do
+      [[ -f "$dir/lib$lib.dll.a" || -f "$dir/lib$lib.a" ]] && continue 2
+    done
+    echo "$owner --libs: -l$lib not found (looked in ${lib_dirs[*]})"
+  done
+}
+
+# Each $D/usr/bin/*-config: --version is $PV, --libs' -l libraries
+# exist. One that answers neither --version nor --libs isn't a
+# pkg-config-style script (some are named *-config for something else)
+# and is skipped.
+audit_config_scripts() {
+  local -a lib_dirs found=()
+  local config name version version_rc libs libs_rc pv="${PV%%+*}" line
+  shopt -s nullglob
+  local -a configs=("$D"/usr/bin/*-config)
+  shopt -u nullglob
+  (( ${#configs[@]} > 0 )) || return 0
+  installed_lib_dirs
+
+  for config in "${configs[@]}"; do
+    name="$(basename "$config")"
+    version="$(timeout 5 "$config" --version </dev/null 2>/dev/null)"
+    version_rc=$?
+    libs="$(timeout 5 "$config" --libs </dev/null 2>/dev/null)"
+    libs_rc=$?
+    (( version_rc != 0 && libs_rc != 0 )) && continue
+    if (( version_rc == 0 )); then
+      version="${version//$'\r'/}"
+      [[ "$version" == "$pv" ]] || found+=("$name --version is '$version', not \$PV ($pv)")
+    fi
+    if (( libs_rc == 0 )); then
+      while IFS= read -r line; do
+        [[ -n "$line" ]] && found+=("$line")
+      done < <(missing_libs "$name" "$libs")
+    fi
+  done
+
+  (( ${#found[@]} > 0 )) || return 0
+  say ""
+  say "== *-config =="
+  for line in "${found[@]}"; do
+    warn "$line"
+  done
+}
+
+# Each *.pc under $D (usr/lib/pkgconfig, usr/share/pkgconfig), two ways.
+#
+# Read with pkg-config, $D's directories first in PKG_CONFIG_PATH: the
+# version must be $PV, the prefix /usr, --libs must resolve (a Requires
+# that isn't found is warned with pkg-config's own message) and its -l
+# libraries exist. The system's own .pc files stay visible behind $D's,
+# as they'd be for the package's users, so a Requires on something
+# installed resolves the same way. Not PKG_CONFIG_SYSROOT_DIR (it would
+# rewrite the system's -L paths into $D) nor PKG_CONFIG_LIBDIR (it hides
+# the system's .pc files).
+#
+# And by line: one that names the build tree ($S, $B, $D, $C) or a
+# /cygdrive, /home or /tmp path -- prefix, libdir, Libs, Cflags -- works
+# on this build and nowhere else, so the .pc itself has to be fixed (a
+# ${prefix}-relative path, or a patch of the .pc in src_patch or
+# src_install), not the build output.
+audit_pc_files() {
+  local -a lib_dirs pats=() found=()
+  local -A seen=()
+  local p pcdir pcfile pc_path="" name modversion prefix libs hits hit line pv="${PV%%+*}"
+  shopt -s nullglob
+  local -a pcfiles=("$D"/usr/lib/pkgconfig/*.pc "$D"/usr/share/pkgconfig/*.pc)
+  shopt -u nullglob
+  (( ${#pcfiles[@]} > 0 )) || return 0
+
+  for pcdir in "$D/usr/lib/pkgconfig" "$D/usr/share/pkgconfig"; do
+    [[ -d "$pcdir" ]] && pc_path="${pc_path:+$pc_path:}$pcdir"
+  done
+  if ! command -v pkg-config >/dev/null 2>&1; then
+    found+=("pkg-config is not installed, *.pc files under \$D can't be read with it")
+  else
+    installed_lib_dirs
+    for pcfile in "${pcfiles[@]}"; do
+      name="$(basename "$pcfile" .pc)"
+      [[ -n "${seen[$name]:-}" ]] && continue
+      seen[$name]=1
+      if ! modversion="$(PKG_CONFIG_PATH="$pc_path" pkg-config --modversion "$name" 2>"$tmp/pc-err")"; then
+        found+=("$name.pc: pkg-config can't read it: $(tr '\n' ' ' < "$tmp/pc-err")")
+        continue
+      fi
+      [[ "$modversion" == "$pv" ]] || found+=("$name.pc: modversion is '$modversion', not \$PV ($pv)")
+      prefix="$(PKG_CONFIG_PATH="$pc_path" pkg-config --variable=prefix "$name" 2>/dev/null)"
+      [[ -z "$prefix" || "$prefix" == /usr ]] || found+=("$name.pc: prefix = $prefix, not /usr")
+      if ! libs="$(PKG_CONFIG_PATH="$pc_path" pkg-config --libs --print-errors "$name" 2>"$tmp/pc-err")"; then
+        found+=("$name.pc: --libs failed: $(tr '\n' ' ' < "$tmp/pc-err")")
+        continue
+      fi
+      while IFS= read -r line; do
+        [[ -n "$line" ]] && found+=("$line")
+      done < <(missing_libs "$name.pc" "$libs")
+    done
+  fi
+
+  for p in "$S" "$B" "$D" "$C"; do
+    [[ -n "$p" && "$p" != / ]] && pats+=("$p")
+  done
+  printf '%s\n' "${pats[@]}" > "$tmp/pc-patterns"
+  for pcfile in "${pcfiles[@]}"; do
+    hits="$( { grep -nF -f "$tmp/pc-patterns" "$pcfile"; grep -nE '/cygdrive/|/home/|/tmp/' "$pcfile"; } 2>/dev/null | sort -t: -k1,1n -u)"
+    while IFS= read -r hit; do
+      [[ -n "$hit" ]] || continue
+      found+=("${pcfile#"$D"/}:${hit%%:*} names the build tree: ${hit#*:} -- fix the .pc itself (a \${prefix}-relative path, or a patch of it in src_patch or src_install)")
+    done <<< "$hits"
+  done
+
+  (( ${#found[@]} > 0 )) || return 0
+  say ""
+  say "== *.pc =="
+  for line in "${found[@]}"; do
+    warn "$line"
+  done
+}
+
+# Nothing left in the legacy AppStream path /usr/share/appdata.
+audit_appstream() {
+  local file printed=0
+  for file in "$D"/usr/share/appdata/*; do
+    [[ -e "$file" ]] || continue
+    if (( ! printed )); then
+      say ""
+      say "== AppStream =="
+      printed=1
+    fi
+    warn "usr/share/appdata/$(basename "$file") is in the legacy AppStream path -- install it into /usr/share/metainfo"
+  done
+}

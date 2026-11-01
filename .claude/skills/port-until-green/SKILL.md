@@ -79,8 +79,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   (one API call every 90 s by default), prints `<conclusion> <run url>`,
   and exits 0 only on success.
 - `scripts/failure_summary.sh --run ID --out DIR` — failed step names,
-  the `== Undefined macros ==` section of `Audit recipe` (when compile
-  hit one), and the full failed log saved to `DIR` for grepping.
+  the `== Recipe ==` and `== Undefined macros ==` sections of `Audit
+  recipe` (when it warned / compile hit one), and the full failed log
+  saved to `DIR` for grepping.
 - `scripts/check_summary.sh --run ID` — the `== Check ==` section of
   `Audit recipe`: whether `cygport check` passed, ran no tests
   (`check: empty`), or failed, with its diagnostic, and the tests it
@@ -446,7 +447,18 @@ already has them.
   if a `check-skipped:` list follows the verdict (with any of the
   three), go to "Skipped tests" as well. Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
-  LICENSE" below. Then look at `Audit recipe`'s `== Runtime
+  LICENSE" below. A `WARNING:` in `Audit recipe`'s `== Recipe ==`,
+  `== *-config ==`, `== *.pc ==` or `== AppStream ==` sections (`gh run
+  view <id> -R yacp-dev/dist --log | grep -E -A8 '== (Recipe|\*-config|\*\.pc|AppStream) =='`)
+  is something to fix on the branch before calling it done: a
+  `HOMEPAGE` that redirects (set it to the URL the warning names), an
+  invalid `CATEGORY`, a `.pc`/`*-config` whose version, prefix or
+  `-l` libraries are wrong or that names the build tree (fix it in
+  `src_install` or a `PATCH_URI` patch), a file in
+  `/usr/share/appdata` (move it to `/usr/share/metainfo`). One commit
+  per fix, `<pkg>-<ver> (fix <what>)`, then re-run. A `BUILD_REQUIRES`
+  package that isn't installed is a misspelling or not a Cygwin
+  package: correct or drop it. Then look at `Audit recipe`'s `== Runtime
   requirements ==` section (`gh run view <id> -R yacp-dev/dist --log |
   grep -A8 '== Runtime requirements =='`): a `WARNING:` there means the
   README the PR carries lists no runtime requirements, or will once an
@@ -691,8 +703,8 @@ line it printed, the test script, or the build file that disabled it):
 ### Missing LICENSE
 
 Without `LICENSE`, cygport logs `*** Warning: LICENSE not defined` at
-every step, and the `Validate build` step warns `LICENSE is
-not defined` / `LICENSE_URI is not defined`. Fill in whichever of the
+every step, and `Audit recipe`'s `== Recipe ==` section warns
+`LICENSE is not defined` / `LICENSE_URI is not defined`. Fill in whichever of the
 three is missing (keep any that are already there), from the new
 version's source: the tarball from `SRC_URI`, extracted into the
 scratchpad. Don't let a missing license hold up a red build. If you're
@@ -756,10 +768,10 @@ file), has no license file at all, or uses a custom or non-SPDX license,
 don't guess. Leave it out and tell the user what you found.
 
 Commit as `<pkg>-<ver> (add LICENSE)` and re-run the same target.
-Afterwards, check that `Validate build` no longer logs
-`LICENSE`/`LICENSE_URI` warnings or errors
-(`gh run view <id> -R yacp-dev/dist --log | grep -i 'licen'`), and
-that `Audit recipe`'s `== LICENSE ==` section has no `WARNING:` lines;
+Afterwards, check that `Audit recipe`'s `== Recipe ==` section no
+longer warns about `LICENSE`/`LICENSE_URI`, and that its
+`== LICENSE ==` section has no `WARNING:` lines
+(`gh run view <id> -R yacp-dev/dist --log | grep -i 'licen'`);
 it applies the same shipped-files rule, and says which licenses it left
 out as unshipped.
 

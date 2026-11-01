@@ -471,9 +471,6 @@ jobs:
         id: package
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
-      - name: Validate build
-        run: bash -- scripts/validate_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
-
       # Feeds Decide changelog message below. gcc-core is always
       # installed as part of the base toolchain (see Install Cygwin (base
       # toolchain) above), so this doesn't need its own package install.
@@ -505,13 +502,17 @@ jobs:
           XEZAT_BUMP_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
         run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
-      # validate_recipe.sh only checks that LICENSE is set and that every
-      # BUILD_REQUIRES package is installed (plus the BOM, CATEGORY,
-      # HOMEPAGE/LICENSE_URI reachability, *-config, *.pc and AppStream
-      # path).
-      # This checks LICENSE against the headers and license texts of what
-      # the packages ship
-      # (installed files and the sources compiled into them), and each
+      # First what the recipe says, which needs no build (what Validate
+      # build, replacing `xezat validate`, used to check): no BOM, a valid
+      # CATEGORY, HOMEPAGE/LICENSE_URI answering 200 (a redirect named
+      # with the URL to set), LICENSE set, every BUILD_REQUIRES package
+      # installed. Once the package is built, what it installs for other
+      # builds: *-config and *.pc (version, prefix, --libs, build-tree
+      # paths) and nothing in the legacy AppStream path.
+      #
+      # Then it checks LICENSE against the headers and license texts of
+      # what the packages ship (installed files and the sources compiled
+      # into them), and each
       # BUILD_REQUIRES package for evidence the build used it (a DLL
       # import, a file the compiler read, a mention in the logs) -- both
       # go stale silently in a recipe carried from version to version.
@@ -529,9 +530,10 @@ jobs:
       # (configure_cygport.sh's acsite.m4, doc/spec.md 4.3.1), and what
       # cygport check did -- why it failed, that it ran no tests, which
       # tests it skipped. So it runs whichever step failed (!cancelled()),
-      # and each section reads only what that build left: the Check
-      # section when check ran, the recipe sections when cygport package
-      # succeeded. timeout-minutes because the Check section runs a
+      # and each section reads only what that build left: the Recipe
+      # section always (a BUILD_REQUIRES package setup couldn't install
+      # may be why the build failed), the Check section when check ran,
+      # the rest when cygport package succeeded. timeout-minutes because the Check section runs a
       # failing test executable directly (itself bounded by timeout(1)):
       # without it a hang waits out the 6-hour job limit and the run is
       # cancelled with no PR.
@@ -769,7 +771,7 @@ jobs:
 
             ${{ steps.audit.outputs.check_skipped && format('**`cygport check` skipped {0} test(s)** -- a tool or library missing from `BUILD_REQUIRES` may be why; see the run summary.', steps.audit.outputs.check_skipped) || '' }}
 
-            ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
+            ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about the recipe or what it installs -- see the run summary.', steps.audit.outputs.warnings) || '' }}
 
             ${{ steps.audit.outputs.downloads && format('**Build-time downloads**: the build fetched `{0}` itself -- put them in `SRC_URI` (pinned) instead; see the run summary.', steps.audit.outputs.downloads) || '' }}
 

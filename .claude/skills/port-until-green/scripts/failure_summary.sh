@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Summarizes a failed build-package run: which steps failed, the
-# undefined-macro section of the workflow's Audit recipe report (that
+# Summarizes a failed build-package run: which steps failed, the Recipe
+# and Undefined macros sections of the workflow's Audit recipe report
+# (a BUILD_REQUIRES package setup couldn't install, a macro whose .m4
+# isn't installed -- both likely why the build failed; that
 # step is continue-on-error, so it isn't in --log-failed), and the full
 # failed-step log saved to a file. `gh run view --log-failed`
 # labels every line "UNKNOWN STEP" and runs to thousands of lines, so it is
@@ -36,16 +38,18 @@ steps="$(gh run view "$run" -R "$repo" --json jobs \
 echo "== Failed steps"
 awk -F'\t' '$2 == "failure" { print "- " $1 }' <<<"$steps"
 
-# Audit recipe runs whichever step failed. Cut its Undefined macros
-# section out of `gh run view --log` (which, unlike --log-failed, keeps
-# step names): the third tab-separated field is "<timestamp> <line>".
-macros="$(gh run view "$run" -R "$repo" --log |
+# Audit recipe runs whichever step failed. Cut its Recipe and
+# Undefined macros sections out of `gh run view --log` (which, unlike
+# --log-failed, keeps step names): the third tab-separated field is
+# "<timestamp> <line>".
+sections="$(gh run view "$run" -R "$repo" --log |
   perl -pe 's/\e\[[0-9;]*m//g' |
   awk -F'\t' '$2 == "Audit recipe" { sub(/^[^ ]+ /, "", $3); print $3 }' |
-  awk '/^== Undefined macros ==$/ { on = 1; print; next } on && (/^$/ || /^== .* ==$/ || /^##\[/) { exit } on')" || true
-if [[ -n "$macros" ]]; then
-  echo
-  echo "$macros"
+  awk '/^== (Recipe|Undefined macros) ==$/ { on = 1; print ""; print; next }
+       on && (/^$/ || /^== .* ==$/ || /^##\[/) { on = 0 }
+       on')" || true
+if [[ -n "$sections" ]]; then
+  echo "$sections"
 fi
 
 log="$out/run-$run-failed.log"
