@@ -48,6 +48,10 @@
 #      patched source reads (unused_cmake_args.sh). CMake only warns about
 #      them in the compile log, which nobody reads on a green run (onnx's
 #      -DONNX_BUILD_BENCHMARKS, unread since before 1.20.1).
+#   8. For a version update, the BUILD_REQUIRES packages dist.yacp.dev
+#      provides, with dist's version next to upstream's newest (Repology)
+#      and any dorgann/<dep>-* branch: one upstream has moved past may
+#      have to be ported first (samtools-1.25 needs htslib-1.25).
 #
 # Only reports: nothing beyond the bump is changed, and nothing is
 # pushed. Git snapshots (literal GIT_REV) go through git_snapshot_bump.sh
@@ -527,6 +531,74 @@ if [[ " $inherits " == *" cmake "* ]]; then
       sed 's/^/  /' <<<"$unused"
     else
       echo "every -D variable is read by a build file"
+    fi
+  fi
+fi
+
+# 8. yacp dependencies. A BUILD_REQUIRES package that dist.yacp.dev
+# provides was ported by us, so it's only as new as our last port of it.
+# Where upstream has released since, the new version of this package may
+# well need it (a lockstep release like samtools-1.25 with htslib-1.25,
+# or a raised minimum in the build files), and building against the old
+# one costs a run, or builds green against the wrong one. Not for a
+# rebuild: the version's dependencies were met when it was last built.
+if [[ -z "$rebuild" ]]; then
+  echo
+  echo "== yacp dependencies =="
+  build_requires="$(perl -0ne '
+    while (/^BUILD_REQUIRES\+?=(?:"((?:[^"\\]|\\.)*)"|'\''([^'\'']*)'\''|(\S*))/mg) {
+      print(($1 // $2 // $3), "\n");
+    }' "$cygport" | tr -s ' \t\n' '\n' | grep -v '^\$' | grep -v '^$' | sort -u)" || true
+  dist_ini="$(curl -sL --retry 2 https://dist.yacp.dev/x86_64/setup.ini)" || dist_ini=""
+  if [[ -z "$dist_ini" ]]; then
+    echo "couldn't read dist.yacp.dev's setup.ini -- check by hand"
+  elif [[ -z "$build_requires" ]]; then
+    echo "no BUILD_REQUIRES"
+  else
+    # "<binary pkg> <curr version> <source pkg>" for each BUILD_REQUIRES
+    # entry dist provides; the source package is the release/ directory.
+    provided="$(awk -v want="$(tr '\n' ' ' <<<"$build_requires")" '
+      BEGIN { n = split(want, w, " "); for (i = 1; i <= n; i++) wanted[w[i]] = 1 }
+      /^@ / { pkg = $2; ver = ""; done = 0; next }
+      /^\[/ { done = 1 }
+      !done && /^version:/ && ver == "" { ver = $2 }
+      !done && /^install:/ && (pkg in wanted) { split($2, p, "/"); print pkg, ver, p[3]; done = 1 }
+    ' <<<"$dist_ini")"
+    if [[ -z "$provided" ]]; then
+      echo "no BUILD_REQUIRES package comes from dist.yacp.dev"
+    else
+      behind=""
+      while read -r src; do
+        bins="$(awk -v s="$src" '$3 == s { printf "%s%s", sep, $1; sep = ", " }' <<<"$provided")"
+        dist_ver="$(awk -v s="$src" '$3 == s { v = $2; sub(/-[^-]*$/, "", v); print v; exit }' <<<"$provided")"
+        ports_cygport="$(git -C "$ports" ls-tree --name-only origin/master "$src/" | grep '\.cygport$' | head -n 1)" || ports_cygport=""
+        ports_ver="$(basename "$ports_cygport" .cygport)"; ports_ver="${ports_ver%-*}"; ports_ver="${ports_ver#"$src"-}"
+        repology="$(tr '[:upper:]' '[:lower:]' <<<"$src")"
+        sleep 1  # Repology asks for at most one request a second
+        newest="$(curl -sL --retry 2 "https://repology.org/api/v1/project/$repology" |
+          perl -MJSON::PP -0e 'my $d = eval { decode_json(<STDIN>) } || []; @$d or exit; my %v; $v{$_->{version}} = 1 for grep { $_->{status} eq "newest" } @$d; print %v ? join("\n", keys %v) : "-"' |
+          sort -V | tail -n 1)" || newest=""
+        branches="$(git -C "$ports" ls-remote --heads origin "dorgann/$src-*" | sed 's|.*refs/heads/||' | tr '\n' ' ')"
+        line="$src ($bins): dist $dist_ver"
+        [[ -n "$ports_ver" && "$ports_ver" != "$dist_ver" ]] && line+=", ports master $ports_ver (not published)"
+        if [[ -z "$newest" ]]; then
+          line+=", no Repology project '$repology' (it may go by another name) -- check upstream by hand"
+        elif [[ "$newest" == "-" ]]; then
+          line+=", Repology's '$repology' marks no version newest -- check upstream by hand"
+        else
+          line+=", upstream $newest"
+          if [[ "$(printf '%s\n%s\n' "$dist_ver" "$newest" | sort -V | tail -n 1)" != "$dist_ver" ]]; then
+            line+="  <- BEHIND"
+            behind=1
+          fi
+        fi
+        [[ -n "$branches" ]] && line+="; branches: $branches"
+        echo "$line"
+      done < <(awk '{ print $3 }' <<<"$provided" | sort -u)
+      if [[ -n "$behind" ]]; then
+        echo "  -> a dependency marked BEHIND may be what $package-$version needs (a lockstep release, a raised"
+        echo "     minimum version in its build files, NEWS): if so, port it first, before dispatching this one"
+      fi
     fi
   fi
 fi

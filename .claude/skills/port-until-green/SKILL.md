@@ -91,7 +91,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   version) on a local `dorgann/P-V` branch in its own
   worktree (committed, not pushed), and reports what would fail: patches
   that don't apply to the new source, the SOVERSION, LICENSE, a
-  superseded Python, unused CMake `-D` variables (Step 1b).
+  superseded Python, unused CMake `-D` variables, yacp-provided
+  dependencies upstream has moved past (Step 1b).
 - `scripts/unused_cmake_args.sh --recipe F --source DIR [--old-source DIR]` —
   the `-D` variables a cmake recipe passes that no build file in `DIR`
   reads (preflight runs it; also usable on its own).
@@ -295,6 +296,23 @@ source and prints a report. Go through it, fixing on the branch (for a
 rebuild, the source is the current one: the patches and SOVERSION are
 normally fine as they are):
 
+- **yacp dependencies** (version updates only) — go through this
+  first: it can make the rest moot. Each `BUILD_REQUIRES` package that
+  dist.yacp.dev provides is listed by its source package, with dist's
+  version, ports master's if it's newer and unpublished, upstream's
+  newest from Repology, and any `dorgann/<dep>-*` branch. For one
+  marked `BEHIND`, find out whether `<pkg>-<ver>` needs the newer one:
+  a lockstep release (samtools/bcftools and htslib share version
+  numbers), a minimum version in the build files
+  (`PKG_CHECK_MODULES`, `find_package(... <ver>)`, meson
+  `dependency(..., version:)`), NEWS, or what distros require
+  (AUR's `depends=`, Gentoo's `DEPEND`). If it does, don't push or
+  dispatch: stop and tell the user `<dep>-<newest>` has to be ported
+  first (its branch, if one is listed, may already be on the way),
+  leaving this worktree and branch local. One it doesn't need is fine
+  as it is; say so in the one-line summary. Where Repology has no
+  project under that name or marks nothing newest, check upstream's
+  releases by hand (the name may differ, e.g. `gtest` for googletest).
 - **Source** — `SRC_URI didn't resolve` (a cygclass sets it, e.g.
   `inherit github`) → rerun with `--source <url>` after removing the
   worktree and branch it made. A download or `git clone` that fails,
