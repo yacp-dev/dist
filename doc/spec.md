@@ -170,7 +170,7 @@ Limitations: a `.cygport` that sets `NO_AUTOCONF=1` (cygautoreconf then skips au
 
 ### 4.4 On success
 
-- The updated cygport file, patches, and README are turned into a PR against yacp (using `peter-evans/create-pull-request`).
+- The updated cygport file, patches, and README are turned into a PR against yacp (using `peter-evans/create-pull-request`). The commit is titled `<pkg>-<ver>`, or `<pkg>-<ver> (WIP)` if `cygport check` failed (non-blocking); the PR title is `<pkg>-<ver>` either way.
 - Build artifacts (dist) are uploaded as an Actions artifact, downloadable from the run page. **Retention stays at the repository's default (90 days)** and is not changed.
 - The **decision** of whether to publish something as a devel package on gh-pages (chapter 3) is not automated. If the decision is made to publish, the **actual work** happens via the manual `workflow_dispatch` workflow described in 4.4.2 (build artifacts are not mechanically funneled to gh-pages for everything).
 - If the run was a branch rebuild of a draft PR (4.6), that PR is marked ready for review.

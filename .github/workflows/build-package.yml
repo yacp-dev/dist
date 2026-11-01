@@ -739,7 +739,10 @@ jobs:
           delete-branch: true
           # "<PN>-<PV>", no colon or verb, matches yacp's own existing
           # commit message convention (checked against its git history).
-          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
+          # So does " (WIP)" after it when cygport check failed (the body's
+          # check line below, same condition). The PR title stays plain:
+          # yacp only rebase-merges, so the commit's title is what lands.
+          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}${{ (steps.check.outcome == 'failure' || steps.audit.outputs.check == 'failed') && ' (WIP)' || '' }}"
           title: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
           # Leaving `draft` unset (defaults to false) does NOT un-draft an
           # existing draft PR on update, contrary to what
