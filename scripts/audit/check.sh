@@ -143,7 +143,8 @@ check_failure_diagnostic() {
   # passed"), automake ("# FAIL:"/"# ERROR:") -- then the first few
   # failing tests, since a suite where everything fails would otherwise
   # bury the totals under dozens of near-identical lines.
-  grep -E '^(Ok|Fail|Expected Fail|Unexpected Pass|Skipped|Timeout): |tests passed|^# (TOTAL|PASS|FAIL|ERROR|XPASS):' "$checklog" | head -n 10
+  totals="$(grep -E '^(Ok|Fail|Expected Fail|Unexpected Pass|Skipped|Timeout): |tests passed|^# (TOTAL|PASS|FAIL|ERROR|XPASS):' "$checklog" | head -n 10)"
+  [[ -z "$totals" ]] || echo "$totals"
   failing="$(grep -E '^ *[0-9]+/[0-9]+ .* (FAIL|TIMEOUT|ERROR|UNEXPECTEDPASS) |\*\*\*(Failed|Exception|Timeout)|^(FAIL|ERROR): ' "$checklog")"
   if [[ -n "$failing" ]]; then
     echo
@@ -168,6 +169,14 @@ check_failure_diagnostic() {
     echo "$block"
     break
   done
+
+  # No test runner's results anywhere: a src_test that runs its own
+  # commands, so what it printed is all there is to go on (ssocr 2.26.0:
+  # `./ssocr.exe --version` exits 42, and this section said nothing else).
+  if [[ -z "$totals$failing${block:-}" ]]; then
+    echo "--- end of $checklog (no test runner's results in it) ---"
+    check_log_body | tail -n 20
+  fi
 
   # meson prints each failing test's full environment and command on a
   # ">>> VAR=... /path/to/test.exe" line; otherwise fall back to the
