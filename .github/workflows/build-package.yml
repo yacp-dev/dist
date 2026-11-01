@@ -58,10 +58,10 @@ on:
         type: string
         default: ""
       check_timeout_minutes:
-        description: "Timeout (minutes) for cygport check -- failures/timeouts there don't block the PR"
+        description: "Timeout (minutes) for cygport check, overriding the recipe's YACP_CHECK_TIMEOUT_MINUTES and the default of 10 (scripts/check_timeout.sh) -- failures/timeouts there don't block the PR"
         required: false
-        type: number
-        default: 10
+        type: string
+        default: ""
       changelog_message:
         description: "Changelog message for xezat bump (its -m), overriding the automatically decided one (\"Version bump.\"/\"Rebuild with gcc-<ver>\"/\"Rebuild\"). Ignored for <pkg>-<ver>-<rel> of the current release."
         required: false
@@ -436,25 +436,31 @@ jobs:
       # isn't reason enough to withhold the PR/artifact over, unlike an
       # actual compile/install/package failure. continue-on-error swallows
       # the failure so later steps still run; timeout-minutes caps how
-      # long a hang can hold the job (check_timeout_minutes input,
-      # default 10 -- override per-run for a package with a genuinely
-      # slow test suite). What it did -- why it failed, whether it ran
-      # any tests, which it skipped -- is in Audit recipe's Check
+      # long a hang can hold the job (default 10; a package with a genuinely
+      # slow test suite sets YACP_CHECK_TIMEOUT_MINUTES in its recipe, and
+      # the check_timeout_minutes input overrides either for one run --
+      # scripts/check_timeout.sh). What it did -- why it failed, whether it
+      # ran any tests, which it skipped -- is in Audit recipe's Check
       # section, since the outcome alone says none of that.
       #
-      # fromJSON() is required despite `check_timeout_minutes` already
-      # being declared `type: number`: workflow_dispatch inputs are still
-      # plain strings in the `inputs` expression context regardless of
-      # their declared type (only the dispatch UI's input form actually
-      # validates against it), and timeout-minutes rejects a string
-      # outright ("The template is not valid... Unexpected value '10'",
-      # confirmed by a real run -- the step ran anyway with no effective
-      # timeout at all, rather than failing the workflow, which is what
-      # made this easy to miss).
+      # fromJSON() is required: step outputs are plain strings, and
+      # timeout-minutes rejects a string outright ("The template is not
+      # valid... Unexpected value '10'", confirmed by a real run -- the
+      # step ran anyway with no effective timeout at all, rather than
+      # failing the workflow, which is what made this easy to miss). For
+      # the same reason the `|| '10'` covers the script having died
+      # without writing its output.
+      - name: Decide check timeout
+        id: check-timeout
+        continue-on-error: true
+        env:
+          CHECK_TIMEOUT_INPUT: ${{ inputs.check_timeout_minutes }}
+        run: bash -- scripts/check_timeout.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
+
       - name: cygport check
         id: check
         continue-on-error: true
-        timeout-minutes: ${{ fromJSON(inputs.check_timeout_minutes) }}
+        timeout-minutes: ${{ fromJSON(steps.check-timeout.outputs.minutes || '10') }}
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step check
 
       - name: cygport install
