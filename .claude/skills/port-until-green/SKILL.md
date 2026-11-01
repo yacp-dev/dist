@@ -598,6 +598,42 @@ Build again after the fix (Step 2's `run_decision.sh`); the bot updates the same
 disable or skip tests to make check pass — a failing test that tells the
 truth is more useful than a passing one that doesn't.
 
+When tests are left failing, record the investigation as a PR comment
+(draft it in English and show it to the user before posting; no
+"Generated with Claude Code" line). Use this template, one row per
+distinct cause rather than per test:
+
+````markdown
+## `cygport check` result
+
+Run: <run URL>
+
+<N> passed, <N> failed, <N> skipped (<N> tests). <"The failures are not fixed in this PR." / "All failures are explained below.">
+
+### Still failing
+
+| Test | Symptom |
+|---|---|
+| `<test>` | `<exact error line>` |
+
+**Cause <A>** (<tests>): <what the evidence shows>.
+- Confirmed: <what was checked, e.g. a diagnostic run, a log line, a file in the artifact>.
+- Not confirmed: <what is a guess, and what would confirm it>.
+
+### Not examined
+
+- `<test>`: <reason it was not looked at>.
+
+### Not patched
+
+<why no source or test change was made, e.g. the cause is the CI environment, or it is unconfirmed>
+````
+
+Keep what a diagnostic run confirmed apart from what was only read off
+the log. Don't describe fixes already made on the branch (they belong in
+the commit messages and the PR description), and don't mention upstream
+issues or suggest reporting upstream.
+
 ### Empty test suite
 
 `check: empty` means check passed without running a single test:
