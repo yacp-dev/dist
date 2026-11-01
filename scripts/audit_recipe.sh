@@ -577,6 +577,16 @@ audit_build_requires() {
     fi
     gzip -dc "$lst" | grep -v '/$' | sed 's#^#/#' | sort -u > "$tmp/files"
 
+    # In a file, not a process substitution: break 2 would leave that
+    # running past the script's exit, reading $tmp after the trap removed it.
+    {
+      grep -E '^/usr/lib/[^/]+\.dll\.a$' "$tmp/files" | while IFS= read -r implib; do
+        dlltool -I "$implib" 2>/dev/null
+      done
+      # A runtime package ships the DLL with no import library (libpq5).
+      sed -nE 's#^/usr/bin/([^/]+\.dll)$#\1#Ip' "$tmp/files"
+    } > "$tmp/dlls"
+
     hit=""
     for tree in D B; do
       while IFS= read -r dll; do
@@ -584,13 +594,7 @@ audit_build_requires() {
           hit="$dll"
           break 2
         fi
-      done < <(
-        grep -E '^/usr/lib/[^/]+\.dll\.a$' "$tmp/files" | while IFS= read -r implib; do
-          dlltool -I "$implib" 2>/dev/null
-        done
-        # A runtime package ships the DLL with no import library (libpq5).
-        sed -nE 's#^/usr/bin/([^/]+\.dll)$#\1#Ip' "$tmp/files"
-      )
+      done < "$tmp/dlls"
     done
     if [[ -n "$hit" ]]; then
       if [[ "$tree" == D ]]; then
