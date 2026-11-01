@@ -466,15 +466,18 @@ already has them.
   three), go to "Skipped tests" as well. Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
   LICENSE" below. A `WARNING:` in `Audit recipe`'s `== Recipe ==`,
-  `== *-config ==`, `== *.pc ==` or `== AppStream ==` sections (`gh run
-  view <id> -R yacp-dev/dist --log | grep -E -A8 '== (Recipe|\*-config|\*\.pc|AppStream) =='`)
+  `== *-config ==`, `== *.pc ==`, `== AppStream ==` or `== Duplicate files ==`
+  sections (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8
+  '== (Recipe|\*-config|\*\.pc|AppStream|Duplicate files) =='`)
   is something to fix on the branch before calling it done: a
   `HOMEPAGE` that redirects (set it to the URL the warning names), an
   invalid `CATEGORY`, a `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of
   place ("Where things go in a recipe" in Step 4), a `.pc`/`*-config` whose version, prefix or
   `-l` libraries are wrong or that names the build tree (fix it in
   `src_install` or a `PATCH_URI` patch), a file in
-  `/usr/share/appdata` (move it to `/usr/share/metainfo`). One commit
+  `/usr/share/appdata` (move it to `/usr/share/metainfo`), a copy of a
+  file cygport installs itself ("Upstream's install duplicates" in Step 4).
+  One commit
   per fix, `<pkg>-<ver> (fix <what>)`, then re-run. A `BUILD_REQUIRES`
   package that isn't installed is a misspelling or not a Cygwin
   package: correct or drop it. Then look at `Audit recipe`'s `== Runtime
@@ -964,14 +967,14 @@ Edit only files under the package directory. Common fixes:
   installed CMake/pkg-config file names the import library. A DLL other
   packages do link against belongs in `usr/bin`, with its import library
   in `usr/lib`.
-- **Upstream's install duplicates a file cygport installs itself** (a
-  `LICENSE`, `COPYING`, `README` under `usr/share/<name>/` or
-  `usr/share/doc/<name>/`, while cygport's postinst puts the same file in
-  `usr/share/doc/${PN}/`; semver-cpp 1.0.1: `usr/share/semver/LICENSE`) →
-  remove upstream's copy in `src_install` after the install call, along
-  with a directory that leaves empty. Check the README's file list on
-  every green run, since no audit warns about this. One commit,
-  `<pkg>-<ver> (drop duplicate <file>)`.
+- **Upstream's install duplicates a file cygport installs itself**
+  (`Audit recipe`'s `== Duplicate files ==`: a `LICENSE`, `COPYING`,
+  `README` under `usr/share/<name>/`, with the same content as cygport's
+  copy in `usr/share/doc/${PN}/`; semver-cpp 1.0.1:
+  `usr/share/semver/LICENSE`) → remove upstream's copy in `src_install`
+  after the install call, along with a directory that leaves empty,
+  unless the program reads that path at runtime (leave it and say so in
+  the report). One commit, `<pkg>-<ver> (drop duplicate <file>)`.
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
   run failed anyway, look for the real failing step instead. Test suite
   failures on a green run are handled under Step 2.

@@ -1,5 +1,5 @@
-# Sourced by audit_recipe.sh: the "*-config", "*.pc" and "AppStream"
-# sections, on what the packages install for other builds to use. These
+# Sourced by audit_recipe.sh: the "*-config", "*.pc", "AppStream" and
+# "Duplicate files" sections, on what the packages install for other builds to use. These
 # checks (but the build-tree one) used to be the Validate build step
 # (validate_recipe.sh, which replaced `xezat validate`). They read $D, so
 # audit_recipe.sh runs them only once `cygport package` succeeded.
@@ -155,4 +155,26 @@ audit_appstream() {
     fi
     warn "usr/share/appdata/$(basename "$file") is in the legacy AppStream path -- install it into /usr/share/metainfo"
   done
+}
+
+# A file upstream's install left that has the same content as one cygport
+# put in usr/share/doc/$PN itself (semver-cpp 1.0.1's usr/share/semver/LICENSE),
+# under any name. Empty files say nothing, usr/share/doc/$PN's own tree is
+# upstream's documentation, and usr/src holds the debuginfo sources.
+audit_duplicate_docs() {
+  local doc_dir="$D/usr/share/doc/$PN" doc size file printed=0
+  [[ -d "$doc_dir" ]] || return 0
+  while IFS= read -r -d '' doc; do
+    size="$(wc -c <"$doc" | tr -d '[:space:]')"
+    while IFS= read -r -d '' file; do
+      cmp -s "$doc" "$file" || continue
+      if (( ! printed )); then
+        say ""
+        say "== Duplicate files =="
+        printed=1
+      fi
+      warn "${file#"$D"/} is a copy of ${doc#"$D"/}, which cygport installs itself -- remove it in src_install"
+    done < <(find "$D" \( -path "$doc_dir" -o -path "$D/usr/src" -o -path "$D/usr/share/doc/Cygwin" \) -prune \
+      -o -type f -size "${size}c" -print0)
+  done < <(find "$doc_dir" -maxdepth 1 -type f -size +0 -print0)
 }

@@ -14,7 +14,8 @@
 # What the packages install for other builds to use (audit/
 # installed_files.sh): each *-config's --version and --libs, each *.pc
 # as pkg-config reads it (version, prefix, --libs) and any line of it
-# naming the build tree, and nothing in the legacy AppStream path.
+# naming the build tree, nothing in the legacy AppStream path, and no
+# copy of a file cygport installs itself into usr/share/doc/$PN.
 #
 # And six cross-checks of the recipe against the build: whether LICENSE
 # matches what the source itself says, whether every BUILD_REQUIRES
@@ -1092,6 +1093,7 @@ else
   audit_config_scripts
   audit_pc_files
   audit_appstream
+  audit_duplicate_docs
   audit_license
   before=$warnings
   audit_build_requires
