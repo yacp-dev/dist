@@ -485,7 +485,9 @@ already has them.
   grep -A8 '== Runtime requirements =='`): a `WARNING:` there means the
   README the PR carries lists no runtime requirements, or will once an
   import library's DLL can't be found -- fix it on the branch (see
-  "README's runtime requirements empty" in Step 4) and re-run. A
+  "README's runtime requirements empty" in Step 4) and re-run, or that a
+  shipped binary imports a DLL that isn't installed ("A shipped binary
+  imports a DLL that isn't installed" in Step 4). A
   `WARNING:` in `== CMake config requirements ==` names a package
   that `find_package()` of an installed CMake config needs and its
   subpackage doesn't require (mongo-c-driver 2.5.7: OpenSSL, SASL2
@@ -967,6 +969,10 @@ Edit only files under the package directory. Common fixes:
   installed CMake/pkg-config file names the import library. A DLL other
   packages do link against belongs in `usr/bin`, with its import library
   in `usr/lib`.
+- **A shipped binary imports a DLL that isn't installed** (`Audit recipe`'s
+  `== Runtime requirements ==`: `import cygpq-5.dll, which isn't installed`)
+  → add the DLL's runtime package to `BUILD_REQUIRES`, since its `-devel`
+  package doesn't pull it in (soci-4.1.4: `libpq5`, next to `libpq-devel`).
 - **Upstream's install duplicates a file cygport installs itself**
   (`Audit recipe`'s `== Duplicate files ==`: a `LICENSE`, `COPYING`,
   `README` under `usr/share/<name>/`, with the same content as cygport's

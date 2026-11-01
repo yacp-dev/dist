@@ -572,14 +572,18 @@ audit_build_requires() {
 
     hit=""
     for tree in D B; do
-      while IFS= read -r implib; do
-        while IFS= read -r dll; do
-          if grep -qxF "${dll,,}" "$tmp/imports.$tree"; then
-            hit="$dll"
-            break 3
-          fi
-        done < <(dlltool -I "$implib" 2>/dev/null)
-      done < <(grep -E '^/usr/lib/[^/]+\.dll\.a$' "$tmp/files")
+      while IFS= read -r dll; do
+        if grep -qxF "${dll,,}" "$tmp/imports.$tree"; then
+          hit="$dll"
+          break 2
+        fi
+      done < <(
+        grep -E '^/usr/lib/[^/]+\.dll\.a$' "$tmp/files" | while IFS= read -r implib; do
+          dlltool -I "$implib" 2>/dev/null
+        done
+        # A runtime package ships the DLL with no import library (libpq5).
+        sed -nE 's#^/usr/bin/([^/]+\.dll)$#\1#Ip' "$tmp/files"
+      )
     done
     if [[ -n "$hit" ]]; then
       if [[ "$tree" == D ]]; then
@@ -829,6 +833,26 @@ audit_runtime_requires() {
     [[ -n "$found" ]] && continue
     warn "${implib#"$D"/}: import library of $dll, which isn't in usr/bin -- next to a dlopen()ed plugin it's of no use (remove it in src_install), and cygport dep can't resolve it, which leaves README's runtime requirements empty"
   done < <(find "$D" -type f -name '*.dll.a' -not -path '*/sys-root/*' -print0 2>/dev/null)
+
+  # DLLs the shipped binaries import that aren't installed: cygport dep
+  # doesn't see them, so no package requires them. libpq-devel doesn't
+  # pull in libpq5, and libpq.a is the import library of cygpq-5.dll
+  # (soci 4.1.4: libsoci_postgresql4 without libpq5).
+  find "$D" -type f \( -iname '*.exe' -o -iname '*.dll' \) -not -path '*/usr/src/debug/*' -print0 2>/dev/null \
+    | xargs -0 -r objdump -p 2>/dev/null \
+    | sed -n 's/^[[:space:]]*DLL Name: //p' | sort -u > "$tmp/runtime_imports"
+  while IFS= read -r dll; do
+    [[ "${dll,,}" == cyg*.dll ]] || continue
+    found=""
+    for d in /usr/bin ${DEPS_PATH//:/ }; do
+      if [[ -e "$d/$dll" ]]; then
+        found=1
+        break
+      fi
+    done
+    [[ -n "$found" || -n "$(find "$D" -iname "$dll" -print -quit 2>/dev/null)" ]] && continue
+    warn "the packages' binaries import $dll, which isn't installed, so no package requires it -- add its runtime package to BUILD_REQUIRES"
+  done < "$tmp/runtime_imports"
 
   if [[ ! -f "$C/README" ]]; then
     say "no README in \$C to check"
