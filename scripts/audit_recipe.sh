@@ -4,9 +4,11 @@
 # tree: whether LICENSE matches what the source itself says, whether every
 # BUILD_REQUIRES package is actually used by the build, what the build
 # looked for that a Cygwin package not in BUILD_REQUIRES has,
-# whether README's runtime requirements came out at all, and whether
+# whether README's runtime requirements came out at all, whether
 # each installed CMake package config's dependencies are in its
-# subpackage's requires.
+# subpackage's requires, and what the build downloaded for itself
+# (FetchContent, ExternalProject, git/meson/cargo/go/pip/wget/curl in
+# the logs) instead of taking it from SRC_URI.
 # validate_recipe.sh only checks that LICENSE is set (and that LICENSE_URI
 # exists) and that each BUILD_REQUIRES package is installed -- a recipe
 # carried over from an old version keeps both long after upstream has
@@ -73,7 +75,8 @@
 # Output: prints the report to stdout; if GITHUB_OUTPUT is set, also
 # writes it to a temp file and appends `report_file=<path>` there, plus
 # `warnings=<n>` when there was at least one warning and
-# `candidates=<pkg> ...` when the build missed a dependency Cygwin has.
+# `candidates=<pkg> ...` when the build missed a dependency Cygwin has,
+# and `downloads=<name> ...` when it downloaded something itself.
 
 set -uo pipefail # NOT -e: greps finding nothing are the common case here
 
@@ -752,6 +755,77 @@ audit_missing_deps() {
   done < "$tmp/missing"
 }
 
+# What the build downloaded for itself instead of taking it from SRC_URI:
+# it isn't in the source package, the build needs the network, and
+# nothing pins what it got beyond what upstream's build files say.
+# libavif 1.4.2 cloned kmurray/libargparse with FetchContent at configure
+# time (and failed while git wasn't installed). Evidence, from the
+# strongest:
+#   - a FetchContent <name>-src directory under $B's _deps/ -- only a
+#     download fills that one; FETCHCONTENT_SOURCE_DIR_<NAME> or an
+#     upstream fallback to a source directory (libavif's ext/libargparse)
+#     leaves it out. Its URL and tag come from the FetchContent_Declare()
+#     in $S, with upstream's own variables left unexpanded.
+#   - an ExternalProject's *-gitinfo.txt / *-urlinfo.txt naming a remote
+#     URL (FetchContent's own populate projects left out).
+#   - download lines in the compile and check logs: git's "Cloning
+#     into", meson's wrap downloads, cargo, go, pip, wget and curl.
+# Each is a warning; the names go to `downloads=` for the PR body.
+audit_build_downloads() {
+  say ""
+  say "== Build-time downloads =="
+
+  local found=() d name decl info f lines
+  if [[ -d "$B" ]]; then
+    while IFS= read -r -d '' d; do
+      name="$(basename "$d")"
+      name="${name%-src}"
+      # FetchContent lowercases the name for its directories.
+      decl="$(find "$S" \( -name CMakeLists.txt -o -name '*.cmake' \) -type f -print0 2>/dev/null |
+        FC_NAME="$name" xargs -0 perl -0ne '
+          while (/FetchContent_Declare\s*\(\s*\Q$ENV{FC_NAME}\E(?![\w.+-])(.*?)\)/sgi) {
+            my $b = $1;
+            my @v = $b =~ /\b((?:GIT_REPOSITORY|GIT_TAG|URL|URL_HASH)\s+[^\s)]+)/g;
+            print join(" ", @v), "\n";
+          }' 2>/dev/null | head -n 1)"
+      warn "FetchContent downloaded $name into ${d#"$B"/}${decl:+ ($decl)} -- fetch it in SRC_URI (pinned) and point the build at the unpacked copy (FETCHCONTENT_SOURCE_DIR_${name^^}, or a source directory upstream falls back to)"
+      found+=("$name")
+    done < <(find "$B" -maxdepth 6 -type d -path '*/_deps/*-src' -print0 2>/dev/null)
+
+    while IFS= read -r -d '' f; do
+      [[ "$f" == */_deps/* ]] && continue
+      info="$(grep -hE '^(repository|urls?)=' "$f" 2>/dev/null | head -n 1)"
+      [[ "$info" == *://* ]] || continue
+      name="$(basename "$f")"
+      name="${name%-gitinfo.txt}"
+      name="${name%-urlinfo.txt}"
+      warn "ExternalProject downloaded $name (${info#*=}) -- fetch it in SRC_URI (pinned) and pass the unpacked copy to the build instead"
+      found+=("$name")
+    done < <(find "$B" -maxdepth 8 -type f \( -name '*-gitinfo.txt' -o -name '*-urlinfo.txt' \) -path '*-stamp/*' -print0 2>/dev/null)
+  fi
+
+  local logs=()
+  shopt -s nullglob
+  logs+=("$logdir"/*-compile.log "$logdir"/*-check.log)
+  shopt -u nullglob
+  if [[ ${#logs[@]} -gt 0 ]]; then
+    lines="$(grep -hE "^Cloning into '|Downloading [^ ]+ source from |Downloading [^ ]+ patch from |^ *Downloading crates|^ *Updating crates\.io index|^ *Updating git repository|^go: downloading |^Collecting [A-Za-z0-9_.-]+|^--[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9:]{8}--  https?://|^ *% Total +% Received" "${logs[@]}" 2>/dev/null |
+      perl -pe 's/\e\[[0-9;]*m//g' | sort | uniq -c | sort -rn | head -n 10)"
+    if [[ -n "$lines" ]]; then
+      warn "the build logs show downloads -- whatever they fetch belongs in SRC_URI:"
+      while IFS= read -r f; do
+        say "  $f"
+      done <<<"$lines"
+      found+=("(see the logs)")
+    fi
+  fi
+
+  if [[ ${#found[@]} -eq 0 ]]; then
+    say "nothing downloaded during the build"
+  fi
+  downloads+=("${found[@]}")
+}
+
 audit_runtime_requires() {
   say ""
   say "== Runtime requirements =="
@@ -1027,6 +1101,8 @@ audit_build_requires
 build_requires_warnings=$((warnings - before))
 candidates=()
 audit_missing_deps
+downloads=()
+audit_build_downloads
 audit_runtime_requires
 audit_cmake_requires
 
@@ -1047,6 +1123,9 @@ if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
   fi
   if (( ${#candidates[@]} > 0 )); then
     echo "candidates=$(printf '%s\n' "${candidates[@]}" | sort -u | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
+  fi
+  if (( ${#downloads[@]} > 0 )); then
+    echo "downloads=$(printf '%s\n' "${downloads[@]}" | sort -u | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
   fi
 fi
 exit 0

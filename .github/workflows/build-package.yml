@@ -791,7 +791,8 @@ jobs:
           # failure); the diagnostic itself goes to the run summary rather
           # than here, to keep a possibly long log excerpt out of the PR.
           # Likewise the empty-check line, unless check ran no tests, the
-          # skipped-tests line, unless check skipped some, and the audit line, unless Audit recipe warned, the dependencies
+          # skipped-tests line, unless check skipped some, the downloads
+          # line, unless the build fetched something itself, and the audit line, unless Audit recipe warned, the dependencies
           # line, unless it named Cygwin packages the build looked for and
           # didn't find, and the .src.patch line, unless xezat port's
           # patch lost a file.
@@ -807,6 +808,8 @@ jobs:
             ${{ steps.skipped-tests.outputs.count && format('**`cygport check` skipped {0} test(s)** -- a tool or library missing from `BUILD_REQUIRES` may be why; see the run summary.', steps.skipped-tests.outputs.count) || '' }}
 
             ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about LICENSE/BUILD_REQUIRES/runtime requirements -- see the run summary.', steps.audit.outputs.warnings) || '' }}
+
+            ${{ steps.audit.outputs.downloads && format('**Build-time downloads**: the build fetched `{0}` itself -- put them in `SRC_URI` (pinned) instead; see the run summary.', steps.audit.outputs.downloads) || '' }}
 
             ${{ steps.audit.outputs.candidates && format('**Dependencies the build didn''t find**: Cygwin has them in `{0}`, not in `BUILD_REQUIRES` -- adding them may build more of the package; see the run summary.', steps.audit.outputs.candidates) || '' }}
 

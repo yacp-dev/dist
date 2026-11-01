@@ -455,7 +455,21 @@ already has them.
   subpackage doesn't require (mongo-c-driver 2.5.7: OpenSSL, SASL2
   and libutf8proc for `libmongoc2-devel`): add it to that
   `<sub>_REQUIRES` in one commit, `<pkg>-<ver> (fix <sub> REQUIRES)`,
-  and re-run. A
+  and re-run. A `Build-time downloads` line in the PR body (`Audit
+  recipe`'s `== Build-time downloads ==`: a FetchContent `_deps/<name>-src`,
+  an ExternalProject download, or `Cloning into`/cargo/go/pip/wget lines
+  in the logs) means the build fetched something itself: add it to
+  `SRC_URI`, pinned to the commit or version upstream's build files
+  name (the audit quotes the `FetchContent_Declare()`), with `#/<name>-<rev>.tar.gz`,
+  and put it where the build takes a local copy instead of downloading
+  -- `FETCHCONTENT_SOURCE_DIR_<NAME>` in `CYGCMAKE_ARGS`, or a source
+  directory upstream falls back to, moved there from a
+  `src_unpack_hook` (which needs `CYGPORT_USE_UNSTABLE_API=1` right
+  above it, or cygport skips it with a warning in the `xezat prep`
+  log). One commit, `<pkg>-<ver> (take <name> from SRC_URI)`, dropping
+  `git` from `BUILD_REQUIRES` if only the clone needed it, then re-run
+  (libavif 1.4.2: libargparse into `ext/libargparse`). Its license
+  still counts if it's compiled. A
   `.src.patch lost changes` line in the PR body (a warning from `Copy
   build results back via xezat port`) means the committed recipe no
   longer reproduces this build: move the named files' changes into a
