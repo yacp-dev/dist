@@ -964,6 +964,14 @@ Edit only files under the package directory. Common fixes:
   installed CMake/pkg-config file names the import library. A DLL other
   packages do link against belongs in `usr/bin`, with its import library
   in `usr/lib`.
+- **Upstream's install duplicates a file cygport installs itself** (a
+  `LICENSE`, `COPYING`, `README` under `usr/share/<name>/` or
+  `usr/share/doc/<name>/`, while cygport's postinst puts the same file in
+  `usr/share/doc/${PN}/`; semver-cpp 1.0.1: `usr/share/semver/LICENSE`) →
+  remove upstream's copy in `src_install` after the install call, along
+  with a directory that leaves empty. Check the README's file list on
+  every green run, since no audit warns about this. One commit,
+  `<pkg>-<ver> (drop duplicate <file>)`.
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
   run failed anyway, look for the real failing step instead. Test suite
   failures on a green run are handled under Step 2.
