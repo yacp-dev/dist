@@ -280,7 +280,7 @@ check_log_body() {
 # check log only has the verdicts): each test whose output says skip,
 # skipped or skipping, with the first two such lines. Shell trace lines
 # (`set -x`'s "+ ...") are left out, since they echo the message before
-# the script prints it.
+# the script prints it, and so are totals of "0 skipped".
 check_skipped_tests() {
   perl -pe 's/\e\[[0-9;]*m//g' "$checklog" | awk '
     # ctest: " 60/63 Test #60: test_cmd_stdin ......***Not Run (Disabled)   0.00 sec"
@@ -309,6 +309,8 @@ check_skipped_tests() {
       /^<end of output>$/ { out = 0; next }
       out && !/^\++ / && n < 2 {
         l = tolower($0)
+        # Totals saying none did (doctest: "0 failed | 0 skipped").
+        if (l ~ /(^|[^0-9])0 skipped/) next
         if (l ~ /(^|[^a-z_])skip(ped|ping|s)?([^a-z_]|$)/) {
           print name ": " $0; n++
         }
