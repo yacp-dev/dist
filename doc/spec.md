@@ -223,6 +223,24 @@ on:
   4. Rebuilds the `gh-pages` branch down to a single commit and force-pushes it (3.3).
 - **Caveat**: since dist artifacts expire under the default 90-day retention (4.4), running this workflow more than 90 days after the build means the artifact will no longer be found. In that case, the package needs to be rebuilt.
 
+#### 4.4.3 Removing a package
+
+`scripts/remove_package.sh <package>` removes a package from yacp, dist first and ports last, so a recipe never disappears while its binaries are still published. `<package>` is the directory name in ports, and the source package's directory under `x86_64/release/`. It's run by a human: without `--execute` it only reports what it would do. A failed run can simply be run again, since a step already done finds nothing there to remove.
+
+It stops, removing nothing, if anything still needs the package:
+
+- **setup.ini** (`setup_ini_dependents.sh`): another source package's `depends2`, `requires` or `build-depends`. A binary package belongs to the source package whose release directory holds its files, and a dependency among one source package's own subpackages doesn't count.
+- **ports master**: another recipe's `BUILD_REQUIRES`, `DEPEND` or `*_REQUIRES`, or a README's requirement lists. setup.ini can't answer this alone, since it only knows published packages, a fraction of ports: evmone 0.9.1 used `libevmc-devel` from master without ever being published, so setup.ini showed evmc as having no dependents.
+- **a `dorgann/<package>-<version>` branch**: merging its PR would publish the package again (4.4.1).
+
+The names to look for are the binary packages in setup.ini plus the recipe's `PKG_NAMES`, read rather than evaluated. It stops on a `PKG_NAMES` it can't expand (only `${PN}`, `${PV}` and `${PV[n]}` are known) rather than report no dependents of the wrong names; `--names` gives them by hand. A recipe with no `PKG_NAMES` counts as its directory name only, so subpackages a cygclass generates are missed unless they're published. A recipe whose `BUILD_REQUIRES` omits a dependency (old recipes built locally) can't be detected at all.
+
+gh-pages is only changed by `.github/workflows/unpublish.yml`, never directly: it force-pushes the whole tree, so it shares `publish.yml`'s concurrency group (a group is per repository, not per workflow), and `unpublish_package.sh` checks setup.ini again in the checkout about to be pushed, since a publish may have run while this one waited. A run waiting in a concurrency group is cancelled by the next one queued, so `remove_package.sh` waits for both workflows to be idle before dispatching, and goes no further unless its own run succeeded.
+
+Once that run has succeeded, it waits for `dist.yacp.dev`'s `setup.ini` to stop listing the package (GitHub Pages deploys the push, and the response is cached with `max-age=600`), then commits `remove <package>` directly to ports master, as such removals always have been.
+
+Removing a package from dist doesn't uninstall it from any machine that has it.
+
 ### 4.5 On failure (finalized)
 
 **No Issue is filed.** The failed bump is pushed as a draft PR on `dorgann/<pkg>-<ver>` (4.6), and that branch/draft PR is the record that this version failed: a later dispatch of the same target rebuilds it, and the check-updates step (4.2) can tell an already-failed version from a new one by the branch name alone.

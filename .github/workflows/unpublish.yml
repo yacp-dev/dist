@@ -1,0 +1,60 @@
+name: unpublish
+
+# Removes a source package from gh-pages and regenerates setup.ini
+# (doc/spec.md 4.4.3). scripts/remove_package.sh is the way in: it checks
+# ports as well, dispatches this, waits for dist to stop listing the
+# package, and only then removes the recipe from ports.
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Source package to remove from gh-pages (its directory under x86_64/release)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+# The same group as publish.yml: each of them reads, reshapes and force-
+# pushes the whole gh-pages tree, so overlapping with a publish would
+# silently undo one of the two. Concurrency groups are per repository, not
+# per workflow.
+concurrency:
+  group: publish-gh-pages
+  cancel-in-progress: false
+
+jobs:
+  unpublish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dorgann
+        uses: actions/checkout@v7
+
+      - name: Checkout gh-pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash -- scripts/checkout_gh_pages.sh --repo ${{ github.repository }} --dir gh-pages
+
+      - name: Configure custom domain (CNAME)
+        run: bash -- scripts/ensure_gh_pages_cname.sh --dir gh-pages --domain dist.yacp.dev
+
+      - name: Remove package
+        env:
+          PACKAGE: ${{ inputs.package }}
+        run: bash -- scripts/unpublish_package.sh --gh-pages-dir gh-pages --package "$PACKAGE"
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+
+      - name: Install calm
+        run: pip install git+https://github.com/cygwin/calm.git
+
+      - name: Generate setup.ini
+        run: bash -- scripts/generate_setup_ini.sh --gh-pages-dir gh-pages
+
+      - name: Commit and force-push gh-pages
+        env:
+          PACKAGE: ${{ inputs.package }}
+        run: bash -- scripts/publish_gh_pages.sh --dir gh-pages --message "Remove $PACKAGE"
