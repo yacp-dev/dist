@@ -994,6 +994,11 @@ and in a recipe you've just bumped even if a run didn't complain:
 
 - `PATCH_URI` on the line right after `SRC_URI`, no blank line between
   them, then the blank line before `CATEGORY`.
+- A Fedora patch in `PATCH_URI` pinned to a commit (`.../raw/<commit>/f/...`,
+  the URL `distro_patches.sh` prints), not `raw/rawhide/f/`, which moves
+  on. One inherited from master gets pinned on the bump too, once the
+  pinned file is checked to be the same patch, in its own commit,
+  `<pkg>-<ver> (pin Fedora patch in PATCH_URI)` (trustedqsl-2.8.6).
 - `LICENSE`, `LICENSE_SPDX`, `LICENSE_URI` after `DESCRIPTION`, one blank
   line between, and before `BUILD_REQUIRES`.
 - `BUILD_REQUIRES` tab-indented, one package per line, even a short list.
