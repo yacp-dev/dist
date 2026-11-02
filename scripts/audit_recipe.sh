@@ -1041,6 +1041,15 @@ EOF
     return $rc
   }
 
+  # A consumer's project() has a compiler, so what the compilers bring
+  # in is there without any requires: treelite 4.8.1's find_dependency(OpenMP)
+  # reads gcc-core's libgomp.dll.a, which no bare project does.
+  # gcc-g++ and gcc-fortran depend on gcc-core through its "provides: gcc14".
+  declare -A compiler_pkgs=()
+  while IFS= read -r name; do
+    compiler_pkgs["$name"]=1
+  done < <(closure gcc-core; closure gcc-g++)
+
   touched "" "$tmp/cmprobe/base" > /dev/null 2>&1
   if [[ ! -s "$tmp/cmprobe/base/files" ]]; then
     say "a bare CMake project doesn't configure -- nothing to compare against ($(grep -m1 -E 'Error|error' "$tmp/cmprobe/base/log"))"
@@ -1077,6 +1086,7 @@ EOF
         owner="${owner_cache[$f]}"
       fi
       [[ -n "$owner" && "$owner" != "$sub" && "$owner" != cmake ]] || continue
+      [[ -z "${compiler_pkgs[$owner]:-}" ]] || continue
       [[ -n "${why_of[$owner]:-}" ]] || why_of["$owner"]="${f#"$D"}"
     done < <(comm -13 "$tmp/cmprobe/base/files" "$tmp/cmprobe/$i/files")
 
