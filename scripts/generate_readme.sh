@@ -206,7 +206,8 @@ detect_tools() {
   log_has() { grep -qE "$1" <<<"$log_text"; }
   tree_has() { [[ -d "$B" ]] && [[ -n "$(find "$B" -maxdepth "$1" "${@:2}" -print -quit 2>/dev/null)" ]]; }
 
-  if tree_has 4 \( -name Makefile -o -name GNUmakefile -o -name makefile \) -type f \
+  # A recipe that calls lndirs has symlinks to the source's makefiles in $B.
+  if tree_has 4 \( -name Makefile -o -name GNUmakefile -o -name makefile \) \( -type f -o -type l \) \
      || log_has '^make(\[[0-9]+\])?: (Entering|Leaving) directory'; then echo make; fi
   tree_has 3 -name build.ninja -type f && echo ninja
   tree_has 2 -name CMakeCache.txt -type f && echo cmake
