@@ -211,10 +211,11 @@ detect_tools() {
   tree_has 3 -name build.ninja -type f && echo ninja
   tree_has 2 -name CMakeCache.txt -type f && echo cmake
   tree_has 2 -name meson-private -type d && echo meson
-  if log_has '^autoreconf: .*running: .*autoconf'; then echo autoconf; fi
-  if log_has '^autoreconf: .*running: .*automake'; then echo automake; fi
+  # Cygwin's autoreconf names itself autoreconf-2.73 in its log lines.
+  if log_has '^autoreconf(-[0-9.]+)?: .*running: .*autoconf'; then echo autoconf; fi
+  if log_has '^autoreconf(-[0-9.]+)?: .*running: .*automake'; then echo automake; fi
   if log_has '^libtoolize: ' || tree_has 2 -name libtool -type f; then echo libtool; fi
-  if log_has '^autoreconf: .*running: .*(autopoint|gettextize)|^(autopoint|gettextize): '; then echo gettext-devel; fi
+  if log_has '^autoreconf(-[0-9.]+)?: .*running: .*(autopoint|gettextize)|^(autopoint|gettextize): '; then echo gettext-devel; fi
   [[ -d "$D/usr/lib/girepository-1.0" ]] && echo gobject-introspection
   if compgen -G "$D/usr/lib/python3.*" > /dev/null \
      || { [[ -d "$D" ]] && [[ -n "$(find "$D" -type f -name '*.py' -exec head -n 1 {} + 2>/dev/null | grep -m1 -E '^#!\s*(/usr/bin/env\s+)?(/usr/bin/)?python3?(\.[0-9]+)?\s*$' || true)" ]]; }; then
