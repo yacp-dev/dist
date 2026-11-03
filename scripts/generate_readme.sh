@@ -99,7 +99,10 @@ fi
 PN="" P="" PF="" PV="" PVR="" PR="" DESCRIPTION="" HOMEPAGE="" SRC_URI="" PKG_NAMES=""
 T="" D="" C="" S="" B="" logdir="" REQUIRES="" BUILD_REQUIRES=""
 eval "$vars_decl"
-[[ -n "$PN" && -n "$PVR" && -n "$PKG_NAMES" ]] || { echo "generate_readme.sh: cygport vars gave no PN/PVR/PKG_NAMES" >&2; exit 1; }
+[[ -n "$PN" && -n "$PVR" ]] || { echo "generate_readme.sh: cygport vars gave no PN/PVR" >&2; exit 1; }
+# A recipe without PKG_NAMES builds the one package $PN, as cygport's
+# pkg_name=(${PKG_NAMES:-${PN}}) does.
+PKG_NAMES="${PKG_NAMES:-$PN}"
 readme_in="${previous:-$C/README}"
 installed_db="${AUDIT_INSTALLED_DB:-/etc/setup/installed.db}"
 
