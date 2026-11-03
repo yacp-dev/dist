@@ -460,8 +460,10 @@ audit_check_body() {
 # then is kept, and the verdict is `unknown`, not `passed`. The seconds
 # come from AUDIT_CHECK_TIMEOUT_SECONDS (default 300). The child needs
 # the cygport variables exported, and gets say() as a file append; the
-# verdict variables come back through a file.
-check_sh="${BASH_SOURCE[0]}"
+# verdict variables come back through a file. An absolute path, since
+# audit_recipe.sh has changed to the package directory by the time the child
+# sources it, and a relative BASH_SOURCE wouldn't survive that.
+check_sh="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 
 audit_check() {
   local out vars rc line secs="${AUDIT_CHECK_TIMEOUT_SECONDS:-300}"
