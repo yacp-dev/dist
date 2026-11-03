@@ -96,6 +96,7 @@
 #
 # Output: prints the report to stdout; if GITHUB_OUTPUT is set, also
 # writes it to a temp file and appends `report_file=<path>` there, plus
+# `oks_file=<path>` and `oks_count=<n>` for what it found fine,
 # `warnings=<n>` when there was at least one warning,
 # `candidates=<pkg> ...` when the build missed a dependency Cygwin has,
 # `downloads=<name> ...` when it downloaded something itself,
@@ -160,8 +161,9 @@ warnings=0
 say() { report+=("$*"); }
 warn() { report+=("WARNING: $*"); warnings=$((warnings + 1)); }
 # What a section checked and found fine, for a human to look over for a
-# false negative. Kept out of report (so out of the run summary, the PR
-# body and the sections a reader greps for) and printed last, folded.
+# false negative. Kept out of report (so out of the PR body and the
+# sections a reader greps for), printed last, folded, and handed to the
+# run summary's own folded block as oks_file.
 oks=()
 ok() { oks+=("ok: $*"); }
 print_oks() {
@@ -173,6 +175,13 @@ print_oks() {
   fi
   printf '%s\n' "${oks[@]}"
   [[ -n "${GITHUB_ACTIONS:-}" ]] && echo "::endgroup::"
+  if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+    local oks_file
+    oks_file="$(mktemp)"
+    printf '%s\n' "${oks[@]}" > "$oks_file"
+    echo "oks_file=$oks_file" >> "$GITHUB_OUTPUT"
+    echo "oks_count=${#oks[@]}" >> "$GITHUB_OUTPUT"
+  fi
   return 0
 }
 

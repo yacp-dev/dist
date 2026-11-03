@@ -39,8 +39,12 @@
 # all; the full report stays in Audit recipe's own log, which the
 # truncation note points to.
 #
+# audit_oks_file/audit_oks_count are what Audit recipe checked and found
+# fine, for looking over for a false negative: always folded, capped the
+# same way, and shown even when the report itself is empty.
+#
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>] [--audit-oks-file <path-or-empty>] [--audit-oks-count <n-or-empty>]
 
 set -euo pipefail
 
@@ -50,6 +54,8 @@ artifact_id=""
 audit_file=""
 audit_warnings=""
 audit_open=""
+audit_oks_file=""
+audit_oks_count=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -59,6 +65,8 @@ while [[ $# -gt 0 ]]; do
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
     --audit-open) audit_open="$2"; shift 2 ;;
+    --audit-oks-file) audit_oks_file="$2"; shift 2 ;;
+    --audit-oks-count) audit_oks_count="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -103,6 +111,16 @@ print_bounded() {
     echo
     echo '```'
     print_bounded "$audit_file"
+    echo '```'
+    echo
+    echo "</details>"
+  fi
+  if [[ -n "$audit_oks_file" && -s "$audit_oks_file" ]]; then
+    echo
+    echo "<details><summary>Audit: checked, nothing to report (${audit_oks_count:-see list})</summary>"
+    echo
+    echo '```'
+    print_bounded "$audit_oks_file"
     echo '```'
     echo
     echo "</details>"
