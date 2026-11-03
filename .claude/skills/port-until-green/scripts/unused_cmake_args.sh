@@ -2,8 +2,8 @@
 # Lists the -D<VAR> a cmake recipe passes (CYGCMAKE_ARGS, or a cygcmake
 # call) that no build file in the source reads. CMake only warns about
 # them ("Manually-specified variables were not used by the project") in
-# the compile log of a run, where nobody looks once it's green: onnx's
-# -DONNX_BUILD_BENCHMARKS outlived the option by several releases.
+# the compile log of a run, where nobody looks once it's green: an option
+# can outlive its CMake variable by several releases.
 #
 # A variable counts as read when its name appears as a word in any
 # CMakeLists.txt, *.cmake or *.cmake.in under the source, vendored
@@ -12,7 +12,7 @@
 # fills in (*.h.in, *.h.cmake: libwebsockets' LWS_WITH_SERVER_STATUS is
 # only in lws_config.h.in's #cmakedefine, which isn't a comment there).
 # A variable only shown in the configure summary changes nothing
-# (uvwasi's UVWASI_BUILD_TESTS, printed under "Build tests:" while
+# (printed under "Build tests:" while
 # BUILD_TESTING decided), and CMake doesn't warn about it either, since
 # printing it reads it. Not checked, since
 # CMake's own modules read them: CMAKE_*, BUILD_SHARED_LIBS,
@@ -81,7 +81,7 @@ reads() {
     exit 1' "$2" 2>/dev/null
 }
 
-# A find_package() of the project itself (onnx's examples look up ONNX)
+# A find_package() of the project itself (its examples look up its own name)
 # says nothing about its own options.
 projects="$(build_files "$src" | xargs -0 grep -hoiE '^[[:space:]]*project[[:space:]]*\([[:space:]]*[A-Za-z0-9_]+' 2>/dev/null |
   sed -E 's/.*\([[:space:]]*//' | sort -u)" || true

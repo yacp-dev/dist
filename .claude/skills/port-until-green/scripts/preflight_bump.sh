@@ -6,9 +6,7 @@
 # (rebuild/gcc-rebuild): only the release is bumped, the way the
 # workflow's Bump release does, and the same checks run against the
 # current source -- what went stale in the recipe since it was last
-# bumped doesn't surface in a green run either (uvwasi-0.0.23 passed
-# -DVERSION, -DWITH_SYSTEM_LIBUV and -DBUILD_STATIC_LIBS that nothing
-# read, found only on its gcc rebuild). Fixing those first and pushing
+# bumped doesn't surface in a green run either. Fixing those first and pushing
 # the branch makes the first dispatch a branch rebuild (doc/spec.md 4.6)
 # of a recipe that already accounts for them, instead of a run that
 # fails on them.
@@ -42,16 +40,14 @@
 #   6. The recipe's lines naming a versioned Python (python39-devel,
 #      python39-${PN}, usr/lib/python3.9) other than the one Cygwin curr's
 #      python3-devel pulls in, and python CONTENTS not pinned to it. A
-#      build on a superseded Python goes green, so no run would say so
-#      (fastjet-3.5.1 was still on python39).
+#      build on a superseded Python goes green, so no run would say so.
 #   7. For a cmake recipe, the -D<VAR> it passes that no build file in the
 #      patched source reads (unused_cmake_args.sh). CMake only warns about
-#      them in the compile log, which nobody reads on a green run (onnx's
-#      -DONNX_BUILD_BENCHMARKS, unread since before 1.20.1).
+#      them in the compile log, which nobody reads on a green run.
 #   8. For a version update, the BUILD_REQUIRES packages dist.yacp.dev
 #      provides, with dist's version next to upstream's newest (Repology)
 #      and any dorgann/<dep>-* branch: one upstream has moved past may
-#      have to be ported first (samtools-1.25 needs htslib-1.25).
+#      have to be ported first.
 #
 # Only reports: nothing beyond the bump is changed, and nothing is
 # pushed. Git snapshots (literal GIT_REV) go through git_snapshot_bump.sh
@@ -419,9 +415,9 @@ fi
 # new version added or changed them since the current one, and the ones
 # it dropped (a license LICENSE may no longer need). A vendored library's
 # text counts only if the build compiles what it covers (port-until-green's
-# "Missing LICENSE"), which only the build files tell: BehaviorTree.CPP
-# compiled its vendored minicoro (MIT-0 OR Unlicense) for releases before
-# the recipe's MIT said so. Unrecognized texts below the top level are
+# "Missing LICENSE"), which only the build files tell: a vendored library
+# can be compiled for releases before the recipe's LICENSE said so.
+# Unrecognized texts below the top level are
 # left out, as audit_recipe.sh does: at that depth LICENSE* matches
 # source files too.
 license_texts() {
@@ -538,8 +534,8 @@ fi
 # 8. yacp dependencies. A BUILD_REQUIRES package that dist.yacp.dev
 # provides was ported by us, so it's only as new as our last port of it.
 # Where upstream has released since, the new version of this package may
-# well need it (a lockstep release like samtools-1.25 with htslib-1.25,
-# or a raised minimum in the build files), and building against the old
+# well need it (a lockstep release, or a raised minimum in the build files),
+# and building against the old
 # one costs a run, or builds green against the wrong one. Not for a
 # rebuild: the version's dependencies were met when it was last built.
 if [[ -z "$rebuild" ]]; then

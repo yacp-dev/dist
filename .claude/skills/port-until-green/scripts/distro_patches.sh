@@ -2,15 +2,13 @@
 # Collects the patches Debian, Fedora, Gentoo, AUR and PLD carry for one
 # upstream version, so a version update can pick up the ones that matter on
 # Cygwin. Repology names each distro's source packages; their versions
-# come from the distro itself, since Repology can lag behind it (Fedora
-# rawhide at 0.19 while Repology still said 0.16): Debian's every
+# come from the distro itself, since Repology can lag behind it: Debian's every
 # version on sources.debian.org, Fedora rawhide's spec, Gentoo's ebuilds
 # in the tree, AUR's current PKGBUILD (its RPC info, then the git repo),
 # PLD's spec on the master branch of the pld-linux GitHub mirror.
 # Repology's own entries at --version are kept as a fallback (a Fedora
 # stable branch, a spec whose Version is a macro). For each source package
-# the newest packaging revision wins (Debian unstable's 1.5.7+dfsg-4 over
-# trixie's -1).
+# the newest packaging revision wins (e.g. Debian unstable's -4 over trixie's -1).
 #
 # A distro with no package at --version gets its newest one in the same
 # major version instead (1.5.6 or 1.5.8 for --version 1.5.7), marked
