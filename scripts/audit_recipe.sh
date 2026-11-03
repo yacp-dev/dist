@@ -835,8 +835,14 @@ audit_build_downloads() {
   logs+=("$logdir"/*-compile.log "$logdir"/*-check.log)
   shopt -u nullglob
   if [[ ${#logs[@]} -gt 0 ]]; then
-    lines="$(grep -hE "^Cloning into '|Downloading [^ ]+ source from |Downloading [^ ]+ patch from |^ *Downloading crates|^ *Updating crates\.io index|^ *Updating git repository|^go: downloading |^Collecting [A-Za-z0-9_.-]+|^--[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9:]{8}--  https?://|^ *% Total +% Received" "${logs[@]}" 2>/dev/null |
-      perl -pe 's/\e\[[0-9;]*m//g' | sort | uniq -c | sort -rn | head -n 10)"
+    # Bounded: a check log of hundreds of MB must not hold the step up
+    # (see audit/check.sh); the scan is cut off, not the audit.
+    timeout -k 5 120 grep -hE "^Cloning into '|Downloading [^ ]+ source from |Downloading [^ ]+ patch from |^ *Downloading crates|^ *Updating crates\.io index|^ *Updating git repository|^go: downloading |^Collecting [A-Za-z0-9_.-]+|^--[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9:]{8}--  https?://|^ *% Total +% Received" "${logs[@]}" > "$tmp/dl-lines" 2>/dev/null
+    dl_rc=$?
+    if (( dl_rc == 124 || dl_rc == 137 )); then
+      warn "searching the build logs for downloads didn't finish in 120s (a log too large to read?) -- skipped"
+    fi
+    lines="$(perl -pe 's/\e\[[0-9;]*m//g' "$tmp/dl-lines" | sort | uniq -c | sort -rn | head -n 10)"
     if [[ -n "$lines" ]]; then
       warn "the build logs show downloads -- whatever they fetch belongs in SRC_URI:"
       while IFS= read -r f; do

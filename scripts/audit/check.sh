@@ -397,13 +397,13 @@ say_lines() {
   done <<<"$1"
 }
 
-audit_check() {
+# The section's work, run in a child bash by audit_check (below) with
+# `say` writing to a file: it reads the whole check log several times,
+# and a log of hundreds of MB would otherwise hold the Audit recipe step
+# until its own timeout, losing every other section with it.
+audit_check_body() {
   local body unit failed total skipped count lines max_lines=30
   check_verdict="" check_empty_reason="" check_skipped=""
-  case "$check_outcome" in
-    success|failure) ;;
-    *) return 0 ;;  # never ran (an earlier step failed), or cancelled
-  esac
   say ""
   say "== Check =="
   if [[ ! -f "${checklog:-}" ]]; then
@@ -450,5 +450,48 @@ audit_check() {
   say "check-skipped: $count test(s) -- a tool or library missing from BUILD_REQUIRES may be why"
   say_lines "$(head -n "$max_lines" <<<"$skipped")"
   (( lines > max_lines )) && say "... and $((lines - max_lines)) more line(s)"
+  return 0
+}
+
+# --- Bounded ------------------------------------------------------------
+#
+# audit_check_body in a child bash under timeout(1), so a check log too
+# large to read in time costs this section only: what it had printed by
+# then is kept, and the verdict is `unknown`, not `passed`. The seconds
+# come from AUDIT_CHECK_TIMEOUT_SECONDS (default 300). The child needs
+# the cygport variables exported, and gets say() as a file append; the
+# verdict variables come back through a file.
+check_sh="${BASH_SOURCE[0]}"
+
+audit_check() {
+  local out vars rc line secs="${AUDIT_CHECK_TIMEOUT_SECONDS:-300}"
+  check_verdict="" check_empty_reason="" check_skipped=""
+  case "$check_outcome" in
+    success|failure) ;;
+    *) return 0 ;;  # never ran (an earlier step failed), or cancelled
+  esac
+  out="$(mktemp)"
+  vars="$(mktemp)"
+  export checklog workdir B S D logdir cygport_file check_outcome
+  timeout -k 5 "$secs" bash -c '
+    source "$1"; source "$2"
+    out_file=$3; say() { printf "%s\n" "$*" >> "$out_file"; }
+    audit_check_body
+    printf "check_verdict=%q\ncheck_empty_reason=%q\ncheck_skipped=%q\n" \
+      "$check_verdict" "$check_empty_reason" "$check_skipped" > "$4"
+  ' _ "$(dirname "$check_sh")/../cygwin_path.sh" "$check_sh" "$out" "$vars"
+  rc=$?
+  while IFS= read -r line; do
+    say "$line"
+  done < "$out"
+  if (( rc == 124 || rc == 137 )); then
+    check_verdict=unknown check_empty_reason="" check_skipped=""
+    say ""
+    warn "the Check section didn't finish in ${secs}s (a check log too large to read?) -- the test side of the audit was cut off; what the section printed so far is above"
+  else
+    # shellcheck disable=SC1090
+    [[ -s "$vars" ]] && source "$vars"
+  fi
+  rm -f "$out" "$vars"
   return 0
 }
