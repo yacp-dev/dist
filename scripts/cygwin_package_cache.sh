@@ -2,7 +2,7 @@
 # Trims cygwin-install-action's package directory down to the tarballs the
 # base toolchain install actually used, and names an Actions cache for
 # them, so later runs restore them instead of downloading all ~200 again.
-# The download itself isn't slow (mirrors.kernel.org gave 400-1000 Mbit/s
+# The download itself isn't slow (the former mirrors.kernel.org gave 400-1000 Mbit/s
 # from every runner region probed), but setup.exe fetches one file at a
 # time and now and then a single small one stalls -- libuchardet0 took 89s
 # and dos2unix 27s in one run, turning a ~30s download into ~3 minutes.

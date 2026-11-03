@@ -245,7 +245,7 @@ jobs:
           # The custom domain publish.yml configures (dist.yacp.dev), not
           # the plain <owner>.github.io one (doc/spec.md 3.1's custom-
           # domain caveat) -- needs updating if that domain ever changes.
-          site: "http://mirrors.kernel.org/sourceware/cygwin/ https://dist.yacp.dev/"
+          site: "https://mirrors.edge.kernel.org/sourceware/cygwin/ https://dist.yacp.dev/"
           # publish.yml's own release area (3.2) never generates .sig
           # files -- that's calm's own maintainer-upload signing step on
           # the real Cygwin infrastructure, not something in use here --
@@ -398,7 +398,7 @@ jobs:
           # See Install Cygwin (base toolchain) above for why this is
           # necessary at all -- same reasoning applies to every package
           # install in this job.
-          site: "http://mirrors.kernel.org/sourceware/cygwin/ https://dist.yacp.dev/"
+          site: "https://mirrors.edge.kernel.org/sourceware/cygwin/ https://dist.yacp.dev/"
           check-sig: false
 
       # shared-mime-info's postinstall can fail inside the install action
