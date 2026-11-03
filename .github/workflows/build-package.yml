@@ -521,17 +521,13 @@ jobs:
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         continue-on-error: true
         timeout-minutes: 10
-        # shell: bash explicitly: the script below is bash (${..:+..},
-        # backslash continuations), and windows-latest defaults to pwsh,
-        # which rejected it with a ParserError.
-        shell: bash
+        # One line under the default pwsh, like the steps around it: `shell:
+        # bash` is Cygwin's bash by now, and the runner writes the script
+        # with CRLF, which leaves a CR on every line. An empty --message
+        # means the script's default; --previous is relative to --dir.
         env:
           README_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
-        run: |
-          pkgdir="yacp/${{ needs.gate.outputs.package }}"
-          bash -- scripts/generate_readme.sh --dir "$pkgdir" --file "${{ steps.detect.outputs.cygport_file }}" \
-            ${README_MESSAGE:+--message "$README_MESSAGE"} \
-            --previous "$PWD/$pkgdir/README" --compare-built
+        run: bash -- scripts/generate_readme.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --message "$env:README_MESSAGE" --previous README --compare-built
 
       # First what the recipe says, which needs no build (what Validate
       # build, replacing `xezat validate`, used to check): no BOM, a valid
