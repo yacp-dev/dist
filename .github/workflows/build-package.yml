@@ -509,6 +509,24 @@ jobs:
           XEZAT_BUMP_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
         run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
+      # scripts/generate_readme.sh is `xezat bump` in bash, run next to it
+      # for now: it writes nothing, and says in the run summary how its
+      # README differs from xezat's. Its Port Notes come from the package
+      # directory's README, which is what xezat read before it rewrote the
+      # copy in the build tree. Warnings only (continue-on-error): a
+      # difference is what this step is for finding.
+      - name: Compare README with generate_readme.sh
+        if: ${{ needs.gate.outputs.mode != 'deploy' }}
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          README_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
+        run: |
+          pkgdir="yacp/${{ needs.gate.outputs.package }}"
+          bash -- scripts/generate_readme.sh --dir "$pkgdir" --file "${{ steps.detect.outputs.cygport_file }}" \
+            ${README_MESSAGE:+--message "$README_MESSAGE"} \
+            --previous "$PWD/$pkgdir/README" --compare-built
+
       # First what the recipe says, which needs no build (what Validate
       # build, replacing `xezat validate`, used to check): no BOM, a valid
       # CATEGORY, HOMEPAGE/LICENSE_URI answering 200 (a redirect named
