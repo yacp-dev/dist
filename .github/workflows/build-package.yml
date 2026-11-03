@@ -17,12 +17,11 @@ run-name: build-package ${{ inputs.target }}
 # directory's README into the build tree, as `xezat prep` does -- that
 # copy is what `xezat bump` later reads and appends a changelog entry to.
 # xezat regenerates the package's README/changelog (`xezat bump`, after
-# the build) and copies the build's results (cygport file, README,
-# src.patch) back into the package directory (`xezat port`, after that).
-# `xezat bump` only ever writes back to that same
-# build-tree copy, never to the package directory -- `xezat port` is what
-# copies it (and the cygport file itself, and any src.patch) back out;
-# without it, the package directory's tracked README would never actually
+# the build) and copies the build's results (README,
+# src.patch) back into the package directory (scripts/copy_results_back.sh,
+# after that). `xezat bump` only ever writes back to that same
+# build-tree copy, never to the package directory -- that script is what
+# copies it (and any src.patch) back out; without it, the package directory's tracked README would never actually
 # change. Using xezat at
 # all was originally deferred as an unverified Windows-Ruby risk (xezat
 # then depended on github-linguist, which pulls in native-extension gems:
@@ -574,17 +573,16 @@ jobs:
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
       # xezat bump only rewrites the build tree's own README copy ($C),
-      # never the package directory's tracked one -- see xezat_port.sh for
-      # why. `xezat port` is what copies it (plus the cygport file itself
-      # and any src.patch) back. Skipped for deploy: nothing was
+      # never the package directory's tracked one -- see copy_results_back.sh for
+      # why. That script copies it (plus any src.patch) back. Skipped for deploy: nothing was
       # bumped/rewritten to port back, and there's no PR to carry it
       # to anyway. It also warns when the regenerated .src.patch no longer
       # changes a file the recipe's own did (cygport diff's excludes, e.g.
       # `*.h.in`), which the PR body then says.
-      - name: Copy build results back via xezat port
+      - name: Copy build results back
         id: port
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/xezat_port.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
+        run: bash -- scripts/copy_results_back.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # Mainly so a run's log makes it easy to eyeball whether xezat
       # bump/port did the right thing, without waiting for the Create
@@ -767,8 +765,8 @@ jobs:
           # skipped-tests line, unless check skipped some, the downloads
           # line, unless the build fetched something itself, and the audit line, unless Audit recipe warned, the dependencies
           # line, unless it named Cygwin packages the build looked for and
-          # didn't find, and the .src.patch line, unless xezat port's
-          # patch lost a file.
+          # didn't find, and the .src.patch line, unless the
+          # copy-back step found the patch lost a file.
           body: |
             Version `${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
 

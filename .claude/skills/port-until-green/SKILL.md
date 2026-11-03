@@ -504,7 +504,7 @@ already has them.
   Its license
   still counts if it's compiled. A
   `.src.patch lost changes` line in the PR body (a warning from `Copy
-  build results back via xezat port`) means the committed recipe no
+  build results back`) means the committed recipe no
   longer reproduces this build: move the named files' changes into a
   `PATCH_URI` patch (see "Source doesn't build on Cygwin" in Step 4)
   and re-run. A `Dependencies the build didn't find` line in the PR
@@ -898,7 +898,7 @@ Edit only files under the package directory. Common fixes:
   (`command` skips a shell alias like `diff --color`; the `grep` drops the
   `diff -urN ...` line GNU diff prints per file.) A package with no
   `.src.patch` yet gets a new one the same way. The shape only has to be
-  good enough for `patch -p0` to apply: once a run succeeds, `xezat port`
+  good enough for `patch -p0` to apply: once a run succeeds, the copy-back step
   replaces it with the real `cygport diff` output on the branch.
 - **A `PATCH_URI` patch fails, or a bump crosses versions it was written
   for** (often Debian/Fedora patches pinned to an old version, e.g.
@@ -931,7 +931,7 @@ Edit only files under the package directory. Common fixes:
   file of its own in the package directory instead, listed in
   `PATCH_URI` (`git diff`-style `a/`/`b/` paths relative to `${S}`, a
   few header lines saying why). In the `.src.patch` it builds green
-  once, then `xezat port` regenerates the patch without it and the
+  once, then the copy-back step regenerates the patch without it and the
   next build fails.
 - **The `.src.patch` hardcodes the package version** (e.g. a hunk setting
   `AC_INIT([foo], [1.6.0])`; the bump doesn't touch it, so it goes stale
