@@ -227,11 +227,13 @@ jobs:
           # instead finding the windows-latest runner's preinstalled
           # native Windows Ruby, whose RubyGems API cygport's script
           # doesn't expect (NoMethodError on Gem.default_dirs).
+          # curl is what configure_cygport.sh makes cygport's wget call:
+          # Cygwin's wget breaks whenever libxml2 changes its ABI first.
           # A package that ships a python3-shebang script says so
           # in its own BUILD_REQUIRES (python3): cygport adds the
           # requirement only when /usr/bin/python3 exists, and Audit recipe
           # warns when a script is there without it.
-          packages: cygport util-linux sed gcc-core gcc-g++ ruby rubygems
+          packages: cygport util-linux sed gcc-core gcc-g++ ruby rubygems curl
           # Setting `site` at all replaces this action's own default
           # (confirmed empty in action.yml itself -- the actual mirror
           # fallback is hardcoded in the action's own implementation, not
