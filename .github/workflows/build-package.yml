@@ -518,6 +518,7 @@ jobs:
       # copy in the build tree. Warnings only (continue-on-error): a
       # difference is what this step is for finding.
       - name: Compare README with generate_readme.sh
+        id: compare-readme
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         continue-on-error: true
         timeout-minutes: 10
@@ -569,7 +570,7 @@ jobs:
         if: ${{ !cancelled() && steps.detect.outcome == 'success' }}
         continue-on-error: true
         timeout-minutes: 20
-        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --check-outcome "${{ steps.check.outcome }}" --package-outcome "${{ steps.package.outcome }}"
+        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --check-outcome "${{ steps.check.outcome }}" --package-outcome "${{ steps.package.outcome }}" --readme-compare "${{ steps.compare-readme.outputs.compare }}"
 
       # cygport's `install` step (above) already runs postinst as part of
       # itself (see cygport's own src_postinst.cygpart/bin/cygport.in:

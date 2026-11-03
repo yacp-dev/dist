@@ -381,11 +381,16 @@ render > "$work/readme"
 perl -0pi -e 's/\n\z//' "$work/readme"
 
 # --compare FILE: don't write anything, say how this differs from FILE
-# (`xezat bump`'s README) -- the run summary and a warning when it does.
+# (`xezat bump`'s README) -- the run summary and a warning when it does,
+# and the step output compare=identical when it doesn't, which Audit recipe
+# lists among what it found fine.
 if [[ -n "$compare" ]]; then
   [[ "$compare" == @C ]] && compare="$C/README"
   if diff -u "$compare" "$work/readme" > "$work/diff"; then
     echo "generate_readme.sh: identical to $compare"
+    if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+      echo "compare=identical" >> "$GITHUB_OUTPUT"
+    fi
   else
     echo "::warning title=README differs from xezat's::generate_readme.sh's README is not xezat bump's, see the run summary"
     cat "$work/diff"
