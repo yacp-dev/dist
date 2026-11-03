@@ -46,25 +46,25 @@
 # "result: timeout"; 77 is a skip); ctest's LastTest.log starts each test
 # with "N/M Testing: name" and says "Test Failed" -- its "----" lines
 # also come *inside* a test, around the output, so splitting on them
-# left only the "Test Failed" tail (spdlog 1.17.0: "Subprocess aborted"
-# and not a line of why); automake's per-test .log files are named in
+# left only the "Test Failed" tail ("Subprocess aborted" and not a line of
+# why); automake's per-test .log files are named in
 # test-suite.log's own FAIL lines, so its head is enough.
 #
 # A block whose content -- minus the lines that differ per test anyway
 # (name, timing, command), and with the test's own name and any .exe path
 # masked out of the rest -- repeats an earlier one is counted instead of
-# shown: when a whole suite fails for one reason (libeconf 0.8.6: 73
-# tests, one loader error naming each test's own .exe), three copies of
+# shown: when a whole suite fails for one reason (e.g. a loader error naming
+# each test's own .exe), three copies of
 # it would crowd out nothing but themselves.
 #
 # For testlog.txt, which blocks failed is taken from meson's own verdict
 # in the check log ("58/320 suite - name  FAIL  ..."), passed in as the
 # test numbers: the block's "result:" line can't tell, since it says
 # "exit status 1" for a should_fail test meson counts as EXPECTEDFAIL
-# too (muon 0.7.0: badnum.meson filled a slot while 231 real failures
-# showed none). Without those numbers, "result:" is only looked for in
+# too (a should_fail test filled a slot while real failures showed none).
+# Without those numbers, "result:" is only looked for in
 # the block's header -- a test's stdout can have a "result:" line of its
-# own (muon 0.7.0's toolchain.meson, exit status 0).
+# own.
 check_failure_blocks() {
   local log="$1" failed_nums="${2:-}" sep bad_re
   case "$log" in
@@ -171,8 +171,8 @@ check_failure_diagnostic() {
   done
 
   # No test runner's results anywhere: a src_test that runs its own
-  # commands, so what it printed is all there is to go on (ssocr 2.26.0:
-  # `./ssocr.exe --version` exits 42, and this section said nothing else).
+  # commands, so what it printed is all there is to go on (e.g.
+  # `./prog.exe --version` exits 42, and this section said nothing else).
   if [[ -z "$totals$failing${block:-}" ]]; then
     echo "--- end of $checklog (no test runner's results in it) ---"
     check_log_body | tail -n 20
@@ -183,7 +183,7 @@ check_failure_diagnostic() {
   # first path that exists in the failing blocks (ctest's "Command:"
   # line) or the check log. Blocks come first and the toolchain's own
   # programs are skipped: the check log's compile lines name
-  # /usr/bin/gcc.exe, which nghttp3 1.18.0's diagnostic ran in place of
+  # /usr/bin/gcc.exe, which the diagnostic ran in place of
   # the test. ctest names the test without .exe
   # ("Command: \"/.../build/tests/main\""), so each path is also tried
   # with it added.
@@ -209,7 +209,7 @@ check_failure_diagnostic() {
     echo
     echo "--- running $exe directly${test_path:+ (with the PATH meson gave the test)} ---"
     # -k: a test that handles SIGTERM can go on running after it
-    # (libgnunetchat 0.8.0: GNUnet's scheduler starts a shutdown that
+    # (e.g. a scheduler starts a shutdown that
     # waits on services nobody runs, and the step hung until the 6-hour
     # job limit). Into a file rather than $(...): a process the test left
     # behind would hold the pipe open, and $(...) waits for its EOF.
@@ -236,7 +236,7 @@ check_failure_diagnostic() {
 #   - cygtest's "No testsuite detected."
 #   - top-level make's "Nothing to be done for 'check'/'test'" (a
 #     recursive make prints it as make[N] for each subdirectory without
-#     tests, even when another one runs the suite: mecab-0.996)
+#     tests, even when another one runs the suite)
 #   - ctest's "No tests were found", meson's "No tests defined.",
 #     automake's "# TOTAL: 0", pytest's "collected 0 items"/"no tests ran"
 #   - a recursive automake `make check` where no directory it entered has
@@ -246,8 +246,8 @@ check_failure_diagnostic() {
 #
 # The log alone can't tell that last case. automake's check depends on all,
 # so a directory's all-local recipe prints its commands under `make check`
-# as a test would (ta-lib 0.8.3: libtool --mode=execute copying ta_regtest,
-# which `make check` never runs), and make[N]'s "Nothing to be done" lines
+# as a test would (e.g. libtool --mode=execute copying a test binary that
+# `make check` never runs), and make[N]'s "Nothing to be done" lines
 # say nothing about the directories that printed something. What automake
 # generated can: a directory with TESTS, check_PROGRAMS, check-local or the
 # like has a recipe under check-am, or its own check rule.
@@ -333,10 +333,10 @@ check_log_body() {
 # A skipped test passes (or isn't counted) just the same, so nothing else
 # on the run says the suite didn't cover it -- and a skip is often a
 # missing BUILD_REQUIRES in disguise: a test script that looks for a tool
-# and exits 0 when it's absent (libavif 1.4.2's test_cmd_icc_profile:
-# "Missing ImageMagick, test skipped", which ctest counts as Passed), or
+# and exits 0 when it's absent ("Missing ImageMagick, test skipped", which
+# ctest counts as Passed), or
 # a test upstream's build disables when an optional dependency isn't
-# there (its test_cmd_stdin, "Not Run (Disabled)" without libxml2).
+# there ("Not Run (Disabled)" without libxml2).
 #
 # Read from the check log:
 #   - ctest's "***Skipped" and "***Not Run" verdicts

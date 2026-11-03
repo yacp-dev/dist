@@ -27,7 +27,7 @@
 # NTFS, a case-only rename like that made `git rm -r jags` miss JAGS/
 # (git pathspecs are case-sensitive) while `git checkout -- jags` wrote
 # into that very same on-disk directory, leaving both versions'
-# .cygport files side by side (confirmed by a real run: jags 5.0.0).
+# .cygport files side by side.
 # Removals (including a rename's old path) are `git rm`'d and
 # everything else is checked out from the branch, all of it staged
 # here: create-pull-request commits the whole index, so a deletion

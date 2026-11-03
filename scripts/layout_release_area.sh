@@ -30,8 +30,8 @@
 # --exclude-debuginfo leaves every <PN>-debuginfo binary package out of
 # the release area -- both the ones in this artifact and any already on
 # gh-pages from earlier publishes. GitHub rejects any pushed file over
-# 100 MB, which a debuginfo tarball can exceed (mlpack-debuginfo 4.8.0:
-# 177 MB), and they take up most of the Pages site's 1 GB limit too.
+# 100 MB, which a debuginfo tarball can exceed, and they take up most of the
+# Pages site's 1 GB limit too.
 # Nothing depends on a -debuginfo package, so setup.ini stays consistent
 # without them.
 #

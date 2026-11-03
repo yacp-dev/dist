@@ -2,10 +2,10 @@
 
 # Keeps `xezat bump` from listing asciidoc as a build requirement.
 #
-# xezat's Asciidoc detector (xezat-0.6.0's lib/xezat/detector/asciidoc.rb)
+# xezat's Asciidoc detector (lib/xezat/detector/asciidoc.rb)
 # reports a package as using asciidoc as soon as any configure.ac under the
 # source tree mentions the word "asciidoc" -- even when the build leaves docs
-# off (czmq-4.2.1: `--with-docs=(yes|no)`, and the recipe passes
+# off (e.g. `--with-docs=(yes|no)`, with the recipe passing
 # `--without-docs`). Bump then turns that detection into a development
 # package to resolve against installed.db, and on the runner that lookup
 # fails ("Package asciidoc is not installed"), so the README is never

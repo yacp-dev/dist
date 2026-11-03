@@ -10,8 +10,7 @@
 #   - in setup.ini, another source package's depends2/requires/build-depends
 #   - in ports master, another recipe's BUILD_REQUIRES, DEPEND or *_REQUIRES,
 #     or a README's requirement lists. setup.ini can't answer this alone: it
-#     only knows published packages, a fraction of ports (evmone 0.9.1, on
-#     master and using libevmc-devel, was never published)
+#     only knows published packages, a fraction of ports
 #   - a dorgann/<package>-<version> branch: merging its PR would publish the
 #     package again
 #

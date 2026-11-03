@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Refuses a package update while an open `update-blocked` Issue
-# (doc/spec.md 4.7) names the package -- e.g. libgovirt, whose every
-# release after 0.3.8 needs a librest no Cygwin package provides. Without
+# (doc/spec.md 4.7) names the package -- e.g. one whose every later release
+# needs a library no Cygwin package provides. Without
 # this, each dispatch would rediscover the same blocker the slow way: a
 # windows-latest build and a draft PR, all for something a human already
 # decided isn't buildable yet.

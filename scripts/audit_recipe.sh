@@ -38,8 +38,7 @@
 # license counts, both ways, when a shipped file carries it -- one
 # installed into $D, or a source file the build compiled (cygport copies
 # those into $D/usr/src/debug/$PF for the debuginfo package). Files of a
-# backend the build leaves out don't count (ggml's Apache-2.0 SYCL and
-# OpenVINO sources, gperftools' 0BSD vendor/aw-backtrace). The texts at
+# backend the build leaves out don't count. The texts at
 # the top of $S are the project's own and always count, except for a
 # section that names its own files on a "Files:" line (draco's MIT one
 # for a docs script): that counts when one of those files ships. A text
@@ -76,8 +75,8 @@
 # prints, and `cygport dep` prints nothing -- exit status 0 -- once one
 # `which` in it fails under cygport's `set -e`. The one known to fail is
 # for an import library whose DLL isn't in $D/usr/bin, $DEPS_PATH or
-# /usr/bin: BehaviorTree.CPP 4.10.0 installed its dlopen()ed plugins'
-# .dll.a next to them in usr/share/behaviortree_cpp/bt_plugins. Such an
+# /usr/bin: a package installed its dlopen()ed plugins' .dll.a next to them
+# in usr/share/<pkg>/plugins. Such an
 # import library is of no use anyway (nothing links against a plugin),
 # so it's flagged on its own, besides an empty list in $C/README for a
 # package that ships binaries.
@@ -344,9 +343,8 @@ audit_license() {
     ids="${ids% }"
     say "License text $rel: ${ids:-(not recognized)}"
     for id in $ids; do
-      # A text naming several licenses says which part is under which
-      # (libwebsockets' LICENSE: Apache-2.0 for the mbedtls wrapper
-      # only), so one whose headers are all in unshipped files doesn't
+      # A text naming several licenses says which part is under which,
+      # so one whose headers are all in unshipped files doesn't
       # count.
       base="$(license_base "$id")"
       if [[ "$ids" == *" "* && -n "$shipped_known" && -n "${header_base[$base]:-}" && -z "${shipped_base[$base]:-}" ]]; then
@@ -473,7 +471,7 @@ audit_license() {
   for base in "${!text_ids[@]}"; do
     [[ -n "${recipe_base[$base]:-}" ]] && continue
     # LGPL-3.0 is written as additional permissions on top of GPL-3.0, so
-    # LGPL-3.0 projects ship the GPL-3.0 text too (giza: COPYING next to
+    # LGPL-3.0 projects ship the GPL-3.0 text too (COPYING next to
     # COPYING.LESSER).
     if [[ "$base" == gpl-3.0 && -n "${recipe_base[lgpl-3.0]:-}" ]]; then
       say "${text_ids[$base]} is the GPL-3.0 text that LGPL-3.0 builds on -- fine"
@@ -556,9 +554,9 @@ audit_build_requires() {
 
   # Test scripts, when cygport check ran: a test suite often drives a
   # command it checks for and spawns itself, which neither a log nor a
-  # binary names (ngircd's testsuite: `type telnet`, then expect's
-  # `spawn telnet 127.0.0.1 6789`). Besides the usual test directories,
-  # a *.test anywhere is one (wolfssh's scripts/fwd.test).
+  # binary names (`type telnet`, then expect's `spawn telnet ...`).
+  # Besides the usual test directories,
+  # a *.test anywhere is one.
   local scripts=()
   shopt -s nullglob
   local checklogs=("$logdir"/*-check.log)
@@ -761,12 +759,12 @@ audit_missing_deps() {
 # What the build downloaded for itself instead of taking it from SRC_URI:
 # it isn't in the source package, the build needs the network, and
 # nothing pins what it got beyond what upstream's build files say.
-# libavif 1.4.2 cloned kmurray/libargparse with FetchContent at configure
-# time (and failed while git wasn't installed). Evidence, from the
+# A build can clone a dependency with FetchContent at configure time (and
+# fail while git isn't installed). Evidence, from the
 # strongest:
 #   - a FetchContent <name>-src directory under $B's _deps/ -- only a
 #     download fills that one; FETCHCONTENT_SOURCE_DIR_<NAME> or an
-#     upstream fallback to a source directory (libavif's ext/libargparse)
+#     upstream fallback to a source directory (e.g. ext/<name>)
 #     leaves it out. Its URL and tag come from the FetchContent_Declare()
 #     in $S, with upstream's own variables left unexpanded.
 #   - an ExternalProject's *-gitinfo.txt / *-urlinfo.txt naming a remote
@@ -852,8 +850,7 @@ audit_runtime_requires() {
 
   # DLLs the shipped binaries import that aren't installed: cygport dep
   # doesn't see them, so no package requires them. libpq-devel doesn't
-  # pull in libpq5, and libpq.a is the import library of cygpq-5.dll
-  # (soci 4.1.4: libsoci_postgresql4 without libpq5).
+  # pull in libpq5, and libpq.a is the import library of cygpq-5.dll.
   find "$D" -type f \( -iname '*.exe' -o -iname '*.dll' \) -not -path '*/usr/src/debug/*' -print0 2>/dev/null \
     | xargs -0 -r objdump -p 2>/dev/null \
     | sed -n 's/^[[:space:]]*DLL Name: //p' | sort -u > "$tmp/runtime_imports"
@@ -891,10 +888,10 @@ audit_runtime_requires() {
 # needs installed, against what the subpackage shipping it requires.
 # cygport derives a -devel package's requires from its .pc Requires/Libs,
 # .la and .dll.a files, never from a CMake config's find_dependency()
-# calls or the files its imported targets link: mongo-c-driver 2.5.7's
-# mongocConfig.cmake finds OpenSSL, SASL2 and libutf8proc, its .pc only
-# bson2, so libmongoc2-devel required none of them and mongo-cxx-driver's
-# find_package(mongoc) failed. Each config is loaded in a bare project
+# calls or the files its imported targets link: a config can find OpenSSL
+# while its .pc names only bson2, so the -devel package requires none of
+# them and a consumer's find_package() fails. Each config is loaded in a
+# bare project
 # (-D<Name>_DIR at it, $D/usr on CMAKE_PREFIX_PATH for its siblings),
 # and what that touched -- the files CMake read (--trace), the paths in
 # its cache and in the imported targets' properties -- beyond what the
@@ -1042,7 +1039,7 @@ EOF
   }
 
   # A consumer's project() has a compiler, so what the compilers bring
-  # in is there without any requires: treelite 4.8.1's find_dependency(OpenMP)
+  # in is there without any requires: a find_dependency(OpenMP)
   # reads gcc-core's libgomp.dll.a, which no bare project does.
   # gcc-g++ and gcc-fortran depend on gcc-core through its "provides: gcc14".
   declare -A compiler_pkgs=()

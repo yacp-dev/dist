@@ -9,7 +9,7 @@
 # the rest of __prepdoc, and that isn't idempotent: dodoc installs only
 # the first of FOO, FOO.md, FOO.rst, FOO.txt it finds, skipping any
 # already in $D -- so a second pass, with README already there, adds
-# README.md too (ffmpegthumbnailer 2.3.1). The package then ships a file
+# README.md too. The package then ships a file
 # that the README's own file list, written by xezat bump from the first
 # pass's .lst, doesn't mention. Copying just this one file keeps $D what
 # a single cygport run would have made.

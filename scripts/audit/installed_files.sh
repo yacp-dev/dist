@@ -158,7 +158,7 @@ audit_appstream() {
 }
 
 # A file upstream's install left that has the same content as one cygport
-# put in usr/share/doc/$PN itself (semver-cpp 1.0.1's usr/share/semver/LICENSE),
+# put in usr/share/doc/$PN itself (e.g. usr/share/<name>/LICENSE),
 # under any name. Empty files say nothing, usr/share/doc/$PN's own tree is
 # upstream's documentation, and usr/src holds the debuginfo sources.
 audit_duplicate_docs() {

@@ -6,7 +6,7 @@
 # install step still reported as a success -- leaving no mime.cache.
 # GIO's g_content_type_guess then can't tell any file type apart, and
 # gdk-pixbuf (2.36, which sniffs formats through it) fails every image:
-# eid-mw 5.1.31's `gdk-pixbuf-csource` on a plain JPEG gave "Couldn't
+# `gdk-pixbuf-csource` on a plain JPEG gave "Couldn't
 # recognize the image file format", with the JPEG loader in loaders.cache.
 #
 # Runs without -n so the cache is rebuilt even if a stale one exists, and

@@ -7,8 +7,8 @@
 # login shells, so they inherit the runner's whole Windows PATH behind
 # Cygwin's /usr/bin. Whatever Cygwin itself has wins, but a tool the
 # recipe's BUILD_REQUIRES leave out is then found under C:\Windows or the
-# runner's own toolchains instead of failing as missing: libavif 1.4.2's
-# test_cmd_icc_profile and test_cmd_transform ran System32's convert.exe
+# runner's own toolchains instead of failing as missing: a package's tests
+# ran System32's convert.exe
 # (the FAT-to-NTFS converter, "Invalid drive specification.") where they
 # meant ImageMagick's. System32 alone also has find, sort, timeout, more,
 # expand, hostname, whoami, tar, curl, ssh and a WSL bash.exe; the runner

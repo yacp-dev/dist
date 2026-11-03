@@ -33,8 +33,9 @@
 # generated autotools files, DIFF_EXCLUDES): a change the recipe's own
 # .src.patch made to such a file builds green in this run, then silently
 # drops out of the committed patch, and the next build of the recipe
-# fails without it (libquo-1.4.1: hwloc's include/hwloc/autogen/
-# config.h.in). So before overwriting it, the files the old patch
+# fails without it (e.g. a bundled library's
+# include/<lib>/autogen/config.h.in). So before overwriting it, the files
+# the old patch
 # changes are compared with the new one's, and any that went missing are
 # reported as a warning, in the run summary and as `dropped_files=` in
 # GITHUB_OUTPUT for the PR body. Such a change belongs in a PATCH_URI

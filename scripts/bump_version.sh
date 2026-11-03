@@ -111,14 +111,14 @@ new_basename="${pn}-${new_version}-1bl1"
 # dot, and not followed by a digit or a dot+digit. A plain
 # `sed s/$old/$new/g` treated the version's dots as regex wildcards and
 # had no boundaries, so 1.0.3 matched the "130,3" in a .src.patch hunk
-# header (`@@ -130,3 ...`), corrupting it (confirmed by a real run:
-# libdecaf 1.0.5) -- and a dotless version like 14 would match any line
+# header (`@@ -130,3 ...`), corrupting it -- and a dotless version like 14
+# would match any line
 # number or literal containing it.
 #
 # In a .src.patch only the ---/+++ header lines' top directory
 # (origsrc/<SRC_DIR>/, src/<SRC_DIR>/) is touched -- that's the only place
 # `cygport diff` itself puts the version. SRC_DIR isn't always <PN>-<PV>
-# (e.g. abPOA-1.5.6, aespipe-v2.4j), so the version is matched within that
+# (e.g. `<PN>-v<PV>`), so the version is matched within that
 # component rather than the whole component being rebuilt. Hunk contents
 # are left alone: rewriting a version that appears in the patched code
 # itself is never what the recipe meant.
@@ -127,9 +127,8 @@ new_basename="${pn}-${new_version}-1bl1"
 # the version a patch was written for, not the one being built -- a
 # Debian revision (.../debian/0.7.5-1/...), a Gentoo or Fedora file name
 # (files/<pn>-<ver>-fix.patch), a local patch file that isn't renamed.
-# Substituting it pointed the URL at something that doesn't exist
-# (confirmed by a real run: msolve 0.11.0 fetched .../debian/0.11.0-1/...,
-# a 404, where Debian only had 0.11.0-2). The old URL still fetches the
+# Substituting it pointed the URL at something that doesn't exist. The old
+# URL still fetches the
 # old patch, and if it no longer applies, the build fails on it.
 #
 # A .cygport also gets its PV-derived variable names renamed: cygport
@@ -137,7 +136,7 @@ new_basename="${pn}-${new_version}-1bl1"
 # `lib${PN}_${PV}` in PKG_NAMES pairs with literal names like
 # libCatch2_3_15_3_CONTENTS. Before this, the dot-wildcard sed happened to
 # match 3_15_3 and wrote back libCatch2_3.16.1_CONTENTS, an invalid name,
-# leaving the DLL in no package (confirmed by a real run: Catch2 3.16.1).
+# leaving the DLL in no package.
 # Each PKG_NAMES entry is expanded the way cygport would for the old and
 # the new PV (${PV}, ${PV[n]}, $PV_MAJ, $PV_MAJ_MIN -- cygport's PV array
 # is the full version followed by its [-._]-separated parts -- plus a
