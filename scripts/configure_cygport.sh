@@ -16,15 +16,6 @@
 # compile failure's log actually show the failing command instead of
 # just "make: *** [Makefile:123: foo.o] Error 1".
 #
-# Also makes cygport's `wget` calls curl. cygport fetches with wget when
-# `command -v wget` finds one (which a function satisfies, as it does for
-# make below), else with `curl -R -k --url ... -o ...` -- no -L, so a
-# redirecting URL such as a GitHub archive fails. Cygwin's wget is
-# linked against libxml2 and stops working when libxml2 changes its ABI
-# ahead of it; curl doesn't use libxml2. The function understands the
-# arguments cygport gives wget (-O <file>, --no-check-certificate, and
-# gnome.org.cygclass's -q --spider) and nothing else.
-#
 # Also resets PATH for everything cygport runs, the same way Cygwin's
 # official CI (cygwin/scallywag) does: /usr/bin, /usr/local/bin and
 # Windows' system32 only (its .github/workflows/build.yml), then
@@ -127,24 +118,6 @@ export AUTOCONF="autoconf -B $HOME/.cygport-autoconf"
 make()
 {
 	/usr/bin/make V=1 VERBOSE=1 "$@"
-}
-wget()
-{
-	local out="" spider="" uri=""
-	while (( $# )); do
-		case "$1" in
-			-O) out="$2"; shift ;;
-			--spider) spider=1 ;;
-			-*) ;;
-			*) uri="$1" ;;
-		esac
-		shift
-	done
-	if [ -n "$spider" ]; then
-		/usr/bin/curl -sSfIL -k --retry 3 -o /dev/null --url "$uri"
-	else
-		/usr/bin/curl -sSfL -k --retry 3 --url "$uri" -o "$out"
-	fi
 }
 ninja()
 {
