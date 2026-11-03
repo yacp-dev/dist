@@ -521,6 +521,10 @@ jobs:
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         continue-on-error: true
         timeout-minutes: 10
+        # shell: bash explicitly: the script below is bash (${..:+..},
+        # backslash continuations), and windows-latest defaults to pwsh,
+        # which rejected it with a ParserError.
+        shell: bash
         env:
           README_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
         run: |
