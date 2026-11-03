@@ -885,6 +885,24 @@ audit_runtime_requires() {
     warn "the packages' binaries import $dll, which isn't installed, so no package requires it -- add its runtime package to BUILD_REQUIRES"
   done < "$tmp/runtime_imports"
 
+  # A script with a python shebang, with no python3 installed: cygport
+  # adds python3 to the requires only for an existing /usr/bin/python3
+  # (an alternatives symlink the python3 package sets up), and its
+  # `cygport dep` runs the interpreter to read the script's version, so
+  # without one the requirement is lost -- or the whole list, silently.
+  # It isn't in the base toolchain: a recipe whose package ships such a
+  # script says so in BUILD_REQUIRES. Same prunes as cygport's own search.
+  if [[ ! -e /usr/bin/python3 ]]; then
+    local pyscr
+    while IFS= read -r pyscr; do
+      [[ -n "$pyscr" ]] || continue
+      warn "${pyscr#"$D"/} has a python shebang, but python3 isn't installed, so cygport can't add it to the requires (and cygport dep can't read the script) -- add python3 to BUILD_REQUIRES"
+    done < <(find "$D" \( -path "$D/usr/share/doc" -o -path "$D/usr/lib/pypy" -o -path "$D/usr/lib/python[23].*" \
+                         -o -path "$D/usr/share/gdb" -o -path "$D/usr/share/help" -o -path '*/usr/src/debug' \) -prune \
+               -o -type f -executable -name '[!.]*' ! -name '*-gdb.py' ! -name '*.exe' ! -name '*.dll' \
+               -exec sed -sne '1{/^#!.*python/F}' '{}' + 2>/dev/null)
+  fi
+
   if [[ ! -f "$C/README" ]]; then
     say "no README in \$C to check"
     return
