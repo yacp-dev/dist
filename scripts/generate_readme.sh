@@ -315,10 +315,9 @@ download="$SRC_URI"
 for vcs in "${vcs_vars[@]}"; do
   if [[ -n "${!vcs:-}" ]]; then download="${!vcs}"; break; fi
 done
+# SRC_URI may start with a newline and indentation (one URI per line).
+download="${download#"${download%%[![:space:]]*}"}"
 download="${download%%[[:space:]]*}"
-if [[ -z "$download" ]]; then
-  read -r download _ <<<"$SRC_URI"
-fi
 
 release_less="${PVR%-"$PR"}"
 
