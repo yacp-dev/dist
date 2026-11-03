@@ -44,7 +44,7 @@ audit_recipe_vars() {
     target="${out#* }"
     [[ "$code" == "$out" ]] && target=""
     case "${code:-000}" in
-      200) ;;
+      200) ok "Recipe: $label $url answers 200" ;;
       000) rwarn "$label $url: cannot reach it" ;;
       3??)
         # Only the first hop: a chain of redirects is reported as its
@@ -61,6 +61,8 @@ audit_recipe_vars() {
 
   if [[ "$(head -c 3 "$cygport_file" | od -An -tx1 | tr -d ' \n')" == efbbbf ]]; then
     rwarn "$cygport_file starts with a BOM -- remove it"
+  else
+    ok "Recipe: $cygport_file has no BOM"
   fi
 
   if [[ -z "${CATEGORY// /}" ]]; then
@@ -69,7 +71,11 @@ audit_recipe_vars() {
     rwarn "$categories not found, CATEGORY can't be checked"
   else
     for cat in $CATEGORY; do
-      grep -qxF -- "- ${cat,,}" "$categories" || rwarn "CATEGORY is invalid: $cat (not in data/categories.yml)"
+      if grep -qxF -- "- ${cat,,}" "$categories"; then
+        ok "Recipe: CATEGORY $cat is in data/categories.yml"
+      else
+        rwarn "CATEGORY is invalid: $cat (not in data/categories.yml)"
+      fi
     done
   fi
 
@@ -79,7 +85,11 @@ audit_recipe_vars() {
     check_url HOMEPAGE "$HOMEPAGE"
   fi
 
-  [[ -n "$LICENSE" ]] || rwarn "LICENSE is not defined (see port-until-green's \"Missing LICENSE\")"
+  if [[ -n "$LICENSE" ]]; then
+    ok "Recipe: LICENSE is set ($LICENSE)"
+  else
+    rwarn "LICENSE is not defined (see port-until-green's \"Missing LICENSE\")"
+  fi
 
   if [[ -z "$LICENSE_URI" ]]; then
     rwarn "LICENSE_URI is not defined"
@@ -87,23 +97,28 @@ audit_recipe_vars() {
     check_url LICENSE_URI "$LICENSE_URI"
   elif [[ -d "$S" && ! -e "$S/$LICENSE_URI" ]]; then
     rwarn "LICENSE_URI = $LICENSE_URI is not found under \$S"
+  elif [[ -d "$S" ]]; then
+    ok "Recipe: LICENSE_URI = $LICENSE_URI is under \$S"
   fi
 
   if [[ -n "${BUILD_REQUIRES// /}" ]]; then
     if [[ ! -f "$installed_db" ]]; then
       rwarn "$installed_db not found, BUILD_REQUIRES can't be checked"
     else
+      local w0=$warnings
       for pkg in $BUILD_REQUIRES; do
         awk -v want="$pkg" 'NF == 3 && $1 == want { found = 1 } END { exit !found }' "$installed_db" \
           || rwarn "BUILD_REQUIRES: $pkg is not installed -- setup couldn't install it: misspelled, or not a Cygwin package?"
       done
+      (( warnings > w0 )) || ok "Recipe: all $(wc -w <<<"$BUILD_REQUIRES" | tr -d ' ') BUILD_REQUIRES package(s) are installed"
     fi
   fi
 
-  local misplaced
+  local misplaced w1=$warnings
   while IFS= read -r misplaced; do
     [[ -n "$misplaced" ]] && rwarn "$misplaced"
   done < <(awk -f "$recipe_vars_order_awk" "$cygport_file")
+  (( warnings > w1 )) || ok "Recipe: PATCH_URI, *_REQUIRES and LICENSE are where ports' recipes keep them"
 
   unset -f rwarn check_url
 }

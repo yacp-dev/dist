@@ -44,13 +44,18 @@ audit_config_scripts() {
   (( ${#configs[@]} > 0 )) || return 0
   installed_lib_dirs
 
+  local before detail
   for config in "${configs[@]}"; do
+    before=${#found[@]}
     name="$(basename "$config")"
     version="$(timeout 5 "$config" --version </dev/null 2>/dev/null)"
     version_rc=$?
     libs="$(timeout 5 "$config" --libs </dev/null 2>/dev/null)"
     libs_rc=$?
-    (( version_rc != 0 && libs_rc != 0 )) && continue
+    if (( version_rc != 0 && libs_rc != 0 )); then
+      ok "*-config: $name answers neither --version nor --libs, skipped as not pkg-config style"
+      continue
+    fi
     if (( version_rc == 0 )); then
       version="${version//$'\r'/}"
       [[ "$version" == "$pv" ]] || found+=("$name --version is '$version', not \$PV ($pv)")
@@ -59,6 +64,12 @@ audit_config_scripts() {
       while IFS= read -r line; do
         [[ -n "$line" ]] && found+=("$line")
       done < <(missing_libs "$name" "$libs")
+    fi
+    if (( ${#found[@]} == before )); then
+      detail=""
+      (( version_rc == 0 )) && detail+=" --version $version"
+      (( libs_rc == 0 )) && detail+=" --libs $libs"
+      ok "*-config: $name$detail"
     fi
   done
 
@@ -89,7 +100,7 @@ audit_config_scripts() {
 audit_pc_files() {
   local -a lib_dirs pats=() found=()
   local -A seen=()
-  local p pcdir pcfile pc_path="" name modversion prefix libs hits hit line pv="${PV%%+*}"
+  local p pcdir pcfile pc_path="" name modversion prefix libs hits hit line before pv="${PV%%+*}"
   shopt -s nullglob
   local -a pcfiles=("$D"/usr/lib/pkgconfig/*.pc "$D"/usr/share/pkgconfig/*.pc)
   shopt -u nullglob
@@ -106,6 +117,7 @@ audit_pc_files() {
       name="$(basename "$pcfile" .pc)"
       [[ -n "${seen[$name]:-}" ]] && continue
       seen[$name]=1
+      before=${#found[@]}
       if ! modversion="$(PKG_CONFIG_PATH="$pc_path" pkg-config --modversion "$name" 2>"$tmp/pc-err")"; then
         found+=("$name.pc: pkg-config can't read it: $(tr '\n' ' ' < "$tmp/pc-err")")
         continue
@@ -120,6 +132,7 @@ audit_pc_files() {
       while IFS= read -r line; do
         [[ -n "$line" ]] && found+=("$line")
       done < <(missing_libs "$name.pc" "$libs")
+      (( ${#found[@]} > before )) || ok "*.pc: $name.pc version $modversion, prefix ${prefix:-(none)}, --libs ${libs:-(none)}"
     done
   fi
 
@@ -129,6 +142,7 @@ audit_pc_files() {
   printf '%s\n' "${pats[@]}" > "$tmp/pc-patterns"
   for pcfile in "${pcfiles[@]}"; do
     hits="$( { grep -nF -f "$tmp/pc-patterns" "$pcfile"; grep -nE '/cygdrive/|/home/|/tmp/' "$pcfile"; } 2>/dev/null | sort -t: -k1,1n -u)"
+    [[ -n "$hits" ]] || ok "*.pc: ${pcfile#"$D"/} names nothing of the build tree"
     while IFS= read -r hit; do
       [[ -n "$hit" ]] || continue
       found+=("${pcfile#"$D"/}:${hit%%:*} names the build tree: ${hit#*:} -- fix the .pc itself (a \${prefix}-relative path, or a patch of it in src_patch or src_install)")
@@ -155,6 +169,7 @@ audit_appstream() {
     fi
     warn "usr/share/appdata/$(basename "$file") is in the legacy AppStream path -- install it into /usr/share/metainfo"
   done
+  (( printed )) || ok "AppStream: nothing in the legacy path usr/share/appdata"
 }
 
 # A file upstream's install left that has the same content as one cygport
@@ -162,10 +177,11 @@ audit_appstream() {
 # under any name. Empty files say nothing, usr/share/doc/$PN's own tree is
 # upstream's documentation, and usr/src holds the debuginfo sources.
 audit_duplicate_docs() {
-  local doc_dir="$D/usr/share/doc/$PN" doc size file printed=0
+  local doc_dir="$D/usr/share/doc/$PN" doc size file printed=0 checked=0
   [[ -d "$doc_dir" ]] || return 0
   while IFS= read -r -d '' doc; do
     size="$(wc -c <"$doc" | tr -d '[:space:]')"
+    checked=$((checked + 1))
     while IFS= read -r -d '' file; do
       cmp -s "$doc" "$file" || continue
       if (( ! printed )); then
@@ -177,4 +193,5 @@ audit_duplicate_docs() {
     done < <(find "$D" \( -path "$doc_dir" -o -path "$D/usr/src" -o -path "$D/usr/share/doc/Cygwin" \) -prune \
       -o -type f -size "${size}c" -print0)
   done < <(find "$doc_dir" -maxdepth 1 -type f -size +0 -print0)
+  (( printed )) || ok "Duplicate files: none of the $checked file(s) in usr/share/doc/$PN has a copy elsewhere"
 }

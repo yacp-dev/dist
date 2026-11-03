@@ -159,6 +159,22 @@ report=()
 warnings=0
 say() { report+=("$*"); }
 warn() { report+=("WARNING: $*"); warnings=$((warnings + 1)); }
+# What a section checked and found fine, for a human to look over for a
+# false negative. Kept out of report (so out of the run summary, the PR
+# body and the sections a reader greps for) and printed last, folded.
+oks=()
+ok() { oks+=("ok: $*"); }
+print_oks() {
+  (( ${#oks[@]} > 0 )) || return 0
+  if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
+    echo "::group::Checked, nothing to report (${#oks[@]})"
+  else
+    echo "-- checked, nothing to report (${#oks[@]}) --"
+  fi
+  printf '%s\n' "${oks[@]}"
+  [[ -n "${GITHUB_ACTIONS:-}" ]] && echo "::endgroup::"
+  return 0
+}
 
 # A top-level license text made of sections, each saying which files it
 # covers with a "Files:" line (Debian copyright style), as draco's
@@ -1157,6 +1173,7 @@ fi
 [[ ${#report[@]} -gt 0 && -z "${report[0]}" ]] && report=("${report[@]:1}")
 if (( ${#report[@]} == 0 )); then
   echo "audit_recipe.sh: nothing to report" >&2
+  print_oks
   exit 0
 fi
 
@@ -1167,6 +1184,7 @@ elif (( warnings > 0 )); then
 fi
 
 printf '%s\n' "${report[@]}"
+print_oks
 
 if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
   output="$(mktemp)"

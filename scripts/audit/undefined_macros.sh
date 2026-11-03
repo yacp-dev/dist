@@ -26,7 +26,10 @@ audit_undefined_macros() {
   # overquoted macro" (confirmed locally against 2.73, the version
   # Cygwin's autoconf2.7 currently ships).
   found="$(grep -hE 'error: (possibly undefined|undefined or overquoted) macro: ' "${logs[@]}")"
-  [[ -n "$found" ]] || return 0
+  if [[ -z "$found" ]]; then
+    ok "Undefined macros: none in ${#logs[@]} compile log(s)"
+    return 0
+  fi
   macro_errors="$(wc -l <<<"$found" | tr -d ' ')"
   say ""
   say "== Undefined macros =="
