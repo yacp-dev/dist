@@ -280,8 +280,7 @@ patch upstream merged or that no longer applies, a SOVERSION bump, a
 `PATCH_URI` pinned to the old version — costs a whole run to find out.
 A rebuild keeps the source, but not the recipe's view of it: what went
 stale since its last bump (unused CMake `-D` variables, a superseded
-Python, a LICENSE gap) builds green, so no run says so (uvwasi-0.0.23's
-`-DVERSION`, `-DWITH_SYSTEM_LIBUV` and `-DBUILD_STATIC_LIBS`). Most of
+Python, a LICENSE gap) builds green, so no run says so. Most of
 it shows without building:
 
 ```bash
@@ -360,9 +359,7 @@ normally fine as they are):
   `vendor/`, ...) → check whether the build compiles what it covers,
   for the options the recipe passes (`USE_VENDORED_*=OFF` and the like
   leave it out), and add its license to `LICENSE` if so, in the same
-  `<pkg>-<ver> (fix LICENSE)` commit (BehaviorTree.CPP: minicoro's
-  `MIT-0 OR Unlicense`, compiled since before 4.10.0, while the recipe
-  said `MIT`). The gap may predate this version: what's marked `new
+  `<pkg>-<ver> (fix LICENSE)` commit. The gap may predate this version: what's marked `new
   since`/`changed since` arrived with it, the rest was already missing.
   A text `gone since` the current version may leave a license in
   `LICENSE` that nothing ships any more.
@@ -374,7 +371,7 @@ normally fine as they are):
   the old package stays in dist) and pin its CONTENTS to
   `usr/lib/python3.N` (log4cplus in ports), in its own commit,
   `<pkg>-<ver> (switch to python3)`. A build on the old Python goes
-  green, so no run would point it out (fastjet-3.5.1, yacp-dev/ports#348).
+  green, so no run would point it out.
 - **CMake options** — each `-D` variable listed there is one no
   `CMakeLists.txt`/`*.cmake` in the patched source names outside
   comments and `message()` calls, and no `configure_file()` header
@@ -387,7 +384,7 @@ normally fine as they are):
   warning in the `cygport compile` log, which also lists cygport's
   `CMAKE_Fortran_*`/`CMAKE_LEGACY_CYGWIN_WIN32` (not the recipe's).
   It misses one only printed in the configure summary, since printing
-  it reads it (uvwasi's `UVWASI_BUILD_TESTS`). (onnx's `-DONNX_BUILD_BENCHMARKS`, unread since before 1.20.1.)
+  it reads it.
 
 Also go through "Distro patches" (under Step 2) now, so they're in the
 first run rather than added after it.
@@ -439,8 +436,7 @@ changelog message is decided again from the files on each run. For
 `deploy`, see "Deploying" below instead of the rest of this step.
 
 A rebuild done to fix what the packages ship, not for a new gcc
-(uvwasi-0.0.23-1bl3: a broken `uvwasi.pc` and the `-devel` package's
-missing `libuv-devel`), gets a changelog line saying so rather than
+(a broken `.pc`, a missing dependency of the `-devel` package), gets a changelog line saying so rather than
 `Rebuild`: pass `-f changelog_message="Fix <what>"` on every dispatch,
 since each run writes the README's entry anew. Keep it short, in the
 style of ports' READMEs (`Fix uvwasi.pc`, `Fix *.cmake`). Fixes the
@@ -490,8 +486,7 @@ already has them.
   imports a DLL that isn't installed" in Step 4). A
   `WARNING:` in `== CMake config requirements ==` names a package
   that `find_package()` of an installed CMake config needs and its
-  subpackage doesn't require (mongo-c-driver 2.5.7: OpenSSL, SASL2
-  and libutf8proc for `libmongoc2-devel`): add it to that
+  subpackage doesn't require: add it to that
   `<sub>_REQUIRES` in one commit, `<pkg>-<ver> (fix <sub> REQUIRES)`,
   and re-run. A `Build-time downloads` line in the PR body (`Audit
   recipe`'s `== Build-time downloads ==`: a FetchContent `_deps/<name>-src`,
@@ -505,8 +500,8 @@ already has them.
   `src_unpack_hook` (which needs `CYGPORT_USE_UNSTABLE_API=1` right
   above it, or cygport skips it with a warning in the `cygport prep`
   log). One commit, `<pkg>-<ver> (take <name> from SRC_URI)`, dropping
-  `git` from `BUILD_REQUIRES` if only the clone needed it, then re-run
-  (libavif 1.4.2: libargparse into `ext/libargparse`). Its license
+  `git` from `BUILD_REQUIRES` if only the clone needed it, then re-run.
+  Its license
   still counts if it's compiled. A
   `.src.patch lost changes` line in the PR body (a warning from `Copy
   build results back via xezat port`) means the committed recipe no
@@ -518,8 +513,7 @@ already has them.
   find ==` section says which pkg-config module or CMake package each
   is for). For each, find the lookup in the build files and what it
   gates: one that builds more of the package -- a plugin, a backend,
-  a feature upstream turns on when it's found (libwebsockets 5.0.0's
-  HLS plugin, with ffmpeg) -- or its tests, goes into `BUILD_REQUIRES`
+  a feature upstream turns on when it's found -- or its tests, goes into `BUILD_REQUIRES`
   in one commit, `<pkg>-<ver> (add <what> to BUILD_REQUIRES for
   <feature>)`, then re-run. Leave out one the recipe turned off on
   purpose (a `-D...=OFF`, a `--disable-...`), one only a fallback
@@ -552,8 +546,7 @@ scripts/distro_patches.sh --project <repology name> --version <ver> --out <scrat
 
 `<repology name>` is the one Step 1 used (or would have). Repology only
 supplies the distros' source package names: the versions are read from
-each distro directly, since Repology can lag (it had Fedora at
-libpciaccess 0.16 while rawhide was at 0.19). It prints, per
+each distro directly, since Repology can lag. It prints, per
 distro, the packaging revision it used, the lines saying how the patches
 are applied (Debian `series`, Fedora spec `Patch`/`%if` lines, Gentoo
 ebuild `PATCHES`, AUR `source=`, PLD spec `Patch` lines), and each patch's
@@ -586,9 +579,7 @@ header, then the diff) and **skip** it when:
   that fails is Step 4's business). The same fix carried by two distros
   is taken once. One the recipe's `.src.patch` already makes is *not*
   skipped: the `.src.patch` is for changes nobody else provides, so take
-  the distro patch and drop the same change from the `.src.patch`
-  (libsquish-1.15-1bl4: Debian's `fixup-pkgconfig.patch` for the
-  `.src.patch`'s `-lsquish` hunk).
+  the distro patch and drop the same change from the `.src.patch`.
 
 What's left is usually an upstream backport, a security fix, or a build
 fix for a newer toolchain or for portability. Don't take one you can't
@@ -629,7 +620,7 @@ failed:
 | Every test fails the same way at startup (exit 127, `Cygwin runtime failure`, `error while loading shared libraries`) | The executables can't start at all — and the packaged ones likely can't either | Read the loader message. `cygcheck` naming a DLL "not found" → the in-tree DLL's directory isn't on `PATH` in `src_test` (e.g. `PATH=${B}/src:${PATH} ninja_test`). `Invalid relocation ... doesn't fit into 32 bits` → the exe reaches into the DLL through a 32-bit pseudo-relocation, usually because the import library marks functions as DATA. Confirm before changing anything: `gh run download <id> -R yacp-dev/dist`, unpack the `-devel` tarball, and `nm usr/lib/lib<name>.dll.a | grep -c ' T '` — zero code thunks (only `__imp_`/`__nm_` symbols) confirms it. One known cause is upstream forcing `-flto` into its own compile flags (`CFLAGS+=" -fno-lto"` overrides it, since cygport's flags come later on the command line). Fix on the branch (Step 4) — this counts as an attempt. |
 | Some tests fail, others pass | Real behavior differences on Cygwin, or tests that need what a CI runner lacks (network, display, root) | Read the failing block and the test's source. Fix only when the cause is clear and Cygwin-specific (the same bar as a source patch); otherwise list the failing tests and their errors in the report and leave it to the user. When the code is right and only the test's expectation is glibc-specific (e.g. getopt's wording: glibc `invalid option -- 'j'`, Cygwin `unknown option -- j`), the user prefers patching the test to accept Cygwin's output under a Cygwin check (`uname -o` = `Cygwin`) over leaving it failing. |
 | Tests about file permissions/ownership fail | The CI runner's NTFS ACLs: files and dirs created without an explicit mode lose all "other" bits there (seen in the dist artifact's own tarballs: `drwxrwx---`, `-rw-r-----`) | Environmental — report it as such, don't patch. To confirm, `tar tvJf` the artifact's tarballs and look at modes of files that weren't `install -m`'d. |
-| Timeout | A hanging test, or a suite that's just slow | The check log shows which: stuck on one test, or still passing tests when the time ran out. A hang → report it. Slow → find out how long it takes with `-f check_timeout_minutes=` on one run, then set `YACP_CHECK_TIMEOUT_MINUTES=<minutes>` in the recipe (a little over that; at most 180), with a comment giving the time, in one commit, `<pkg>-<ver> (set check timeout)`, so every later build gets it (libjxl 0.12.0). |
+| Timeout | A hanging test, or a suite that's just slow | The check log shows which: stuck on one test, or still passing tests when the time ran out. A hang → report it. Slow → find out how long it takes with `-f check_timeout_minutes=` on one run, then set `YACP_CHECK_TIMEOUT_MINUTES=<minutes>` in the recipe (a little over that; at most 180), with a comment giving the time, in one commit, `<pkg>-<ver> (set check timeout)`, so every later build gets it. |
 
 A guess that a re-run doesn't confirm is a wrong guess: revert it on the
 branch rather than leaving it in the recipe alongside the real fix.
@@ -716,11 +707,8 @@ line it printed, the test script, or the build file that disabled it):
 - A tool or library the test looks for and Cygwin has (a script's
   `command -v`, a `find_program()`/`find_package()` that drops the test)
   → add it to `BUILD_REQUIRES` in one commit, `<pkg>-<ver> (add <what>
-  to BUILD_REQUIRES for tests)`, and re-run (libavif 1.4.2:
-  `ImageMagick`). Check its curr version has what the test calls
-  (ImageMagick 7's `magick`).
-- Disabled because an upstream option that's off by default isn't on
-  (libavif's `test_cmd_stdin`, behind `AVIF_LIBXML2`, default `OFF`) →
+  to BUILD_REQUIRES for tests)`, and re-run. Check its curr version has what the test calls.
+- Disabled because an upstream option that's off by default isn't on →
   turning it on adds a feature, not a test: say so in the report and
   leave it to the user.
 - Needs what the runner lacks (network, display, root), another OS, or
@@ -743,9 +731,7 @@ doesn't touch the recipe.
 files they install, and the sources compiled into their binaries. Code
 the build leaves out -- a backend it doesn't enable, a vendored
 library it doesn't compile, tests, examples, the build system's own
-scripts -- doesn't count, whatever its license (gperftools 2.19.1:
-`BSD-3-Clause`, though `vendor/aw-backtrace` carries 0BSD and GPL
-headers, since it isn't built on Cygwin). Which sources were compiled
+scripts -- doesn't count, whatever its license. Which sources were compiled
 is what the debuginfo package's `usr/src/debug/<PF>/` lists (`tar tJf`
 its tarball from the run's dist artifact), or, before a green run, what
 the build files compile for the options the recipe passes. A vendored
@@ -946,8 +932,7 @@ Edit only files under the package directory. Common fixes:
   `PATCH_URI` (`git diff`-style `a/`/`b/` paths relative to `${S}`, a
   few header lines saying why). In the `.src.patch` it builds green
   once, then `xezat port` regenerates the patch without it and the
-  next build fails (libquo-1.4.1: the bundled hwloc's
-  `include/hwloc/autogen/config.h.in`, now `hwloc-cygwin-uint64.patch`).
+  next build fails.
 - **The `.src.patch` hardcodes the package version** (e.g. a hunk setting
   `AC_INIT([foo], [1.6.0])`; the bump doesn't touch it, so it goes stale
   silently) → drop that hunk and substitute `${PV}` in `origsrc` from a
@@ -961,8 +946,7 @@ Edit only files under the package directory. Common fixes:
 - **README's runtime requirements empty** (`Audit recipe` warns, `Update
   README via xezat` logs `which: no <dll>`) → `cygport dep` stopped at a
   DLL it couldn't find and printed nothing. Usually that's an import
-  library installed next to a dlopen()ed plugin (BehaviorTree.CPP 4.10.0:
-  `usr/share/behaviortree_cpp/bt_plugins/lib*_dyn.dll.a`): nothing links
+  library installed next to a dlopen()ed plugin (`usr/share/<pkg>/plugins/lib*_dyn.dll.a`): nothing links
   against a plugin, so remove them in `src_install` after the install
   call (`rm -f ${D}/usr/share/<dir>/*.dll.a`) rather than pointing
   `DEPS_PATH` at them. Check first that the DLL is really only loaded at
@@ -973,12 +957,11 @@ Edit only files under the package directory. Common fixes:
 - **A shipped binary imports a DLL that isn't installed** (`Audit recipe`'s
   `== Runtime requirements ==`: `import cygpq-5.dll, which isn't installed`)
   → add the DLL's runtime package to `BUILD_REQUIRES`, since its `-devel`
-  package doesn't pull it in (soci-4.1.4: `libpq5`, next to `libpq-devel`).
+  package doesn't pull it in (`libpq5`, next to `libpq-devel`).
 - **Upstream's install duplicates a file cygport installs itself**
   (`Audit recipe`'s `== Duplicate files ==`: a `LICENSE`, `COPYING`,
   `README` under `usr/share/<name>/`, with the same content as cygport's
-  copy in `usr/share/doc/${PN}/`; semver-cpp 1.0.1:
-  `usr/share/semver/LICENSE`) → remove upstream's copy in `src_install`
+  copy in `usr/share/doc/${PN}/`) → remove upstream's copy in `src_install`
   after the install call, along with a directory that leaves empty,
   unless the program reads that path at runtime (leave it and say so in
   the report). One commit, `<pkg>-<ver> (drop duplicate <file>)`.
@@ -998,7 +981,7 @@ and in a recipe you've just bumped even if a run didn't complain:
   the URL `distro_patches.sh` prints), not `raw/rawhide/f/`, which moves
   on. One inherited from master gets pinned on the bump too, once the
   pinned file is checked to be the same patch, in its own commit,
-  `<pkg>-<ver> (pin Fedora patch in PATCH_URI)` (trustedqsl-2.8.6).
+  `<pkg>-<ver> (pin Fedora patch in PATCH_URI)`.
 - `LICENSE`, `LICENSE_SPDX`, `LICENSE_URI` after `DESCRIPTION`, one blank
   line between, and before `BUILD_REQUIRES`.
 - `BUILD_REQUIRES` tab-indented, one package per line, even a short list.
