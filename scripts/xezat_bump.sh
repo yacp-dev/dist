@@ -46,9 +46,11 @@ cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
 
 # Stops xezat's Asciidoc detector from listing asciidoc as a build
-# requirement (see xezat_skip_asciidoc_detector.rb). Only this bump's
-# xezat process gets it; RUBYOPT from the job's env is kept.
-RUBYOPT="-r${script_dir}/xezat_skip_asciidoc_detector.rb ${RUBYOPT:-}"
+# requirement (see xezat_skip_asciidoc_detector.rb), and its Halibut detector
+# from listing halibut for packages that ship prebuilt documentation (see
+# xezat_skip_halibut_detector.rb). Only this bump's xezat process gets them;
+# RUBYOPT from the job's env is kept.
+RUBYOPT="-r${script_dir}/xezat_skip_asciidoc_detector.rb -r${script_dir}/xezat_skip_halibut_detector.rb ${RUBYOPT:-}"
 export RUBYOPT
 
 if [[ -n "${XEZAT_BUMP_MESSAGE:-}" ]]; then
