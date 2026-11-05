@@ -478,14 +478,6 @@ jobs:
         id: package
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
-      # Feeds Decide changelog message below. gcc-core is always
-      # installed as part of the base toolchain (see Install Cygwin (base
-      # toolchain) above), so this doesn't need its own package install.
-      - name: Detect gcc-core version
-        id: gcc-version
-        if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/gcc_version.sh
-
       # A release-only bump (`rebuild`/`gcc-rebuild`, or a branch-rebuild
       # re-run of one -- where the release isn't bumped again) gets
       # "Rebuild with gcc-<ver>"/"Rebuild" instead of xezat's default
@@ -496,7 +488,7 @@ jobs:
       - name: Decide changelog message
         id: changelog
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        run: bash -- scripts/changelog_message.sh --dir yacp --package "${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --gcc-version "${{ steps.gcc-version.outputs.gcc_version }}"
+        run: bash -- scripts/changelog_message.sh --dir yacp --package "${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
       # Skipped entirely for deploy: there's no PR to carry a
       # rewritten README to, and the changelog already has whatever entry

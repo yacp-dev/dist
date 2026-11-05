@@ -23,7 +23,7 @@
 #
 # Usage:
 #   changelog_message.sh --dir yacp --package superlu \
-#     --file superlu-7.0.1-1bl2.cygport --gcc-version 14.4.0-1
+#     --file superlu-7.0.1-1bl2.cygport
 # Output: prints the message (possibly empty) to stdout; if GITHUB_OUTPUT
 # is set, appends `message=<message>` there too.
 
@@ -32,14 +32,12 @@ set -euo pipefail
 dir=""
 package=""
 cygport_file=""
-gcc_version=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --dir) dir="$2"; shift 2 ;;
     --package) package="$2"; shift 2 ;;
     --file) cygport_file="$2"; shift 2 ;;
-    --gcc-version) gcc_version="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -47,7 +45,6 @@ done
 [[ -n "$dir" ]] || { echo "--dir is required" >&2; exit 1; }
 [[ -n "$package" ]] || { echo "--package is required" >&2; exit 1; }
 [[ -n "$cygport_file" ]] || { echo "--file is required" >&2; exit 1; }
-[[ -n "$gcc_version" ]] || { echo "--gcc-version is required" >&2; exit 1; }
 
 # <PN>-<PV>-<PR>.cygport minus its trailing -<PR>.cygport. Comparing
 # these directly sidesteps needing to know PN (which can itself contain
@@ -61,6 +58,13 @@ head_cygport="$(git -C "$dir" ls-tree --name-only HEAD -- "$package/" | grep '\.
 
 message=""
 if [[ -n "$head_cygport" && "$(strip_release "${head_cygport##*/}")" == "$(strip_release "$cygport_file")" ]]; then
+  # The installed Cygwin gcc-core package's version (e.g. "14.2.0-1"),
+  # not `gcc --version`'s output, so it lines up with the gcc-core-<ver>
+  # xezat records under a README's "Build requirements". gcc-core is
+  # always installed as part of the base toolchain (build-package.yml's
+  # "Install Cygwin (base toolchain)").
+  gcc_version="$(cygcheck -c gcc-core | awk '$1 == "gcc-core" { print $2 }')"
+  [[ -n "$gcc_version" ]] || { echo "changelog_message.sh: couldn't find gcc-core in 'cygcheck -c gcc-core' output" >&2; exit 1; }
   gcc_upstream="${gcc_version%-*}"
   old_gcc="$(git -C "$dir" show "HEAD:$package/README" 2>/dev/null | sed -n 's/^[[:space:]]*gcc-core-\(.*\)-[^-]*$/\1/p' | head -n 1 || true)"
   if [[ -n "$old_gcc" && "$old_gcc" != "$gcc_upstream" ]]; then
