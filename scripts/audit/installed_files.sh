@@ -172,6 +172,26 @@ audit_appstream() {
   (( printed )) || ok "AppStream: nothing in the legacy path usr/share/appdata"
 }
 
+# Nothing of CMake's in usr/share/cmake. CMake finds a package's
+# <name>Config.cmake under <prefix>/share/cmake/<name>*/ as well as
+# <prefix>/lib/cmake/<name>*/, but Cygwin packages keep them in
+# usr/lib/cmake, so a file in usr/share/cmake is what an install that
+# defaulted to the architecture-independent directory left. (usr/share/
+# cmake-X.Y is CMake's own, and isn't looked at.)
+audit_cmake_share() {
+  local entry printed=0
+  for entry in "$D"/usr/share/cmake/*; do
+    [[ -e "$entry" ]] || continue
+    if (( ! printed )); then
+      say ""
+      say "== CMake files =="
+      printed=1
+    fi
+    warn "usr/share/cmake/$(basename "$entry") is in usr/share/cmake -- install it into /usr/lib/cmake (the package's own *_INSTALL_CMAKEDIR / CMAKE_INSTALL_PACKAGEDIR option, or move it in src_install)"
+  done
+  (( printed )) || ok "CMake files: nothing in usr/share/cmake"
+}
+
 # A file upstream's install left that has the same content as one cygport
 # put in usr/share/doc/$PN itself (e.g. usr/share/<name>/LICENSE),
 # under any name. Empty files say nothing, usr/share/doc/$PN's own tree is

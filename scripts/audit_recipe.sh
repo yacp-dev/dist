@@ -14,7 +14,8 @@
 # What the packages install for other builds to use (audit/
 # installed_files.sh): each *-config's --version and --libs, each *.pc
 # as pkg-config reads it (version, prefix, --libs) and any line of it
-# naming the build tree, nothing in the legacy AppStream path, and no
+# naming the build tree, nothing in the legacy AppStream path, nothing
+# of CMake's in usr/share/cmake (it belongs in usr/lib/cmake), and no
 # copy of a file cygport installs itself into usr/share/doc/$PN.
 #
 # And six cross-checks of the recipe against the build: whether LICENSE
@@ -1194,6 +1195,7 @@ else
   audit_config_scripts
   audit_pc_files
   audit_appstream
+  audit_cmake_share
   audit_duplicate_docs
   audit_license
   before=$warnings
