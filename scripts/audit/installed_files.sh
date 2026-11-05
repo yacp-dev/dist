@@ -192,6 +192,55 @@ audit_cmake_share() {
   (( printed )) || ok "CMake files: nothing in usr/share/cmake"
 }
 
+# Nothing in a directory the FHS doesn't have, as the file lists of the
+# packages would show: the top level of $D may hold bin, etc, lib, sbin,
+# usr, var, opt and srv (the rest -- dev, home, proc, tmp, ... -- is the
+# system's, not a package's), and usr/ only bin, include, lib, libexec,
+# local, sbin, share and src, plus the <arch>-pc-cygwin* trees of a cross
+# toolchain. The usual slips are named with where the files belong:
+# usr/etc, usr/doc, usr/man, usr/info, usr/tmp, usr/var, usr/home,
+# usr/lib64, usr/locale. Only the first level is looked at, and one entry
+# is one warning however much is under it.
+audit_fhs_paths() {
+  local entry name hint printed=0
+  local -a found=()
+  for entry in "$D"/*; do
+    [[ -e "$entry" ]] || continue
+    name="$(basename "$entry")"
+    case "$name" in
+      bin|etc|lib|sbin|usr|var|opt|srv) ;;
+      *) found+=("$name is not an FHS directory a package installs into") ;;
+    esac
+  done
+  for entry in "$D"/usr/*; do
+    [[ -e "$entry" ]] || continue
+    name="$(basename "$entry")"
+    case "$name" in
+      bin|include|lib|libexec|local|sbin|share|src|*-pc-cygwin*) continue ;;
+      etc)     hint="install it into /etc" ;;
+      doc)     hint="install it into /usr/share/doc" ;;
+      man)     hint="install it into /usr/share/man" ;;
+      info)    hint="install it into /usr/share/info" ;;
+      locale)  hint="install it into /usr/share/locale" ;;
+      tmp)     hint="a package doesn't ship temporary files" ;;
+      var)     hint="install it into /var" ;;
+      home)    hint="a package doesn't ship home directories" ;;
+      lib64|lib32) hint="install it into /usr/lib" ;;
+      *)       hint="" ;;
+    esac
+    found+=("usr/$name is not an FHS directory${hint:+ -- $hint}")
+  done
+  if (( ${#found[@]} == 0 )); then
+    ok "FHS paths: only FHS directories at the top of \$D and of usr/"
+    return 0
+  fi
+  say ""
+  say "== FHS paths =="
+  for entry in "${found[@]}"; do
+    warn "$entry"
+  done
+}
+
 # A file upstream's install left that has the same content as one cygport
 # put in usr/share/doc/$PN itself (e.g. usr/share/<name>/LICENSE),
 # under any name. Empty files say nothing, usr/share/doc/$PN's own tree is
