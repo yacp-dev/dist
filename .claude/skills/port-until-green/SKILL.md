@@ -223,9 +223,22 @@ For `bump` (and `latest` carried on as one):
    recent runs (`gh run list -R yacp-dev/dist --workflow build-package.yml --limit 20`),
    and for each, `gh run view <id> -R yacp-dev/dist --log | grep -m1 'TARGET: <pkg>-<ver>'`.
    Note the newest matching run: if one is still queued or in progress,
-   wait for it instead of dispatching again; if it's green, check its
-   `cygport check` and Audit output (Step 2) before reporting the PR as
-   ready; if it's red, go to Step 3 with it.
+   wait for it instead of dispatching again; if it's red, go to Step 3
+   with it. If it's green, **don't build again**: a rebuild of an
+   unchanged branch only burns 5–30 min. First make sure the run built
+   the branch as it stands now. The bot force-pushes the branch at the end
+   of every run, so the head commit should be the bot's (not a fix pushed
+   by hand since) and not newer than the run's end:
+   `gh api repos/yacp-dev/ports/commits/dorgann/<pkg>-<ver> --jq '.commit.committer.date + " " + .author.login'`
+   against `gh run view <id> -R yacp-dev/dist --json updatedAt`. Also
+   `git -C ~/src/ports ls-remote origin dorgann/<pkg>-<ver>` after a
+   `fetch` shows no local-only commits waiting in a worktree. Then skip
+   Step 1b and Step 2's dispatch and go straight to Step 2's **Success**
+   checks on that run (PR ready, `check_summary.sh`, Audit warnings,
+   LICENSE), ending with the Final report's merge verdict. Dispatch again
+   only when the head is newer than the run (a fix not yet built), when a
+   check turns up something to fix, or when the user asks for a rebuild.
+   Use the same shortcut for `new` (a reviewed draft that already has a run).
 3. No branch for this version → Step 1b before dispatching.
 
 For `rebuild` and `gcc-rebuild`, do 2. and 3. too: a rebuild goes
@@ -407,6 +420,12 @@ in one line what the preflight found and fixed before dispatching.
 scripts/dispatch_build.sh --target <pkg>-<ver>          # bump, rebuild
 scripts/dispatch_build.sh --target <pkg>-<ver>-<rel>    # gcc-rebuild, deploy
 ```
+
+Before the first dispatch, Step 1's check for an existing green run
+applies: one that already built the branch's current head is judged, not
+rebuilt. (`run_decision.sh` below only answers "build again after a fix";
+its `dispatch run N succeeded` is not a reason to rebuild an unchanged
+branch.)
 
 To build again after a fix, ask `scripts/run_decision.sh` first, with the
 same `-f` arguments you'd dispatch with:
@@ -1054,6 +1073,8 @@ the conversation already holds the details, the report is the summary.
 | Target | <mode and what it means: 1.9 → 1.10 version update / release rebuild / gcc rebuild / deploy> |
 | Branch | <created new / existed, what was pushed> |
 | `cygport check` | <passed / FAILED / empty / not reached> |
+| Merge | <Ready to merge: green run on the branch's current head, PR not draft, check passed/empty-with-reason, no Audit WARNING left unexplained / Not yet: what blocks it> |
+| Build | <built now / reused run <id> (green, built the current head; not rebuilt)> |
 
 ### Attempts and fixes
 
