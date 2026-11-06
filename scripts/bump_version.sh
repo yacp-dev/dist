@@ -7,8 +7,8 @@
 # `rename` comes from the Cygwin `util-linux` package; `perl` is already
 # pulled in as a dependency of `cygport` itself.
 #
-# This does NOT replace `xezat bump` (which only regenerates README/changelog
-# after a build) -- xezat has no command that performs this rename itself.
+# This does NOT replace generate_readme.sh (which only regenerates README/changelog
+# after a build) -- it doesn't perform this rename itself.
 #
 # Usage:
 #   bump_version.sh --dir yacp/googletest --version 1.18.0

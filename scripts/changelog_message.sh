@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Decides the changelog message `xezat bump` should write (passed on as
-# scripts/xezat_bump.sh's XEZAT_BUMP_MESSAGE), by comparing the package's
+# Decides the changelog message generate_readme.sh should write (passed on as
+# its --message, from build-package.yml's Update README step), by comparing the package's
 # cygport file against the one committed on yacp's checked-out HEAD
 # (always yacp's default branch, even in branch-rebuild mode -- see
 # build-package.yml's Checkout yacp):
 #
 # - PV changed (or the package is new to HEAD): prints nothing, leaving
-#   xezat's own default "Version bump." in place.
+#   generate_readme.sh's own default "Version bump." in place.
 # - Only the release changed (e.g. 1bl1 -> 1bl2), and gcc-core's
 #   upstream version differs from the gcc-core-<ver> listed under the
 #   HEAD README's "Build requirements": "Rebuild with gcc-<upstream>",

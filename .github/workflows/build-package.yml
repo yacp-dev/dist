@@ -14,26 +14,12 @@ run-name: build-package ${{ inputs.target }}
 #
 # Sources are fetched and prepared with plain `cygport fetch`/`prep`
 # (cygport_prep.sh, before the build), which then copies the package
-# directory's README into the build tree, as `xezat prep` does -- that
-# copy is what `xezat bump` later reads and appends a changelog entry to.
-# xezat regenerates the package's README/changelog (`xezat bump`, after
-# the build) and copies the build's results (README,
-# src.patch) back into the package directory (scripts/copy_results_back.sh,
-# after that). `xezat bump` only ever writes back to that same
-# build-tree copy, never to the package directory -- that script is what
-# copies it (and any src.patch) back out; without it, the package directory's tracked README would never actually
-# change. Using xezat at
-# all was originally deferred as an unverified Windows-Ruby risk (xezat
-# then depended on github-linguist, which pulls in native-extension gems:
-# rugged and charlock_holmes), but now runs against a real Cygwin
-# ruby/gem (installed below) rather than the windows-latest runner's
-# preinstalled native Windows Ruby -- xezat itself only works
-# under genuine Cygwin anyway, since it sources the real /usr/bin/cygport
-# as a bash script.
-#
-# xezat itself is installed from the HEAD of its own GitHub repository
-# (scripts/xezat_install.sh) rather than a pinned RubyGems.org release, so
-# unreleased fixes are always picked up.
+# directory's README into the build tree. scripts/generate_readme.sh
+# regenerates the package's README/changelog after the build (appending
+# an entry to that copy's Port Notes) and
+# scripts/copy_results_back.sh copies the build's results (README,
+# src.patch) back into the package directory; without it, the package
+# directory's tracked README would never actually change.
 #
 # Build dependencies are determined in two passes, mirroring how Cygwin's
 # own official CI (cygwin/scallywag) does it: a fixed base toolchain is
@@ -62,7 +48,7 @@ on:
         type: string
         default: ""
       changelog_message:
-        description: "Changelog message for xezat bump (its -m), overriding the automatically decided one (\"Version bump.\"/\"Rebuild with gcc-<ver>\"/\"Rebuild\"). Ignored for <pkg>-<ver>-<rel> of the current release."
+        description: "Changelog message for the README (Port Notes entry), overriding the automatically decided one (\"Version bump.\"/\"Rebuild with gcc-<ver>\"/\"Rebuild\"). Ignored for <pkg>-<ver>-<rel> of the current release."
         required: false
         type: string
         default: ""
@@ -383,12 +369,8 @@ jobs:
       - name: Install Cygwin (extra dependencies)
         uses: cygwin/cygwin-install-action@v6
         with:
-          # Nothing here is for `gem install xezat` below: xezat no longer
-          # depends on github-linguist, so none of its gems has a native
-          # extension to compile. Installing libgit2-devel for that used to
-          # hide a missing libssl-devel in a package's BUILD_REQUIRES.
-          # python312-setuptools is for `cygport dep` (run by `xezat
-          # bump`): it reads a Python script's version via
+          # python312-setuptools is for `cygport dep` (run by
+          # generate_readme.sh): it reads a Python script's version via
           # `from distutils.sysconfig import ...`, and distutils is gone
           # from Python 3.12's stdlib -- setuptools' distutils shim brings
           # it back. Without it that line fails under cygport's `set -e`
@@ -407,21 +389,6 @@ jobs:
       # any file type. See the script for the failure it fixes.
       - name: Refresh MIME database
         run: bash -- scripts/refresh_mime_database.sh
-
-      - name: Install xezat (latest from GitHub)
-        run: bash -- scripts/xezat_install.sh
-
-      # xezat's own `bashvar` (used by bump and port alike, via
-      # Xezat#variables) dies outright on a single invalid UTF-8 byte
-      # anywhere in cygport's internal variable dump, not just this
-      # package's own cygport file's variables (confirmed against a real
-      # failure, libgedit-amtk 5.10.0, and against that package's
-      # committed cygport file decoding as clean UTF-8 on its own, ruling
-      # out the package's own content as the source). See
-      # scripts/bashvar_diagnostic_patch.rb for the full story and why it
-      # never logs variable values, only names/byte positions.
-      - name: Configure bashvar diagnostic patch
-        run: bash -- scripts/configure_bashvar_diagnostic.sh
 
       - name: cygport prep
         id: prep
@@ -480,11 +447,11 @@ jobs:
 
       # A release-only bump (`rebuild`/`gcc-rebuild`, or a branch-rebuild
       # re-run of one -- where the release isn't bumped again) gets
-      # "Rebuild with gcc-<ver>"/"Rebuild" instead of xezat's default
+      # "Rebuild with gcc-<ver>"/"Rebuild" instead of the default
       # "Version bump.", decided by comparing against yacp's HEAD rather
       # than trusting the resolved mode -- see changelog_message.sh. A non-empty
       # `changelog_message` input overrides whatever this decides (see
-      # Update README via xezat below).
+      # Update README below).
       - name: Decide changelog message
         id: changelog
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
@@ -495,30 +462,17 @@ jobs:
       # a real (or previously-failed) build already gave it -- rewriting
       # it here would just clobber that with a message that isn't true,
       # nothing was bumped.
-      - name: Update README via xezat
+      - name: Update README
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        env:
-          XEZAT_BUMP_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
-        run: bash -- scripts/xezat_bump.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
-
-      # scripts/generate_readme.sh is `xezat bump` in bash, run next to it
-      # for now: it writes nothing, and says in the run summary how its
-      # README differs from xezat's. Its Port Notes come from the package
-      # directory's README, which is what xezat read before it rewrote the
-      # copy in the build tree. Warnings only (continue-on-error): a
-      # difference is what this step is for finding.
-      - name: Compare README with generate_readme.sh
-        id: compare-readme
-        if: ${{ needs.gate.outputs.mode != 'deploy' }}
-        continue-on-error: true
-        timeout-minutes: 10
         # One line under the default pwsh, like the steps around it: `shell:
         # bash` is Cygwin's bash by now, and the runner writes the script
         # with CRLF, which leaves a CR on every line. An empty --message
-        # means the script's default; --previous is relative to --dir.
+        # means the script's default ("Version bump."); the Port Notes it
+        # extends are $C/README's, which cygport prep copied from the
+        # package directory.
         env:
           README_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
-        run: bash -- scripts/generate_readme.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --message "$env:README_MESSAGE" --previous README --compare-built
+        run: bash -- scripts/generate_readme.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --message "$env:README_MESSAGE"
 
       # First what the recipe says, which needs no build (what Validate
       # build, replacing `xezat validate`, used to check): no BOM, a valid
@@ -538,10 +492,9 @@ jobs:
       # package not in BUILD_REQUIRES provides (cygcheck -p), since a
       # missing optional dependency drops part of the package silently.
       # It also checks that README's runtime requirements came out, since
-      # `cygport dep` (run by xezat bump) prints nothing on a failure
-      # without failing, which is why it runs after Update README via
-      # xezat. Warnings only, so continue-on-error too: the report goes to
-      # the run summary, the PR body just says there is one.
+      # `cygport dep` (run by generate_readme.sh) prints nothing on a failure
+      # without failing, which is why it runs after Update README. Warnings
+      # only, so continue-on-error too: the report goes to the run summary, the PR body just says there is one.
       #
       # It's also the report on the build itself, for whoever fixes the
       # recipe next: the undefined autoconf macros a failed compile hit
@@ -560,20 +513,20 @@ jobs:
         if: ${{ !cancelled() && steps.detect.outcome == 'success' }}
         continue-on-error: true
         timeout-minutes: 20
-        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --check-outcome "${{ steps.check.outcome }}" --package-outcome "${{ steps.package.outcome }}" --readme-compare "${{ steps.compare-readme.outputs.compare }}"
+        run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --check-outcome "${{ steps.check.outcome }}" --package-outcome "${{ steps.package.outcome }}"
 
       # cygport's `install` step (above) already runs postinst as part of
       # itself (see cygport's own src_postinst.cygpart/bin/cygport.in:
       # `install` runs `src_install && __src_postinst`), which is what
       # embeds $C/README into $D as /usr/share/doc/Cygwin/$PN.README --
-      # but at that point $C/README was still the pre-bump copy xezat
-      # prep put there. Now that xezat bump has rewritten it, it has to be
+      # but at that point $C/README was still the pre-bump copy cygport
+      # prep put there. Now that generate_readme.sh has rewritten it, it has to be
       # re-embedded, and package needs to run again too so the actual
       # dist archive picks up that change -- otherwise the shipped package
       # would carry the stale changelog forever. Not by re-running
       # `cygport postinst`: its doc install isn't idempotent (a second
       # pass adds README.md next to README) -- see embed_readme.sh.
-      # Both skipped for deploy along with Update README via xezat
+      # Both skipped for deploy along with Update README
       # above -- there's no updated README to re-embed, so the package
       # step above (before it, using whatever README was already
       # committed) is already the real dist artifact.
@@ -585,7 +538,7 @@ jobs:
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step package
 
-      # xezat bump only rewrites the build tree's own README copy ($C),
+      # generate_readme.sh only rewrites the build tree's own README copy ($C),
       # never the package directory's tracked one -- see copy_results_back.sh for
       # why. That script copies it (plus any src.patch) back. Skipped for deploy: nothing was
       # bumped/rewritten to port back, and there's no PR to carry it
@@ -597,8 +550,8 @@ jobs:
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         run: bash -- scripts/copy_results_back.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 
-      # Mainly so a run's log makes it easy to eyeball whether xezat
-      # bump/port did the right thing, without waiting for the Create
+      # Mainly so a run's log makes it easy to eyeball whether the
+      # README and copy-back did the right thing, without waiting for the Create
       # Pull Request step below or opening its PR. Bump release's rename
       # and the branch overlay can leave changes uncommitted (a plain
       # filesystem rename, not `git mv`), so new names can be untracked as
@@ -691,7 +644,7 @@ jobs:
         run: bash -- scripts/cygport_build.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --step clean
 
       # GitHub App installation tokens expire after 1 hour, and a full
-      # Windows build (plus a cold xezat gem compile) can easily outlast
+      # Windows build can easily outlast
       # the one Generate yacp token minted at the start of the job -- so
       # mint a fresh one for everything from here on (create-pull-request
       # uses its own `token` input for the push too, overriding the

@@ -27,9 +27,7 @@
 # FindDoxygen picked up Strawberry Perl's bundled
 # /cygdrive/c/Strawberry/c/bin/doxygen.exe (without `dot`) instead of
 # finding no doxygen at all, and failed configure. Only cygport's own
-# environment is narrowed, not the workflow's: xezat itself still needs
-# the gem bindir that xezat_install.sh appends to GITHUB_PATH, but
-# nothing cygport invokes does.
+# environment is narrowed, not the workflow's.
 #
 # /etc/profile cds to $HOME, so the working directory is restored after
 # it (as scallywag's build.sh does too), and its stdout goes to stderr:

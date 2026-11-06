@@ -95,7 +95,6 @@
 # Usage:
 #   audit_recipe.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport \
 #     [--check-outcome success|failure|skipped|] [--package-outcome success|...] \
-#     [--readme-compare identical|]
 #
 # Output: prints the report to stdout; if GITHUB_OUTPUT is set, also
 # writes it to a temp file and appends `report_file=<path>` there, plus
@@ -114,7 +113,6 @@ dir=""
 cygport_file=""
 check_outcome=""
 package_outcome=""
-readme_compare=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -122,7 +120,6 @@ while [[ $# -gt 0 ]]; do
     --file) cygport_file="$2"; shift 2 ;;
     --check-outcome) check_outcome="$2"; shift 2 ;;
     --package-outcome) package_outcome="$2"; shift 2 ;;
-    --readme-compare) readme_compare="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -932,7 +929,7 @@ audit_runtime_requires() {
   if [[ -n "$requires" ]]; then
     say "README lists $(printf '%s\n' "$requires" | wc -l | tr -d ' ') runtime requirement(s)"
   elif [[ -n "$(find "$D" -type f \( -iname '*.exe' -o -iname '*.dll' \) -not -path '*/usr/src/debug/*' -print -quit 2>/dev/null)" ]]; then
-    warn "README's runtime requirements are empty, though the packages ship binaries -- cygport dep printed nothing (look for \"which: no\" in Update README via xezat's log)"
+    warn "README's runtime requirements are empty, though the packages ship binaries -- cygport dep printed nothing (look for \"which: no\" in Update README's log)"
   else
     say "README lists no runtime requirements (no binaries shipped)"
   fi
@@ -1207,12 +1204,6 @@ else
   audit_build_downloads
   audit_runtime_requires
   audit_cmake_requires
-fi
-
-# Compare README with generate_readme.sh said so (its step output): a
-# difference is that step's own to show, in the run summary.
-if [[ "$readme_compare" == identical ]]; then
-  ok "README: generate_readme.sh's is identical to xezat bump's"
 fi
 
 # The sections each start with a blank line.

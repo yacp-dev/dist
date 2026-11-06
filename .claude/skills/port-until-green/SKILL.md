@@ -147,7 +147,7 @@ starts with (package names can contain dashes), then splits the rest into
 - **`bump`** (`<pkg>-<ver>`, `<ver>` differs from ports) → a version
   update to `<ver>`.
 - **`rebuild`** (`<pkg>-<ver>`, `<ver>` equals ports) → bump only the
-  release, e.g. `1bl1` → `1bl2`. `xezat bump` writes `Rebuild with
+  release, e.g. `1bl1` → `1bl2`. `generate_readme.sh` writes `Rebuild with
   gcc-<ver>` if the gcc differs from the one in the README's build
   requirements, else `Rebuild`. A rebuild for a fix the packages
   ship (a `.pc`, `REQUIRES`, a missing file) says what it fixes
@@ -944,7 +944,7 @@ Edit only files under the package directory. Common fixes:
   fill them in from the source while you're on the branch (see "Missing
   LICENSE" under Step 2).
 - **README's runtime requirements empty** (`Audit recipe` warns, `Update
-  README via xezat` logs `which: no <dll>`) → `cygport dep` stopped at a
+  README` logs `which: no <dll>`) → `cygport dep` stopped at a
   DLL it couldn't find and printed nothing. Usually that's an import
   library installed next to a dlopen()ed plugin (`usr/share/<pkg>/plugins/lib*_dyn.dll.a`): nothing links
   against a plugin, so remove them in `src_install` after the install

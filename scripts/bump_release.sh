@@ -10,7 +10,7 @@
 #
 # Unlike bump_version.sh, PV doesn't change here, so there's no old-
 # version string to substitute inside file content -- this is a pure
-# rename, and xezat_bump.sh (not this script) is what records *why* in
+# rename, and generate_readme.sh (not this script) is what records *why* in
 # the changelog.
 #
 # Usage:
