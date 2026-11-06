@@ -104,9 +104,13 @@ jobs:
         id: layout
         run: bash -- scripts/layout_release_area.sh --artifact-dir artifact --gh-pages-dir gh-pages --exclude-debuginfo
 
+      # Pinned to 3.14 rather than '3.x': 3.x resolved to 3.15, for which
+      # zstandard (a calm dependency) has no wheel yet, so pip compiled it
+      # from source -- about 70 of Install calm's 89 seconds. Move this
+      # forward once zstandard ships wheels for the newer Python.
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.x'
+          python-version: '3.14'
 
       # mksetupini is calm's own console_scripts entry point (setup.cfg),
       # so this puts a `mksetupini` command directly on PATH -- no need
