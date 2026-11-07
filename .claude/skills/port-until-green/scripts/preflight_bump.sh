@@ -43,7 +43,10 @@
 #      build on a superseded Python goes green, so no run would say so.
 #   7. For a cmake recipe, the -D<VAR> it passes that no build file in the
 #      patched source reads (unused_cmake_args.sh). CMake only warns about
-#      them in the compile log, which nobody reads on a green run.
+#      them in the compile log, which nobody reads on a green run. Also
+#      whether the source still needs -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+#      (a cmake_minimum_required below 3.5 anywhere in it), and the
+#      other way round, a flag it no longer needs (cmake_min_version.sh).
 #   8. For a version update, the BUILD_REQUIRES packages dist.yacp.dev
 #      provides, with dist's version next to upstream's newest (Repology)
 #      and any dorgann/<dep>-* branch: one upstream has moved past may
@@ -528,6 +531,9 @@ if [[ " $inherits " == *" cmake "* ]]; then
     else
       echo "every -D variable is read by a build file"
     fi
+    echo
+    echo "CMAKE_POLICY_VERSION_MINIMUM (CMake 4 refuses a minimum below 3.5):"
+    bash "$here/cmake_min_version.sh" --recipe "$cygport" --source "$work/src/$SRC_DIR" | sed 's/^/  /'
   fi
 fi
 

@@ -96,6 +96,11 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/unused_cmake_args.sh --recipe F --source DIR [--old-source DIR]` —
   the `-D` variables a cmake recipe passes that no build file in `DIR`
   reads (preflight runs it; also usable on its own).
+- `scripts/cmake_min_version.sh --recipe F --source DIR` — whether the
+  source needs `-DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5` (a
+  `cmake_minimum_required` below 3.5), or the recipe's flag is no longer
+  needed. Preflight prints it under "CMake options"; add or drop the flag
+  accordingly.
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
   bumps a git-snapshot package to upstream HEAD on its own branch, in
   its own worktree (see Step 1).
