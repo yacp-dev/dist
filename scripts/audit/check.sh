@@ -410,6 +410,12 @@ check_skipped_tests() {
 check_test_counts() {
   local line total failed ok
   perl -pe 's/\e\[[0-9;]*m//g' "$checklog" | awk '
+    # ctest prints "100% tests passed out of 81" when nothing failed (no
+    # failed count), and "97% tests passed, 3 tests failed out of 101" otherwise.
+    /^[0-9]+% tests passed out of [0-9]+/ {
+      t = $0; sub(/.*out of /, "", t); sub(/[^0-9].*/, "", t)
+      ctest = t "/" t " passed"
+    }
     /tests passed, [0-9]+ tests? failed out of [0-9]+/ {
       f = $0; sub(/.*passed, /, "", f); sub(/ test.*/, "", f)
       t = $0; sub(/.*out of /, "", t); sub(/[^0-9].*/, "", t)
