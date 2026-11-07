@@ -425,6 +425,20 @@ check_test_counts() {
     /^(Expected Fail|Fail|Unexpected Pass|Skipped|Timeout): +[0-9]+/ { m += $NF; meson = 1 }
     /^# TOTAL: [0-9]+/ { at = $3; auto = 1 }
     /^# PASS: +[0-9]+/ { ap = $3 }
+    # the automake serial harness (and old automake) has no "# TOTAL" block, only
+    # "All 5 tests passed" / "1 of 5 tests failed" (or, with XFAIL,
+    # "All 5 tests behaved as expected" / "1 of 5 tests did not behave as
+    # expected"), between "====" lines.
+    /^(=+ )?All [0-9]+ tests? (passed|behaved as expected)/ {
+      n = $0; sub(/^(=+ )?All /, "", n); sub(/ .*/, "", n); st = n; sp = n; serial = 1
+    }
+    /^(=+ )?[0-9]+ of [0-9]+ tests? (failed|did not behave as expected)/ {
+      f = $0; sub(/^(=+ )?/, "", f); sub(/ of .*/, "", f)
+      n = $0; sub(/^(=+ )?[0-9]+ of /, "", n); sub(/ .*/, "", n); st = n; sp = n - f; serial = 1
+    }
+    # Per-test verdict lines ("PASS: t/foo.sh"), for logs with neither summary.
+    /^(PASS|XFAIL): / { lp++; lt++ }
+    /^(FAIL|XPASS|ERROR|SKIP): / { lt++ }
     # googletest, summed over every test executable that ran:
     #   "[==========] 123 tests from 10 test suites ran. (45 ms total)"
     #   "[  PASSED  ] 120 tests."
@@ -438,6 +452,8 @@ check_test_counts() {
       if (ctest != "") print "ctest " ctest
       else if (meson) print "meson " mok "/" m " passed"
       else if (auto && at > 0) print "automake " ap "/" at " passed"
+      else if (serial && st > 0) print "automake " sp "/" st " passed"
+      else if (lt > 0) print "automake " lp "/" lt " passed"
       else if (gtest && gt > 0) print "gtest " gp "/" gt " passed"
     }'
 }
