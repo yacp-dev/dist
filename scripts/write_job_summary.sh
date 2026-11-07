@@ -127,41 +127,52 @@ tests_cell() {
   echo "$cell"
 }
 
-# Splits the report into NG blocks: "== Section ==" then its lines, as
-# "#### Section" and a code block. The Check section counts as OK when it
-# passed and skipped nothing (it's in the report for its verdict line).
-# Drops the closing "N warning(s)." line, which the table already says.
-render_ng() {
-  awk -v check="$check" -v skipped="$check_skipped" '
-    function flush() {
+# Section names are the audit's own, and two are file patterns; the
+# summary names the check instead.
+TITLES='function title(n) {
+  if (n == "*.pc") return "pkg-config"
+  if (n == "*-config") return "Config scripts"
+  return n
+}'
+
+# Splits the report into "== Section ==" blocks, each a "#### Section"
+# heading and a code block. mode=ng prints the blocks with a WARNING line,
+# and the Check section unless it passed and skipped nothing; mode=info
+# prints the others (a section that only says what it looked at: LICENSE,
+# BUILD_REQUIRES' "probably used", "nothing downloaded"). Drops the
+# closing "N warning(s)." line, which the table already says.
+render_sections() {
+  awk -v mode="$1" -v check="$check" -v skipped="$check_skipped" "$TITLES"'
+    function flush(  i, bad) {
       if (name == "") return
       while (n > 0 && buf[n] == "") n--
-      if (!(name == "Check" && check == "passed" && skipped == "")) {
-        printf "\n#### %s\n```\n", name
+      bad = warned || (name == "Check" && !(check == "passed" && skipped == ""))
+      if ((mode == "ng") == (bad ? 1 : 0)) {
+        printf "\n#### %s\n```\n", title(name)
         for (i = 1; i <= n; i++) print buf[i]
         print "```"
-        shown++
       }
-      name = ""; n = 0
+      name = ""; n = 0; warned = 0
     }
     /^== .* ==$/ { flush(); name = $0; sub(/^== /, "", name); sub(/ ==$/, "", name); next }
     /^[0-9]+ warning\(s\)\./ { next }
-    name != "" { buf[++n] = $0 }
+    name != "" { buf[++n] = $0; if ($0 ~ /^WARNING: /) warned = 1 }
     END { flush() }
-  ' "$1"
+  ' "$2"
 }
 
-# Counts the NG blocks render_ng prints.
+# Counts the blocks in $1.
 count_headings() { grep -c '^#### ' <<<"$1" || true; }
 
 # "ok: Section: text" lines grouped by Section into "#### Section" and a
 # code block of the texts.
 render_ok() {
-  awk '
+  awk "$TITLES"'
     /^ok: / {
       line = substr($0, 5); sec = line; txt = line
       if (index(line, ": ")) { sec = substr(line, 1, index(line, ": ") - 1); txt = substr(line, index(line, ": ") + 2) }
       else sec = "Other"
+      sec = title(sec)
       if (!(sec in items)) order[++k] = sec
       items[sec] = items[sec] txt "\n"
     }
@@ -201,7 +212,7 @@ render_ok() {
   fi
   if [[ -n "$audit_file" && -s "$audit_file" ]]; then
     ng_tmp="$(mktemp)"
-    render_ng "$audit_file" > "$ng_tmp"
+    render_sections ng "$audit_file" > "$ng_tmp"
     if [[ -s "$ng_tmp" ]]; then
       echo
       echo "<details${audit_open:+ open}><summary>❌ NG ($(count_headings "$(cat "$ng_tmp")"))</summary>"
@@ -211,14 +222,15 @@ render_ok() {
     fi
     rm -f "$ng_tmp"
   fi
-  if [[ -n "$audit_oks_file" && -s "$audit_oks_file" ]]; then
-    ok_tmp="$(mktemp)"
-    render_ok "$audit_oks_file" > "$ok_tmp"
+  ok_tmp="$(mktemp)"
+  [[ -z "$audit_file" || ! -s "$audit_file" ]] || render_sections info "$audit_file" >> "$ok_tmp"
+  [[ -z "$audit_oks_file" || ! -s "$audit_oks_file" ]] || render_ok "$audit_oks_file" >> "$ok_tmp"
+  if [[ -s "$ok_tmp" ]]; then
     echo
-    echo "<details><summary>✅ OK ($(count_headings "$(cat "$ok_tmp")") checks, ${audit_oks_count:-?} items)</summary>"
+    echo "<details><summary>✅ OK ($(count_headings "$(cat "$ok_tmp")"))</summary>"
     print_bounded "$ok_tmp"
     echo
     echo "</details>"
-    rm -f "$ok_tmp"
   fi
+  rm -f "$ok_tmp"
 } >> "$GITHUB_STEP_SUMMARY"
