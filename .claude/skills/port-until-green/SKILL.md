@@ -692,7 +692,7 @@ issues or suggest reporting upstream.
 ### Empty test suite
 
 `check: empty` means check passed without running a single test:
-src_test printed nothing, or cygtest/ctest/meson/automake/pytest said
+src_test printed nothing, or cygtest/ctest/meson/automake/pytest/googletest said
 there were none (the reason is in parentheses). Whether that's right
 depends on upstream, so look at the source before reporting it:
 
@@ -719,7 +719,8 @@ A skipped test counts as passed, or isn't counted, so `check: passed`
 can hide part of the suite not running. `check_summary.sh` lists them
 after the verdict (`check-skipped: N test(s)`, from `Audit recipe`'s
 Check section): ctest's `***Skipped`/`***Not Run`, meson's and automake's
-`SKIP`, pytest's skipped totals, and each ctest test whose own output
+`SKIP`, googletest's `[  SKIPPED ]` lines, pytest's skipped totals, and each
+ctest test whose own output
 says it skipped. cygport's steps run with the Windows directories left
 out of `PATH` (`scripts/cygwin_path.sh`), so a tool the recipe doesn't
 install makes a test skip itself (or fail as `command not found`)

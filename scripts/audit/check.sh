@@ -140,12 +140,15 @@ check_failure_diagnostic() {
   echo "cygport check failed. From $checklog:"
   echo
   # Totals first -- meson ("Ok:"/"Fail:"/"Timeout:"), ctest ("% tests
-  # passed"), automake ("# FAIL:"/"# ERROR:") -- then the first few
+  # passed"), automake ("# FAIL:"/"# ERROR:"), googletest ("[  PASSED  ]
+  # N tests.") -- then the first few
   # failing tests, since a suite where everything fails would otherwise
   # bury the totals under dozens of near-identical lines.
-  totals="$(grep -E '^(Ok|Fail|Expected Fail|Unexpected Pass|Skipped|Timeout): |tests passed|^# (TOTAL|PASS|FAIL|ERROR|XPASS):' "$checklog" | head -n 10)"
+  totals="$(grep -E '^(Ok|Fail|Expected Fail|Unexpected Pass|Skipped|Timeout): |tests passed|^# (TOTAL|PASS|FAIL|ERROR|XPASS):|^\[(=+| +PASSED +| +FAILED +| +SKIPPED +)\] [0-9]+ tests?' "$checklog" | head -n 10)"
   [[ -z "$totals" ]] || echo "$totals"
-  failing="$(grep -E '^ *[0-9]+/[0-9]+ .* (FAIL|TIMEOUT|ERROR|UNEXPECTEDPASS) |\*\*\*(Failed|Exception|Timeout)|^(FAIL|ERROR): ' "$checklog")"
+  failing="$(grep -E '^ *[0-9]+/[0-9]+ .* (FAIL|TIMEOUT|ERROR|UNEXPECTEDPASS) |\*\*\*(Failed|Exception|Timeout)|^(FAIL|ERROR): |^\[  FAILED  \] [A-Za-z_]' "$checklog" |
+    # googletest prints each failed test twice, with and without "(N ms)".
+    sed -E 's/^(\[  FAILED  \] [^ ]+) \([0-9]+ ms\)$/\1/' | awk '!seen[$0]++')"
   if [[ -n "$failing" ]]; then
     echo
     head -n 10 <<<"$failing"
@@ -238,7 +241,8 @@ check_failure_diagnostic() {
 #     recursive make prints it as make[N] for each subdirectory without
 #     tests, even when another one runs the suite)
 #   - ctest's "No tests were found", meson's "No tests defined.",
-#     automake's "# TOTAL: 0", pytest's "collected 0 items"/"no tests ran"
+#     automake's "# TOTAL: 0", pytest's "collected 0 items"/"no tests ran",
+#     googletest's "Running 0 tests"
 #   - a recursive automake `make check` where no directory it entered has
 #     anything to run (check_automake_runs_nothing)
 # A suite that ran but printed none of the totals these runners print
@@ -316,6 +320,8 @@ check_empty_reason_of() {
     echo "automake's test suite has no tests"
   elif grep -qE 'collected 0 items|no tests ran' <<<"$body"; then
     echo "pytest collected no tests"
+  elif grep -qE '^\[=+\] Running 0 tests' <<<"$body" && ! grep -qE '^\[=+\] Running [1-9]' <<<"$body"; then
+    echo "googletest ran no tests"
   elif check_automake_runs_nothing "$body"; then
     echo "automake's Makefiles have no tests"
   fi
@@ -342,6 +348,7 @@ check_log_body() {
 #   - ctest's "***Skipped" and "***Not Run (Disabled)" verdicts
 #   - meson's SKIP verdicts
 #   - automake's "SKIP: <test>" lines
+#   - googletest's "[  SKIPPED ] Suite.name" lines
 #   - pytest's "N skipped" totals
 # and from ctest's LastTest.log, which keeps every test's output (the
 # check log only has the verdicts): each test whose output says skip,
@@ -365,6 +372,9 @@ check_skipped_tests() {
     }
     # automake: "SKIP: t/foo.sh"
     /^SKIP: / { name = $0; sub(/^SKIP: /, "", name); print name ": SKIP (automake)"; next }
+    # googletest: "[  SKIPPED ] Suite.name (0 ms)" (and again in its
+    # "listed below" summary; the totals line starts with a digit)
+    /^\[  SKIPPED \] [A-Za-z_]/ { print $4 ": SKIP (gtest)"; next }
     # pytest: "=== 10 passed, 2 skipped in 1.23s ==="
     /^=+ .*[0-9]+ skipped/ { line = $0; gsub(/^=+ | =+$/, "", line); print "pytest: " line; next }
   '
@@ -396,7 +406,7 @@ check_skipped_tests() {
 #
 # The totals the test runner printed, as one short string for the run
 # summary ("ctest 97/101 passed", "meson 12/12 passed", "automake 8/8
-# passed"); empty when the log has none of these runners' totals.
+# passed", "gtest 120/123 passed"); empty when the log has none of these runners' totals.
 check_test_counts() {
   local line total failed ok
   perl -pe 's/\e\[[0-9;]*m//g' "$checklog" | awk '
@@ -409,10 +419,20 @@ check_test_counts() {
     /^(Expected Fail|Fail|Unexpected Pass|Skipped|Timeout): +[0-9]+/ { m += $NF; meson = 1 }
     /^# TOTAL: [0-9]+/ { at = $3; auto = 1 }
     /^# PASS: +[0-9]+/ { ap = $3 }
+    # googletest, summed over every test executable that ran:
+    #   "[==========] 123 tests from 10 test suites ran. (45 ms total)"
+    #   "[  PASSED  ] 120 tests."
+    /^\[=+\] [0-9]+ tests? from .* ran\./ {
+      n = $0; sub(/^\[=+\] /, "", n); sub(/ .*/, "", n); gt += n; gtest = 1
+    }
+    /^\[ +PASSED +\] [0-9]+ tests?\./ {
+      n = $0; sub(/^\[ +PASSED +\] /, "", n); sub(/ .*/, "", n); gp += n
+    }
     END {
       if (ctest != "") print "ctest " ctest
       else if (meson) print "meson " mok "/" m " passed"
       else if (auto && at > 0) print "automake " ap "/" at " passed"
+      else if (gtest && gt > 0) print "gtest " gp "/" gt " passed"
     }'
 }
 
