@@ -155,3 +155,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          # Default is 10 minutes, but Pages' syncing_files phase for
+          # this ~1.8GB site sometimes takes longer: a 10-minute
+          # timeout aborted (and canceled) a deploy that was still
+          # progressing normally.
+          timeout: 1800000
