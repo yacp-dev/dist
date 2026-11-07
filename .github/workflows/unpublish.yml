@@ -44,9 +44,12 @@ jobs:
           PACKAGE: ${{ inputs.package }}
         run: bash -- scripts/unpublish_package.sh --gh-pages-dir gh-pages --package "$PACKAGE"
 
+      # Pinned to 3.14 rather than '3.x', same as publish.yml: 3.x
+      # resolved to 3.15, where zstandard has no wheel and pip compiled
+      # it from source (about 70 seconds).
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.x'
+          python-version: '3.14'
 
       - name: Install calm
         run: pip install git+https://github.com/cygwin/calm.git
