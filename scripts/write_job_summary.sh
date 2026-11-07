@@ -43,30 +43,49 @@
 # fine, for looking over for a false negative: always folded, capped the
 # same way, and shown even when the report itself is empty.
 #
+# Layout: a two-column table (package, version, tests, PR, ...) instead of
+# a heading, then what the audit found as NG/OK blocks, each a heading
+# with its content (the report's "== Section ==" blocks, and the
+# "ok: Section: ..." lines grouped by Section). Deciding what needs fixing
+# is left to whoever reads it (port-until-green's Claude): this only lays
+# the findings out.
+#
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>] [--audit-oks-file <path-or-empty>] [--audit-oks-count <n-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--version <v>] [--mode <mode>] [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>] [--audit-oks-file <path-or-empty>] [--audit-oks-count <n-or-empty>] [--check <verdict-or-empty>] [--check-tests <str-or-empty>] [--check-skipped <n-or-empty>] [--check-upstream-tests <str-or-empty>]
 
 set -euo pipefail
 
 package=""
 pr_url=""
+version=""
+mode=""
 artifact_id=""
 audit_file=""
 audit_warnings=""
 audit_open=""
 audit_oks_file=""
 audit_oks_count=""
+check=""
+check_tests=""
+check_skipped=""
+check_upstream_tests=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --package) package="$2"; shift 2 ;;
     --pr-url) pr_url="$2"; shift 2 ;;
+    --version) version="$2"; shift 2 ;;
+    --mode) mode="$2"; shift 2 ;;
     --artifact-id) artifact_id="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
     --audit-open) audit_open="$2"; shift 2 ;;
     --audit-oks-file) audit_oks_file="$2"; shift 2 ;;
     --audit-oks-count) audit_oks_count="$2"; shift 2 ;;
+    --check) check="$2"; shift 2 ;;
+    --check-tests) check_tests="$2"; shift 2 ;;
+    --check-skipped) check_skipped="$2"; shift 2 ;;
+    --check-upstream-tests) check_upstream_tests="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -91,14 +110,89 @@ print_bounded() {
   fi
 }
 
+# The Tests cell: the verdict, the runner's totals, what was skipped and,
+# for a check that ran nothing, whether upstream has tests.
+tests_cell() {
+  local cell=""
+  case "$check" in
+    passed) cell="✅ passed" ;;
+    failed) cell="❌ failed" ;;
+    empty)  cell="⚠️ no tests ran" ;;
+    unknown) cell="❓ unknown" ;;
+    *) echo "-"; return ;;
+  esac
+  [[ -z "$check_tests" ]] || cell+=" -- $check_tests"
+  [[ -z "$check_skipped" ]] || cell+=", $check_skipped skipped"
+  [[ -z "$check_upstream_tests" ]] || cell+="; ⚠️ upstream has tests, not run ($check_upstream_tests)"
+  echo "$cell"
+}
+
+# Splits the report into NG blocks: "== Section ==" then its lines, as
+# "#### Section" and a code block. The Check section counts as OK when it
+# passed and skipped nothing (it's in the report for its verdict line).
+# Drops the closing "N warning(s)." line, which the table already says.
+render_ng() {
+  awk -v check="$check" -v skipped="$check_skipped" '
+    function flush() {
+      if (name == "") return
+      while (n > 0 && buf[n] == "") n--
+      if (!(name == "Check" && check == "passed" && skipped == "")) {
+        printf "\n#### %s\n```\n", name
+        for (i = 1; i <= n; i++) print buf[i]
+        print "```"
+        shown++
+      }
+      name = ""; n = 0
+    }
+    /^== .* ==$/ { flush(); name = $0; sub(/^== /, "", name); sub(/ ==$/, "", name); next }
+    /^[0-9]+ warning\(s\)\./ { next }
+    name != "" { buf[++n] = $0 }
+    END { flush() }
+  ' "$1"
+}
+
+# Counts the NG blocks render_ng prints.
+count_headings() { grep -c '^#### ' <<<"$1" || true; }
+
+# "ok: Section: text" lines grouped by Section into "#### Section" and a
+# code block of the texts.
+render_ok() {
+  awk '
+    /^ok: / {
+      line = substr($0, 5); sec = line; txt = line
+      if (index(line, ": ")) { sec = substr(line, 1, index(line, ": ") - 1); txt = substr(line, index(line, ": ") + 2) }
+      else sec = "Other"
+      if (!(sec in items)) order[++k] = sec
+      items[sec] = items[sec] txt "\n"
+    }
+    END {
+      for (i = 1; i <= k; i++) {
+        printf "\n#### %s\n```\n%s```\n", order[i], items[order[i]]
+      }
+    }
+  ' "$1"
+}
+
 {
-  echo "### dorgann: $package"
-  echo
+  echo "| | |"
+  echo "|---|---|"
+  echo "| **package** | $package |"
+  if [[ -n "$version" ]]; then
+    echo "| **version** | $version$([[ "$mode" == new ]] && echo " (new)") |"
+  fi
+  echo "| **tests** | $(tests_cell) |"
+  if [[ -n "$audit_warnings" ]]; then
+    echo "| **audit** | ⚠️ $audit_warnings warning(s) |"
+  elif [[ -n "$audit_open" ]]; then
+    echo "| **audit** | ⚠️ see the report below |"
+  else
+    echo "| **audit** | ✅ |"
+  fi
   if [[ -n "$pr_url" ]]; then
-    echo "- yacp PR: $pr_url"
+    echo "| **PR** | $pr_url |"
   fi
   if [[ -n "$artifact_id" && -z "$pr_url" ]]; then
-    echo "- dist artifact: $artifact_id (no PR was created -- deploy mode)"
+    echo "| **dist artifact** | $artifact_id (no PR was created -- deploy mode) |"
     echo
     echo "To publish this build to gh-pages:"
     echo '```'
@@ -106,23 +200,25 @@ print_bounded() {
     echo '```'
   fi
   if [[ -n "$audit_file" && -s "$audit_file" ]]; then
-    echo
-    echo "<details${audit_open:+ open}><summary>Audit: ${audit_warnings:-no} warning(s)$([[ -n "$audit_open" && -z "$audit_warnings" ]] && echo ", but see the report")</summary>"
-    echo
-    echo '```'
-    print_bounded "$audit_file"
-    echo '```'
-    echo
-    echo "</details>"
+    ng_tmp="$(mktemp)"
+    render_ng "$audit_file" > "$ng_tmp"
+    if [[ -s "$ng_tmp" ]]; then
+      echo
+      echo "<details${audit_open:+ open}><summary>❌ NG ($(count_headings "$(cat "$ng_tmp")"))</summary>"
+      print_bounded "$ng_tmp"
+      echo
+      echo "</details>"
+    fi
+    rm -f "$ng_tmp"
   fi
   if [[ -n "$audit_oks_file" && -s "$audit_oks_file" ]]; then
+    ok_tmp="$(mktemp)"
+    render_ok "$audit_oks_file" > "$ok_tmp"
     echo
-    echo "<details><summary>Audit: checked, nothing to report (${audit_oks_count:-see list})</summary>"
-    echo
-    echo '```'
-    print_bounded "$audit_oks_file"
-    echo '```'
+    echo "<details><summary>✅ OK ($(count_headings "$(cat "$ok_tmp")") checks, ${audit_oks_count:-?} items)</summary>"
+    print_bounded "$ok_tmp"
     echo
     echo "</details>"
+    rm -f "$ok_tmp"
   fi
 } >> "$GITHUB_STEP_SUMMARY"

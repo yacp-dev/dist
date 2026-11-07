@@ -387,6 +387,64 @@ check_skipped_tests() {
   shopt -u nullglob globstar
 }
 
+# --- How many tests, and whether upstream has any ----------------------
+#
+# The totals the test runner printed, as one short string for the run
+# summary ("ctest 97/101 passed", "meson 12/12 passed", "automake 8/8
+# passed"); empty when the log has none of these runners' totals.
+check_test_counts() {
+  local line total failed ok
+  perl -pe 's/\e\[[0-9;]*m//g' "$checklog" | awk '
+    /tests passed, [0-9]+ tests? failed out of [0-9]+/ {
+      f = $0; sub(/.*passed, /, "", f); sub(/ test.*/, "", f)
+      t = $0; sub(/.*out of /, "", t); sub(/[^0-9].*/, "", t)
+      ctest = (t - f) "/" t " passed"
+    }
+    /^Ok: +[0-9]+/ { mok = $2; m += $2; meson = 1 }
+    /^(Expected Fail|Fail|Unexpected Pass|Skipped|Timeout): +[0-9]+/ { m += $NF; meson = 1 }
+    /^# TOTAL: [0-9]+/ { at = $3; auto = 1 }
+    /^# PASS: +[0-9]+/ { ap = $3 }
+    END {
+      if (ctest != "") print "ctest " ctest
+      else if (meson) print "meson " mok "/" m " passed"
+      else if (auto && at > 0) print "automake " ap "/" at " passed"
+    }'
+}
+
+# What in $S says upstream has a test suite: prints a short evidence
+# string, or nothing. Only meant for a check that ran no tests, to tell
+# "upstream has none" from "src_test doesn't reach them". Bash and grep
+# only, over the top two levels of the tree (and tests/, test/ below
+# it): a hint for a human, not a proof.
+check_upstream_tests_hint() {
+  local f
+  [[ -d "${S:-}" ]] || return 0
+  for f in "$S"/CMakeLists.txt "$S"/*/CMakeLists.txt; do
+    [[ -f "$f" ]] || continue
+    if grep -qiE '^[[:space:]]*(enable_testing|include[[:space:]]*\([[:space:]]*CTest|add_test)[[:space:]]*\(' "$f" 2>/dev/null; then
+      echo "${f#"$S"/} calls enable_testing()/add_test()"; return 0
+    fi
+  done
+  for f in "$S"/meson.build "$S"/*/meson.build; do
+    [[ -f "$f" ]] || continue
+    if grep -qE '^[[:space:]]*test[[:space:]]*\(' "$f" 2>/dev/null; then
+      echo "${f#"$S"/} calls test()"; return 0
+    fi
+  done
+  for f in "$S"/Makefile.am "$S"/*/Makefile.am; do
+    [[ -f "$f" ]] || continue
+    if grep -qE '^[[:space:]]*(TESTS|check_PROGRAMS|check_SCRIPTS)[[:space:]]*\+?=' "$f" 2>/dev/null; then
+      echo "${f#"$S"/} defines TESTS/check_PROGRAMS"; return 0
+    fi
+  done
+  for f in "$S"/tests "$S"/test "$S"/t; do
+    if [[ -d "$f" ]] && [[ -n "$(ls -A "$f" 2>/dev/null)" ]]; then
+      echo "${f#"$S"/}/ exists"; return 0
+    fi
+  done
+  return 0
+}
+
 # --- The section --------------------------------------------------------
 
 # Appends each line of $1 to the report.
@@ -403,7 +461,7 @@ say_lines() {
 # until its own timeout, losing every other section with it.
 audit_check_body() {
   local body unit failed total skipped count lines max_lines=30
-  check_verdict="" check_empty_reason="" check_skipped=""
+  check_verdict="" check_empty_reason="" check_skipped="" check_tests="" check_upstream_tests=""
   say ""
   say "== Check =="
   if [[ ! -f "${checklog:-}" ]]; then
@@ -424,7 +482,9 @@ audit_check_body() {
     failed="$(sed -n 's/^unit testing failed: *//p' <<<"$unit")"
     if [[ -n "$check_empty_reason" ]]; then
       check_verdict=empty
+      check_upstream_tests="$(check_upstream_tests_hint)"
       say "check: empty ($check_empty_reason) -- see whether upstream has a test suite src_test doesn't reach"
+      [[ -z "$check_upstream_tests" ]] || say "check-upstream-tests: upstream has tests that were not run ($check_upstream_tests)"
       say ""
       say "--- end of $checklog ---"
       say_lines "$(tail -n 20 <<<"$body")"
@@ -439,6 +499,9 @@ audit_check_body() {
       say "check: passed"
     fi
   fi
+
+  check_tests="$(check_test_counts)"
+  [[ -z "$check_tests" ]] || say "check-tests: $check_tests"
 
   skipped="$(check_skipped_tests | awk '!seen[$0]++')"
   [[ -n "$skipped" ]] || return 0
@@ -467,7 +530,7 @@ check_sh="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURC
 
 audit_check() {
   local out vars rc line secs="${AUDIT_CHECK_TIMEOUT_SECONDS:-300}"
-  check_verdict="" check_empty_reason="" check_skipped=""
+  check_verdict="" check_empty_reason="" check_skipped="" check_tests="" check_upstream_tests=""
   case "$check_outcome" in
     success|failure) ;;
     *) return 0 ;;  # never ran (an earlier step failed), or cancelled
@@ -479,15 +542,15 @@ audit_check() {
     source "$1"; source "$2"
     out_file=$3; say() { printf "%s\n" "$*" >> "$out_file"; }
     audit_check_body
-    printf "check_verdict=%q\ncheck_empty_reason=%q\ncheck_skipped=%q\n" \
-      "$check_verdict" "$check_empty_reason" "$check_skipped" > "$4"
+    printf "check_verdict=%q\ncheck_empty_reason=%q\ncheck_skipped=%q\ncheck_tests=%q\ncheck_upstream_tests=%q\n" \
+      "$check_verdict" "$check_empty_reason" "$check_skipped" "$check_tests" "$check_upstream_tests" > "$4"
   ' _ "$(dirname "$check_sh")/../cygwin_path.sh" "$check_sh" "$out" "$vars"
   rc=$?
   while IFS= read -r line; do
     say "$line"
   done < "$out"
   if (( rc == 124 || rc == 137 )); then
-    check_verdict=unknown check_empty_reason="" check_skipped=""
+    check_verdict=unknown check_empty_reason="" check_skipped="" check_tests="" check_upstream_tests=""
     say ""
     warn "the Check section didn't finish in ${secs}s (a check log too large to read?) -- the test side of the audit was cut off; what the section printed so far is above"
   else

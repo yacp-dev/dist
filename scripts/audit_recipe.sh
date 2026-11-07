@@ -104,7 +104,9 @@
 # `downloads=<name> ...` when it downloaded something itself,
 # `check=failed|empty|passed|unknown` when check ran, with
 # `check_empty_reason=<reason>` for empty, `check_skipped=<n>` when it
-# skipped tests, and `open=true` when any of these (or an undefined
+# skipped tests, `check_tests=<runner n/m passed>` when the runner printed
+# totals, `check_upstream_tests=<evidence>` when a check that ran no tests
+# has an upstream suite in $S, and `open=true` when any of these (or an undefined
 # macro) is worth opening the report for.
 
 set -uo pipefail # NOT -e: greps finding nothing are the common case here
@@ -1177,7 +1179,7 @@ EOF
 }
 
 macro_errors=0
-check_verdict="" check_empty_reason="" check_skipped=""
+check_verdict="" check_empty_reason="" check_skipped="" check_tests="" check_upstream_tests=""
 build_requires_warnings=0
 candidates=()
 downloads=()
@@ -1244,6 +1246,12 @@ if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
   fi
   if [[ -n "$check_skipped" ]]; then
     echo "check_skipped=$check_skipped" >> "$GITHUB_OUTPUT"
+  fi
+  if [[ -n "$check_tests" ]]; then
+    echo "check_tests=$check_tests" >> "$GITHUB_OUTPUT"
+  fi
+  if [[ -n "$check_upstream_tests" ]]; then
+    echo "check_upstream_tests=$check_upstream_tests" >> "$GITHUB_OUTPUT"
   fi
   if (( warnings > 0 || ${#candidates[@]} > 0 || ${#downloads[@]} > 0 )) ||
     [[ -n "$check_skipped" || "$check_verdict" == failed || "$check_verdict" == empty ]]; then
