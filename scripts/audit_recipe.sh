@@ -370,6 +370,14 @@ audit_license() {
     fi
     ids="$(identify_license_text "$f" | sort -u | tr '\n' ' ')"
     ids="${ids% }"
+    # A text the packages don't install (upstream's LICENSE-THIRD-PARTY,
+    # which only lists googletest and pybind11, not built here) says nothing
+    # about what they carry. LICENSE_URI is the license text cygport ships.
+    if [[ -n "$shipped_known" && "$rel" != "$LICENSE_URI" && "$rel" != */* ]] \
+         && ! grep -qxF -- "$rel" "$tmp/installed_names"; then
+      say "License text $rel: ${ids:-(not recognized)} -- not installed by the packages, LICENSE needn't include it"
+      continue
+    fi
     say "License text $rel: ${ids:-(not recognized)}"
     for id in $ids; do
       # A text naming several licenses says which part is under which,
