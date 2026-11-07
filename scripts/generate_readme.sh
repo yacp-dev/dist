@@ -36,7 +36,8 @@
 #
 # Tools are what the build did, not what the source might need: a
 # Makefile, build.ninja, CMakeCache.txt or meson-private in the build
-# tree; autoreconf's own lines in the compile log for autoconf, automake,
+# tree (meson and ninja also from their lines in the compile log, since
+# meson's build directory isn't $B); autoreconf's own lines in the compile log for autoconf, automake,
 # libtool and gettext's autopoint; python3 and gobject-introspection
 # from what the packages install. BUILD_REQUIRES already names the rest
 # (it's what the build ran with); add a case to detect_tools for one that
@@ -209,9 +210,11 @@ detect_tools() {
   # A recipe that calls lndirs has symlinks to the source's makefiles in $B.
   if tree_has 4 \( -name Makefile -o -name GNUmakefile -o -name makefile \) \( -type f -o -type l \) \
      || log_has '^make(\[[0-9]+\])?: (Entering|Leaving) directory'; then echo make; fi
-  tree_has 3 -name build.ninja -type f && echo ninja
+  # meson builds in ${S}/_build.${CHOST}, which isn't $B, so its tree
+  # can't be found from there: the compile log says it ran instead.
+  if tree_has 3 -name build.ninja -type f || log_has '^ninja: Entering directory'; then echo ninja; fi
   tree_has 2 -name CMakeCache.txt -type f && echo cmake
-  tree_has 2 -name meson-private -type d && echo meson
+  if tree_has 2 -name meson-private -type d || log_has '^The Meson build system$'; then echo meson; fi
   # Cygwin's autoreconf names itself autoreconf-2.73 in its log lines.
   if log_has '^autoreconf(-[0-9.]+)?: .*running: .*autoconf'; then echo autoconf; fi
   if log_has '^autoreconf(-[0-9.]+)?: .*running: .*automake'; then echo automake; fi
