@@ -86,7 +86,13 @@ identify_license_text() {
     if [[ "$text" == *"advertising materials"* ]]; then
       echo "BSD-4-Clause"
     elif [[ "$text" == *"Neither the name"* || "$text" == *"used to endorse or promote"* ]]; then
-      echo "BSD-3-Clause"
+      # The Clear BSD License (vvenc) is the 3-clause text plus an explicit
+      # denial of patent rights.
+      if [[ "$text" == *"NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED"* ]]; then
+        echo "BSD-3-Clause-Clear"
+      else
+        echo "BSD-3-Clause"
+      fi
     else
       echo "BSD-2-Clause"
     fi
