@@ -537,6 +537,28 @@ if [[ " $inherits " == *" cmake "* ]]; then
   fi
 fi
 
+# 7b. gettext. cygport's autotools cygclass copies
+# /usr/share/gettext/config.rpath when configure.ac uses one of these macros,
+# so a missing gettext-devel fails `cygport compile` on the first run. Read
+# against src/ (the .src.patch may add the macro itself, as wolftpm's did).
+if [[ -n "$source_ok" && -f "$work/src/$SRC_DIR/configure.ac" ]]; then
+  gettext_macros="$(grep -E '^[^#]*\b(AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL)\b' "$work/src/$SRC_DIR/configure.ac" |
+    grep -v '^[[:space:]]*dnl' | grep -oE 'AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL' | sort -u | paste -sd' ' -)" || true
+  if [[ -n "$gettext_macros" ]]; then
+    echo
+    echo "== gettext =="
+    echo "configure.ac uses: $gettext_macros"
+    if perl -0ne '
+        while (/^BUILD_REQUIRES\+?=(?:"((?:[^"\\]|\\.)*)"|'\''([^'\'']*)'\''|(\S*))/mg) {
+          print(($1 // $2 // $3), "\n");
+        }' "$cygport" | tr -s ' \t' '\n\n' | grep -qx 'gettext-devel'; then
+      echo "gettext-devel is in BUILD_REQUIRES"
+    else
+      echo "  -> add gettext-devel to BUILD_REQUIRES (cygport copies /usr/share/gettext/config.rpath for it)"
+    fi
+  fi
+fi
+
 # 8. yacp dependencies. A BUILD_REQUIRES package that dist.yacp.dev
 # provides was ported by us, so it's only as new as our last port of it.
 # Where upstream has released since, the new version of this package may

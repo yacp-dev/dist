@@ -390,6 +390,11 @@ normally fine as they are):
   `usr/lib/python3.N` (log4cplus in ports), in its own commit,
   `<pkg>-<ver> (switch to python3)`. A build on the old Python goes
   green, so no run would point it out.
+- **gettext** — `configure.ac` (as patched) uses `AM_GNU_GETTEXT`,
+  `AM_ICONV` or `AC_GGZ_INTL` and `BUILD_REQUIRES` lacks `gettext-devel` →
+  add it (one commit, `<pkg>-<ver> (add gettext-devel to BUILD_REQUIRES)`).
+  The autotools cygclass copies `/usr/share/gettext/config.rpath` for those
+  macros, and without it `cygport compile` fails on the first run.
 - **CMake options** — each `-D` variable listed there is one no
   `CMakeLists.txt`/`*.cmake` in the patched source names outside
   comments and `message()` calls, and no `configure_file()` header
