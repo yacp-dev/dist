@@ -1,0 +1,7 @@
+category: Net
+requires: cygwin libevent2.1_7 libsasl2_3 perl_base
+sdesc: "Distributed memory object caching system"
+ldesc: "Free & open source, high-performance, distributed memory object caching
+system, generic in nature, but intended for use in speeding up dynamic web
+applications by alleviating database load."
+

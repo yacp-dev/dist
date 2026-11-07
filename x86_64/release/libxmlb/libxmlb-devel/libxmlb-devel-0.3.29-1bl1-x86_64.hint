@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libglib2.0-devel libglib2.0_0 liblzma-devel liblzma5 libxmlb2 libzstd-devel libzstd1 pkg-config
+sdesc: "Library to help create and query binary XML blobs (development)"
+ldesc: "Library to help create and query binary XML blobs"
+external-source: libxmlb
+

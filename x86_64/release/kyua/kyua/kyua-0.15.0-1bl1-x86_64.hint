@@ -1,0 +1,8 @@
+category: Devel
+requires: cygwin libgcc1 liblutok3 libsqlite3_0 libstdc++6
+sdesc: "Testing framework for infrastructure software"
+ldesc: "Kyua is a testing framework for infrastructure software, originally designed
+to equip BSD-based operating systems with a test suite. This means that Kyua
+is lightweight and simple, and that Kyua integrates well with various build
+systems and continuous integration frameworks."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcairo2 libdicom1 libglib2.0_0 libjpeg8 libopenjp2_7 libpng16 libsqlite3_0 libtiff7 libxml2 libzstd1 zlib0
+sdesc: "C library for reading virtual slides (runtime)"
+ldesc: "The OpenSlide library allows programs to access virtual slide files regardless
+of the underlying image format."
+external-source: openslide
+

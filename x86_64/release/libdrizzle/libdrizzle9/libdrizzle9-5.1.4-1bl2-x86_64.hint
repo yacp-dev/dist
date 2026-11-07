@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libstdc++6 zlib0
+sdesc: "Client and protocol library for the Drizzle database (runtime)"
+ldesc: "Client and protocol library for the Drizzle database"
+external-source: libdrizzle
+

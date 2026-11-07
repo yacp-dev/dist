@@ -1,0 +1,8 @@
+category: Video
+requires: libaravis0.8_0 libglib2.0-devel libusb1.0-devel libxml2-devel pkg-config zlib-devel
+sdesc: "Library for video acquisition using Genicam cameras (development)"
+ldesc: "Aravis is a glib/gobject based library for video acquisition using Genicam
+cameras. It currently only implements an ethernet camera protocol used for
+industrial cameras."
+external-source: aravis
+

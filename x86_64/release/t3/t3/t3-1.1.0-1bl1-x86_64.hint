@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin
+sdesc: "Next generation tee with colorized output streams and precise time stamping"
+ldesc: "Next generation tee with colorized output streams and precise time stamping"
+

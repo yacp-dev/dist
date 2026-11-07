@@ -1,0 +1,9 @@
+category: Games
+build-depends: cygport libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel libSDL2_ttf-devel
+sdesc: "Free/Libre Action Roleplaying Engine"
+ldesc: "Flare is an open source, 2D action RPG licensed under the GPL3 license. Its
+game play can be likened to the games in the Diablo series."
+skip:
+
+homepage: https://flarerpg.org/
+license: GPL-3.0-or-later

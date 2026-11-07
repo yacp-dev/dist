@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libdavix0 libgcc1 libgtest0 libstdc++6
+sdesc: "High-performance file management over WebDAV / HTTP (utilities)"
+ldesc: "Davix aims to make the task of managing files over HTTP-based protocols
+simple. It is being developed by IT-ST at CERN, and while the project's
+purpose is its use on the CERN grid, the functionality offered is generic."
+

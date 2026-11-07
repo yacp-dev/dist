@@ -1,0 +1,9 @@
+category: Utils
+build-depends: cygport zlib-devel
+sdesc: "Utility to convert files in xfig format to OpenOffice.org /LibreOffice.org Draw format"
+ldesc: "The fig2sxd program converts files in XFig format into OpenOffice.org /
+LibreOffice.org Draw format."
+skip:
+
+homepage: https://gitlab.com/acfbuerger/fig2sxd
+license: GPL-2.0-or-later

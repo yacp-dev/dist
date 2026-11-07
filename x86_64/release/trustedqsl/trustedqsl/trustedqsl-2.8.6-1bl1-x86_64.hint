@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcurl4 libexpat1 libgcc1 libstdc++6 libtqsllib2.8.6 libwx_baseu3.1_7 libwx_gtk3u3.1_7 zlib0
+sdesc: "Tool for digitally signing Amateur Radio QSO records (utilities)"
+ldesc: "The TrustedQSL library is used for generating digitally signed QSO records
+(records of Amateur Radio contacts). This package contains the library and
+configuration files needed to run TrustedQSL applications."
+

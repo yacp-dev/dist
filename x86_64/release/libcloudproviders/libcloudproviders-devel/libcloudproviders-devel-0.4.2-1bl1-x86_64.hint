@@ -1,0 +1,8 @@
+category: Libs
+requires: libcloudproviders0 libglib2.0-devel pkg-config
+sdesc: "Library for integration of cloud storage providers (development)"
+ldesc: "libcloudproviders is a DBus API that allows cloud storage sync clients to
+expose their services. Clients such as file managers and desktop environments
+can then provide integrated access to the cloud providers services."
+external-source: libcloudproviders
+

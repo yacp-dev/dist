@@ -1,0 +1,7 @@
+category: Libs
+requires: libcurl-devel libssl-devel libyubihsm2 pkg-config
+sdesc: "C library to expose low- and high-level functions to interact with a YubiHSM (development)"
+ldesc: "This repository contains most of the components used to interact with the
+YubiHSM 2 at both a user-facing and programmatic level."
+external-source: yubihsm-shell
+

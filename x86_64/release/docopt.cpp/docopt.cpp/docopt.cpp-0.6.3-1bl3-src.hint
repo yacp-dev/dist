@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libboost-devel
+sdesc: "C++11 port of docopt (licensing & readmes)"
+ldesc: "docopt creates beautiful command-line interfaces"
+skip:
+
+homepage: https://github.com/docopt/docopt.cpp
+license: BSL-1.0 AND MIT

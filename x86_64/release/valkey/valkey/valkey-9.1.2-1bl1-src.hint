@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport libfpconv-devel libhdr_histogram-devel liblinenoise-devel libssl-devel libvalkey-devel libvalkey_tls-devel libtcmalloc-devel
+sdesc: "Flexible distributed key-value datastore"
+ldesc: "Valkey is a high-performance data structure server that primarily serves
+key/value workloads. It supports a wide range of native structures and an
+extensible plugin system for adding new data structures and access patterns."
+skip:
+
+homepage: https://github.com/valkey-io/valkey
+license: BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0 OR MIT)

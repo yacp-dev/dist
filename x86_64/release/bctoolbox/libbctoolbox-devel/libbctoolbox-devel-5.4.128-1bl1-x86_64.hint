@@ -1,0 +1,7 @@
+category: Libs
+requires: libbctoolbox1 libbcunit-devel pkg-config
+sdesc: "Utilities library used by Belledonne Communications softwares (development)"
+ldesc: "Utilities library used by Belledonne Communications softwares like belle-sip,
+mediastreamer2 and linphone."
+external-source: bctoolbox
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Fast and standards compliant DNS zone parser (runtime)"
+ldesc: "Fast and standards compliant DNS zone parser"
+external-source: simdzone
+

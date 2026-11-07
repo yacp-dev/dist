@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libglib2.0-devel
+sdesc: "General purpose TCP-IP emulator (licensing & readmes)"
+ldesc: "libslirp is a user-mode networking library used by virtual machines,
+containers or various tools."
+skip:
+
+homepage: https://gitlab.freedesktop.org/slirp/libslirp
+license: BSD-3-Clause AND MIT

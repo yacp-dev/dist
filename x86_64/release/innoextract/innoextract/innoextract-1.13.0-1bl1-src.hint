@@ -1,0 +1,11 @@
+category: Archive
+build-depends: cygport libboost-devel libbz2-devel liblzma-devel
+sdesc: "Tool to unpack installers created by Inno Setup"
+ldesc: "Inno Setup is a tool to create installers for Microsoft Windows applications.
+innoextract allows to extract such installers under non-windows systems
+without running the actual installer using Wine. innoextract currently
+supports installers created by Inno Setup 1.2.10 to 6.0.5."
+skip:
+
+homepage: https://constexpr.org/innoextract/
+license: Zlib

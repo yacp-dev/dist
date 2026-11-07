@@ -1,0 +1,7 @@
+category: Libs
+requires: libglib2.0-devel libmbim-glib4 pkg-config
+sdesc: "Glib-based library for talking to WWAN modems and devices (development)"
+ldesc: "libmbim is a glib-based library for talking to WWAN modems and devices which
+speak the Mobile Interface Broadband Model (MBIM) protocol."
+external-source: libmbim
+

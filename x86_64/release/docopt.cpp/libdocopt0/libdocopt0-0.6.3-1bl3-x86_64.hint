@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libboost_regex1.66 libgcc1 libstdc++6
+sdesc: "C++11 port of docopt (runtime)"
+ldesc: "docopt creates beautiful command-line interfaces"
+external-source: docopt.cpp
+

@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libboost_regex1.66 libgcc1 libpq5 libpqxx4.0 libsqlite3_0 libstdc++6
+sdesc: "Random SQL query generator"
+ldesc: "SQLsmith is a random SQL query generator. Its paragon is Csmith, which proved
+valuable for quality assurance in C compilers."
+

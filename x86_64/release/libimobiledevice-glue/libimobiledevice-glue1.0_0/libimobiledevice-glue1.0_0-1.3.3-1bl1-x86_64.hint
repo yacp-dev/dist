@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libplist2.0_12
+sdesc: "Library with common code used by the libraries and tools around the libimobiledevice project (runtime)"
+ldesc: "Library with common code used by the libraries and tools around the libimobiledevice project"
+external-source: libimobiledevice-glue
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbase64-devel libiconv-devel libintl-devel
+sdesc: "Unicode validation and transcoding at billions of characters per second (utilities)"
+ldesc: "Unicode validation and transcoding at billions of characters per second"
+skip:
+
+homepage: https://github.com/simdutf/simdutf
+license: (Apache-2.0 OR MIT) AND BSD-3-Clause

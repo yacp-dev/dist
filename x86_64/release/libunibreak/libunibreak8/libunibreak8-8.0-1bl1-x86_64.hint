@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library to implement Unicode algorithms for line and word breaking (runtime)"
+ldesc: "Library to implement Unicode algorithms for line and word breaking"
+external-source: libunibreak
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "CD-ROM image access library (licensing & readmes)"
+ldesc: "libMirage is a CD-ROM image access library. It is written in C and based on
+GLib. It's aim is to provide uniform access to the data stored in various
+image formats."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Implementation of the ITU G.722 specification (licensing & readmes)"
+ldesc: "The G.722 module is a bit exact implementation of the ITU G.722 specification
+for all three specified bit rates - 64000bps, 56000bps and 48000bps. It passes
+the ITU tests."
+

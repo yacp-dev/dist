@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "UPnP IGD control point (runtime)"
+ldesc: "UPnP IGD control point"
+external-source: miniupnpc
+

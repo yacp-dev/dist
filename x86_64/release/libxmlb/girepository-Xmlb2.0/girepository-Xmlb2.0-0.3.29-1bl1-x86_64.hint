@@ -1,0 +1,6 @@
+category: Libs
+requires: girepository-GLib2.0 libglib2.0-devel libxmlb2
+sdesc: "Library to help create and query binary XML blobs (GObject Introspection data)"
+ldesc: "Library to help create and query binary XML blobs"
+external-source: libxmlb
+

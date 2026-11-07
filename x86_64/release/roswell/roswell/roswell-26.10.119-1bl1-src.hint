@@ -1,0 +1,8 @@
+category: Interpreters
+build-depends: cygport libcurl-devel
+sdesc: "Lisp installer and launcher for major environments"
+ldesc: "Roswell is a Lisp implementation installer/manager, launcher, and much more!"
+skip:
+
+homepage: https://github.com/roswell/roswell
+license: MIT

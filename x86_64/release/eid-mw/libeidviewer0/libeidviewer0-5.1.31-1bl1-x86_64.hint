@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libbeidpkcs11_0 libgcc1 libssl3 libstdc++6 libxml2
+sdesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government (runtime / eidviewer)"
+ldesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government"
+external-source: eid-mw
+

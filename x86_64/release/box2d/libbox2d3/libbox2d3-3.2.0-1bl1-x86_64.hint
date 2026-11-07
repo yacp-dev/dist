@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "2D Physics Engine for Games (runtime)"
+ldesc: "Box2D is an open source C++ engine for simulating rigid bodies in 2D."
+external-source: box2d
+

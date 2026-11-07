@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libexpat1 libgcrypt20 libgpg-error0 libgpgme45 libiconv2 libintl8 libjson-c5 libxml2
+sdesc: "Client library for accessing ISDS SOAP services (runtime)"
+ldesc: "Client library for accessing ISDS SOAP services"
+external-source: libdatovka
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Compressed Data Structure Library (runtime)"
+ldesc: "Compressed Data Structure Library"
+external-source: libcds2
+

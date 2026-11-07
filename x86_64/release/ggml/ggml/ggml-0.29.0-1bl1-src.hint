@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Tensor library for machine learning (licensing & readmes)"
+ldesc: "Tensor library for machine learning"
+skip:
+
+homepage: https://github.com/ggml-org/ggml
+license: MIT

@@ -1,0 +1,6 @@
+category: Libs
+requires: libiir1 pkg-config
+sdesc: "DSP IIR Realtime C++ filter library (development)"
+ldesc: "DSP IIR Realtime C++ filter library"
+external-source: iir1
+

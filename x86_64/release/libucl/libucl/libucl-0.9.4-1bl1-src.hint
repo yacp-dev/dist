@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport autoconf-archive libcurl-devel liblua-devel libssl-devel lua
+sdesc: "Universal configuration library parser (licensing & readmes)"
+ldesc: "UCL is heavily infused by nginx configuration as the example of a convenient
+configuration system."
+skip:
+
+homepage: https://github.com/vstakhov/libucl
+license: BSD-2-Clause

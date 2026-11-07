@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libyaml-devel nlohmann_json
+sdesc: "C++ implementation of Mustache (utilities)"
+ldesc: "C++ implementation of Mustache"
+skip:
+
+homepage: https://github.com/jbboehr/libmustache
+license: MIT

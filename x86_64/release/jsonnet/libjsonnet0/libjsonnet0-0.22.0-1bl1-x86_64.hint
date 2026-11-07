@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Data templating language (runtime)"
+ldesc: "Data templating language"
+external-source: jsonnet
+

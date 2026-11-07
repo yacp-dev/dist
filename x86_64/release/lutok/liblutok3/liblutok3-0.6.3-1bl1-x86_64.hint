@@ -1,0 +1,6 @@
+category: Lua
+requires: cygwin libgcc1 liblua5.3 libstdc++6
+sdesc: "Lightweight C++ API for Lua (runtime)"
+ldesc: "Lutok is a lightweight C++ API library for Lua."
+external-source: lutok
+

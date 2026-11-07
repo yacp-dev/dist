@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "NETCONF library in C intended for building NETCONF clients and servers (licensing & readmes)"
+ldesc: "libnetconf2 is a NETCONF library in C intended for building NETCONF clients
+and servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF."
+

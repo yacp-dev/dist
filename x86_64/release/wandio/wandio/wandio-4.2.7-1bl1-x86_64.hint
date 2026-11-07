@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libwandio6
+sdesc: "Variety of supported compression methods (utilities)"
+ldesc: "Libwandio is a software library written in C that provides an API for
+transparently reading from and writing to files using a variety of supported
+compression methods. Provided pthreads are available, I/O performance will be
+improved by doing any compression and/or decompression using a separate
+thread."
+

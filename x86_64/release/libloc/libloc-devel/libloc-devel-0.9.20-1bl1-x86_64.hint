@@ -1,0 +1,6 @@
+category: Libs
+requires: libloc1 pkg-config
+sdesc: "Library to determine the location of someone on the Internet (development)"
+ldesc: "Library to determine the location of someone on the Internet"
+external-source: libloc
+

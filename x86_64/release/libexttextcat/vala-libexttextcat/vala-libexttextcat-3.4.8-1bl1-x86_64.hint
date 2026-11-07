@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Text categorization library (vala bindings)"
+ldesc: "Libexttextcat is an N-Gram-Based Text Categorization library primarily
+intended for language guessing."
+external-source: libexttextcat
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libabpoa1
+sdesc: "SIMD-based C library for fast partial order alignment using adaptive band (utilities)"
+ldesc: "SIMD-based C library for fast partial order alignment using adaptive band"
+

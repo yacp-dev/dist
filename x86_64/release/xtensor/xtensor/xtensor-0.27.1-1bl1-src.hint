@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport doctest libbenchmark-devel nlohmann_json xsimd xtl
+sdesc: "C++ tensors with broadcasting and lazy computing"
+ldesc: "C++ tensors with broadcasting and lazy computing"
+skip:
+
+homepage: https://github.com/xtensor-stack/xtensor
+license: BSD-3-Clause

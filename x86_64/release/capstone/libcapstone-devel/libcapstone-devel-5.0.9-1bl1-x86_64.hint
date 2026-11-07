@@ -1,0 +1,7 @@
+category: Libs
+requires: libcapstone5 pkg-config
+sdesc: "Ultimate Disassembler (development)"
+ldesc: "Capstone is a lightweight multi-platform, multi-architecture disassembly
+framework."
+external-source: capstone
+

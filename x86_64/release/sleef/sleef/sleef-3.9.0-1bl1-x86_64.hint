@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "SIMD Library for Evaluating Elementary Functions, vectorized libm and DFT (licensing & readmes)"
+ldesc: "In this library, functions for evaluating some elementary functions are
+implemented. The library also includes DFT subroutines."
+

@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libreproc14 libstdc++6
+sdesc: "Cross-platform (C99/C++11) process library (runtime / c++)"
+ldesc: "Reproc (Redirected Process) is cross-platform library that starts external
+processes from within a C or C++ application, reads/writes to their
+stdin/stdout/stderr streams and waits for them to exit or forcefully stops
+them."
+external-source: reproc
+

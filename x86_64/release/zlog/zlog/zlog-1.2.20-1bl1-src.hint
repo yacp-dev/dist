@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Reliable, high-performance, thread safe, flexsible, clear-model, pure C logging library (utilities)"
+ldesc: "zlog is a reliable, high-performance, thread safe, flexible, clear-model, pure
+C logging library."
+skip:
+
+homepage: https://github.com/HardySimpson/zlog
+license: Apache-2.0

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport git libbson2-devel libssl-devel
+sdesc: "C library for Client Side Encryption (licensing & readmes)"
+ldesc: "The companion C library for client side encryption in drivers."
+skip:
+
+homepage: https://github.com/mongodb/libmongocrypt
+license: Apache-2.0 AND SSPL-1.0 AND BSD-3-Clause AND ISC

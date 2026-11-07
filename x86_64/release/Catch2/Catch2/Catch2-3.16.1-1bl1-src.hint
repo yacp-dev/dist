@@ -1,0 +1,10 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Multi-paradigm test framework for C++ (licensing & readmes)"
+ldesc: "Catch2 is a multi-paradigm test framework for C++. which also supports
+Objective-C (and maybe C). It is primarily distributed as a single header
+file, although certain extensions may require additional headers."
+skip:
+
+homepage: https://github.com/catchorg/Catch2
+license: BSL-1.0

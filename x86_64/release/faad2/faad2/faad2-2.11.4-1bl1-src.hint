@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Freeware Advanced Audio (AAC) Decoder including SBR decoding (utilities)"
+ldesc: "Freeware Advanced Audio (AAC) Decoder including SBR decoding"
+skip:
+
+homepage: https://github.com/knik0/faad2
+license: GPL-2.0-or-later

@@ -1,0 +1,7 @@
+category: Libs
+requires: libcmp5 pkg-config
+sdesc: "C implementation of the MessagePack serialization format (development)"
+ldesc: "CMP is a C implementation of the MessagePack serialization format. It
+currently implements version 5 of the MessagePack Spec."
+external-source: cmp
+

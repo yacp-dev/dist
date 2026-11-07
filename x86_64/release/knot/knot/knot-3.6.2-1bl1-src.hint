@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport libdbus1-devel libedit-devel libfstrm-devel libgnutls-devel libhiredis-devel libidn2-devel liblmdb-devel libmaxminddb-devel libnghttp2-devel libngtcp2_crypto_gnutls-devel libprotobuf-c-devel liburcu-devel protobuf-c
+sdesc: "High-performance authoritative-only DNS server (utilities)"
+ldesc: "Knot DNS is a high-performance authoritative-only DNS server which supports
+all key features of the domain name system including zone transfers and
+DNSSEC."
+skip:
+
+homepage: https://www.knot-dns.cz/
+license: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause AND ISC AND MIT AND OLDAP-2.8

@@ -1,0 +1,6 @@
+category: Libs
+requires: libethash1
+sdesc: "C/C++ implementation of Ethereum Proof of Work algorithm (development)"
+ldesc: "C/C++ implementation of Ethereum Proof of Work algorithm"
+external-source: ethash
+

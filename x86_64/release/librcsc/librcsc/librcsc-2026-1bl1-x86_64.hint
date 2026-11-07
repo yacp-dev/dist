@@ -1,0 +1,6 @@
+category: Libs
+requires: bash cygwin libgcc1 librcsc19 libstdc++6
+sdesc: "Basic library package to develop the RoboCup Soccer Simulation client and tools (utilities)"
+ldesc: "The librcsc is the basic library package to develop the RoboCup Soccer
+Simulation client and tools."
+

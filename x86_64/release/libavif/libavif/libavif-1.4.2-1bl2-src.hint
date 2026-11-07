@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport ImageMagick libaom-devel libdav1d-devel libgtest-devel libjpeg-devel libpng-devel libsvtav1-devel libwebp-devel libxml2-devel libyuv-devel
+sdesc: "Library for encoding and decoding .avif files (utilities)"
+ldesc: "This library aims to be a friendly, portable C implementation of the AV1 Image
+File Format."
+skip:
+
+homepage: https://github.com/AOMediaCodec/libavif
+license: BSD-2-Clause AND MIT

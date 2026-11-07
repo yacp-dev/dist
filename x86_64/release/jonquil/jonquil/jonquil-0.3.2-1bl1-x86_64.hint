@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Bringing TOML blooms to JSON land (licensing & readmes)"
+ldesc: "Bringing TOML blooms to JSON land"
+

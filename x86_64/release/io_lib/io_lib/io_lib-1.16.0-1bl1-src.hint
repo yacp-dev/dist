@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcurl-devel libdeflate-devel libhts-devel liblzma-devel zlib-devel
+sdesc: "General purpose library to handle gene sequencing machine trace files (utilities)"
+ldesc: "The Staden I/O library provides a general purpose interface for reading and
+writing trace files and other bioinformatics experiment files."
+skip:
+
+homepage: https://github.com/jkbonfield/io_lib
+license: BSD-3-Clause

@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport zlib-devel
+sdesc: "Pairwise SNP distance matrix from a FASTA sequence alignment"
+ldesc: "Pairwise SNP distance matrix from a FASTA sequence alignment"
+skip:
+
+homepage: https://github.com/tseemann/snp-dists
+license: GPL-3.0-only AND MIT

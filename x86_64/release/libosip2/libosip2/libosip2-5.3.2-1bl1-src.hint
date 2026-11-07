@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Implementation of SIP (licensing & readmes)"
+ldesc: "oSIP is an LGPL implementation of SIP. It's stable, portable, flexible and
+compliant! -may be more-! It is used mostly with eXosip2 stack (GPL) which
+provides simpler API for User-Agent implementation."
+skip:
+
+homepage: https://www.gnu.org/software/osip/
+license: LGPL-2.1-or-later AND RSA-MD

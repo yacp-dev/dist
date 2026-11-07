@@ -1,0 +1,12 @@
+category: Devel
+build-depends: cygport libarchive-devel libcurl-devel libgmock-devel libgtest-devel libintl-devel libpcre-devel
+sdesc: "Alpm .files metadata explorer"
+ldesc: "pkgfile searches the .files metadata created by repo-add(8) to retrieve file
+information about packages. By default, the provided target is considered to
+be a filename and pkgfile will return the package(s) which contain this file.
+The repos which pkgfile searches is determined by those enabled in
+/etc/pacman.conf."
+skip:
+
+homepage: https://github.com/falconindy/pkgfile
+license: MIT

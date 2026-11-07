@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport bison flex libevent-devel libsasl2-devel memcached
+sdesc: "C and C++ client library for memcached (utilities)"
+ldesc: "libmemcached-awesome is an open source C/C++ client library and tools for the
+memcached server (https://memcached.org/). It has been designed to be light on
+memory usage, thread safe, and provide full access to server side methods."
+skip:
+
+homepage: https://github.com/awesomized/libmemcached/
+license: BSD-3-Clause

@@ -1,0 +1,7 @@
+category: Libs
+requires: libQtColorWidgets-Qt52_2 pkg-config
+sdesc: "Qt (C++) widgets to manage color inputs (development)"
+ldesc: "Here is a color dialog that is more user-friendly than the default
+QColorDialog and several other color-related widgets."
+external-source: Qt-Color-Widgets
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libzone0
+sdesc: "Fast and standards compliant DNS zone parser (utilities)"
+ldesc: "Fast and standards compliant DNS zone parser"
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran liblapack-devel
+sdesc: "Domain decomposition continuum solvation library (utilities)"
+ldesc: "Domain decomposition continuum solvation library"
+skip:
+
+homepage: https://github.com/ddsolvation/ddX
+license: LGPL-3.0-or-later

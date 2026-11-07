@@ -1,0 +1,7 @@
+category: Libs
+requires: CUnit cygwin libpenetra1
+sdesc: "Library to access information about PE binary (utilities)"
+ldesc: "The libpenetra was created with the goal of studying the windows binary format
+known as Portable Executable (PE). With libpenetra you can access all info
+about PE binaries."
+

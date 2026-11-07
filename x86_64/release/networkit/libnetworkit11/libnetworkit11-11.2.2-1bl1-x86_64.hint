@@ -1,0 +1,13 @@
+category: Net
+requires: cygwin libgcc1 libgomp1 libstdc++6
+sdesc: "Growing open-source toolkit for large-scale network analysis (runtime)"
+ldesc: "NetworKit is an open-source tool suite for high-performance network analysis.
+Its aim is to provide tools for the analysis of large networks in the size
+range from thousands to billions of edges. For this purpose, it implements
+efficient graph algorithms, many of them parallel to utilize multicore
+architectures. These are meant to compute standard measures of network
+analysis. NetworKit is focused on scalability and comprehensiveness. NetworKit
+is also a testbed for algorithm engineering and contains novel algorithms from
+recently published research (see list of publications below)."
+external-source: networkit
+

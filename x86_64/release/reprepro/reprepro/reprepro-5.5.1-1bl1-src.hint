@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport libarchive-devel libdb-devel libgpg-error-devel libgpgme-devel
+sdesc: "Debian package repository manager"
+ldesc: "This project is a leightweight feature complete manager of a debian
+package (i.e. binary .deb and source .dsc+.tar.gz+.diff.gz) repository."
+skip:
+
+homepage: https://salsa.debian.org/debian/reprepro
+license: GPL-2.0-only AND GPL-2.0-or-later

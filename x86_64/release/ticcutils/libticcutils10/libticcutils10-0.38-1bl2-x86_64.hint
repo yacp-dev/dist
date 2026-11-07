@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbz2_1 libgcc1 libicu76 libstdc++6 libxml2 zlib0
+sdesc: "TiCC Utils Library (runtime)"
+ldesc: "This module contains useful functions for general use in the TiCC software
+stack and beyond."
+external-source: ticcutils
+

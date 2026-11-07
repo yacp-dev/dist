@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcurl-devel libpcre2-devel libssl-devel libunistring-devel zlib-devel
+sdesc: "Opinionated C11 library for low-level functionality (licensing & readmes)"
+ldesc: "An object-oriented C library whose API is designed for a particular coding
+style, taking cues from C++ STL and Qt."
+skip:
+
+homepage: https://codeberg.org/skyjake/the_Foundation
+license: BSD-2-Clause

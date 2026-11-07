@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Text categorization library (utilities)"
+ldesc: "Libexttextcat is an N-Gram-Based Text Categorization library primarily
+intended for language guessing."
+skip:
+
+homepage: https://wiki.documentfoundation.org/Libexttextcat
+license: BSD-3-Clause

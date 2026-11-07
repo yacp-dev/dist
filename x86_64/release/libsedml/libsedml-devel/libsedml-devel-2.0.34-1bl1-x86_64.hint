@@ -1,0 +1,11 @@
+category: Libs
+requires: libsedml2 pkg-config
+sdesc: "SED-ML library based on libSBML (development)"
+ldesc: "Some time ago I developed libSedML a C# library that fully supports SED-ML for
+SBML as well as CellML models for creation of the description just as for the
+execution of Simulation Experiments. However, frequently the question to a C++
+based library comes up. This project makes use of libSBML XML layer as well as
+code generation as starting point to produce a library for reading and writing
+of SED-ML models."
+external-source: libsedml
+

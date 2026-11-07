@@ -1,0 +1,6 @@
+category: Libs
+requires: libcurl-devel libdatovka8 libxml2-devel pkg-config
+sdesc: "Client library for accessing ISDS SOAP services (development)"
+ldesc: "Client library for accessing ISDS SOAP services"
+external-source: libdatovka
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport help2man nasm
+sdesc: "Intelligent Storage Acceleration Library (licensing & readmes)"
+ldesc: "ISA-L is a collection of optimized low-level functions targeting storage
+applications."
+skip:
+
+homepage: https://github.com/intel/isa-l
+license: BSD-3-Clause

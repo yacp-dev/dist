@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran
+sdesc: "Simple testing framework (licensing & readmes)"
+ldesc: "Simple testing framework"
+skip:
+
+homepage: https://github.com/fortran-lang/test-drive
+license: Apache-2.0 OR MIT

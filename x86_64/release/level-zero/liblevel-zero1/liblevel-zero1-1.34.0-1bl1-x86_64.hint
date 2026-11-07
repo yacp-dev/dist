@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "oneAPI Level Zero Specification Headers and Loader (runtime)"
+ldesc: "oneAPI Level Zero Specification Headers and Loader"
+external-source: level-zero
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Logging framework for C++ patterned after Apache log4j (licensing & readmes)"
+ldesc: "Apache log4cxx is a logging framework for C++ patterned after Apache log4j,
+which uses Apache Portable Runtime for most platform-specific code and should
+be usable on any platform supported by APR."
+

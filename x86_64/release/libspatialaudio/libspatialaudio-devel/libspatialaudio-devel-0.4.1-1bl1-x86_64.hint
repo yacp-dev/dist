@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin-devel libspatialaudio2 pkg-config zlib-devel
+sdesc: "Ambisonic encoding / decoding and binauralization library (development)"
+ldesc: "libspatialaudio is an open-source and cross-platform C++ library for Ambisonic
+encoding and decoding, filtering and binaural rendering. It is targetted to
+render High-Order Ambisonic (HOA) and VR/3D audio samples in multiple
+environments, from headphones to classic loudspeakers. Its binaural rendering
+can be used for classical 5.1/7.1 spatial channels as well as Ambisonics
+inputs."
+external-source: libspatialaudio
+

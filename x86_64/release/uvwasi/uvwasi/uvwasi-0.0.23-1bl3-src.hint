@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libuv-devel
+sdesc: "WASI syscall API built atop libuv (licensing & readmes)"
+ldesc: "uvwasi implements the WASI system call API. Under the hood, uvwasi leverages
+libuv where possible for maximum portability."
+skip:
+
+homepage: https://github.com/nodejs/uvwasi
+license: MIT

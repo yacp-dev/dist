@@ -1,0 +1,8 @@
+category: Libs
+requires: libexpat-devel libsqlite3-devel libssl-devel libtqsllib2.8.6 pkg-config zlib-devel
+sdesc: "Tool for digitally signing Amateur Radio QSO records (development)"
+ldesc: "The TrustedQSL library is used for generating digitally signed QSO records
+(records of Amateur Radio contacts). This package contains the library and
+configuration files needed to run TrustedQSL applications."
+external-source: trustedqsl
+

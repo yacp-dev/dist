@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libQt5Core-devel python3-devel swig
+sdesc: "Logging Framework for C++ (licensing & readmes)"
+ldesc: "log4cplus is a simple to use C++ logging API providing thread-safe, flexible,
+and arbitrarily granular control over log management and configuration. It is
+modelled after the Java log4j API."
+skip:
+
+homepage: https://github.com/log4cplus/log4cplus
+license: Apache-2.0

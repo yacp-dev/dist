@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcpx1 libgcc1 libgfortran5 libgomp1 liblapack0 libmctc-lib0
+sdesc: "Semiempirical Extended Tight-Binding Program Package (runtime)"
+ldesc: "Semiempirical Extended Tight-Binding Program Package"
+external-source: xtb
+

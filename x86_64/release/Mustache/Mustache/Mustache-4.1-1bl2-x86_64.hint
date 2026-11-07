@@ -1,0 +1,5 @@
+category: Devel
+requires: 
+sdesc: "Mustache text templates for modern C++"
+ldesc: "Mustache text templates for modern C++"
+

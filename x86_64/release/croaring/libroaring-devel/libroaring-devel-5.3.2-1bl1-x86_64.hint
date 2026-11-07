@@ -1,0 +1,9 @@
+category: Libs
+requires: libroaring29 pkg-config
+sdesc: "Roaring bitmaps in C (and C++) (development)"
+ldesc: "Roaring bitmaps are compressed bitmaps which tend to outperform conventional
+compressed bitmaps such as WAH, EWAH or Concise. In some instances, they can
+be hundreds of times faster and they often offer significantly better
+compression."
+external-source: croaring
+

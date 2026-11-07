@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport bash-completion-devel gobject-introspection help2man libglib2.0-devel libmbim-glib-devel
+sdesc: "QMI modem protocol helper library (utilities)"
+ldesc: "This package contains the libraries that make it easier to use QMI
+functionality from applications that use glib."
+skip:
+
+homepage: https://www.freedesktop.org/wiki/Software/libqmi/
+license: GPL-2.0-or-later AND LGPL-2.1-or-later

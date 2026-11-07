@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Concepts And Meta-Programming library (licensing & readmes)"
+ldesc: "Compiler agnostic metaprogramming library providing concepts, type operations
+and tuples for C++ and cuda"
+skip:
+
+homepage: https://github.com/LLNL/camp
+license: BSD-3-Clause AND Apache-2.0 WITH LLVM-exception

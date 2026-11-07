@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Minimalist protocol buffer decoder and encoder in C++"
+ldesc: "Minimalist protocol buffer decoder and encoder in C++"
+skip:
+
+homepage: https://github.com/mapbox/protozero
+license: BSD-2-Clause

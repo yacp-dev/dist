@@ -1,0 +1,6 @@
+category: Libs
+requires: libbsoncxx1_1 pkg-config libbson2-devel
+sdesc: "MongoDB C++11 BSON Library (development)"
+ldesc: "C++ Driver for MongoDB"
+external-source: mongo-cxx-driver
+

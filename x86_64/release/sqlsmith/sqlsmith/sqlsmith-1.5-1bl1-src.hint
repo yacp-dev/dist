@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport autoconf-archive libboost-devel libpq-devel libpq5 libpqxx-devel libsqlite3-devel
+sdesc: "Random SQL query generator"
+ldesc: "SQLsmith is a random SQL query generator. Its paragon is Csmith, which proved
+valuable for quality assurance in C compilers."
+skip:
+
+homepage: https://github.com/anse1/sqlsmith
+license: GPL-3.0-only

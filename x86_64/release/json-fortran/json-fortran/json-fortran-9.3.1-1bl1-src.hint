@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran
+sdesc: "Fortran 2008 JSON API (licensing & readmes)"
+ldesc: "A user-friendly, thread-safe, and object-oriented API for reading and writing
+JSON files, written in modern Fortran."
+skip:
+
+homepage: https://github.com/jacobwilliams/json-fortran
+license: BSD-3-Clause AND MIT

@@ -1,0 +1,9 @@
+category: System
+build-depends: cygport libssl-devel
+sdesc: "M(easuring)buffer is a replacement for buffer with additional functionality"
+ldesc: "Measuring Buffer is an enhanced version of buffer. It features display of
+throughput, memory-mapped file I/O for huge buffers, and multithreading."
+skip:
+
+homepage: http://www.maier-komor.de/mbuffer.html
+license: GPL-3.0-or-later

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libEGL1 libexpat1 libgcc1 libGL1 libstdc++6 libX11_6
+sdesc: "High-level 3D graphics toolkit (runtime)"
+ldesc: "Coin is an OpenGL-based, 3D graphics library that has its roots in the Open
+Inventor 2.1 API, which Coin still is compatible with."
+external-source: coin
+

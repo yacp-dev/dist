@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport libarchive-devel libcurl-devel libpkgconf-devel scdoc
+sdesc: "Meson implementation in C"
+ldesc: "muon is an implementation of the meson build system in c99 with minimal
+dependencies."
+skip:
+
+homepage: https://muon.build/
+license: GPL-3.0-only

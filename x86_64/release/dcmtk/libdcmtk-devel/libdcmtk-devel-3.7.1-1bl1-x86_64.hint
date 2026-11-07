@@ -1,0 +1,10 @@
+category: Libs
+requires: libdcmtk21 libopenjp2-devel libpng-devel libsndfile-devel libssl-devel libtiff-devel libxml2-devel pkg-config zlib-devel
+sdesc: "DICOM Toolkit (development)"
+ldesc: "DCMTK is a collection of libraries and applications implementing large parts
+the DICOM standard. It includes software for examining, constructing and
+converting DICOM image files, handling offline media, sending and receiving
+images over a network connection, as well as demonstrative image storage and
+worklist servers."
+external-source: dcmtk
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libjansson4 liblzma5 libsnappy1 zlib0
+sdesc: "Data serialization system (runtime)"
+ldesc: "Apache Avro(TM) is a data serialization system."
+external-source: avro-c
+

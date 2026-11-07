@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport cargo
+sdesc: "A cat(1) clone with wings"
+ldesc: "A cat(1) clone with syntax highlighting and Git integration."
+skip:
+
+homepage: https://github.com/sharkdp/bat
+license: Apache-2.0 OR MIT

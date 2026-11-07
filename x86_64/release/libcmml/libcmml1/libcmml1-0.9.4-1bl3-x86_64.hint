@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libexpat1
+sdesc: "Library for handling Continuous Media Markup Language (runtime)"
+ldesc: "Libcmml is a library which enables the handling of documents written in CMML
+(Continuous Media Markup Language) for the Continuous Media Web (CMWeb)."
+external-source: libcmml
+

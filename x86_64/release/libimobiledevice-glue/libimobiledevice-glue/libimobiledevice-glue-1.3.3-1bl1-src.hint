@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libplist2.0-devel
+sdesc: "Library with common code used by the libraries and tools around the libimobiledevice project (licensing & readmes)"
+ldesc: "Library with common code used by the libraries and tools around the libimobiledevice project"
+skip:
+
+homepage: https://github.com/libimobiledevice/libimobiledevice-glue
+license: LGPL-2.1-or-later

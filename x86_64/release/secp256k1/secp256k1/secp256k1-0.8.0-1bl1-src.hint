@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Optimized C library for EC operations on curve secp256k1 (licensing & readmes)"
+ldesc: "Optimized C library for EC operations on curve secp256k1"
+skip:
+
+homepage: https://github.com/bitcoin-core/secp256k1
+license: MIT

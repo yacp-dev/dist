@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport check uthash-devel
+sdesc: "C library for reading DICOM files (utilities)"
+ldesc: "libdicom is a C library and a set of command-line tools for reading DICOM WSI
+files."
+skip:
+
+homepage: https://github.com/ImagingDataCommons/libdicom
+license: MIT

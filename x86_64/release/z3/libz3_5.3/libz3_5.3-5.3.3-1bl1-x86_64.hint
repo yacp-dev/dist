@@ -1,0 +1,6 @@
+category: Math
+requires: cygwin libgcc1 libgmp10 libstdc++6
+sdesc: "Theorem prover (runtime)"
+ldesc: "Z3 is a theorem prover from Microsoft Research."
+external-source: z3
+

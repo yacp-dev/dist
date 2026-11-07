@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libEGL-devel libGL-devel libX11-devel libexpat-devel
+sdesc: "High-level 3D graphics toolkit (licensing & readmes)"
+ldesc: "Coin is an OpenGL-based, 3D graphics library that has its roots in the Open
+Inventor 2.1 API, which Coin still is compatible with."
+skip:
+
+homepage: https://github.com/coin3d/coin
+license: BSD-3-Clause

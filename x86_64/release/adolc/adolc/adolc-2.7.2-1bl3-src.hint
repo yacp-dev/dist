@@ -1,0 +1,12 @@
+category: Science
+build-depends: cygport libboost-devel
+sdesc: "Automatic Differentiation by OverLoading in C++ (licensing & readmes)"
+ldesc: "The package ADOL-C (Automatic Differentiation by OverLoading in C++)
+facilitates the evaluation of first and higher derivatives of vector functions
+that are defined by computer programs written in C or C++. The resulting
+derivative evaluation routines may be called from C/C++, Fortran, or any other
+language that can be linked with C."
+skip:
+
+homepage: https://github.com/coin-or/ADOL-C/
+license: EPL-1.0 OR GPL-2.0-or-later

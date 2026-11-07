@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libapr1 libaprutil1 libesmtp6 libfmt12 libgcc1 libiodbc2 libstdc++6
+sdesc: "Logging framework for C++ patterned after Apache log4j (runtime)"
+ldesc: "Apache log4cxx is a logging framework for C++ patterned after Apache log4j,
+which uses Apache Portable Runtime for most platform-specific code and should
+be usable on any platform supported by APR."
+external-source: log4cxx
+

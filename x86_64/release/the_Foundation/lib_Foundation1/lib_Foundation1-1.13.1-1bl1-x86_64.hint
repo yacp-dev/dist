@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcurl4 libpcre2_8_0 libssl3 libunistring5 zlib0
+sdesc: "Opinionated C11 library for low-level functionality (runtime)"
+ldesc: "An object-oriented C library whose API is designed for a particular coding
+style, taking cues from C++ STL and Qt."
+external-source: the_Foundation
+

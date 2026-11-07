@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libapr1-devel libaprutil1-devel libesmtp-devel libexpat-devel libfmt-devel libiodbc-devel libQt5Core-devel zip
+sdesc: "Logging framework for C++ patterned after Apache log4j (licensing & readmes)"
+ldesc: "Apache log4cxx is a logging framework for C++ patterned after Apache log4j,
+which uses Apache Portable Runtime for most platform-specific code and should
+be usable on any platform supported by APR."
+skip:
+
+homepage: https://logging.apache.org/log4cxx/latest_stable/
+license: Apache-2.0

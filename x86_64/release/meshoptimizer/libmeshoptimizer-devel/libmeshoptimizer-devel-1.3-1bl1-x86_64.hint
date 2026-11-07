@@ -1,0 +1,6 @@
+category: Libs
+requires: libmeshoptimizer1 pkg-config
+sdesc: "Mesh optimization library that makes meshes smaller and faster to render (development)"
+ldesc: "Mesh optimization library that makes meshes smaller and faster to render"
+external-source: meshoptimizer
+

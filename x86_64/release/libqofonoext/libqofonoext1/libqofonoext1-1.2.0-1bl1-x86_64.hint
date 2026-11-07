@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libqofono-qt5_0 libQt5Core5 libQt5Quick5 libstdc++6
+sdesc: "C++ API for Jolla ofono extensions (runtime)"
+ldesc: "A library for accessing Sailfish OS specific ofono extensions, and a
+declarative plugin for it."
+external-source: libqofonoext
+

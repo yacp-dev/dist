@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgtest-devel libsqlite3-devel
+sdesc: "Smart and easy to use C++ SQLite3 wrapper (licensing & readmes)"
+ldesc: "SQLiteC++ offers an encapsulation arround the native C APIs of SQLite, with a
+few intuitive and well documented C++ class."
+skip:
+
+homepage: https://github.com/SRombauts/SQLiteCpp
+license: MIT

@@ -1,0 +1,6 @@
+category: Libs
+requires: libnats3.14 pkg-config
+sdesc: "C client for NATS (development)"
+ldesc: "A C client for the NATS messaging system."
+external-source: cnats
+

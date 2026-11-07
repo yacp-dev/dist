@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libassuan9 libgcc1 libgpg-error0 libintl8 libpcsclite1 libstdc++6
+sdesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government (runtime)"
+ldesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government"
+external-source: eid-mw
+

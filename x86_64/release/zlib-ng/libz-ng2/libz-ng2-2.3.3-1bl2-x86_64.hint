@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Zlib replacement with optimizations for next generation systems (runtime)"
+ldesc: "Zlib replacement with optimizations for next generation systems"
+external-source: zlib-ng
+

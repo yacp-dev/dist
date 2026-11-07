@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 liblapack0 libopenmpi40 libstdc++6
+sdesc: "Specialized Parallel Linear Algebra (runtime)"
+ldesc: "SPLA provides specialized functions for linear algebra computations with a C++
+and C interface, which are inspired by requirements in computational material
+science codes."
+external-source: spla
+

@@ -1,0 +1,10 @@
+category: Libs
+requires: 
+sdesc: "Lightweight locality-aware user-level threading runtime (licensing & readmes)"
+ldesc: "The qthreads API is designed to make using large numbers of threads convenient
+and easy. The API maps well to both MTA-style threading and PIM-style
+threading, and is still quite useful in a standard SMP context. The qthreads
+API also provides access to full/empty-bit (FEB) semantics, where every word
+of memory can be marked either full or empty, and a thread can wait for any
+word to attain either state."
+

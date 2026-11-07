@@ -1,0 +1,8 @@
+category: Games
+requires: cygwin libgcc1 libmodplug1 libopenal1 libphysfs1 libSDL2_2.0_0 libSDL2_image2.0_0 libSDL2_ttf2.0_0 libstdc++6 libvorbis0 libvorbisfile3 luajit
+sdesc: "Free and open-source Action-RPG game engine (runtime)"
+ldesc: "Solarus is a free and open-source Action-RPG game engine, licensed under GPL,
+and written in C++. It runs quests in Lua, and can work on a great number of
+platforms."
+external-source: solarus
+

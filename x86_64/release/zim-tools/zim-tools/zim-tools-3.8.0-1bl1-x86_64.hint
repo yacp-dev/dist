@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin file libdocopt0 libgcc1 libgumbo4 libicu76 libstdc++6 libzim9 zlib0
+sdesc: "Various ZIM command line tools"
+ldesc: "Various ZIM command line tools."
+

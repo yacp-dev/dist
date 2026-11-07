@@ -1,0 +1,9 @@
+category: Games
+requires: cygwin libcurl4 libmp3lame0 libpng16 libreadline8 libSDL2_2.0_0 zlib0
+sdesc: "Portable and free Atari 8-bit emulator"
+ldesc: "Atari800 is the emulator of Atari 8-bit computer systems and 5200 game console
+for Unix, Linux, Amiga, MS-DOS, Atari TT/Falcon, MS-Windows, MS WinCE, Sega
+Dreamcast, Android and other systems supported by the SDL library. Our main
+objective is to create a freely distributable portable emulator (i.e. with
+source code available)."
+

@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libboost_program_options1.66 libboost_system1.66 libboost_thread1.66 libconfig++15 libcppdb0 libgcc1 liblog4cxx15 libstdc++6
+sdesc: "Logging data from a photovoltaic installation"
+ldesc: "Logging data from a photovoltaic installation"
+

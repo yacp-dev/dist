@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libdicom1
+sdesc: "C library for reading DICOM files (utilities)"
+ldesc: "libdicom is a C library and a set of command-line tools for reading DICOM WSI
+files."
+

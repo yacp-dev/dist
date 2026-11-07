@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgmock-devel libgtest-devel
+sdesc: "Cross platform C99 library to get cpu features at runtime (utilities)"
+ldesc: "A cross-platform C library to retrieve CPU features (such as available
+instructions) at runtime."
+skip:
+
+homepage: https://github.com/google/cpu_features
+license: Apache-2.0

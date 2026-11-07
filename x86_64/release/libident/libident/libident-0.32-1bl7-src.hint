@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Small C library for RFC 1413 Identification protocol (utilities)"
+ldesc: "LibIdent is a small C library for interfacing with RFC 1413 Identification
+protocol servers, which are used for identifying users. LibIdent supports both
+IPv4 and IPv6 addresses transparently."
+skip:
+
+homepage: https://www.remlab.net/files/libident/ident.3.html
+license: LicenseRef-libident

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libssl3
+sdesc: "C library for prototyping and experimenting with quantum-resistant cryptography (runtime)"
+ldesc: "C library for prototyping and experimenting with quantum-resistant cryptography"
+external-source: liboqs
+

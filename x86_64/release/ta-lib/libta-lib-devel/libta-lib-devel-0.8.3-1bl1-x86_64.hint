@@ -1,0 +1,7 @@
+category: Libs
+requires: libta-lib1 pkg-config
+sdesc: "Technical Analysis Library (development)"
+ldesc: "TA-Lib is widely used by trading software developers requiring to perform
+technical analysis of financial market data."
+external-source: ta-lib
+

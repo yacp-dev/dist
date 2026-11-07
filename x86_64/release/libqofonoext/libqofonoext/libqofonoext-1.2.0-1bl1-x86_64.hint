@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C++ API for Jolla ofono extensions (licensing & readmes)"
+ldesc: "A library for accessing Sailfish OS specific ofono extensions, and a
+declarative plugin for it."
+

@@ -1,0 +1,7 @@
+category: Devel
+requires: bash python312-subunit
+sdesc: "Streaming protocol for test results (utilities)"
+ldesc: "Subunit is a streaming protocol for test results. The protocol is a binary
+encoding that is easily generated and parsed. By design all the components of
+the protocol conceptually fit into the xUnit TestCase->TestResult interaction."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libplist2.0_12 pkg-config
+sdesc: "Library to handle Apple Property List format in binary or XML (development)"
+ldesc: "Library to handle Apple Property List format in binary or XML"
+external-source: libplist
+

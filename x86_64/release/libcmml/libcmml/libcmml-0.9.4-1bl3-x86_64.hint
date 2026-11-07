@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcmml1
+sdesc: "Library for handling Continuous Media Markup Language (utilities)"
+ldesc: "Libcmml is a library which enables the handling of documents written in CMML
+(Continuous Media Markup Language) for the Continuous Media Web (CMWeb)."
+

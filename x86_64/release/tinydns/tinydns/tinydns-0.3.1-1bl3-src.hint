@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport 
+sdesc: "Tiny cache DNS server"
+ldesc: "This is a tiny DNS server with simple JSON config written in C."
+skip:
+
+homepage: https://github.com/CupIvan/tinydns
+license: MIT

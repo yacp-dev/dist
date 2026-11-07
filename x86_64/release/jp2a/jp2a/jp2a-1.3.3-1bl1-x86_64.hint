@@ -1,0 +1,6 @@
+category: Graphics
+requires: cygwin libcurl4 libexif12 libjpeg8 libncursesw10 libpng16 libwebp7
+sdesc: "Convert JPG images to ASCII"
+ldesc: "jp2a is a small utility that converts JPG images to ASCII. It's written in C
+and released under the GPL."
+

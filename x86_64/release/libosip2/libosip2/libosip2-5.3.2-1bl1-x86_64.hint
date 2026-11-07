@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Implementation of SIP (licensing & readmes)"
+ldesc: "oSIP is an LGPL implementation of SIP. It's stable, portable, flexible and
+compliant! -may be more-! It is used mostly with eXosip2 stack (GPL) which
+provides simpler API for User-Agent implementation."
+

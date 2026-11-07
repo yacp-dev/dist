@@ -1,0 +1,6 @@
+category: Libs
+requires: libmctc-lib-devel libnumsa0 pkg-config
+sdesc: "Solvent accessible surface area calculation (development)"
+ldesc: "Numerical surface area integrator for molecular inputs."
+external-source: numsa
+

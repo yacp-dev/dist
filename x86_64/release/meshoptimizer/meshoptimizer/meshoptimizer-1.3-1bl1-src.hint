@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Mesh optimization library that makes meshes smaller and faster to render (utilities)"
+ldesc: "Mesh optimization library that makes meshes smaller and faster to render"
+skip:
+
+homepage: https://github.com/zeux/meshoptimizer
+license: MIT

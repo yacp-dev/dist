@@ -1,0 +1,7 @@
+category: Utils
+requires: libpsf0 pkg-config
+sdesc: "Tools for simple fixed-width bitmap fonts (development)"
+ldesc: "The PSF Tools are an attempt to do something similar to NetPBM, for simple
+fixed-width bitmap fonts."
+external-source: psftools
+

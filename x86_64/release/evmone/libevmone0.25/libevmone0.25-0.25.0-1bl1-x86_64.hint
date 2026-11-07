@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libstdc++6
+sdesc: "Fast Ethereum Virtual Machine implementation (runtime)"
+ldesc: "evmone is a C++ implementation of the Ethereum Virtual Machine (EVM). Created
+by members of the Ewasm team, the project aims for clean, standalone EVM
+implementation that can be imported as an execution module by Ethereum Client
+projects. The codebase of evmone is optimized to provide fast and efficient
+execution of EVM smart contracts."
+external-source: evmone
+

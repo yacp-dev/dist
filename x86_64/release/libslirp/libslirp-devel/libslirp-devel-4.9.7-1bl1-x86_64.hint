@@ -1,0 +1,7 @@
+category: Libs
+requires: libglib2.0-devel libslirp0 pkg-config
+sdesc: "General purpose TCP-IP emulator (development)"
+ldesc: "libslirp is a user-mode networking library used by virtual machines,
+containers or various tools."
+external-source: libslirp
+

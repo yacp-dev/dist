@@ -1,0 +1,6 @@
+category: Libs
+requires: libglib2.0-devel libmodulemd2 libyaml-devel pkg-config rpm-devel
+sdesc: "C Library for manipulating module metadata files (development)"
+ldesc: "C Library for manipulating module metadata files"
+external-source: libmodulemd
+

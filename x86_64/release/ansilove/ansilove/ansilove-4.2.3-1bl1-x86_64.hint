@@ -1,0 +1,6 @@
+category: Utils
+requires: cygwin libansilove1
+sdesc: "ANSI and ASCII art to PNG converter in C"
+ldesc: "This is a complete rewrite of AnsiLove/PHP in the C programming language. It
+converts ANSi and artscene related file formats into PNG images."
+

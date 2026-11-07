@@ -1,0 +1,6 @@
+category: X11
+requires: libX11-devel libXext-devel libXfixes-devel libXpresent1 libXrandr-devel pkg-config xorgproto
+sdesc: "X.Org libXpresent component (development)"
+ldesc: "X.Org libXpresent component"
+external-source: libXpresent
+

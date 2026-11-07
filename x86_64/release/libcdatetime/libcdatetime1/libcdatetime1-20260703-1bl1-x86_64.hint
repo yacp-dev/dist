@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for cross-platform C date and time functions (runtime)"
+ldesc: "libcdatetime is a library for cross-platform C date and time functions."
+external-source: libcdatetime
+

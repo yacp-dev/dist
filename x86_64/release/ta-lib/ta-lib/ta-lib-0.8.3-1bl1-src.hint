@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Technical Analysis Library (utilities)"
+ldesc: "TA-Lib is widely used by trading software developers requiring to perform
+technical analysis of financial market data."
+skip:
+
+homepage: https://github.com/TA-Lib/ta-lib
+license: BSD-3-Clause

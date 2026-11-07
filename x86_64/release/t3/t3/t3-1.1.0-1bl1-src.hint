@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport help2man
+sdesc: "Next generation tee with colorized output streams and precise time stamping"
+ldesc: "Next generation tee with colorized output streams and precise time stamping"
+skip:
+
+homepage: https://github.com/flox/t3
+license: MIT

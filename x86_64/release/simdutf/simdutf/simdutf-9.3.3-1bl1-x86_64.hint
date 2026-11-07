@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libiconv2 libintl8
+sdesc: "Unicode validation and transcoding at billions of characters per second (utilities)"
+ldesc: "Unicode validation and transcoding at billions of characters per second"
+

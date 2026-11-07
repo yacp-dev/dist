@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gobject-introspection libglib2.0-devel libyaml-devel python-gi-devel python39-gi rpm-devel
+sdesc: "C Library for manipulating module metadata files (utilities)"
+ldesc: "C Library for manipulating module metadata files"
+skip:
+
+homepage: https://github.com/fedora-modularity/libmodulemd
+license: MIT

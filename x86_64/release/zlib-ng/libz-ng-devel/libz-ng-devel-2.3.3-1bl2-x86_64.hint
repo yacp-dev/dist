@@ -1,0 +1,6 @@
+category: Libs
+requires: libz-ng2 pkg-config
+sdesc: "Zlib replacement with optimizations for next generation systems (development)"
+ldesc: "Zlib replacement with optimizations for next generation systems"
+external-source: zlib-ng
+

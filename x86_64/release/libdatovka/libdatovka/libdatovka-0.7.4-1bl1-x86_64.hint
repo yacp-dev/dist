@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Client library for accessing ISDS SOAP services (licensing & readmes)"
+ldesc: "Client library for accessing ISDS SOAP services"
+

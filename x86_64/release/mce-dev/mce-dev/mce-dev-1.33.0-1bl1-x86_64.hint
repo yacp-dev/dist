@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config
+sdesc: "Maemo MCE (Mode Control Entity) definitions"
+ldesc: "Maemo MCE (Mode Control Entity) definitions"
+

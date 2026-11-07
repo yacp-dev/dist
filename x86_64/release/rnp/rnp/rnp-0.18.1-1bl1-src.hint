@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport asciidoctor git libbz2-devel libgtest-devel libjson-c-devel libssl-devel zlib-devel
+sdesc: "High performance C++ OpenPGP library (utilities)"
+ldesc: "High performance C++ OpenPGP library"
+skip:
+
+homepage: https://github.com/rnpgp/rnp
+license: BSD-2-Clause AND Apache-2.0 AND MIT

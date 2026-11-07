@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libstdc++6 libuvwasi0 libwabt1
+sdesc: "WebAssembly Binary Toolkit (utilities)"
+ldesc: "WABT (we pronounce it wabbit) is a suite of tools for WebAssembly"
+

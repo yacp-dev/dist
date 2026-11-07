@@ -1,0 +1,7 @@
+category: Libs
+requires: libsqlite3-devel libSQLiteCpp0 pkg-config
+sdesc: "Smart and easy to use C++ SQLite3 wrapper (development)"
+ldesc: "SQLiteC++ offers an encapsulation arround the native C APIs of SQLite, with a
+few intuitive and well documented C++ class."
+external-source: SQLiteCpp
+

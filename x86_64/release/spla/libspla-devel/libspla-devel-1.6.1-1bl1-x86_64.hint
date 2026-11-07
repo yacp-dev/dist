@@ -1,0 +1,8 @@
+category: Libs
+requires: libspla1 pkg-config libevent-devel libhwloc-devel libopenmpi-devel zlib-devel
+sdesc: "Specialized Parallel Linear Algebra (development)"
+ldesc: "SPLA provides specialized functions for linear algebra computations with a C++
+and C interface, which are inspired by requirements in computational material
+science codes."
+external-source: spla
+

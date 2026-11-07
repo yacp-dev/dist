@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libicu76 libmicrohttpd12 libpugixml1 libstdc++6 libxapian30 libzim9 zlib0
+sdesc: "Common code base for all Kiwix ports (runtime)"
+ldesc: "The Libkiwix provides the Kiwix software suite core. It contains the code
+shared by all Kiwix ports (Windows, GNU/Linux, macOS, Android, iOS, ...)."
+external-source: libkiwix
+

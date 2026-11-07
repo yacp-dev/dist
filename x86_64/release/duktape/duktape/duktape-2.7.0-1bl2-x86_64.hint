@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libduktape207 liblinenoise0
+sdesc: "Embeddable Javascript engine (utilities)"
+ldesc: "Duktape is an embeddable Javascript engine, with a focus on portability and
+compact footprint."
+

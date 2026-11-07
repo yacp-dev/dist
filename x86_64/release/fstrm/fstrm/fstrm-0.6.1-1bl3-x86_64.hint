@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libevent2.1_7 libfstrm0
+sdesc: "Frame Streams implementation in C (utilities)"
+ldesc: "Frame Streams is a light weight, binary clean protocol that allows for the
+transport of arbitrarily encoded data payload sequences with minimal framing
+overhead -- just four bytes per data frame. Frame Streams does not specify
+an encoding format for data frames and can be used with any data serialization
+format that produces byte sequences, such as Protocol Buffers, XML, JSON,
+MessagePack, YAML, etc."
+

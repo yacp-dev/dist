@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++ implementation of the AWS Lambda runtime (licensing & readmes)"
+ldesc: "C++ implementation of the AWS Lambda runtime"
+

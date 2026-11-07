@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgfortran5 libmctc-lib0 libs-dftd3_1 libtoml-f0
+sdesc: "Library first implementation of the D3 dispersion correction (utilities)"
+ldesc: "Library first implementation of the D3 dispersion correction"
+

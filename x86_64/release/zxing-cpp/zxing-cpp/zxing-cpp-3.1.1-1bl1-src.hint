@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgmock-devel libgtest-devel libpng-devel libzint-devel zlib-devel
+sdesc: "C++ Multi-format 1D/2D barcode image processing library (utilities)"
+ldesc: "C++ Multi-format 1D/2D barcode image processing library"
+skip:
+
+homepage: https://github.com/zxing-cpp/zxing-cpp
+license: Apache-2.0 AND BSD-3-Clause AND MIT

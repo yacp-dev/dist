@@ -1,0 +1,12 @@
+category: Science
+build-depends: cygport git libjasper-devel libturbojpeg-devel libyaml-cpp-devel zlib-devel
+sdesc: "DICOM to NIfTI converter"
+ldesc: "dcm2niix is designed to convert neuroimaging data from the DICOM format to the
+NIfTI format. This web page hosts the developmental source code - a compiled
+version for Linux, MacOS, and Windows of the most recent stable release is
+included with MRIcroGL. A full manual for this software is available in the
+form of a NITRC wiki."
+skip:
+
+homepage: https://github.com/rordenlab/dcm2niix
+license: BSD-2-Clause AND BSD-3-Clause AND MIT

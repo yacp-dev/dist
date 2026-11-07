@@ -1,0 +1,5 @@
+category: Interpreters
+requires: bash cygwin libcurl4
+sdesc: "Lisp installer and launcher for major environments"
+ldesc: "Roswell is a Lisp implementation installer/manager, launcher, and much more!"
+

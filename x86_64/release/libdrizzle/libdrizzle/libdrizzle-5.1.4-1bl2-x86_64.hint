@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Client and protocol library for the Drizzle database (licensing & readmes)"
+ldesc: "Client and protocol library for the Drizzle database"
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libtinyxml0 pkg-config
+sdesc: "Simple, small, C++ XML parser (development)"
+ldesc: "TinyXML is a simple, small, C++ XML parser that can be easily integrating into
+other programs."
+external-source: tinyxml
+

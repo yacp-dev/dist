@@ -1,0 +1,8 @@
+category: Text
+build-depends: cygport 
+sdesc: "My C implementation of John Gruber's Markdown markup language (utilities)"
+ldesc: "My C implementation of John Gruber's Markdown markup language"
+skip:
+
+homepage: https://github.com/Orc/discount
+license: BSD-3-Clause

@@ -1,0 +1,6 @@
+category: Libs
+requires: libmctc-lib-devel libxtb6 pkg-config
+sdesc: "Semiempirical Extended Tight-Binding Program Package (development)"
+ldesc: "Semiempirical Extended Tight-Binding Program Package"
+external-source: xtb
+

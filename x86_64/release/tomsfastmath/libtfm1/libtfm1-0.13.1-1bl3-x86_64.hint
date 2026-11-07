@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Large integer arithmetic library (runtime)"
+ldesc: "TomsFastMath is a fast public domain, open source, large integer arithmetic
+library written in portable ISO C."
+external-source: tomsfastmath
+

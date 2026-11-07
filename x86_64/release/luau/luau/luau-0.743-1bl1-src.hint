@@ -1,0 +1,8 @@
+category: Interpreters
+build-depends: cygport libisocline-devel
+sdesc: "Fast, small, safe, gradually typed embeddable scripting language derived from Lua"
+ldesc: "Fast, small, safe, gradually typed embeddable scripting language derived from Lua"
+skip:
+
+homepage: https://github.com/luau-lang/luau
+license: MIT

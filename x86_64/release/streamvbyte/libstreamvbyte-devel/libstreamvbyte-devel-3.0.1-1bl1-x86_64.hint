@@ -1,0 +1,8 @@
+category: Libs
+requires: libstreamvbyte3 pkg-config
+sdesc: "Fast integer compression in C using the StreamVByte codec (development)"
+ldesc: "StreamVByte is a new integer compression technique that applies SIMD
+instructions (vectorization) to Google's Group Varint approach. The net
+result is faster than other byte-oriented compression techniques."
+external-source: streamvbyte
+

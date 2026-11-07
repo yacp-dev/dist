@@ -1,0 +1,7 @@
+category: Utils
+requires: cygwin
+sdesc: "Display directories as trees (with optional color/HTML output)"
+ldesc: "Tree is a recursive directory listing command that produces a depth indented
+listing of files, which is colorized ala dircolors if the LS_COLORS
+environment variable is set and output is to tty."
+

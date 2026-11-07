@@ -1,0 +1,7 @@
+category: Libs
+requires: libuv-devel libuvwasi0 pkg-config
+sdesc: "WASI syscall API built atop libuv (development)"
+ldesc: "uvwasi implements the WASI system call API. Under the hood, uvwasi leverages
+libuv where possible for maximum portability."
+external-source: uvwasi
+

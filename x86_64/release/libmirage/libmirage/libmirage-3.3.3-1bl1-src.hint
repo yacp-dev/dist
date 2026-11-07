@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gobject-introspection intltool libbz2-devel libgirepository1.0-devel libglib2.0-devel libintl-devel liblzma-devel libsamplerate-devel libsndfile-devel vala zlib-devel
+sdesc: "CD-ROM image access library (licensing & readmes)"
+ldesc: "libMirage is a CD-ROM image access library. It is written in C and based on
+GLib. It's aim is to provide uniform access to the data stored in various
+image formats."
+skip:
+
+homepage: https://cdemu.sourceforge.io/about/libmirage/
+license: GPL-2.0-or-later

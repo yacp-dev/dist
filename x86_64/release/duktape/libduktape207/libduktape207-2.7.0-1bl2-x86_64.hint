@@ -1,0 +1,7 @@
+category: Devel
+requires: cygwin
+sdesc: "Embeddable Javascript engine (runtime)"
+ldesc: "Duktape is an embeddable Javascript engine, with a focus on portability and
+compact footprint."
+external-source: duktape
+

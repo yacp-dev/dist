@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport 
+sdesc: "Low-level DNS library (utilities)"
+ldesc: "Low-level DNS library"
+skip:
+
+homepage: https://github.com/farsightsec/wdns
+license: Apache-2.0 AND BSD-3-Clause AND ISC

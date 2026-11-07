@@ -1,0 +1,7 @@
+category: Libs
+requires: libglib2.0-devel libQt5Core-devel libsnapd-glib-devel libsnapd-qt1 pkg-config
+sdesc: "Glib library for communicating with snapd (development / Qt)"
+ldesc: "snapd-glib is a library to allow GLib based applications access to snapd, the
+daemon that controls Snaps."
+external-source: snapd-glib
+

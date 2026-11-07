@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgnutls30 libnettle9
+sdesc: "Simple RADIUS client library (runtime, radcli2 API)"
+ldesc: "The radcli library is a library for writing RADIUS Clients. The library's
+approach is to allow writing RADIUS-aware application in less than 50 lines of
+C code. It was based originally on freeradius-client and radiusclient-ng and
+is source compatible with them."
+external-source: radcli
+

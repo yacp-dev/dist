@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libcrypt2
+sdesc: "Very small, yet very fast HTTP server"
+ldesc: "This is Mathopd, a fast, lightweight, non-forking HTTP server for UN*X
+systems."
+

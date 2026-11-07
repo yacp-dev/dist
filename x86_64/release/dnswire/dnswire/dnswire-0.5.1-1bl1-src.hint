@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libprotobuf-c-devel libtinyframe-devel libuv-devel protobuf-c
+sdesc: "library for DNS encapsulations (licensing & readmes)"
+ldesc: "A C library for encoding/decoding different DNS encapsulations and
+transporting them over different protocols."
+skip:
+
+homepage: https://codeberg.org/DNS-OARC/dnswire
+license: LGPL-3.0-or-later

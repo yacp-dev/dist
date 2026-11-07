@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libyaml0_2
+sdesc: "C++ implementation of Mustache (runtime)"
+ldesc: "C++ implementation of Mustache"
+external-source: libmustache
+

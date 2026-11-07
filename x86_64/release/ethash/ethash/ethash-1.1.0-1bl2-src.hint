@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbenchmark-devel libgtest-devel
+sdesc: "C/C++ implementation of Ethereum Proof of Work algorithm (licensing & readmes)"
+ldesc: "C/C++ implementation of Ethereum Proof of Work algorithm"
+skip:
+
+homepage: https://github.com/chfast/ethash
+license: Apache-2.0

@@ -1,0 +1,8 @@
+category: Gnome
+requires: girepository-GLib2.0 libglib2.0-devel libtemplate_glib1.0_0
+sdesc: "Templating library for GLib (GObject Introspection data)"
+ldesc: "Template-GLib is a library to help you generate text based on a template and
+user defined state. Template-GLib does not use a language runtime, so it is
+safe to use from any GObject-Introspectable language."
+external-source: template-glib
+

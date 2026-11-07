@@ -1,0 +1,5 @@
+category: Security
+requires: bash cygwin libcairo2 libcurl4 libeidviewer0 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk3_0 libintl8 libpango1.0_0 libproxy1 libssl3 libxml2
+sdesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government (licensing & readmes)"
+ldesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government"
+

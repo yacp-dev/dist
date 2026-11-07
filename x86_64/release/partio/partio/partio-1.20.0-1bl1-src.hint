@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libGL-devel libGLU-devel libglut-devel libgtest-devel python3-devel swig zlib-devel
+sdesc: "Library for particle IO and manipulation (utilities)"
+ldesc: "This is the initial source code release of partio a tool we used for particle
+reading/writing. It started out as an abstraction for the commonalities in
+particle models (i.e. accessing many attributes associated with an index or
+entity)."
+skip:
+
+homepage: https://github.com/wdas/partio
+license: BSD-3-Clause AND MIT

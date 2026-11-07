@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 liblz4_1 libmicrohttpd12 libuuid1 libzmq5
+sdesc: "High-level C Binding for ZeroMQ (runtime)"
+ldesc: "CZMQ - High-level C Binding for ZeroMQ"
+external-source: czmq
+

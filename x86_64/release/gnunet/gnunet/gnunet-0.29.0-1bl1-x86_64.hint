@@ -1,0 +1,11 @@
+category: Net
+requires: bash cygwin libcurl4 libgcrypt20 libgnunetabd0 libgnunetarm2 libgnunetblock0 libgnunetblockgroup0 libgnunetcadet7 libgnunetconsensus0 libgnunetconversation0 libgnunetcore0 libgnunetdatacache0 libgnunetdatastore1 libgnunetdht4 libgnunetdid0 libgnunetdns0 libgnunetfs2 libgnunetgns0 libgnunetgnsrecord1 libgnunetgnsrecordjson0 libgnunethello0 libgnunetidentity1 libgnunetjson3 libgnunetmessenger0 libgnunetmicrophone0 libgnunetnamecache0 libgnunetnamestore0 libgnunetnatauto0 libgnunetnatnew2 libgnunetnse0 libgnunetpeerstore0 libgnunetpils0 libgnunetpq10 libgnunetreclaim0 libgnunetregex3 libgnunetregexblock1 libgnunetrest0 libgnunetrevocation0 libgnunetrps0 libgnunetscalarproduct0 libgnunetset0 libgnunetseti0 libgnunetsetu0 libgnunetspeaker0 libgnunetsq0 libgnunetstatistics2 libgnunettestbed0 libgnunettesting3 libgnunettransportapplication0 libgnunettransportcommunicator0 libgnunettransportcore0 libgnunettransportmonitor0 libgnunetutil23 libgnunetvpn0 libgnutls30 libidn2_0 libjansson4 libjose0 libmicrohttpd12 libogg0 libopus0 libpulse0 libsodium26 libsqlite3_0 libzbar0
+sdesc: "Framework for distributed, secure and privacy-preserving applications (utilities)"
+ldesc: "GNUnet is peer-to-peer framework providing a network abstractions and
+applications focusing on security and privacy.  So far, we have
+created applications for anonymous file-sharing, decentralized naming
+and identity management, decentralized and confidential telephony and
+tunneling IP traffic over GNUnet.  GNUnet is currently developed by a
+worldwide group of independent free software developers.  GNUnet is a
+GNU package (https://www.gnu.org/)."
+

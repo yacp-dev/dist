@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran liblapack-devel libmctc-lib-devel libmstore-devel libmulticharge-devel
+sdesc: "Generally Applicable Atomic-Charge Dependent London Dispersion Correction (utilities)"
+ldesc: "This is a minimal standalone version of DFT-D4 providing the D4(EEQ)-ATM and
+D4(EEQ)-MBD methods."
+skip:
+
+homepage: https://github.com/dftd4/dftd4
+license: LGPL-3.0-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libavcodec63 libavformat63 libavutil61 libswresample7 libswscale10 libuv1 libwebsockets22
+sdesc: "C Websockets Server Library (utilities)"
+ldesc: "libwebsockets is a lightweight GPL2 http and websocket server that hides all
+the protocol handshakes and detail from the user code driving the server."
+

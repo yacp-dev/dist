@@ -1,0 +1,9 @@
+category: Text
+build-depends: cygport gettext-devel libiconv-devel
+sdesc: "Yet Another Part-of-Speech and Morphological Analyzer (utilities)"
+ldesc: "MeCab is a open source morphological analyzer which uses CRF (Conditional
+Random Fields) as the estimation of parameters."
+skip:
+
+homepage: https://taku910.github.io/mecab/
+license: BSD-3-Clause OR GPL-3.0-or-later OR LGPL-2.1-or-later

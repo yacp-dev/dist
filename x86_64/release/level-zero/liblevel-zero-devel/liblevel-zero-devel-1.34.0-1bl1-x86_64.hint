@@ -1,0 +1,6 @@
+category: Libs
+requires: liblevel-zero1 pkg-config
+sdesc: "oneAPI Level Zero Specification Headers and Loader (development)"
+ldesc: "oneAPI Level Zero Specification Headers and Loader"
+external-source: level-zero
+

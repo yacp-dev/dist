@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libzstd1 zlib0
+sdesc: "Standalone library for reading MAME's CHDv1-v5 formats (runtime)"
+ldesc: "Standalone library for reading MAME's CHDv1-v5 formats"
+external-source: libchdr
+

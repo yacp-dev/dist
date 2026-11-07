@@ -1,0 +1,8 @@
+category: Libs
+requires: libvalkey0 pkg-config
+sdesc: "Valkey client library in C (development)"
+ldesc: "Libvalkey is the official C client for the Valkey database. It also supports
+any server that uses the RESP protocol (version 2 or 3). This project
+supports both standalone and cluster modes."
+external-source: libvalkey
+

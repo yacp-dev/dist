@@ -1,0 +1,6 @@
+category: Libs
+requires: libsymspg2 pkg-config
+sdesc: "C library for finding and handling crystal symmetries (development)"
+ldesc: "Spglib is a C library for finding and handling crystal symmetries."
+external-source: spglib
+

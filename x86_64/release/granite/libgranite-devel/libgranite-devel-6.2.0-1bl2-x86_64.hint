@@ -1,0 +1,8 @@
+category: Libs
+requires: libgee0.8-devel libglib2.0-devel libgranite6 libgtk3-devel pkg-config
+sdesc: "Library that extends GTK with common widgets and utilities (development)"
+ldesc: "Granite is a companion library for GTK and GLib. Among other things, it
+provides complex widgets and convenience functions designed for use in apps
+built for elementary OS."
+external-source: granite
+
