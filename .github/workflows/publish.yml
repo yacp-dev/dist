@@ -45,7 +45,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
 
 # Every run of this workflow -- whatever package/artifact it's publishing
 # -- reads, reshapes, and force-pushes the *same* gh-pages branch as one
@@ -131,15 +130,28 @@ jobs:
       - name: Commit and force-push gh-pages
         run: bash -- scripts/publish_gh_pages.sh --dir gh-pages --message "Publish ${{ steps.layout.outputs.published_packages }}"
 
-      # Best-effort and non-fatal: GITHUB_TOKEN's `pages: write`
-      # permission is designed around the newer artifact-based Pages
-      # deploy flow (actions/deploy-pages), and it's untested as of this
-      # writing whether it's sufficient for this classic branch-source
-      # config call too -- if not, this is also just a one-time manual
-      # Settings > Pages step, which shouldn't block the actual
-      # packaging/publishing work above.
-      - name: Enable GitHub Pages
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: bash -- scripts/ensure_pages_enabled.sh --repo ${{ github.repository }}
+      # Pages is deployed from this workflow (build_type: workflow), not
+      # by Pages' own branch-triggered build: that build re-cloned the
+      # whole gh-pages tree (~3 minutes) and ran Jekyll for nothing. The
+      # gh-pages branch is still pushed above -- it is the persistent
+      # state the next run's Checkout gh-pages reads -- but pushing it no
+      # longer publishes anything by itself. upload-pages-artifact skips
+      # dotfiles, so gh-pages/.git stays out of the artifact.
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: gh-pages
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

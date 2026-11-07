@@ -7,8 +7,7 @@
 # previously-written CNAME already round-trips through that on its own --
 # this step exists to (re-)create it after gh-pages doesn't exist yet
 # (checkout_gh_pages.sh's from-scratch bootstrap path) or if it's ever
-# removed by hand. Idempotent -- safe to run on every publish, same
-# pattern as ensure_pages_enabled.sh.
+# removed by hand. Idempotent -- safe to run on every publish.
 #
 # Usage: ensure_gh_pages_cname.sh --dir gh-pages --domain dist.yacp.dev
 

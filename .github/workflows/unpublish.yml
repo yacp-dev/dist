@@ -61,3 +61,24 @@ jobs:
         env:
           PACKAGE: ${{ inputs.package }}
         run: bash -- scripts/publish_gh_pages.sh --dir gh-pages --message "Remove $PACKAGE"
+
+      # See publish.yml: Pages is deployed from the workflow, so pushing
+      # gh-pages alone would leave the removed package on the live site.
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: gh-pages
+
+  deploy:
+    needs: unpublish
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
