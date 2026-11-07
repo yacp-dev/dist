@@ -80,16 +80,6 @@ if [[ -s "$new_patch" ]]; then
       if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
         echo "dropped_files=$dropped" >> "$GITHUB_OUTPUT"
       fi
-      if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
-        {
-          echo "### .src.patch lost changes"
-          echo
-          echo "\`cygport diff\` left these files out of the regenerated \`$(basename "$new_patch")\`, though the recipe's own patch changed them. This build had the changes; the committed recipe won't. Move them into a \`PATCH_URI\` patch of their own:"
-          echo
-          for f in $dropped; do echo "- \`$f\`"; done
-          echo
-        } >> "$GITHUB_STEP_SUMMARY"
-      fi
     fi
   fi
   cp -f "$new_patch" "$dir_abs/"

@@ -50,8 +50,13 @@
 # is left to whoever reads it (port-until-green's Claude): this only lays
 # the findings out.
 #
+# With --pr-body-file it writes the same report, wrapped for a PR body
+# (--pr-kind ready: dorgann-meta and the publish command; draft: how to
+# retry a failed build), to that file instead of the step summary, in
+# half the space a PR body has to spare.
+#
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--version <v>] [--mode <mode>] [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>] [--audit-oks-file <path-or-empty>] [--audit-oks-count <n-or-empty>] [--check <verdict-or-empty>] [--check-tests <str-or-empty>] [--check-skipped <n-or-empty>] [--check-upstream-tests <str-or-empty>]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--version <v>] [--mode <mode>] [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>] [--audit-oks-file <path-or-empty>] [--audit-oks-count <n-or-empty>] [--check <verdict-or-empty>] [--check-tests <str-or-empty>] [--check-skipped <n-or-empty>] [--check-upstream-tests <str-or-empty>] [--dropped-files <files-or-empty>] [--run-url <url>] [--pr-body-file <path> [--pr-kind ready|draft]]
 
 set -euo pipefail
 
@@ -69,6 +74,10 @@ check=""
 check_tests=""
 check_skipped=""
 check_upstream_tests=""
+dropped_files=""
+run_url=""
+pr_body_file=""
+pr_kind="ready"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -86,14 +95,26 @@ while [[ $# -gt 0 ]]; do
     --check-tests) check_tests="$2"; shift 2 ;;
     --check-skipped) check_skipped="$2"; shift 2 ;;
     --check-upstream-tests) check_upstream_tests="$2"; shift 2 ;;
+    --dropped-files) dropped_files="$2"; shift 2 ;;
+    --run-url) run_url="$2"; shift 2 ;;
+    --pr-body-file) pr_body_file="$2"; shift 2 ;;
+    --pr-kind) pr_kind="$2"; shift 2 ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
 
 [[ -n "$package" ]] || { echo "--package is required" >&2; exit 1; }
-[[ -n "${GITHUB_STEP_SUMMARY:-}" ]] || { echo "GITHUB_STEP_SUMMARY must be set" >&2; exit 1; }
+[[ -n "$pr_body_file" || -n "${GITHUB_STEP_SUMMARY:-}" ]] || { echo "GITHUB_STEP_SUMMARY must be set (or give --pr-body-file)" >&2; exit 1; }
 
 diagnostic_max_bytes=200000
+# A PR body is limited to 65536 characters, and the NG and OK blocks each
+# get diagnostic_max_bytes: for a PR body, half of that budget with each
+# block cut at block_max_lines (a failing check's log is the long one).
+block_max_lines=0
+if [[ -n "$pr_body_file" ]]; then
+  diagnostic_max_bytes=25000
+  block_max_lines=100
+fi
 
 # Prints $1, or if it's over diagnostic_max_bytes, its first that many
 # bytes minus the last (possibly cut mid-line, or mid-character) line,
@@ -142,14 +163,16 @@ TITLES='function title(n) {
 # BUILD_REQUIRES' "probably used", "nothing downloaded"). Drops the
 # closing "N warning(s)." line, which the table already says.
 render_sections() {
-  awk -v mode="$1" -v check="$check" -v skipped="$check_skipped" "$TITLES"'
-    function flush(  i, bad) {
+  awk -v mode="$1" -v check="$check" -v skipped="$check_skipped" -v cap="$block_max_lines" "$TITLES"'
+    function flush(  i, bad, last) {
       if (name == "") return
       while (n > 0 && buf[n] == "") n--
       bad = warned || (name == "Check" && !(check == "passed" && skipped == ""))
       if ((mode == "ng") == (bad ? 1 : 0)) {
         printf "\n#### %s\n```\n", title(name)
-        for (i = 1; i <= n; i++) print buf[i]
+        last = (cap > 0 && n > cap) ? cap : n
+        for (i = 1; i <= last; i++) print buf[i]
+        if (last < n) printf "... (%d more line(s); the full text is in the run summary)\n", n - last
         print "```"
       }
       name = ""; n = 0; warned = 0
@@ -184,7 +207,7 @@ render_ok() {
   ' "$1"
 }
 
-{
+report_body() {
   echo "| | |"
   echo "|---|---|"
   echo "| **package** | $package |"
@@ -202,7 +225,7 @@ render_ok() {
   if [[ -n "$pr_url" ]]; then
     echo "| **PR** | $pr_url |"
   fi
-  if [[ -n "$artifact_id" && -z "$pr_url" ]]; then
+  if [[ -z "$pr_body_file" && -n "$artifact_id" && -z "$pr_url" ]]; then
     echo "| **dist artifact** | $artifact_id (no PR was created -- deploy mode) |"
     echo
     echo "To publish this build to gh-pages:"
@@ -210,18 +233,27 @@ render_ok() {
     echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo ${GITHUB_REPOSITORY:-yacp-dev/dist}"
     echo '```'
   fi
-  if [[ -n "$audit_file" && -s "$audit_file" ]]; then
-    ng_tmp="$(mktemp)"
-    render_sections ng "$audit_file" > "$ng_tmp"
-    if [[ -s "$ng_tmp" ]]; then
+  ng_tmp="$(mktemp)"
+  [[ -z "$audit_file" || ! -s "$audit_file" ]] || render_sections ng "$audit_file" > "$ng_tmp"
+  if [[ -n "$dropped_files" ]]; then
+    {
       echo
-      echo "<details${audit_open:+ open}><summary>❌ NG ($(count_headings "$(cat "$ng_tmp")"))</summary>"
-      print_bounded "$ng_tmp"
-      echo
-      echo "</details>"
-    fi
-    rm -f "$ng_tmp"
+      echo "#### .src.patch lost changes"
+      echo '```'
+      echo "cygport diff left these files out of the regenerated .src.patch, though the recipe's own patch changed them."
+      echo "This build had the changes; the committed recipe won't. Move them into a PATCH_URI patch of their own:"
+      for f in $dropped_files; do echo "  $f"; done
+      echo '```'
+    } >> "$ng_tmp"
   fi
+  if [[ -s "$ng_tmp" ]]; then
+    echo
+    echo "<details${audit_open:+ open}><summary>❌ NG ($(count_headings "$(cat "$ng_tmp")"))</summary>"
+    print_bounded "$ng_tmp"
+    echo
+    echo "</details>"
+  fi
+  rm -f "$ng_tmp"
   ok_tmp="$(mktemp)"
   [[ -z "$audit_file" || ! -s "$audit_file" ]] || render_sections info "$audit_file" >> "$ok_tmp"
   [[ -z "$audit_oks_file" || ! -s "$audit_oks_file" ]] || render_ok "$audit_oks_file" >> "$ok_tmp"
@@ -233,4 +265,37 @@ render_ok() {
     echo "</details>"
   fi
   rm -f "$ok_tmp"
-} >> "$GITHUB_STEP_SUMMARY"
+}
+
+if [[ -z "$pr_body_file" ]]; then
+  report_body >> "$GITHUB_STEP_SUMMARY"
+  exit 0
+fi
+
+# The PR body: the same report, with what a reader of the PR needs around
+# it. A failed build's draft PR says how to retry; a built one carries the
+# dorgann-meta comment publish.yml reads (doc/spec.md 4.4.1) and the
+# publish command.
+repo="${GITHUB_REPOSITORY:-yacp-dev/dist}"
+{
+  if [[ "$pr_kind" == draft ]]; then
+    echo "Version \`$version\`, but the build failed -- see the report below and the run log for what's wrong."
+    echo
+    echo "Push a fix directly onto this branch (\`dorgann/$package-$version\`), then re-run the build against it:"
+    echo '```'
+    echo "gh workflow run build-package.yml -f target=$package-$version --repo $repo"
+    echo '```'
+    echo
+  fi
+  report_body
+  echo
+  [[ -z "$run_url" ]] || { echo "Run: $run_url"; echo; }
+  if [[ "$pr_kind" != draft ]]; then
+    echo "<!-- dorgann-meta: {\"artifact_id\":\"$artifact_id\"} -->"
+    echo
+    echo "To publish this build to gh-pages:"
+    echo '```'
+    echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo $repo"
+    echo '```'
+  fi
+} > "$pr_body_file"

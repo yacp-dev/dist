@@ -660,6 +660,15 @@ jobs:
           owner: yacp-dev
           repositories: ports
 
+      # The PR body is the run summary's report (write_job_summary.sh
+      # --pr-body-file), written to a file in the workspace for the two PR
+      # steps below to read with body-path: a version bump's built or
+      # failed state is the one thing they differ on. The PR's own link
+      # isn't known yet, so the table has no PR row.
+      - name: Render PR body
+        if: always() && steps.detect.outcome == 'success' && needs.gate.outputs.mode != 'deploy'
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --dropped-files "${{ steps.port.outputs.dropped_files }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" --pr-body-file pr-body.md --pr-kind ${{ job.status == 'success' && 'ready' || 'draft' }}
+
       # Placed after the artifact upload so a problem here (still
       # unvalidated as of Step 2 -- first real use of the yacp token) can't
       # cost the dist artifact too.
@@ -715,49 +724,13 @@ jobs:
           # but isDraft stayed true). Mark Pull Request ready for review
           # below handles it explicitly instead.
           #
-          # The dorgann-meta HTML comment mirrors the machine-parseable
-          # metadata convention doc/spec.md 4.7 uses for update-blocked
-          # Issues -- an HTML comment survives copy/paste and markdown
-          # reformatting better than expecting something to scrape a
-          # human-facing code block. artifact-id is actions/upload-
-          # artifact's own step output (v4+), not something computed here.
-          #
-          # The check line is empty unless cygport check failed, which
-          # otherwise leaves no trace on a green run (see Audit recipe's
-          # Check section); the diagnostic itself goes to the run summary
-          # rather than here, to keep a possibly long log excerpt out of
-          # the PR.
-          # Likewise the empty-check line, unless check ran no tests, the
-          # skipped-tests line, unless check skipped some, the downloads
-          # line, unless the build fetched something itself, and the audit line, unless Audit recipe warned, the dependencies
-          # line, unless it named Cygwin packages the build looked for and
-          # didn't find, and the .src.patch line, unless the
-          # copy-back step found the patch lost a file.
-          body: |
-            Version `${{ steps.detect.outputs.version }}`, built and validated by [dorgann](https://github.com/yacp-dev/dist).
-
-            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            ${{ (steps.check.outcome == 'failure' || steps.audit.outputs.check == 'failed') && '**`cygport check` failed** (non-blocking) -- see the run summary for why.' || '' }}
-
-            ${{ steps.audit.outputs.check_empty_reason && format('**`cygport check` ran no tests** ({0}).', steps.audit.outputs.check_empty_reason) || '' }}
-
-            ${{ steps.audit.outputs.check_skipped && format('**`cygport check` skipped {0} test(s)** -- a tool or library missing from `BUILD_REQUIRES` may be why; see the run summary.', steps.audit.outputs.check_skipped) || '' }}
-
-            ${{ steps.audit.outputs.warnings && format('**Recipe audit**: {0} warning(s) about the recipe or what it installs -- see the run summary.', steps.audit.outputs.warnings) || '' }}
-
-            ${{ steps.audit.outputs.downloads && format('**Build-time downloads**: the build fetched `{0}` itself -- put them in `SRC_URI` (pinned) instead; see the run summary.', steps.audit.outputs.downloads) || '' }}
-
-            ${{ steps.audit.outputs.candidates && format('**Dependencies the build didn''t find**: Cygwin has them in `{0}`, not in `BUILD_REQUIRES` -- adding them may build more of the package; see the run summary.', steps.audit.outputs.candidates) || '' }}
-
-            ${{ steps.port.outputs.dropped_files && format('**`.src.patch` lost changes**: `cygport diff` left out `{0}`, which this build patched but the committed recipe no longer does -- move them into a `PATCH_URI` patch of their own.', steps.port.outputs.dropped_files) || '' }}
-
-            <!-- dorgann-meta: {"artifact_id":"${{ steps.upload.outputs.artifact-id }}"} -->
-
-            To publish this build to gh-pages:
-            ```
-            gh workflow run publish.yml -f artifact_id=${{ steps.upload.outputs.artifact-id }} --repo ${{ github.repository }}
-            ```
+          # The body (Render PR body above) is the run summary's report
+          # and the publish command, with the dorgann-meta HTML comment
+          # that mirrors the machine-parseable metadata convention
+          # doc/spec.md 4.7 uses for update-blocked Issues -- an HTML
+          # comment survives copy/paste and markdown reformatting better
+          # than expecting something to scrape a human-facing code block.
+          body-path: pr-body.md
 
       # Only matters in branch-rebuild mode (doc/spec.md 4.6): a fresh-
       # bump-mode PR is never a draft in the first place (Create draft
@@ -822,15 +795,8 @@ jobs:
           # re-run doesn't need to change the title at all, only the draft
           # status (Mark Pull Request ready for review) and body.
           title: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
-          body: |
-            Version `${{ steps.detect.outputs.version }}`, but the build failed -- see the run summary and log below for what's wrong.
-
-            Push a fix directly onto this branch (`dorgann/${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}`), then re-run the build against it:
-            ```
-            gh workflow run build-package.yml -f target=${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }} --repo ${{ github.repository }}
-            ```
-
-            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          # Render PR body above: how to retry, and the report.
+          body-path: pr-body.md
 
       # Genuinely last step, if: always() so it runs whichever of the
       # above actually fired. GitHub renders $GITHUB_STEP_SUMMARY as
@@ -845,4 +811,4 @@ jobs:
       # survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --dropped-files "${{ steps.port.outputs.dropped_files }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}"

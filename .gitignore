@@ -9,3 +9,6 @@ Thumbs.db
 
 # scratch area (not part of the repo)
 .tmp/
+
+# rendered PR body (build-package.yml)
+pr-body.md

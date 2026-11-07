@@ -512,7 +512,7 @@ already has them.
   that `find_package()` of an installed CMake config needs and its
   subpackage doesn't require: add it to that
   `<sub>_REQUIRES` in one commit, `<pkg>-<ver> (fix <sub> REQUIRES)`,
-  and re-run. A `Build-time downloads` line in the PR body (`Audit
+  and re-run. A `Build-time downloads` block in the PR body or run summary (`Audit
   recipe`'s `== Build-time downloads ==`: a FetchContent `_deps/<name>-src`,
   an ExternalProject download, or `Cloning into`/cargo/go/pip/wget lines
   in the logs) means the build fetched something itself: add it to
@@ -527,11 +527,11 @@ already has them.
   `git` from `BUILD_REQUIRES` if only the clone needed it, then re-run.
   Its license
   still counts if it's compiled. A
-  `.src.patch lost changes` line in the PR body (a warning from `Copy
+  `.src.patch lost changes` block in the PR body (from `Copy
   build results back`) means the committed recipe no
   longer reproduces this build: move the named files' changes into a
   `PATCH_URI` patch (see "Source doesn't build on Cygwin" in Step 4)
-  and re-run. A `Dependencies the build didn't find` line in the PR
+  and re-run. A `Dependencies the build didn't find` block in the PR
   body names Cygwin packages that provide something the build looked
   for and went without (the audit's `== Dependencies the build didn't
   find ==` section says which pkg-config module or CMake package each
