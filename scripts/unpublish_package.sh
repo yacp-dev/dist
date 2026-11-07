@@ -7,7 +7,7 @@
 #
 # Refuses a name that isn't a plain package name: it goes into an rm -rf.
 #
-# Usage: unpublish_package.sh --gh-pages-dir gh-pages --package evmc
+# Usage: unpublish_package.sh --gh-pages-dir gh-pages --package foo
 
 set -euo pipefail
 

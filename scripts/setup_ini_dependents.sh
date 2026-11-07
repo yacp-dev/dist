@@ -2,8 +2,8 @@
 # Reads setup.ini for what removing one source package from dist would
 # break (doc/spec.md 4.4.3). A binary package belongs to the source package
 # whose release directory holds its files, x86_64/release/<source
-# package>/..., whatever the binary package is called (libevmc12 and
-# libevmc-devel belong to evmc).
+# package>/..., whatever the binary package is called (libfoo1 and
+# libfoo-devel belong to foo).
 #
 # A dependent is a package of another source package whose depends2,
 # requires or build-depends names one of those binary packages, or
@@ -13,7 +13,7 @@
 # Descriptions can span lines, so they're skipped rather than read as
 # fields: a line of ldesc starting "depends2:" is not a dependency.
 #
-# Usage: setup_ini_dependents.sh --setup-ini setup.ini --package evmc [--owned]
+# Usage: setup_ini_dependents.sh --setup-ini setup.ini --package foo [--owned]
 # Output: "<dependent> <field> <binary package>" per dependency, or with
 # --owned, the source package's binary packages (and the -src pseudo-
 # package), one per line. Nothing at all if it has neither. Exit status 0
