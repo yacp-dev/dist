@@ -339,7 +339,7 @@ check_log_body() {
 # there ("Not Run (Disabled)" without libxml2).
 #
 # Read from the check log:
-#   - ctest's "***Skipped" and "***Not Run" verdicts
+#   - ctest's "***Skipped" and "***Not Run (Disabled)" verdicts
 #   - meson's SKIP verdicts
 #   - automake's "SKIP: <test>" lines
 #   - pytest's "N skipped" totals
@@ -351,7 +351,9 @@ check_log_body() {
 check_skipped_tests() {
   perl -pe 's/\e\[[0-9;]*m//g' "$checklog" | awk '
     # ctest: " 60/63 Test #60: test_cmd_stdin ......***Not Run (Disabled)   0.00 sec"
-    /Test +#[0-9]+: .*\*\*\*(Skipped|Not Run)/ {
+    # A plain "Not Run" is ctest not finding the executable ("Unable to
+    # find executable: hyphy"): a failure, already in the totals, not a skip.
+    /Test +#[0-9]+: .*\*\*\*(Skipped|Not Run \(Disabled\))/ {
       name = $0; sub(/.*Test +#[0-9]+: /, "", name); sub(/ .*/, "", name)
       why = $0; sub(/.*\*\*\*/, "", why); sub(/ +[0-9.]+ sec.*/, "", why)
       print name ": " why; next
@@ -378,6 +380,9 @@ check_skipped_tests() {
         l = tolower($0)
         # Totals saying none did (doctest: "0 failed | 0 skipped").
         if (l ~ /(^|[^0-9])0 skipped/) next
+        # An option prompt or usage text ("[select 0 to skip]", "(null to
+        # skip)") says nothing about this run.
+        if (l ~ /to skip/) next
         if (l ~ /(^|[^a-z_])skip(ped|ping|s)?([^a-z_]|$)/) {
           print name ": " $0; n++
         }
