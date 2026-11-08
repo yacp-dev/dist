@@ -110,10 +110,17 @@ diagnostic_max_bytes=200000
 # A PR body is limited to 65536 characters, and the NG and OK blocks each
 # get diagnostic_max_bytes: for a PR body, half of that budget with each
 # block cut at block_max_lines (a failing check's log is the long one).
+# Lines and bytes are capped per block too, so that a block ends with its
+# closing fence instead of being cut mid-block by print_bounded (a failing
+# check's log has lines of a kilobyte: the compiler command lines).
 block_max_lines=0
+block_max_bytes=0
+line_max_chars=0
 if [[ -n "$pr_body_file" ]]; then
   diagnostic_max_bytes=25000
   block_max_lines=100
+  block_max_bytes=8000
+  line_max_chars=300
 fi
 
 # Prints $1, or if it's over diagnostic_max_bytes, its first that many
@@ -163,15 +170,23 @@ TITLES='function title(n) {
 # BUILD_REQUIRES' "probably used", "nothing downloaded"). Drops the
 # closing "N warning(s)." line, which the table already says.
 render_sections() {
-  awk -v mode="$1" -v check="$check" -v skipped="$check_skipped" -v cap="$block_max_lines" "$TITLES"'
-    function flush(  i, bad, last) {
+  awk -v mode="$1" -v check="$check" -v skipped="$check_skipped" -v cap="$block_max_lines" \
+      -v bcap="$block_max_bytes" -v lmax="$line_max_chars" "$TITLES"'
+    function flush(  i, bad, last, bytes, line) {
       if (name == "") return
       while (n > 0 && buf[n] == "") n--
       bad = warned || (name == "Check" && !(check == "passed" && skipped == ""))
       if ((mode == "ng") == (bad ? 1 : 0)) {
         printf "\n#### %s\n```\n", title(name)
         last = (cap > 0 && n > cap) ? cap : n
-        for (i = 1; i <= last; i++) print buf[i]
+        bytes = 0
+        for (i = 1; i <= last; i++) {
+          line = buf[i]
+          if (lmax > 0 && length(line) > lmax) line = substr(line, 1, lmax) " ..."
+          if (bcap > 0 && bytes + length(line) + 1 > bcap) { last = i - 1; break }
+          bytes += length(line) + 1
+          print line
+        }
         if (last < n) printf "... (%d more line(s); the full text is in the run summary)\n", n - last
         print "```"
       }
