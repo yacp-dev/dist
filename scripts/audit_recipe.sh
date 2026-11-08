@@ -459,7 +459,10 @@ audit_license() {
         header_text_count["$id"]=$((${header_text_count[$id]:-0} + 1))
         [[ -n "${header_text_example[$id]:-}" ]] || header_text_example["$id"]="$rel"
       done
-      for id in $(identify_license_notice "$tmp/header_text" | sort -u); do
+      # The GNU paragraph sits below a longer preamble (mt19937.c's is at
+      # line 78 and runs to 90), so it gets a wider window.
+      head -n 120 "$f" > "$tmp/header_notice"
+      for id in $(identify_license_notice "$tmp/header_notice" | sort -u); do
         notice_count["$id"]=$((${notice_count[$id]:-0} + 1))
         [[ -n "${notice_example[$id]:-}" ]] || notice_example["$id"]="$rel"
       done

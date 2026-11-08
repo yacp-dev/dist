@@ -48,8 +48,10 @@ license_base() {
 identify_license_text() {
   local text
   # Without line-leading comment marks: libbacktrace's LICENSE is "# "-
-  # prefixed, which would split "used to # endorse" below.
-  text="$(sed -E 's@^[[:space:]]*(#+|//+|\*+|;+|--)[[:space:]]?@@' "$1" | tr -s '[:space:]' ' ')"
+  # prefixed, which would split "used to # endorse" below. The same for
+  # a "/* ... */" block comment written one line at a time (mt19937.c),
+  # whose "*/ /*" would split "General Public License".
+  text="$(sed -E -e 's@^[[:space:]]*(#+|//+|/\*+|\*+|;+|--)[[:space:]]?@@' -e 's@[[:space:]]*\*+/[[:space:]]*$@@' "$1" | tr -s '[:space:]' ' ')"
   local gnu name ver
   for gnu in "GNU GENERAL PUBLIC LICENSE:GPL" "GNU LESSER GENERAL PUBLIC LICENSE:LGPL" \
              "GNU LIBRARY GENERAL PUBLIC LICENSE:LGPL" "GNU AFFERO GENERAL PUBLIC LICENSE:AGPL"; do
@@ -82,7 +84,11 @@ identify_license_text() {
   # The BSD licenses grant it "provided that" conditions are met; a grant
   # with none ("... with or without modification, are permitted.", the
   # public-domain fallback of Solar Designer's md5.c in htslib) isn't one.
-  if [[ "$text" == *"Redistribution and use in source and binary forms"*"provided that"* ]]; then
+  # The conditions are the BSD ones only when the list starts with them: a
+  # header that adds its own first ("1. This software is only used for
+  # private, research, or academic purposes", libprng's) is a custom license.
+  if [[ "$text" == *"Redistribution and use in source and binary forms"*"provided that"* &&
+        "$text" =~ provided\ that[^.]{0,60}:?\ ?[-*0-9.\(\)\ ]{0,8}Redistributions?\ of\ source\ code ]]; then
     if [[ "$text" == *"advertising materials"* ]]; then
       echo "BSD-4-Clause"
     elif [[ "$text" == *"Neither the name"* || "$text" == *"used to endorse or promote"* ]]; then
@@ -136,7 +142,7 @@ license_text_files() {
 # recognized: it would need "-only", which prose says less reliably.
 identify_license_notice() {
   local text fam ver
-  text="$(sed -E 's@^[[:space:]]*(#+|//+|\*+|;+|--)[[:space:]]?@@' "$1" | tr -s '[:space:]' ' ')"
+  text="$(sed -E -e 's@^[[:space:]]*(#+|//+|/\*+|\*+|;+|--)[[:space:]]?@@' -e 's@[[:space:]]*\*+/[[:space:]]*$@@' "$1" | tr -s '[:space:]' ' ')"
   if [[ "$text" =~ General\ Public\ License[^.]{0,200}[Vv]ersion\ ([0-9]+(\.[0-9]+)?)[^.\;]{0,80}(any\ later\ version|or\ later) ]]; then
     ver="${BASH_REMATCH[1]}"
     fam=GPL
