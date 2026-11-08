@@ -605,6 +605,15 @@ audit_build_requires() {
       \( -regex '.*/\(t\|tests?\|testsuite\|checks?\)/.*' -o -name '*.test' \) -print0 2>/dev/null)
   fi
 
+  # The recipe's own src_test: it runs a command the tests need (a Tcl
+  # test suite's tclsh) from the recipe, not from a script in the source,
+  # so no test script, log or binary names it.
+  local src_test_body="$tmp/src_test.sh"
+  : > "$src_test_body"
+  if (( ${#checklogs[@]} > 0 )); then
+    awk '/^src_test\(\)/ {f=1} f {print} f && /^}/ {exit}' "$cygport_file" > "$src_test_body"
+  fi
+
   local pkg lst dll implib hit names
   for pkg in $BUILD_REQUIRES; do
     lst="/etc/setup/$pkg.lst.gz"
@@ -703,6 +712,23 @@ audit_build_requires() {
     fi
     if [[ -n "$hit" ]]; then
       say "$pkg: probably used -- the test scripts check for, spawn or name ${hit% } (weak: a test that skips itself without it counts too)"
+      continue
+    fi
+
+    # Its commands run by the recipe's src_test: at the start of a command
+    # (after `;`, `&&`, `|`, or variable assignments), as valkey's
+    # `VALKEY_BIN_DIR=... tclsh tests/test_helper.tcl` does.
+    hit=""
+    if [[ -s "$tmp/tools" && -s "$src_test_body" ]]; then
+      local cmd_re
+      cmd_re="$(sed 's/[][\.*^$+?(){}|]/\\&/g' "$tmp/tools" | paste -sd '|' -)"
+      hit="$(grep -ohE "(^|[;&|(])[[:space:]]*([[:alpha:]_][[:alnum:]_]*=[^[:space:]]*[[:space:]]+)*($cmd_re)([[:space:];&|)]|$)" \
+          "$src_test_body" 2>/dev/null \
+        | sed -E 's/^[;&|(]//; s/^[[:space:]]+//; s/^([[:alpha:]_][[:alnum:]_]*=[^[:space:]]*[[:space:]]+)*//; s/[[:space:];&|)]+$//' \
+        | sort | uniq -c | sort -rn | head -3 | awk '{print $2}' | tr '\n' ' ')"
+    fi
+    if [[ -n "$hit" ]]; then
+      say "$pkg: used -- the recipe's src_test runs ${hit% }"
       continue
     fi
 
