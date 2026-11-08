@@ -492,6 +492,29 @@ check_upstream_tests_hint() {
   return 0
 }
 
+# For a check that ran no tests and where upstream has none either: the
+# executables in $D/usr/bin that start and answer `--version` or `--help`
+# with exit status 0 and some output, one "<exe> <flag>" per line (at
+# most 5). A smoke test src_test could run, proposed to a human, never
+# added on its own: an exe that happens to ignore its arguments and run
+# for real is cut off by the timeout and left out.
+check_smoke_candidates() {
+  local f flag found=0 out
+  [[ -d "${D:-}/usr/bin" ]] || return 0
+  for f in "$D"/usr/bin/*.exe; do
+    [[ -f "$f" ]] || continue
+    for flag in --version --help; do
+      out="$(PATH="$D/usr/bin:$PATH" timeout -k 2 10 "$f" "$flag" </dev/null 2>&1)" || continue
+      [[ -n "$out" ]] || continue
+      echo "$(basename "$f" .exe) $flag"
+      found=$((found + 1))
+      break
+    done
+    (( found < 5 )) || break
+  done
+  return 0
+}
+
 # --- The section --------------------------------------------------------
 
 # Appends each line of $1 to the report.
@@ -507,7 +530,7 @@ say_lines() {
 # and a log of hundreds of MB would otherwise hold the Audit recipe step
 # until its own timeout, losing every other section with it.
 audit_check_body() {
-  local body unit failed total skipped count lines max_lines=30
+  local body unit failed total skipped count lines max_lines=30 smoke
   check_verdict="" check_empty_reason="" check_skipped="" check_tests="" check_upstream_tests=""
   say ""
   say "== Check =="
@@ -532,6 +555,13 @@ audit_check_body() {
       check_upstream_tests="$(check_upstream_tests_hint)"
       say "check: empty ($check_empty_reason) -- see whether upstream has a test suite src_test doesn't reach"
       [[ -z "$check_upstream_tests" ]] || say "check-upstream-tests: upstream has tests that were not run ($check_upstream_tests)"
+      if [[ -z "$check_upstream_tests" ]]; then
+        smoke="$(check_smoke_candidates)"
+        if [[ -n "$smoke" ]]; then
+          say "check-smoke-test: upstream has no tests; these installed programs run and exit 0, so src_test could call them as a smoke test:"
+          say_lines "$(sed 's/^/  /' <<<"$smoke")"
+        fi
+      fi
       say ""
       say "--- end of $checklog ---"
       say_lines "$(tail -n 20 <<<"$body")"

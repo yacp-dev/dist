@@ -704,7 +704,12 @@ depends on upstream, so look at the source before reporting it:
 - Upstream has no tests (no `test`/`tests`/`t` directory, no
   `check`/`test` target, no `enable_testing()`/`add_test`, no meson
   `test()`, no pytest/unittest files) → nothing to fix; say so in the
-  report.
+  report. If `check_summary.sh` lists a `check-smoke-test:` (programs in
+  `usr/bin` that exit 0 on `--version`/`--help`), propose a `src_test`
+  that runs them as a smoke test (`${D}/usr/bin/<exe> --version`, with
+  `PATH` including `${D}/usr/bin`), as a proposal in the report: it
+  checks the programs start, not that they work, so don't add it without
+  the user's OK.
 - Upstream has tests the build doesn't reach → fix it on the branch
   (Step 4; counts as an attempt) when the fix is a recipe change: a
   configure option that turns them on (`-DBUILD_TESTING=ON`,
