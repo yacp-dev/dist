@@ -42,9 +42,16 @@ awk -F'\t' '$2 == "failure" { print "- " $1 }' <<<"$steps"
 # Undefined macros sections out of `gh run view --log` (which, unlike
 # --log-failed, keeps step names): the third tab-separated field is
 # "<timestamp> <line>".
-sections="$(gh run view "$run" -R "$repo" --log |
-  perl -pe 's/\e\[[0-9;]*m//g' |
-  awk -F'\t' '$2 == "Audit recipe" { sub(/^[^ ]+ /, "", $3); print $3 }' |
+# GitHub's log endpoint sometimes loses the step names ("UNKNOWN STEP"
+# on every line); then no line is attributed to Audit recipe, so look
+# for the section headers in every line instead.
+fulllog="$(gh run view "$run" -R "$repo" --log | perl -pe 's/\e\[[0-9;]*m//g')"
+if awk -F'\t' '$2 == "Audit recipe" { found = 1 } END { exit !found }' <<<"$fulllog"; then
+  audit_filter=audit
+else
+  audit_filter=any
+fi
+sections="$(awk -F'\t' -v f="$audit_filter" 'f == "any" || $2 == "Audit recipe" { sub(/^[^ ]+ /, "", $3); print $3 }' <<<"$fulllog" |
   awk '/^== (Recipe|Undefined macros) ==$/ { on = 1; print ""; print; next }
        on && (/^$/ || /^== .* ==$/ || /^##\[/) { on = 0 }
        on')" || true
