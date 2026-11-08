@@ -36,6 +36,11 @@
 # $S, REUSE's LICENSES/*.txt, and the license texts in $S (and
 # LICENSE_URI), told apart by their own wording. A license text can't say
 # -only from -or-later, so those are only compared against the headers.
+# An "or later" notice in a compiled source's header ("License: GPL
+# version 2 or later", the GNU "any later version" paragraph) counts as
+# what the source says, for that version and newer ones; and a LICENSE
+# "-or-later" covers a license text of a newer version beside it
+# (GPL-2.0-or-later with a GPL-3.0 COPYING).
 # LICENSE describes what the binary packages ship, and only that: a
 # license counts, both ways, when a shipped file carries it -- one
 # installed into $D, or a source file the build compiled (cygport copies
@@ -316,7 +321,7 @@ audit_license() {
   # What the packages are found to carry: the shipped headers' licenses
   # and the license texts that count. LICENSE is checked against these
   # both ways. Without shipped_known, every header in $S counts.
-  declare -A found_base=() shipped_base=()
+  declare -A found_base=() shipped_base=() found_orlater=()
   local count
   for id in "${!shipped[@]}"; do
     shipped_base["$(license_base "$id")"]=1
@@ -442,7 +447,7 @@ audit_license() {
   # license text and aren't recognized. grep picks the candidates first,
   # since a fork per compiled source is slow on Cygwin.
   if [[ -s "$tmp/compiled" ]]; then
-    declare -A header_text_count=() header_text_example=()
+    declare -A header_text_count=() header_text_example=() notice_count=() notice_example=()
     while IFS= read -r -d '' f; do
       if [[ "$f" == "$S"/* ]]; then
         rel="${f#"$S"/}"
@@ -454,6 +459,10 @@ audit_license() {
         header_text_count["$id"]=$((${header_text_count[$id]:-0} + 1))
         [[ -n "${header_text_example[$id]:-}" ]] || header_text_example["$id"]="$rel"
       done
+      for id in $(identify_license_notice "$tmp/header_text" | sort -u); do
+        notice_count["$id"]=$((${notice_count[$id]:-0} + 1))
+        [[ -n "${notice_example[$id]:-}" ]] || notice_example["$id"]="$rel"
+      done
     done < <(while IFS= read -r rel; do
                if [[ -f "$S/$rel" ]]; then
                  printf '%s\0' "$S/$rel"
@@ -461,7 +470,7 @@ audit_license() {
                  printf '%s\0' "$B/$rel"
                fi
              done < "$tmp/compiled" \
-             | xargs -0 -r grep -lIE --null -- 'Permission is hereby granted|Redistribution and use in source|Apache License|Mozilla Public License|Permission to use, copy, modify|provided .as-is.|Boost Software License|unencumbered software|Eclipse Public License|Artistic License|CC0 1\.0|PYTHON SOFTWARE FOUNDATION' 2>/dev/null)
+             | xargs -0 -r grep -lIE --null -- 'General Public License|GPL|Permission is hereby granted|Redistribution and use in source|Apache License|Mozilla Public License|Permission to use, copy, modify|provided .as-is.|Boost Software License|unencumbered software|Eclipse Public License|Artistic License|CC0 1\.0|PYTHON SOFTWARE FOUNDATION' 2>/dev/null)
     for id in "${!header_text_count[@]}"; do
       say "License text in compiled sources' headers: $id: ${header_text_count[$id]} file(s), e.g. ${header_text_example[$id]}"
       text_ids["$(license_base "$id")"]="the header of ${header_text_example[$id]}"
@@ -469,6 +478,16 @@ audit_license() {
       found_base["$(license_base "$id")"]=1
     done
   fi
+
+  # An "or later" notice in a compiled source's header names a license
+  # LICENSE may carry, or one with a newer version (a GPL-2.0-or-later
+  # header allows GPL-3.0-or-later). It doesn't ask for one, so it only
+  # counts toward what LICENSE says.
+  for id in "${!notice_count[@]}"; do
+    say "License notice in compiled sources' headers: $id: ${notice_count[$id]} file(s), e.g. ${notice_example[$id]}"
+    found_orlater["$(license_base "$id")"]=1
+    found_base["$(license_base "$id")"]=1
+  done
 
   for f in "${reuse[@]}"; do
     id="$(basename "$f" .txt)"
@@ -514,6 +533,11 @@ audit_license() {
       say "${text_ids[$base]} is the GPL-3.0 text that LGPL-3.0 builds on -- fine"
       continue
     fi
+    # GPL-2.0-or-later offers GPL-3.0: its text beside it is fine.
+    if license_or_later_covers "$base" "${recipe[@]}"; then
+      say "${text_ids[$base]} is a ${text_names[$base]} license text that LICENSE's \"or later\" license covers -- fine"
+      continue
+    fi
     warn "${text_ids[$base]} is a ${text_names[$base]} license text but LICENSE doesn't include it"
   done
 
@@ -522,7 +546,7 @@ audit_license() {
     say "Couldn't tell any license from the source -- check LICENSE by hand"
     return
   fi
-  local where="in the source"
+  local where="in the source" rb
   [[ -n "$shipped_known" ]] && where="of what the packages ship"
   for r in "${recipe[@]}"; do
     # A LicenseRef names a license SPDX doesn't list (htslib's public-domain
@@ -531,8 +555,15 @@ audit_license() {
       say "LICENSE has $r -- not an SPDX license, check it by hand"
       continue
     fi
-    [[ -n "${found_base[$(license_base "$r")]:-}" ]] \
-      || warn "LICENSE has $r but no header or license text $where says so"
+    [[ -n "${found_base[$(license_base "$r")]:-}" ]] && continue
+    # An "or later" notice allows a newer version too.
+    rb="$(license_base "$r")"
+    covered=""
+    for id in "${!found_orlater[@]}"; do
+      [[ "${id%-*}" == "${rb%-*}" ]] && license_version_le "${id##*-}" "${rb##*-}" && covered=1
+    done
+    [[ -n "$covered" ]] && continue
+    warn "LICENSE has $r but no header or license text $where says so"
   done
 }
 

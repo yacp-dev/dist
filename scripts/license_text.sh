@@ -127,3 +127,48 @@ license_text_files() {
     \( -iname 'COPYING*' -o -iname 'LICENSE*' -o -iname 'LICENCE*' -o -iname 'COPYRIGHT*' -o -iname 'UNLICENSE*' \) \
     -print0 2>/dev/null | sort -z
 }
+
+# Prints the "-or-later" GNU license(s) a source file's header names in
+# prose, one SPDX id per line (GPL-2.0-or-later): the standard notice
+# ("either version 2 of the License, or (at your option) any later
+# version") and its short forms ("License: GPL version 2 or later",
+# "GPLv2+"). A notice that names a version without "or later" isn't
+# recognized: it would need "-only", which prose says less reliably.
+identify_license_notice() {
+  local text fam ver
+  text="$(sed -E 's@^[[:space:]]*(#+|//+|\*+|;+|--)[[:space:]]?@@' "$1" | tr -s '[:space:]' ' ')"
+  if [[ "$text" =~ General\ Public\ License[^.]{0,200}[Vv]ersion\ ([0-9]+(\.[0-9]+)?)[^.\;]{0,80}(any\ later\ version|or\ later) ]]; then
+    ver="${BASH_REMATCH[1]}"
+    fam=GPL
+    [[ "$text" == *"Lesser General Public"* || "$text" == *"Library General Public"* ]] && fam=LGPL
+    [[ "$text" == *"Affero General Public"* ]] && fam=AGPL
+    [[ "$ver" == *.* ]] || ver="$ver.0"
+    echo "$fam-$ver-or-later"
+  fi
+  if [[ "$text" =~ (^|[^A-Za-z])(AGPL|LGPL|GPL)[\ -]*(version\ |v)?([0-9]+(\.[0-9]+)?)(\ or\ later|\ or\ any\ later|\+) ]]; then
+    fam="${BASH_REMATCH[2]}"
+    ver="${BASH_REMATCH[4]}"
+    [[ "$ver" == *.* ]] || ver="$ver.0"
+    echo "$fam-$ver-or-later"
+  fi
+}
+
+# Whether the first version is not newer than the second (2.0, 3.0).
+license_version_le() {
+  [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n 1)" == "$1" ]]
+}
+
+# Whether one of the SPDX ids given after the first argument is an
+# "-or-later" license that covers license <base> (gpl-3.0): same family,
+# and a version no newer. GPL-2.0-or-later allows a GPL-3.0 text.
+license_or_later_covers() {
+  local base="$1" r rb
+  shift
+  for r in "$@"; do
+    [[ "$r" == *-or-later ]] || continue
+    rb="$(license_base "$r")"
+    [[ "${rb%-*}" == "${base%-*}" ]] || continue
+    license_version_le "${rb##*-}" "${base##*-}" && return 0
+  done
+  return 1
+}
