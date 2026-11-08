@@ -10,7 +10,8 @@
 # cygport check is continue-on-error, so the run and even the step's own
 # conclusion stay green when tests fail; only the report says so.
 # `gh run view --log` keeps step names (unlike --log-failed), so the
-# step's output can be cut out of it.
+# step's output can be cut out of it; when it prints "UNKNOWN STEP"
+# instead, the Check section is found by its "== Check ==" header.
 #
 # Right after a run completes, the jobs API can still list its steps as
 # they were mid-run (cygport check in_progress, the ones after it
@@ -65,10 +66,18 @@ fi
 # Third tab-separated field is "<timestamp> <line>"; drop the timestamp.
 # The section runs from its "== Check ==" header to the next header, or
 # to the report's closing "N warning(s)." line.
-section="$(gh run view "$run" -R "$repo" --log |
-  perl -pe 's/\e\[[0-9;]*m//g' |
-  awk -F'\t' '$2 == "Audit recipe" { sub(/^[^ ]+ /, "", $3); print $3 }' |
-  awk '/^== Check ==$/ { on = 1; next } on && (/^== .* ==$/ || /^[0-9]+ warning\(s\)/ || /^##\[/) { exit } on' |
+# GitHub's log endpoint sometimes loses the step names ("UNKNOWN STEP"),
+# so when no line is attributed to Audit recipe, look for the section
+# marker in every line of the job instead.
+log="$(gh run view "$run" -R "$repo" --log | perl -pe 's/\e\[[0-9;]*m//g')"
+if ! awk -F'\t' '$2 == "Audit recipe" { found = 1 } END { exit !found }' <<<"$log"; then
+  log="$(awk -F'\t' '$2 == "UNKNOWN STEP"' <<<"$log")"
+  audit_filter='any'
+else
+  audit_filter='audit'
+fi
+section="$(awk -F'\t' -v f="$audit_filter" 'f == "any" || $2 == "Audit recipe" { sub(/^[^ ]+ /, "", $3); print $3 }' <<<"$log" |
+  awk '/^== Check ==$/ { on = 1; next } on && (/^== .* ==$/ || /^[0-9]+ warning\(s\)/ || /^##\[/) { on = 0; done = 1 } on && !done' |
   sed -e :a -e '/^\n*$/{$d;N;ba' -e '}')"
 
 if [[ -z "$section" ]]; then
