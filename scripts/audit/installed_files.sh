@@ -241,6 +241,34 @@ audit_fhs_paths() {
   done
 }
 
+# Files a package installs straight into /etc. A config a user edits has to
+# survive an update, so Cygwin packages install it under /etc/defaults/etc
+# and let a postinstall script copy it to /etc only when it isn't there yet
+# (cygport's `make_etc_defaults /etc/<file>` in src_install does both).
+# Left out: /etc/defaults itself and the setup scripts, and directories
+# whose files a package owns outright and are meant to be replaced on
+# update (profile.d, bash_completion.d, ld.so.conf.d).
+audit_etc_defaults() {
+  local file
+  local -a found=()
+  [[ -d "$D/etc" ]] || { ok "etc/defaults: nothing installed in /etc"; return 0; }
+  while IFS= read -r -d '' file; do
+    found+=("${file#"$D"/}")
+  done < <(find "$D/etc" \( -path "$D/etc/defaults" -o -path "$D/etc/postinstall" \
+    -o -path "$D/etc/preremove" -o -path "$D/etc/setup" -o -path "$D/etc/profile.d" \
+    -o -path "$D/etc/bash_completion.d" -o -path "$D/etc/ld.so.conf.d" \) -prune \
+    -o \( -type f -o -type l \) -print0 | sort -z)
+  if (( ${#found[@]} == 0 )); then
+    ok "etc/defaults: nothing a user could edit is installed directly into /etc"
+    return 0
+  fi
+  say ""
+  say "== /etc files =="
+  for file in "${found[@]}"; do
+    warn "$file is installed directly into /etc, so an update would overwrite the user's edits -- in src_install, call make_etc_defaults /${file} (it moves the file to /etc/defaults/${file} and has a postinstall copy it only when missing)"
+  done
+}
+
 # A file upstream's install left that has the same content as one cygport
 # put in usr/share/doc/$PN itself (e.g. usr/share/<name>/LICENSE),
 # under any name. Empty files say nothing, usr/share/doc/$PN's own tree is

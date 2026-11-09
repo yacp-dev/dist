@@ -491,16 +491,16 @@ already has them.
   three), go to "Skipped tests" as well. Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
   LICENSE" below. A `WARNING:` in `Audit recipe`'s `== Recipe ==`,
-  `== *-config ==`, `== *.pc ==`, `== AppStream ==` or `== Duplicate files ==`
+  `== *-config ==`, `== *.pc ==`, `== AppStream ==`, `== /etc files ==` or `== Duplicate files ==`
   sections (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8
-  '== (Recipe|\*-config|\*\.pc|AppStream|Duplicate files) =='`)
+  '== (Recipe|\*-config|\*\.pc|AppStream|/etc files|Duplicate files) =='`)
   is something to fix on the branch before calling it done: a
   `HOMEPAGE` that redirects (set it to the URL the warning names), an
   invalid `CATEGORY`, a `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of
   place ("Where things go in a recipe" in Step 4), a `.pc`/`*-config` whose version, prefix or
   `-l` libraries are wrong or that names the build tree (fix it in
   `src_install` or a `PATCH_URI` patch), a file in
-  `/usr/share/appdata` (move it to `/usr/share/metainfo`), a copy of a
+  `/usr/share/appdata` (move it to `/usr/share/metainfo`), a config installed straight into `/etc` (`make_etc_defaults /etc/<file>` at the end of `src_install`, so an update keeps the user's edits; with a Ninja build, `ninja_install` rather than `cyginstall`), a copy of a
   file cygport installs itself ("Upstream's install duplicates" in Step 4).
   One commit
   per fix, `<pkg>-<ver> (fix <what>)`, then re-run. A `BUILD_REQUIRES`

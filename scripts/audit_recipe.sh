@@ -1265,6 +1265,7 @@ else
   audit_appstream
   audit_cmake_share
   audit_fhs_paths
+  audit_etc_defaults
   audit_duplicate_docs
   audit_license
   before=$warnings
