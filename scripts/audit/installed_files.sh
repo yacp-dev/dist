@@ -6,7 +6,8 @@
 #
 # Each section's header is printed only when it has a warning.
 
-# Where a -l library may live, as xezat looked it up: $D/usr/lib, then
+# Where a -l library may live, as xezat looked it up (missing_libs adds the
+# -L directories the .pc / *-config names): $D/usr/lib, then
 # /usr/lib, /usr/lib/w32api and the compiler's own library directory --
 # gcc-core's /usr/lib/gcc/<target>/<major>, taken from gcc itself so it
 # doesn't need the version parsed out of cygcheck's output.
@@ -18,16 +19,21 @@ installed_lib_dirs() {
 }
 
 # Prints "<owner> --libs: -l<name> not found ..." for each -l in <libs>
-# that's in none of lib_dirs.
+# that's in none of lib_dirs nor in a -L directory <libs> names itself
+# (looked up under $D as well, where the package installs it).
 missing_libs() { # <owner> <libs>
   local owner="$1" opt lib dir
+  local -a dirs=("${lib_dirs[@]}")
+  for opt in $2; do
+    [[ "$opt" == -L/* ]] && dirs+=("$D${opt#-L}" "${opt#-L}")
+  done
   for opt in $2; do
     [[ "$opt" == -l* ]] || continue
     lib="${opt#-l}"
-    for dir in "${lib_dirs[@]}"; do
+    for dir in "${dirs[@]}"; do
       [[ -f "$dir/lib$lib.dll.a" || -f "$dir/lib$lib.a" ]] && continue 2
     done
-    echo "$owner --libs: -l$lib not found (looked in ${lib_dirs[*]})"
+    echo "$owner --libs: -l$lib not found (looked in ${dirs[*]})"
   done
 }
 
