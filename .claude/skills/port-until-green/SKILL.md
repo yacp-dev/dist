@@ -121,13 +121,21 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 
 ### Status pill
 
-Keep the user able to tell at a glance which package this session is on.
-Set the pill once, at the start of Step 1b, as the bare package name and
-version, `<pkg>-<ver>`, and leave it as is for the rest of the run: no
-per-phase updates (no `build #N running`, `fixing build #N`, `publishing`).
-When the loop ends — success, stopping, or Step 1 stopping early (already up
-to date, blocked, invalid) — clear it with `scripts/cmux_status.sh --clear`
-as the last action before reporting.
+Keep the user able to tell at a glance which package this session is
+about. The pill marks what the session is *about*, not what Claude is doing,
+so it stays for as long as anything is left for the user to check or decide.
+Set it once, at the start of Step 1b, as the bare package name and version,
+`<pkg>-<ver>`, and leave it as is for the rest of the run: no per-phase
+updates (no `build #N running`, `fixing build #N`, `publishing`).
+
+When the run ends, clear it with `scripts/cmux_status.sh --clear` as the last
+action before reporting **only if nothing is left for the user**: the report
+has no `### Diagnosis and next step`, no `### Left as is`, and its Merge row
+is not "Not yet". Keep the pill when the report is a stop awaiting a
+decision, a new-package draft awaiting the user's review, a `cygport check`
+failure or Audit WARNING left to the user, or an open question. Clear it too
+when Step 1 stops early with nothing to follow up (already up to date,
+invalid). When the user comes back and settles the leftover, clear it then.
 
 ## Step 1: Resolve the argument
 
