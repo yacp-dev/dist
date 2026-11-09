@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Shows which package this session is porting, and where it is in the
-# loop, as a status pill on its cmux workspace in the sidebar, so
-# concurrent sessions can be told apart at a glance.
+# Shows which package this session is porting as a status pill on its cmux
+# workspace in the sidebar, so concurrent sessions can be told apart at a
+# glance (set once per run; no per-step updates).
 #
 # Does nothing (and exits 0) outside cmux, or if the cmux CLI fails: the
 # pill is a convenience and must never break the loop.
 #
 # Usage:
-#   cmux_status.sh "<pkg>-<ver> · build #2 running"
+#   cmux_status.sh "<pkg>-<ver>"
 #   cmux_status.sh --clear
 
 key="port-until-green"
