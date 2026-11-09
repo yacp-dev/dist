@@ -223,9 +223,10 @@ render_ok() {
 }
 
 report_body() {
-  echo "| | |"
-  echo "|---|---|"
+  # A GFM table needs a header row, so the first row (package) is it: an
+  # empty "| | |" header showed as a blank line at the top of the table.
   echo "| **package** | $package |"
+  echo "|---|---|"
   if [[ -n "$version" ]]; then
     echo "| **version** | $version$([[ "$mode" == new ]] && echo " (new)") |"
   fi
