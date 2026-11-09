@@ -241,10 +241,15 @@ audit_fhs_paths() {
   done
 }
 
-# Files a package installs straight into /etc. A config a user edits has to
-# survive an update, so Cygwin packages install it under /etc/defaults/etc
-# and let a postinstall script copy it to /etc only when it isn't there yet
-# (cygport's `make_etc_defaults /etc/<file>` in src_install does both).
+# Files a package installs straight into /etc. Only a config a user edits
+# has to survive an update, and then Cygwin packages install it under
+# /etc/defaults/etc and let a postinstall script copy it to /etc only when it
+# isn't there yet (cygport's `make_etc_defaults /etc/<file>` in src_install
+# does both). Whether a file is such a config can't be told from the
+# installed tree -- definition and data files (colorschemes, profiles, ...)
+# go straight into /etc too -- so this is no warning: the files are listed
+# among the oks for a human to look over, and make_etc_defaults is applied
+# only once the user has confirmed it for that package.
 # Left out: /etc/defaults itself and the setup scripts, and directories
 # whose files a package owns outright and are meant to be replaced on
 # update (profile.d, bash_completion.d, ld.so.conf.d).
@@ -262,10 +267,8 @@ audit_etc_defaults() {
     ok "etc/defaults: nothing a user could edit is installed directly into /etc"
     return 0
   fi
-  say ""
-  say "== /etc files =="
   for file in "${found[@]}"; do
-    warn "$file is installed directly into /etc, so an update would overwrite the user's edits -- in src_install, call make_etc_defaults /${file} (it moves the file to /etc/defaults/${file} and has a postinstall copy it only when missing)"
+    ok "etc/defaults: $file is installed directly into /etc (make_etc_defaults only if it is a user-editable config, and only after the user has confirmed it)"
   done
 }
 
