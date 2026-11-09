@@ -141,12 +141,12 @@ check_failure_diagnostic() {
   echo
   # Totals first -- meson ("Ok:"/"Fail:"/"Timeout:"), ctest ("% tests
   # passed"), automake ("# FAIL:"/"# ERROR:"), googletest ("[  PASSED  ]
-  # N tests.") -- then the first few
+  # N tests."; prove's "Files=2, Tests=10" and "Result: FAIL") -- then the first few
   # failing tests, since a suite where everything fails would otherwise
   # bury the totals under dozens of near-identical lines.
-  totals="$(grep -E '^(Ok|Fail|Expected Fail|Unexpected Pass|Skipped|Timeout): |tests passed|^# (TOTAL|PASS|FAIL|ERROR|XPASS):|^\[(=+| +PASSED +| +FAILED +| +SKIPPED +)\] [0-9]+ tests?' "$checklog" | head -n 10)"
+  totals="$(grep -E '^(Ok|Fail|Expected Fail|Unexpected Pass|Skipped|Timeout): |tests passed|^# (TOTAL|PASS|FAIL|ERROR|XPASS):|^\[(=+| +PASSED +| +FAILED +| +SKIPPED +)\] [0-9]+ tests?|^Files=[0-9]+, Tests=[0-9]+|^Result: (PASS|FAIL|NOTESTS)' "$checklog" | head -n 10)"
   [[ -z "$totals" ]] || echo "$totals"
-  failing="$(grep -E '^ *[0-9]+/[0-9]+ .* (FAIL|TIMEOUT|ERROR|UNEXPECTEDPASS) |\*\*\*(Failed|Exception|Timeout)|^(FAIL|ERROR): |^\[  FAILED  \] [A-Za-z_]' "$checklog" |
+  failing="$(grep -E '^ *[0-9]+/[0-9]+ .* (FAIL|TIMEOUT|ERROR|UNEXPECTEDPASS) |\*\*\*(Failed|Exception|Timeout)|^(FAIL|ERROR): |^\[  FAILED  \] [A-Za-z_]|^[^ ]+ +\(Wstat: [0-9]+ .*(Failed|Parse errors|Non-zero)' "$checklog" |
     # googletest prints each failed test twice, with and without "(N ms)".
     sed -E 's/^(\[  FAILED  \] [^ ]+) \([0-9]+ ms\)$/\1/' | awk '!seen[$0]++')"
   if [[ -n "$failing" ]]; then
@@ -242,7 +242,8 @@ check_failure_diagnostic() {
 #     tests, even when another one runs the suite)
 #   - ctest's "No tests were found", meson's "No tests defined.",
 #     automake's "# TOTAL: 0", pytest's "collected 0 items"/"no tests ran",
-#     googletest's "Running 0 tests"
+#     googletest's "Running 0 tests", prove's "Files=2, Tests=0" (every
+#     file skipped itself: "t/x.t .. skipped: TEST_X must be set")
 #   - a recursive automake `make check` where no directory it entered has
 #     anything to run (check_automake_runs_nothing)
 # A suite that ran but printed none of the totals these runners print
@@ -322,6 +323,8 @@ check_empty_reason_of() {
     echo "pytest collected no tests"
   elif grep -qE '^\[=+\] Running 0 tests' <<<"$body" && ! grep -qE '^\[=+\] Running [1-9]' <<<"$body"; then
     echo "googletest ran no tests"
+  elif grep -qE '^Files=[0-9]+, Tests=0,' <<<"$body" && ! grep -qE '^Files=[0-9]+, Tests=[1-9]' <<<"$body"; then
+    echo "prove ran no tests"
   elif check_automake_runs_nothing "$body"; then
     echo "automake's Makefiles have no tests"
   fi
@@ -350,6 +353,7 @@ check_log_body() {
 #   - automake's "SKIP: <test>" lines
 #   - googletest's "[  SKIPPED ] Suite.name" lines
 #   - pytest's "N skipped" totals
+#   - prove's "t/x.t .. skipped: reason" lines (whole files)
 # and from ctest's LastTest.log, which keeps every test's output (the
 # check log only has the verdicts): each test whose output says skip,
 # skipped or skipping, with the first two such lines. Shell trace lines
@@ -375,6 +379,13 @@ check_skipped_tests() {
     # googletest: "[  SKIPPED ] Suite.name (0 ms)" (and again in its
     # "listed below" summary; the totals line starts with a digit)
     /^\[  SKIPPED \] [A-Za-z_]/ { print $4 ": SKIP (gtest)"; next }
+    # prove: "t/01-trivial-log.t .. skipped: The TEST_X variable must be set"
+    # (a whole file skipping itself; subtests skipped inside a file that ran
+    # show only with prove -v)
+    /^[^ ]+ \.+ skipped(:|$)/ {
+      name = $1; why = $0; sub(/^[^ ]+ \.+ skipped:? ?/, "", why)
+      print name ": SKIP (prove)" (why != "" ? " " why : ""); next
+    }
     # pytest: "=== 10 passed, 2 skipped in 1.23s ==="
     /^=+ .*[0-9]+ skipped/ { line = $0; gsub(/^=+ | =+$/, "", line); print "pytest: " line; next }
   '
@@ -406,7 +417,7 @@ check_skipped_tests() {
 #
 # The totals the test runner printed, as one short string for the run
 # summary ("ctest 97/101 passed", "meson 12/12 passed", "automake 8/8
-# passed", "gtest 120/123 passed"); empty when the log has none of these runners' totals.
+# passed", "gtest 120/123 passed", "prove 10/10 passed"); empty when the log has none of these runners' totals.
 check_test_counts() {
   local line total failed ok
   perl -pe 's/\e\[[0-9;]*m//g' "$checklog" | awk '
@@ -448,6 +459,16 @@ check_test_counts() {
     /^\[ +PASSED +\] [0-9]+ tests?\./ {
       n = $0; sub(/^\[ +PASSED +\] /, "", n); sub(/ .*/, "", n); gp += n
     }
+    # prove: "Files=2, Tests=10,  1 wallclock secs (...)" is the total over
+    # the files that ran (a file that skipped itself adds none), and the
+    # failures come from the per-file lines of the Test Summary Report:
+    #   "t/02-signals.t (Wstat: 256 (exited 1) Tests: 5 Failed: 2)"
+    /^Files=[0-9]+, Tests=[0-9]+/ {
+      n = $2; sub(/^Tests=/, "", n); sub(/,$/, "", n); pt += n; prove = 1
+    }
+    /^[^ ]+ +\(Wstat: .* Tests: [0-9]+ Failed: [0-9]+\)/ {
+      f = $0; sub(/.* Failed: /, "", f); sub(/\).*/, "", f); pf += f
+    }
     END {
       if (ctest != "") print "ctest " ctest
       else if (meson) print "meson " mok "/" m " passed"
@@ -455,6 +476,7 @@ check_test_counts() {
       else if (serial && st > 0) print "automake " sp "/" st " passed"
       else if (lt > 0) print "automake " lp "/" lt " passed"
       else if (gtest && gt > 0) print "gtest " gp "/" gt " passed"
+      else if (prove && pt > 0) print "prove " (pt - pf) "/" pt " passed"
     }'
 }
 
