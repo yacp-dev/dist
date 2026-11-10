@@ -669,6 +669,18 @@ jobs:
         if: always() && steps.detect.outcome == 'success' && needs.gate.outputs.mode != 'deploy'
         run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --dropped-files "${{ steps.port.outputs.dropped_files }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" --pr-body-file pr-body.md --pr-kind ${{ job.status == 'success' && 'ready' || 'draft' }}
 
+      # The squash commit's title: `<pkg>-<ver>`, plus the changelog entry
+      # when it isn't the default "Version bump." (`(rebuild with
+      # gcc-14.4.0)`), and `WIP` when cygport check failed -- see
+      # commit_message.sh. Both PR steps below use it. A run that failed
+      # before Decide changelog message has no entry to add.
+      - name: Decide commit message
+        id: commitmsg
+        if: always() && steps.detect.outcome == 'success' && needs.gate.outputs.mode != 'deploy'
+        env:
+          README_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
+        run: bash -- scripts/commit_message.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --message "$env:README_MESSAGE" --wip "${{ (steps.check.outcome == 'failure' || steps.audit.outputs.check == 'failed') && 'true' || 'false' }}"
+
       # Placed after the artifact upload so a problem here (still
       # unvalidated as of Step 2 -- first real use of the yacp token) can't
       # cost the dist artifact too.
@@ -712,10 +724,12 @@ jobs:
           delete-branch: true
           # "<PN>-<PV>", no colon or verb, matches yacp's own existing
           # commit message convention (checked against its git history).
-          # So does " (WIP)" after it when cygport check failed (the body's
-          # check line below, same condition). The PR title stays plain:
-          # yacp only rebase-merges, so the commit's title is what lands.
-          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}${{ (steps.check.outcome == 'failure' || steps.audit.outputs.check == 'failed') && ' (WIP)' || '' }}"
+          # So does a parenthesized suffix after it: the changelog entry
+          # when it isn't "Version bump.", and "WIP" when cygport check
+          # failed (the body's check line below, same condition) -- see
+          # Decide commit message. The PR title stays plain: yacp only
+          # rebase-merges, so the commit's title is what lands.
+          commit-message: ${{ steps.commitmsg.outputs.message }}
           title: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
           # Leaving `draft` unset (defaults to false) does NOT un-draft an
           # existing draft PR on update, contrary to what
@@ -788,7 +802,7 @@ jobs:
           branch: dorgann/${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}
           delete-branch: true
           draft: true
-          commit-message: "${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}"
+          commit-message: ${{ steps.commitmsg.outputs.message || format('{0}-{1}', needs.gate.outputs.package, steps.detect.outputs.version) }}
           # Same "<PN>-<PV>" title as Create Pull Request above -- whether
           # it built is what draft status and the body are for, not the
           # title. Keeping it identical also means the eventual successful
