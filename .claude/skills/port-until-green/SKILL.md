@@ -717,7 +717,19 @@ depends on upstream, so look at the source before reporting it:
   that runs them as a smoke test (`${D}/usr/bin/<exe> --version`, with
   `PATH` including `${D}/usr/bin`), as a proposal in the report: it
   checks the programs start, not that they work, so don't add it without
-  the user's OK.
+  the user's OK. With no `check-smoke-test:` listed, that doesn't mean
+  nothing can be run: a program with no `--version`/`--help` often
+  prints its usage and exits non-zero when run without arguments
+  (zip2hashcat: usage on stderr, exit 1). Read the source's `main()`
+  and usage path in `usr/bin`'s programs (or the build files for a
+  script), and where the startup behavior is plain, propose a `src_test`
+  that runs the program from `${B}` (check runs before install) and
+  expects exactly that exit code and a line of its usage text. Say in
+  the proposal what it asserts and that it's read off the source, not
+  run. Ask the user; once they OK it, add it in one commit,
+  `<pkg>-<ver> (add smoke test)`, re-run, and the result should be
+  `check: passed`. Nothing plain to assert (it needs input, a display,
+  a network, or just hangs) → say so and leave the suite empty.
 - Upstream has tests the build doesn't reach → fix it on the branch
   (Step 4; counts as an attempt) when the fix is a recipe change: a
   configure option that turns them on (`-DBUILD_TESTING=ON`,
