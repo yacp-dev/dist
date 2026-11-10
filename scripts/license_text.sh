@@ -73,6 +73,13 @@ identify_license_text() {
   # LICENSE, compiled into BehaviorTree.CPP). The condition may name
   # several notices (htslib's bgzip.c: "The above copyright notices and
   # this permission notice").
+  # The ICU License (SPDX ICU) is MIT's grant with the notice condition
+  # worded "the above copyright notice(s) and this permission notice
+  # appear in all copies", which isn't MIT's sentence and isn't MIT-0
+  # either (cg3's license.icu.txt, ICU's uoptions code).
+  elif [[ "$text" == *"ICU License"* ||
+          "$text" == *"above copyright notice(s) and this permission notice appear in all copies"* ]]; then
+    echo "ICU"
   elif [[ "$text" == *"Permission is hereby granted, free of charge, to any person obtaining a copy"* ]]; then
     if [[ "$text" == *"The above copyright notice and this permission notice"* ||
           "$text" == *"The above copyright notices and this permission notice"* ]]; then
