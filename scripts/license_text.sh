@@ -137,6 +137,9 @@ identify_license_text() {
   [[ "$text" == *"CC0 1.0 Universal"* ]] && echo "CC0-1.0"
   [[ "$text" == *"PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2"* ]] && echo "PSF-2.0"
   [[ "$text" == *"Server Side Public License, version 1"* ]] && echo "SSPL-1.0"
+  # Sam Hocevar's WTFPL (zimg's COPYING); its name spells out the f-word
+  # and the version is in the title, so the title alone tells it.
+  [[ "$text" == *"DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE"* ]] && echo "WTFPL"
   return 0
 }
 
