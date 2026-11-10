@@ -46,6 +46,10 @@ license_base() {
 # per line, from wording each license's own text has. Prints nothing for
 # a text it doesn't know.
 identify_license_text() {
+  # C locale: a license text can hold bytes that are invalid UTF-8 (a Latin-1
+  # quote in ButterflyPACK's license.txt), which make macOS sed and tr fail
+  # and bash's pattern matching miss. Every pattern here is ASCII.
+  local -x LC_ALL=C
   local text
   # Without line-leading comment marks: libbacktrace's LICENSE is "# "-
   # prefixed, which would split "used to # endorse" below. The same for
@@ -152,6 +156,7 @@ license_text_files() {
 # "GPLv2+"). A notice that names a version without "or later" isn't
 # recognized: it would need "-only", which prose says less reliably.
 identify_license_notice() {
+  local -x LC_ALL=C
   local text fam ver
   text="$(sed -E -e 's@^[[:space:]]*(#+|//+|/\*+|\*+|;+|--)[[:space:]]?@@' -e 's@[[:space:]]*\*+/[[:space:]]*$@@' "$1" | tr -s '[:space:]' ' ')"
   if [[ "$text" =~ General\ Public\ License[^.]{0,200}[Vv]ersion\ ([0-9]+(\.[0-9]+)?)[^.\;]{0,80}(any\ later\ version|or\ later) ]]; then
