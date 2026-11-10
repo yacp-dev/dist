@@ -103,6 +103,10 @@ identify_license_text() {
       # denial of patent rights.
       if [[ "$text" == *"NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED"* ]]; then
         echo "BSD-3-Clause-Clear"
+      # BSD-3-Clause-LBNL (ButterflyPACK) is the 3-clause text plus the
+      # "Enhancements" grant to Lawrence Berkeley National Laboratory.
+      elif [[ "$text" == *"You are under no obligation whatsoever to provide any bug fixes"*"Enhancements"* ]]; then
+        echo "BSD-3-Clause-LBNL"
       else
         echo "BSD-3-Clause"
       fi
