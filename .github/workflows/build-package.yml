@@ -353,12 +353,12 @@ jobs:
         id: detect
         run: bash -- scripts/detect_cygport_file.sh --dir "yacp/${{ needs.gate.outputs.package }}"
 
-      # yacp writes BUILD_REQUIRES one package per tab-indented line;
-      # rewrites a single-line or otherwise-indented list into that form
+      # yacp writes BUILD_REQUIRES and PATCH_URI one entry per tab-indented
+      # line; rewrites a single-line or otherwise-indented list into that form
       # so the PR carries it along with the bump. A no-op on a file
       # already in that form. Skipped for deploy, which has no PR
       # to carry the change.
-      - name: Format BUILD_REQUIRES
+      - name: Format BUILD_REQUIRES and PATCH_URI
         if: ${{ needs.gate.outputs.mode != 'deploy' }}
         run: bash -- scripts/format_build_requires.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
 

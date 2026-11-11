@@ -1047,7 +1047,8 @@ and in a recipe you've just bumped even if a run didn't complain:
   `<pkg>-<ver> (pin Fedora patch in PATCH_URI)`.
 - `LICENSE`, `LICENSE_SPDX`, `LICENSE_URI` after `DESCRIPTION`, one blank
   line between, and before `BUILD_REQUIRES`.
-- `BUILD_REQUIRES` tab-indented, one package per line, even a short list.
+- `BUILD_REQUIRES` tab-indented, one package per line, even a short list;
+  `PATCH_URI` the same, one patch per line.
 - Everything else in the order cygport uses it; each `<sub>_REQUIRES` at
   the end, after the last `*_SUMMARY`. Show where a new variable would go
   before writing it.

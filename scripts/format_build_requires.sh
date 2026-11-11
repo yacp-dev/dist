@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
-# Rewrites a cygport file's BUILD_REQUIRES into yacp's one-package-per-
-# line form, in place:
+# Rewrites a cygport file's BUILD_REQUIRES and PATCH_URI into yacp's
+# one-entry-per-line form, in place:
 #
 #   BUILD_REQUIRES="
 #   	pkg-a
 #   	pkg-b
 #   "
+#   PATCH_URI="
+#   	https://example.org/a.patch
+#   	https://example.org/b.patch
+#   "
 #
 # whatever form it was in before -- a single-line list
 # (BUILD_REQUIRES="pkg-a pkg-b"), space-indented lines, or several
-# packages on one line. Package order is kept as is (no sorting, no
+# entries on one line. Package order is kept as is (no sorting, no
 # deduplication), so the only change is whitespace. Running it on an
 # already-formatted file changes nothing, so build-package.yml runs it
 # unconditionally and the change rides along in the PR's diff.
@@ -17,15 +21,16 @@
 # A general-purpose shell formatter (shfmt etc.) can't do this: the value
 # is a quoted string literal, whose contents a formatter never touches.
 #
-# Only a plain `BUILD_REQUIRES="..."` starting at column 0 is rewritten.
+# Only a plain `NAME="..."` (NAME one of those two) starting at column 0 is rewritten.
 # A value with anything this script can't safely re-split -- a comment,
 # a backslash, another quote, a command substitution, or text after the
 # closing quote -- is left untouched (with a warning) rather than
-# guessed at. `${VAR}` references are fine: they're single words.
+# guessed at. `${VAR}` references are fine: they're single words (so is
+# PATCH_URI's `url::name` form).
 #
 # Usage (paths relative to the package directory, e.g. yacp/googletest):
 #   format_build_requires.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport
-# Output: prints whether the file changed.
+# Output: prints, for each variable, whether the file changed.
 
 set -euo pipefail
 
@@ -51,7 +56,7 @@ trap 'rm -f "$tmp"' EXIT
 
 # Plain POSIX awk (no gawk extensions), so this also runs against a local
 # checkout on macOS for debugging.
-awk -v sq="'" '
+awk -v sq="'" -v names="BUILD_REQUIRES PATCH_URI" '
   function flush_raw(   i) {
     for (i = 1; i <= n; i++) print raw[i]
   }
@@ -61,14 +66,14 @@ awk -v sq="'" '
     count = 0
     for (i = 1; i <= m; i++) if (words[i] != "") count++
     if (count == 0) { flush_raw(); return }
-    print "BUILD_REQUIRES=\""
+    print name "=\""
     for (i = 1; i <= m; i++) if (words[i] != "") print "\t" words[i]
     print "\""
   }
   # Ends the current block: rest is whatever follows the closing quote.
   function close_block(rest) {
     if (rest !~ /^[ \t]*$/ || value ~ /[#\\`"]/ || index(value, sq) || value ~ /\$\(/) {
-      printf "Leaving BUILD_REQUIRES at line %d as is: unexpected content\n", start > "/dev/stderr"
+      printf "Leaving %s at line %d as is: unexpected content\n", name, start > "/dev/stderr"
       flush_raw()
     } else {
       emit()
@@ -84,10 +89,11 @@ awk -v sq="'" '
 
   inblock { raw[++n] = $0; take($0); next }
 
-  /^BUILD_REQUIRES="/ {
+  match($0, /^[A-Z_]+="/) && index(" " names " ", " " substr($0, 1, RLENGTH - 2) " ") {
+    name = substr($0, 1, RLENGTH - 2)
     inblock = 1; start = NR; n = 0; value = ""
     raw[++n] = $0
-    rest = substr($0, length("BUILD_REQUIRES=\"") + 1)
+    rest = substr($0, RLENGTH + 1)
     q = index(rest, "\"")
     if (q == 0) { value = rest }
     else { value = substr(rest, 1, q - 1); close_block(substr(rest, q + 1)) }
@@ -98,15 +104,15 @@ awk -v sq="'" '
 
   END {
     if (inblock) {
-      printf "Leaving BUILD_REQUIRES at line %d as is: no closing quote\n", start > "/dev/stderr"
+      printf "Leaving %s at line %d as is: no closing quote\n", name, start > "/dev/stderr"
       flush_raw()
     }
   }
 ' "$path" >"$tmp"
 
 if cmp -s "$path" "$tmp"; then
-  echo "BUILD_REQUIRES in $cygport_file already one per line"
+  echo "BUILD_REQUIRES and PATCH_URI in $cygport_file already one per line"
 else
   cat "$tmp" >"$path"
-  echo "Reformatted BUILD_REQUIRES in $cygport_file to one per line"
+  echo "Reformatted BUILD_REQUIRES and PATCH_URI in $cygport_file to one per line"
 fi
