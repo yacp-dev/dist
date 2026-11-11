@@ -120,9 +120,17 @@ fi
 # something to fix.
 # (Skipped outright with nothing checked out, since grep given no file
 # arguments would read stdin instead.)
+# Only normalize .cygport files -- patch files (*.src.patch, *.diff)
+# must preserve CRLF for hunks against CRLF upstream files.
 crlf_files=()
 if [[ ${#updated_paths[@]} -gt 0 ]]; then
-  mapfile -d '' -t crlf_files < <(grep -lZ $'\r$' "${updated_paths[@]/#/$dir/}" || true)
+  cygport_paths=()
+  for p in "${updated_paths[@]}"; do
+    [[ "$p" == *.cygport ]] && cygport_paths+=("$dir/$p")
+  done
+  if [[ ${#cygport_paths[@]} -gt 0 ]]; then
+    mapfile -d '' -t crlf_files < <(grep -lZ $'\r$' "${cygport_paths[@]}" || true)
+  fi
 fi
 if [[ ${#crlf_files[@]} -gt 0 ]]; then
   sed -i 's/\r$//' "${crlf_files[@]}"
