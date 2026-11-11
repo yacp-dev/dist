@@ -19,6 +19,9 @@
 # a directory the FHS doesn't have (usr/etc, usr/doc, ...), and no
 # copy of a file cygport installs itself into usr/share/doc/$PN.
 #
+# Whether each tarball cygport package made fits GitHub's 100 MiB file
+# limit, which publish has to push it under (audit/package_sizes.sh).
+#
 # And six cross-checks of the recipe against the build: whether LICENSE
 # matches what the source itself says, whether every BUILD_REQUIRES
 # package is actually used by the build, what the build looked for that
@@ -142,6 +145,7 @@ source "$(dirname "$0")/audit/undefined_macros.sh"
 source "$(dirname "$0")/audit/check.sh"
 source "$(dirname "$0")/audit/recipe_vars.sh"
 source "$(dirname "$0")/audit/installed_files.sh"
+source "$(dirname "$0")/audit/package_sizes.sh"
 
 cd "$dir"
 [[ -f "$cygport_file" ]] || { echo "No such file: $dir/$cygport_file" >&2; exit 1; }
@@ -1267,6 +1271,7 @@ else
   audit_fhs_paths
   audit_etc_defaults
   audit_duplicate_docs
+  audit_package_sizes
   audit_license
   before=$warnings
   audit_build_requires
