@@ -714,8 +714,10 @@ depends on upstream, so look at the source before reporting it:
   `test()`, no pytest/unittest files) → nothing to fix; say so in the
   report. If `check_summary.sh` lists a `check-smoke-test:` (programs in
   `usr/bin` that exit 0 on `--version`/`--help`), propose a `src_test`
-  that runs them as a smoke test (`${D}/usr/bin/<exe> --version`, with
-  `PATH` including `${D}/usr/bin`), as a proposal in the report: it
+  that runs them as a smoke test (`verbose ./${PN}.exe --version`, or
+  from the build directory: `${S}/_build.${CHOST}` for meson recipes,
+  otherwise `${B}`; prefix each invocation with `verbose` so the log shows
+  which program is being called), as a proposal in the report: it
   checks the programs start, not that they work, so don't add it without
   the user's OK. With no `check-smoke-test:` listed, that doesn't mean
   nothing can be run: a program with no `--version`/`--help` often
@@ -723,8 +725,11 @@ depends on upstream, so look at the source before reporting it:
   (zip2hashcat: usage on stderr, exit 1). Read the source's `main()`
   and usage path in `usr/bin`'s programs (or the build files for a
   script), and where the startup behavior is plain, propose a `src_test`
-  that runs the program from `${B}` (check runs before install) and
-  expects exactly that exit code and a line of its usage text. Say in
+  that runs the program from the build directory (`${S}/_build.${CHOST}`
+  for meson, `${B}` otherwise) with `verbose` prefixed (e.g.
+  `verbose ./${PN}.exe -v`), and expects exactly that exit code and a line
+  of its usage text. Always prefix the invoked command with `verbose` so the
+  check log makes it obvious which binary was executed. Say in
   the proposal what it asserts and that it's read off the source, not
   run. Ask the user; once they OK it, add it in one commit,
   `<pkg>-<ver> (add smoke test)`, re-run, and the result should be
