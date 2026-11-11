@@ -86,7 +86,7 @@ fi
 [[ -n "$package" ]] || { echo "No package in $repo matches '$target' (a new package needs its recipe pushed as dorgann/<pkg>-<ver> first)" >&2; exit 1; }
 
 if [[ -n "$branch" ]]; then
-  cygport_file="$(gh api "repos/$repo/contents/$package?ref=$branch" --jq '.[].name' | grep '\.cygport$' || true)"
+  cygport_file="$(gh api "repos/$repo/contents/$package?ref=${branch//+/%2B}" --jq '.[].name' | grep '\.cygport$' || true)"
   [[ "$(grep -c . <<<"$cygport_file")" -eq 1 ]] || { echo "Expected exactly one .cygport in $repo/$package on $branch, found: ${cygport_file:-none}" >&2; exit 1; }
   name="${cygport_file%.cygport}"
   name="${name#"$package"-}"
