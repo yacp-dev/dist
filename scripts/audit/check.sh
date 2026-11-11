@@ -434,8 +434,10 @@ check_test_counts() {
     }
     /^Ok: +[0-9]+/ { mok = $2; m += $2; meson = 1 }
     /^(Expected Fail|Fail|Unexpected Pass|Skipped|Timeout): +[0-9]+/ { m += $NF; meson = 1 }
+    /^Expected Fail: +[0-9]+/ { mxfail = $NF }
     /^# TOTAL: [0-9]+/ { at = $3; auto = 1 }
     /^# PASS: +[0-9]+/ { ap = $3 }
+    /^# XFAIL: +[0-9]+/ { axfail = $3 }
     # the automake serial harness (and old automake) has no "# TOTAL" block, only
     # "All 5 tests passed" / "1 of 5 tests failed" (or, with XFAIL,
     # "All 5 tests behaved as expected" / "1 of 5 tests did not behave as
@@ -448,7 +450,8 @@ check_test_counts() {
       n = $0; sub(/^(=+ )?[0-9]+ of /, "", n); sub(/ .*/, "", n); st = n; sp = n - f; serial = 1
     }
     # Per-test verdict lines ("PASS: t/foo.sh"), for logs with neither summary.
-    /^(PASS|XFAIL): / { lp++; lt++ }
+    /^(PASS): / { lp++; lt++ }
+    /^(XFAIL): / { lxfail++; lt++ }
     /^(FAIL|XPASS|ERROR|SKIP): / { lt++ }
     # googletest, summed over every test executable that ran:
     #   "[==========] 123 tests from 10 test suites ran. (45 ms total)"
@@ -471,10 +474,10 @@ check_test_counts() {
     }
     END {
       if (ctest != "") print "ctest " ctest
-      else if (meson) print "meson " mok "/" m " passed"
-      else if (auto && at > 0) print "automake " ap "/" at " passed"
+      else if (meson) print "meson " mok "/" m " passed" (mxfail > 0 ? " (" mxfail " expected fail" (mxfail > 1 ? "s" : "") ")" : "")
+      else if (auto && at > 0) print "automake " ap "/" at " passed" (axfail > 0 ? " (" axfail " expected fail" (axfail > 1 ? "s" : "") ")" : "")
       else if (serial && st > 0) print "automake " sp "/" st " passed"
-      else if (lt > 0) print "automake " lp "/" lt " passed"
+      else if (lt > 0) print "automake " lp "/" lt " passed" (lxfail > 0 ? " (" lxfail " expected fail" (lxfail > 1 ? "s" : "") ")" : "")
       else if (gtest && gt > 0) print "gtest " gp "/" gt " passed"
       else if (prove && pt > 0) print "prove " (pt - pf) "/" pt " passed"
     }'
