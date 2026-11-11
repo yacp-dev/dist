@@ -976,9 +976,14 @@ Edit only files under the package directory. Common fixes:
   Drop a patch only when upstream has it or the problem it fixed is gone,
   and say which in the commit message and the final report — the user
   wants to know why each patch went or stayed.
-- **Source doesn't build on Cygwin** → patch the source the same way, add to
-  the `.src.patch`. Prefer the smallest change that's clearly correct
-  (a `__CYGWIN__` guard, a missing include) over disabling features.
+- **Source doesn't build on Cygwin** → prefer recipe-side settings
+  (such as `export CPPFLAGS="${CPPFLAGS} -D_GNU_SOURCE"`, `CYGCMAKE_ARGS`,
+  `CYGCONF_ARGS`, or compiler flags) over patching the source whenever
+  possible. Only resort to `.src.patch` or `PATCH_URI` when settings in the
+  recipe cannot solve it (e.g. hardcoded code or build logic that must be
+  modified directly). When a source patch is truly necessary, prefer the
+  smallest change that's clearly correct (a `__CYGWIN__` guard, a missing
+  include) over disabling features.
   A change to a file `cygport diff` excludes -- in an autotools
   package `*.h.in`, `config.h` and generated files such as `configure`
   or `Makefile.in` (the list is `pkg_pkg.cygpart`'s `default_excludes`,
