@@ -198,7 +198,8 @@ review on GitHub before anything is built (doc/spec.md 4.8):
    origin. `--dry-run` prints the recipe without touching git. Then fit
    the skeleton to the new source, read from the scratchpad: `SRC_DIR`
    if the tarball's top directory isn't `${P}`, the build system's
-   cygclass, `inherit`, the runtime package named after upstream's
+   cygclass, `inherit` (with a literal `GIT_REV` when it inherits git,
+   as "Git HEAD" under Step 1b says), the runtime package named after upstream's
    SOVERSION with its DLL pinned (`usr/bin/cyg*-N.dll`), only
    `*_CONTENTS` the install will actually produce, `BUILD_REQUIRES` for
    what the build files need (each available, as in "Checking a
@@ -268,7 +269,10 @@ per-session worktree (Step 4).
 `<base>+git<YYYYMMDD>`, e.g. `sfparse-0.0.0+git20251223`) take a different
 path: they track upstream HEAD, not releases, so in `latest` mode skip
 the Repology lookup (pass no `--version` below), and don't bump them
-with the workflow's version bump either. `bump_version.sh` only
+with the workflow's version bump either. A git recipe with neither
+`GIT_REV` nor `GIT_TAG` isn't a snapshot at all — it pins nothing and
+builds the branch's HEAD whatever the version says; pin it first, as
+"Git HEAD" under Step 1b says. `bump_version.sh` only
 renames files and substitutes the version string — `GIT_REV` would stay at
 the old commit, and the run would build the old source under the new
 version and *succeed*, producing a wrong PR that looks right. Instead:
@@ -345,6 +349,23 @@ normally fine as they are):
   fix for the new version (a renamed tag or tarball layout): fix
   `SRC_URI`/`GIT_TAG`/`SRC_DIR`, then go on with the rest by hand
   against that source.
+- **Git HEAD** — a recipe that `inherit git`s with neither `GIT_REV` nor
+  `GIT_TAG` builds whatever the branch's HEAD is whenever it is built, so
+  its version names no particular source (preflight prints `inherit git
+  without GIT_TAG (GIT_BRANCH=<default>): the version doesn't pick the
+  source`, and can't check patches without it). Pin it: add
+  `GIT_REV="<sha>"` on the line right after `GIT_URI`, the same way
+  ports' other git recipes do (full 40-digit SHA). Use the commit the
+  version was named from: normally the branch tip at the time, whose
+  committer date is the version's `+git<YYYYMMDD>` (a day either way is
+  normal — the timezone or the day the snapshot was taken). `git
+  ls-remote` gives the tip, `git log -1 --format=%cI` on a shallow clone
+  of it the date. If the tip has moved on since the version was made,
+  don't pin that newer tree under the old version: that's a git snapshot
+  update, which `git_snapshot_bump.sh` (Step 1) does — say so and ask.
+  Clone the pinned commit by hand and check the patches against it as
+  under Patches, in one commit, `<pkg>-<ver> (pin GIT_REV)`. Also do this
+  for a new package's draft recipe that inherits git.
 - **Patches**, each in the order cygport applies them:
   - `applies` → nothing to do.
   - `ALREADY IN SOURCE` → upstream has it: drop it from `PATCH_URI`, or
@@ -498,7 +519,9 @@ already has them.
   if a `check-skipped:` list follows the verdict (with any of the
   three), go to "Skipped tests" as well. Also make sure the recipe defines `LICENSE`,
   `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
-  LICENSE" below. A `WARNING:` in `Audit recipe`'s `== Recipe ==`,
+  LICENSE" below. A recipe that `inherit git`s without `GIT_REV` or
+  `GIT_TAG` pins nothing: the run built whatever HEAD was at the time, so
+  fix it as "Git HEAD" under Step 1b says and re-run. A `WARNING:` in `Audit recipe`'s `== Recipe ==`,
   `== *-config ==`, `== *.pc ==`, `== AppStream ==` or `== Duplicate files ==`
   sections (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8
   '== (Recipe|\*-config|\*\.pc|AppStream|Duplicate files) =='`)
