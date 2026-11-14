@@ -1,0 +1,13 @@
+category: Libs
+requires: libdrm-devel libdrm_tegra0 pkg-config
+sdesc: "Direct Rendering Manager runtime library (development / Tegra's experimental API)"
+ldesc: "The Direct Rendering Infrastructure, also known as the DRI, is a framework for
+allowing direct access to graphics hardware under the X Window System in a
+safe and efficient manner. It includes changes to the X server, to several
+client libraries, and to the kernel (DRM, Direct Rendering Manager). The most
+important use for the DRI is to create fast OpenGL implementations providing
+hardware acceleration for Mesa. Several 3D accelerated drivers have been
+written to the DRI specification, including drivers for chipsets produced by
+3DFX, AMD (formerly ATI), Intel and Matrox."
+external-source: libdrm
+

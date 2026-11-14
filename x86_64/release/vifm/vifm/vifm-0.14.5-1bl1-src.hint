@@ -1,0 +1,11 @@
+category: Utils
+build-depends: cygport file file-devel libglib2.0-devel libncurses-devel
+sdesc: "Ncurses based file manager with vi like keybindings"
+ldesc: "Vifm is a ncurses based file manager with vi like keybindings, which also
+borrows some useful ideas from mutt. If you use vi, vifm gives you complete
+keyboard control over your files without having to learn a new set of
+commands."
+skip:
+
+homepage: https://github.com/vifm/vifm
+license: GPL-2.0-or-later AND MIT AND BSD-2-Clause

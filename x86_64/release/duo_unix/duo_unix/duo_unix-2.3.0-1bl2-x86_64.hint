@@ -1,0 +1,5 @@
+category: Security
+requires: bash cygwin libduo3
+sdesc: "Duo two-factor authentication for Unix systems (utilities)"
+ldesc: "Duo two-factor authentication for Unix systems"
+

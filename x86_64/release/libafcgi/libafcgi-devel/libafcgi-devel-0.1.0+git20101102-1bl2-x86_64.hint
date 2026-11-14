@@ -1,0 +1,6 @@
+category: Libs
+requires: libafcgi0 libglib2.0-devel pkg-config
+sdesc: "Libev based asynchronous FastCGI library (development)"
+ldesc: "Libev based asynchronous FastCGI library"
+external-source: libafcgi
+

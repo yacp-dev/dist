@@ -1,0 +1,12 @@
+category: Net
+requires: libtaktuk3 pkg-config
+sdesc: "Adaptive large scale remote executions deployment (development)"
+ldesc: "TakTuk is a tool for deploying parallel remote executions of commands to a
+potentially large set of remote nodes. It spreads itself using an adaptive
+algorithm and sets up an interconnection network to transport commands and
+perform I/Os multiplexing/demultiplexing. The TakTuk mechanics dynamically
+adapt to environment (machine performance and current load, network
+contention) by using a reactive work-stealing algorithm that mixes local
+parallelization and work distribution."
+external-source: taktuk
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libddx1 libdftd4_4 libgcc1 libgfortran5 libgomp1 liblapack0 libmctc-lib0 libmulticharge0 libs-dftd3_1 libtoml-f0 libtrexio2
+sdesc: "Light-weight tight-binding framework (runtime)"
+ldesc: "Light-weight tight-binding framework"
+external-source: tblite
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libcoopgamma1 pkg-config
+sdesc: "Cooperative gamma library (development)"
+ldesc: "Cooperative gamma library"
+external-source: libcoopgamma
+

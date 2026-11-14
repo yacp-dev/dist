@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Core c99 package for AWS SDK for C (licensing & readmes)"
+ldesc: "Core c99 package for AWS SDK for C. Includes cross-platform primitives,
+configuration, data structures, and error handling."
+

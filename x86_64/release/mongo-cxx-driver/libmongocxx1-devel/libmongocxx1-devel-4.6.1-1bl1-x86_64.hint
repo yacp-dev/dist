@@ -1,0 +1,6 @@
+category: Libs
+requires: libbsoncxx1-devel libmongocxx1_1 pkg-config libmongoc2-devel
+sdesc: "C++ Driver for MongoDB (development)"
+ldesc: "C++ Driver for MongoDB"
+external-source: mongo-cxx-driver
+

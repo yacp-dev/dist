@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libklvanc0
+sdesc: "VANC Processing Framework (utilities)"
+ldesc: "Libklvanc is a library which can be used for parsing/generation of Vertical
+Ancillary Data (VANC) commonly found in the Serial Digital Interface (SDI)
+wire protocol."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C/C++ implementation of Ethereum Proof of Work algorithm (runtime)"
+ldesc: "C/C++ implementation of Ethereum Proof of Work algorithm"
+external-source: ethash
+

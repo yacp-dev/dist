@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Headers for URDF parsers"
+ldesc: "The URDF (U-Robot Description Format) headers provides core data structure
+headers for URDF."
+skip:
+
+homepage: https://github.com/ros/urdfdom_headers
+license: BSD-3-Clause

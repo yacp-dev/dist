@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgfortran5 libsymspg2
+sdesc: "C library for finding and handling crystal symmetries (runtime / fortran)"
+ldesc: "Spglib is a C library for finding and handling crystal symmetries."
+external-source: spglib
+

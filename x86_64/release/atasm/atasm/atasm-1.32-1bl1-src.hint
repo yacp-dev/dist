@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport zlib-devel
+sdesc: "Atari MAC/65 compatible assembler for Unix"
+ldesc: "ATasm is a 6502 command-line cross-assembler that is compatible with the
+original Mac/65 macroassembler released by OSS software."
+skip:
+
+homepage: https://github.com/CycoPH/atasm
+license: GPL-2.0-or-later

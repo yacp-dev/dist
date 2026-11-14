@@ -1,0 +1,5 @@
+category: Libs
+requires: libzmq-devel pkg-config
+sdesc: "C++ binding for 0MQ"
+ldesc: "This is C++ binding for 0MQ."
+

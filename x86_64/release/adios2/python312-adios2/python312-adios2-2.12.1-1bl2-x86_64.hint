@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libadios2_2.12 libgcc1 libstdc++6 python312 python312-numpy python312-numpy
+sdesc: "Adaptable Input Output System version 2 (Python bindings)"
+ldesc: "ADIOS2 is a unified framework for I/O and in situ data processing of large-scale scientific data, with C, C++ and Fortran bindings."
+external-source: adios2
+

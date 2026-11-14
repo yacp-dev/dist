@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport autoconf-archive libcmocka-devel libcurl-devel libjson-c-devel libssl-devel libuuid-devel
+sdesc: "OSS implementation of the TCG TPM2 Software Stack (licensing & readmes)"
+ldesc: "This repository hosts source code implementing the Trusted Computing Group's
+(TCG) TPM2 Software Stack (TSS)."
+skip:
+
+homepage: https://github.com/tpm2-software/tpm2-tss
+license: BSD-2-Clause

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for date and time data types (runtime)"
+ldesc: "libfdatetime is a library for date and time data types."
+external-source: libfdatetime
+

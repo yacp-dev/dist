@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C++ network programming library (licensing & readmes)"
+ldesc: "Netxx is a C++ network programming library. It is designed to take the pain
+out of programming network communications applications."
+

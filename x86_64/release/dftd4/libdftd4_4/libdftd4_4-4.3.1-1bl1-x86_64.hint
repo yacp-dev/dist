@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgfortran5 libgomp1 liblapack0 libmctc-lib0 libmulticharge0
+sdesc: "Generally Applicable Atomic-Charge Dependent London Dispersion Correction (runtime)"
+ldesc: "This is a minimal standalone version of DFT-D4 providing the D4(EEQ)-ATM and
+D4(EEQ)-MBD methods."
+external-source: dftd4
+

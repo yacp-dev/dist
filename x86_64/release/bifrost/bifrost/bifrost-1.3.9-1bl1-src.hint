@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport zlib-devel
+sdesc: "Highly parallel construction and indexing of colored and compacted de Bruijn graphs (utilities)"
+ldesc: "Highly parallel construction and indexing of colored and compacted de Bruijn graphs"
+skip:
+
+homepage: https://github.com/pmelsted/bifrost
+license: BSD-2-Clause AND Unlicense

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libam7xxx0.1 libavcodec63 libavdevice63 libavformat63 libavutil61 libswscale10 libusb1.0 libxcb1
+sdesc: "Open Source library to communicate via USB with Projectors and Digital Picture Frames based on the Actions Micro AM7XXX family of ICs (utilities)"
+ldesc: "libam7xxx is an Open Source library to communicate via USB with projectors and
+Digital Picture Frames based on the Actions Micro AM7XXX family if ICs."
+

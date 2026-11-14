@@ -1,0 +1,6 @@
+category: Libs
+requires: libcm256cc1 pkg-config
+sdesc: "Fast GF(256) Cauchy MDS Block Erasure Codec in C++ (development)"
+ldesc: "Fast GF(256) Cauchy MDS Block Erasure Codec in C++"
+external-source: cm256cc
+

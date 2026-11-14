@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library for InterPlay ACM Audio format (runtime)"
+ldesc: "Library for InterPlay ACM Audio format"
+external-source: libacm
+

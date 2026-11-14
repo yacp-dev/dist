@@ -1,0 +1,6 @@
+category: Libs
+requires: libcurl-devel libczmq4 liblz4-devel libmicrohttpd-devel libuuid-devel libzmq-devel pkg-config
+sdesc: "High-level C Binding for ZeroMQ (development)"
+ldesc: "CZMQ - High-level C Binding for ZeroMQ"
+external-source: czmq
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libavcodec63 libavformat63 libavutil61 libgcc1 libggml0 libllama0 libSDL2_2.0_0 libstdc++6 libswresample7 libwhisper1
+sdesc: "Port of OpenAI's Whisper model in C/C++ (utilities)"
+ldesc: "Port of OpenAI's Whisper model in C/C++"
+

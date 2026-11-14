@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgfortran5 liblapack0 libmctc-lib0 libnumsa0
+sdesc: "Extended conductor-like polarizable continuum solvation model (runtime)"
+ldesc: "This is an fully open source solvation model, based on the original conductor
+like screening model for realistic solvation (COSMO-RS) model by Klamt et al.
+in combination with the universal solvation model based on solute electron
+density (SMD) by Marenich, Cramer and Truhlar."
+external-source: cpx
+

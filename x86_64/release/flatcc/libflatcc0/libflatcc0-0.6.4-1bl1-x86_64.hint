@@ -1,0 +1,12 @@
+category: Libs
+requires: cygwin
+sdesc: "FlatBuffers Compiler and Library in C for C (runtime)"
+ldesc: "flatcc has no external dependencies except for build and compiler tools, and
+the C runtime library. With concurrent Ninja builds, a small client project
+can build flatcc with libraries, generate schema code, link the project and
+execute a test case in a few seconds, produce binaries between 15K and 60K,
+read small buffers in 30ns, build FlatBuffers in about 600ns, and with a
+larger executable also handle optional json parsing or printing in less than 2
+us for a 10 field mixed type message."
+external-source: flatcc
+

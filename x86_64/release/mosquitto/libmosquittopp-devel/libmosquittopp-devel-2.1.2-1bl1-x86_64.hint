@@ -1,0 +1,9 @@
+category: Net
+requires: libmosquittopp1 pkg-config
+sdesc: "Open source MQTT broker (development / c++)"
+ldesc: "Eclipse Mosquitto is an open source (EPL/EDL licensed) message broker that
+implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is
+lightweight and is suitable for use on all devices from low power single
+board computers to full servers."
+external-source: mosquitto
+

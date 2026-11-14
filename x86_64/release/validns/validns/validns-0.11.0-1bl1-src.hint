@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libJudy-devel libssl-devel
+sdesc: "DNS and DNSSEC zone file validator"
+ldesc: "DNS and DNSSEC zone file validator"
+skip:
+
+homepage: https://codeberg.org/DNS-OARC/validns
+license: BSD-2-Clause

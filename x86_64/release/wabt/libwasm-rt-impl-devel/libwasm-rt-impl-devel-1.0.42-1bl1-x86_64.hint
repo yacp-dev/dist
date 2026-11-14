@@ -1,0 +1,6 @@
+category: Libs
+requires: libwasm-rt-impl1
+sdesc: "WebAssembly Binary Toolkit (development / wasm)"
+ldesc: "WABT (we pronounce it wabbit) is a suite of tools for WebAssembly"
+external-source: wabt
+

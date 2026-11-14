@@ -1,0 +1,6 @@
+category: Libs
+requires: libbenchmark1 pkg-config
+sdesc: "Microbenchmark support library (development)"
+ldesc: "A library to support the benchmarking of functions, similar to unit-tests."
+external-source: benchmark
+

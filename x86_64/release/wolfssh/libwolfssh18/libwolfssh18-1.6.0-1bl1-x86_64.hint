@@ -1,0 +1,7 @@
+category: Net
+requires: cygwin libwolfssl46
+sdesc: "wolfSSL's Embeddable SSH Server (runtime)"
+ldesc: "wolfSSH is a small, fast, portable SSH implementation, including support for
+SCP and SFTP."
+external-source: wolfssh
+

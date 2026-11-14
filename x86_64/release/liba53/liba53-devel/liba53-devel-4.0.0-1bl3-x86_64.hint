@@ -1,0 +1,6 @@
+category: Libs
+requires: liba53_1 pkg-config
+sdesc: "A5/3 Call Encryption Library (development)"
+ldesc: "A5/3 Call Encryption Library"
+external-source: liba53
+

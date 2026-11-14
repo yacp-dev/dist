@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "ESO's C Library Extensions (licensing & readmes)"
+ldesc: "This is libcext, ESO's C Library Extensions. It is a C utility library, which is used to implement ESO's Common Pipeline Library (CPL)."
+skip:
+
+homepage: https://www.eso.org/sci/software/cpl/
+license: LGPL-2.1-or-later

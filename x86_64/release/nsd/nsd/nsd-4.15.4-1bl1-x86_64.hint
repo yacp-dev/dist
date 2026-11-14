@@ -1,0 +1,7 @@
+category: Net
+requires: bash cygwin libevent2.1_7 libfstrm0 libprotobuf-c1 libssl3 libzone0
+sdesc: "Name server daemon"
+ldesc: "The NLnet Labs Name Server Daemon (NSD) is an authoritative DNS name server.
+It has been developed for operations in environments where speed, reliability,
+stability and security are of high importance."
+

@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport autoconf-archive libcurl-devel libssl-devel libtss2-esys-devel libtss2-fapi-devel libtss2-mu-devel libtss2-rc-devel libtss2-sys-devel libtss2-tctildr-devel tpm2-tss-devel
+sdesc: "Trusted Platform Module (TPM2.0) tools"
+ldesc: "Trusted Platform Module (TPM2.0) tools"
+skip:
+
+homepage: https://github.com/tpm2-software/tpm2-tools
+license: BSD-3-Clause

@@ -1,0 +1,6 @@
+category: Libs
+requires: libuna1 pkg-config
+sdesc: "Library to support Unicode and ASCII (byte string) conversions (development)"
+ldesc: "libuna is a library to support Unicode and ASCII (byte string) conversions."
+external-source: libuna
+

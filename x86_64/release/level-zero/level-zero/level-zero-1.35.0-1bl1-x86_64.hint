@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "oneAPI Level Zero Specification Headers and Loader (licensing & readmes)"
+ldesc: "oneAPI Level Zero Specification Headers and Loader"
+

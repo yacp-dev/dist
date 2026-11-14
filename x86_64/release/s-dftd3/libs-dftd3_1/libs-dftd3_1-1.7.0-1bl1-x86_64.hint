@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgfortran5 libgomp1 libmctc-lib0
+sdesc: "Library first implementation of the D3 dispersion correction (runtime)"
+ldesc: "Library first implementation of the D3 dispersion correction"
+external-source: s-dftd3
+

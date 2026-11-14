@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Driver library for the AHP® XC Correlators (licensing & readmes)"
+ldesc: "Driver library for the AHP® XC Correlators"
+

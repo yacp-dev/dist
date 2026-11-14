@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libssl-devel python3-devel zlib-devel
+sdesc: "Library to support cross-platform AES encryption (licensing & readmes)"
+ldesc: "libcaes is a library to support cross-platform AES encryption."
+skip:
+
+homepage: https://github.com/libyal/libcaes
+license: LGPL-3.0-or-later

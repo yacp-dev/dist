@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libfftw3_3 libhackrf0
+sdesc: "Library for communicating with HackRF SDR platform (utilities)"
+ldesc: "This repository contains host software (Linux/Windows) for HackRF, a project
+to produce a low cost, open source software radio platform."
+

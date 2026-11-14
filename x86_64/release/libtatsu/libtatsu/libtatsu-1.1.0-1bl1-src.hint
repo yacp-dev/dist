@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel libplist2.0-devel
+sdesc: "Library handling the communication with Apple's Tatsu Signing Server (licensing & readmes)"
+ldesc: "Library handling the communication with Apple's Tatsu Signing Server"
+skip:
+
+homepage: https://github.com/libimobiledevice/libtatsu
+license: LGPL-2.1-or-later

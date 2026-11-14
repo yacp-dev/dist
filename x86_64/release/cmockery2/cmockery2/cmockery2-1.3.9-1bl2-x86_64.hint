@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Reviving cmockery unit test framework from Google (licensing & readmes)"
+ldesc: "Reviving cmockery unit test framework from Google"
+

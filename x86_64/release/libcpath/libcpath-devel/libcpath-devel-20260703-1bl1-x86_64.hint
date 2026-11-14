@@ -1,0 +1,6 @@
+category: Libs
+requires: libcpath1 pkg-config
+sdesc: "Library for cross-platform C path functions (development)"
+ldesc: "libcpath is a library for cross-platform C path functions."
+external-source: libcpath
+

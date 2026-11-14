@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-php15.0 pkg-config
+sdesc: "PHP grammar for tree-sitter (development)"
+ldesc: "PHP grammar for tree-sitter"
+external-source: tree-sitter-php
+

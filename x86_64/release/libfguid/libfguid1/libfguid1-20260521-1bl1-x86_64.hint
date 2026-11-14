@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for GUID/UUID data types (runtime)"
+ldesc: "libfguid is a library for GUID/UUID data types."
+external-source: libfguid
+

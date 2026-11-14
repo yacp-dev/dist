@@ -1,0 +1,6 @@
+category: Libs
+requires: libcjson-devel liblz4-devel librist4 pkg-config
+sdesc: "Library that can be used to add the RIST protocol to applications (development)"
+ldesc: "Library that can be used to add the RIST protocol to applications"
+external-source: librist
+

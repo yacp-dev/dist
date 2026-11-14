@@ -1,0 +1,8 @@
+category: Libs
+requires: 
+sdesc: "File format and library for the storage of quantum chemical wave functions (licensing & readmes)"
+ldesc: "TREXIO is an open-source file format and library developed for the storage and
+manipulation of data produced by quantum chemistry calculations. It was
+designed with the goal of providing a reliable and efficient method of storing
+and exchanging wave function parameters and matrix elements."
+

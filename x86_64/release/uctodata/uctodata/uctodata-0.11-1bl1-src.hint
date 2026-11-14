@@ -1,0 +1,8 @@
+category: Text
+build-depends: cygport 
+sdesc: "Datafiles for the tokenizer ucto"
+ldesc: "Datafiles for the tokenizer ucto"
+skip:
+
+homepage: https://github.com/LanguageMachines/uctodata
+license: GPL-3.0-or-later

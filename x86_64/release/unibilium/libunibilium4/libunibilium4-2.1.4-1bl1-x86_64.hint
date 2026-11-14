@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin
+sdesc: "Terminfo parsing library (runtime)"
+ldesc: "Unibilium is a very basic terminfo library. It doesn't depend on curses or
+any other library. It also doesn't use global variables, so it should be
+thread-safe."
+external-source: unibilium
+

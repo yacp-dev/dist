@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport Mustache cmake libcurl-devel libgtest-devel libicu-devel libmicrohttpd-devel libpugixml-devel libxapian-devel libzim-devel zlib-devel
+sdesc: "Common code base for all Kiwix ports (utilities)"
+ldesc: "The Libkiwix provides the Kiwix software suite core. It contains the code
+shared by all Kiwix ports (Windows, GNU/Linux, macOS, Android, iOS, ...)."
+skip:
+
+homepage: https://github.com/kiwix/libkiwix
+license: GPL-3.0-or-later

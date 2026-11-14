@@ -1,0 +1,8 @@
+category: Science
+requires: bash cygwin libgcc1 libsimgrid4.1 libstdc++6 perl_base python3 python312
+sdesc: "Framework for the simulation of distributed applications (utilities)"
+ldesc: "SimGrid is a scientific instrument to study the behavior of large-scale
+distributed systems such as Grids, Clouds, HPC or P2P systems. It can be used
+to evaluate heuristics, prototype applications or even assess legacy MPI
+applications."
+

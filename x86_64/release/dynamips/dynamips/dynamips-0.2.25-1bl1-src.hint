@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libelf-devel
+sdesc: "Cisco 7200/3600/3725/3745/2600/1700 Router Emulator"
+ldesc: "Cisco 7200/3600/3725/3745/2600/1700 Router Emulator"
+skip:
+
+homepage: https://github.com/GNS3/dynamips
+license: GPL-2.0-or-later

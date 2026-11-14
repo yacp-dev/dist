@@ -1,0 +1,6 @@
+category: Archive
+requires: libglib2.0-devel libspkg0 pkg-config
+sdesc: "Unofficial Slackware Linux Package Manager (development)"
+ldesc: "Unofficial Slackware Linux Package Manager"
+external-source: spkg
+

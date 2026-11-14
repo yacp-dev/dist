@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libjansson-devel libxml2-devel zlib-devel
+sdesc: "Library for decoding various ACARS message payloads (utilities)"
+ldesc: "Library for decoding various ACARS message payloads"
+skip:
+
+homepage: https://github.com/szpajder/libacars
+license: MIT

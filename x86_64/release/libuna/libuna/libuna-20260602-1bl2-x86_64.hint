@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcdatetime1 libcerror1 libcfile1 libclocale1 libcnotify1 libuna1
+sdesc: "Library to support Unicode and ASCII (byte string) conversions (utilities)"
+ldesc: "libuna is a library to support Unicode and ASCII (byte string) conversions."
+

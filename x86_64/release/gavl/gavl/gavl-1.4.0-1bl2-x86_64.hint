@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for handling uncompressed audio and video data (licensing & readmes)"
+ldesc: "Library for handling uncompressed audio and video data"
+

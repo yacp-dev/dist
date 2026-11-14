@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "Performance-portable, length-agnostic SIMD with runtime dispatch (licensing & readmes)"
+ldesc: "Performance-portable, length-agnostic SIMD with runtime dispatch"
+skip:
+
+homepage: https://github.com/google/highway
+license: (Apache-2.0 OR BSD-3-Clause) AND CC0-1.0

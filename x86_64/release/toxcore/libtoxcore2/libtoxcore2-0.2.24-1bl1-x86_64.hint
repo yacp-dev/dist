@@ -1,0 +1,8 @@
+category: Security
+requires: cygwin libcmp5 libsodium26
+sdesc: "The future of online communications (runtime)"
+ldesc: "With the rise of governmental monitoring programs, Tox, a FOSS initiative,
+aims to be an easy to use, all-in-one communication platform that ensures
+their users full privacy and secure message delivery."
+external-source: toxcore
+

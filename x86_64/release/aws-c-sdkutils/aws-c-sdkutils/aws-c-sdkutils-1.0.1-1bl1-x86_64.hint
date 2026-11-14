@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C99 library implementing AWS SDK specific utilities (licensing & readmes)"
+ldesc: "C99 library implementing AWS SDK specific utilities"
+

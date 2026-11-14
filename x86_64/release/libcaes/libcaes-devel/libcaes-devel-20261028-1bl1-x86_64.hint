@@ -1,0 +1,6 @@
+category: Libs
+requires: libcaes1 pkg-config
+sdesc: "Library to support cross-platform AES encryption (development)"
+ldesc: "libcaes is a library to support cross-platform AES encryption."
+external-source: libcaes
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libaws-c-sdkutils1.0 pkg-config libaws-c-common-devel
+sdesc: "C99 library implementing AWS SDK specific utilities (development)"
+ldesc: "C99 library implementing AWS SDK specific utilities"
+external-source: aws-c-sdkutils
+

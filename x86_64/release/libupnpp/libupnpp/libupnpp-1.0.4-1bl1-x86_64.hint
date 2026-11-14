@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C++ wrapper for libupnp (licensing & readmes)"
+ldesc: "Libupnpp can be used to implement UPnP devices and services, or Control
+Points."
+

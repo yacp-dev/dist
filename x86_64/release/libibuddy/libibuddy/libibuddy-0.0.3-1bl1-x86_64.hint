@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libibuddy0
+sdesc: "Library to control your iBuddy device (licensing & readmes)"
+ldesc: "Library to control your iBuddy device"
+

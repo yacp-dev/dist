@@ -1,0 +1,6 @@
+category: Security
+requires: libqt5keychain1 libQt5Core-devel
+sdesc: "Platform-independent Qt API for storing passwords securely (development)"
+ldesc: "QtKeychain is a Qt API to store passwords and other secret data securely."
+external-source: qtkeychain
+

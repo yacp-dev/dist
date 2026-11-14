@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config xsimd
+sdesc: "C++ tensors with broadcasting and lazy computing"
+ldesc: "C++ tensors with broadcasting and lazy computing"
+

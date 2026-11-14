@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Efficient Probabilistic 3D Mapping Framework Based on Octrees (runtime)"
+ldesc: "Efficient Probabilistic 3D Mapping Framework Based on Octrees"
+external-source: octomap
+

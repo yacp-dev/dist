@@ -1,0 +1,11 @@
+category: Libs
+requires: girepository-GLib2.0 libglib2.0-devel libvips42
+sdesc: "Fast image processing library with low memory needs (GObject Introspection data)"
+ldesc: "VIPS is a free image processing system. It is good with large images (images
+larger than the amount of RAM you have available), with many CPUs (see
+Benchmarks for examples of SMP scaling, VIPS is also part of the PARSEC
+suite), for working with colour, for scientific analysis and for general
+research & development. As well as JPEG, TIFF and PNG images, it also supports
+scientific formats like FITS, Matlab, Analyze, PFM, Radiance and OpenSlide."
+external-source: libvips
+

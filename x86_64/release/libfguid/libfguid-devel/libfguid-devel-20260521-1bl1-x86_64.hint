@@ -1,0 +1,6 @@
+category: Libs
+requires: libfguid1 pkg-config
+sdesc: "Library for GUID/UUID data types (development)"
+ldesc: "libfguid is a library for GUID/UUID data types."
+external-source: libfguid
+

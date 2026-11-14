@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libCatch2-devel libzmq-devel
+sdesc: "C++ binding for 0MQ"
+ldesc: "This is C++ binding for 0MQ."
+skip:
+
+homepage: https://github.com/zeromq/cppzmq
+license: MIT

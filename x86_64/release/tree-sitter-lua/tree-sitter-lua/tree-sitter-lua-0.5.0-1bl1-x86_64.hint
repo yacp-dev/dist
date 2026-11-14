@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Lua grammar for tree-sitter (licensing & readmes)"
+ldesc: "Lua grammar for tree-sitter"
+

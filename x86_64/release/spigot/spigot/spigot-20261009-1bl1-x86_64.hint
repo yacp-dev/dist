@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libgcc1 libgmp10 libncursesw10 libstdc++6
+sdesc: "Command-line exact real calculator"
+ldesc: "Spigot is a command-line streaming exact real calculator."
+

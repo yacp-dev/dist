@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Optimized OpenGL/Graphics Math (glm) for C (licensing & readmes)"
+ldesc: "cglm is an optimized 3D math library written in C99 (compatible with C89). It
+is similar to the original glm library, except cglm is mainly for C."
+skip:
+
+homepage: https://github.com/recp/cglm
+license: MIT

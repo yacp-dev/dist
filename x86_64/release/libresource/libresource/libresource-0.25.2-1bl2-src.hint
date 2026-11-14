@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport dbus libdbus1-devel libglib2.0-devel
+sdesc: "Libplayback replacement library (utilities)"
+ldesc: "Libplayback replacement library"
+skip:
+
+homepage: https://github.com/sailfishos/libresource
+license: LGPL-2.1-or-later AND (AFL-2.1 OR GPL-2.0-or-later)

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Lua grammar for tree-sitter (runtime)"
+ldesc: "Lua grammar for tree-sitter"
+external-source: tree-sitter-lua
+

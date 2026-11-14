@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libao-devel
+sdesc: "Library for InterPlay ACM Audio format (licensing & readmes)"
+ldesc: "Library for InterPlay ACM Audio format"
+skip:
+
+homepage: https://github.com/markokr/libacm
+license: ISC

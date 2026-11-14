@@ -1,0 +1,6 @@
+category: Libs
+requires: libacm1 pkg-config
+sdesc: "Library for InterPlay ACM Audio format (development)"
+ldesc: "Library for InterPlay ACM Audio format"
+external-source: libacm
+

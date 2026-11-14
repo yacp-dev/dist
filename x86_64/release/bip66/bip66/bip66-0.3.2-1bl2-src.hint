@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel libgtest0
+sdesc: "Simple Bitcoin BIP66 Implementation in C++ for the ARK Blockchain (licensing & readmes)"
+ldesc: "Simple Bitcoin BIP66 Implementation in C++ for the ARK Blockchain"
+skip:
+
+homepage: https://github.com/sleepdefic1t/bip66
+license: MIT

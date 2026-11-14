@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport libbz2-devel libcityhash-devel zlib-devel
+sdesc: "USEARCH-compatible metagenomic sequence tool"
+ldesc: "USEARCH-compatible metagenomic sequence tool"
+skip:
+
+homepage: https://github.com/torognes/vsearch
+license: GPL-3.0-or-later OR BSD-2-Clause

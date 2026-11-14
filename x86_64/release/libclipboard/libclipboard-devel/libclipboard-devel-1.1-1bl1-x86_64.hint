@@ -1,0 +1,8 @@
+category: Libs
+requires: libclipboard1.1 pkg-config
+sdesc: "Cross-platform clipboard library (development)"
+ldesc: "libclipboard is a cross-platform clipboard library written in C.
+It supports reading and writing text on the Windows, X11 and macOS
+clipboards, and provides custom allocator support."
+external-source: libclipboard
+

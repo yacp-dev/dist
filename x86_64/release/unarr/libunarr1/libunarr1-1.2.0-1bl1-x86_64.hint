@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbz2_1 liblzma5 zlib0
+sdesc: "Decompression library for rar, tar and zip archives (runtime)"
+ldesc: "(lib)unarr is a decompression library for RAR, TAR, ZIP and 7z* archives."
+external-source: unarr
+

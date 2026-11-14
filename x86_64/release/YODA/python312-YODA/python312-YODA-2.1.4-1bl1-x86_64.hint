@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libgcc1 libhdf5_320 libstdc++6 libYODA0 python3 python312 python312-matplotlib python312-numpy
+sdesc: "Yet more Objects for Data Analysis (python312 bindings)"
+ldesc: "YODA is a small set of data analysis (specifically histogramming) classes
+being developed by MCnet members as a lightweight common system for MC event
+generator validation analyses, particularly as the core histogramming system
+in Rivet."
+external-source: YODA
+

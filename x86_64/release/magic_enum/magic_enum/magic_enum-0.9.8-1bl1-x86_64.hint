@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config
+sdesc: "Static reflection for enums (to string, from string, iteration) for modern C++"
+ldesc: "Static reflection for enums (to string, from string, iteration) for modern C++"
+

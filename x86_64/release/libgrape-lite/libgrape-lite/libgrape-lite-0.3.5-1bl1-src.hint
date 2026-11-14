@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgflags-devel libglog-devel libopenmpi-devel librdkafka++-devel librdkafka-devel
+sdesc: "C++ library for parallel graph processing (utilities)"
+ldesc: "libgrape-lite is a C++ library from Alibaba for parallel graph processing."
+skip:
+
+homepage: https://github.com/alibaba/libgrape-lite
+license: Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSL-1.0 AND MIT AND Zlib

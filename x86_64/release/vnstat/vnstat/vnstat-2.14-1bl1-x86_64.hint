@@ -1,0 +1,10 @@
+category: Net
+requires: cygwin libgd3 libsqlite3_0
+sdesc: "Console-based network traffic monitor"
+ldesc: "vnStat is a console-based network traffic monitor for Linux and BSD that keeps
+a log of network traffic for the selected interface(s). It uses the network
+interface statistics provided by the kernel as information source. This means
+that vnStat won't actually be sniffing any traffic and also ensures light use
+of system resources. However, in Linux at least a 2.2 series kernel is
+required."
+

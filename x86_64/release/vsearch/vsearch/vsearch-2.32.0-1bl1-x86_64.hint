@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libcityhash0 libgcc1 libstdc++6
+sdesc: "USEARCH-compatible metagenomic sequence tool"
+ldesc: "USEARCH-compatible metagenomic sequence tool"
+

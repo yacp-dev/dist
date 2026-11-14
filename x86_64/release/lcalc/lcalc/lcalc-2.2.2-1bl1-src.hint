@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gengetopt
+sdesc: "Package for working with L-functions (utilities)"
+ldesc: "Package for working with L-functions"
+skip:
+
+homepage: https://gitlab.com/sagemath/lcalc
+license: GPL-2.0-or-later

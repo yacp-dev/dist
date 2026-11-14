@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libzip5 zlib0
+sdesc: "Implementation of the 3D Manufacturing Format file standard (runtime)"
+ldesc: "Lib3MF is a C++ implementation of the 3D Manufacturing Format file standard."
+external-source: lib3mf
+

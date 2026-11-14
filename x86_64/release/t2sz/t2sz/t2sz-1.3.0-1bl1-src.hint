@@ -1,0 +1,10 @@
+category: Archive
+build-depends: cygport libzstd-devel
+sdesc: "Compress a file into a seekable zstd with special handling for .tar archives"
+ldesc: "t2sz compress a file into a seekable zstd. If the file is a tar archive it
+compress each file in the archive into an independent frame, hence the name:
+tar 2 seekable zstd."
+skip:
+
+homepage: https://github.com/martinellimarco/t2sz
+license: GPL-3.0-or-later

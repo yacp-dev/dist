@@ -1,0 +1,8 @@
+category: Database
+requires: cygwin libgcc1 libiodbc2 libmariadb3 libpq5 libsqlite3_0 libstdc++6
+sdesc: "SQL Connectivity Library (runtime)"
+ldesc: "CppDB is an SQL connectivity library that is designed to provide platform and
+Database independent connectivity API similarly to what JDBC, ODBC and other
+connectivity libraries do."
+external-source: cppdb
+

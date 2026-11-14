@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library for the high-level algorithmic differentiation of scientific models (licensing & readmes)"
+ldesc: "libadjoint is a library for the high-level algorithmic differentiation of
+scientific models. It's mainly used by dolfin-adjoint."
+skip:
+
+homepage: https://bitbucket.org/dolfin-adjoint/libadjoint
+license: LGPL-2.1-or-later

@@ -1,0 +1,8 @@
+category: Devel
+requires: python312
+sdesc: "Streaming protocol for test results (python312 bindings)"
+ldesc: "Subunit is a streaming protocol for test results. The protocol is a binary
+encoding that is easily generated and parsed. By design all the components of
+the protocol conceptually fit into the xUnit TestCase->TestResult interaction."
+external-source: subunit
+

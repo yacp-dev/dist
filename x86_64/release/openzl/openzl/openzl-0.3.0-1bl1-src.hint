@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libbenchmark-devel libfmt-devel libgtest-devel liblz4-devel libzstd-devel git
+sdesc: "Novel data compression framework (licensing & readmes)"
+ldesc: "OpenZL delivers high compression ratios while preserving high speed, a level
+of performance that is out of reach for generic compressors."
+skip:
+
+homepage: https://github.com/facebook/openzl
+license: BSD-3-Clause AND BSD-2-Clause AND Zlib

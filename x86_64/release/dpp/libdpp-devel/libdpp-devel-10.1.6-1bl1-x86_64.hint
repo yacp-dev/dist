@@ -1,0 +1,8 @@
+category: Libs
+requires: libdpp10.1.6 pkg-config libopus-devel libssl-devel zlib-devel
+sdesc: "C++ Discord API Bot Library (development)"
+ldesc: "D++ is a lightweight and efficient library for Discord written in modern C++,
+covering as much of the API specification as possible with an incredibly small
+memory footprint even when caching large amounts of data."
+external-source: dpp
+

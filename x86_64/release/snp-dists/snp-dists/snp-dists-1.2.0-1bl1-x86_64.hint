@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libgomp1 zlib0
+sdesc: "Pairwise SNP distance matrix from a FASTA sequence alignment"
+ldesc: "Pairwise SNP distance matrix from a FASTA sequence alignment"
+

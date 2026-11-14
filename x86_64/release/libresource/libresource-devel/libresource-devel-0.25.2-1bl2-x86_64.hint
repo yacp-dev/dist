@@ -1,0 +1,6 @@
+category: Libs
+requires: libglib2.0-devel libresource0 pkg-config
+sdesc: "Libplayback replacement library (development)"
+ldesc: "Libplayback replacement library"
+external-source: libresource
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport extra-cmake-modules libQt5Core-devel libQt5Quick-devel libqofono-qt5-devel
+sdesc: "C++ API for Jolla ofono extensions (licensing & readmes)"
+ldesc: "A library for accessing Sailfish OS specific ofono extensions, and a
+declarative plugin for it."
+skip:
+
+homepage: https://github.com/sailfishos/libqofonoext
+license: LGPL-2.1-or-later

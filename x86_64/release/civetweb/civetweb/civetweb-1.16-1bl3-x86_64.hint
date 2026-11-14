@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcivetweb1.16.0
+sdesc: "Embedded C/C++ web server (utilities)"
+ldesc: "Project mission is to provide easy to use, powerful, C (C/C++) embeddable web
+server with optional CGI, SSL and Lua support. CivetWeb has a MIT license so
+you can innovate without restrictions."
+

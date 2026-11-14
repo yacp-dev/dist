@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-c-sharp14.0 pkg-config
+sdesc: "C-sharp Grammar for tree-sitter (development)"
+ldesc: "C-sharp Grammar for tree-sitter"
+external-source: tree-sitter-c-sharp
+

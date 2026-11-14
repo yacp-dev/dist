@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "C99 implementation of huffman encoding/decoding (utilities)"
+ldesc: "This is a cross-platform C99 implementation of compression algorithms such as
+gzip, and huffman encoding/decoding. Currently only huffman is implemented."
+

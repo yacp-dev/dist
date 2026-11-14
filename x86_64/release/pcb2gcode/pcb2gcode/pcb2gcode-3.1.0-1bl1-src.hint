@@ -1,0 +1,11 @@
+category: Utils
+build-depends: cygport libboost-devel libgeos-devel libgerbv-devel libglib2.0-devel nlohmann_json
+sdesc: "Command-line tool for isolation, routing and drilling of PCBs"
+ldesc: "pcb2gcode is a command-line software for the isolation, routing and drilling
+of PCBs. It takes Gerber files as input and it outputs gcode files, suitable
+for the milling of PCBs. It also includes an Autoleveller, useful for the
+automatic dynamic calibration of the milling depth."
+skip:
+
+homepage: https://github.com/pcb2gcode/pcb2gcode
+license: GPL-3.0-or-later

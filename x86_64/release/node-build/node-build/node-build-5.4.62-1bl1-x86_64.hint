@@ -1,0 +1,6 @@
+category: Devel
+requires: bash autoconf openssl pkg-config
+sdesc: "Install NodeJS versions"
+ldesc: "node-build is a command-line utility that makes it easy to install virtually
+any version of Node, from source or precompiled binary."
+

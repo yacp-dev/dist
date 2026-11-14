@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libglib2.0_0 libintl8 libticables2_7 libticonv8 libtifiles2_10
+sdesc: "Library for communication with TI calculators (runtime)"
+ldesc: "The ticalcs library is a library built on top of the ticables/tifiles
+libraries which handles all calculators through a common API."
+external-source: libticalcs2
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for cross-platform C file functions (licensing & readmes)"
+ldesc: "libcfile is a library for cross-platform C file functions."
+

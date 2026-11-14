@@ -1,0 +1,6 @@
+category: Libs
+requires: libhdr_histogram6 pkg-config zlib-devel
+sdesc: "C port of the HdrHistogram (development)"
+ldesc: "C port of High Dynamic Range (HDR) Histogram"
+external-source: HdrHistogram_c
+

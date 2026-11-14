@@ -1,0 +1,11 @@
+category: Devel
+build-depends: cygport zlib-devel
+sdesc: "Z80, 8080 and Z180 assembler"
+ldesc: "zasm accepts source code using 8080 and Z80 syntax and can
+convert 8080 syntax to Z80. It can generate binary files, Intel Hex or Motorola
+S19 files, and specialized files for Sinclair and Jupiter Ace and .tzx tape
+files."
+skip:
+
+homepage: https://github.com/Megatokio/zasm
+license: BSD-2-Clause AND BSD-3-Clause

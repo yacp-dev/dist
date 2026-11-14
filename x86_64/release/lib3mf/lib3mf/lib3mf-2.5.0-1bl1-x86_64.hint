@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Implementation of the 3D Manufacturing Format file standard (licensing & readmes)"
+ldesc: "Lib3MF is a C++ implementation of the 3D Manufacturing Format file standard."
+

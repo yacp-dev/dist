@@ -1,0 +1,9 @@
+category: Libs
+requires: libayemu1.0.0_0 pkg-config
+sdesc: "AY/YM sound chip emulator library (development)"
+ldesc: "This is the AY/YM sound chip emulator. This chip was used in wide range of old
+popular machines as Sinclair ZX Spectrum 128, Amstrad, Atari ST and others.
+With this library you can hear music from these 21 computers games or add
+AY/YM music to your own games/demoz/etc."
+external-source: libayemu
+

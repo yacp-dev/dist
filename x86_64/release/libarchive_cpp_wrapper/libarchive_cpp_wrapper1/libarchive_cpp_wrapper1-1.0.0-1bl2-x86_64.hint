@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libarchive13 libgcc1 libstdc++6
+sdesc: "C++ wrapper arround libarchive library (runtime)"
+ldesc: "C++ wrapper arround libarchive library"
+external-source: libarchive_cpp_wrapper
+

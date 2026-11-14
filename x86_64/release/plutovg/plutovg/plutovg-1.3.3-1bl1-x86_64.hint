@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Tiny 2D vector graphics library (licensing & readmes)"
+ldesc: "PlutoVG is a standalone 2D vector graphics library in C."
+

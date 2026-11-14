@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport 
+sdesc: "Hadron Seedless Infrared-Safe Cone jet algorithm (licensing & readmes)"
+ldesc: "SISCone is a Seedless Infrared Safe Cone jet algorithm."
+skip:
+
+homepage: https://siscone.hepforge.org/
+license: GPL-2.0-or-later

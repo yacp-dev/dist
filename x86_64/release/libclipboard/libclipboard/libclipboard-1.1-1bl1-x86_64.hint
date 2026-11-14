@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Cross-platform clipboard library (licensing & readmes)"
+ldesc: "libclipboard is a cross-platform clipboard library written in C.
+It supports reading and writing text on the Windows, X11 and macOS
+clipboards, and provides custom allocator support."
+

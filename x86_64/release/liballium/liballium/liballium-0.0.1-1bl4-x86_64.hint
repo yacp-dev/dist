@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C Tor Pluggable Transports Utility Library (licensing & readmes)"
+ldesc: "liballium attempts to reduce the amount of boilerplate code required to
+implement pluggable transports for Tor in C or C++."
+

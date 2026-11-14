@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Conversion library for Amiga planar graphics data and EHB, HAM screen modes (licensing & readmes)"
+ldesc: "Commodore Amiga hardware uses a different means of storing and displaying
+graphics compared to modern hardware, such as PCs."
+

@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config
+sdesc: "Minimalist protocol buffer decoder and encoder in C++"
+ldesc: "Minimalist protocol buffer decoder and encoder in C++"
+

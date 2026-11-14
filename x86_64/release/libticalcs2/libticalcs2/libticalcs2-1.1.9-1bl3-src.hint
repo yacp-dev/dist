@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libglib2.0-devel libintl-devel libticables2-devel libticonv-devel libtifiles2-devel
+sdesc: "Library for communication with TI calculators (licensing & readmes)"
+ldesc: "The ticalcs library is a library built on top of the ticables/tifiles
+libraries which handles all calculators through a common API."
+skip:
+
+homepage: http://lpg.ticalc.org/prj_tilp/
+license: GPL-2.0-or-later

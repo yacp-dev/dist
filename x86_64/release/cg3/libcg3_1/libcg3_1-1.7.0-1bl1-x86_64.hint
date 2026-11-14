@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libgcc1 libicu76 libsqlite3_0 libstdc++6
+sdesc: "Tools for the 3rd edition of the Constraint Grammar formalism (runtime)"
+ldesc: "Tools for the 3rd edition of the Constraint Grammar formalism"
+external-source: cg3
+

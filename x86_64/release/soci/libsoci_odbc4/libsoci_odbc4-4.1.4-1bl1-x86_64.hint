@@ -1,0 +1,7 @@
+category: Database
+requires: cygwin libfmt12 libgcc1 libiodbc2 libsoci_core4 libstdc++6
+sdesc: "C++ Database Access Library (runtime / odbc)"
+ldesc: "SOCI is a database access library for C++ that makes the illusion of embedding
+SQL queries in the regular C++ code, staying entirely within the Standard C++."
+external-source: soci
+

@@ -1,0 +1,9 @@
+category: Security
+requires: libsqlite3-devel libssl-devel libtpm2_pkcs11_1 libtss2-esys-devel libtss2-mu-devel pkg-config
+sdesc: "PKCS11 interface for TPM2 hardware (development)"
+ldesc: "PKCS11 is a Public-Key Cryptography Standard that defines a standard method to
+access cryptographic services from tokens/ devices such as hardware security
+modules (HSM), smart cards, etc. In this project we intend to use a TPM2 device
+as the cryptographic token."
+external-source: tpm2-pkcs11
+

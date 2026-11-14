@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libjpeg-devel libtiff-devel
+sdesc: "Library of DSP functions for telephony (licensing & readmes)"
+ldesc: "Spandsp is a library of many DSP functions for telephony. These range from
+simple modules, such as DTMF detection, to a complete software FAX machine."
+skip:
+
+homepage: https://github.com/freeswitch/spandsp
+license: LGPL-2.1-or-later AND GPL-2.0-only

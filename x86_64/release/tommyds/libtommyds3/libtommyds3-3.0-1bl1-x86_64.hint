@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "C library of hashtables and tries designed to store objects with high performance (runtime)"
+ldesc: "TommyDS is a C library of array, hashtables and tries data structures,
+designed for high performance and providing an easy to use interface."
+external-source: tommyds
+

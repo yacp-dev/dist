@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Recognizer library written in C (runtime)"
+ldesc: "This is PocketSphinx, one of Carnegie Mellon University's open source large
+vocabulary, speaker-independent continuous speech recognition engine. Please
+see the LICENSE file for terms of use."
+external-source: pocketsphinx
+

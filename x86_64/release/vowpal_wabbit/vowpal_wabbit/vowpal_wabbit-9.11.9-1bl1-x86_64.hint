@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libfmt12 libgcc1 libstdc++6 pkg-config zlib0
+sdesc: "Online learning algorithm"
+ldesc: "This is a project started at Yahoo! Research and continuing at Microsoft
+Research to design a fast, scalable, useful learning algorithm."
+

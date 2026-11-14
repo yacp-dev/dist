@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgfortran5 libgomp1 liblapack0
+sdesc: "Domain decomposition continuum solvation library (runtime)"
+ldesc: "Domain decomposition continuum solvation library"
+external-source: ddx
+

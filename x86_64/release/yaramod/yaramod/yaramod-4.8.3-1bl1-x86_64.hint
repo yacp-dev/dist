@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Parsing of YARA rules into AST and building new rulesets in C++ (licensing & readmes)"
+ldesc: "yaramod is a library that provides parsing of YARA rules into AST and a C++
+programming interface to build new YARA rulesets. This project is not
+associated with the YARA project."
+

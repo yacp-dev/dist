@@ -1,0 +1,7 @@
+category: Libs
+requires: libavtp0 pkg-config
+sdesc: "AVTP packetization library (development)"
+ldesc: "Open source implementation of Audio Video Transport Protocol (AVTP) specified
+in IEEE 1722-2016 spec."
+external-source: libavtp
+

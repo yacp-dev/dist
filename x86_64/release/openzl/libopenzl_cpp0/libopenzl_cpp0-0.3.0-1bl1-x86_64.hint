@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libopenzl0 libstdc++6
+sdesc: "Novel data compression framework (runtime / c++)"
+ldesc: "OpenZL delivers high compression ratios while preserving high speed, a level
+of performance that is out of reach for generic compressors."
+external-source: openzl
+

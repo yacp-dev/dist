@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libmbedcrypto5 libmbedtls13 libmbedx509_1
+sdesc: "nanomsg-next-generation (runtime)"
+ldesc: "This project is a rewrite of the Scalability Protocols library known as
+libnanomsg, and adds significant new capabilities, while retaining
+compatibility with the original."
+external-source: nng
+

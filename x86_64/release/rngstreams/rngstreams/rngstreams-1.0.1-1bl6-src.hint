@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Multiple independent streams of pseudo-random numbers (licensing & readmes)"
+ldesc: "RngStreams is a C implementation of a high quality uniform random number
+generator that supports multiple independent streams of uniform random numbers."
+skip:
+
+homepage: https://statmath.wu.ac.at/software/RngStreams/
+license: GPL-2.0-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: libggml-devel libllama0 pkg-config
+sdesc: "LLM inference in C/C++ (development)"
+ldesc: "LLM inference in C/C++"
+external-source: llama.cpp
+

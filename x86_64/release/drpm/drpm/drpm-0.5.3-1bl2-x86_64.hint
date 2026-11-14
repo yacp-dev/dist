@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for making, reading and applying deltarpm packages (licensing & readmes)"
+ldesc: "Library for making, reading and applying deltarpm packages"
+

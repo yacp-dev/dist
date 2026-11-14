@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Small library to find constants in rpm headers (runtime)"
+ldesc: "This small libraries find constant in rpm header and provide function to find
+value <=> constant name pair."
+external-source: rpmconstant
+

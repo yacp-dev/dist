@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gcc-fortran python3-numpy
+sdesc: "General GTO integrals for quantum chemistry (licensing & readmes)"
+ldesc: "libcint is an open source library for analytical Gaussian integrals.
+It provides C/Fortran API to evaluate one-electron / two-electron
+integrals for Cartesian / real-spheric / spinor Gaussian type functions."
+skip:
+
+homepage: https://github.com/sunqm/libcint
+license: BSD-2-Clause

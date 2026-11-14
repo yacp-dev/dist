@@ -1,0 +1,6 @@
+category: Libs
+requires: libsimdutf37 pkg-config
+sdesc: "Unicode validation and transcoding at billions of characters per second (development)"
+ldesc: "Unicode validation and transcoding at billions of characters per second"
+external-source: simdutf
+

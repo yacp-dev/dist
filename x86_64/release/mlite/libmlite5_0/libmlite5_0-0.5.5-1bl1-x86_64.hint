@@ -1,0 +1,6 @@
+category: Utils
+requires: cygwin libgcc1 libglib2.0_0 libQt5Core5 libstdc++6
+sdesc: "Useful classes originating from MeeGo Touch (runtime)"
+ldesc: "Useful classes originating from MeeGo Touch"
+external-source: mlite
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: liblog4cplus11 pkg-config
+sdesc: "Logging Framework for C++ (development)"
+ldesc: "log4cplus is a simple to use C++ logging API providing thread-safe, flexible,
+and arbitrarily granular control over log management and configuration. It is
+modelled after the Java log4j API."
+external-source: log4cplus
+

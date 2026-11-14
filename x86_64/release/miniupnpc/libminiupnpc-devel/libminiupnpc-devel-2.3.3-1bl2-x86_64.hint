@@ -1,0 +1,6 @@
+category: Libs
+requires: libminiupnpc21 pkg-config
+sdesc: "UPnP IGD control point (development)"
+ldesc: "UPnP IGD control point"
+external-source: miniupnpc
+

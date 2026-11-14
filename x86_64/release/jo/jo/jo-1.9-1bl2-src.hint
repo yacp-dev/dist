@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport bash-completion-devel
+sdesc: "JSON output from a shell"
+ldesc: "This is jo, a small utility to create JSON objects or arrays."
+skip:
+
+homepage: https://github.com/jpmens/jo
+license: GPL-2.0-or-later AND MIT

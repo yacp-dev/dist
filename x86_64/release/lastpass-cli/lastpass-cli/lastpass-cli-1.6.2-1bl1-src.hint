@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport asciidoc bash-completion-devel libcurl-devel libssl-devel libxml2-devel
+sdesc: "LastPass command line interface tool"
+ldesc: "Command line interface to LastPass.com."
+skip:
+
+homepage: https://github.com/lastpass/lastpass-cli
+license: GPL-2.0-or-later AND ISC

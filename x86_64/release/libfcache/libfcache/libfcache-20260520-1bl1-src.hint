@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcdata-devel libcerror-devel libcthreads-devel
+sdesc: "Library to provide generic file data cache functions (licensing & readmes)"
+ldesc: "libfcache is a library to provide generic file data cache functions."
+skip:
+
+homepage: https://github.com/libyal/libfcache
+license: LGPL-3.0-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: libfcache1 pkg-config
+sdesc: "Library to provide generic file data cache functions (development)"
+ldesc: "libfcache is a library to provide generic file data cache functions."
+external-source: libfcache
+

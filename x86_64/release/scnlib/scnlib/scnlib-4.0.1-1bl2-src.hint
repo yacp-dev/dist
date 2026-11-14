@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport fast_float libgmock-devel libgtest-devel
+sdesc: "Scanf for modern C++ (licensing & readmes)"
+ldesc: "Scanf for modern C++"
+skip:
+
+homepage: https://github.com/eliaskosunen/scnlib
+license: Apache-2.0

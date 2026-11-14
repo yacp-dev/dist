@@ -1,0 +1,8 @@
+category: Libs
+requires: libfpconv0 pkg-config
+sdesc: "Fast and accurate double to string conversion (development)"
+ldesc: "Minimalistic C / D implementation of Fabian Loitsch's Grisu-algorithm. Grisu
+converts floating point numbers to an optimal decimal string representation
+without loss of precision."
+external-source: fpconv
+

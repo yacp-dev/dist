@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Dynamic Hashed Blocks (DHB) format (licensing & readmes)"
+ldesc: "DHB (Dynamic Hashed Blocks) is a high-performance data structure designed for
+sparse dynamic graphs and matrices."
+

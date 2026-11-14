@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libgcc1 libjasper7 libstdc++6 libturbojpeg0 libyaml-cpp0.9 zlib0
+sdesc: "DICOM to NIfTI converter"
+ldesc: "dcm2niix is designed to convert neuroimaging data from the DICOM format to the
+NIfTI format. This web page hosts the developmental source code - a compiled
+version for Linux, MacOS, and Windows of the most recent stable release is
+included with MRIcroGL. A full manual for this software is available in the
+form of a NITRC wiki."
+

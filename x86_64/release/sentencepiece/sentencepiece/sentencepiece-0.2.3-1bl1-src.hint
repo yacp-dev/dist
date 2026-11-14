@@ -1,0 +1,14 @@
+category: Text
+build-depends: cygport flatbuffers libabseil-devel libflatbuffers-devel libgmock-devel libgtest-devel libprotobuf-devel
+sdesc: "Unsupervised text tokenizer for Neural Network-based text generation (utilities)"
+ldesc: "SentencePiece is an unsupervised text tokenizer and detokenizer mainly for
+Neural Network-based text generation systems where the vocabulary size is
+predetermined prior to the neural model training. SentencePiece implements
+subword units (e.g., byte-pair-encoding (BPE) [Sennrich et al.]) and unigram
+language model [Kudo.]) with the extension of direct training from raw
+entences. SentencePiece allows us to make a purely end-to-end system that does
+not depend on language-specific pre/postprocessing."
+skip:
+
+homepage: https://github.com/google/sentencepiece
+license: Apache-2.0 AND BSD-3-Clause

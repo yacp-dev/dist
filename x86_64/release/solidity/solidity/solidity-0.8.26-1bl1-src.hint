@@ -1,0 +1,12 @@
+category: Net
+build-depends: cygport libboost-devel
+sdesc: "Contract-Oriented Programming Language"
+ldesc: "Solidity is a statically-typed curly-braces programming language designed for
+developing smart contracts that run on the Ethereum Virtual Machine. Smart
+contracts are programs that are executed inside a peer-to-peer network where
+nobody has special authority over the execution and thus they allow to
+implement tokens of value, ownership, voting and other kinds of logics."
+skip:
+
+homepage: https://github.com/argotorg/solidity
+license: GPL-3.0-only AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND MIT AND (MIT OR NCSA)

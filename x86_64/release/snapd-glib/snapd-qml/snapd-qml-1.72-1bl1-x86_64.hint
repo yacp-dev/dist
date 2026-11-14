@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libQt5Core5 libQt5Quick5 libsnapd-qt1 libstdc++6
+sdesc: "Glib library for communicating with snapd (qml bindings)"
+ldesc: "snapd-glib is a library to allow GLib based applications access to snapd, the
+daemon that controls Snaps."
+external-source: snapd-glib
+

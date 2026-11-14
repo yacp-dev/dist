@@ -1,0 +1,10 @@
+category: Devel
+build-depends: cygport check cppunit python3-devel
+sdesc: "Streaming protocol for test results (utilities)"
+ldesc: "Subunit is a streaming protocol for test results. The protocol is a binary
+encoding that is easily generated and parsed. By design all the components of
+the protocol conceptually fit into the xUnit TestCase->TestResult interaction."
+skip:
+
+homepage: https://github.com/testing-cabal/subunit
+license: Apache-2.0 OR BSD-3-Clause

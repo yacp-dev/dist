@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgomp1
+sdesc: "Lightweight suffix-sorting library (runtime / 64bit)"
+ldesc: "The libdivsufsort project provides a fast, lightweight, and robust C API
+library to construct the suffix array and the Burrows-Wheeler transformed
+string for any input string of a constant-size alphabet."
+external-source: libdivsufsort
+

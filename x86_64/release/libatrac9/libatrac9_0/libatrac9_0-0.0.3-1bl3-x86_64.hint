@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library for decoding audio in Sony's ATRAC9 format (runtime)"
+ldesc: "Library for decoding audio in Sony's ATRAC9 format"
+external-source: libatrac9
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Collection of Sophisticated C++ Data Structures, Algorithms, and Miscellaneous Helpers (licensing & readmes)"
+ldesc: "Collection of Sophisticated C++ Data Structures, Algorithms, and Miscellaneous Helpers"
+skip:
+
+homepage: https://github.com/tlx/tlx
+license: BSL-1.0

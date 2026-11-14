@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Portable, high-performance ANSI-C implementations of pseudorandom number generators (licensing & readmes)"
+ldesc: "PRNG is a portable, high-performance ANSI-C implementations of pseudorandom
+number generators such as linear congruential, inversive congruential, and
+explicit inversive congruential random number generators (called LCG, ICG and
+EICG, respectively) created by Otmar Lendl. It is part of the pLab project."
+skip:
+
+homepage: https://statmath.wu.ac.at/prng/
+license: LicenseRef-prng AND LGPL-2.0-or-later

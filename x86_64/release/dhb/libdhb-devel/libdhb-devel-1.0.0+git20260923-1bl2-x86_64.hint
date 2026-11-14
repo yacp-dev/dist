@@ -1,0 +1,7 @@
+category: Libs
+requires: libdhb1 pkg-config
+sdesc: "Dynamic Hashed Blocks (DHB) format (development)"
+ldesc: "DHB (Dynamic Hashed Blocks) is a high-performance data structure designed for
+sparse dynamic graphs and matrices."
+external-source: dhb
+

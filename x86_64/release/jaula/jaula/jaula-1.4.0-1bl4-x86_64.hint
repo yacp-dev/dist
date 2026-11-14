@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libjaula1 libstdc++6
+sdesc: "C++ JSON encoder/decoder library (utilities)"
+ldesc: "GNU C++ library for coding and decoding JSON (Javascript Object Notation) data
+into or from streams"
+

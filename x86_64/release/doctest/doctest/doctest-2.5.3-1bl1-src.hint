@@ -1,0 +1,12 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Fastest feature-rich C++11/14/17/20 single-header testing framework"
+ldesc: "doctest is a new C++ testing framework but is by far the fastest both in
+compile times (by orders of magnitude) and runtime compared to other
+feature-rich alternatives. It brings the ability of compiled languages such as
+D / Rust / Nim to have tests written directly in the production code thanks to
+a fast, transparent and flexible test runner with a clean interface."
+skip:
+
+homepage: https://github.com/doctest/doctest
+license: MIT

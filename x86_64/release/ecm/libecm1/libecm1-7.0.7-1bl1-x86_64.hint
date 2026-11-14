@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgmp10 libgomp1
+sdesc: "Factor integers using the Elliptic Curve Method (runtime)"
+ldesc: "gmp-ecm is a free implementation of the Elliptic Curve Method (ECM) for
+integer factorization."
+external-source: ecm
+

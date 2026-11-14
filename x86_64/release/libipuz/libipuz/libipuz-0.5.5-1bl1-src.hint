@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport cargo gettext-devel girepository-Json1.0 gobject-introspection libgirepository1.0-devel libglib2.0-devel libjson-glib1.0-devel rust
+sdesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc. (licensing & readmes)"
+ldesc: "Library for parsing ipuz files, for crossword puzzles, sudokus, etc."
+skip:
+
+homepage: https://gitlab.gnome.org/jrb/libipuz
+license: LGPL-2.1-or-later OR MIT

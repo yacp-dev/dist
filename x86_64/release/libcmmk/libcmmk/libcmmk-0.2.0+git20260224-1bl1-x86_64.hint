@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcmmk0
+sdesc: "Unofficial LED control API for Coolermaster Masterkey keyboards (utilities)"
+ldesc: "Unofficial LED control API for Coolermaster Masterkey keyboards"
+

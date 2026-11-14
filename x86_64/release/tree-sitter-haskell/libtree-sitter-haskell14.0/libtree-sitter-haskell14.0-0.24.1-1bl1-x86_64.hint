@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Haskell grammar for tree-sitter (runtime)"
+ldesc: "Haskell grammar for tree-sitter"
+external-source: tree-sitter-haskell
+

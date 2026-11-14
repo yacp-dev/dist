@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "OCaml grammar for tree-sitter (licensing & readmes)"
+ldesc: "OCaml grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-ocaml
+license: MIT

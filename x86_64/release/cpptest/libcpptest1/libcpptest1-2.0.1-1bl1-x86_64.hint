@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Powerful, yet simple, C++ unit testing framework (runtime)"
+ldesc: "Powerful, yet simple, C++ unit testing framework"
+external-source: cpptest
+

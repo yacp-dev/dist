@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin liblua5.3 libucl5
+sdesc: "Universal configuration library parser (lua bindings)"
+ldesc: "UCL is heavily infused by nginx configuration as the example of a convenient
+configuration system."
+external-source: libucl
+

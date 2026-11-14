@@ -1,0 +1,7 @@
+category: Libs
+requires: libcminpack1 pkg-config
+sdesc: "C implementation of the MINPACK nonlinear optimization library (development)"
+ldesc: "cminpack is an ISO C99 implementation of the FORTRAN Minpack solver package.
+It is fully re-entrant and thread-safe."
+external-source: cminpack
+

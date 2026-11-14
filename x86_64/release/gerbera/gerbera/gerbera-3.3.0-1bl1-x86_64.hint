@@ -1,0 +1,7 @@
+category: Audio
+requires: cygwin file libavcodec63 libavfilter12 libavformat63 libavutil61 libcurl4 libduktape207 libebml4 libexif12 libexiv2_28 libffmpegthumbnailer4 libfmt12 libgcc1 libiconv2 libicu76 libintl8 libjsoncpp27 liblastfmlib1 libmariadb3 libmatroska6 libnpupnp13 libpugixml1 libspdlog1.17 libsqlite3_0 libstdc++6 libtag2 libuuid1 libwavpack1
+sdesc: "UPnP Media Server"
+ldesc: "Gerbera is a UPnP media server which allows you to stream your digital media
+through your home network and consume it on a variety of UPnP compatible
+devices."
+

@@ -1,0 +1,9 @@
+category: Math
+requires: libnlopt1 pkg-config
+sdesc: "Non-linear optimization library (development)"
+ldesc: "NLopt is a free/open-source library for nonlinear optimization, providing a
+common interface for a number of different free optimization routines
+available online as well as original implementations of various other
+algorithms."
+external-source: nlopt
+

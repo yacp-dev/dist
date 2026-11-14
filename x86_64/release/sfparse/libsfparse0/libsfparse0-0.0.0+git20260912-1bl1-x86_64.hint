@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Structured Field Values parser (runtime)"
+ldesc: "Structured Field Values parser"
+external-source: sfparse
+

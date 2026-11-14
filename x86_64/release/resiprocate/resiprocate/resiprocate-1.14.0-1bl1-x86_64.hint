@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libdb18.1 libgcc1 libresiprocate1.14 libstdc++6
+sdesc: "C++ implementation of SIP, ICE, TURN and related protocols (utilities)"
+ldesc: "C++ implementation of SIP, ICE, TURN and related protocols"
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libplist2.0_12
+sdesc: "Library handling the communication with Apple's Tatsu Signing Server (runtime)"
+ldesc: "Library handling the communication with Apple's Tatsu Signing Server"
+external-source: libtatsu
+

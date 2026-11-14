@@ -1,0 +1,6 @@
+category: Archive
+requires: cygwin libglib2.0_0 libJudy1 zlib0
+sdesc: "Unofficial Slackware Linux Package Manager (runtime)"
+ldesc: "Unofficial Slackware Linux Package Manager"
+external-source: spkg
+

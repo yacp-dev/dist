@@ -1,0 +1,10 @@
+category: Editors
+build-depends: cygport autoconf-archive help2man libgee0.8-devel libglib2.0-devel libncurses-devel vala
+sdesc: "Zile Is Lossy Emacs"
+ldesc: "GNU Zile is a text editor development kit, so that you can (relatively)
+quickly develop your own ideal text editor without reinventing the wheel for
+many of the common algorithms and data-structures needed to do so."
+skip:
+
+homepage: https://www.gnu.org/software/zile/
+license: GPL-3.0-or-later

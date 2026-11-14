@@ -1,0 +1,6 @@
+category: Libs
+requires: bash cygwin libsysrepo8 libyang5
+sdesc: "YANG-based configuration and operational state data store (utilities)"
+ldesc: "Sysrepo is a YANG-based configuration and operational state data store for
+Unix/Linux applications."
+

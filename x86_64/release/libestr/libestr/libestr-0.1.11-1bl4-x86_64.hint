@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for some string essentials (licensing & readmes)"
+ldesc: "Some essentials for string handling (and a bit more)."
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for date and time data types (licensing & readmes)"
+ldesc: "libfdatetime is a library for date and time data types."
+

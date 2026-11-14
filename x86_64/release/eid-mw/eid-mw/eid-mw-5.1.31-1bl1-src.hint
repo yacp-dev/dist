@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport autoconf-archive gettext-devel libassuan-devel libcairo-devel libcurl-devel libgdk_pixbuf2.0-devel libglib2.0-devel libgpg-error-devel libgtk3-devel libintl-devel libp11-kit-devel libpango1.0-devel libpcsclite-devel libproxy-devel libssl-devel libxml2-devel
+sdesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government (licensing & readmes)"
+ldesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government"
+skip:
+
+homepage: https://github.com/Fedict/eid-mw
+license: LGPL-3.0-or-later

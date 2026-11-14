@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Stand-alone ini Parser library in ANSI C (runtime)"
+ldesc: "iniparser is a free stand-alone ini file parsing library."
+external-source: iniparser
+

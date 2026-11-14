@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libhts3
+sdesc: "C library for high-throughput sequencing data formats (utilities)"
+ldesc: "HTSlib is an implementation of a unified C library for accessing common file
+formats, such as SAM, CRAM and VCF, used for high-throughput sequencing data,
+and is the core library used by samtools and bcftools."
+

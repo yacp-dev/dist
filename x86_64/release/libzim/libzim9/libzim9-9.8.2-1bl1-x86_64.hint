@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libicu76 liblzma5 libstdc++6 libxapian30 libzstd1
+sdesc: "Reference implementation of the ZIM specification (runtime)"
+ldesc: "The ZIM library is the reference implementation for the ZIM file format. It's
+a solution to read and write ZIM files on many systems and architectures."
+external-source: libzim
+

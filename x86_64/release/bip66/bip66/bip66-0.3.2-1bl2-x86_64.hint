@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Simple Bitcoin BIP66 Implementation in C++ for the ARK Blockchain (licensing & readmes)"
+ldesc: "Simple Bitcoin BIP66 Implementation in C++ for the ARK Blockchain"
+

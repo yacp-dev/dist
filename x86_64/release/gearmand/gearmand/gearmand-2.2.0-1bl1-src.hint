@@ -1,0 +1,13 @@
+category: Libs
+build-depends: cygport gperf libboost-devel libdrizzle-devel libevent-devel libhiredis-devel libmariadb-devel libmemcached-devel libpq-devel libpq5 libsqlite3-devel libssl-devel libuuid-devel
+sdesc: "Generic application framework (utilities)"
+ldesc: "Gearman provides a generic application framework to farm out work to other
+machines or processes that are better suited to do the work. It allows you to
+do work in parallel, to load balance processing, and to call functions between
+languages. It can be used in a variety of applications, from high-availability
+web sites to the transport of database replication events. In other words, it
+is the nervous system for how distributed processing communicates."
+skip:
+
+homepage: https://github.com/gearman/gearmand
+license: BSD-3-Clause

@@ -1,0 +1,10 @@
+category: Audio
+build-depends: cygport libconfig-devel libprotobuf-c-devel libssl-devel
+sdesc: "Minimalistic Murmur"
+ldesc: "uMurmur is a minimalistic Mumble server primarily targeted to run on routers
+with an open OS like OpenWRT. The server part of Mumble is called Murmur,
+hence the name uMurmur."
+skip:
+
+homepage: https://github.com/umurmur/umurmur
+license: BSD-3-Clause

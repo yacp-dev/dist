@@ -1,0 +1,6 @@
+category: Libs
+requires: libbip66_0 pkg-config
+sdesc: "Simple Bitcoin BIP66 Implementation in C++ for the ARK Blockchain (development)"
+ldesc: "Simple Bitcoin BIP66 Implementation in C++ for the ARK Blockchain"
+external-source: bip66
+

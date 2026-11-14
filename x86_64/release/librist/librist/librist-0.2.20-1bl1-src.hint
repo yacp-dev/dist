@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcjson-devel liblz4-devel libmicrohttpd-devel mbedtls-devel
+sdesc: "Library that can be used to add the RIST protocol to applications (utilities)"
+ldesc: "Library that can be used to add the RIST protocol to applications"
+skip:
+
+homepage: https://code.videolan.org/rist/librist/
+license: BSD-2-Clause

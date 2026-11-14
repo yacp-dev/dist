@@ -1,0 +1,9 @@
+category: Text
+requires: cygwin libgcc1 libmarisa0 libstdc++6
+sdesc: "Conversion between Traditional and Simplified Chinese (runtime)"
+ldesc: "Open Chinese Convert (OpenCC) is an opensource project for conversion between
+Traditional Chinese and Simplified Chinese, supporting character-level
+conversion, phrase-level conversion, variant conversion and regional idioms
+among Mainland China, Taiwan and Hong kong."
+external-source: opencc
+

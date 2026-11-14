@@ -1,0 +1,5 @@
+category: Archive
+requires: cygwin libglib2.0_0 libpopt0 libspkg0
+sdesc: "Unofficial Slackware Linux Package Manager (utilities)"
+ldesc: "Unofficial Slackware Linux Package Manager"
+

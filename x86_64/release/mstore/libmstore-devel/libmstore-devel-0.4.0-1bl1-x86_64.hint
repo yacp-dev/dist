@@ -1,0 +1,6 @@
+category: Libs
+requires: libmctc-lib-devel libmstore0 pkg-config
+sdesc: "Molecular structure store for testing (development)"
+ldesc: "Molecular structure store for testing"
+external-source: mstore
+

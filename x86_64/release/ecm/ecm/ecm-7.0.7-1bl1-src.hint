@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgmp-devel libxslt
+sdesc: "Factor integers using the Elliptic Curve Method (utilities)"
+ldesc: "gmp-ecm is a free implementation of the Elliptic Curve Method (ECM) for
+integer factorization."
+skip:
+
+homepage: https://gitlab.inria.fr/zimmerma/ecm/
+license: GPL-3.0-only

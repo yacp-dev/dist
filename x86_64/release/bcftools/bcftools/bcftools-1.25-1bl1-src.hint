@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport htslib libhts-devel zlib-devel
+sdesc: "Faster replacement for most of the perl VCFtools commands"
+ldesc: "Faster replacement for most of the perl VCFtools commands"
+skip:
+
+homepage: https://github.com/samtools/bcftools
+license: (GPL-3.0-or-later OR MIT) AND BSD-2-Clause

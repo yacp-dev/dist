@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libminitrace0 libsqlite3_0 libstdc++6 libtinyxml2_6 libzmq5
+sdesc: "Behavior Trees Library in C++ (runtime)"
+ldesc: "Behavior Trees Library in C++"
+external-source: BehaviorTree.CPP
+

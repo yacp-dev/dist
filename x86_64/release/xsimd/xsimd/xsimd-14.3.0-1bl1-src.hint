@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport doctest xtl
+sdesc: "C++ wrappers for SIMD intrinsics"
+ldesc: "C++ wrappers for SIMD intrinsics and parallelized, optimized mathematical
+functions."
+skip:
+
+homepage: https://github.com/xtensor-stack/xsimd
+license: BSD-3-Clause

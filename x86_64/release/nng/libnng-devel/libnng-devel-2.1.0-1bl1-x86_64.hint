@@ -1,0 +1,8 @@
+category: Libs
+requires: libnng2 pkg-config
+sdesc: "nanomsg-next-generation (development)"
+ldesc: "This project is a rewrite of the Scalability Protocols library known as
+libnanomsg, and adds significant new capabilities, while retaining
+compatibility with the original."
+external-source: nng
+

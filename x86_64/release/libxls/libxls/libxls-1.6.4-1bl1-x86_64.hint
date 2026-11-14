@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libxlsreader8
+sdesc: "Read binary Excel files from C/C++ (utilities)"
+ldesc: "This is libxls, a C library for reading Excel files in the nasty old binary
+OLE format, plus a command-line tool for converting XLS to CSV (named,
+appropriately enough, xls2csv)."
+

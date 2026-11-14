@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libcpuid18
+sdesc: "Small C library for x86 CPU detection and feature extraction (utilities)"
+ldesc: "libcpuid provides CPU identification for the x86 (and x86_64). For details
+about the programming API, you might want to take a look at the project's
+website on sourceforge (https://libcpuid.sourceforge.net/). There you'd find a
+short tutorial, as well as the full API reference."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libtlx0.6 pkg-config
+sdesc: "Collection of Sophisticated C++ Data Structures, Algorithms, and Miscellaneous Helpers (development)"
+ldesc: "Collection of Sophisticated C++ Data Structures, Algorithms, and Miscellaneous Helpers"
+external-source: tlx
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Rizin Library to demangle symbols (utilities)"
+ldesc: "This library contains all rizin demanglers and is linked to provide demangling
+support in rizin"
+skip:
+
+homepage: https://github.com/rizinorg/rz-libdemangle
+license: LGPL-3.0-only OR MIT

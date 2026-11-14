@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "C++ JPEG-LS library implementation (licensing & readmes)"
+ldesc: "CharLS is a C++ implementation of the JPEG-LS standard for lossless and
+near-lossless image compression and decompression. JPEG-LS is a low-complexity
+image compression standard that matches JPEG 2000 compression ratios."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4
+sdesc: "Client-side implementation of the draft ACVP protocol (runtime)"
+ldesc: "Client-side implementation of the draft ACVP protocol"
+external-source: libacvp
+

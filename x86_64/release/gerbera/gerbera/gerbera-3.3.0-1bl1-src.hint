@@ -1,0 +1,10 @@
+category: Audio
+build-depends: cygport file-devel libavcodec-devel libavfilter-devel libavformat-devel libavutil-devel libcurl-devel libduktape-devel libebml-devel libexif-devel libexiv2-devel libffmpegthumbnailer-devel libfmt-devel libgmock-devel libgtest-devel libiconv-devel libicu-devel libjsoncpp-devel liblastfmlib-devel libmariadb-devel libmatroska-devel libnpupnp-devel libpugixml-devel libspdlog-devel libsqlite3-devel libtag-devel libuuid-devel libwavpack-devel
+sdesc: "UPnP Media Server"
+ldesc: "Gerbera is a UPnP media server which allows you to stream your digital media
+through your home network and consume it on a variety of UPnP compatible
+devices."
+skip:
+
+homepage: https://gerbera.io/
+license: GPL-2.0-only AND MIT AND OFL-1.1

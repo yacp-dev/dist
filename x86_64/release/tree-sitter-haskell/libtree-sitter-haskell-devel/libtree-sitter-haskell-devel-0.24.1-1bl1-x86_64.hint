@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-haskell14.0 pkg-config
+sdesc: "Haskell grammar for tree-sitter (development)"
+ldesc: "Haskell grammar for tree-sitter"
+external-source: tree-sitter-haskell
+

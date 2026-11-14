@@ -1,0 +1,6 @@
+category: Devel
+requires: pkg-config xtl
+sdesc: "C++ wrappers for SIMD intrinsics"
+ldesc: "C++ wrappers for SIMD intrinsics and parallelized, optimized mathematical
+functions."
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcmocka-devel
+sdesc: "AVTP packetization library (licensing & readmes)"
+ldesc: "Open source implementation of Audio Video Transport Protocol (AVTP) specified
+in IEEE 1722-2016 spec."
+skip:
+
+homepage: https://github.com/Avnu/libavtp
+license: BSD-3-Clause

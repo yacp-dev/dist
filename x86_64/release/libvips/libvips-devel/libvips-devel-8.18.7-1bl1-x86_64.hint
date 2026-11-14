@@ -1,0 +1,11 @@
+category: Libs
+requires: libarchive-devel libcairo-devel libcfitsio-devel libcgif-devel libexif-devel libexpat-devel libfftw3-devel libfontconfig-devel libglib2.0-devel libhwy-devel libjpeg-devel liblcms2-devel libmatio-devel libopenexr-devel libopenjp2-devel libpango1.0-devel libpng-devel libraw-devel librsvg2-devel libtiff-devel libuhdr-devel libvips42 libwebp-devel pkg-config zlib-devel
+sdesc: "Fast image processing library with low memory needs (development)"
+ldesc: "VIPS is a free image processing system. It is good with large images (images
+larger than the amount of RAM you have available), with many CPUs (see
+Benchmarks for examples of SMP scaling, VIPS is also part of the PARSEC
+suite), for working with colour, for scientific analysis and for general
+research & development. As well as JPEG, TIFF and PNG images, it also supports
+scientific formats like FITS, Matlab, Analyze, PFM, Radiance and OpenSlide."
+external-source: libvips
+

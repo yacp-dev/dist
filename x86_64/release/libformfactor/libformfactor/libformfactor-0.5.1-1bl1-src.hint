@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libheinz
+sdesc: "C++ library for the efficient computation of scattering form factors (Fourier shape transforms) of arbitrary polyhedra (licensing & readmes)"
+ldesc: "C++ library for the efficient computation of scattering form factors (Fourier shape transforms) of arbitrary polyhedra"
+skip:
+
+homepage: https://jugit.fz-juelich.de/mlz/lib/formfactor
+license: GPL-3.0-or-later

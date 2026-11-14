@@ -1,0 +1,8 @@
+category: Database
+build-depends: cygport flex
+sdesc: "Typesafe hierarchical key-value database with inheritance and dynamic patching (utilities)"
+ldesc: "Typesafe hierarchical key-value database with inheritance and dynamic patching"
+skip:
+
+homepage: https://github.com/SFTtech/nyan
+license: LGPL-3.0-or-later

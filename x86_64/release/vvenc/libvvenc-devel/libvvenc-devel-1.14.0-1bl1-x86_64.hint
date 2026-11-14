@@ -1,0 +1,7 @@
+category: Libs
+requires: libvvenc1.14 pkg-config vvenc
+sdesc: "Fraunhofer Versatile Video Encoder (development)"
+ldesc: "The Fraunhofer Versatile Video Encoder (VVenC) is a fast and efficient
+real-world VVC encoder implementation."
+external-source: vvenc
+

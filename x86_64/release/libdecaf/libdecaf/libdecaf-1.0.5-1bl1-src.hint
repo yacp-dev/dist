@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Fast, strong elliptic curve cryptography (licensing & readmes)"
+ldesc: "Ed448-Goldilocks is a new elliptic curve for cryptography."
+skip:
+
+homepage: https://sourceforge.net/projects/ed448goldilocks/
+license: MIT

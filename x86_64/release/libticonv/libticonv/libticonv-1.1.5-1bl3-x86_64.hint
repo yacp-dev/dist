@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Charset conversion library for TI calculators (licensing & readmes)"
+ldesc: "The ticonv library is a library which handles the various TI charsets and
+conversion to/from UTF-8/16 through a set of functions which constitutes a
+common API."
+

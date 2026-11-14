@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libaws-c-common-devel libssl-devel
+sdesc: "Aws Crypto Abstraction Layer (utilities)"
+ldesc: "AWS Crypto Abstraction Layer: Cross-Platform, C99 wrapper for cryptography
+primitives."
+skip:
+
+homepage: https://github.com/awslabs/aws-c-cal
+license: Apache-2.0

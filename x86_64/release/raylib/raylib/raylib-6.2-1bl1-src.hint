@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libGL-devel libX11-devel libglfw-devel
+sdesc: "Simple and easy-to-use library to learn videogames programming (licensing & readmes)"
+ldesc: "raylib is highly inspired by Borland BGI graphics lib and by XNA framework and
+it's specially well suited for prototyping, tooling, graphical applications,
+embedded systems and education."
+skip:
+
+homepage: https://github.com/raysan5/raylib
+license: Zlib AND MIT AND (MIT OR Unlicense) AND (MIT-0 OR Unlicense) AND WTFPL

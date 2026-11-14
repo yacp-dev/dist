@@ -1,0 +1,5 @@
+category: Games
+requires: cygwin libgcc1 libSDL2_2.0_0 libstdc++6
+sdesc: "Open source Jazz Jackrabit engine"
+ldesc: "OpenJazz is a free, open-source version of the classic Jazz Jackrabbit™ games."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-ocaml15.0 pkg-config
+sdesc: "OCaml grammar for tree-sitter (development)"
+ldesc: "OCaml grammar for tree-sitter"
+external-source: tree-sitter-ocaml
+

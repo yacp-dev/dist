@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport eigen3 hdf5 libaec-devel libcpd-devel libcurl-devel libdraco-devel libE57Format-devel libgdal-devel libgeotiff-devel libgtest-devel libhdf5-devel libpq-devel libproj-devel libssl-devel libxml2-devel zlib-devel
+sdesc: "Point Data Abstraction Library (utilities)"
+ldesc: "PDAL is Point Data Abstraction Library. It is a C/C++ open source library and
+applications for translating and processing point cloud data. It is not
+limited to LiDAR data, although the focus and impetus for many of the tools in
+the library have their origins in LiDAR."
+skip:
+
+homepage: https://github.com/PDAL/PDAL
+license: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND MIT

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel libsqlite3-devel
+sdesc: "Welldesigned and portable SQLite3 Wrapper for C++ (licensing & readmes)"
+ldesc: "Welldesigned and portable SQLite3 Wrapper for C++"
+skip:
+
+homepage: https://github.com/vinzenz/vsqlite--
+license: BSD-3-Clause

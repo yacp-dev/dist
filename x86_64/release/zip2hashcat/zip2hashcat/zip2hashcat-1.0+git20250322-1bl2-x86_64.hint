@@ -1,0 +1,5 @@
+category: Security
+requires: cygwin
+sdesc: "Processes input ZIP files into a format suitable for use with hashcat"
+ldesc: "Processes input ZIP files into a format suitable for use with hashcat"
+

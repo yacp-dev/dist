@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport libnss-devel libp11-kit-devel libssl-devel nss opensc
+sdesc: "PKCS11 provider for OpenSSL 3.0+"
+ldesc: "PKCS11 provider for OpenSSL 3.0+"
+skip:
+
+homepage: https://github.com/latchset/pkcs11-provider
+license: Apache-2.0

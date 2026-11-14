@@ -1,0 +1,8 @@
+category: Libs
+requires: libqb100 pkg-config
+sdesc: "Library providing high performance logging, tracing, ipc, and poll (development)"
+ldesc: "libqb is a library with the primary purpose of providing high-performance,
+reusable features for client-server architecture, such as logging, tracing,
+inter-process communication (IPC), and polling."
+external-source: libqb
+

@@ -1,0 +1,10 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Tool to generate CPU_FLAGS_* for your CPU"
+ldesc: "The program attempts to obtain the identification and capabilities
+of the currently used CPU, and print the matching set of CPU_FLAGS_*
+flags for Gentoo."
+skip:
+
+homepage: https://github.com/gentoo/cpuid2cpuflags
+license: BSD-2-Clause

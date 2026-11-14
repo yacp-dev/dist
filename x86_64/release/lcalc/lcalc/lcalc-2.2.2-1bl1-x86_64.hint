@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1 libLfunction2 libstdc++6
+sdesc: "Package for working with L-functions (utilities)"
+ldesc: "Package for working with L-functions"
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libglib2.0-devel libjson-glib1.0-devel libsnapd-glib1 libsoup2.4-devel pkg-config
+sdesc: "Glib library for communicating with snapd (development)"
+ldesc: "snapd-glib is a library to allow GLib based applications access to snapd, the
+daemon that controls Snaps."
+external-source: snapd-glib
+

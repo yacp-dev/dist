@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport bison flex
+sdesc: "Library for creating and verifying Netnews Cancel-Locks (utilities)"
+ldesc: "libcanlock is a library for creating and verifying RFC 8315
+Netnews Cancel-Locks. It also provides article header parsers and command line
+tools."
+skip:
+
+homepage: https://micha.freeshell.org/libcanlock/
+license: BSD-3-Clause AND ICU AND NLPL

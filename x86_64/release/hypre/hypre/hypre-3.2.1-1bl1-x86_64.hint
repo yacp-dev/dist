@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libHYPRE302 libopenmpi40
+sdesc: "Parallel solvers for sparse linear systems featuring multigrid methods (utilities)"
+ldesc: "HYPRE is a library of high performance preconditioners and solvers featuring
+multigrid methods for the solution of large, sparse linear systems of
+equations on massively parallel computers."
+

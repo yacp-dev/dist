@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libsqlite3_0 libstdc++6
+sdesc: "Welldesigned and portable SQLite3 Wrapper for C++ (runtime)"
+ldesc: "Welldesigned and portable SQLite3 Wrapper for C++"
+external-source: vsqlite++
+

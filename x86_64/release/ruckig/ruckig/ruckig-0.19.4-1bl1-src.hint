@@ -1,0 +1,16 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Motion Generation for Robots and Machines (licensing & readmes)"
+ldesc: "Ruckig generates trajectories on-the-fly, allowing robots and machines to
+react instantaneously to sensor input. Ruckig calculates a trajectory to a
+target waypoint (with position, velocity, and acceleration) starting from any
+initial state limited by velocity, acceleration, and jerk constraints. Besides
+the target state, Ruckig allows to define intermediate positions for waypoint
+following. For state-to-state motions, Ruckig guarantees a time-optimal
+solution. With intermediate waypoints, Ruckig calculates the path and its time
+parametrization jointly, resulting in significantly faster trajectories
+compared to traditional methods."
+skip:
+
+homepage: https://github.com/pantor/ruckig
+license: MIT

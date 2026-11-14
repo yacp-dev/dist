@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Cooperative gamma library (runtime)"
+ldesc: "Cooperative gamma library"
+external-source: libcoopgamma
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libCatch2-devel libbenchmark-devel unicode-ucd
+sdesc: "Modern C++20 Unicode Library (utilities)"
+ldesc: "Modern C++20 Unicode Library"
+skip:
+
+homepage: https://github.com/contour-terminal/libunicode
+license: Apache-2.0

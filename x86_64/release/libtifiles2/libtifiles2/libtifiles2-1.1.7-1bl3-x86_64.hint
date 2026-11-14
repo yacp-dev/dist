@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library for TI calculator files (licensing & readmes)"
+ldesc: "The tifiles library is a library which handles the various TI file formats
+through a set of functions which constitutes a common API."
+

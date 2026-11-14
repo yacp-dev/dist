@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport check dbus gobject-introspection gtk-doc libgirepository1.0-devel libglib2.0-devel libsqlite3-devel libxml2-devel python3-devel python312-gi vala
+sdesc: "Single signon authentication library for GLib applications"
+ldesc: "This project is a library for managing single signon credentials which can be
+used from GLib applications. It is effectively a GLib binding for the D-Bus
+API provided by signond. It is part of the accounts-sso project."
+skip:
+
+homepage: https://gitlab.com/accounts-sso/libaccounts-glib
+license: LGPL-2.1-or-later

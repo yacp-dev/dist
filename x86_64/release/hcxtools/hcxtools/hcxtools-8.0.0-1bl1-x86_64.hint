@@ -1,0 +1,10 @@
+category: Utils
+requires: cygwin libcurl4 libssl3 zlib0
+sdesc: "Small set of tools convert packets from captures"
+ldesc: "Small set of tools convert packets from captures (h = hash, c = capture,
+convert and calculate candidates, x = different hashtypes) for the use with
+latest hashcat or John the Ripper. The tools are 100% compatible to hashcat
+and John the Ripper and recommended by hashcat. This branch is pretty closely
+synced to hashcat git branch (that means: latest hcxtools matching on latest
+hashcat beta) and John the Ripper git branch (bleeding-jumbo)."
+

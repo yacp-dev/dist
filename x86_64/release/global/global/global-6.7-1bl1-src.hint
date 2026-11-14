@@ -1,0 +1,13 @@
+category: Devel
+build-depends: cygport bison flex libncurses-devel libsqlite3-devel
+sdesc: "GNU GLOBAL source code tag system"
+ldesc: "GNU GLOBAL is a source code tagging system that works the same way across
+diverse environments (emacs, vi, less, bash, web browser, etc). You can locate
+symbols in source files and move there easily. It is useful for hacking a
+large project containing many sub-directories, many #ifdef and many main()
+functions. It is similar to ctags or etags but is different from them at the
+point of independence of any editor."
+skip:
+
+homepage: https://www.gnu.org/software/global/
+license: GPL-3.0-or-later

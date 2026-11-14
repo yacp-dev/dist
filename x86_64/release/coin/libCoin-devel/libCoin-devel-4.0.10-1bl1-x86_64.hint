@@ -1,0 +1,7 @@
+category: Libs
+requires: bash libCoin80 pkg-config
+sdesc: "High-level 3D graphics toolkit (development)"
+ldesc: "Coin is an OpenGL-based, 3D graphics library that has its roots in the Open
+Inventor 2.1 API, which Coin still is compatible with."
+external-source: coin
+

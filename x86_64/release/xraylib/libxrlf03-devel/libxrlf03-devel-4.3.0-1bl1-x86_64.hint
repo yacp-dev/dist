@@ -1,0 +1,7 @@
+category: Libs
+requires: libxrl-devel libxrlf03_11 pkg-config
+sdesc: "Library for X-ray matter interaction cross sections for X-ray fluorescence applications (development / fortran)"
+ldesc: "This is xraylib, a library for X-ray matter interactions cross sections for
+X-ray fluorescence applications: core C library"
+external-source: xraylib
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libGL1 libGLU1 libglut3 libopencsg1 libstdc++6
+sdesc: "Library for Constructive Solid Geometry using OpenGL (utilities)"
+ldesc: "OpenCSG is a library that does image-based CSG rendering using OpenGL."
+

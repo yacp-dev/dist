@@ -1,0 +1,5 @@
+category: Libs
+requires: bash cygwin libfreenect0 libgcc1 libGL1 libGLU1 libglut3 libopencv3.4 libstdc++6
+sdesc: "Drivers and libraries for the Xbox Kinect device (utilities)"
+ldesc: "Libfreenect is the core library for accessing the Microsoft Kinect USB camera."
+

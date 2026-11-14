@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport 
+sdesc: "Processes input ZIP files into a format suitable for use with hashcat"
+ldesc: "Processes input ZIP files into a format suitable for use with hashcat"
+skip:
+
+homepage: https://github.com/hashstation/zip2hashcat
+license: MIT

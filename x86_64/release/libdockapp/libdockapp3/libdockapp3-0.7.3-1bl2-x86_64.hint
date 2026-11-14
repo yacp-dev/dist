@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libX11_6 libXext6 libXpm4
+sdesc: "Library that provides a framework for developing dockapps (runtime)"
+ldesc: "Library that provides a framework for developing dockapps"
+external-source: libdockapp
+

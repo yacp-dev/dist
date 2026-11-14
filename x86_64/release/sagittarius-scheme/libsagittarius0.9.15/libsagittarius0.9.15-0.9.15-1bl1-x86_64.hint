@@ -1,0 +1,6 @@
+category: Scheme
+requires: cygwin libgc1 libgcc1
+sdesc: "Free Scheme implementation supporting R6RS and R7RS (runtime)"
+ldesc: "Free Scheme implementation supporting R6RS and R7RS"
+external-source: sagittarius-scheme
+

@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport glm-devel libboost-devel libfreetype-devel libGLEW-devel libGLU-devel libpcre2-devel libpng-devel libSDL2-devel libSDL2_image-devel libtinyxml-devel
+sdesc: "Software version control visualization"
+ldesc: "OpenGL-based 3D visualisation tool for source control repositories."
+skip:
+
+homepage: https://github.com/acaudwell/Gource
+license: GPL-3.0-or-later

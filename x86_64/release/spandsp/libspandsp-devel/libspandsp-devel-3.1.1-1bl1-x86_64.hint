@@ -1,0 +1,7 @@
+category: Libs
+requires: libspandsp4 pkg-config
+sdesc: "Library of DSP functions for telephony (development)"
+ldesc: "Spandsp is a library of many DSP functions for telephony. These range from
+simple modules, such as DTMF detection, to a complete software FAX machine."
+external-source: spandsp
+

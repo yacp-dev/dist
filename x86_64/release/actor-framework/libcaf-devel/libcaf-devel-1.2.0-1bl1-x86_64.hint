@@ -1,0 +1,6 @@
+category: Libs
+requires: libcaf1.2.0
+sdesc: "Implementation of the Actor Model for C++ (development)"
+ldesc: "An Open Source Implementation of the Actor Model in C++"
+external-source: actor-framework
+

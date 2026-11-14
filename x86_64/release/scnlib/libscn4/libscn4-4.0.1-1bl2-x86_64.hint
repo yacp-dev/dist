@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libintl8 libstdc++6
+sdesc: "Scanf for modern C++ (runtime)"
+ldesc: "Scanf for modern C++"
+external-source: scnlib
+

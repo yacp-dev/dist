@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport libcext-devel libcfitsio-devel libfftw3-devel libwcs-devel
+sdesc: "Common Pipeline Library (licensing & readmes)"
+ldesc: "ESO common pipeline library for astronomical data reduction"
+skip:
+
+homepage: https://www.eso.org/sci/software/cpl/
+license: GPL-2.0-or-later

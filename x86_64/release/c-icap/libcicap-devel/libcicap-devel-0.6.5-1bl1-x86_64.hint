@@ -1,0 +1,8 @@
+category: Utils
+requires: bash libcicap6
+sdesc: "Implementation of an ICAP server (development)"
+ldesc: "c-icap is an implementation of an ICAP server. It can be used with HTTP
+proxies that support the ICAP protocol to implement content adaptation
+and filtering services."
+external-source: c-icap
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbz2_1 liblzma5 libssl3 libzstd1 rpm zlib0
+sdesc: "Library for making, reading and applying deltarpm packages (runtime)"
+ldesc: "Library for making, reading and applying deltarpm packages"
+external-source: drpm
+

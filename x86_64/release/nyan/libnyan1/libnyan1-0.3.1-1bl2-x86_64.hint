@@ -1,0 +1,6 @@
+category: Database
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Typesafe hierarchical key-value database with inheritance and dynamic patching (runtime)"
+ldesc: "Typesafe hierarchical key-value database with inheritance and dynamic patching"
+external-source: nyan
+

@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libiconv2
+sdesc: "Emulates an old-style 'code page 437' / 'IBM-PC' character set terminal on a modern UTF-8 terminal emulator"
+ldesc: "Emulates an old-style 'code page 437' / 'IBM-PC' character set terminal on a modern UTF-8 terminal emulator"
+

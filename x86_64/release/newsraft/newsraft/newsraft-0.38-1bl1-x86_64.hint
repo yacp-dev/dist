@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libcurl4 libexpat1 libgumbo4 libsqlite3_0
+sdesc: "Feed reader for terminal"
+ldesc: "Newsraft is a feed reader with ncurses user interface. It is greatly inspired
+by Newsboat and tries to be its lightweight counterpart."
+

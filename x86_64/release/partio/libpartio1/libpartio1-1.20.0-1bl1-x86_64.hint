@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 zlib0
+sdesc: "Library for particle IO and manipulation (runtime)"
+ldesc: "This is the initial source code release of partio a tool we used for particle
+reading/writing. It started out as an abstraction for the commonalities in
+particle models (i.e. accessing many attributes associated with an index or
+entity)."
+external-source: partio
+

@@ -1,0 +1,6 @@
+category: Science
+requires: libcg3_1 pkg-config
+sdesc: "Tools for the 3rd edition of the Constraint Grammar formalism (development)"
+ldesc: "Tools for the 3rd edition of the Constraint Grammar formalism"
+external-source: cg3
+

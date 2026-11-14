@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Large integer arithmetic library (licensing & readmes)"
+ldesc: "TomsFastMath is a fast public domain, open source, large integer arithmetic
+library written in portable ISO C."
+skip:
+
+homepage: https://www.libtom.net/TomsFastMath/
+license: LicenseRef-Public-Domain OR WTFPL

@@ -1,0 +1,8 @@
+category: Libs
+requires: libabseil-devel libicu-devel libre2_11 pkg-config
+sdesc: "Efficient, principled regular expression library (development)"
+ldesc: "RE2 is a fast, safe, thread-friendly alternative to backtracking regular
+expression engines like those used in PCRE, Perl, and Python. It is a C++
+library."
+external-source: re2
+

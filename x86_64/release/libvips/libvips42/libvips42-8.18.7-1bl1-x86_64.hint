@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin libarchive13 libcairo2 libcfitsio10 libcgif0 libexif12 libexpat1 libfftw3_3 libfontconfig1 libglib2.0_0 libheif1 libhwy1 libIlmImf2_5_26 libimagequant0 libintl8 libjpeg8 libjxl0.13 liblcms2_2 libMagickCore7_10 libmatio14 libnifti2 libopenjp2_7 libopenslide1 libpango1.0_0 libpng16 libpoppler-glib8 libraw16 librsvg2_2 libtiff7 libuhdr2 libwebp7 libwebpdemux2 libwebpmux3 libznz3 zlib0
+sdesc: "Fast image processing library with low memory needs (runtime)"
+ldesc: "VIPS is a free image processing system. It is good with large images (images
+larger than the amount of RAM you have available), with many CPUs (see
+Benchmarks for examples of SMP scaling, VIPS is also part of the PARSEC
+suite), for working with colour, for scientific analysis and for general
+research & development. As well as JPEG, TIFF and PNG images, it also supports
+scientific formats like FITS, Matlab, Analyze, PFM, Radiance and OpenSlide."
+external-source: libvips
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libssl3
+sdesc: "Library to determine the location of someone on the Internet (runtime)"
+ldesc: "Library to determine the location of someone on the Internet"
+external-source: libloc
+

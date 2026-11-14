@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport libglib2.0-devel libQt5Core-devel libsecret1-devel
+sdesc: "Platform-independent Qt API for storing passwords securely (licensing & readmes)"
+ldesc: "QtKeychain is a Qt API to store passwords and other secret data securely."
+skip:
+
+homepage: https://github.com/frankosterfeld/qtkeychain
+license: BSD-3-Clause

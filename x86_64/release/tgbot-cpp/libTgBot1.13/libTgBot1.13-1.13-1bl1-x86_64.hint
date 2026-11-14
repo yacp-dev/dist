@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libboost_system1.66 libcurl4 libgcc1 libstdc++6
+sdesc: "C++ library for Telegram bot API (runtime)"
+ldesc: "C++ library for Telegram bot API"
+external-source: tgbot-cpp
+

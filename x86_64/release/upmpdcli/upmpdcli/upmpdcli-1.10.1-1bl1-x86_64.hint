@@ -1,0 +1,5 @@
+category: Net
+requires: bash cygwin libcurl4 libgcc1 libjsoncpp27 libmicrohttpd12 libmpdclient2 libstdc++6 libupnpp17 python3 python3
+sdesc: "UPnP renderer front-end for MPD"
+ldesc: "UPnP renderer front-end for MPD"
+

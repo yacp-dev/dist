@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Google's CityHash family of hash functions (runtime)"
+ldesc: "CityHash provides hash functions for strings."
+external-source: cityhash
+

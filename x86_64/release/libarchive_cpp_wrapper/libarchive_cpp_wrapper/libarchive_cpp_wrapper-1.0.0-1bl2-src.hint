@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libarchive-devel
+sdesc: "C++ wrapper arround libarchive library (licensing & readmes)"
+ldesc: "C++ wrapper arround libarchive library"
+skip:
+
+homepage: https://github.com/do-m-en/libarchive_cpp_wrapper
+license: BSD-2-Clause

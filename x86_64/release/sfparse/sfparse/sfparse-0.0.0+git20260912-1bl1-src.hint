@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Structured Field Values parser (licensing & readmes)"
+ldesc: "Structured Field Values parser"
+skip:
+
+homepage: https://github.com/ngtcp2/sfparse
+license: MIT

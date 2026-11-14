@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libaccounts-glib0 libglib2.0_0 libsqlite3_0
+sdesc: "Single signon authentication library for GLib applications"
+ldesc: "This project is a library for managing single signon credentials which can be
+used from GLib applications. It is effectively a GLib binding for the D-Bus
+API provided by signond. It is part of the accounts-sso project."
+

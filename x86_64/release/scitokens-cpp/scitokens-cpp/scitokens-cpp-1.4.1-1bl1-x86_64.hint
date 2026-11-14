@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libSciTokens0 libssl3 libstdc++6
+sdesc: "C++ implementation of the SciTokens library (utilities)"
+ldesc: "SciTokens provide a token format for distributed authorization. The tokens are
+self-describing, can be verified in a distributed fashion (no need to contact
+the issuer to determine if the token is valid). This is convenient for a
+federated environment where several otherwise-independent storage endpoints
+want to delegate trust for an issuer for managing a storage allocation."
+

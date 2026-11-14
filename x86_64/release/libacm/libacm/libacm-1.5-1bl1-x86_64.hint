@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libacm1 libao4
+sdesc: "Library for InterPlay ACM Audio format (licensing & readmes)"
+ldesc: "Library for InterPlay ACM Audio format"
+

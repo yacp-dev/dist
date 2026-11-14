@@ -1,0 +1,6 @@
+category: Libs
+requires: libfcrypto1 pkg-config
+sdesc: "Library for encryption formats (development)"
+ldesc: "libfcrypto is a library for encryption formats."
+external-source: libfcrypto
+

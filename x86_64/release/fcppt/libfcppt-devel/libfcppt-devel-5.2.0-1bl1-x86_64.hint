@@ -1,0 +1,7 @@
+category: Libs
+requires: libfcppt5.2
+sdesc: "Freundlich's C++ toolkit (development)"
+ldesc: "Freundlich's C++ Toolkit (fcppt) is a collection of libraries that aim to
+improve general C++ code through better typing and functional programming."
+external-source: fcppt
+

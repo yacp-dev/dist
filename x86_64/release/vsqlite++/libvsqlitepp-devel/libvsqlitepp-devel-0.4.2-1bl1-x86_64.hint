@@ -1,0 +1,6 @@
+category: Libs
+requires: libsqlite3-devel libvsqlitepp0 pkg-config
+sdesc: "Welldesigned and portable SQLite3 Wrapper for C++ (development)"
+ldesc: "Welldesigned and portable SQLite3 Wrapper for C++"
+external-source: vsqlite++
+

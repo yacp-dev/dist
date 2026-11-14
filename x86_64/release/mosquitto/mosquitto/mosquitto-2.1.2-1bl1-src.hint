@@ -1,0 +1,11 @@
+category: Net
+build-depends: cygport CUnit libcares-devel libcjson-devel libedit-devel libgmock-devel libgtest-devel libssl-devel libwrap-devel
+sdesc: "Open source MQTT broker (utilities)"
+ldesc: "Eclipse Mosquitto is an open source (EPL/EDL licensed) message broker that
+implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is
+lightweight and is suitable for use on all devices from low power single
+board computers to full servers."
+skip:
+
+homepage: https://github.com/eclipse-mosquitto/mosquitto/
+license: (EPL-2.0 OR BSD-3-Clause) AND BSD-1-Clause AND curl AND (MIT OR Artistic-1.0-Perl OR GPL-1.0-or-later)

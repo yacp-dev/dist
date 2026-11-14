@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libpopt-devel rpm-devel
+sdesc: "Small library to find constants in rpm headers (utilities)"
+ldesc: "This small libraries find constant in rpm header and provide function to find
+value <=> constant name pair."
+skip:
+
+homepage: https://github.com/rpm-software-management/rpmconstant
+license: GPL-2.0-only

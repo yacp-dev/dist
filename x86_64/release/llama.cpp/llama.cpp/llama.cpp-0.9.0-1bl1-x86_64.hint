@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libggml0 libintl8 libllama0 libssl3 libstdc++6
+sdesc: "LLM inference in C/C++ (utilities)"
+ldesc: "LLM inference in C/C++"
+

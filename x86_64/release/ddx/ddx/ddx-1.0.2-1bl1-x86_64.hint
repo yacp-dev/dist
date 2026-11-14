@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libddx1 libgfortran5 libgomp1
+sdesc: "Domain decomposition continuum solvation library (utilities)"
+ldesc: "Domain decomposition continuum solvation library"
+

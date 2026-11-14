@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran liblapack-devel libmctc-lib-devel libmstore-devel
+sdesc: "Electronegativity equilibration model for atomic partial charges (utilities)"
+ldesc: "Electronegativity equilibration model for atomic partial charges"
+skip:
+
+homepage: https://github.com/grimme-lab/multicharge
+license: Apache-2.0

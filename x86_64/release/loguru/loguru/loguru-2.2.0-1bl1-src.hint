@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Lightweight and flexible C++ logging library (licensing & readmes)"
+ldesc: "Lightweight and flexible C++ logging library"
+skip:
+
+homepage: https://github.com/emilk/loguru
+license: Unlicense

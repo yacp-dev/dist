@@ -1,0 +1,6 @@
+category: Archive
+requires: cygwin libgcc1 libhdf5_320 libstdc++6 libzstd1
+sdesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets (runtime / hdf5)"
+ldesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets"
+external-source: sz
+

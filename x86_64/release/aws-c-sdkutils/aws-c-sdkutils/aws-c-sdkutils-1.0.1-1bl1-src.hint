@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libaws-c-common-devel
+sdesc: "C99 library implementing AWS SDK specific utilities (licensing & readmes)"
+ldesc: "C99 library implementing AWS SDK specific utilities"
+skip:
+
+homepage: https://github.com/awslabs/aws-c-sdkutils
+license: Apache-2.0

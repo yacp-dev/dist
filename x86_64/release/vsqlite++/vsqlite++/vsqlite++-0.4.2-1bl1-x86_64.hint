@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libvsqlitepp0
+sdesc: "Welldesigned and portable SQLite3 Wrapper for C++ (licensing & readmes)"
+ldesc: "Welldesigned and portable SQLite3 Wrapper for C++"
+

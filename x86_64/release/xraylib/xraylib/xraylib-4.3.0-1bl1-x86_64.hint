@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library for X-ray matter interaction cross sections for X-ray fluorescence applications (licensing & readmes)"
+ldesc: "This is xraylib, a library for X-ray matter interactions cross sections for
+X-ray fluorescence applications: core C library"
+

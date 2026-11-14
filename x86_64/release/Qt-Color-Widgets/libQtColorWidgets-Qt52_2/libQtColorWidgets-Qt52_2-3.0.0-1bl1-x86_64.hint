@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libQt5Core5 libQt5Gui5 libstdc++6
+sdesc: "Qt (C++) widgets to manage color inputs (runtime)"
+ldesc: "Here is a color dialog that is more user-friendly than the default
+QColorDialog and several other color-related widgets."
+external-source: Qt-Color-Widgets
+

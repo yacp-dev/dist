@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libcnotify1 libuna1
+sdesc: "Library for cross-platform C file functions (runtime)"
+ldesc: "libcfile is a library for cross-platform C file functions."
+external-source: libcfile
+

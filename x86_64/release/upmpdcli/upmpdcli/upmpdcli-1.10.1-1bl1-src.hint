@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libcurl-devel libjsoncpp-devel libmicrohttpd-devel libmpdclient-devel libupnpp-devel
+sdesc: "UPnP renderer front-end for MPD"
+ldesc: "UPnP renderer front-end for MPD"
+skip:
+
+homepage: https://www.lesbonscomptes.com/upmpdcli/
+license: LGPL-2.1-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Distributed Block Compressed Sparse Row matrix library (licensing & readmes)"
+ldesc: "DBCSR is a library designed to efficiently perform sparse matrix-matrix
+multiplication, among other operations."
+

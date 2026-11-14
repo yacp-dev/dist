@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "C++ Discord API Bot Library (licensing & readmes)"
+ldesc: "D++ is a lightweight and efficient library for Discord written in modern C++,
+covering as much of the API specification as possible with an incredibly small
+memory footprint even when caching large amounts of data."
+

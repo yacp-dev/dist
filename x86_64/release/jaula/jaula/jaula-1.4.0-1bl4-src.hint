@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport flex
+sdesc: "C++ JSON encoder/decoder library (utilities)"
+ldesc: "GNU C++ library for coding and decoding JSON (Javascript Object Notation) data
+into or from streams"
+skip:
+
+homepage: https://sourceforge.net/projects/jaula/
+license: LGPL-2.1-or-later

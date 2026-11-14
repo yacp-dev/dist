@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libticcutils10 libtimbl8 libtimblserver5
+sdesc: "For server functionality around Timbl (utilities)"
+ldesc: "For server functionality around Timbl"
+

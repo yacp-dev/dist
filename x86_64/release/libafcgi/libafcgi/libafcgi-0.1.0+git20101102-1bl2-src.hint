@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libev-devel libglib2.0-devel
+sdesc: "Libev based asynchronous FastCGI library (licensing & readmes)"
+ldesc: "Libev based asynchronous FastCGI library"
+skip:
+
+homepage: https://github.com/lighttpd/libafcgi
+license: MIT

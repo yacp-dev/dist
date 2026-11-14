@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libintl8 libstdc++6
+sdesc: "Memory Efficient Serialization Library (utilities)"
+ldesc: "FlatBuffers is a serialization library for games and other memory constrained
+apps."
+

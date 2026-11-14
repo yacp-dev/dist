@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libyang5
+sdesc: "YANG-based configuration and operational state data store (runtime)"
+ldesc: "Sysrepo is a YANG-based configuration and operational state data store for
+Unix/Linux applications."
+external-source: sysrepo
+

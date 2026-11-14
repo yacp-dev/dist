@@ -1,0 +1,14 @@
+category: Libs
+build-depends: cygport autoconf-archive libicu-devel libticcutils-devel libxml2-devel
+sdesc: "Tilburg Memory Based Learner (utilities)"
+ldesc: "TiMBL is an open source software package implementing several memory-based
+learning algorithms, among which IB1-IG, an implementation of k-nearest
+neighbor classification with feature weighting suitable for symbolic feature
+spaces, and IGTree, a decision-tree approximation of IB1-IG. All implemented
+algorithms have in common that they store some representation of the training
+set explicitly in memory. During testing, new cases are classified by
+extrapolation from the most similar stored cases."
+skip:
+
+homepage: https://github.com/LanguageMachines/timbl/
+license: GPL-3.0-only

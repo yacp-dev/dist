@@ -1,0 +1,6 @@
+category: Libs
+requires: libdocopt0 pkg-config libboost-devel
+sdesc: "C++11 port of docopt (development)"
+ldesc: "docopt creates beautiful command-line interfaces"
+external-source: docopt.cpp
+

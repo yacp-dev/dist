@@ -1,0 +1,16 @@
+category: Libs
+requires: cygwin libgfortran5 libopenmpi40
+sdesc: "Parallel application binary interface for Fortran 2018 compilers (runtime)"
+ldesc: "OpenCoarrays supports Fortran 2018 compilers by providing a parallel
+application binary interface (ABI) that abstracts away the underlying parallel
+programming model, which can be the Message Passing Interface (MPI) or
+OpenSHMEM. Parallel Fortran 2018 programs may be written and compiled into
+object files once and then linked or re-linked to either MPI or OpenSHMEM
+without modifying or recompiling the Fortran source. Not a single line of
+source code need change to switch parallel programming models. The default
+programming model is MPI because it provides the broadest capability for
+supporting Fortran 2018 features. However, having the option to change
+parallel programming models at link-time may enhance portability and
+performance (see Rouson et al. (2017))."
+external-source: OpenCoarrays
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libacvp0 libssl3
+sdesc: "Client-side implementation of the draft ACVP protocol (utilities)"
+ldesc: "Client-side implementation of the draft ACVP protocol"
+

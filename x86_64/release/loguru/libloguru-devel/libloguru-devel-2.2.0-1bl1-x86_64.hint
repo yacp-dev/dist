@@ -1,0 +1,6 @@
+category: Libs
+requires: libloguru2 pkg-config
+sdesc: "Lightweight and flexible C++ logging library (development)"
+ldesc: "Lightweight and flexible C++ logging library"
+external-source: loguru
+

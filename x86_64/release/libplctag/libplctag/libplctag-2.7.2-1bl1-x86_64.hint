@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libplctag2.7
+sdesc: "Portable and simple API for accessing Allen-Bradley PLC data (utilities)"
+ldesc: "This library for Linux and Windows (not heavily tested) provides a means of
+accessing PLCs to read and write simple data."
+

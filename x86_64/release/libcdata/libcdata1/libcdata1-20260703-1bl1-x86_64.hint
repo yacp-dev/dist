@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libcthreads1
+sdesc: "Library for cross-platform C data functions (runtime)"
+ldesc: "libcdata is a library for cross-platform C data functions."
+external-source: libcdata
+

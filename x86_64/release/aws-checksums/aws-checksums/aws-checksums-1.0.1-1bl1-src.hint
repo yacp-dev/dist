@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libaws-c-common-devel
+sdesc: "Cross-Platform HW accelerated CRC32c and CRC32 with fallback to efficient SW implementations (utilities)"
+ldesc: "Cross-Platform HW accelerated CRC32c and CRC32 with fallback to efficient SW
+implementations. C interface with language bindings for each of our SDKs."
+skip:
+
+homepage: https://github.com/awslabs/aws-checksums
+license: Apache-2.0 AND BSD-2-Clause

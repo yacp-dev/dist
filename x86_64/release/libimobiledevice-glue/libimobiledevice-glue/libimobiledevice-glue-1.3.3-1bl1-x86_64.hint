@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library with common code used by the libraries and tools around the libimobiledevice project (licensing & readmes)"
+ldesc: "Library with common code used by the libraries and tools around the libimobiledevice project"
+

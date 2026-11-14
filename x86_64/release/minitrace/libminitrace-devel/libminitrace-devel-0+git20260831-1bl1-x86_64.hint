@@ -1,0 +1,6 @@
+category: Libs
+requires: libminitrace0 pkg-config
+sdesc: "Simple C/C++ library for producing JSON traces suitable for Chrome's built-in trace viewer (development)"
+ldesc: "Simple C/C++ library for producing JSON traces suitable for Chrome's built-in trace viewer"
+external-source: minitrace
+

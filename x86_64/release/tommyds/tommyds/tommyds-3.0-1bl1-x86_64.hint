@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C library of hashtables and tries designed to store objects with high performance (licensing & readmes)"
+ldesc: "TommyDS is a C library of array, hashtables and tries data structures,
+designed for high performance and providing an easy to use interface."
+

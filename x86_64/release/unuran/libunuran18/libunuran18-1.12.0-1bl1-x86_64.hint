@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libgsl19 libprng0 librngstreams0
+sdesc: "Universal Non-Uniform Random number generator (runtime)"
+ldesc: "UNU.RAN (Universal Non-Uniform RAndom Number generator) is a collection of
+algorithms for generating non-uniform pseudorandom variates as a library of C
+functions designed and implemented by the ARVAG (Automatic Random VAriate
+Generation) project group in Vienna, and released under the GNU Public License
+(GPL)."
+external-source: unuran
+

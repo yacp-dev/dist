@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport jpeg libcairo-devel libdicom-devel libglib2.0-devel libjpeg-devel libopenjp2-devel libpng-devel libsqlite3-devel libtiff-devel libxml2-devel libzstd-devel python312-pip python312-requests xdelta3 zlib-devel
+sdesc: "C library for reading virtual slides (utilities)"
+ldesc: "The OpenSlide library allows programs to access virtual slide files regardless
+of the underlying image format."
+skip:
+
+homepage: https://openslide.org/
+license: LGPL-2.1-or-later

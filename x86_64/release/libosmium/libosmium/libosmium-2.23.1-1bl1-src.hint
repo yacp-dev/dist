@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport libboost-devel libbz2-devel libexpat-devel liblz4-devel protozero
+sdesc: "Fast and flexible C++ library for working with OpenStreetMap data"
+ldesc: "Fast and flexible C++ library for working with OpenStreetMap data"
+skip:
+
+homepage: https://github.com/osmcode/libosmium
+license: BSL-1.0

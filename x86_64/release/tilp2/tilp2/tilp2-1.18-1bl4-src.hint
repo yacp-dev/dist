@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport intltool libatk1.0-devel libgdk_pixbuf2.0-devel libglib2.0-devel libgtk2.0-devel libintl-devel libpango1.0-devel libticables2-devel libticalcs2-devel libticonv-devel libtifiles2-devel zlib-devel
+sdesc: "Communication program for Texas Instruments calculators"
+ldesc: "TILP is a program allowing a computer to communicate with TI graphing
+calculators (TI-Z80, TI-68k and Nspire series)."
+skip:
+
+homepage: https://sourceforge.net/projects/tilp/
+license: GPL-2.0-or-later

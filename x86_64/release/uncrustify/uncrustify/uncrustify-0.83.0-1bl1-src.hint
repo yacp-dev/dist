@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Source Code Beautifier"
+ldesc: "The goals of this project are simple: Create a highly configurable, easily
+modifiable source code beautifier."
+skip:
+
+homepage: https://github.com/uncrustify/uncrustify
+license: GPL-2.0-or-later

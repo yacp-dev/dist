@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Google's CityHash family of hash functions (licensing & readmes)"
+ldesc: "CityHash provides hash functions for strings."
+

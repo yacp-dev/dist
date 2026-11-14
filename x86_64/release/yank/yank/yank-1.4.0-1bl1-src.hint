@@ -1,0 +1,11 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Terminal output to clipboard"
+ldesc: "The yank(1) utility reads input from stdin and display a selection interface
+that allows a field to be selected and copied to the clipboard. Fields are
+either recognized by a regular expression using the -g option or by splitting
+the input on a delimiter sequence using the -d option."
+skip:
+
+homepage: https://github.com/mptre/yank
+license: MIT

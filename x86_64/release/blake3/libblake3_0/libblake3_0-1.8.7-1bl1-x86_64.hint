@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libtbb12
+sdesc: "C implementation of the BLAKE3 cryptographic hash function (runtime)"
+ldesc: "C implementation of the BLAKE3 cryptographic hash function"
+external-source: blake3
+

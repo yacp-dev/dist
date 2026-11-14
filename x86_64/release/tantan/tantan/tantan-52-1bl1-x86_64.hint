@@ -1,0 +1,8 @@
+category: Science
+requires: cygwin libgcc1 libstdc++6 zlib0
+sdesc: "Low complexity and tandem repeat masker for biosequences"
+ldesc: "tantan identifies simple regions / low complexity / tandem repeats in
+DNA or protein sequences.  Its main aim is to prevent false homology
+predictions between sequences.  Simple repeats often align strongly to
+each other, causing false homology predictions."
+

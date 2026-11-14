@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Core c99 package for AWS SDK for C (licensing & readmes)"
+ldesc: "Core c99 package for AWS SDK for C. Includes cross-platform primitives,
+configuration, data structures, and error handling."
+skip:
+
+homepage: https://github.com/awslabs/aws-c-common
+license: Apache-2.0

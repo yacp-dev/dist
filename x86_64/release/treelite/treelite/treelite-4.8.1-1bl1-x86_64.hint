@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Model compiler for decision tree ensembles (licensing & readmes)"
+ldesc: "Treelite is a model compiler for efficient deployment of decision tree
+ensembles."
+

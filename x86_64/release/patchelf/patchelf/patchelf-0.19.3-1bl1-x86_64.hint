@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Modify dynamic ELF executables"
+ldesc: "PatchELF is a small utility to modify the dynamic linker and RPATH of ELF
+executables."
+

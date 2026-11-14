@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libglib2.0_0 libjson-glib1.0_0 libQt5Core5 libsnapd-glib1 libsnapd-qt1 libsoup2.4_1 libstdc++6
+sdesc: "Glib library for communicating with snapd (licensing & readmes)"
+ldesc: "snapd-glib is a library to allow GLib based applications access to snapd, the
+daemon that controls Snaps."
+

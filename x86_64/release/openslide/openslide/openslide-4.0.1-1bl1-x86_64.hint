@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libglib2.0_0 libopenslide1 libpng16
+sdesc: "C library for reading virtual slides (utilities)"
+ldesc: "The OpenSlide library allows programs to access virtual slide files regardless
+of the underlying image format."
+

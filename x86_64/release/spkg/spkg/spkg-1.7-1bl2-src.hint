@@ -1,0 +1,8 @@
+category: Archive
+build-depends: cygport libJudy-devel libglib2.0-devel libpopt-devel zlib-devel
+sdesc: "Unofficial Slackware Linux Package Manager (utilities)"
+ldesc: "Unofficial Slackware Linux Package Manager"
+skip:
+
+homepage: https://github.com/gapan/spkg
+license: LicenseRef-Public-Domain

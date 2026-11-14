@@ -1,0 +1,8 @@
+category: Utils
+requires: cygwin libboost_program_options1.66 libgcc1 libgeos_c1 libgerbv1 libglib2.0_0 libstdc++6
+sdesc: "Command-line tool for isolation, routing and drilling of PCBs"
+ldesc: "pcb2gcode is a command-line software for the isolation, routing and drilling
+of PCBs. It takes Gerber files as input and it outputs gcode files, suitable
+for the milling of PCBs. It also includes an Autoleveller, useful for the
+automatic dynamic calibration of the milling depth."
+

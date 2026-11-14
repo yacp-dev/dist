@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Driver library for the AHP® XC Correlators (runtime)"
+ldesc: "Driver library for the AHP® XC Correlators"
+external-source: libahp-xc
+

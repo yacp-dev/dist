@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "ESO's C Library Extensions (licensing & readmes)"
+ldesc: "This is libcext, ESO's C Library Extensions. It is a C utility library, which is used to implement ESO's Common Pipeline Library (CPL)."
+

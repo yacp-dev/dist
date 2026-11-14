@@ -1,0 +1,12 @@
+category: Utils
+build-depends: cygport autoconf-archive gettext-devel libintl-devel libncurses-devel
+sdesc: "Text-based calendar and scheduling application"
+ldesc: "calcurse is a text-based calendar and scheduling application. It helps keep
+track of events, appointments and everyday tasks. A configurable notification
+system reminds user of upcoming deadlines, and the curses based interface can
+be customized to suit user needs. All of the commands are documented within an
+online help system."
+skip:
+
+homepage: https://calcurse.org/
+license: BSD-2-Clause

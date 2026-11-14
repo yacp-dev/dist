@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport autoconf-archive libicu-devel libticcutils-devel libtimbl-devel libxml2-devel
+sdesc: "For server functionality around Timbl (utilities)"
+ldesc: "For server functionality around Timbl"
+skip:
+
+homepage: https://github.com/LanguageMachines/timblserver
+license: GPL-3.0-or-later

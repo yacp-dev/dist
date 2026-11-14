@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgfortran5 libmctc-lib0
+sdesc: "Molecular structure store for testing (runtime)"
+ldesc: "Molecular structure store for testing"
+external-source: mstore
+

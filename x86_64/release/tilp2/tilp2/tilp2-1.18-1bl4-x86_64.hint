@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libatk1.0_0 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk2.0_0 libintl8 libpango1.0_0 libticables2_7 libticalcs2_12 libticonv8 libtifiles2_10 zlib0
+sdesc: "Communication program for Texas Instruments calculators"
+ldesc: "TILP is a program allowing a computer to communicate with TI graphing
+calculators (TI-Z80, TI-68k and Nspire series)."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Compressed Data Structure Library (licensing & readmes)"
+ldesc: "Compressed Data Structure Library"
+external-source: libcds2
+

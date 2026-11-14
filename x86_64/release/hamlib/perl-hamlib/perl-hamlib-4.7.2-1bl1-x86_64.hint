@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libhamlib4 perl5_044 perl_base
+sdesc: "Library to control radio transceivers and receivers (perl bindings)"
+ldesc: "The Hamlib project's purpose is to develop flexible and portable shared
+libraries that offer a standardized API to control any radio oriented
+equipment through a computer interface."
+external-source: hamlib
+

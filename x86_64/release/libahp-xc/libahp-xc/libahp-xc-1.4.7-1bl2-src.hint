@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Driver library for the AHP® XC Correlators (licensing & readmes)"
+ldesc: "Driver library for the AHP® XC Correlators"
+skip:
+
+homepage: https://github.com/ahp-electronics/libahp-xc
+license: GPL-3.0-or-later

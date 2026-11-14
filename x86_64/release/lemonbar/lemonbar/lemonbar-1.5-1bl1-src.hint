@@ -1,0 +1,10 @@
+category: Utils
+build-depends: cygport libxcb-randr-devel libxcb-devel libxcb-xinerama-devel perl
+sdesc: "Featherweight lemon-scented bar"
+ldesc: "lemonbar (formerly known as bar) is a lightweight statusbar based on XCB.
+Provides full UTF-8 support, basic formatting, RandR and Xinerama support and
+EWMH compliance without wasting your precious memory."
+skip:
+
+homepage: https://github.com/LemonBoy/bar
+license: MIT

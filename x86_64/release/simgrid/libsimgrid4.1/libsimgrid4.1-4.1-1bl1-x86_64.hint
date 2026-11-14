@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libcgraph8 libgcc1 libgfortran5 libstdc++6
+sdesc: "Framework for the simulation of distributed applications (runtime)"
+ldesc: "SimGrid is a scientific instrument to study the behavior of large-scale
+distributed systems such as Grids, Clouds, HPC or P2P systems. It can be used
+to evaluate heuristics, prototype applications or even assess legacy MPI
+applications."
+external-source: simgrid
+

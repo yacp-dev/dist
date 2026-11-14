@@ -1,0 +1,6 @@
+category: Libs
+requires: libfgt0 pkg-config
+sdesc: "C++ library for fast Gauss transforms (development)"
+ldesc: "C++ library for fast Gauss transforms"
+external-source: fgt
+

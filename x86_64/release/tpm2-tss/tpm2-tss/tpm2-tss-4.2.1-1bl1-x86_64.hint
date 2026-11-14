@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "OSS implementation of the TCG TPM2 Software Stack (licensing & readmes)"
+ldesc: "This repository hosts source code implementing the Trusted Computing Group's
+(TCG) TPM2 Software Stack (TSS)."
+

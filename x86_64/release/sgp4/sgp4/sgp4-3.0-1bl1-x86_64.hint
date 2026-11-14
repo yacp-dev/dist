@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libsgp4_3 libstdc++6
+sdesc: "Simplified perturbations models (utilities)"
+ldesc: "Simplified perturbations models"
+

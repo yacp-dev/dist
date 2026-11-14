@@ -1,0 +1,6 @@
+category: Libs
+requires: libappanvil0 pkg-config
+sdesc: "Community-built parser library for AppArmor profiles (development)"
+ldesc: "Community-built parser library for AppArmor profiles"
+external-source: libappanvil
+

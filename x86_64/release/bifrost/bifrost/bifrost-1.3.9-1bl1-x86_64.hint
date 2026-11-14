@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbifrost1 libgcc1 libstdc++6 zlib0
+sdesc: "Highly parallel construction and indexing of colored and compacted de Bruijn graphs (utilities)"
+ldesc: "Highly parallel construction and indexing of colored and compacted de Bruijn graphs"
+

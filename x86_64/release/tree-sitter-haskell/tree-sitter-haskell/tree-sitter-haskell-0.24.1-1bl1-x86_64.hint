@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Haskell grammar for tree-sitter (licensing & readmes)"
+ldesc: "Haskell grammar for tree-sitter"
+

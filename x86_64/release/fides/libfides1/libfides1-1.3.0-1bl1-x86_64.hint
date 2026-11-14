@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libadios2_2.12 libgcc1 libstdc++6 libviskores1.2
+sdesc: "Library for reading ADIOS2 data into Viskores datasets (runtime)"
+ldesc: "Fides is a library that provides a schema for reading and writing
+data stored in ADIOS2 using a JSON-based data model, and for turning it into
+Viskores datasets for visualization."
+external-source: fides
+

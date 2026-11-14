@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "library for DNS encapsulations (licensing & readmes)"
+ldesc: "A C library for encoding/decoding different DNS encapsulations and
+transporting them over different protocols."
+

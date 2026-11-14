@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C grammar for tree-sitter (licensing & readmes)"
+ldesc: "C grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-c
+license: MIT

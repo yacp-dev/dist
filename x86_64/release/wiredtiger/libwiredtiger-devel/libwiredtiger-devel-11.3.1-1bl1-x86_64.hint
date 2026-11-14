@@ -1,0 +1,7 @@
+category: Net
+requires: libwiredtiger11.3.1 pkg-config
+sdesc: "High performance NoSQL extensible platform for data management (development)"
+ldesc: "WiredTiger is an high performance, scalable, production quality, NoSQL, Open
+Source extensible platform for data management."
+external-source: wiredtiger
+

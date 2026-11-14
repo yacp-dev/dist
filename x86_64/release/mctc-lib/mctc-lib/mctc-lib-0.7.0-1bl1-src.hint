@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport gcc-fortran libjonquil-devel libtoml-f-devel
+sdesc: "Modular computation tool chain library (utilities)"
+ldesc: "This library supports reading and writing in more than ten different geometry
+formats, including general ASCII formats, like xyz, JSON based formats, like
+QCSchema, and program specific formats, for example compatible with Turbomole
+or Vasp."
+skip:
+
+homepage: https://github.com/grimme-lab/mctc-lib
+license: Apache-2.0

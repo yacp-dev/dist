@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libexpat1 libretls28 libssl3 zlib0 rsync
+sdesc: "OpenBSD portable rpki-client"
+ldesc: "OpenBSD portable rpki-client"
+

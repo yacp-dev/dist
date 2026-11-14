@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libjansson4 libssl3
+sdesc: "C library implementing the Javascript Object Signing and Encryption (runtime)"
+ldesc: "C library implementing the Javascript Object Signing and Encryption"
+external-source: cjose
+

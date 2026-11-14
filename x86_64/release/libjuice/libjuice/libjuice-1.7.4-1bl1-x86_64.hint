@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "UDP Interactive Connectivity Establishment (licensing & readmes)"
+ldesc: "libjuice (JUICE is a UDP Interactive Connectivity Establishment library)
+allows to open bidirectionnal User Datagram Protocol (UDP) streams with
+Network Address Translator (NAT) traversal."
+

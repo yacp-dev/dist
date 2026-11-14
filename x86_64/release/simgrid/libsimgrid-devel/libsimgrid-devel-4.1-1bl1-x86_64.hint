@@ -1,0 +1,9 @@
+category: Science
+requires: libsimgrid4.1 pkg-config
+sdesc: "Framework for the simulation of distributed applications (development)"
+ldesc: "SimGrid is a scientific instrument to study the behavior of large-scale
+distributed systems such as Grids, Clouds, HPC or P2P systems. It can be used
+to evaluate heuristics, prototype applications or even assess legacy MPI
+applications."
+external-source: simgrid
+

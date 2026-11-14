@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport autoconf-archive libsodium-devel
+sdesc: "Symmetric encryption with SSH Agent (utilities)"
+ldesc: "A library that allows using the keys in the SSH Agent to perform symmetric,
+authenticated encryption and decryption securely without typing passwords. It
+works with both RSA and ED25519 SSH keys including those made available to a
+remote host by SSH Agent forwarding."
+skip:
+
+homepage: https://github.com/ndilieto/libagentcrypt
+license: ISC

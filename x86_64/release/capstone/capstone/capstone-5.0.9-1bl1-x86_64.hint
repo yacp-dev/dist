@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcmocka0
+sdesc: "Ultimate Disassembler (utilities)"
+ldesc: "Capstone is a lightweight multi-platform, multi-architecture disassembly
+framework."
+

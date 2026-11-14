@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "C grammar for tree-sitter (runtime)"
+ldesc: "C grammar for tree-sitter"
+external-source: tree-sitter-c
+

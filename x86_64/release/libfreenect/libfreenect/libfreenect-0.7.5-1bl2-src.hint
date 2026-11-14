@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libGL-devel libGLU-devel libglut-devel libopencv-devel libusb1.0-devel
+sdesc: "Drivers and libraries for the Xbox Kinect device (utilities)"
+ldesc: "Libfreenect is the core library for accessing the Microsoft Kinect USB camera."
+skip:
+
+homepage: https://github.com/OpenKinect/libfreenect
+license: Apache-2.0 OR GPL-2.0-only

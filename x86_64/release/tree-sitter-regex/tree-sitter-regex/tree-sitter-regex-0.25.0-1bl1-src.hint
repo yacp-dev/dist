@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Tree-sitter parser for regular expressions (licensing & readmes)"
+ldesc: "Tree-sitter parser for regular expressions"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-regex
+license: MIT

@@ -1,0 +1,5 @@
+category: Libs
+requires: bash cygwin libadios2_2.12 libgcc1 libstdc++6 libzfp1 python3 python312-adios2 python312-adios2
+sdesc: "Adaptable Input Output System version 2 (utilities, licensing & readmes)"
+ldesc: "ADIOS2 is a unified framework for I/O and in situ data processing of large-scale scientific data, with C, C++ and Fortran bindings."
+

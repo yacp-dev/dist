@@ -1,0 +1,7 @@
+category: Libs
+requires: libflatbuffers25.12.19 pkg-config flatbuffers
+sdesc: "Memory Efficient Serialization Library (development)"
+ldesc: "FlatBuffers is a serialization library for games and other memory constrained
+apps."
+external-source: flatbuffers
+

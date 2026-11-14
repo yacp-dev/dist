@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gettext-devel libglib2.0-devel
+sdesc: "Charset conversion library for TI calculators (licensing & readmes)"
+ldesc: "The ticonv library is a library which handles the various TI charsets and
+conversion to/from UTF-8/16 through a set of functions which constitutes a
+common API."
+skip:
+
+homepage: http://lpg.ticalc.org/prj_tilp/
+license: GPL-2.0-or-later

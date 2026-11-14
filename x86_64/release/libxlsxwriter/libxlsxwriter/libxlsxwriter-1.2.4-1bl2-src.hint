@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libssl-devel python3-pytest zlib-devel
+sdesc: "C library for creating Excel XLSX files (licensing & readmes)"
+ldesc: "Libxlsxwriter is a C library that can be used to write text, numbers, formulas
+and hyperlinks to multiple worksheets in an Excel 2007+ XLSX file."
+skip:
+
+homepage: https://github.com/jmcnamara/libxlsxwriter
+license: BSD-2-Clause AND BSD-3-Clause AND Zlib

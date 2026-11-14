@@ -1,0 +1,7 @@
+category: Libs
+requires: liballium1.0_0 pkg-config
+sdesc: "C Tor Pluggable Transports Utility Library (development)"
+ldesc: "liballium attempts to reduce the amount of boilerplate code required to
+implement pluggable transports for Tor in C or C++."
+external-source: liballium
+

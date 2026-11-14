@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbz2-devel libcmocka-devel liblzma-devel libssl-devel libzstd-devel rpm-devel zlib-devel
+sdesc: "Library for making, reading and applying deltarpm packages (licensing & readmes)"
+ldesc: "Library for making, reading and applying deltarpm packages"
+skip:
+
+homepage: https://github.com/rpm-software-management/drpm
+license: BSD-3-Clause AND LGPL-2.1-or-later

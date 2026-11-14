@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport asciidoc libjansson-devel libssl-devel zlib-devel
+sdesc: "Implementation of Javascript Object Signing and Encryption (utilities)"
+ldesc: "Jose is a C-language implementation of the Javascript Object Signing and
+Encryption standards."
+skip:
+
+homepage: https://github.com/latchset/jose
+license: Apache-2.0

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libczmq4 libgcc1 libstdc++6 libzmq5
+sdesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq (runtime)"
+ldesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq"
+external-source: prime_server
+

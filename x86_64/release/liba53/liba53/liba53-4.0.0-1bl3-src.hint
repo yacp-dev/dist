@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "A5/3 Call Encryption Library (licensing & readmes)"
+ldesc: "A5/3 Call Encryption Library"
+skip:
+
+homepage: https://github.com/RangeNetworks/liba53
+license: GPL-2.0-or-later

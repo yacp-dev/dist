@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport docbook-xml45 gettext-devel libcurl-devel libexpat-devel libgcrypt-devel libgpg-error-devel libgpgme-devel libiconv-devel libintl-devel libjson-c-devel libxml2-devel libxslt
+sdesc: "Client library for accessing ISDS SOAP services (licensing & readmes)"
+ldesc: "Client library for accessing ISDS SOAP services"
+skip:
+
+homepage: https://www.datovka.cz/cs/pages/libdatovka.html
+license: LGPL-3.0-or-later

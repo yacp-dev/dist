@@ -1,0 +1,5 @@
+category: Libs
+requires: bash cygwin libgfortran5 libgomp1 libmctc-lib0 libxtb6
+sdesc: "Semiempirical Extended Tight-Binding Program Package (utilities)"
+ldesc: "Semiempirical Extended Tight-Binding Program Package"
+

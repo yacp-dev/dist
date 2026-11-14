@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libcext0 libcfitsio10 libfftw3_3 libgcc1 libgomp1 libwcs4
+sdesc: "Common Pipeline Library (runtime)"
+ldesc: "ESO common pipeline library for astronomical data reduction"
+external-source: cpl
+

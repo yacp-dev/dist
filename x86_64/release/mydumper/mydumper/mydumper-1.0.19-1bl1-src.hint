@@ -1,0 +1,8 @@
+category: Database
+build-depends: cygport libglib2.0-devel libmariadb-devel libpcre2-devel libssl-devel zlib-devel
+sdesc: "Official mydumper project"
+ldesc: "Official mydumper project"
+skip:
+
+homepage: https://github.com/mydumper/mydumper
+license: GPL-3.0-or-later

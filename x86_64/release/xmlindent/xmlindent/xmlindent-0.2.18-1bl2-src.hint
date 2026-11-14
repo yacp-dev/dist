@@ -1,0 +1,9 @@
+category: Utils
+build-depends: cygport flex
+sdesc: "XML stream reformatter written in ANSI C"
+ldesc: "XML Indent is a XML stream reformatter written in ANSI C.
+It is analogous to GNU indent."
+skip:
+
+homepage: https://github.com/penberg/xmlindent
+license: GPL-2.0-or-later

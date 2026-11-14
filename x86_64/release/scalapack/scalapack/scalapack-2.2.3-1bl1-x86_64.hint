@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Scalable LAPACK (licensing & readmes)"
+ldesc: "ScaLAPACK, or Scalable LAPACK, is a library of high performance linear algebra
+routines for distributed memory computers supporting MPI."
+

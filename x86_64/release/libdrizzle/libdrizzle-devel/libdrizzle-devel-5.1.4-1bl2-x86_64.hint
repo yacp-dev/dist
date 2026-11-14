@@ -1,0 +1,6 @@
+category: Libs
+requires: bash libdrizzle9 pkg-config
+sdesc: "Client and protocol library for the Drizzle database (development)"
+ldesc: "Client and protocol library for the Drizzle database"
+external-source: libdrizzle
+

@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport doctest zlib-devel
+sdesc: "Macromolecular crystallography library and utilities (utilities)"
+ldesc: "Macromolecular crystallography library and utilities"
+skip:
+
+homepage: https://github.com/project-gemmi/gemmi
+license: MPL-2.0

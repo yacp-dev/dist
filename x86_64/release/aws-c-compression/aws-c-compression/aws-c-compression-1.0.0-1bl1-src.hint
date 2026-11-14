@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libaws-c-common-devel
+sdesc: "C99 implementation of huffman encoding/decoding (utilities)"
+ldesc: "This is a cross-platform C99 implementation of compression algorithms such as
+gzip, and huffman encoding/decoding. Currently only huffman is implemented."
+skip:
+
+homepage: https://github.com/awslabs/aws-c-compression
+license: Apache-2.0

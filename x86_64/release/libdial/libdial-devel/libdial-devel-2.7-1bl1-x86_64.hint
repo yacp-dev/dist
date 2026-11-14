@@ -1,0 +1,6 @@
+category: Libs
+requires: libdial2 pkg-config
+sdesc: "Library needed by tzclock (development)"
+ldesc: "Library needed by tzclock"
+external-source: libdial
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libglib2.0-devel
+sdesc: "Small library based on GObject that simplifies the creation and managing of child processes (licensing & readmes)"
+ldesc: "The libgexecutor is a small library, based on GLib2 - GObject, that simplifies
+the creation and managing of child processes, for programs based on
+glib-GObject."
+skip:
+
+homepage: https://sourceforge.net/projects/libgexecutor/
+license: GPL-2.0-or-later

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgnutls30
+sdesc: "Lightweight library for embedding webserver in applications (runtime)"
+ldesc: "GNU libmicrohttpd is a small C library that is supposed to make it easy to run
+an HTTP server as part of another application. GNU GNU Libmicrohttpd is free
+software and part of the GNU project."
+external-source: libmicrohttpd
+

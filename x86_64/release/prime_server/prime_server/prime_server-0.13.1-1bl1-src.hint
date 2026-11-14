@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel libczmq-devel libzmq-devel
+sdesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq (utilities)"
+ldesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq"
+skip:
+
+homepage: https://github.com/kevinkreiser/prime_server
+license: BSD-2-Clause

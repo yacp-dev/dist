@@ -1,0 +1,8 @@
+category: Libs
+requires: libadios2-devel libfides1 libviskores-devel pkg-config libadios2-devel rapidjson-devel
+sdesc: "Library for reading ADIOS2 data into Viskores datasets (development)"
+ldesc: "Fides is a library that provides a schema for reading and writing
+data stored in ADIOS2 using a JSON-based data model, and for turning it into
+Viskores datasets for visualization."
+external-source: fides
+

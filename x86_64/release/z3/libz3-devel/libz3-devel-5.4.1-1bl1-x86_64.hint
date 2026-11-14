@@ -1,0 +1,6 @@
+category: Math
+requires: libgmp-devel libz3_5.4 pkg-config
+sdesc: "Theorem prover (development)"
+ldesc: "Z3 is a theorem prover from Microsoft Research."
+external-source: z3
+

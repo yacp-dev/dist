@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config
+sdesc: "JSON for Modern C++"
+ldesc: "JSON for Modern C++"
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: lib_Foundation1 pkg-config
+sdesc: "Opinionated C11 library for low-level functionality (development)"
+ldesc: "An object-oriented C library whose API is designed for a particular coding
+style, taking cues from C++ STL and Qt."
+external-source: the_Foundation
+

@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libcurl-devel libgtest-devel libsqlite3-devel libssl-devel libuuid-devel
+sdesc: "C++ implementation of the SciTokens library (utilities)"
+ldesc: "SciTokens provide a token format for distributed authorization. The tokens are
+self-describing, can be verified in a distributed fashion (no need to contact
+the issuer to determine if the token is valid). This is convenient for a
+federated environment where several otherwise-independent storage endpoints
+want to delegate trust for an issuer for managing a storage allocation."
+skip:
+
+homepage: https://github.com/scitokens/scitokens-cpp
+license: Apache-2.0 AND MIT AND BSD-2-Clause

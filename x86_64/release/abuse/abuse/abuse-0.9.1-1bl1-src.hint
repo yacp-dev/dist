@@ -1,0 +1,11 @@
+category: Games
+build-depends: cygport libSDL2-devel libSDL2_mixer-devel
+sdesc: "Dark 2D side-scrolling platform game"
+ldesc: "Abuse is a dark 2D side-scrolling platform game developed by Crack dot Com in
+1995. It features beautiful lighting, realistic animation and nasty alien-like
+creatures to destroy. It is now maintained by Sam Hocevar in an attempt to
+prevent it from vanishing from the Internet."
+skip:
+
+homepage: https://github.com/Xenoveritas/abuse
+license: GPL-2.0-or-later AND WTFPL AND LicenseRef-PublicDomain AND LicenseRef-Abuse-SFX AND LicenseRef-Abuse-Claudio

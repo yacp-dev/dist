@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libhts3 perl_base python3
+sdesc: "Faster replacement for most of the perl VCFtools commands"
+ldesc: "Faster replacement for most of the perl VCFtools commands"
+
