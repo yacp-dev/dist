@@ -1051,7 +1051,7 @@ Edit only files under the package directory. Common fixes:
   DLL it couldn't find and printed nothing. Usually that's an import
   library installed next to a dlopen()ed plugin (`usr/share/<pkg>/plugins/lib*_dyn.dll.a`): nothing links
   against a plugin, so remove them in `src_install` after the install
-  call (`rm -f ${D}/usr/share/<dir>/*.dll.a`) rather than pointing
+  call (`verbose rm -f ${D}/usr/share/<dir>/*.dll.a`) rather than pointing
   `DEPS_PATH` at them. Check first that the DLL is really only loaded at
   runtime (`dlopen`/`LoadLibrary`, a plugin directory) and that no
   installed CMake/pkg-config file names the import library. A DLL other
@@ -1065,7 +1065,7 @@ Edit only files under the package directory. Common fixes:
   (`Audit recipe`'s `== Duplicate files ==`: a `LICENSE`, `COPYING`,
   `README` under `usr/share/<name>/`, with the same content as cygport's
   copy in `usr/share/doc/${PN}/`) → remove upstream's copy in `src_install`
-  after the install call, along with a directory that leaves empty,
+  after the install call (e.g. `verbose rm -rf ${D}/usr/share/doc/${PN}1`), along with a directory that leaves empty,
   unless the program reads that path at runtime (leave it and say so in
   the report). One commit, `<pkg>-<ver> (drop duplicate <file>)`.
 - **man3 belongs in -devel** (`Audit recipe`'s `== man3 ==`: a package
@@ -1095,6 +1095,10 @@ Edit only files under the package directory. Common fixes:
 
 Keep fixes minimal and in the style of the existing recipe. Don't
 "fix" things the log doesn't show are broken.
+
+When performing basic coreutils file operations in `src_install` (such as
+`rm`, `rmdir`, `cp`, `mv`, `mkdir`), always prefix them with `verbose`
+(e.g. `verbose rm -rf ...`, `verbose rm -f ...`) so cygport logs each command.
 
 **Where things go in a recipe.** Whenever you add or touch one of these,
 and in a recipe you've just bumped even if a run didn't complain:
