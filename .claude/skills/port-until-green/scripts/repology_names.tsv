@@ -1,0 +1,16 @@
+# ports directory name<TAB>Repology project<TAB>note (optional)
+# Where Repology's project name isn't the ports name lowercased. Read by
+# repology_newest.sh; add a line whenever a lookup needed another name.
+arb	arb-fp
+camp	camp-metaprogramming	Repology's newest (spack) can lag GitHub releases: cross-check gh api repos/LLNL/camp/releases
+Catch2	catch
+cpx	cpcm-x
+flare-engine	flare-rpg
+janet	janet-lang
+libconfig	libconfig-hyperrealm
+libixion	ixion
+quill	quill-logging-library
+sz3	sz	ports renamed sz3 to sz, following Repology
+the_Foundation	the-foundation
+tree	tree-steve-baker
+volk	volk-simd

@@ -74,6 +74,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   prints `<run id> <run url>`.
 - `scripts/run_decision.sh --target T [-f key=val ...]` — rerun, wait or
   dispatch (Step 2).
+- `scripts/repology_newest.sh --package P [--current V]` — the newest
+  version on Repology, with ports-to-Repology names from
+  `repology_names.tsv` (Step 1).
 - `scripts/branch_state.sh --package P --version V` — the branch, PR,
   newest run and local-only commits, with a verdict (Step 1).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
@@ -133,15 +136,16 @@ job runs the same script.) It finds the package as the longest ports directory n
 starts with (package names can contain dashes), then splits the rest into
 `<ver>[-<rel>]`. Act on its `mode=`:
 
-- **`latest`** (`<pkg>`) → find the newest upstream version on Repology:
-  `curl -s https://repology.org/api/v1/project/<name>` and
-  take a `"status": "newest"` entry's version (the project name may need
-  lowercasing or a prefix like `python:`; normalize the spelling to the
-  cygport's, e.g. `1_2_3` → `1.2.3`). Equal to `current_version` → tell
-  the user it's already up to date and stop. Otherwise carry on as
-  `bump` with that version. If Repology has no entry, or the "newest"
-  looks like a distro fork/prerelease, ask the user instead of guessing
-  — a wrong version means a wrong PR. (Git snapshots: see below.)
+- **`latest`** (`<pkg>`) → `scripts/repology_newest.sh --package <pkg>
+  --current <current_version>`. `current: ... up to date` → tell the
+  user and stop; `current: bump` → carry on as `bump` with its
+  `version:`. Its `project:` is the Repology name for
+  `distro_patches.sh` later. No project (exit 3) → try the candidates it
+  lists or a shorter name, and once one fits, add it to
+  `scripts/repology_names.tsv`. Several `newest:` lines, none, or one
+  that looks like a distro fork/prerelease → ask the user instead of
+  guessing — a wrong version means a wrong PR. Follow a `note:`. (Git
+  snapshots: see below.)
 - **`bump`** (`<pkg>-<ver>`, `<ver>` differs from ports) → a version
   update to `<ver>`.
 - **`rebuild`** (`<pkg>-<ver>`, `<ver>` equals ports) → bump only the
@@ -580,7 +584,7 @@ gcc fixes matter. Gather them:
 scripts/distro_patches.sh --project <repology name> --version <ver> --out <scratchpad>/<pkg>-distro
 ```
 
-`<repology name>` is the one Step 1 used (or would have). Repology only
+`<repology name>` is `repology_newest.sh`'s `project:` (Step 1). Repology only
 supplies the distros' source package names: the versions are read from
 each distro directly, since Repology can lag. It prints, per
 distro, the packaging revision it used, the lines saying how the patches
