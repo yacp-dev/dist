@@ -70,54 +70,31 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
 
 Helpers bundled with this skill (paths relative to this SKILL.md):
 
-- `scripts/dispatch_build.sh --target T [-f key=val ...]` — dispatches and
+- `scripts/dispatch_build.sh --target T [-f key=val ...]` — dispatches,
   prints `<run id> <run url>`.
-- `scripts/run_decision.sh --target T [-f key=val ...]` — says whether to
-  re-run the last run's failed jobs, wait for it, or dispatch (Step 2).
+- `scripts/run_decision.sh --target T [-f key=val ...]` — rerun, wait or
+  dispatch (Step 2).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
-  either workflow
-  (one API call every 90 s by default), prints `<conclusion> <run url>`,
-  and exits 0 only on success.
-- `scripts/failure_summary.sh --run ID --out DIR` — failed step names,
-  the `== Recipe ==` and `== Undefined macros ==` sections of `Audit
-  recipe` (when it warned / compile hit one), and the full failed log
-  saved to `DIR` for grepping.
-- `scripts/check_summary.sh --run ID` — the `== Check ==` section of
-  `Audit recipe`: whether `cygport check` passed, ran no tests
-  (`check: empty`), or failed, with its diagnostic, and the tests it
-  skipped (Step 2).
+  either workflow (one API call every 90 s), prints `<conclusion> <run
+  url>`, exits 0 only on success.
+- `scripts/failure_summary.sh --run ID --out DIR` — failed steps, the
+  audit's diagnostics, the full failed log saved to `DIR` (Step 3).
+- `scripts/check_summary.sh --run ID` — the `cygport check` verdict,
+  diagnostic and skipped tests (Step 2).
 - `scripts/preflight_bump.sh --package P --version V --work DIR [--source URL]` —
-  bumps the recipe to `V` (only its release, when `V` is the current
-  version) on a local `dorgann/P-V` branch in its own
-  worktree (committed, not pushed), and reports what would fail: patches
-  that don't apply to the new source, the SOVERSION, LICENSE, a
-  superseded Python, unused CMake `-D` variables, yacp-provided
-  dependencies upstream has moved past (Step 1b).
-- `scripts/unused_cmake_args.sh --recipe F --source DIR [--old-source DIR]` —
-  the `-D` variables a cmake recipe passes that no build file in `DIR`
-  reads (preflight runs it; also usable on its own).
-- `scripts/cmake_min_version.sh --recipe F --source DIR` — whether the
-  source needs `-DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5` (a
-  `cmake_minimum_required` below 3.5), or the recipe's flag is no longer
-  needed. Preflight prints it under "CMake options"; add or drop the flag
-  accordingly.
+  the bump in its own worktree, not pushed, and a report of what would
+  fail (Step 1b).
+- `scripts/unused_cmake_args.sh --recipe F --source DIR [--old-source DIR]`,
+  `scripts/cmake_min_version.sh --recipe F --source DIR` — run by the
+  preflight; usable on their own.
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
-  bumps a git-snapshot package to upstream HEAD on its own branch, in
-  its own worktree (see Step 1).
-- `scripts/distro_patches.sh --project NAME --version V --out DIR` —
-  downloads the patches Debian, Fedora, Gentoo, AUR and PLD carry for
-  version `V` (or, where a distro has no such version, its newest one in
-  the same major, marked `(not V: …)`; Debian unstable, Fedora rawhide,
-  the Gentoo tree, the AUR's current PKGBUILD and PLD's master spec, looked
-  up directly; Repology only names the source packages), each with a
-  revision-pinned URL for `PATCH_URI` (see
-  "Distro patches" under Step 2).
+  a git snapshot to upstream HEAD (Step 1).
+- `scripts/distro_patches.sh --project NAME --version V --out DIR` — the
+  distros' patches with pinned URLs ("Distro patches", Step 2).
 - `scripts/new_recipe.sh --package P --version V --source URL --homepage URL [--dry-run]` —
-  creates the draft recipe for a package not in ports yet, from
-  `scripts/templates/recipe.in` (New packages, Step 1).
-- `scripts/cmux_status.sh "<text>"` / `--clear` — shows the package as a
-  status pill on this session's cmux workspace (a no-op outside cmux).
-  See "Status pill" below.
+  a draft recipe for a package not in ports ("New packages", Step 1).
+- `scripts/cmux_status.sh "<text>"` / `--clear` — the status pill (below;
+  a no-op outside cmux).
 
 ### Status pill
 
@@ -277,10 +254,9 @@ per-session worktree (Step 4).
 `<base>+git<YYYYMMDD>`, e.g. `sfparse-0.0.0+git20251223`) take a different
 path: they track upstream HEAD, not releases, so in `latest` mode skip
 the Repology lookup (pass no `--version` below), and don't bump them
-with the workflow's version bump either. A git recipe with neither
-`GIT_REV` nor `GIT_TAG` isn't a snapshot at all — it pins nothing and
-builds the branch's HEAD whatever the version says; pin it first, as
-"Git HEAD" under Step 1b says. `bump_version.sh` only
+with the workflow's version bump either. (A git recipe with neither
+`GIT_REV` nor `GIT_TAG` isn't a snapshot: see "Git HEAD" under Step 1b.)
+`bump_version.sh` only
 renames files and substitutes the version string — `GIT_REV` would stay at
 the old commit, and the run would build the old source under the new
 version and *succeed*, producing a wrong PR that looks right. Instead:
@@ -378,16 +354,15 @@ normally fine as they are):
   - `applies` → nothing to do.
   - `ALREADY IN SOURCE` → upstream has it: drop it from `PATCH_URI`, or
     from the `.src.patch` (regenerated as in Step 4).
-  - `FAILS` on a `PATCH_URI` download → usually a URL built from `${PV}`
-    or a distro branch that moved on. Look for the same patch for the new
-    version (`distro_patches.sh`, below); if upstream merged it, drop it.
-    If it no longer exists anywhere, check whether the new source still
-    needs it before dropping it.
-  - `FAILS` on hunks of a `PATCH_URI` patch → same: the distro's newer
-    revision of it, or drop it if upstream took it in another form (look at the
-    failing hunk against the new source). Don't rebase a distro patch by
-    hand into `PATCH_URI`; if it's really needed and nobody carries it for
-    this version, fold it into the `.src.patch` and say so in the report.
+  - `FAILS` on a `PATCH_URI` patch (its download or its hunks) →
+    usually a URL built from `${PV}` or a distro branch that moved on:
+    take the distro's revision for the new version (`distro_patches.sh`,
+    below), or drop it if upstream took it, possibly in another form
+    (look at the failing hunk against the new source). Gone everywhere →
+    check the new source still needs it before dropping it. Don't rebase a
+    distro patch by hand into `PATCH_URI`; if it's really needed and
+    nobody carries it for this version, fold it into the `.src.patch` and
+    say so in the report.
   - `FAILS` on the `.src.patch` → rebase it as in Step 4 (".src.patch no
     longer applies"). The work dir already holds `origsrc/` (with
     `PATCH_URI` applied) and `src/` laid out the way that recipe expects;
@@ -450,7 +425,9 @@ normally fine as they are):
   warning in the `cygport compile` log, which also lists cygport's
   `CMAKE_Fortran_*`/`CMAKE_LEGACY_CYGWIN_WIN32` (not the recipe's).
   It misses one only printed in the configure summary, since printing
-  it reads it.
+  it reads it. The same section says whether the source needs
+  `-DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5` (a `cmake_minimum_required`
+  below 3.5) or the recipe's flag is no longer needed: add or drop it.
 
 Also go through "Distro patches" (under Step 2) now, so they're in the
 first run rather than added after it.
@@ -525,82 +502,70 @@ through "Distro patches" below; its result goes onto the branch once
 this run is done, whichever way it ends. One that went through Step 1b
 already has them.
 
-- **Success** → confirm the PR is ready (`gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`),
-  then check the test suite: `scripts/check_summary.sh --run <id>`.
-  `cygport check` is continue-on-error, so a green run says nothing about
-  it. If it reports `check: FAILED`, go to "Test suite failures" below
-  before calling it done; if `check: empty`, go to "Empty test suite";
-  if a `check-skipped:` list follows the verdict (with any of the
-  three), go to "Skipped tests" as well. Also make sure the recipe defines `LICENSE`,
-  `LICENSE_SPDX` and `LICENSE_URI`; if any is missing, see "Missing
-  LICENSE" below. A recipe that `inherit git`s without `GIT_REV` or
-  `GIT_TAG` pins nothing: the run built whatever HEAD was at the time, so
-  fix it as "Git HEAD" under Step 1b says and re-run. A `WARNING:` in `Audit recipe`'s `== Recipe ==`,
-  `== *-config ==`, `== *.pc ==`, `== AppStream ==`, `== Duplicate files ==` or
-  `== man3 ==` sections (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8
-  '== (Recipe|\*-config|\*\.pc|AppStream|Duplicate files|man3) =='`)
-  is something to fix on the branch before calling it done: a
-  `HOMEPAGE` that redirects (set it to the URL the warning names), an
-  invalid `CATEGORY`, a `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of
-  place ("Where things go in a recipe" in Step 4), a `.pc`/`*-config` whose version, prefix or
-  `-l` libraries are wrong or that names the build tree (fix it in
-  `src_install` or a `PATCH_URI` patch), a file in
-  `/usr/share/appdata` (move it to `/usr/share/metainfo`), a copy of a
-  file cygport installs itself ("Upstream's install duplicates" in Step 4), a
-  C function's manual page outside `-devel` ("man3 belongs in -devel" in Step 4).
-  One commit
-  per fix, `<pkg>-<ver> (fix <what>)`, then re-run. A `BUILD_REQUIRES`
-  package that isn't installed is a misspelling or not a Cygwin
-  package: correct or drop it. Then look at `Audit recipe`'s `== Runtime
-  requirements ==` section (`gh run view <id> -R yacp-dev/dist --log |
-  grep -A8 '== Runtime requirements =='`): a `WARNING:` there means the
-  README the PR carries lists no runtime requirements, or will once an
-  import library's DLL can't be found -- fix it on the branch (see
-  "README's runtime requirements empty" in Step 4) and re-run, or that a
-  shipped binary imports a DLL that isn't installed ("A shipped binary
-  imports a DLL that isn't installed" in Step 4). A
-  `WARNING:` in `== CMake config requirements ==` names a package
-  that `find_package()` of an installed CMake config needs and its
-  subpackage doesn't require: add it to that
-  `<sub>_REQUIRES` in one commit, `<pkg>-<ver> (fix <sub> REQUIRES)`,
-  and re-run. A `Build-time downloads` block in the PR body or run summary (`Audit
-  recipe`'s `== Build-time downloads ==`: a FetchContent `_deps/<name>-src`,
-  an ExternalProject download, or `Cloning into`/cargo/go/pip/wget lines
-  in the logs) means the build fetched something itself: add it to
-  `SRC_URI`, pinned to the commit or version upstream's build files
-  name (the audit quotes the `FetchContent_Declare()`), with `#/<name>-<rev>.tar.gz`,
-  and put it where the build takes a local copy instead of downloading
-  -- `FETCHCONTENT_SOURCE_DIR_<NAME>` in `CYGCMAKE_ARGS`, or a source
-  directory upstream falls back to, moved there from a
-  `src_unpack_hook` (which needs `CYGPORT_USE_UNSTABLE_API=1` right
-  above it, or cygport skips it with a warning in the `cygport prep`
-  log). One commit, `<pkg>-<ver> (take <name> from SRC_URI)`, dropping
-  `git` from `BUILD_REQUIRES` if only the clone needed it, then re-run.
-  Its license
-  still counts if it's compiled. A
-  `.src.patch lost changes` block in the PR body (from `Copy
-  build results back`) means the committed recipe no
-  longer reproduces this build: move the named files' changes into a
-  `PATCH_URI` patch (see "Source doesn't build on Cygwin" in Step 4)
-  and re-run. A `Dependencies the build didn't find` block in the PR
-  body names Cygwin packages that provide something the build looked
-  for and went without (the audit's `== Dependencies the build didn't
-  find ==` section says which pkg-config module or CMake package each
-  is for). For each, find the lookup in the build files and what it
-  gates: one that builds more of the package -- a plugin, a backend,
-  a feature upstream turns on when it's found -- or its tests, goes into `BUILD_REQUIRES`
-  in one commit, `<pkg>-<ver> (add <what> to BUILD_REQUIRES for
-  <feature>)`, then re-run. Leave out one the recipe turned off on
-  purpose (a `-D...=OFF`, a `--disable-...`), one only a fallback
-  probes after what it found first (`pkg_search_module(... a b)`),
-  and one for an example or another OS; say which and why in the
-  report. If distro
-  patches are still to be added, commit them
-  now and re-run before reporting. Then write the final report in the
-  format of "Final report" below, filling every row of its table; the
-  license, the dependencies added and left out, and the distro patches
-  taken and skipped go in the License and Dependencies rows and the
-  `Preflight and patches` and `Left as is` sections, each with why.
+- **Success** → go through these on the run before calling it done. One
+  commit per fix (`<pkg>-<ver> (fix <what>)` unless named below), then
+  re-run:
+  1. The PR is ready: `gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`.
+  2. The test suite: `scripts/check_summary.sh --run <id>` (`cygport
+     check` is continue-on-error, so a green run says nothing about it).
+     `check: FAILED` → "Test suite failures"; `check: empty` → "Empty test
+     suite"; a `check-skipped:` list after any verdict → "Skipped tests"
+     as well.
+  3. The recipe defines `LICENSE`, `LICENSE_SPDX` and `LICENSE_URI`
+     (else "Missing LICENSE"), and one that `inherit git`s pins `GIT_REV`
+     or `GIT_TAG` (else "Git HEAD" under Step 1b: the run built whatever
+     HEAD was).
+  4. Every `WARNING:` in `Audit recipe`
+     (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8 '== [^=]+ =='`)
+     and every block the audit adds to the PR body:
+
+     | Section / block | What it means → the fix |
+     |---|---|
+     | `== Recipe ==` | A `HOMEPAGE` that redirects → the URL the warning names (a redirect that only changes the GitHub user changes `SRC_URI` too). An invalid `CATEGORY`. `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of place → "Where things go in a recipe" (Step 4). A `BUILD_REQUIRES` package that isn't installed → a misspelling or not a Cygwin package: correct or drop it. A `LICENSE` mksetupini rejects → as under LICENSE in Step 1b. |
+     | `== *-config ==`, `== *.pc ==` | Version, prefix or `-l` libraries wrong, or it names the build tree → fix it in `src_install` or a `PATCH_URI` patch. |
+     | `== AppStream ==` | A file in `/usr/share/appdata` → move it to `/usr/share/metainfo`. |
+     | `== Duplicate files ==` | "Upstream's install duplicates" (Step 4). |
+     | `== man3 ==` | "man3 belongs in -devel" (Step 4). |
+     | `== LICENSE ==` | "Missing LICENSE". |
+     | `== Runtime requirements ==` | The README lists no runtime requirements, or will once an import library's DLL can't be found → "README's runtime requirements empty" (Step 4); a shipped binary imports a DLL that isn't installed → "A shipped binary imports a DLL that isn't installed" (Step 4). |
+     | `== CMake config requirements ==` | A package `find_package()` of an installed CMake config needs and its subpackage doesn't require → add it to that `<sub>_REQUIRES`, `<pkg>-<ver> (fix <sub> REQUIRES)`. |
+     | `.src.patch lost changes` (PR body, from `Copy build results back`) | The committed recipe no longer reproduces this build → move the named files' changes into a `PATCH_URI` patch ("Source doesn't build on Cygwin", Step 4). |
+     | `Build-time downloads` | Below. |
+     | `Dependencies the build didn't find` | Below. |
+
+     **Build-time downloads** (`== Build-time downloads ==`: a
+     FetchContent `_deps/<name>-src`, an ExternalProject download, or
+     `Cloning into`/cargo/go/pip/wget lines in the logs): the build
+     fetched something itself. Add it to `SRC_URI`, pinned to the commit
+     or version upstream's build files name (the audit quotes the
+     `FetchContent_Declare()`), with `#/<name>-<rev>.tar.gz`, and put it
+     where the build takes a local copy instead of downloading --
+     `FETCHCONTENT_SOURCE_DIR_<NAME>` in `CYGCMAKE_ARGS`, or a source
+     directory upstream falls back to, moved there from a
+     `src_unpack_hook` (which needs `CYGPORT_USE_UNSTABLE_API=1` right
+     above it, or cygport skips it with a warning in the `cygport prep`
+     log). One commit, `<pkg>-<ver> (take <name> from SRC_URI)`, dropping
+     `git` from `BUILD_REQUIRES` if only the clone needed it. Its license
+     still counts if it's compiled.
+
+     **Dependencies the build didn't find**: Cygwin packages that provide
+     something the build looked for and went without (the audit's section
+     says which pkg-config module or CMake package each is for). Find the
+     lookup in the build files and what it gates: one that builds more of
+     the package -- a plugin, a backend, a feature upstream turns on when
+     it's found -- or its tests goes into `BUILD_REQUIRES`, `<pkg>-<ver>
+     (add <what> to BUILD_REQUIRES for <feature>)`. Leave out one the
+     recipe turned off on purpose (a `-D...=OFF`, a `--disable-...`), one
+     only a fallback probes after what it found first
+     (`pkg_search_module(... a b)`), and one for an example or another OS;
+     say which and why in the report.
+  5. Distro patches still to be added → commit them now and re-run.
+
+  Then write the final report in the format of "Final report" below,
+  filling every row of its table; the license, the dependencies added
+  and left out, and the distro patches taken and skipped go in the
+  License and Dependencies rows and the `Preflight and patches` and
+  `Left as is` sections, each with why.
 - **Failure** → Step 3. Distro patches waiting to be added go onto the
   branch with the first fix (Step 4), in their own commit.
 
@@ -750,29 +715,23 @@ depends on upstream, so look at the source before reporting it:
 - Upstream has no tests (no `test`/`tests`/`t` directory, no
   `check`/`test` target, no `enable_testing()`/`add_test`, no meson
   `test()`, no pytest/unittest files) → nothing to fix; say so in the
-  report. If `check_summary.sh` lists a `check-smoke-test:` (programs in
-  `usr/bin` that exit 0 on `--version`/`--help`), propose a `src_test`
-  that runs them as a smoke test (`verbose ./${PN}.exe --version`, or
-  from the build directory: `${S}/_build.${CHOST}` for meson recipes,
-  otherwise `${B}`; prefix each invocation with `verbose` so the log shows
-  which program is being called), as a proposal in the report: it
-  checks the programs start, not that they work, so don't add it without
-  the user's OK. With no `check-smoke-test:` listed, that doesn't mean
-  nothing can be run: a program with no `--version`/`--help` often
-  prints its usage and exits non-zero when run without arguments
-  (zip2hashcat: usage on stderr, exit 1). Read the source's `main()`
-  and usage path in `usr/bin`'s programs (or the build files for a
-  script), and where the startup behavior is plain, propose a `src_test`
-  that runs the program from the build directory (`${S}/_build.${CHOST}`
-  for meson, `${B}` otherwise) with `verbose` prefixed (e.g.
-  `verbose ./${PN}.exe -v`), and expects exactly that exit code and a line
-  of its usage text. Always prefix the invoked command with `verbose` so the
-  check log makes it obvious which binary was executed. Say in
-  the proposal what it asserts and that it's read off the source, not
-  run. Ask the user; once they OK it, add it in one commit,
-  `<pkg>-<ver> (add smoke test)`, re-run, and the result should be
-  `check: passed`. Nothing plain to assert (it needs input, a display,
-  a network, or just hangs) → say so and leave the suite empty.
+  report, with a smoke-test `src_test` as a proposal: it checks the
+  programs start, not that they work, so don't add it without the
+  user's OK. Run each program from the build directory
+  (`${S}/_build.${CHOST}` for meson, `${B}` otherwise), every invocation
+  prefixed with `verbose` so the check log shows which binary ran. One
+  `check_summary.sh` lists under `check-smoke-test:` (exits 0 on
+  `--version`/`--help`) gets `verbose ./${PN}.exe --version`. One not
+  listed often prints its usage and exits non-zero without arguments
+  (zip2hashcat: usage on stderr, exit 1): read its `main()` and usage
+  path (or the build files for a script), and where the startup
+  behavior is plain, expect exactly that exit code and a line of its
+  usage text (e.g. `verbose ./${PN}.exe -v`), saying in the proposal
+  what it asserts and that it's read off the source, not run. Once the
+  user OKs it, add it in one commit, `<pkg>-<ver> (add smoke test)`,
+  re-run, and the result should be `check: passed`. Nothing plain to
+  assert (it needs input, a display, a network, or just hangs) → say so
+  and leave the suite empty.
 - Upstream has tests the build doesn't reach → fix it on the branch
   (Step 4; counts as an attempt) when the fix is a recipe change: a
   configure option that turns them on (`-DBUILD_TESTING=ON`,
@@ -1005,7 +964,7 @@ Edit only files under the package directory. Common fixes:
   hunk of the `.src.patch` while you're at it, establish whether it's still
   needed: is the change already in the new upstream source? Does it still
   apply? Does the distro have a newer version of the patch
-  (`curl -s https://sources.debian.org/api/src/<pkg>/` lists versions)?
+  (`distro_patches.sh`)?
   Test each against the extracted new source in `PATCH_URI` order, always
   with `-N -f` — without them `patch` asks "Reversed (or previously
   applied) patch detected! Assume -R?" and, non-interactively, says yes,
@@ -1044,9 +1003,6 @@ Edit only files under the package directory. Common fixes:
   (`movit`, `portage-utils` and `libklvanc` in ports do this):
   `CYGPORT_USE_UNSTABLE_API=1`, then `cd ${origsrcdir}/${SRC_DIR}` and a
   `sed -i` on the file. Check for this on every bump, even a green one.
-- **No `LICENSE` / `LICENSE_SPDX` / `LICENSE_URI` in the recipe** →
-  fill them in from the source while you're on the branch (see "Missing
-  LICENSE" under Step 2).
 - **README's runtime requirements empty** (`Audit recipe` warns, `Update
   README` logs `which: no <dll>`) → `cygport dep` stopped at a
   DLL it couldn't find and printed nothing. Usually that's an import
