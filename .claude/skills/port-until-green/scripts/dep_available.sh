@@ -40,7 +40,13 @@ if [[ -n "$file" ]]; then
   [[ ${#pkgs[@]} -gt 0 ]] || echo "$file: in no Cygwin package's file list"
 fi
 
-cygwin_ini="$(curl -sf https://mirrors.kernel.org/sourceware/cygwin/x86_64/setup.xz | xz -d)"
+# The mirror now and then serves a truncated setup.xz: retry.
+cygwin_ini=""
+for _ in 1 2 3; do
+  cygwin_ini="$(curl -sf https://mirrors.kernel.org/sourceware/cygwin/x86_64/setup.xz | xz -d 2>/dev/null)" && [[ -n "$cygwin_ini" ]] && break
+  cygwin_ini=""; sleep 5
+done
+[[ -n "$cygwin_ini" ]] || { echo "could not read the Cygwin mirror's setup.xz" >&2; exit 1; }
 dist_ini="$(curl -sf https://dist.yacp.dev/x86_64/setup.ini)"
 
 # "<curr> <test> <source package>" of a package in a setup.ini, "-" for none.
