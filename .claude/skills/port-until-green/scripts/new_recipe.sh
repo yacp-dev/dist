@@ -67,7 +67,11 @@ content="${content//@HOMEPAGE@/$homepage}"
 content="${content//@SRC_URI@/$source}"
 content="${content//@CATEGORY@/$category}"
 content="${content//@SUMMARY@/$summary}"
-content="${content//@DESCRIPTION@/$description}"
+# DESCRIPTION is folded so no line of the recipe is over 80 columns (the
+# opening `DESCRIPTION="` counts); newlines in the text are folded as spaces.
+description="$(printf 'DESCRIPTION="%s"' "${description//$'\n'/ }" \
+  | fold -s -w 80 | sed 's/[[:space:]]*$//')"
+content="${content//DESCRIPTION=\"@DESCRIPTION@\"/$description}"
 content="${content//@PKG@/$package}"
 content="${content//@VAR@/$var}"
 content="${content//@BASE@/$base}"

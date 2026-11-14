@@ -204,6 +204,10 @@ review on GitHub before anything is built (doc/spec.md 4.8):
    `*_CONTENTS` the install will actually produce, `BUILD_REQUIRES` for
    what the build files need (each available, as in "Checking a
    dependency is unavailable"), and `LICENSE` as in "Missing LICENSE".
+   `DESCRIPTION` is folded at 80 columns (every line, the opening
+   `DESCRIPTION="` and the closing quote included, at most 80 wide; break at
+   spaces, continuation lines unindented, as in ports' recipes);
+   `new_recipe.sh` does it, and so must any hand edit.
    The template's `lib<name>0` names assume a plain `lib`-prefixed
    runtime; fix them when upstream says otherwise. Follow ports' style
    (a similar recipe there is the best reference). No README: xezat
