@@ -301,3 +301,48 @@ audit_duplicate_docs() {
   done < <(find "$doc_dir" -maxdepth 1 -type f -size +0 -print0)
   (( printed )) || ok "Duplicate files: none of the $checked file(s) in usr/share/doc/$PN has a copy elsewhere"
 }
+
+# The manual pages of C functions (usr/share/man/man3) belong in the -devel
+# package, with the headers and import libraries they document, as other
+# distributions do. Reads the subpackages' tarballs from cygport's dist, so
+# it runs after `cygport package`, and only when there is a -devel package
+# to move them to. Pages of scripting-language modules (.3pm, .3perl, .3tcl)
+# document no C interface and are left alone.
+audit_man3_in_devel() {
+  local distdir hint sub tarball file printed=0 have_devel=0 checked=0
+  local -a subs=() tarballs=() found=()
+  distdir="$(dirname "$D")/dist/$PN"
+  [[ -d "$distdir" ]] || return 0
+  while IFS= read -r -d '' hint; do
+    sub="$(basename "$hint")"
+    sub="${sub%-"$PVR"*}"
+    tarball="${hint%.hint}.tar.xz"
+    [[ -f "$tarball" ]] || continue
+    subs+=("$sub")
+    tarballs+=("$tarball")
+    [[ "$sub" == *-devel ]] && have_devel=1
+  done < <(find "$distdir" \( -name "*-$PVR.hint" -o -name "*-$PVR-*.hint" \) -not -name "*-src.hint" \
+             -not -name "*-debuginfo-*" -print0 2>/dev/null)
+  (( have_devel )) || return 0
+  local i
+  for i in "${!subs[@]}"; do
+    sub="${subs[$i]}"
+    [[ "$sub" == *-devel ]] && continue
+    while IFS= read -r file; do
+      checked=$((checked + 1))
+      case "$file" in
+        *.3pm|*.3pm.*|*.3perl|*.3perl.*|*.3tcl|*.3tcl.*) continue ;;
+      esac
+      found+=("$sub installs $file -- manual pages of C functions go in the -devel package (add usr/share/man/man3 to its CONTENTS, and list the other man directories, not usr/share, in $sub's)")
+    done < <(tar tJf "${tarballs[$i]}" 2>/dev/null | grep -E '(^|/)usr/share/man/man3/[^/]+$')
+  done
+  if (( ${#found[@]} == 0 )); then
+    ok "man3: no manual page of a C function outside the -devel package"
+    return 0
+  fi
+  say ""
+  say "== man3 =="
+  for file in "${found[@]}"; do
+    warn "$file"
+  done
+}

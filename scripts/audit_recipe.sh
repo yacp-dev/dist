@@ -1271,6 +1271,7 @@ else
   audit_fhs_paths
   audit_etc_defaults
   audit_duplicate_docs
+  audit_man3_in_devel
   audit_package_sizes
   audit_license
   before=$warnings

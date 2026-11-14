@@ -203,7 +203,11 @@ review on GitHub before anything is built (doc/spec.md 4.8):
    SOVERSION with its DLL pinned (`usr/bin/cyg*-N.dll`), only
    `*_CONTENTS` the install will actually produce, `BUILD_REQUIRES` for
    what the build files need (each available, as in "Checking a
-   dependency is unavailable"), and `LICENSE` as in "Missing LICENSE".
+   dependency is unavailable"), and `LICENSE` as in "Missing LICENSE", with the text of every license it
+   names in `DOCS`. The manual pages of C functions (`usr/share/man/man3`)
+   go in the `-devel` package, as in other distributions; the main
+   package then lists `usr/share/doc` and the other man directories
+   (`usr/share/man/man1`), not `usr/share`.
    `DESCRIPTION` is folded at 80 columns (every line, the opening
    `DESCRIPTION="` and the closing quote included, at most 80 wide; break at
    spaces, continuation lines unindented, as in ports' recipes);
@@ -526,9 +530,9 @@ already has them.
   LICENSE" below. A recipe that `inherit git`s without `GIT_REV` or
   `GIT_TAG` pins nothing: the run built whatever HEAD was at the time, so
   fix it as "Git HEAD" under Step 1b says and re-run. A `WARNING:` in `Audit recipe`'s `== Recipe ==`,
-  `== *-config ==`, `== *.pc ==`, `== AppStream ==` or `== Duplicate files ==`
-  sections (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8
-  '== (Recipe|\*-config|\*\.pc|AppStream|Duplicate files) =='`)
+  `== *-config ==`, `== *.pc ==`, `== AppStream ==`, `== Duplicate files ==` or
+  `== man3 ==` sections (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8
+  '== (Recipe|\*-config|\*\.pc|AppStream|Duplicate files|man3) =='`)
   is something to fix on the branch before calling it done: a
   `HOMEPAGE` that redirects (set it to the URL the warning names), an
   invalid `CATEGORY`, a `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of
@@ -536,7 +540,8 @@ already has them.
   `-l` libraries are wrong or that names the build tree (fix it in
   `src_install` or a `PATCH_URI` patch), a file in
   `/usr/share/appdata` (move it to `/usr/share/metainfo`), a copy of a
-  file cygport installs itself ("Upstream's install duplicates" in Step 4).
+  file cygport installs itself ("Upstream's install duplicates" in Step 4), a
+  C function's manual page outside `-devel` ("man3 belongs in -devel" in Step 4).
   One commit
   per fix, `<pkg>-<ver> (fix <what>)`, then re-run. A `BUILD_REQUIRES`
   package that isn't installed is a misspelling or not a Cygwin
@@ -1057,6 +1062,19 @@ Edit only files under the package directory. Common fixes:
   after the install call, along with a directory that leaves empty,
   unless the program reads that path at runtime (leave it and say so in
   the report). One commit, `<pkg>-<ver> (drop duplicate <file>)`.
+- **man3 belongs in -devel** (`Audit recipe`'s `== man3 ==`: a package
+  other than `-devel` ships `usr/share/man/man3/*`) → add
+  `usr/share/man/man3` to the `<pkg>_devel_CONTENTS`, and give the package
+  that listed `usr/share` the directories it keeps instead
+  (`usr/share/doc`, `usr/share/man/man1`, ...: look at what the install
+  produces), as `RdRand` in ports does. Pages of scripting-language modules
+  (`.3pm`, `.3perl`, `.3tcl`) stay where they are. One commit,
+  `<pkg>-<ver> (move man3 to -devel)`.
+- **License texts not shipped** (the recipe's `LICENSE` names a license whose
+  text upstream keeps in a directory cygport doesn't install, e.g.
+  `LICENSES/<id>.txt` of a REUSE tree) → list the text of each license
+  `LICENSE` names in `DOCS`, one per line, and none of an unshipped one
+  (an autotools GPL text). One commit, `<pkg>-<ver> (install license texts)`.
 - **A file installed straight into `/etc`** → leave it as it is. It's no
   Audit warning: only a config the user edits belongs under `/etc/defaults`
   (`make_etc_defaults /etc/<file>` in `src_install`; with a Ninja build,
