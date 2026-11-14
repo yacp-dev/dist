@@ -79,6 +79,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   `repology_names.tsv` (Step 1).
 - `scripts/gcc_changed.sh --package P` — whether gcc changed since the
   README's build (Step 1, `gcc-rebuild`).
+- `scripts/dep_available.sh --file F | --package P [--min V]` — whether
+  the Cygwin mirror or dist.yacp.dev provides a dependency (Step 4).
 - `scripts/branch_state.sh --package P --version V` — the branch, PR,
   newest run and local-only commits, with a verdict (Step 1).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
@@ -918,16 +920,15 @@ Edit only files under the package directory. Common fixes:
   package provides it (or not a new enough version), it's an unavailable
   dependency — stop (Step 3), don't keep trying.
 
-  **Checking a dependency is unavailable.** Look in both package lists
-  the workflow installs from:
-  `curl -s https://mirrors.kernel.org/sourceware/cygwin/x86_64/setup.xz | xz -d`
-  and `curl -s https://dist.yacp.dev/x86_64/setup.ini`. In each `@ <name>`
-  stanza the first `version:` is curr; ones after `[test]` aren't
-  installed. Search by the file the build wants (`.pc`, `Config.cmake`,
-  header) via https://cygwin.com/packages/ too, since the package name
-  may not match. Also check whether yacp-dev/ports has a recipe for it
-  that just isn't published (`gh api repos/yacp-dev/ports/contents/<name>`)
-  — worth saying in the report, since publishing it is then the fix.
+  **Checking a dependency is unavailable.**
+  `scripts/dep_available.sh --file <what the build wants> [--min <ver>]`
+  (a `.pc`, `Config.cmake` or header; the package name may not match),
+  or `--package <name>` for a dist.yacp.dev package, whose file lists
+  aren't searchable. It checks both package lists the workflow installs
+  from (curr only: `[test]` versions aren't installed) and ports.
+  `available` → add that package; `unavailable` → stop (Step 3);
+  `unpublished <dir>` → ports has a recipe nobody published: worth
+  saying in the report, since publishing it is then the fix.
 - **Runtime dependency / `REQUIRES`** wrong → fix `REQUIRES`.
 - **ABI bump** (`libfoo1.so` → `libfoo2`, file list mismatches) → rename the
   `PKG_NAMES` entry and its `*_CONTENTS`/`*_SUMMARY` variables.
