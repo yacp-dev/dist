@@ -81,6 +81,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   audit's diagnostics, the full failed log saved to `DIR` (Step 3).
 - `scripts/check_summary.sh --run ID` — the `cygport check` verdict,
   diagnostic and skipped tests (Step 2).
+- `scripts/success_checks.sh --run ID --package P --version V` — every
+  check of a green run: PR, `cygport check`, recipe, Audit warnings, PR
+  body (Step 2).
 - `scripts/preflight_bump.sh --package P --version V --work DIR [--source URL]` —
   the bump in its own worktree, not pushed, and a report of what would
   fail (Step 1b).
@@ -233,8 +236,7 @@ For `bump` (and `latest` carried on as one):
    `git -C ~/src/ports ls-remote origin dorgann/<pkg>-<ver>` after a
    `fetch` shows no local-only commits waiting in a worktree. Then skip
    Step 1b and Step 2's dispatch and go straight to Step 2's **Success**
-   checks on that run (PR ready, `check_summary.sh`, Audit warnings,
-   LICENSE), ending with the Final report's merge verdict. Dispatch again
+   checks on that run (`success_checks.sh`), ending with the Final report's merge verdict. Dispatch again
    only when the head is newer than the run (a fix not yet built), when a
    check turns up something to fix, or when the user asks for a rebuild.
    Use the same shortcut for `new` (a reviewed draft that already has a run).
@@ -502,64 +504,62 @@ through "Distro patches" below; its result goes onto the branch once
 this run is done, whichever way it ends. One that went through Step 1b
 already has them.
 
-- **Success** → go through these on the run before calling it done. One
-  commit per fix (`<pkg>-<ver> (fix <what>)` unless named below), then
-  re-run:
-  1. The PR is ready: `gh pr view dorgann/<pkg>-<ver> -R yacp-dev/ports --json url,isDraft`.
-  2. The test suite: `scripts/check_summary.sh --run <id>` (`cygport
-     check` is continue-on-error, so a green run says nothing about it).
-     `check: FAILED` → "Test suite failures"; `check: empty` → "Empty test
-     suite"; a `check-skipped:` list after any verdict → "Skipped tests"
-     as well.
-  3. The recipe defines `LICENSE`, `LICENSE_SPDX` and `LICENSE_URI`
-     (else "Missing LICENSE"), and one that `inherit git`s pins `GIT_REV`
-     or `GIT_TAG` (else "Git HEAD" under Step 1b: the run built whatever
-     HEAD was).
-  4. Every `WARNING:` in `Audit recipe`
-     (`gh run view <id> -R yacp-dev/dist --log | grep -E -A8 '== [^=]+ =='`)
-     and every block the audit adds to the PR body:
+- **Success** → before calling it done, run
+  `scripts/success_checks.sh --run <id> --package <pkg> --version <ver>`
+  and deal with every section it prints. One commit per fix
+  (`<pkg>-<ver> (fix <what>)` unless named below), then re-run:
+  - `== PR`: a `DRAFT` or missing PR is not done.
+  - `== Check` (`cygport check` is continue-on-error, so a green run says
+    nothing about it): `check: FAILED` → "Test suite failures"; `check:
+    empty` → "Empty test suite"; a `check-skipped:` list after any
+    verdict → "Skipped tests" as well.
+  - `== Recipe`: a missing `LICENSE*` → "Missing LICENSE"; `inherit git`
+    with no pin → "Git HEAD" under Step 1b (the run built whatever HEAD
+    was).
+  - `== Audit` and `== PR body`, by section:
 
-     | Section / block | What it means → the fix |
-     |---|---|
-     | `== Recipe ==` | A `HOMEPAGE` that redirects → the URL the warning names (a redirect that only changes the GitHub user changes `SRC_URI` too). An invalid `CATEGORY`. `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of place → "Where things go in a recipe" (Step 4). A `BUILD_REQUIRES` package that isn't installed → a misspelling or not a Cygwin package: correct or drop it. A `LICENSE` mksetupini rejects → as under LICENSE in Step 1b. |
-     | `== *-config ==`, `== *.pc ==` | Version, prefix or `-l` libraries wrong, or it names the build tree → fix it in `src_install` or a `PATCH_URI` patch. |
-     | `== AppStream ==` | A file in `/usr/share/appdata` → move it to `/usr/share/metainfo`. |
-     | `== Duplicate files ==` | "Upstream's install duplicates" (Step 4). |
-     | `== man3 ==` | "man3 belongs in -devel" (Step 4). |
-     | `== LICENSE ==` | "Missing LICENSE". |
-     | `== Runtime requirements ==` | The README lists no runtime requirements, or will once an import library's DLL can't be found → "README's runtime requirements empty" (Step 4); a shipped binary imports a DLL that isn't installed → "A shipped binary imports a DLL that isn't installed" (Step 4). |
-     | `== CMake config requirements ==` | A package `find_package()` of an installed CMake config needs and its subpackage doesn't require → add it to that `<sub>_REQUIRES`, `<pkg>-<ver> (fix <sub> REQUIRES)`. |
-     | `.src.patch lost changes` (PR body, from `Copy build results back`) | The committed recipe no longer reproduces this build → move the named files' changes into a `PATCH_URI` patch ("Source doesn't build on Cygwin", Step 4). |
-     | `Build-time downloads` | Below. |
-     | `Dependencies the build didn't find` | Below. |
+    | Section / block | What it means → the fix |
+    |---|---|
+    | `== Recipe ==` | A `HOMEPAGE` that redirects → the URL the warning names (a redirect that only changes the GitHub user changes `SRC_URI` too). An invalid `CATEGORY`. `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of place → "Where things go in a recipe" (Step 4). A `BUILD_REQUIRES` package that isn't installed → a misspelling or not a Cygwin package: correct or drop it. A `LICENSE` mksetupini rejects → as under LICENSE in Step 1b. |
+    | `== *-config ==`, `== *.pc ==` | Version, prefix or `-l` libraries wrong, or it names the build tree → fix it in `src_install` or a `PATCH_URI` patch. |
+    | `== AppStream ==` | A file in `/usr/share/appdata` → move it to `/usr/share/metainfo`. |
+    | `== Duplicate files ==` | "Upstream's install duplicates" (Step 4). |
+    | `== FHS paths ==` | A directory the FHS doesn't have (`usr/etc`, `usr/man`, `usr/lib64`, ...) → install into the one the warning names. |
+    | `== man3 ==` | "man3 belongs in -devel" (Step 4). |
+    | `== LICENSE ==` | "Missing LICENSE". |
+    | `== Runtime requirements ==` | The README lists no runtime requirements, or will once an import library's DLL can't be found → "README's runtime requirements empty" (Step 4); a shipped binary imports a DLL that isn't installed → "A shipped binary imports a DLL that isn't installed" (Step 4). |
+    | `== CMake config requirements ==` | A package `find_package()` of an installed CMake config needs and its subpackage doesn't require → add it to that `<sub>_REQUIRES`, `<pkg>-<ver> (fix <sub> REQUIRES)`. |
+    | `.src.patch lost changes` (PR body, from `Copy build results back`) | The committed recipe no longer reproduces this build → move the named files' changes into a `PATCH_URI` patch ("Source doesn't build on Cygwin", Step 4). |
+    | `Build-time downloads` | Below. |
+    | `Dependencies the build didn't find` | Below. |
 
-     **Build-time downloads** (`== Build-time downloads ==`: a
-     FetchContent `_deps/<name>-src`, an ExternalProject download, or
-     `Cloning into`/cargo/go/pip/wget lines in the logs): the build
-     fetched something itself. Add it to `SRC_URI`, pinned to the commit
-     or version upstream's build files name (the audit quotes the
-     `FetchContent_Declare()`), with `#/<name>-<rev>.tar.gz`, and put it
-     where the build takes a local copy instead of downloading --
-     `FETCHCONTENT_SOURCE_DIR_<NAME>` in `CYGCMAKE_ARGS`, or a source
-     directory upstream falls back to, moved there from a
-     `src_unpack_hook` (which needs `CYGPORT_USE_UNSTABLE_API=1` right
-     above it, or cygport skips it with a warning in the `cygport prep`
-     log). One commit, `<pkg>-<ver> (take <name> from SRC_URI)`, dropping
-     `git` from `BUILD_REQUIRES` if only the clone needed it. Its license
-     still counts if it's compiled.
+    **Build-time downloads** (`== Build-time downloads ==`: a
+    FetchContent `_deps/<name>-src`, an ExternalProject download, or
+    `Cloning into`/cargo/go/pip/wget lines in the logs): the build
+    fetched something itself. Add it to `SRC_URI`, pinned to the commit
+    or version upstream's build files name (the audit quotes the
+    `FetchContent_Declare()`), with `#/<name>-<rev>.tar.gz`, and put it
+    where the build takes a local copy instead of downloading --
+    `FETCHCONTENT_SOURCE_DIR_<NAME>` in `CYGCMAKE_ARGS`, or a source
+    directory upstream falls back to, moved there from a
+    `src_unpack_hook` (which needs `CYGPORT_USE_UNSTABLE_API=1` right
+    above it, or cygport skips it with a warning in the `cygport prep`
+    log). One commit, `<pkg>-<ver> (take <name> from SRC_URI)`, dropping
+    `git` from `BUILD_REQUIRES` if only the clone needed it. Its license
+    still counts if it's compiled.
 
-     **Dependencies the build didn't find**: Cygwin packages that provide
-     something the build looked for and went without (the audit's section
-     says which pkg-config module or CMake package each is for). Find the
-     lookup in the build files and what it gates: one that builds more of
-     the package -- a plugin, a backend, a feature upstream turns on when
-     it's found -- or its tests goes into `BUILD_REQUIRES`, `<pkg>-<ver>
-     (add <what> to BUILD_REQUIRES for <feature>)`. Leave out one the
-     recipe turned off on purpose (a `-D...=OFF`, a `--disable-...`), one
-     only a fallback probes after what it found first
-     (`pkg_search_module(... a b)`), and one for an example or another OS;
-     say which and why in the report.
-  5. Distro patches still to be added → commit them now and re-run.
+    **Dependencies the build didn't find**: Cygwin packages that provide
+    something the build looked for and went without (the audit's section
+    says which pkg-config module or CMake package each is for). Find the
+    lookup in the build files and what it gates: one that builds more of
+    the package -- a plugin, a backend, a feature upstream turns on when
+    it's found -- or its tests goes into `BUILD_REQUIRES`, `<pkg>-<ver>
+    (add <what> to BUILD_REQUIRES for <feature>)`. Leave out one the
+    recipe turned off on purpose (a `-D...=OFF`, a `--disable-...`), one
+    only a fallback probes after what it found first
+    (`pkg_search_module(... a b)`), and one for an example or another OS;
+    say which and why in the report.
+  - Distro patches still to be added → commit them now and re-run.
 
   Then write the final report in the format of "Final report" below,
   filling every row of its table; the license, the dependencies added
