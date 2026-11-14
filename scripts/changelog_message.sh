@@ -9,7 +9,9 @@
 #   generate_readme.sh's own default "Version bump." in place.
 # - Only the release changed (e.g. 1bl1 -> 1bl2), and gcc-core's
 #   upstream version differs from the gcc-core-<ver> listed under the
-#   HEAD README's "Build requirements": "Rebuild with gcc-<upstream>",
+#   HEAD README's "Build requirements" (or gcc-g++-<ver>/gcc-fortran-<ver>,
+#   all one gcc version, for a package whose README names only those):
+#   "Rebuild with gcc-<upstream>",
 #   matching yacp's own existing convention (e.g. "Rebuild with
 #   gcc-13.4.0" -- upstream version only, no Cygwin package release).
 # - Only the release changed, gcc unchanged (or not recorded at all):
@@ -66,7 +68,9 @@ if [[ -n "$head_cygport" && "$(strip_release "${head_cygport##*/}")" == "$(strip
   gcc_version="$(cygcheck -c gcc-core | awk '$1 == "gcc-core" { print $2 }')"
   [[ -n "$gcc_version" ]] || { echo "changelog_message.sh: couldn't find gcc-core in 'cygcheck -c gcc-core' output" >&2; exit 1; }
   gcc_upstream="${gcc_version%-*}"
-  old_gcc="$(git -C "$dir" show "HEAD:$package/README" 2>/dev/null | sed -n 's/^[[:space:]]*gcc-core-\(.*\)-[^-]*$/\1/p' | head -n 1 || true)"
+  # gcc-core, gcc-g++ and gcc-fortran always share one version, and a
+  # C++-only package's README lists gcc-g++ rather than gcc-core.
+  old_gcc="$(git -C "$dir" show "HEAD:$package/README" 2>/dev/null | sed -En 's/^[[:space:]]*gcc-(core|g\+\+|fortran)-([0-9][^-]*)-[^-]*$/\2/p' | head -n 1 || true)"
   if [[ -n "$old_gcc" && "$old_gcc" != "$gcc_upstream" ]]; then
     message="Rebuild with gcc-$gcc_upstream"
   else
