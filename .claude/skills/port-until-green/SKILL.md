@@ -597,10 +597,10 @@ already has them.
   report. If distro
   patches are still to be added, commit them
   now and re-run before reporting. Then write the final report in the
-  format of "Final report" below: PR URL, run URL, attempts,
-  what you changed, the check result, the license you filled in (if
-  any), the dependencies added and left out, and the distro patches
-  taken and skipped, with why.
+  format of "Final report" below, filling every row of its table; the
+  license, the dependencies added and left out, and the distro patches
+  taken and skipped go in the License and Dependencies rows and the
+  `Preflight and patches` and `Left as is` sections, each with why.
 - **Failure** → Step 3. Distro patches waiting to be added go onto the
   branch with the first fix (Step 4), in their own commit.
 
@@ -898,8 +898,9 @@ gh workflow run publish.yml -R yacp-dev/dist -f artifact_id=<artifact id>
 
 `gh workflow run` prints the publish run's URL; wait for it with
 `wait_run.sh` too. Then write the final report in the format of
-"Final report" below: the build run, the publish run, and the check
-result (`check_summary.sh`, as above).
+"Final report" below, with the build run and the publish run on the
+Run line and the check result (`check_summary.sh`, as above) in the
+`cygport check` row.
 
 If the build fails, don't fix anything: the recipe is the one already
 merged in ports, and a fix needs a new release. Report the failure
@@ -1185,6 +1186,8 @@ the conversation already holds the details, the report is the summary.
 | `cygport check` | <passed / FAILED / empty / not reached> |
 | Merge | <Ready to merge: green run on the branch's current head, PR not draft, check passed/empty-with-reason, no Audit WARNING left unexplained / Not yet: what blocks it> |
 | Build | <built now / reused run <id> (green, built the current head; not rebuilt)> |
+| License | <the `LICENSE` value, and whether it was already there / filled in by you (with the source of the decision) / n/a: reason> |
+| Dependencies | <added to `BUILD_REQUIRES` (each with the feature it enables) / none added; ones left out go under "Left as is"> |
 
 ### Attempts and fixes
 
@@ -1212,6 +1215,10 @@ left failing, with the cause. Omit when empty.>
 decision needed from the user. Always include it on stop; omit on success.>
 ```
 
+- Every row of the table is required. When one doesn't apply, write
+  `n/a` and the reason (e.g. `deploy` doesn't touch the recipe:
+  `License: n/a: deploy`); never drop a row. Only sections may be
+  dropped, and a lean report on a stop still keeps the whole table.
 - Drop a whole section rather than leaving an empty heading; keep the
   `### Attempts and fixes` numbering aligned with actual runs (reruns of
   the same failed job count as one attempt line each).
