@@ -77,6 +77,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/repology_newest.sh --package P [--current V]` — the newest
   version on Repology, with ports-to-Repology names from
   `repology_names.tsv` (Step 1).
+- `scripts/gcc_changed.sh --package P` — whether gcc changed since the
+  README's build (Step 1, `gcc-rebuild`).
 - `scripts/branch_state.sh --package P --version V` — the branch, PR,
   newest run and local-only commits, with a verdict (Step 1).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
@@ -158,12 +160,9 @@ starts with (package names can contain dashes), then splits the rest into
   release + 1) → the same release bump, taken as a rebuild for a newer
   gcc. The changelog message comes from `scripts/changelog_message.sh`,
   which writes `Rebuild with gcc-<ver>` only when gcc actually changed, so
-  check that first: the README's gcc
-  (`gh api repos/yacp-dev/ports/contents/<pkg>/README -H 'Accept: application/vnd.github.raw' | sed -n 's/^[[:space:]]*gcc-core-\(.*\)-[^-]*$/\1/p' | head -n 1`)
-  against Cygwin curr's
-  (`curl -s https://mirrors.kernel.org/sourceware/cygwin/x86_64/setup.xz | xz -d | awk '/^@ gcc-core$/{f=1;next} f&&/^version:/{print $2; exit}'`,
-  minus its `-<release>`). Same → it would only say `Rebuild`; tell the
-  user gcc hasn't changed and ask whether to go ahead.
+  check that first: `scripts/gcc_changed.sh --package <pkg>`. `same` or
+  `unknown` → it would only say `Rebuild`; tell the user (with its
+  reason) and ask whether to go ahead.
 - **`deploy`** (`<pkg>-<ver>-<rel>` equal to ports) → build the committed
   recipe as is and publish it to dist. No branch, no PR.
 - **`invalid`** (exit status 2) → pass its `message=` on to the user: give
