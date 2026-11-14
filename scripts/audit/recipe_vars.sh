@@ -4,7 +4,9 @@
 # has no BOM, CATEGORY is one of data/categories.yml's (xezat's list,
 # copied into dorgann), HOMEPAGE and LICENSE_URI answer 200 (a HOMEPAGE
 # that redirects is warned with the URL to set instead), LICENSE is set
-# (no SPDX validation; the LICENSE section compares it with the source),
+# and an expression mksetupini accepts (check_license_expression.sh: publish
+# fails on the whole dist otherwise; the LICENSE section compares it with
+# the source),
 # every BUILD_REQUIRES package is installed (/etc/setup/installed.db,
 # overridable with AUDIT_INSTALLED_DB for tests), and PATCH_URI, *_REQUIRES
 # and LICENSE are where ports' recipes keep them (audit/recipe_order.awk).
@@ -19,6 +21,7 @@
 # Resolved now: audit_recipe.sh sources this before it cd's into the
 # package directory, and a relative BASH_SOURCE wouldn't survive that.
 recipe_vars_categories="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/data/categories.yml"
+recipe_vars_license_check="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/check_license_expression.sh"
 recipe_vars_order_awk="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/recipe_order.awk"
 
 audit_recipe_vars() {
@@ -87,6 +90,13 @@ audit_recipe_vars() {
 
   if [[ -n "$LICENSE" ]]; then
     ok "Recipe: LICENSE is set ($LICENSE)"
+    local le_out le_rc=0
+    le_out="$(bash "$recipe_vars_license_check" "$LICENSE")" || le_rc=$?
+    case "$le_rc" in
+      0) ok "Recipe: LICENSE is an expression mksetupini accepts" ;;
+      1) rwarn "LICENSE is not accepted by mksetupini, so publish would fail for the whole dist: $le_out" ;;
+      *) rwarn "LICENSE can't be checked against mksetupini: no python with license_expression" ;;
+    esac
   else
     rwarn "LICENSE is not defined (see port-until-green's \"Missing LICENSE\")"
   fi

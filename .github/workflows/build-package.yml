@@ -474,6 +474,19 @@ jobs:
           README_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
         run: bash -- scripts/generate_readme.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --message "$env:README_MESSAGE"
 
+      # The Recipe audit checks LICENSE the way publish's mksetupini will
+      # (check_license_expression.sh), which takes the license_expression
+      # module -- calm's own dependency. Cygwin's python has no pip, so this
+      # is the runner's native Python; the audit step gets its path below.
+      - uses: actions/setup-python@v7
+        if: ${{ !cancelled() }}
+        with:
+          python-version: '3.14'
+
+      - name: Install license-expression
+        if: ${{ !cancelled() }}
+        run: pip install license-expression
+
       # First what the recipe says, which needs no build (what Validate
       # build, replacing `xezat validate`, used to check): no BOM, a valid
       # CATEGORY, HOMEPAGE/LICENSE_URI answering 200 (a redirect named
@@ -513,6 +526,8 @@ jobs:
         if: ${{ !cancelled() && steps.detect.outcome == 'success' }}
         continue-on-error: true
         timeout-minutes: 20
+        env:
+          LICENSE_EXPRESSION_PYTHON: ${{ env.pythonLocation }}/python.exe
         run: bash -- scripts/audit_recipe.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}" --check-outcome "${{ steps.check.outcome }}" --package-outcome "${{ steps.package.outcome }}"
 
       # cygport's `install` step (above) already runs postinst as part of

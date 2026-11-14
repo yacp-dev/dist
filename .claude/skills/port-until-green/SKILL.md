@@ -417,7 +417,13 @@ normally fine as they are):
   `<pkg>-<ver> (fix LICENSE)` commit. The gap may predate this version: what's marked `new
   since`/`changed since` arrived with it, the rest was already missing.
   A text `gone since` the current version may leave a license in
-  `LICENSE` that nothing ships any more.
+  `LICENSE` that nothing ships any more. A `LICENSE ... is NOT accepted
+  by mksetupini` line means publish would refuse the whole dist after a
+  green build (a deprecated SPDX id such as
+  `GPL-2.0-with-classpath-exception`): rewrite it as a valid SPDX
+  expression (`GPL-2.0-only WITH Classpath-exception-2.0`), in
+  `LICENSE` and `LICENSE_SPDX`, in the same `(fix LICENSE)` commit. The
+  recipe audit's Recipe section warns about the same thing.
 - **Python** — `lines naming another Python` (e.g. `python39-devel`
   while Cygwin curr's `python3-devel` pulls in `python312-devel`) →
   switch `BUILD_REQUIRES` to `python3-devel`, rename the bindings

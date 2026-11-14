@@ -31,7 +31,8 @@
 #      list and the recipe's *_CONTENTS), next to every SOVERSION-setting
 #      line in the new source's build files, with the libtool/CMake/meson
 #      number worked out where it's a literal.
-#   5. Whether LICENSE, LICENSE_SPDX and LICENSE_URI are set, whether
+#   5. Whether LICENSE, LICENSE_SPDX and LICENSE_URI are set, whether LICENSE
+#      is an expression publish's mksetupini accepts, whether
 #      LICENSE_URI exists in the new source, and the license texts (as
 #      audit_recipe.sh recognizes them) of licenses LICENSE lacks, marked
 #      when added or changed since the current version, plus the ones the
@@ -407,6 +408,18 @@ echo "== LICENSE =="
 for v in LICENSE LICENSE_SPDX LICENSE_URI; do
   grep -qE "^$v=" "$cygport" && echo "$v set" || echo "$v MISSING"
 done
+# publish's mksetupini refuses the whole dist over a LICENSE that isn't an
+# SPDX expression it parses (check_license_expression.sh), after a green build.
+license_expr="$(sed -nE 's/^LICENSE="?([^"]*)"?$/\1/p' "$cygport")"
+if [[ -n "$license_expr" ]]; then
+  le_rc=0
+  le_out="$(bash "$dorgann/scripts/check_license_expression.sh" "$license_expr")" || le_rc=$?
+  case "$le_rc" in
+    0) echo "LICENSE \"$license_expr\" is accepted by mksetupini" ;;
+    1) echo "LICENSE \"$license_expr\" is NOT accepted by mksetupini (publish would fail): $le_out" ;;
+    *) echo "LICENSE can't be checked against mksetupini (pip install license-expression)" ;;
+  esac
+fi
 license_uri="$(sed -nE 's/^LICENSE_URI="?([^"]*)"?$/\1/p' "$cygport")"
 if [[ -n "$license_uri" && "$license_uri" != *://* && -n "$source_ok" ]]; then
   [[ -e "$work/origsrc/$SRC_DIR/$license_uri" ]] &&
