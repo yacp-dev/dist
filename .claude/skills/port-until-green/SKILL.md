@@ -74,6 +74,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   prints `<run id> <run url>`.
 - `scripts/run_decision.sh --target T [-f key=val ...]` — rerun, wait or
   dispatch (Step 2).
+- `scripts/branch_state.sh --package P --version V` — the branch, PR,
+  newest run and local-only commits, with a verdict (Step 1).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
   either workflow (one API call every 90 s), prints `<conclusion> <run
   url>`, exits 0 only on success.
@@ -214,36 +216,27 @@ For `bump` (and `latest` carried on as one):
    tell the user the Issue and its blocker, and stop. (`rebuild`,
    `gcc-rebuild` and `deploy` build the version already in ports, which a
    blocker doesn't affect.)
-2. Look for an existing branch and PR:
-   `gh api 'repos/yacp-dev/ports/branches?per_page=100' --paginate --jq '.[].name' | grep "^dorgann/<pkg>-"`
-   and `gh pr list -R yacp-dev/ports --head dorgann/<pkg>-<ver>`. A branch
-   for the same version is rebuilt automatically by the dispatch: skip
-   Step 1b. One for a different version is worth mentioning to the user,
-   but the version from the argument (or Repology) is the target.
-   If the branch exists, also find the runs that built it. The run title
-   is always `build-package`, so match on the target instead: list the
-   recent runs (`gh run list -R yacp-dev/dist --workflow build-package.yml --limit 20`),
-   and for each, `gh run view <id> -R yacp-dev/dist --log | grep -m1 'TARGET: <pkg>-<ver>'`.
-   Note the newest matching run: if one is still queued or in progress,
-   wait for it instead of dispatching again; if it's red, go to Step 3
-   with it. If it's green, **don't build again**: a rebuild of an
-   unchanged branch only burns 5–30 min. First make sure the run built
-   the branch as it stands now. The bot force-pushes the branch at the end
-   of every run, so the head commit should be the bot's (not a fix pushed
-   by hand since) and not newer than the run's end:
-   `gh api repos/yacp-dev/ports/commits/dorgann/<pkg>-<ver> --jq '.commit.committer.date + " " + .author.login'`
-   against `gh run view <id> -R yacp-dev/dist --json updatedAt`. Also
-   `git -C ~/src/ports ls-remote origin dorgann/<pkg>-<ver>` after a
-   `fetch` shows no local-only commits waiting in a worktree. Then skip
-   Step 1b and Step 2's dispatch and go straight to Step 2's **Success**
-   checks on that run (`success_checks.sh`), ending with the Final report's merge verdict. Dispatch again
-   only when the head is newer than the run (a fix not yet built), when a
-   check turns up something to fix, or when the user asks for a rebuild.
-   Use the same shortcut for `new` (a reviewed draft that already has a run).
-3. No branch for this version → Step 1b before dispatching.
+2. See what already exists:
+   `scripts/branch_state.sh --package <pkg> --version <ver>`. It prints
+   the branch, other `dorgann/<pkg>-*` branches (worth mentioning to the
+   user, but the version from the argument or Repology is the target),
+   the PR, the newest run of the target, local-only commits in the
+   worktree, and a verdict:
+   - `new-branch` → Step 1b before dispatching.
+   - `wait <id>` → wait for that run instead of dispatching again.
+   - `reuse <id>` → green and built the branch as it stands: **don't
+     build again** (a rebuild of an unchanged branch only burns 5–30
+     min). Skip Step 1b and the dispatch and go straight to Step 2's
+     **Success** checks on that run, ending with the Final report's
+     merge verdict. Dispatch again only when a check turns up something
+     to fix, or when the user asks for a rebuild.
+   - `investigate <id>` → red: Step 3 with that run.
+   - `push ...` → push the worktree's commits, then Step 2.
+   - `build <reason>` → skip Step 1b; Step 2 (`run_decision.sh`).
+   The same goes for `new` (a reviewed draft that may already have a run).
 
-For `rebuild` and `gcc-rebuild`, do 2. and 3. too: a rebuild goes
-through Step 1b as well.
+For `rebuild` and `gcc-rebuild`, do 2. too: a rebuild goes through
+Step 1b as well.
 
 For every mode except `deploy`, make sure `~/src/ports` exists
 (`gh repo clone yacp-dev/ports ~/src/ports` if not) and
