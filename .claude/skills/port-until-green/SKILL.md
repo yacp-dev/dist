@@ -63,9 +63,9 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
   `Bump release`.
 - **The bot rewrites the branch on every run** (peter-evans/create-pull-request
   squashes everything into one `<pkg>-<ver>` commit and force-pushes). Your
-  local branch is therefore stale after each run — always
-  `git fetch && git reset --hard origin/<branch>` before editing, or your
-  push will be rejected or will clobber the bot's commit.
+  local branch is therefore stale after each run — always refresh it
+  with `scripts/worktree.sh` (Step 4) before editing, or your push will
+  be rejected or will clobber the bot's commit.
 - See `doc/spec.md` 4.5–4.6 for the full design if something here surprises you.
 
 Helpers bundled with this skill (paths relative to this SKILL.md):
@@ -92,6 +92,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/unused_cmake_args.sh --recipe F --source DIR [--old-source DIR]`,
   `scripts/cmake_min_version.sh --recipe F --source DIR` — run by the
   preflight; usable on their own.
+- `scripts/worktree.sh --package P --version V [--remove]` — this
+  session's worktree of the branch, created or refreshed without losing
+  local work (Step 4).
 - `scripts/git_snapshot_bump.sh --package P [--version V] [--dry-run]` —
   a git snapshot to upstream HEAD (Step 1).
 - `scripts/distro_patches.sh --project NAME --version V --out DIR` — the
@@ -884,25 +887,22 @@ Classify it, because the response differs:
 | Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `cygport prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `bump_version.sh` mangled a file during the preflight's one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
-| No branch | the run was refused by **Require existing branch for version bump** (a `bump` target with no `dorgann/<pkg>-<ver>` on yacp), or failed before `Detect existing cygport`/`Bump release` succeeded, so no branch/draft PR exists | A refusal means Step 1b never pushed the branch: go back to Step 1b. If it's transient, re-run it with `--failed` (as in the Transient row). If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (as in Step 4, with `-B dorgann/<pkg>-<ver> "$wt" origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
+| No branch | the run was refused by **Require existing branch for version bump** (a `bump` target with no `dorgann/<pkg>-<ver>` on yacp), or failed before `Detect existing cygport`/`Bump release` succeeded, so no branch/draft PR exists | A refusal means Step 1b never pushed the branch: go back to Step 1b. If it's transient, re-run it with `--failed` (as in the Transient row). If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (`git -C ~/src/ports worktree add -B dorgann/<pkg>-<ver> ~/src/ports-wt/<pkg>-<ver> origin/master`) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
 
 ## Step 4: Fix, commit, push
 
 Work in a worktree of your own, not in `~/src/ports` (see Step 1):
 
 ```bash
-git -C ~/src/ports fetch origin
-wt=~/src/ports-wt/<pkg>-<ver>
-git -C ~/src/ports worktree add -B dorgann/<pkg>-<ver> "$wt" origin/dorgann/<pkg>-<ver>
-cd "$wt"
+wt=$(scripts/worktree.sh --package <pkg> --version <ver>)
 ```
 
-After Step 1b (or `git_snapshot_bump.sh`), and on later attempts, the
-worktree is already there; since the bot
-force-pushes the branch on every run, refresh it before editing:
-`git -C "$wt" fetch origin && git -C "$wt" reset --hard origin/dorgann/<pkg>-<ver>`.
-Once the loop is over (success or stopping) and everything is pushed,
-remove it: `git -C ~/src/ports worktree remove "$wt"`.
+Run it before every edit, including after Step 1b or
+`git_snapshot_bump.sh` (which made the worktree): it creates
+`~/src/ports-wt/<pkg>-<ver>` or resets it to the branch the bot
+force-pushed, and refuses — listing them — when uncommitted changes or
+unpushed commits would be lost. Once the loop is over (success or
+stopping) and everything is pushed, remove it with `--remove`.
 
 Edit only files under the package directory. Common fixes:
 
