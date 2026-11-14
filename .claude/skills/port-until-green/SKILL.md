@@ -81,6 +81,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   README's build (Step 1, `gcc-rebuild`).
 - `scripts/dep_available.sh --file F | --package P [--min V]` — whether
   the Cygwin mirror or dist.yacp.dev provides a dependency (Step 4).
+- `scripts/publish_dist.sh --run ID [--dry-run]` — publishes a green
+  deploy run's dist artifact ("Deploying", Step 2).
 - `scripts/branch_state.sh --package P --version V` — the branch, PR,
   newest run and local-only commits, with a verdict (Step 1).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
@@ -849,15 +851,9 @@ out as unshipped.
 
 A `deploy` run builds the recipe exactly as committed and uploads
 the dist artifact, without bumping anything or touching ports. Once
-`wait_run.sh` reports success, publish that artifact:
-
-```bash
-gh api repos/yacp-dev/dist/actions/runs/<id>/artifacts --jq '.artifacts[] | select(.name | endswith("-dist")) | .id'
-gh workflow run publish.yml -R yacp-dev/dist -f artifact_id=<artifact id>
-```
-
-`gh workflow run` prints the publish run's URL; wait for it with
-`wait_run.sh` too. Then write the final report in the format of
+`wait_run.sh` reports success, publish that artifact with
+`scripts/publish_dist.sh --run <id>`, which prints the publish run's id
+and URL; wait for it with `wait_run.sh` too. Then write the final report in the format of
 "Final report" below, with the build run and the publish run on the
 Run line and the check result (`check_summary.sh`, as above) in the
 `cygport check` row.
