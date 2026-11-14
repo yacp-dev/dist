@@ -83,6 +83,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   the Cygwin mirror or dist.yacp.dev provides a dependency (Step 4).
 - `scripts/publish_dist.sh --run ID [--dry-run]` — publishes a green
   deploy run's dist artifact ("Deploying", Step 2).
+- `scripts/regen_src_patch.sh prepare|write ...` — rebases a `.src.patch`
+  onto a new source in `cygport diff`'s shape (Step 4).
 - `scripts/branch_state.sh --package P --version V` — the branch, PR,
   newest run and local-only commits, with a verdict (Step 1).
 - `scripts/wait_run.sh --run ID [--interval SECS]` — waits for a run of
@@ -934,23 +936,19 @@ Edit only files under the package directory. Common fixes:
   into `_`; e.g. `lib${PN}_${PV}` → `libCatch2_3_16_1_CONTENTS`). A name
   that doesn't match leaves its files in no package. Only then suspect an
   actual file list change.
-- **`.src.patch` no longer applies** → rebase it. On Windows this file
-  comes from `cygport diff`; with no Cygwin here, reproduce its output
-  with plain `diff`, matching its shape so the next `cygport diff` on
-  Windows doesn't churn it. The patch is `diff -urN` between
-  `origsrc/<pkg>-<ver>/` and `src/<pkg>-<ver>/` (look at its header
-  lines). Download the new source tarball from `SRC_URI`, extract it twice
-  into `origsrc/` and `src/` in a scratch dir, apply the old patch to `src/`
-  with `patch -p0`, resolve rejects by hand (drop hunks upstream already
-  merged), then regenerate with
-  `command diff -urN origsrc/<pkg>-<ver> src/<pkg>-<ver> | grep -v '^diff '`
-  and save it under the new name `<pkg>-<ver>-<rel>.src.patch`, removing
-  the old-version patch file if one remains. Leave out generated files.
-  (`command` skips a shell alias like `diff --color`; the `grep` drops the
-  `diff -urN ...` line GNU diff prints per file.) A package with no
-  `.src.patch` yet gets a new one the same way. The shape only has to be
-  good enough for `patch -p0` to apply: once a run succeeds, the copy-back step
-  replaces it with the real `cygport diff` output on the branch.
+- **`.src.patch` no longer applies** → rebase it with
+  `scripts/regen_src_patch.sh` (no Cygwin here, so it reproduces `cygport
+  diff`'s shape with plain `diff`). Download the new source tarball from
+  `SRC_URI` into the scratchpad, then
+  `regen_src_patch.sh prepare --source <tarball> --work <dir> --patch <old .src.patch> [--pre-patch <PATCH_URI patch> ...]`;
+  resolve the hunks it lists as rejected by hand in `src/` (drop hunks
+  upstream already merged) and delete the `.rej` files; then
+  `regen_src_patch.sh write --work <dir> --out <pkg>-<ver>-<rel>.src.patch`,
+  removing the old-version patch file if one remains. Leave out generated
+  files. A package with no `.src.patch` yet gets a new one the same way
+  (`prepare` without `--patch`, edit `src/`, `write`). Once a run
+  succeeds, the copy-back step replaces it with the real `cygport diff`
+  output on the branch.
 - **A `PATCH_URI` patch fails, or a bump crosses versions it was written
   for** (often Debian/Fedora patches pinned to an old version, e.g.
   `.../debian/1.0.2-3/debian/patches/...`) → for each such patch, and each
