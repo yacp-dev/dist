@@ -83,7 +83,7 @@ if (( dry_run )); then
   exit 0
 fi
 
-ports="$HOME/src/ports"
+ports="$("$(dirname "$0")/ports_dir.sh")"
 branch="dorgann/$package-$version"
 worktrees="$("$(dirname "$0")/worktree_root.sh")"
 wt="$worktrees/$package-$version"

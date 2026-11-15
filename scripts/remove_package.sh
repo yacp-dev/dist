@@ -1,3 +1,4 @@
+[[ -n "$ports_dir" ]] || { echo "Set PORTS_DIR (or --ports-dir) to the yacp-dev/ports clone" >&2; exit 1; }
 #!/usr/bin/env bash
 # Removes a package from yacp: first its binaries from dist, then its
 # recipe from ports (doc/spec.md 4.4.3). Without --execute it only reports
@@ -27,7 +28,7 @@
 # cancel a publish, and goes no further unless its own run succeeded.
 #
 # Usage: remove_package.sh <package> [--execute] [--names "a b c"]
-#   [--ports-dir DIR]
+#   [--ports-dir DIR]   (default: $PORTS_DIR)
 # Exit status 0 if removed (or, without --execute, removable), 1 otherwise.
 
 set -euo pipefail
@@ -35,7 +36,7 @@ set -euo pipefail
 dist_repo="yacp-dev/dist"
 ports_repo="yacp-dev/ports"
 site="https://dist.yacp.dev/x86_64/setup.ini"
-ports_dir="$HOME/src/ports"
+ports_dir="${PORTS_DIR:-}"
 package=""
 execute=0
 names_override=""
@@ -322,7 +323,11 @@ fi
 # --- ports ---
 
 if [[ "$in_ports" == 1 ]]; then
-  worktree="$tmp/ports"
+  # In the Claude Code session's scratchpad when there is one (a hook
+  # refuses worktrees elsewhere), else the temporary folder.
+  worktree="$("$here/../.claude/skills/port-until-green/scripts/worktree_root.sh" 2>/dev/null)/remove-$package-$$" ||
+    worktree="$tmp/ports"
+  mkdir -p "$(dirname "$worktree")"
   git -C "$ports_dir" fetch --quiet origin
   git -C "$ports_dir" worktree add --quiet --detach "$worktree" "$ref"
   git -C "$worktree" rm -r --quiet -- "$package"

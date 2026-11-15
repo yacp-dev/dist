@@ -67,7 +67,7 @@
 
 set -euo pipefail
 
-ports="${PORTS_DIR:-$HOME/src/ports}"
+ports="$("$(dirname "$0")/ports_dir.sh")"
 worktrees="$("$(dirname "$0")/worktree_root.sh")"
 here="$(cd "$(dirname "$0")" && pwd)"
 dorgann="$(cd "$here/../../../.." && pwd)"

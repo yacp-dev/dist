@@ -250,10 +250,11 @@ For `bump` (and `latest` carried on as one):
 For `rebuild` and `gcc-rebuild`, do 2. too: a rebuild goes through
 Step 1b as well.
 
-For every mode except `deploy`, make sure `~/src/ports` exists
-(`gh repo clone yacp-dev/ports ~/src/ports` if not) and
-`git -C ~/src/ports fetch origin`. Don't check out branches or edit
-files in `~/src/ports` itself: other sessions share it, and a `checkout`
+For every mode except `deploy`, get the local yacp-dev/ports clone with
+`ports=$(scripts/ports_dir.sh)` (from `$PORTS_DIR`, cloned there if
+missing; if it says PORTS_DIR is unset, ask the user where the clone
+is) and `git -C "$ports" fetch origin`. Don't check out branches or edit
+files in `$ports` itself: other sessions share it, and a `checkout`
 or `reset --hard` there can wipe their work. Branch work goes in a
 per-session worktree (Step 4).
 
@@ -890,11 +891,11 @@ Classify it, because the response differs:
 | Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `cygport prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, xezat invocation broken) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `bump_version.sh` mangled a file during the preflight's one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
-| No branch | the run was refused by **Require existing branch for version bump** (a `bump` target with no `dorgann/<pkg>-<ver>` on yacp), or failed before `Detect existing cygport`/`Bump release` succeeded, so no branch/draft PR exists | A refusal means Step 1b never pushed the branch: go back to Step 1b. If it's transient, re-run it with `--failed` (as in the Transient row). If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (`git -C ~/src/ports worktree add -B dorgann/<pkg>-<ver> <scratchpad>/worktrees/<pkg>-<ver> origin/master`, the path written out literally) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
+| No branch | the run was refused by **Require existing branch for version bump** (a `bump` target with no `dorgann/<pkg>-<ver>` on yacp), or failed before `Detect existing cygport`/`Bump release` succeeded, so no branch/draft PR exists | A refusal means Step 1b never pushed the branch: go back to Step 1b. If it's transient, re-run it with `--failed` (as in the Transient row). If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (`git -C "$ports" worktree add -B dorgann/<pkg>-<ver> <scratchpad>/worktrees/<pkg>-<ver> origin/master`, the path written out literally) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
 
 ## Step 4: Fix, commit, push
 
-Work in a worktree of your own, not in `~/src/ports` (see Step 1):
+Work in a worktree of your own, not in `$ports` (see Step 1):
 
 ```bash
 wt=$(scripts/worktree.sh --package <pkg> --version <ver>)
@@ -1106,7 +1107,7 @@ Then back to Step 2: `run_decision.sh` for `<pkg>-<ver>`, then rerun or dispatch
   model). Then close the draft PR, pointing it at the Issue, and delete
   the branch (`gh api -X DELETE
   repos/yacp-dev/ports/git/refs/heads/dorgann/<pkg>-<ver>`, plus the
-  local one in `~/src/ports`): the closed PR keeps its diff.
+  local one in `$ports`): the closed PR keeps its diff.
 
 When stopping without success, report in the format of "Final report"
 below (a lean report is fine, but always include the PR/Run links and

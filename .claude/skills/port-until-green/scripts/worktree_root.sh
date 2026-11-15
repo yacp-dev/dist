@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# The folder this session's worktrees of ~/src/ports go in: the Claude
-# Code session's own scratchpad, so no session touches another's
-# checkout and nothing outlives the session in ~/src. A PreToolUse hook
+# The folder this session's worktrees of the ports clone go in: the
+# Claude Code session's own scratchpad, so no session touches another's
+# checkout and none is left behind next to the clone. A PreToolUse hook
 # (~/.claude/hooks/session_worktree.py) refuses `git worktree add`
 # anywhere else.
 #

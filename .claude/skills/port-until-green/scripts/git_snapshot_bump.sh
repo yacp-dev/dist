@@ -3,8 +3,8 @@
 # versioned <base>+git<YYYYMMDD>) to its upstream HEAD on a new
 # dorgann/<pkg>-<ver> branch, and pushes it. The branch is checked out
 # in its own worktree (<session scratchpad>/worktrees/<pkg>-<ver>, see
-# worktree_root.sh), not in ~/src/ports, which other sessions share; the
-# worktree is left in place for further fixes on the branch.
+# worktree_root.sh), not in the ports clone, which other sessions share;
+# the worktree is left in place for further fixes on the branch.
 #
 # The workflow can't do this: it has no way to learn
 # the new commit, so bump_version.sh refuses a literal GIT_REV unless
@@ -27,7 +27,7 @@
 
 set -euo pipefail
 
-ports="${PORTS_DIR:-$HOME/src/ports}"
+ports="$("$(dirname "$0")/ports_dir.sh")"
 worktrees="$("$(dirname "$0")/worktree_root.sh")"
 dorgann="$(cd "$(dirname "$0")/../../../.." && pwd)"
 package=""

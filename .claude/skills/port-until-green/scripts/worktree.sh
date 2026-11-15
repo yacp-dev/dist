@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # This session's worktree of dorgann/<pkg>-<ver>,
 # <session scratchpad>/worktrees/<pkg>-<ver> (see worktree_root.sh),
-# brought up to date with origin. ~/src/ports itself is shared by other
-# sessions, so nothing is checked out there. A branch can be checked out
-# in one worktree only: if another session's worktree still has it, this
-# refuses and names it (one whose folder is gone is pruned first).
+# brought up to date with origin. The ports clone itself (ports_dir.sh)
+# is shared by other sessions, so nothing is checked out there. A branch
+# can be checked out in one worktree only: if another session's worktree
+# still has it, this refuses and names it (one whose folder is gone is
+# pruned first).
 #
 # The bot squashes and force-pushes the branch at the end of every run,
 # so an existing worktree is reset to origin/<branch> -- but only when
@@ -20,7 +21,7 @@
 
 set -euo pipefail
 
-ports="$HOME/src/ports"
+ports="$("$(dirname "$0")/ports_dir.sh")"
 pkg="" ver="" remove=0
 
 while [[ $# -gt 0 ]]; do
@@ -37,7 +38,6 @@ branch="dorgann/$pkg-$ver"
 worktrees="$("$(dirname "$0")/worktree_root.sh")"
 wt="$worktrees/$pkg-$ver"
 
-[[ -d "$ports" ]] || gh repo clone yacp-dev/ports "$ports" -- -q
 git -C "$ports" fetch -q origin "$branch" 2>/dev/null || {
   echo "$branch is not on origin" >&2; exit 1; }
 
