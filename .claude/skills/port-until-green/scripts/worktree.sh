@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-# This session's worktree of dorgann/<pkg>-<ver>, ~/src/ports-wt/<pkg>-<ver>,
+# This session's worktree of dorgann/<pkg>-<ver>,
+# <session scratchpad>/worktrees/<pkg>-<ver> (see worktree_root.sh),
 # brought up to date with origin. ~/src/ports itself is shared by other
-# sessions, so nothing is checked out there.
+# sessions, so nothing is checked out there. A branch can be checked out
+# in one worktree only: if another session's worktree still has it, this
+# refuses and names it (one whose folder is gone is pruned first).
 #
 # The bot squashes and force-pushes the branch at the end of every run,
 # so an existing worktree is reset to origin/<branch> -- but only when
@@ -31,7 +34,8 @@ done
 [[ -n "$pkg" && -n "$ver" ]] || { echo "--package and --version are required" >&2; exit 1; }
 
 branch="dorgann/$pkg-$ver"
-wt="$HOME/src/ports-wt/$pkg-$ver"
+worktrees="$("$(dirname "$0")/worktree_root.sh")"
+wt="$worktrees/$pkg-$ver"
 
 [[ -d "$ports" ]] || gh repo clone yacp-dev/ports "$ports" -- -q
 git -C "$ports" fetch -q origin "$branch" 2>/dev/null || {
@@ -39,6 +43,14 @@ git -C "$ports" fetch -q origin "$branch" 2>/dev/null || {
 
 if [[ ! -d "$wt" ]]; then
   (( remove )) && { echo "no worktree at $wt" >&2; exit 0; }
+  git -C "$ports" worktree prune
+  other="$(git -C "$ports" worktree list --porcelain |
+    awk -v b="branch refs/heads/$branch" '/^worktree /{w=substr($0, 10)} $0 == b {print w}')"
+  if [[ -n "$other" ]]; then
+    echo "$branch is checked out in $other (another session's worktree?); finish or remove it there first" >&2
+    exit 1
+  fi
+  mkdir -p "$worktrees"
   git -C "$ports" worktree add -q -B "$branch" "$wt" "origin/$branch"
   echo "$wt"
   exit 0

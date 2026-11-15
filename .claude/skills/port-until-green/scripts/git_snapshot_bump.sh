@@ -2,9 +2,9 @@
 # Bumps a git-snapshot package (`inherit git` with a literal GIT_REV,
 # versioned <base>+git<YYYYMMDD>) to its upstream HEAD on a new
 # dorgann/<pkg>-<ver> branch, and pushes it. The branch is checked out
-# in its own worktree (~/src/ports-wt/<pkg>-<ver>), not in ~/src/ports,
-# which other sessions share; the worktree is left in place for further
-# fixes on the branch.
+# in its own worktree (<session scratchpad>/worktrees/<pkg>-<ver>, see
+# worktree_root.sh), not in ~/src/ports, which other sessions share; the
+# worktree is left in place for further fixes on the branch.
 #
 # The workflow can't do this: it has no way to learn
 # the new commit, so bump_version.sh refuses a literal GIT_REV unless
@@ -28,7 +28,7 @@
 set -euo pipefail
 
 ports="${PORTS_DIR:-$HOME/src/ports}"
-worktrees="${PORTS_WORKTREES_DIR:-$HOME/src/ports-wt}"
+worktrees="$("$(dirname "$0")/worktree_root.sh")"
 dorgann="$(cd "$(dirname "$0")/../../../.." && pwd)"
 package=""
 version=""
@@ -105,6 +105,7 @@ fi
 
 shim="$(cd "$(dirname "$0")/bin" && pwd)"
 
+mkdir -p "$worktrees"
 git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
 cd "$wt"
 PATH="$shim:$PATH" bash "$dorgann/scripts/bump_version.sh" --dir "$package" --version "$version" --git-rev "$new_rev" >&2

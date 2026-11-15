@@ -11,8 +11,9 @@
 # Steps:
 #   1. Refuses if the package is already in origin/master, or if
 #      dorgann/<pkg>-<ver> already exists on origin or has a worktree.
-#   2. A worktree ~/src/ports-wt/<pkg>-<ver> on a new dorgann/<pkg>-<ver>
-#      branch from origin/master.
+#   2. A worktree <session scratchpad>/worktrees/<pkg>-<ver> (see
+#      worktree_root.sh) on a new dorgann/<pkg>-<ver> branch from
+#      origin/master.
 #   3. <pkg>/<pkg>-<ver>-1bl1.cygport written from the template, and
 #      committed as <pkg>-<ver>. NOT pushed: the caller fits the recipe,
 #      then pushes the branch for review.
@@ -84,7 +85,8 @@ fi
 
 ports="$HOME/src/ports"
 branch="dorgann/$package-$version"
-wt="$HOME/src/ports-wt/$package-$version"
+worktrees="$("$(dirname "$0")/worktree_root.sh")"
+wt="$worktrees/$package-$version"
 file="$package/$package-$version-1bl1.cygport"
 
 [[ -d "$ports" ]] || { echo "No ports clone at $ports (gh repo clone yacp-dev/ports $ports)" >&2; exit 1; }
@@ -103,6 +105,7 @@ if [[ -e "$wt" ]]; then
   exit 1
 fi
 
+mkdir -p "$worktrees"
 git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
 mkdir -p "$wt/$package"
 printf '%s\n' "$content" > "$wt/$file"

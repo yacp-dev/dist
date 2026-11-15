@@ -3,8 +3,8 @@
 # with it: the dorgann/<pkg>-<ver> branch (and other dorgann/<pkg>-*
 # branches), its PR, the newest build-package run of that target (runs
 # are titled "build-package <target>"; a <pkg>-<ver>-<rel> gcc-rebuild
-# target counts too), and commits in this machine's worktree
-# ~/src/ports-wt/<pkg>-<ver> that aren't on origin.
+# target counts too), and commits that aren't on origin in the worktree
+# on this machine that has the branch checked out (any session's).
 #
 # A green run is reused only when it built the branch as it stands: the
 # head is the bot's commit (it force-pushes the branch at the end of every
@@ -39,7 +39,9 @@ done
 
 branch="dorgann/$pkg-$ver"
 target="$pkg-$ver"
-wt="$HOME/src/ports-wt/$pkg-$ver"
+# Whichever session's worktree has the branch checked out.
+wt="$(git -C "$HOME/src/ports" worktree list --porcelain 2>/dev/null |
+  awk -v b="branch refs/heads/$branch" '/^worktree /{w=substr($0, 10)} $0 == b {print w}')"
 
 others="$(gh api "repos/$ports/branches?per_page=100" --paginate --jq '.[].name' |
   grep -F "dorgann/$pkg-" | grep -vxF "$branch" | tr '\n' ' ' || true)"

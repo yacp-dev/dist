@@ -12,8 +12,9 @@
 # fails on them.
 #
 # Steps:
-#   1. A worktree ~/src/ports-wt/<pkg>-<ver> on a new dorgann/<pkg>-<ver>
-#      branch from origin/master, with the files renamed by dorgann's own
+#   1. A worktree <session scratchpad>/worktrees/<pkg>-<ver> (see
+#      worktree_root.sh) on a new dorgann/<pkg>-<ver> branch from
+#      origin/master, with the files renamed by dorgann's own
 #      scripts/bump_version.sh, or bump_release.sh for a rebuild (the same
 #      bump the workflow does), committed
 #      as <pkg>-<ver> but NOT pushed: fixes go on top, then the caller
@@ -67,7 +68,7 @@
 set -euo pipefail
 
 ports="${PORTS_DIR:-$HOME/src/ports}"
-worktrees="${PORTS_WORKTREES_DIR:-$HOME/src/ports-wt}"
+worktrees="$("$(dirname "$0")/worktree_root.sh")"
 here="$(cd "$(dirname "$0")" && pwd)"
 dorgann="$(cd "$here/../../../.." && pwd)"
 package=""
@@ -128,6 +129,7 @@ rebuild=""
 [[ "$version" == "$old_version" ]] && rebuild=1
 
 # 1. Bump.
+mkdir -p "$worktrees"
 git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
 if [[ -n "$rebuild" ]]; then
   bash "$dorgann/scripts/bump_release.sh" --dir "$wt/$package" >/dev/null
