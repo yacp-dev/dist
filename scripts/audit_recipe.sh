@@ -81,7 +81,7 @@
 # warns; a human (or port-until-green) confirms by rebuilding without it
 # and comparing the package contents.
 #
-# For the runtime requirements, `xezat bump` writes what `cygport dep`
+# For the runtime requirements, generate_readme.sh writes what `cygport dep`
 # prints, and `cygport dep` prints nothing -- exit status 0 -- once one
 # `which` in it fails under cygport's `set -e`. The one known to fail is
 # for an import library whose DLL isn't in $D/usr/bin, $DEPS_PATH or
@@ -91,7 +91,7 @@
 # so it's flagged on its own, besides an empty list in $C/README for a
 # package that ships binaries.
 #
-# Meant to run after `xezat bump` whether or not the build got that far
+# Meant to run after generate_readme.sh whether or not the build got that far
 # (if: always()), while $S/$B/$D, the logs and $C/README are still on
 # disk: each section looks only at what's there. The Recipe section
 # always runs, the Check section when --check-outcome is success or

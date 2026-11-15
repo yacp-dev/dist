@@ -47,9 +47,8 @@
 #   generate_readme.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport \
 #     [--message "Rebuild with gcc-14.4.0"] [--output README.new]
 # Without --output it replaces $C/README. --previous FILE is the README
-# whose Port Notes are carried over (default $C/README, which is already
-# xezat's once that has run); --compare FILE writes nothing and diffs
-# against FILE (--compare-built: $C/README) instead (build-package.yml runs it that way next to xezat). GENERATE_README_VARS, a file of
+# whose Port Notes are carried over (default $C/README, the package
+# directory's copy cygport_prep.sh put there). GENERATE_README_VARS, a file of
 # `declare` lines, stands in for `cygport vars` (tests); GENERATE_README_DEP
 # does the same for `cygport dep`'s output.
 
@@ -63,7 +62,6 @@ cygport_file=""
 message=""
 output=""
 previous=""
-compare=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -72,8 +70,6 @@ while [[ $# -gt 0 ]]; do
     --message) message="$2"; shift 2 ;;
     --output) output="$2"; shift 2 ;;
     --previous) previous="$2"; shift 2 ;;
-    --compare) compare="$2"; shift 2 ;;
-    --compare-built) compare="@C"; shift ;;
     *) echo "Unknown argument: $1" >&2; exit 1 ;;
   esac
 done
@@ -380,37 +376,9 @@ render() {
     END { for (i = 1; i <= n; i++) printf "----- version %s -----\n%s\n\n", order[i], text[order[i]] }' "$work/notes"
 }
 
-# The template's last newline is dropped (xezat chops it).
+# The template's last newline is dropped, as xezat bump did.
 render > "$work/readme"
 perl -0pi -e 's/\n\z//' "$work/readme"
-
-# --compare FILE: don't write anything, say how this differs from FILE
-# (`xezat bump`'s README) -- the run summary and a warning when it does,
-# and the step output compare=identical when it doesn't, which Audit recipe
-# lists among what it found fine.
-if [[ -n "$compare" ]]; then
-  [[ "$compare" == @C ]] && compare="$C/README"
-  if diff -u "$compare" "$work/readme" > "$work/diff"; then
-    echo "generate_readme.sh: identical to $compare"
-    if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
-      echo "compare=identical" >> "$GITHUB_OUTPUT"
-    fi
-  else
-    echo "::warning title=README differs from xezat's::generate_readme.sh's README is not xezat bump's, see the run summary"
-    cat "$work/diff"
-    if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
-      {
-        echo "### README differs from xezat bump's"
-        echo
-        echo '```diff'
-        cat "$work/diff"
-        echo '```'
-        echo
-      } >> "$GITHUB_STEP_SUMMARY"
-    fi
-  fi
-  exit 0
-fi
 
 dest="${output:-$C/README}"
 mkdir -p "$(dirname "$dest")"

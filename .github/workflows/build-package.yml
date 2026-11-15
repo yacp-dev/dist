@@ -590,12 +590,6 @@ jobs:
       # trailing "/**" (not just "/*") is required for the exclude to
       # match paths *inside* the directory, not just the directory itself.
       #
-      # xezat also drops its own cache of the cygport file's extracted
-      # variables right next to it, named "<cygport-basename>.<uname
-      # -m>.yml" (e.g. last-1654-1bl1.x86_64.yml -- see xezat's
-      # variables.rb), every time it parses the cygport file (prep/bump/
-      # port all do). That's a local speedup, not something to commit.
-      #
       # Packages that `inherit git` (GIT_URI/GIT_TAG instead of a plain
       # SRC_URI tarball) are a third case: cygport's own git.cygclass
       # (git_fetch()) always writes the tarball it builds from the clone
@@ -616,7 +610,7 @@ jobs:
       - name: Show diff
         if: always() && steps.detect.outcome == 'success'
         run: |
-          git -C yacp add -A -- ${{ needs.gate.outputs.package }} ":(exclude)${{ needs.gate.outputs.package }}/*.x86_64/**" ":(exclude)${{ needs.gate.outputs.package }}/*.x86_64.yml" ":(exclude)${{ needs.gate.outputs.package }}/*.tar.*"
+          git -C yacp add -A -- ${{ needs.gate.outputs.package }} ":(exclude)${{ needs.gate.outputs.package }}/*.x86_64/**" ":(exclude)${{ needs.gate.outputs.package }}/*.tar.*"
           git -C yacp diff --cached
 
       - name: Upload dist artifact

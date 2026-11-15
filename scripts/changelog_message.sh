@@ -62,7 +62,7 @@ message=""
 if [[ -n "$head_cygport" && "$(strip_release "${head_cygport##*/}")" == "$(strip_release "$cygport_file")" ]]; then
   # The installed Cygwin gcc-core package's version (e.g. "14.2.0-1"),
   # not `gcc --version`'s output, so it lines up with the gcc-core-<ver>
-  # xezat records under a README's "Build requirements". gcc-core is
+  # generate_readme.sh records under a README's "Build requirements". gcc-core is
   # always installed as part of the base toolchain (build-package.yml's
   # "Install Cygwin (base toolchain)").
   gcc_version="$(cygcheck -c gcc-core | awk '$1 == "gcc-core" { print $2 }')"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-embeds the package's README into $D after `xezat bump` has
+# Re-embeds the package's README into $D after generate_readme.sh has
 # rewritten it, so the next `cygport package` ships the updated one.
 #
 # cygport's `install` step already embedded it once (postinst's
@@ -10,7 +10,7 @@
 # the first of FOO, FOO.md, FOO.rst, FOO.txt it finds, skipping any
 # already in $D -- so a second pass, with README already there, adds
 # README.md too. The package then ships a file
-# that the README's own file list, written by xezat bump from the first
+# that the README's own file list, written by generate_readme.sh from the first
 # pass's .lst, doesn't mention. Copying just this one file keeps $D what
 # a single cygport run would have made.
 #
@@ -18,8 +18,8 @@
 # python-wheel's per-package docs (_CYGPORT_INTERNAL_multi_doc_, where
 # cygport never embeds one), which this doesn't second-guess, or no
 # $C/README at install time -- a new package's first build (doc/spec.md
-# 4.8), whose README only exists once xezat bump has written it. That
-# one is installed here, since xezat bump lists
+# 4.8), whose README only exists once generate_readme.sh has written it.
+# That one is installed here, since generate_readme.sh lists
 # usr/share/doc/Cygwin/$PN.README among the package's files regardless.
 #
 # Usage (paths relative to the package directory, e.g. yacp/googletest):
