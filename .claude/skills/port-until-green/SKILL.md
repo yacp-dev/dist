@@ -149,10 +149,6 @@ or the question:
   review, a `cygport check` failure or Audit WARNING left to them, or a
   question asked mid-run.
 
-Which sound files play comes from `PORT_SOUND_DONE` and `PORT_SOUND_ASK`
-(the "env" of `.claude/settings.local.json`); with them unset it stays
-silent.
-
 Once per hand-over, never during the loop itself.
 
 ## Step 1: Resolve the argument
