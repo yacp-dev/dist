@@ -59,11 +59,11 @@ bash "$here/check_summary.sh" --run "$run"
 
 echo
 echo "== Recipe"
-cygport="$(gh api "repos/$ports/contents/$pkg?ref=$branch" --jq '.[].name | select(endswith(".cygport"))' | head -n 1)"
+cygport="$(gh api "repos/$ports/contents/$pkg?ref=${branch//+/%2B}" --jq '.[].name | select(endswith(".cygport"))' | head -n 1)"
 if [[ -z "$cygport" ]]; then
   echo "no .cygport in $pkg/ on $branch"; todo=$((todo + 1))
 else
-  recipe="$(gh api "repos/$ports/contents/$pkg/$cygport?ref=$branch" -H 'Accept: application/vnd.github.raw')"
+  recipe="$(gh api "repos/$ports/contents/$pkg/$cygport?ref=${branch//+/%2B}" -H 'Accept: application/vnd.github.raw')"
   found=0
   for v in LICENSE LICENSE_SPDX LICENSE_URI; do
     if ! grep -qE "^$v=" <<<"$recipe"; then
