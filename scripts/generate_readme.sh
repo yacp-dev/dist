@@ -235,12 +235,18 @@ compiler_packages() { # <runtimes-file> <files-file>
 # Tools the build used, one package per line. What's looked at is what
 # the build left, so a tool the package merely could use isn't listed.
 detect_tools() {
-  local logs=() log_text=""
+  local logs=() log_file
   shopt -s nullglob
   logs=("$logdir"/*-compile.log)
   shopt -u nullglob
-  (( ${#logs[@]} == 0 )) || log_text="$(cat "${logs[@]}" 2>/dev/null || true)"
-  log_has() { grep -qE "$1" <<<"$log_text"; }
+  # grep reads a file, not a here-string: bash feeds a large here-string
+  # through a forked writer, and when `grep -q` exits at its first match
+  # that writer was left blocked on Cygwin, hanging the whole step
+  # (mailio 0.26.2: a compile log of a few hundred KB, one process listing
+  # showed the writer's bash with no child).
+  log_file="$(mktemp)"
+  (( ${#logs[@]} == 0 )) || cat "${logs[@]}" >"$log_file" 2>/dev/null || true
+  log_has() { grep -qE "$1" "$log_file"; }
   tree_has() { [[ -d "$B" ]] && [[ -n "$(find "$B" -maxdepth "$1" "${@:2}" -print -quit 2>/dev/null)" ]]; }
 
   # A recipe that calls lndirs has symlinks to the source's makefiles in $B.
@@ -261,6 +267,7 @@ detect_tools() {
      || { [[ -d "$D" ]] && [[ -n "$(find "$D" -type f -name '*.py' -exec head -n 1 {} + 2>/dev/null | grep -m1 -E '^#!\s*(/usr/bin/env\s+)?(/usr/bin/)?python3?(\.[0-9]+)?\s*$' || true)" ]]; }; then
     echo python3
   fi
+  rm -f "$log_file"
   return 0
 }
 
