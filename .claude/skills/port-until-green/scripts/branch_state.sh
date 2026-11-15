@@ -74,7 +74,9 @@ run="$(gh run list -R "$dist" --workflow build-package.yml --limit 100 \
   --json databaseId,displayTitle,status,conclusion,updatedAt,url \
   --jq '.[] | "\(.databaseId)\t\(.displayTitle)\t\(.status) \(.conclusion // "-") \(.updatedAt) \(.url)"' |
   awk -F'\t' -v t="build-package $target" '
-    $2 == t || (index($2, t "-") == 1 && substr($2, length(t) + 2) ~ /^[0-9]+bl[0-9]+$/) { print $1 " " $3; exit }')"
+    # No `exit`: quitting early closes the pipe while gh is still writing, gh
+    # dies of SIGPIPE, and pipefail + set -e kill this script (status 141).
+    !done && ($2 == t || (index($2, t "-") == 1 && substr($2, length(t) + 2) ~ /^[0-9]+bl[0-9]+$/)) { print $1 " " $3; done = 1 }')"
 
 # The bot squashes the branch on every run, so a pushed commit is no
 # longer on origin/<branch> -- but it is in that ref's reflog, which a
