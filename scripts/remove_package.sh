@@ -1,4 +1,3 @@
-[[ -n "$ports_dir" ]] || { echo "Set PORTS_DIR (or --ports-dir) to the yacp-dev/ports clone" >&2; exit 1; }
 #!/usr/bin/env bash
 # Removes a package from yacp: first its binaries from dist, then its
 # recipe from ports (doc/spec.md 4.4.3). Without --execute it only reports
@@ -62,6 +61,10 @@ if [[ ! "$package" =~ ^[A-Za-z0-9][A-Za-z0-9._+-]*$ ]]; then
 fi
 
 here="$(cd "$(dirname "$0")" && pwd)"
+if [[ -z "$ports_dir" ]]; then
+  ports_dir="$("$here/../.claude/skills/port-until-green/scripts/ports_dir.sh" 2>/dev/null || true)"
+fi
+[[ -n "$ports_dir" ]] || { echo "Set PORTS_DIR (or --ports-dir) to the yacp-dev/ports clone" >&2; exit 1; }
 wait_run="$here/../.claude/skills/port-until-green/scripts/wait_run.sh"
 ref="origin/master"
 tmp="$(mktemp -d)"

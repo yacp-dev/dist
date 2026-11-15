@@ -13,6 +13,20 @@
 
 set -euo pipefail
 
+if [[ -z "${PORTS_DIR:-}" ]]; then
+  # Fall back to .claude/settings.local.json when running outside Claude Code (e.g. agy)
+  here="$(cd "$(dirname "$0")" && pwd)"
+  for settings in "$here/../../../settings.local.json" "$here/../../../../.claude/settings.local.json"; do
+    if [[ -f "$settings" ]]; then
+      candidate="$(python3 -c "import json; print(json.load(open('$settings')).get('env', {}).get('PORTS_DIR', ''))" 2>/dev/null || true)"
+      if [[ -n "$candidate" ]]; then
+        PORTS_DIR="$candidate"
+        break
+      fi
+    fi
+  done
+fi
+
 [[ -n "${PORTS_DIR:-}" ]] || {
   echo "PORTS_DIR is unset: set it to where the yacp-dev/ports clone lives (or should be cloned)" >&2
   exit 1

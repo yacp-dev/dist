@@ -40,7 +40,8 @@ done
 branch="dorgann/$pkg-$ver"
 target="$pkg-$ver"
 # Whichever session's worktree has the branch checked out.
-wt="$(git -C "${PORTS_DIR:-.}" worktree list --porcelain 2>/dev/null |
+ports_dir="$("$(dirname "$0")/ports_dir.sh" 2>/dev/null || echo "${PORTS_DIR:-.}")"
+wt="$(git -C "$ports_dir" worktree list --porcelain 2>/dev/null |
   awk -v b="branch refs/heads/$branch" '/^worktree /{w=substr($0, 10)} $0 == b {print w}')"
 
 others="$(gh api "repos/$ports/branches?per_page=100" --paginate --jq '.[].name' |

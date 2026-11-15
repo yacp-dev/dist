@@ -20,8 +20,15 @@ if [[ -n "${PORTS_WORKTREES_DIR:-}" ]]; then
   exit 0
 fi
 
+# Antigravity (agy) session
+if [[ -n "${ANTIGRAVITY_CONVERSATION_ID:-}" ]]; then
+  app_data="${ANTIGRAVITY_APP_DATA_DIR:-$HOME/.gemini/antigravity-cli}"
+  echo "$app_data/brain/$ANTIGRAVITY_CONVERSATION_ID/scratch/worktrees"
+  exit 0
+fi
+
 sid="${CLAUDE_CODE_SESSION_ID:-}"
-[[ -n "$sid" ]] || { echo "not in a Claude Code session (CLAUDE_CODE_SESSION_ID unset); set PORTS_WORKTREES_DIR" >&2; exit 1; }
+[[ -n "$sid" ]] || { echo "not in a Claude Code or Antigravity session; set PORTS_WORKTREES_DIR" >&2; exit 1; }
 
 shopt -s nullglob
 found=("/private/tmp/claude-$(id -u)"/*/"$sid"/scratchpad)
