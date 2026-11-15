@@ -129,7 +129,31 @@ runtime_requirements() {
     out="$(cat "$GENERATE_README_DEP")"
   else
     dep_path="$(find "$D" -type f \( -name '*.exe' -o -name '*.dll' -o -name '*.so' \) -printf '%h\n' 2>/dev/null | sort -u | paste -sd: -)"
-    out="$(LANG=C PATH="${dep_path:+$dep_path:}$PATH" cygport "$cygport_file" dep)"
+    # `cygport dep` has been seen to hang (mailio 0.26.2: no output for
+    # hours), so bound it and say what it was doing instead of waiting
+    # for the job's own timeout. The log goes to a file so a killed run
+    # still leaves what it printed.
+    local dep_log rc=0
+    dep_log="$(mktemp)"
+    LANG=C PATH="${dep_path:+$dep_path:}$PATH" \
+      timeout -s KILL "${GENERATE_README_DEP_TIMEOUT:-300}" \
+      cygport "$cygport_file" dep >"$dep_log" 2>"$dep_log.err" || rc=$?
+    if [[ $rc -ne 0 ]]; then
+      echo "::error title=README::cygport dep failed or timed out (exit $rc)" >&2
+      echo "--- cygport dep stdout ---" >&2
+      cat "$dep_log" >&2
+      echo "--- cygport dep stderr ---" >&2
+      cat "$dep_log.err" >&2
+      echo "--- PATH directories searched for DLLs ---" >&2
+      tr ':' '\n' <<<"$dep_path" >&2
+      echo "--- processes ---" >&2
+      ps -ef >&2 || true
+      rm -f "$dep_log" "$dep_log.err"
+      return 1
+    fi
+    cat "$dep_log.err" >&2
+    out="$(cat "$dep_log")"
+    rm -f "$dep_log" "$dep_log.err"
   fi
   {
     grep -v '\*\*\*' <<<"$out" | sed -E 's/^[[:space:]]+//' | awk 'NF' | while read -r pkg; do
