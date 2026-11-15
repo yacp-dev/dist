@@ -84,8 +84,24 @@ cd "$dir"
 # C sorts bytes, as Ruby's String#<=> does.
 export LC_ALL=C
 
+# --- progress and watchdog ---------------------------------------------
+
+# This step has hung with no output at all (mailio 0.26.2), so name each
+# stage on stderr, and if the whole run takes longer than
+# GENERATE_README_WATCHDOG seconds (default 240), print the process list once
+# so the log shows what it is stuck on.
+stage() { echo "generate_readme.sh: $* ($(date -u +%T))" >&2; }
+(
+  sleep "${GENERATE_README_WATCHDOG:-240}" >/dev/null 2>&1 </dev/null
+  echo "::warning title=README::generate_readme.sh still running after ${GENERATE_README_WATCHDOG:-240}s" >&2
+  ps -ef >&2 || true
+) &
+watchdog=$!
+trap 'kill "$watchdog" 2>/dev/null || true' EXIT
+
 # --- variables ---------------------------------------------------------
 
+stage "cygport vars"
 vcs_vars=(BZR_URI CVS_URI FOSSIL_URI GIT_URI HG_URI MTN_URI SVN_URI)
 if [[ -n "${GENERATE_README_VARS:-}" ]]; then
   vars_decl="$(cat "$GENERATE_README_VARS")"
@@ -325,16 +341,21 @@ fold_description() {
 }
 
 work="$(mktemp -d)"
-trap 'rm -rf "$work"' EXIT
+trap 'rm -rf "$work"; kill "$watchdog" 2>/dev/null || true' EXIT
 
 : > "$work/files"
+stage "package files"
 for pkg in $PKG_NAMES; do
   package_files "$pkg" > "$work/files.$pkg"
   cat "$work/files.$pkg" >> "$work/files"
 done
+stage "runtime requirements"
 runtime_requirements > "$work/runtime"
+stage "build requirements"
 build_requirements "$work/runtime" "$work/files" > "$work/build"
+stage "port notes"
 port_notes > "$work/notes"
+stage "render"
 
 download="$SRC_URI"
 for vcs in "${vcs_vars[@]}"; do
