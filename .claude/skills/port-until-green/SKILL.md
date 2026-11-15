@@ -114,8 +114,6 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   a draft recipe for a package not in ports ("New packages", Step 1).
 - `scripts/cmux_status.sh "<text>"` / `--clear` — the status pill (below;
   a no-op outside cmux).
-- `scripts/notify_sound.sh done|ask` — the notification sound (below;
-  a no-op without afplay).
 
 ### Status pill
 
@@ -134,22 +132,6 @@ decision, a new-package draft awaiting the user's review, a `cygport check`
 failure or Audit WARNING left to the user, or an open question. Clear it too
 when Step 1 stops early with nothing to follow up (already up to date,
 invalid). When the user comes back and settles the leftover, clear it then.
-
-### Notification sound
-
-The user may be elsewhere while a run goes on, so sound it when the run
-ends or turns to them, as the very last action before writing the report
-or the question:
-
-- `bash scripts/notify_sound.sh done` when the run is over and nothing is
-  left for the user (the same condition under which the status pill is
-  cleared).
-- `bash scripts/notify_sound.sh ask` whenever the session is waiting on
-  the user: a stop awaiting a decision, a new-package draft awaiting their
-  review, a `cygport check` failure or Audit WARNING left to them, or a
-  question asked mid-run.
-
-Once per hand-over, never during the loop itself.
 
 ## Step 1: Resolve the argument
 
