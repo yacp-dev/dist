@@ -218,9 +218,10 @@ on:
 
 - What the workflow does:
   1. Uses `artifact_id` to fetch the dist artifact from `dorgann`'s own Actions artifact API (`GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip`).
-  2. Reads the package name and version from the extracted filenames, and replaces the contents of `x86_64/release/<package>/` with the new version's files (per the single-generation rule in 3.3, the existing old version is deleted).
-  3. Regenerates `setup.ini` with `mksetupini` (3.2).
-  4. Rebuilds the `gh-pages` branch down to a single commit and force-pushes it (3.3).
+  2. Also scans recently-merged PRs in `yacp-dev/ports` for any `dorgann-meta` artifact IDs whose package/version is not yet present in `gh-pages`'s release area (`scripts/sync_release_artifacts.sh`). This recovers packages from publish runs cancelled by GitHub Actions' concurrency queue limit (queue depth is 1, so multiple PR merges in close succession cancel intermediate waiting runs with `"Canceling since a higher priority waiting request for publish-gh-pages exists"`).
+  3. Reads the package name and version from the extracted filenames, and replaces the contents of `x86_64/release/<package>/` with the new version's files (per the single-generation rule in 3.3, the existing old version is deleted).
+  4. Regenerates `setup.ini` with `mksetupini` (3.2).
+  5. Rebuilds the `gh-pages` branch down to a single commit and force-pushes it (3.3).
 - **Caveat**: since dist artifacts expire under the default 90-day retention (4.4), running this workflow more than 90 days after the build means the artifact will no longer be found. In that case, the package needs to be rebuilt.
 
 #### 4.4.3 Removing a package

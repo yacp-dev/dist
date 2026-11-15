@@ -55,8 +55,12 @@ permissions:
 # cloned before the earlier run's Commit and force-push had landed, so
 # its own force-push then silently reverted the earlier run's changes.
 # A single fixed group name (not parameterized by artifact_id/package)
-# serializes ALL runs against each other; no cancel-in-progress, since
-# the fix here is "wait your turn", not "cancel and lose that publish".
+# serializes ALL runs against each other. Note that GitHub Actions'
+# concurrency queue has a maximum depth of 1: when multiple runs are
+# queued, only the latest is kept and intermediate runs are cancelled
+# ("Canceling since a higher priority waiting request exists").
+# sync_release_artifacts.sh compensates for this by scanning recently-merged
+# PRs and pulling in any artifacts that were skipped.
 concurrency:
   group: publish-gh-pages
   cancel-in-progress: false
@@ -67,16 +71,6 @@ jobs:
     steps:
       - name: Checkout dorgann
         uses: actions/checkout@v7
-
-      - name: Download dist artifact
-        env:
-          GH_TOKEN: ${{ github.token }}
-          # workflow_dispatch populates inputs.artifact_id;
-          # repository_dispatch leaves it empty and populates
-          # client_payload.artifact_id instead -- exactly one of the two
-          # is ever set, depending on which trigger fired this run.
-          ARTIFACT_ID: ${{ inputs.artifact_id || github.event.client_payload.artifact_id }}
-        run: bash -- scripts/download_dist_artifact.sh --repo ${{ github.repository }} --artifact-id "$ARTIFACT_ID" --dest artifact
 
       # gh-pages is checked out (or bootstrapped, on the very first
       # publish) into its own directory rather than as this job's
@@ -96,12 +90,30 @@ jobs:
       - name: Configure custom domain (CNAME)
         run: bash -- scripts/ensure_gh_pages_cname.sh --dir gh-pages --domain dist.yacp.dev
 
+      # Downloads and lays out the triggered artifact (if given via
+      # artifact_id) alongside any unpublished dist artifacts from
+      # recently-merged PRs in yacp-dev/ports. This recovers packages from
+      # publish runs cancelled by GitHub Actions' concurrency queue limit
+      # ("Canceling since a higher priority waiting request exists").
       # --exclude-debuginfo: debuginfo tarballs can exceed GitHub's 100 MB
       # per-file push limit (see layout_release_area.sh), so they're left
       # out of dist for now.
-      - name: Lay out release area
+      - name: Download and lay out release artifacts
         id: layout
-        run: bash -- scripts/layout_release_area.sh --artifact-dir artifact --gh-pages-dir gh-pages --exclude-debuginfo
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # workflow_dispatch populates inputs.artifact_id;
+          # repository_dispatch leaves it empty and populates
+          # client_payload.artifact_id instead -- exactly one of the two
+          # is ever set, depending on which trigger fired this run.
+          ARTIFACT_ID: ${{ inputs.artifact_id || github.event.client_payload.artifact_id }}
+        run: |
+          bash -- scripts/sync_release_artifacts.sh \
+            --dist-repo ${{ github.repository }} \
+            --ports-repo yacp-dev/ports \
+            --gh-pages-dir gh-pages \
+            ${ARTIFACT_ID:+--artifact-id "$ARTIFACT_ID"} \
+            --exclude-debuginfo
 
       # Pinned to 3.14 rather than '3.x': 3.x resolved to 3.15, for which
       # zstandard (a calm dependency) has no wheel yet, so pip compiled it
