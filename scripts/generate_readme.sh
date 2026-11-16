@@ -19,7 +19,8 @@
 #   Runtime         `cygport dep`, with the directories of the built
 #                   .exe/.dll/.so on PATH so it finds them; python3,
 #                   perl5_0NN and ruby_NN become the installed package;
-#                   REQUIRES are added as installed.
+#                   REQUIRES and each package's <pkg>_REQUIRES are added
+#                   as installed.
 #   Build           the compilers (from the languages in the debuginfo's
 #                   DWARF; without debuginfo, from the kinds of files the
 #                   packages ship: .exe/.dll/.a/.so -> C, libgfortran or
@@ -116,6 +117,17 @@ eval "$vars_decl"
 # A recipe without PKG_NAMES builds the one package $PN, as cygport's
 # pkg_name=(${PKG_NAMES:-${PN}}) does.
 PKG_NAMES="${PKG_NAMES:-$PN}"
+# Each package's own <pkg>_REQUIRES counts as a runtime requirement too
+# (cygport names the variable after the package with -+. turned into _),
+# not only the recipe's REQUIRES. They need a second `cygport vars`,
+# since the names come from PKG_NAMES.
+sub_requires_vars=()
+for pkg in $PKG_NAMES; do sub_requires_vars+=("${pkg//[-+.]/_}_REQUIRES"); done
+# (A GENERATE_README_VARS file already holds them.)
+if [[ -z "${GENERATE_README_VARS:-}" ]]; then
+  eval "$(cygport "$cygport_file" vars "${sub_requires_vars[@]}")"
+fi
+for v in "${sub_requires_vars[@]}"; do REQUIRES+=" ${!v:-}"; done
 readme_in="${previous:-$C/README}"
 installed_db="${AUDIT_INSTALLED_DB:-/etc/setup/installed.db}"
 
