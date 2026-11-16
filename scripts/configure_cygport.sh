@@ -89,7 +89,7 @@ dnl these variables in plain shell code without pkg.m4.
 m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
 dnl Marker tokens autoconf-archive's own ax_pthread.m4 greps for via
 dnl AC_EGREP_CPP; they're meant to be left in configure as-is.
-m4_pattern_allow([^AX_PTHREAD_(ZOS_MISSING|CC_IS_CLANG)$])
+m4_pattern_allow([^AX_PTHREAD_(ZOS_MISSING|CC_IS_CLANG|SOLARIS__REENTRANT)$])
 dnl Shell variable autoconf-archive's own ax_code_coverage.m4 sets.
 m4_pattern_allow([^_AX_CODE_COVERAGE_GCOV_PROG_WITH$])
 dnl Name autoconf-archive's own ax_cflags_warn_all.m4 prints in a warning.
