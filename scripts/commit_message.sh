@@ -10,7 +10,8 @@
 #                                         trailing period), e.g.
 #                                         "Rebuild with gcc-14.4.0" ->
 #                                         "pkg-1.2.3 (rebuild with gcc-14.4.0)"
-#   <pkg>-<ver> (WIP)                     cygport check failed
+#   <pkg>-<ver> (WIP)                     cygport check failed, or ran no test
+#                                         (upstream has none, no smoke test)
 #   <pkg>-<ver> (<changelog> / WIP)       both
 #
 # The PR title stays plain `<pkg>-<ver>`.

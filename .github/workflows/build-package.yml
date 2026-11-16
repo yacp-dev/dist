@@ -688,7 +688,7 @@ jobs:
         if: always() && steps.detect.outcome == 'success' && needs.gate.outputs.mode != 'deploy'
         env:
           README_MESSAGE: ${{ inputs.changelog_message || steps.changelog.outputs.message }}
-        run: bash -- scripts/commit_message.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --message "$env:README_MESSAGE" --wip "${{ (steps.check.outcome == 'failure' || steps.audit.outputs.check == 'failed') && 'true' || 'false' }}"
+        run: bash -- scripts/commit_message.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --message "$env:README_MESSAGE" --wip "${{ (steps.check.outcome == 'failure' || steps.audit.outputs.check == 'failed' || steps.audit.outputs.check == 'empty') && 'true' || 'false' }}"
 
       # Placed after the artifact upload so a problem here (still
       # unvalidated as of Step 2 -- first real use of the yacp token) can't
@@ -735,7 +735,7 @@ jobs:
           # commit message convention (checked against its git history).
           # So does a parenthesized suffix after it: the changelog entry
           # when it isn't "Version bump.", and "WIP" when cygport check
-          # failed (the body's check line below, same condition) -- see
+          # failed or ran no test (the body's check line below, same condition) -- see
           # Decide commit message. The PR title stays plain: yacp only
           # rebase-merges, so the commit's title is what lands.
           commit-message: ${{ steps.commitmsg.outputs.message }}
