@@ -12,6 +12,8 @@
 #   check: empty (<reason>)
 #                      it passed without running any tests
 #   check: passed
+#                      then a "check-tests:" line: the runner's totals,
+#                      or "smoke test" when src_test only runs the program
 #   check: unknown (...)
 #                      no check log to read
 #
@@ -540,6 +542,28 @@ check_smoke_candidates() {
   return 0
 }
 
+# Whether the recipe's src_test is only a smoke test: its commands are
+# all `verbose ./<exe> ...` (or `verbose ${B}/...`) runs of a built
+# program with a version or help flag (not a test program), plus `cd`, `export` and comments -- no test runner (cygtest,
+# make check, ctest, meson test, a test script). Succeeds only when
+# there is at least one such run. Reads the recipe in $cygport_file.
+check_is_smoke_test() {
+  [[ -f "${cygport_file:-}" ]] || return 1
+  awk '
+    /^src_test[[:space:]]*\(\)/ { on = 1; next }
+    on && /^\}/ { exit }
+    on {
+      line = $0
+      sub(/^[[:space:]]+/, "", line); sub(/[[:space:]]+$/, "", line)
+      if (line == "" || line == "{" || line ~ /^#/) next
+      if (line ~ /^(cd|export)[[:space:]]/) next
+      if (line ~ /^verbose[[:space:]]+(\.\/|\$\{?B\}?\/|\$\{?S\}?\/)[^[:space:]|;&]*[[:space:]]+(-V|-v|-h|--version|--help|-\?)$/ && line !~ /[;&|]/ && tolower(line) !~ /(test|check)[^[:space:]\/]*[[:space:]]/) { runs++; next }
+      bad = 1
+    }
+    END { exit !(runs > 0 && !bad) }
+  ' "$cygport_file"
+}
+
 # --- The section --------------------------------------------------------
 
 # Appends each line of $1 to the report.
@@ -603,6 +627,11 @@ audit_check_body() {
   fi
 
   check_tests="$(check_test_counts)"
+  # A passing src_test that only starts the program has no runner totals
+  # to show; say what it is, so "passed" isn't read as a test suite.
+  if [[ -z "$check_tests" && "$check_verdict" == passed ]] && check_is_smoke_test; then
+    check_tests="smoke test"
+  fi
   [[ -z "$check_tests" ]] || say "check-tests: $check_tests"
 
   skipped="$(check_skipped_tests | awk '!seen[$0]++')"

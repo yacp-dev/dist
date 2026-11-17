@@ -1154,7 +1154,7 @@ the conversation already holds the details, the report is the summary.
 |---|---|
 | Target | <mode and what it means: 1.9 → 1.10 version update / release rebuild / gcc rebuild / deploy> |
 | Branch | <created new / existed, what was pushed> |
-| `cygport check` | <passed / FAILED / empty / not reached> |
+| `cygport check` | <passed / passed (smoke test: when check_summary.sh says `check-tests: smoke test`) / FAILED / empty / not reached> |
 | Merge | <Ready to merge: green run on the branch's current head, PR not draft, check passed/empty-with-reason, no Audit WARNING left unexplained / Not yet: what blocks it> |
 | Build | <built now / reused run <id> (green, built the current head; not rebuilt)> |
 | License | <the `LICENSE` value, and whether it was already there / filled in by you (with the source of the decision) / n/a: reason> |
