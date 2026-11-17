@@ -90,7 +90,7 @@ wt="$worktrees/$package-$version"
 file="$package/$package-$version-1bl1.cygport"
 
 [[ -d "$ports" ]] || { echo "No ports clone at $ports (gh repo clone yacp-dev/ports $ports)" >&2; exit 1; }
-git -C "$ports" fetch -q origin
+git -C "$ports" fetch -q --no-write-fetch-head origin
 
 if git -C "$ports" cat-file -e "origin/master:$package" 2>/dev/null; then
   echo "$package is already in yacp-dev/ports; use /port-until-green $package instead" >&2

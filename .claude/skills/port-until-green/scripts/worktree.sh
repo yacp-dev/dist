@@ -38,7 +38,10 @@ branch="dorgann/$pkg-$ver"
 worktrees="$("$(dirname "$0")/worktree_root.sh")"
 wt="$worktrees/$pkg-$ver"
 
-git -C "$ports" fetch -q origin "$branch" 2>/dev/null || {
+# --no-write-fetch-head: $ports is shared and a concurrent `git pull` merges
+# whatever FETCH_HEAD holds, so a named-branch fetch here would get merged
+# into its master (seen with dorgann/libminc-2.5.0).
+git -C "$ports" fetch -q --no-write-fetch-head origin "$branch" 2>/dev/null || {
   echo "$branch is not on origin" >&2; exit 1; }
 
 if [[ ! -d "$wt" ]]; then

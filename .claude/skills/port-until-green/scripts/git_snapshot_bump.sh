@@ -45,7 +45,7 @@ done
 
 [[ -n "$package" ]] || { echo "--package is required" >&2; exit 1; }
 
-git -C "$ports" fetch -q origin
+git -C "$ports" fetch -q --no-write-fetch-head origin
 cygport="$(git -C "$ports" ls-tree --name-only origin/master "$package/" | grep '\.cygport$')" ||
   { echo "No .cygport for $package on origin/master" >&2; exit 1; }
 content="$(git -C "$ports" show "origin/master:$cygport")"

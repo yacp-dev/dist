@@ -107,7 +107,7 @@ source "$dorgann/scripts/license_text.sh"
 branch="dorgann/$package-$version"
 wt="$worktrees/$package-$version"
 
-git -C "$ports" fetch -q origin
+git -C "$ports" fetch -q --no-write-fetch-head origin
 if git -C "$ports" ls-remote --exit-code --heads origin "$branch" >/dev/null; then
   echo "$branch already exists -- dispatching $package-$version rebuilds it" >&2
   exit 1
