@@ -65,7 +65,10 @@ attempt is a workflow run, ~5–30 min each. Key behaviors:
   squashes everything into one `<pkg>-<ver>` commit and force-pushes). Your
   local branch is therefore stale after each run — always refresh it
   with `scripts/worktree.sh` (Step 4) before editing, or your push will
-  be rejected or will clobber the bot's commit.
+  be rejected or will clobber the bot's commit. For that reason the
+  worktree lives only while you are editing and waiting on runs: remove
+  it whenever you stop for the user, and recreate it for the next edit
+  (Step 4, "Worktree lifetime").
 - See `doc/spec.md` 4.5–4.6 for the full design if something here surprises you.
 
 Helpers bundled with this skill (paths relative to this SKILL.md):
@@ -214,7 +217,8 @@ review on GitHub before anything is built (doc/spec.md 4.8):
    dispatch.
 3. Stop and give the user the compare URL
    (`https://github.com/yacp-dev/ports/compare/master...dorgann/<pkg>-<ver>`)
-   with what you decided and why. Keep the worktree for review fixes.
+   with what you decided and why. Then remove the worktree as in Step 4
+   ("Worktree lifetime"); a review fix recreates it.
 
 Once the user OKs it, `/port-until-green <pkg>-<ver>` resolves to `new`
 and carries on from Step 2 like any branch rebuild.
@@ -907,8 +911,24 @@ Run it before every edit, including after Step 1b or
 hook refuses `git worktree add` outside this session's scratchpad) or
 resets it to the branch the bot
 force-pushed, and refuses — listing them — when uncommitted changes or
-unpushed commits would be lost. Once the loop is over (success or
-stopping) and everything is pushed, remove it with `--remove`.
+unpushed commits would be lost.
+
+**Worktree lifetime.** The worktree exists only while you edit and loop:
+
+- Whenever you stop with the user as the next actor — a green run
+  waiting to be merged, a new-package draft awaiting review, a stop for
+  a decision, a question — run `scripts/worktree.sh --package <pkg>
+  --version <ver> --remove` **before** the final report or question.
+  Everything must already be pushed (`--remove` refuses otherwise, and
+  lists what would be lost; push, or say why you can't).
+- When the user's reply needs a recipe edit, recreate it first with
+  `scripts/worktree.sh` (no flags), then edit, commit, push, dispatch.
+  Recreating costs seconds and starts from what the bot last pushed, so
+  there is no stale checkout to forget to refresh.
+- Within a fix loop (failed run → fix → push → next run) keep it; remove
+  it only when the loop ends.
+- Scratch material (extracted sources, logs) belongs in the scratchpad
+  outside the worktree, so it survives removal.
 
 Edit only files under the package directory. Common fixes:
 
@@ -1114,7 +1134,8 @@ below (a lean report is fine, but always include the PR/Run links and
 the attempts list): the branch and draft PR URL, the
 last run URL, each attempt's error and what you tried, your best current
 diagnosis, and what you'd try next. Leave the branch in a pushed state
-— don't leave local-only changes.
+— don't leave local-only changes, and remove the worktree (Step 4,
+"Worktree lifetime") before reporting.
 
 ## Final report
 
