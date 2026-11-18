@@ -27,8 +27,9 @@
 #                   .mod -> Fortran), the tools the build evidently used
 #                   (detect_tools), BUILD_REQUIRES and cygport itself,
 #                   each as the installed package's name-version-release.
-#   Canonical       HOMEPAGE, and the first of <VCS>_URI (the VCS cygclass
-#                   inherited) or SRC_URI.
+#   Canonical       HOMEPAGE, and the first of <VCS>_URI (of a VCS cygclass
+#                   the recipe itself inherits; one another cygclass sets,
+#                   e.g. gnome.org's GIT_URI, doesn't count) or SRC_URI.
 #   Files           $T/.<pkg>.lst of each package, directories left out,
 #                   plus the README itself for the package named PN.
 #   Port Notes      the existing ones, newest first, with this release's
@@ -376,9 +377,15 @@ stage "port notes"
 port_notes > "$work/notes"
 stage "render"
 
+# A <VCS>_URI counts only when the recipe itself inherits that VCS cygclass
+# (inherit git -> GIT_URI). Other cygclasses set it too without building from
+# it: gnome.org sets GIT_URI for a tarball build.
 download="$SRC_URI"
 for vcs in "${vcs_vars[@]}"; do
-  if [[ -n "${!vcs:-}" ]]; then download="${!vcs}"; break; fi
+  class="${vcs%_URI}"; class="${class,,}"
+  if [[ -n "${!vcs:-}" ]] && grep -Eq "^[[:space:]]*inherit[[:space:]].*\\b${class}\\b" "$cygport_file" 2>/dev/null; then
+    download="${!vcs}"; break
+  fi
 done
 # SRC_URI may start with a newline and indentation (one URI per line).
 download="${download#"${download%%[![:space:]]*}"}"
