@@ -1062,6 +1062,12 @@ Edit only files under the package directory. Common fixes:
   add `make_etc_defaults` on your own: only when the user has confirmed it
   for that package, whether they asked for it or said yes to your question.
   If a file looks like a config, say so in the report and ask.
+- **A `src_test` that copies test data into `${S}`** (an out-of-tree build
+  whose tests read `$(srcdir)`) → remove the copies right after the test
+  command, whether it passed or not, so `cygport diff` doesn't record them
+  as binary files in the `.src.patch` (the reverse of the copy: `cygtest ||
+  status=$?`, `verbose rm -f ${S}/tests/<data>`, `return ${status}`;
+  libhsts 0.1.0).
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
   run failed anyway, look for the real failing step instead. Test suite
   failures on a green run are handled under Step 2.
