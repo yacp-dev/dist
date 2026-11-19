@@ -553,16 +553,29 @@ if [[ " $inherits " == *" cmake "* ]]; then
 fi
 
 # 7b. gettext. cygport's autotools cygclass copies
-# /usr/share/gettext/config.rpath when configure.ac uses one of these macros,
-# so a missing gettext-devel fails `cygport compile` on the first run. Read
+# /usr/share/gettext/config.rpath when configure.ac mentions one of these
+# macros, so a missing gettext-devel fails `cygport compile` on the first
+# run. It greps the text, so a macro in a comment or inside m4_ifdef counts
+# too (libhsts's `#AM_ICONV`), and that is what is matched here. Read
 # against src/ (the .src.patch may add the macro itself, as wolftpm's did).
+# With gettext-devel installed, autopoint also runs when configure.ac has
+# AM_GNU_GETTEXT_VERSION, and it stops on an optional (m4_ifdef) or old
+# AM_GNU_GETTEXT without `external` (autopoint 0.26 on libhsts 0.1.0).
 if [[ -n "$source_ok" && -f "$work/src/$SRC_DIR/configure.ac" ]]; then
-  gettext_macros="$(grep -E '^[^#]*\b(AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL)\b' "$work/src/$SRC_DIR/configure.ac" |
-    grep -v '^[[:space:]]*dnl' | grep -oE 'AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL' | sort -u | paste -sd' ' -)" || true
-  if [[ -n "$gettext_macros" ]]; then
+  configure_ac="$work/src/$SRC_DIR/configure.ac"
+  gettext_macros="$(grep -oE 'AM_GNU_GETTEXT_VERSION|AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL' "$configure_ac" |
+    grep -vx 'AM_GNU_GETTEXT_VERSION' | sort -u | paste -sd' ' -)" || true
+  autopoint_version="$(grep -c 'AM_GNU_GETTEXT_VERSION' "$configure_ac" || true)"
+  if [[ -n "$gettext_macros" || "$autopoint_version" != 0 ]]; then
     echo
     echo "== gettext =="
-    echo "configure.ac uses: $gettext_macros"
+    echo "configure.ac mentions: ${gettext_macros:-(only AM_GNU_GETTEXT_VERSION)} (comments and m4_ifdef included: cygport greps the text)"
+    grep -nE 'AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL' "$configure_ac" | sed 's/^/  configure.ac:/'
+    if [[ -d "$work/src/$SRC_DIR/po" ]]; then
+      echo "po/ exists: the source uses gettext for real"
+    else
+      echo "no po/ directory"
+    fi
     if perl -0ne '
         while (/^BUILD_REQUIRES\+?=(?:"((?:[^"\\]|\\.)*)"|'\''([^'\'']*)'\''|(\S*))/mg) {
           print(($1 // $2 // $3), "\n");
@@ -570,6 +583,9 @@ if [[ -n "$source_ok" && -f "$work/src/$SRC_DIR/configure.ac" ]]; then
       echo "gettext-devel is in BUILD_REQUIRES"
     else
       echo "  -> add gettext-devel to BUILD_REQUIRES (cygport copies /usr/share/gettext/config.rpath for it)"
+    fi
+    if [[ "$autopoint_version" != 0 ]]; then
+      echo "  -> AM_GNU_GETTEXT_VERSION: autopoint runs with gettext-devel installed and may stop (\"AM_GNU_GETTEXT without 'external' argument is no longer supported\"); if the source doesn't really use gettext (no po/), the .src.patch removes the gettext block from configure.ac, and gettext-devel stays only for config.rpath while a macro (even in a comment) remains"
     fi
   fi
 fi

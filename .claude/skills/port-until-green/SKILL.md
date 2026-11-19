@@ -420,11 +420,19 @@ normally fine as they are):
   `usr/lib/python3.N` (log4cplus in ports), in its own commit,
   `<pkg>-<ver> (switch to python3)`. A build on the old Python goes
   green, so no run would point it out.
-- **gettext** — `configure.ac` (as patched) uses `AM_GNU_GETTEXT`,
-  `AM_ICONV` or `AC_GGZ_INTL` and `BUILD_REQUIRES` lacks `gettext-devel` →
-  add it (one commit, `<pkg>-<ver> (add gettext-devel to BUILD_REQUIRES)`).
-  The autotools cygclass copies `/usr/share/gettext/config.rpath` for those
-  macros, and without it `cygport compile` fails on the first run.
+- **gettext** — `configure.ac` (as patched) mentions `AM_GNU_GETTEXT`,
+  `AM_ICONV` or `AC_GGZ_INTL` (cygport greps the text, so a comment or an
+  `m4_ifdef` counts) and `BUILD_REQUIRES` lacks `gettext-devel` → add it
+  (one commit, `<pkg>-<ver> (add gettext-devel to BUILD_REQUIRES)`). The
+  autotools cygclass copies `/usr/share/gettext/config.rpath` for those
+  macros, and without it `cygport compile` fails on the first run. With
+  `gettext-devel` installed, `autopoint` also runs when there is an
+  `AM_GNU_GETTEXT_VERSION`, and autopoint 0.26 stops on an
+  `AM_GNU_GETTEXT` without `external` (libhsts 0.1.0). When the source
+  doesn't really use gettext (the report says `no po/`, nothing in the
+  code includes libintl), remove the gettext block from `configure.ac` in
+  the `.src.patch`, and keep `gettext-devel` for `config.rpath` for as long
+  as any of the macros (a comment too) is left.
 - **CMake options** — each `-D` variable listed there is one no
   `CMakeLists.txt`/`*.cmake` in the patched source names outside
   comments and `message()` calls, and no `configure_file()` header
