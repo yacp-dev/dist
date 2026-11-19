@@ -968,7 +968,9 @@ Edit only files under the package directory. Common fixes:
   upstream already merged) and delete the `.rej` files; then
   `regen_src_patch.sh write --work <dir> --out <pkg>-<ver>-<rel>.src.patch`,
   removing the old-version patch file if one remains. Leave out generated
-  files. A package with no `.src.patch` yet gets a new one the same way
+  files, and any `Binary files ... differ` line (`copy_results_back.sh` drops
+  them from the patch the bot commits, with a notice; a binary a `src_test`
+  copies into `${S}` is the usual source). A package with no `.src.patch` yet gets a new one the same way
   (`prepare` without `--patch`, edit `src/`, `write`). Once a run
   succeeds, the copy-back step replaces it with the real `cygport diff`
   output on the branch.

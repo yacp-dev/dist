@@ -28,6 +28,12 @@
 # GITHUB_OUTPUT for the PR body. Such a change belongs in a PATCH_URI
 # patch of its own, applied to origsrc, which `cygport diff` never sees.
 #
+# A `Binary files <a> and <b> differ` line in cygport diff's output
+# (a generated or copied binary, e.g. test data a src_test put into ${S})
+# is no patch: patch(1) skips it and it records nothing, so it is
+# dropped from the copy, with a notice naming the files. A patch left with
+# nothing but such lines counts as empty and isn't copied.
+#
 # Usage (paths relative to the package directory, e.g. yacp/googletest):
 #   copy_results_back.sh --dir yacp/googletest --file googletest-1.18.0-1bl1.cygport
 
@@ -71,8 +77,15 @@ cp -f "$C/README" "$dir_abs/README"
 
 new_patch="$patchdir/$PF.src.patch"
 [[ -f "$new_patch" ]] || { echo "No such file: $new_patch" >&2; exit 1; }
+if grep -q '^Binary files .* differ$' "$new_patch"; then
+  binary="$(sed -n 's/^Binary files .* and src\/[^/]*\/\(.*\) differ$/\1/p' "$new_patch" | tr '\n' ' ' | sed 's/ $//')"
+  echo "::notice title=.src.patch binary files::left out of .src.patch (binary diff lines): $binary"
+  filtered="$(mktemp)"
+  grep -v '^Binary files .* differ$' "$new_patch" > "$filtered" || true
+  new_patch="$filtered"
+fi
 if [[ -s "$new_patch" ]]; then
-  old_patch="$dir_abs/$(basename "$new_patch")"
+  old_patch="$dir_abs/$PF.src.patch"
   if [[ -f "$old_patch" ]]; then
     dropped="$(comm -23 <(patched_files "$old_patch") <(patched_files "$new_patch") | tr '\n' ' ' | sed 's/ $//')"
     if [[ -n "$dropped" ]]; then
@@ -82,5 +95,5 @@ if [[ -s "$new_patch" ]]; then
       fi
     fi
   fi
-  cp -f "$new_patch" "$dir_abs/"
+  cp -f "$new_patch" "$dir_abs/$PF.src.patch"
 fi
