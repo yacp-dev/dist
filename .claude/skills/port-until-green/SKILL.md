@@ -1124,7 +1124,12 @@ Then back to Step 2: `run_decision.sh` for `<pkg>-<ver>`, then rerun or dispatch
   are refused: file an Issue in yacp-dev/dist labelled `update-blocked`
   whose body starts with `<!-- dorgann-meta: {"package":"<pkg>"} -->` and
   says what blocks it and how to unblock (yacp-dev/dist#91 is the
-  model). Then close the draft PR, pointing it at the Issue, and delete
+  model). Show the user the Issue draft before filing it. Its "To
+  unblock" section lists only what resolves the blocking dependency
+  (port or publish it) and closing the Issue, ending with a bare "Bump
+  <pkg>"; no recipe changes for the bump (patches, DLL names,
+  `BUILD_REQUIRES`, `LICENSE`): those are the next bump's business. Then
+  close the draft PR, pointing it at the Issue, and delete
   the branch (`gh api -X DELETE
   repos/yacp-dev/ports/git/refs/heads/dorgann/<pkg>-<ver>`, plus the
   local one in `$ports`): the closed PR keeps its diff.
