@@ -5,6 +5,7 @@ arb	arb-fp
 camp	camp-metaprogramming	Repology's newest (spack) can lag GitHub releases: cross-check gh api repos/LLNL/camp/releases
 Catch2	catch
 cpx	cpcm-x
+duo_unix	duo-unix
 flare-engine	flare-rpg
 janet	janet-lang
 libconfig	libconfig-hyperrealm
