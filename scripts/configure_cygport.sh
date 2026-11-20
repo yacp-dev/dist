@@ -102,6 +102,8 @@ dnl Shell variables autoconf-archive's own ax_lib_postgresql.m4 sets.
 m4_pattern_allow([^_AX_LIB_POSTGRESQL_OLD_(CPPFLAGS|LDFLAGS|LIBS)$])
 dnl Shell variable autoconf-archive's own ax_boost_base.m4 sets.
 m4_pattern_allow([^_AX_BOOST_BASE_TONUMERICVERSION_RET$])
+dnl Macro names autoconf-archive's own ax_compiler_version.m4 embeds in error messages.
+m4_pattern_allow([^_AX_COMPILER_VERSION_[A-Z0-9_]+$])
 EOF
 
 cat > "$HOME/.cygportrc" <<'EOF'
