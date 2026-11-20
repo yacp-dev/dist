@@ -20,7 +20,7 @@
 #   deploy       pkg-ver-rel      -- ver and rel equal yacp: build as is,
 #                                    no PR (validate-only)
 #   invalid      pkg-ver-rel      -- anything else (exit status 2)
-#   new          pkg-ver          -- pkg isn't on master, but
+#   new          pkg-ver          -- pkg isn't on master (or its directory there has no .cygport), but
 #                                    dorgann/pkg-ver carries its draft
 #                                    recipe: build that branch (release
 #                                    is the branch's, current_* empty)
@@ -78,7 +78,11 @@ fi
 branch=""
 if gh api "repos/$repo/branches/dorgann/$target" >/dev/null 2>&1; then
   branch_package="$(match "$target" "$(gh api "repos/$repo/git/trees/dorgann/$target" --jq '.tree[] | select(.type == "tree") | .path')")"
-  if (( ${#branch_package} > ${#package} )); then
+  # The same name counts too when master's directory has no .cygport (a
+  # stale leftover): the package isn't on master, and the branch holds it.
+  if (( ${#branch_package} > ${#package} )) ||
+     { [[ -n "$package" && "$branch_package" == "$package" ]] &&
+       ! gh api "repos/$repo/contents/$package" --jq '.[].name' | grep -q '\.cygport$'; }; then
     package="$branch_package"
     branch="dorgann/$target"
   fi
