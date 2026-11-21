@@ -115,6 +115,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   distros' patches with pinned URLs ("Distro patches", Step 2).
 - `scripts/new_recipe.sh --package P --version V --source URL --homepage URL [--dry-run]` —
   a draft recipe for a package not in ports ("New packages", Step 1).
+- `scripts/decompose_patch.py --patch P [--dest DIR] [--cygport FILE] [--drop-patch]` —
+  decomposes a new-file-only `.src.patch` into individual files and adds them
+  to `SRC_URI` (Step 1b).
 - `scripts/cmux_status.sh "<text>"` / `--clear` — the status pill (below;
   a no-op outside cmux).
 
@@ -385,6 +388,17 @@ normally fine as they are):
     longer applies"). The work dir already holds `origsrc/` (with
     `PATCH_URI` applied) and `src/` laid out the way that recipe expects;
     `src/` is unpatched where the patch failed.
+  - `decomposed into SRC_URI` (or a `.src.patch` consisting only of new
+    files) → when a `.src.patch` only adds new files (e.g. `CMakeLists.txt`,
+    `*.pc.in`), cygport's patchlevel loop (0..5) erroneously succeeds at
+    `-p0`, placing files into `${S}/src/${SRC_DIR}/...` instead of the
+    source root `${S}`. Preflight automatically decomposes the patch into
+    individual files in the package directory, adds them to `SRC_URI` in
+    the recipe, removes the `.src.patch`, and commits the change as
+    `<pkg>-<ver> (decompose .src.patch into SRC_URI)`. If doing it by hand,
+    run `scripts/decompose_patch.py --patch "$patch" --cygport "$cygport" --drop-patch`
+    or extract the files into the package directory, add them to `SRC_URI`,
+    drop the `.src.patch`, and commit.
   - A `note:` about hooks (`src_unpack_hook`, `DISTCLEANFILES`, ...)
     means cygport changes the tree before patching in ways the script
     doesn't reproduce: treat a `FAILS` there as a lead, not a result.

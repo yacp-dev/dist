@@ -356,12 +356,27 @@ else
   [[ ${#patch_entries[@]} -eq 0 ]] && echo "no PATCH_URI"
 
   rsync -a --delete "$work/origsrc/" "$work/src/"
+  decomposed_patch=""
   for f in "$pf.cygwin.patch" "$pf.src.patch"; do
     if [[ -f "$top/$f" ]]; then
-      (cd "$work/src/$SRC_DIR" && cygpatch "$top/$f" "$f")
+      if [[ "$f" == "$pf.src.patch" ]] && python3 "$here/decompose_patch.py" --patch "$top/$f" --check-only 2>/dev/null; then
+        decomposed="$(python3 "$here/decompose_patch.py" \
+          --patch "$top/$f" \
+          --dest "$top" \
+          --cygport "$cygport" \
+          --apply-to "$work/src/$SRC_DIR" \
+          --apply-to "$work/origsrc/$SRC_DIR" \
+          --drop-patch 2>/dev/null)"
+        git -C "$wt" add -A -- "$package"
+        git -C "$wt" commit -q -m "$package-$version (decompose $f into SRC_URI)"
+        echo "decomposed into SRC_URI: $f (only new files; cygport would misapply at -p0) -> added $decomposed to SRC_URI, dropped $f"
+        decomposed_patch="$f"
+      else
+        (cd "$work/src/$SRC_DIR" && cygpatch "$top/$f" "$f")
+      fi
     fi
   done
-  [[ -f "$top/$pf.src.patch" || -f "$top/$pf.cygwin.patch" ]] || echo "no .src.patch"
+  [[ -f "$top/$pf.src.patch" || -f "$top/$pf.cygwin.patch" || -n "$decomposed_patch" ]] || echo "no .src.patch"
   echo "(origsrc/ has PATCH_URI applied, src/ also the .src.patch where it applied)"
 fi
 
