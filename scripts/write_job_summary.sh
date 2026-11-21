@@ -44,7 +44,7 @@
 # same way, and shown even when the report itself is empty.
 #
 # Layout: a two-column table (package, version, tests, PR, ...) instead of
-# a heading, then what the audit found as NG/OK blocks, each a heading
+# a heading, then what the audit found as NG/Warnings/OK blocks, each a heading
 # with its content (the report's "== Section ==" blocks, and the
 # "ok: Section: ..." lines grouped by Section). Deciding what needs fixing
 # is left to whoever reads it (port-until-green's Claude): this only lays
@@ -164,19 +164,27 @@ TITLES='function title(n) {
 }'
 
 # Splits the report into "== Section ==" blocks, each a "#### Section"
-# heading and a code block. mode=ng prints the blocks with a WARNING line,
-# and the Check section unless it passed and skipped nothing; mode=info
-# prints the others (a section that only says what it looked at: LICENSE,
-# BUILD_REQUIRES' "probably used", "nothing downloaded"). Drops the
-# closing "N warning(s)." line, which the table already says.
+# heading and a code block. mode=ng prints fatal blocks (failed check),
+# mode=warn prints blocks with a WARNING line or skipped/empty tests,
+# mode=info prints the clean sections (a section that only says what it
+# looked at: LICENSE, BUILD_REQUIRES' "probably used", "nothing downloaded").
+# Drops the closing "N warning(s)." line, which the table already says.
 render_sections() {
   awk -v mode="$1" -v check="$check" -v skipped="$check_skipped" -v cap="$block_max_lines" \
       -v bcap="$block_max_bytes" -v lmax="$line_max_chars" "$TITLES"'
-    function flush(  i, bad, last, bytes, line) {
+    function classify() {
+      if (name == "Check") {
+        if (check == "failed") return "ng"
+        if (!(check == "passed" && skipped == "") || warned) return "warn"
+        return "info"
+      }
+      if (warned) return "warn"
+      return "info"
+    }
+    function flush(  i, last, bytes, line) {
       if (name == "") return
       while (n > 0 && buf[n] == "") n--
-      bad = warned || (name == "Check" && !(check == "passed" && skipped == ""))
-      if ((mode == "ng") == (bad ? 1 : 0)) {
+      if (mode == classify()) {
         printf "\n#### %s\n```\n", title(name)
         last = (cap > 0 && n > cap) ? cap : n
         bytes = 0
@@ -264,12 +272,24 @@ report_body() {
   fi
   if [[ -s "$ng_tmp" ]]; then
     echo
-    echo "<details${audit_open:+ open}><summary>❌ NG ($(count_headings "$(cat "$ng_tmp")"))</summary>"
+    echo "<details open><summary>❌ NG ($(count_headings "$(cat "$ng_tmp")"))</summary>"
     print_bounded "$ng_tmp"
     echo
     echo "</details>"
   fi
   rm -f "$ng_tmp"
+
+  warn_tmp="$(mktemp)"
+  [[ -z "$audit_file" || ! -s "$audit_file" ]] || render_sections warn "$audit_file" > "$warn_tmp"
+  if [[ -s "$warn_tmp" ]]; then
+    echo
+    echo "<details${audit_open:+ open}><summary>⚠️ Warnings ($(count_headings "$(cat "$warn_tmp")"))</summary>"
+    print_bounded "$warn_tmp"
+    echo
+    echo "</details>"
+  fi
+  rm -f "$warn_tmp"
+
   ok_tmp="$(mktemp)"
   [[ -z "$audit_file" || ! -s "$audit_file" ]] || render_sections info "$audit_file" >> "$ok_tmp"
   [[ -z "$audit_oks_file" || ! -s "$audit_oks_file" ]] || render_ok "$audit_oks_file" >> "$ok_tmp"
