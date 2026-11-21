@@ -338,6 +338,12 @@ normally fine as they are):
   as it is; say so in the one-line summary. Where Repology has no
   project under that name or marks nothing newest, check upstream's
   releases by hand (the name may differ, e.g. `gtest` for googletest).
+  **Never auto-deploy a dependency**: When porting or repackaging a
+  dependency first to unblock a package, **NEVER deploy it to dist (`publish_dist.sh`)
+  automatically**. Once the dependency's PR is green and ready, stop and
+  present the PR to the user, prompting them to merge it into ports master.
+  Do not proceed to deploy it or build downstream packages until the user
+  confirms or merges it.
 - **Source** — `SRC_URI didn't resolve` (a cygclass sets it, e.g.
   `inherit github`) → rerun with `--source <url>` after removing the
   worktree and branch it made. A download or `git clone` that fails,
@@ -873,6 +879,13 @@ and URL; wait for it with `wait_run.sh` too. Then write the final report in the 
 Run line and the check result (`check_summary.sh`, as above) in the
 `cygport check` row.
 
+**Do not deploy unmerged dependencies**: `scripts/publish_dist.sh` is strictly
+for publishing an already-merged recipe when explicitly requested via `<pkg>-<ver>-<rel>`
+or deploy mode. When repackaging or updating a dependency package to satisfy another
+package's build requirements, **never call `publish_dist.sh` on your own initiative**.
+Instead, drive the dependency's PR to green/ready, stop, and ask the user to merge
+the dependency's PR into master first.
+
 If the build fails, don't fix anything: the recipe is the one already
 merged in ports, and a fix needs a new release. Report the failure
 (Step 3's `failure_summary.sh` for the cause) and suggest
@@ -1122,6 +1135,11 @@ Then back to Step 2: `run_decision.sh` for `<pkg>-<ver>`, then rerun or dispatch
 ## Stopping
 
 - **Success** → report as in Step 2.
+- **Dependency package ported / repackaged**: When you have completed porting
+  or repackaging a dependency needed by another package and its PR is green/ready,
+  **do not deploy it automatically**. Stop and report the dependency PR to the user,
+  prompting them to review and merge the PR. Wait for user instruction before
+  continuing with the dependent package.
 - **10 non-transient failed attempts** (counting the first build) → stop.
 - **Same error twice in a row after a fix meant for it** → step back and
   rethink rather than repeating the same fix; if you still have no new idea,
