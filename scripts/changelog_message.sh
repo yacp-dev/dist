@@ -56,22 +56,33 @@ strip_release() {
   echo "${name%-*}"
 }
 
+head_package="$package"
 head_cygport="$(git -C "$dir" ls-tree --name-only HEAD -- "$package/" | grep '\.cygport$' | head -n 1 || true)"
+if [[ -z "$head_cygport" ]]; then
+  match_dir="$(git -C "$dir" ls-tree --name-only HEAD | grep -ix "$package" | head -n 1 || true)"
+  if [[ -n "$match_dir" ]]; then
+    head_package="$match_dir"
+    head_cygport="$(git -C "$dir" ls-tree --name-only HEAD -- "$match_dir/" | grep '\.cygport$' | head -n 1 || true)"
+  fi
+fi
 
 message=""
-if [[ -n "$head_cygport" && "$(strip_release "${head_cygport##*/}")" == "$(strip_release "$cygport_file")" ]]; then
+if [[ -n "$head_cygport" ]] && [[ "$(tr '[:upper:]' '[:lower:]' <<<"$(strip_release "${head_cygport##*/}")")" == "$(tr '[:upper:]' '[:lower:]' <<<"$(strip_release "$cygport_file")")" ]]; then
   # The installed Cygwin gcc-core package's version (e.g. "14.2.0-1"),
   # not `gcc --version`'s output, so it lines up with the gcc-core-<ver>
   # generate_readme.sh records under a README's "Build requirements". gcc-core is
   # always installed as part of the base toolchain (build-package.yml's
   # "Install Cygwin (base toolchain)").
-  gcc_version="$(cygcheck -c gcc-core | awk '$1 == "gcc-core" { print $2 }')"
-  [[ -n "$gcc_version" ]] || { echo "changelog_message.sh: couldn't find gcc-core in 'cygcheck -c gcc-core' output" >&2; exit 1; }
-  gcc_upstream="${gcc_version%-*}"
+  gcc_version="$(cygcheck -c gcc-core 2>/dev/null | awk '$1 == "gcc-core" { print $2 }' || true)"
+  if [[ -n "$gcc_version" ]]; then
+    gcc_upstream="${gcc_version%-*}"
+  else
+    gcc_upstream="$(gcc -dumpversion 2>/dev/null || true)"
+  fi
   # gcc-core, gcc-g++ and gcc-fortran always share one version, and a
   # C++-only package's README lists gcc-g++ rather than gcc-core.
-  old_gcc="$(git -C "$dir" show "HEAD:$package/README" 2>/dev/null | sed -En 's/^[[:space:]]*gcc-(core|g\+\+|fortran)-([0-9][^-]*)-[^-]*$/\2/p' | head -n 1 || true)"
-  if [[ -n "$old_gcc" && "$old_gcc" != "$gcc_upstream" ]]; then
+  old_gcc="$(git -C "$dir" show "HEAD:$head_package/README" 2>/dev/null | sed -En 's/^[[:space:]]*gcc-(core|g\+\+|fortran)-([0-9][^-]*)-[^-]*$/\2/p' | head -n 1 || true)"
+  if [[ -n "$old_gcc" && -n "$gcc_upstream" && "$old_gcc" != "$gcc_upstream" ]]; then
     message="Rebuild with gcc-$gcc_upstream"
   else
     message="Rebuild"
