@@ -1,0 +1,6 @@
+category: Libs
+requires: libcouchdb-glib1.0-devel libdesktopcouch-glib1.0_2 pkg-config
+sdesc: "DesktopCouch access library (development)"
+ldesc: "GLib-based library to allow access to CouchDB"
+external-source: couchdb-glib
+

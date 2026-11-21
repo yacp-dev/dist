@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin
+sdesc: "Smaller, simpler, portable pkg-config clone"
+ldesc: "u-config ('micro-config') is a small, highly portable pkg-config and pkgconf
+clone."
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libglib2.0_0 libintl8 libusb1.0
+sdesc: "Library to handle different link cables for TI calculators (runtime)"
+ldesc: "The ticables library is a multi-platform library (Linux, Windows, Mac OS-X)
+which handles all link cables through a set of functions which constitutes a
+common API. Either directly (raw access), either trough a driver."
+external-source: libticables2
+

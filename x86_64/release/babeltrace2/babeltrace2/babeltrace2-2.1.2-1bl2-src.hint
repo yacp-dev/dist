@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport asciidoc libglib2.0-devel python3-devel swig xmlto
+sdesc: "Open-source trace manipulation toolkit (utilities)"
+ldesc: "Babeltrace 2 is also the reference parser implementation of the Common Trace
+Format (CTF), a very versatile trace format followed by various tracers and
+tools such as LTTng and barectf. The Babeltrace 2 library and its Python
+bindings can read and write CTF traces."
+skip:
+
+homepage: https://babeltrace.org/
+license: MIT AND LGPL-2.1-only AND CC-BY-SA-4.0

@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Roots acquisition library for Garbage Collector (licensing & readmes)"
+ldesc: "This library abstracts architecture-dependent part of garbage collector roots
+acquisition such as register windows of SPARC and register stack backing store
+of IA-64. Main part of the code is based on Boehm GC 7.0."
+

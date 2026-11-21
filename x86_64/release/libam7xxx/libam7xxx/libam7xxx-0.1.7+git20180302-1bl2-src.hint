@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport asciidoc docbook-xml45 libavcodec-devel libavdevice-devel libavformat-devel libavutil-devel libswscale-devel libusb1.0-devel libxcb-devel
+sdesc: "Open Source library to communicate via USB with Projectors and Digital Picture Frames based on the Actions Micro AM7XXX family of ICs (utilities)"
+ldesc: "libam7xxx is an Open Source library to communicate via USB with projectors and
+Digital Picture Frames based on the Actions Micro AM7XXX family if ICs."
+skip:
+
+homepage: https://git.ao2.it/libam7xxx.git/
+license: GPL-2.0-or-later AND GPL-3.0-or-later

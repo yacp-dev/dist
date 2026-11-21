@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libmustache6 libstdc++6
+sdesc: "C++ implementation of Mustache (utilities)"
+ldesc: "C++ implementation of Mustache"
+

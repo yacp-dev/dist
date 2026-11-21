@@ -1,0 +1,5 @@
+category: Libs
+requires: cygfuse cygwin libcdata1 libcerror1 libclocale1 libcnotify1 libcsplit1 libhmac1 libsmraw1
+sdesc: "Library and tools to access the (split) RAW image format (utilities)"
+ldesc: "libsmraw is a library to access the (split) RAW image format."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libcnotify1 libfdatetime1 libfguid1 libfwnt1 libuna1
+sdesc: "Library for generic file value functions (runtime)"
+ldesc: "libfvalue is a library for generic file value functions."
+external-source: libfvalue
+

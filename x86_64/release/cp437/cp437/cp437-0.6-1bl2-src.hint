@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libiconv-devel
+sdesc: "Emulates an old-style 'code page 437' / 'IBM-PC' character set terminal on a modern UTF-8 terminal emulator"
+ldesc: "Emulates an old-style 'code page 437' / 'IBM-PC' character set terminal on a modern UTF-8 terminal emulator"
+skip:
+
+homepage: https://github.com/keaston/cp437
+license: BSD-3-Clause

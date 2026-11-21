@@ -1,0 +1,7 @@
+category: Libs
+requires: libdb-devel libetpan26 libsasl2-devel libssl-devel pkg-config zlib-devel
+sdesc: "Mail Framework for C Language (development)"
+ldesc: "The purpose of this mail library is to provide a portable, efficient framework
+for different kinds of mail access: IMAP, SMTP, POP and NNTP."
+external-source: libetpan
+

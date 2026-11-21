@@ -1,0 +1,7 @@
+category: Libs
+requires: libcmark-gfm0.29.0.gfm.13 pkg-config
+sdesc: "C implementation of GitHub Flavored Markdown (development)"
+ldesc: "cmark-gfm is an extended version of the C reference implementation of
+CommonMark, a rationalized version of Markdown syntax with a spec."
+external-source: cmark-gfm
+

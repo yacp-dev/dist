@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcmocka-devel
+sdesc: "Ultimate Disassembler (utilities)"
+ldesc: "Capstone is a lightweight multi-platform, multi-architecture disassembly
+framework."
+skip:
+
+homepage: https://github.com/capstone-engine/capstone
+license: BSD-3-Clause AND NCSA

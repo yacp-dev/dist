@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Light and powerful C++ web framework (licensing & readmes)"
+ldesc: "Oat++ is a modern Web Framework for C++. It's fully loaded and contains all
+necessary components for effective production level development. It's also
+light and has a small memory footprint."
+skip:
+
+homepage: https://github.com/oatpp/oatpp
+license: Apache-2.0

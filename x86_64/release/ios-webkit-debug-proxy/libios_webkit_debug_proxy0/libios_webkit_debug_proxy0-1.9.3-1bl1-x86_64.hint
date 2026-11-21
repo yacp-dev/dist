@@ -1,0 +1,7 @@
+category: Devel
+requires: cygwin libimobiledevice1.0_6 libplist2.0_12 libssl3 libusbmuxd2.0_7
+sdesc: "iOS WebKit Debug Proxy (runtime)"
+ldesc: "A DevTools proxy (WebKit Remote Debugging Protocol) for iOS devices (Safari
+Remote Web Inspector)."
+external-source: ios-webkit-debug-proxy
+

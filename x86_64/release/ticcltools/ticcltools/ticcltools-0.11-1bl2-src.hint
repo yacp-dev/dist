@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libicu-devel libticcutils-devel libxml2-devel
+sdesc: "Tools for TICCL (utilities)"
+ldesc: "A collection of tools to process ticcl files"
+skip:
+
+homepage: https://github.com/LanguageMachines/ticcltools
+license: GPL-3.0-or-later

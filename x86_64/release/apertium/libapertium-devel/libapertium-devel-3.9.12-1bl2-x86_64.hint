@@ -1,0 +1,8 @@
+category: Text
+requires: libapertium3 pkg-config
+sdesc: "Free/open-source machine translation platform (development)"
+ldesc: "Apertium is a free/open-source machine translation platform, initially aimed
+at related-language pairs but expanded to deal with more divergent language
+pairs (such as English-Catalan)."
+external-source: apertium
+

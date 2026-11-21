@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libgcc1 libhdf4_11 libhdf5_320 libpng16 libstdc++6 octave
+sdesc: "Utilities for HDF5 format"
+ldesc: "h5utils is a set of utilities for visualization and conversion of scientific
+data in the free, portable HDF5 format."
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libzmq-devel
+sdesc: "High-level C Binding for ZeroMQ (3.x API) (utilities)"
+ldesc: "CZMQ - High-level C Binding for ZeroMQ. This is the 3.x API, which
+czmq 4.x no longer provides (zctx, zauth, zsocket, ...). It installs beside
+czmq: headers in /usr/include/czmq3, libczmq3.pc and libczmq3.dll.a."
+skip:
+
+homepage: https://czmq.zeromq.org/
+license: MPL-2.0 AND BSD-3-Clause AND LGPL-3.0-or-later

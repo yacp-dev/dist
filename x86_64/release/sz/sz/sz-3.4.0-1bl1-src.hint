@@ -1,0 +1,8 @@
+category: Archive
+build-depends: cygport hdf5 libaec-devel libgtest-devel libhdf5-devel libzstd-devel zlib-devel
+sdesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets (utilities)"
+ldesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets"
+skip:
+
+homepage: https://github.com/szcompressor/SZ3
+license: LicenseRef-SZ3

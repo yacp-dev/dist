@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport libncurses-devel
+sdesc: "Fork of the defunct project CUnit (licensing & readmes)"
+ldesc: "This is BCUnit, a fork of the defunct project CUnit, with several fixes and
+patches applied."
+skip:
+
+homepage: https://github.com/BelledonneCommunications/bcunit
+license: LGPL-2.0-or-later

@@ -1,0 +1,10 @@
+category: Science
+build-depends: cygport gcc-fortran
+sdesc: "Packing optimization for molecular dynamics simulations"
+ldesc: "Packmol creates an initial point for molecular dynamics simulations by packing
+molecules in defined regions of space. The packing guarantees that short range
+repulsive interactions do not disrupt the simulations."
+skip:
+
+homepage: https://github.com/m3g/packmol
+license: MIT

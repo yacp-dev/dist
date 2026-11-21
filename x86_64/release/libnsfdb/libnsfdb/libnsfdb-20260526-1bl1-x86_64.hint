@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libcfile1 libclocale1 libcnotify1 libcpath1 libnsfdb1
+sdesc: "Library and tools to access the Notes Storage Facility (NSF) database file format (utilities)"
+ldesc: "libnsfdb is a library to access the Notes Storage Facility (NSF) database file
+format."
+

@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libgcc1 libintl8 libpng16 libssl3 libstdc++6 libtiff7 libwrap0 libxml2 zlib0
+sdesc: "DICOM Toolkit (runtime)"
+ldesc: "DCMTK is a collection of libraries and applications implementing large parts
+the DICOM standard. It includes software for examining, constructing and
+converting DICOM image files, handling offline media, sending and receiving
+images over a network connection, as well as demonstrative image storage and
+worklist servers."
+external-source: dcmtk
+

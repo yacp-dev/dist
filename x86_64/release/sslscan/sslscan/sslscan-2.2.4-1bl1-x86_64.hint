@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libssl3
+sdesc: "Fast SSL/TLS scanner"
+ldesc: "sslscan tests SSL/TLS enabled services to discover supported
+cipher suites."
+

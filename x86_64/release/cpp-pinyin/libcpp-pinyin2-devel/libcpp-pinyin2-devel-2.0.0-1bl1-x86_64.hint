@@ -1,0 +1,6 @@
+category: Libs
+requires: libcpp-pinyin2_2 pkg-config
+sdesc: "Lightweight Chinese/Cantonese to Pinyin library (development)"
+ldesc: "cpp-pinyin is a lightweight Chinese/Cantonese to Pinyin library."
+external-source: cpp-pinyin
+

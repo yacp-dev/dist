@@ -1,0 +1,6 @@
+category: Libs
+requires: libsmdev1 pkg-config
+sdesc: "Library to access to storage media devices (development)"
+ldesc: "libsmdev is a library to access to storage media devices."
+external-source: libsmdev
+

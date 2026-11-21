@@ -1,0 +1,8 @@
+category: Libs
+requires: libgiza2 pkg-config
+sdesc: "Scientific plotting library for C/Fortran (development)"
+ldesc: "A 2D scientific plotting library built on cairo. Provides uniform output to
+pdf, ps, png and X-Windows. Written in C with no dependencies (other than
+cairo) as a direct replacement for PGPLOT."
+external-source: giza
+

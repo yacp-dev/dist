@@ -1,0 +1,6 @@
+category: Libs
+requires: libdshconfig1 pkg-config
+sdesc: "Library for parsing dsh-style configuration files (development)"
+ldesc: "Library for parsing dsh-style configuration files"
+external-source: libdshconfig
+

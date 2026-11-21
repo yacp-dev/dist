@@ -1,0 +1,8 @@
+category: Libs
+requires: libdbus-cxx-glib2 libdbus-cxx2 libglib2.0-devel libsigc3.0-devel pkg-config
+sdesc: "C++ wrapper for dbus (development)"
+ldesc: "DBus-cxx is a C++ implementation of the DBus protocol. DBus is a
+Linux-specific RPC(remote procedure call) and IPC(inter-process communications)
+mechanism."
+external-source: dbus-cxx
+

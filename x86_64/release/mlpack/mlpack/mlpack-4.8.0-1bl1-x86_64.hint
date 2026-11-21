@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libarmadillo-devel libarmadillo15 libgcc1 libgomp1 libstdc++6 pkg-config
+sdesc: "Fast, header-only C++ machine learning library"
+ldesc: "mlpack is an intuitive, fast, and flexible header-only C++ machine learning
+library with bindings to other languages. It is meant to be a machine learning
+analog to LAPACK, and aims to implement a wide array of machine learning
+methods and functions as a 'swiss army knife' for machine learning
+researchers."
+

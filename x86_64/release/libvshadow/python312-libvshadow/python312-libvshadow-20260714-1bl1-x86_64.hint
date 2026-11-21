@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libfguid1 libvshadow1 python312
+sdesc: "Library and tools to access the Volume Shadow Snapshot (VSS) format (python312 bindings)"
+ldesc: "libvshadow is a library to access the Volume Shadow Snapshot (VSS) format."
+external-source: libvshadow
+

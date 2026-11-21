@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1 libstdc++6
+sdesc: "Open source DXT compression library (runtime)"
+ldesc: "The squish library (abbreviated to libsquish) is an open source DXT
+compression library written in C++."
+external-source: libsquish
+

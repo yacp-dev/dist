@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libxml2_2
+sdesc: "Use brute force algorithm to find the correct password for rar, 7z, zip archives"
+ldesc: "Use brute force algorithm to find the correct password for rar, 7z, zip
+archives."
+

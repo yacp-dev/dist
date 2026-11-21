@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libwrc1 python312
+sdesc: "Library to access the Windows Resource Compiler (WRC) format (python312 bindings)"
+ldesc: "libwrc is a library to access the Windows Resource Compiler (WRC) format."
+external-source: libwrc
+

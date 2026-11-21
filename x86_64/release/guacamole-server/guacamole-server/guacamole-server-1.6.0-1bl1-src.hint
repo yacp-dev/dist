@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport CUnit libavcodec-devel libavformat-devel libavutil-devel libcairo-devel libgcrypt-devel libglib2.0-devel libjpeg-devel libpango1.0-devel libpng-devel libpulse-devel libssh2-devel libssl-devel libswscale-devel libtelnet-devel libuuid-devel libvncserver-devel libwebp-devel libwebsockets-devel
+sdesc: "Server-side, native components that form the Guacamole proxy (utilities)"
+ldesc: "The guacamole-server package is a set of software which forms the basis of the
+Guacamole stack. It consists of guacd, libguac, and several protocol support
+libraries."
+skip:
+
+homepage: https://guacamole.apache.org/
+license: Apache-2.0

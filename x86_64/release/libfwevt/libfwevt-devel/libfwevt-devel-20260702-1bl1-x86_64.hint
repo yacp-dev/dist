@@ -1,0 +1,6 @@
+category: Libs
+requires: libfwevt1 pkg-config
+sdesc: "Library for Windows XML Event Log (EVTX) data types (development)"
+ldesc: "libfwevt is a library for Windows XML Event Log (EVTX) data types."
+external-source: libfwevt
+

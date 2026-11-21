@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Performance-portable, length-agnostic SIMD with runtime dispatch (licensing & readmes)"
+ldesc: "Performance-portable, length-agnostic SIMD with runtime dispatch"
+

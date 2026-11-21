@@ -1,0 +1,7 @@
+category: Libs
+requires: libvsapm1 pkg-config
+sdesc: "Library and tools to access the Apple Partition Map (APM) volume system format (development)"
+ldesc: "libvsapm is a library to access the Apple Partition Map (APM) volume system
+format."
+external-source: libvsapm
+

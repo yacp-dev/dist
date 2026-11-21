@@ -1,0 +1,9 @@
+category: Net
+build-depends: cygport expect libcrypt-devel libwolfssl-devel netcat openssh
+sdesc: "wolfSSL's Embeddable SSH Server (utilities)"
+ldesc: "wolfSSH is a small, fast, portable SSH implementation, including support for
+SCP and SFTP."
+skip:
+
+homepage: https://github.com/wolfSSL/wolfssh
+license: GPL-3.0-or-later

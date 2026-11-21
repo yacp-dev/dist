@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel
+sdesc: "Library for GUID/UUID data types (licensing & readmes)"
+ldesc: "libfguid is a library for GUID/UUID data types."
+skip:
+
+homepage: https://github.com/libyal/libfguid
+license: LGPL-3.0-or-later

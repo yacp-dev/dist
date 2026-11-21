@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libuna-devel python3-devel
+sdesc: "Library for binary signature scanning (utilities)"
+ldesc: "libsigscan is a library for binary signature scanning."
+skip:
+
+homepage: https://github.com/libyal/libsigscan
+license: LGPL-3.0-or-later

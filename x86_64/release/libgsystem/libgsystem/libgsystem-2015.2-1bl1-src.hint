@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gnome-common gobject-introspection gtk-doc libglib2.0-devel
+sdesc: "GIO-based library with Unix/Linux specific API (licensing & readmes)"
+ldesc: "LibGSystem is a GIO-based library, targeted primarily for use by operating
+system components."
+skip:
+
+homepage: https://wiki.gnome.org/Projects/LibGSystem
+license: LGPL-2.0-or-later

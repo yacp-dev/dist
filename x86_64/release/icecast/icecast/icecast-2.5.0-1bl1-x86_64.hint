@@ -1,0 +1,10 @@
+category: Audio
+requires: cygwin libcurl4 libigloo0 libmaxminddb0 libogg0 librhash0 libspeex1 libssl3 libtheora1 libvorbis0 libxml2_2 libxslt
+sdesc: "Free server software for streaming multimedia"
+ldesc: "Icecast is a streaming media server which currently supports Ogg (Vorbis and
+Theora), Opus, WebM and MP3 audio streams.
+It can be used to create an Internet radio station or a privately running
+jukebox and many things in between. It is very versatile in that new formats
+can be added relatively easily and supports open standards for commuincation
+and interaction."
+

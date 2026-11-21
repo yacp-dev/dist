@@ -1,0 +1,6 @@
+category: Libs
+requires: libwdc1 pkg-config
+sdesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers (development)"
+ldesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers"
+external-source: webdav-client-cpp
+

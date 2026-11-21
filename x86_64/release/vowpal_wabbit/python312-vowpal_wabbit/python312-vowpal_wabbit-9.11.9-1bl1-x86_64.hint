@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libfmt12 libgcc1 libstdc++6 python312 zlib0
+sdesc: "Online learning algorithm (python312 bindings)"
+ldesc: "This is a project started at Yahoo! Research and continuing at Microsoft
+Research to design a fast, scalable, useful learning algorithm."
+external-source: vowpal_wabbit
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libssl-devel libuna-devel python3-devel zlib-devel
+sdesc: "Library to support various Hash-based Message Authentication Codes (HMAC) (utilities)"
+ldesc: "libhmac is a library to support various Hash-based Message Authentication
+Codes (HMAC)."
+skip:
+
+homepage: https://github.com/libyal/libhmac
+license: LGPL-3.0-or-later

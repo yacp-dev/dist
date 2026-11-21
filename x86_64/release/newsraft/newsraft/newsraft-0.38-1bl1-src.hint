@@ -1,0 +1,9 @@
+category: Net
+build-depends: cygport libcurl-devel libexpat-devel libgumbo-devel libsqlite3-devel
+sdesc: "Feed reader for terminal"
+ldesc: "Newsraft is a feed reader with ncurses user interface. It is greatly inspired
+by Newsboat and tries to be its lightweight counterpart."
+skip:
+
+homepage: https://codeberg.org/newsraft/newsraft
+license: ISC AND MIT

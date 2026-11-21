@@ -1,0 +1,7 @@
+category: Libs
+requires: libimobiledevice-glue1.0-devel libplist2.0-devel libusbmuxd2.0_7 pkg-config
+sdesc: "Client library to multiplex connections from and to iOS devices (development)"
+ldesc: "A client library to multiplex connections from and to iOS devices by
+connecting to a socket provided by a usbmuxd daemon."
+external-source: libusbmuxd
+

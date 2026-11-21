@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "OAuth 2.x and OpenID Connect C library (licensing & readmes)"
+ldesc: "Generic library to build C-based OAuth 2.x and OpenID Connect servers and
+clients e.g. web-server plugins."
+

@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport libhts-devel libz-ng-devel
+sdesc: "Flexible and efficient preprocessing, parsing, and manipulation of sequencing"
+ldesc: "splitcode is a tool that enables flexible and efficient preprocessing, parsing,
+and manipulation of sequencing reads according to a user’s specifications."
+skip:
+
+homepage: https://github.com/pachterlab/splitcode
+license: BSD-2-Clause AND MIT

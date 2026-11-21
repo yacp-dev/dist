@@ -1,0 +1,7 @@
+category: Net
+requires: cygwin liblz4_1 libsnappy1 libzstd1 zlib0
+sdesc: "High performance NoSQL extensible platform for data management (runtime)"
+ldesc: "WiredTiger is an high performance, scalable, production quality, NoSQL, Open
+Source extensible platform for data management."
+external-source: wiredtiger
+

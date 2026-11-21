@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libargtable2_0 libdumb2 libSDL2_2.0_0
+sdesc: "Module/tracker based music format parser and player library (utilities)"
+ldesc: "DUMB is a module audio renderer library. It reads module files and outputs
+audio that can be dumped to the actual audio playback library."
+

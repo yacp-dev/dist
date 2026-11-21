@@ -1,0 +1,7 @@
+category: Libs
+requires: libpcre2-devel libxxhash-devel libyang5 pkg-config
+sdesc: "YANG data modeling language library (development)"
+ldesc: "libyang is a YANG data modelling language parser and toolkit written (and
+providing API) in C."
+external-source: libyang
+

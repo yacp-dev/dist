@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for cross-platform C notification functions (runtime)"
+ldesc: "libcnotify is a library for cross-platform C notification functions."
+external-source: libcnotify
+

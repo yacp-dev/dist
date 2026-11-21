@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libcg3_1 libgcc1 libicu76 libstdc++6 python312
+sdesc: "Tools for the 3rd edition of the Constraint Grammar formalism (python312 bindings)"
+ldesc: "Tools for the 3rd edition of the Constraint Grammar formalism"
+external-source: cg3
+

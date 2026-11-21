@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++ wrapper for czmq (licensing & readmes)"
+ldesc: "C++ wrapper for czmq"
+

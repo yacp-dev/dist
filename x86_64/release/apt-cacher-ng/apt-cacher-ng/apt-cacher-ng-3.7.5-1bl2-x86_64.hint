@@ -1,0 +1,7 @@
+category: Net
+requires: cygwin libbz2_1 libcares2 libevent2.1_7 libgcc1 liblzma5 libssl3 libstdc++6 libwrap0 zlib0
+sdesc: "Yet another implementation of an HTTP proxy for Debian/Ubuntu software packages written in C++"
+ldesc: "A caching proxy. Specialized for package files from Linux distributors,
+primarily for Debian (and Debian based) distributions but not limited to
+those. See documentation of Apt-Cacher to learn what it's good for."
+

@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libarchive13 libcurl4 libpkgconf8
+sdesc: "Meson implementation in C"
+ldesc: "muon is an implementation of the meson build system in c99 with minimal
+dependencies."
+

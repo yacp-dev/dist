@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libboost_system1.66 libgcc1 librotor0 libstdc++6
+sdesc: "Event loop friendly C++ actor micro framework (runtime /asio)"
+ldesc: "Event loop friendly C++ actor micro-framework, supervisable"
+external-source: cpp-rotor
+

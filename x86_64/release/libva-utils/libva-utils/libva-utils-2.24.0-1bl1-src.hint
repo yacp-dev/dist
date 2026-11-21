@@ -1,0 +1,11 @@
+category: X11
+build-depends: cygport libdrm-devel libgtest-devel libgtest0 libva-devel libva-drm-devel libva-x11-devel libX11-devel
+sdesc: "Collection of tests for VA-API"
+ldesc: "libva-utils is a collection of utilities and examples to exercise VA-API in
+accordance with the libva project. --enable-tests (default = no) provides a
+suite of unit-tests based on Google Test Framework. A driver implementation is
+necessary to properly operate."
+skip:
+
+homepage: https://github.com/intel/libva-utils
+license: Apache-2.0 AND BSD-3-Clause AND MIT

@@ -1,0 +1,10 @@
+category: Security
+build-depends: cygport girepository-GUsb1.0 gobject-introspection libgdk_pixbuf2.0-devel libgirepository1.0-devel libglib2.0-devel libgtk3-devel libgusb-devel libpixman1-devel libssl-devel
+sdesc: "Toolkit for fingerprint scanner (utilities)"
+ldesc: "libfprint is an open source software library designed to make it easy for
+application developers to add support for consumer fingerprint readers to
+their software."
+skip:
+
+homepage: https://fprint.freedesktop.org/
+license: LGPL-2.1-only

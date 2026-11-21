@@ -1,0 +1,7 @@
+category: Libs
+requires: libaws-c-cal1.0 pkg-config libaws-c-common-devel libssl-devel
+sdesc: "Aws Crypto Abstraction Layer (development)"
+ldesc: "AWS Crypto Abstraction Layer: Cross-Platform, C99 wrapper for cryptography
+primitives."
+external-source: aws-c-cal
+

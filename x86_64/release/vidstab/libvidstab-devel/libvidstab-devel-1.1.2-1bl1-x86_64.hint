@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin-devel libvidstab1.2 pkg-config
+sdesc: "Video stabilization library (development)"
+ldesc: "Vidstab is a video stabilization library which can be plugged-in with Ffmpeg
+and Transcode."
+external-source: vidstab
+

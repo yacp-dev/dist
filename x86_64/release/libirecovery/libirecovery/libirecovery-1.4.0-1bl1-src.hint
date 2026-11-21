@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libimobiledevice-glue1.0-devel libreadline-devel
+sdesc: "Library and utility to talk to iBoot/iBSS via USB (utilities)"
+ldesc: "Library and utility to talk to iBoot/iBSS via USB"
+skip:
+
+homepage: https://github.com/libimobiledevice/libirecovery
+license: LGPL-2.1-or-later

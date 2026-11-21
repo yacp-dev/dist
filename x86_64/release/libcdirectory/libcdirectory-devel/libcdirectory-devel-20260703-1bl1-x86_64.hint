@@ -1,0 +1,6 @@
+category: Libs
+requires: libcdirectory1 pkg-config
+sdesc: "Library for cross-platform C directory functions (development)"
+ldesc: "libcdirectory is a library for cross-platform C directory functions."
+external-source: libcdirectory
+

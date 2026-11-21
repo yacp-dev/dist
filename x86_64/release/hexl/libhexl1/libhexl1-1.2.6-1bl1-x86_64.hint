@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin libcpu_features0 libgcc1 libstdc++6
+sdesc: "Intel Homomorphic Encryption (HE) Acceleration Library (runtime)"
+ldesc: "Intel HE Acceleration Library is an open-source library which provides
+efficient implementations of integer arithmetic on Galois fields. Such
+arithmetic is prevalent in cryptography, particularly in homomorphic
+encryption (HE) schemes. Intel HE Acceleration Library targets integer
+arithmetic with word-sized primes, typically 30-60 bits. Intel HE Acceleration
+Library provides an API for 64-bit unsigned integers and targets Intel CPUs."
+external-source: hexl
+

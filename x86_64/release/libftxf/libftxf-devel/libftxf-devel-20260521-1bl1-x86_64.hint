@@ -1,0 +1,6 @@
+category: Libs
+requires: libftxf1 pkg-config
+sdesc: "Library for Transactional NTFS (TxF) data types (development)"
+ldesc: "libftxf is a library for Transactional NTFS (TxF) data types."
+external-source: libftxf
+

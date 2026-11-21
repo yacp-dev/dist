@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libboost_date_time1.66 libboost_filesystem1.66 libboost_iostreams1.66 libboost_program_options1.66 libboost_system1.66 libgcc1 libhts3 libstdc++6 zlib0
+sdesc: "BAM Statistics, Feature Counting and Annotation"
+ldesc: "BAM Statistics, Feature Counting and Annotation"
+

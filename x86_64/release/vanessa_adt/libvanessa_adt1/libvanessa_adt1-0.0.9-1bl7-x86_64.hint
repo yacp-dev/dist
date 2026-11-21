@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libvanessa_logger0
+sdesc: "Vanessa Library of Abstract Data Types (runtime)"
+ldesc: "vanessa_adt is a library of Abstract Data Types (ADTs) that may be useful.
+Includes queue, dynamic array and key value ADT."
+external-source: vanessa_adt
+

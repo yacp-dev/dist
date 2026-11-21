@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Beautiful stack trace pretty printer for C++ (runtime)"
+ldesc: "Beautiful stack trace pretty printer for C++"
+external-source: backward-cpp
+

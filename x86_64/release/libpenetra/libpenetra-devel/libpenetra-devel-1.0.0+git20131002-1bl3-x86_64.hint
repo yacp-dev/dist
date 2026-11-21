@@ -1,0 +1,8 @@
+category: Libs
+requires: libpenetra1 pkg-config
+sdesc: "Library to access information about PE binary (development)"
+ldesc: "The libpenetra was created with the goal of studying the windows binary format
+known as Portable Executable (PE). With libpenetra you can access all info
+about PE binaries."
+external-source: libpenetra
+

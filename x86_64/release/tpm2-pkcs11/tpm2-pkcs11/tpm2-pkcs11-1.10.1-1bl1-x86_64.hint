@@ -1,0 +1,8 @@
+category: Security
+requires: 
+sdesc: "PKCS11 interface for TPM2 hardware (licensing & readmes)"
+ldesc: "PKCS11 is a Public-Key Cryptography Standard that defines a standard method to
+access cryptographic services from tokens/ devices such as hardware security
+modules (HSM), smart cards, etc. In this project we intend to use a TPM2 device
+as the cryptographic token."
+

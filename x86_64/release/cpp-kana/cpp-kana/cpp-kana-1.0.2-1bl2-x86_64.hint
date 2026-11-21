@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Lightweight library for converting Japanese kana to romaji and vice versa (licensing & readmes)"
+ldesc: "cpp-kana is a lightweight library for converting Japanese kana to romaji and
+vice versa."
+

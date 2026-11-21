@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libnettle-devel
+sdesc: "UDP Interactive Connectivity Establishment (licensing & readmes)"
+ldesc: "libjuice (JUICE is a UDP Interactive Connectivity Establishment library)
+allows to open bidirectionnal User Datagram Protocol (UDP) streams with
+Network Address Translator (NAT) traversal."
+skip:
+
+homepage: https://github.com/paullouisageneau/libjuice
+license: MPL-2.0

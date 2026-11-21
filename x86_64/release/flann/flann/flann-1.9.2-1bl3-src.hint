@@ -1,0 +1,11 @@
+category: Math
+build-depends: cygport libgtest-devel libhdf5-devel liblz4-devel
+sdesc: "Fast Library for Approximate Nearest Neighbors (utilities)"
+ldesc: "FLANN is a library for performing fast approximate nearest neighbor searches
+in high dimensional spaces. It contains a collection of algorithms we found to
+work best for nearest neighbor search and a system for automatically choosing
+the best algorithm and optimum parameters depending on the dataset."
+skip:
+
+homepage: https://github.com/flann-lib/flann/
+license: BSD-3-Clause AND BSD-2-Clause

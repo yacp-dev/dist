@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Optimized C library for EC operations on curve secp256k1 (licensing & readmes)"
+ldesc: "Optimized C library for EC operations on curve secp256k1"
+

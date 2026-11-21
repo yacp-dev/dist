@@ -1,0 +1,8 @@
+category: Libs
+requires: libglib2.0-devel libticonv8 pkg-config
+sdesc: "Charset conversion library for TI calculators (development)"
+ldesc: "The ticonv library is a library which handles the various TI charsets and
+conversion to/from UTF-8/16 through a set of functions which constitutes a
+common API."
+external-source: libticonv
+

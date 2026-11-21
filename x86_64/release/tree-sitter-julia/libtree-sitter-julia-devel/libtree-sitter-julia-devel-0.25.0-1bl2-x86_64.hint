@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-julia15.0 pkg-config
+sdesc: "Julia grammar for tree-sitter (development)"
+ldesc: "Julia grammar for tree-sitter"
+external-source: tree-sitter-julia
+

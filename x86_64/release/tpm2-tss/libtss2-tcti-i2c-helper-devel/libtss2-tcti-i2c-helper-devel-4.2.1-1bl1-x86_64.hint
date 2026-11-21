@@ -1,0 +1,7 @@
+category: Libs
+requires: libtss2-tcti-i2c-helper0 pkg-config
+sdesc: "OSS implementation of the TCG TPM2 Software Stack (development / tcti i2c helper)"
+ldesc: "This repository hosts source code implementing the Trusted Computing Group's
+(TCG) TPM2 Software Stack (TSS)."
+external-source: tpm2-tss
+

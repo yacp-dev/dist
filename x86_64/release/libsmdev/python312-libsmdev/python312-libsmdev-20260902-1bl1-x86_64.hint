@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libsmdev1 python312
+sdesc: "Library to access to storage media devices (python312 bindings)"
+ldesc: "libsmdev is a library to access to storage media devices."
+external-source: libsmdev
+

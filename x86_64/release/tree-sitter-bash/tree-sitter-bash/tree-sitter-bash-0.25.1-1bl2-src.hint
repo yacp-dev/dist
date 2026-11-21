@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Bash grammar for tree-sitter (licensing & readmes)"
+ldesc: "Bash grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-bash
+license: MIT

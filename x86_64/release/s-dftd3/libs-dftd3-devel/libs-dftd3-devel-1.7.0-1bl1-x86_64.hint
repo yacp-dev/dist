@@ -1,0 +1,6 @@
+category: Libs
+requires: libmctc-lib-devel libs-dftd3_1 pkg-config
+sdesc: "Library first implementation of the D3 dispersion correction (development)"
+ldesc: "Library first implementation of the D3 dispersion correction"
+external-source: s-dftd3
+

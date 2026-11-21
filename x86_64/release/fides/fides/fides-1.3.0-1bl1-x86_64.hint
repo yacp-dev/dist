@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Library for reading ADIOS2 data into Viskores datasets (licensing & readmes)"
+ldesc: "Fides is a library that provides a schema for reading and writing
+data stored in ADIOS2 using a JSON-based data model, and for turning it into
+Viskores datasets for visualization."
+

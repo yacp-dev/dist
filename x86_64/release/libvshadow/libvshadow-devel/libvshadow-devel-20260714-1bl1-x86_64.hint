@@ -1,0 +1,6 @@
+category: Libs
+requires: libvshadow1 pkg-config
+sdesc: "Library and tools to access the Volume Shadow Snapshot (VSS) format (development)"
+ldesc: "libvshadow is a library to access the Volume Shadow Snapshot (VSS) format."
+external-source: libvshadow
+

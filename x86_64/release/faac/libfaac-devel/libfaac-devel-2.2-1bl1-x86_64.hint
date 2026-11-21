@@ -1,0 +1,6 @@
+category: Audio
+requires: libfaac2 pkg-config
+sdesc: "MPEG-4 and MPEG-2 AAC encoder (development)"
+ldesc: "FAAC is an MPEG-4 and MPEG-2 AAC encoder."
+external-source: faac
+

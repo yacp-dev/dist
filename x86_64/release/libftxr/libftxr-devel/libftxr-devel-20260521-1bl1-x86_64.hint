@@ -1,0 +1,6 @@
+category: Libs
+requires: libftxr1 pkg-config
+sdesc: "Library for Transactional Registry (TxR) data types (development)"
+ldesc: "libftxr is a library for Transactional Registry (TxR) data types."
+external-source: libftxr
+

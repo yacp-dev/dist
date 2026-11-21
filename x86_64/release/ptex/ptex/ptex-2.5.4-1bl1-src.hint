@@ -1,0 +1,9 @@
+category: Graphics
+build-depends: cygport zlib-devel libdeflate-devel
+sdesc: "Per-Face Texture Mapping for Production Rendering (utilities)"
+ldesc: "Ptex is a texture mapping system developed by Walt Disney Animation Studios
+for production-quality rendering."
+skip:
+
+homepage: https://github.com/wdas/ptex
+license: BSD-3-Clause

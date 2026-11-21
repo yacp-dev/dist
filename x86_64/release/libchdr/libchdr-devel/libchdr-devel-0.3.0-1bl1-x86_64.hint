@@ -1,0 +1,6 @@
+category: Libs
+requires: libchdr0 pkg-config
+sdesc: "Standalone library for reading MAME's CHDv1-v5 formats (development)"
+ldesc: "Standalone library for reading MAME's CHDv1-v5 formats"
+external-source: libchdr
+

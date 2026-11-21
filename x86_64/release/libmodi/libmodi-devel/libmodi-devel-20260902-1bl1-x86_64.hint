@@ -1,0 +1,6 @@
+category: Libs
+requires: libmodi1 pkg-config
+sdesc: "Library and tools to access the Mac OS disk image formats (development)"
+ldesc: "libmodi is a library to access the Mac OS disk image formats."
+external-source: libmodi
+

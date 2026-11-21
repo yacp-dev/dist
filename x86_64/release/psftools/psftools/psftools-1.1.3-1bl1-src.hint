@@ -1,0 +1,9 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Tools for simple fixed-width bitmap fonts (utilities)"
+ldesc: "The PSF Tools are an attempt to do something similar to NetPBM, for simple
+fixed-width bitmap fonts."
+skip:
+
+homepage: https://www.seasip.info/Unix/PSF/
+license: GPL-2.0-or-later

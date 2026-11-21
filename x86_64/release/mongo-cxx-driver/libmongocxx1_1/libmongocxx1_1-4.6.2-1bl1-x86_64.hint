@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbson2_2 libbsoncxx1_1 libgcc1 libmongoc2_2 libstdc++6
+sdesc: "C++ Driver for MongoDB (runtime)"
+ldesc: "C++ Driver for MongoDB"
+external-source: mongo-cxx-driver
+

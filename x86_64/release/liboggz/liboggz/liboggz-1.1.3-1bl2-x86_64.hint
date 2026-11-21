@@ -1,0 +1,5 @@
+category: Libs
+requires: bash cygwin libogg0 liboggz2
+sdesc: "C library for reading and writing Ogg files and streams (utilities)"
+ldesc: "C library for reading and writing Ogg files and streams"
+

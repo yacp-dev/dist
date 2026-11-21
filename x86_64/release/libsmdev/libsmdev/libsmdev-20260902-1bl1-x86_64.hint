@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libcnotify1 libsmdev1
+sdesc: "Library to access to storage media devices (utilities)"
+ldesc: "libsmdev is a library to access to storage media devices."
+

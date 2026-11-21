@@ -1,0 +1,6 @@
+category: Libs
+requires: libversion1 pkg-config
+sdesc: "Advanced version string comparison library (development)"
+ldesc: "Advanced version string comparison library."
+external-source: libversion
+

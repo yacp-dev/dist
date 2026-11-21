@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel
+sdesc: "Library for date and time data types (licensing & readmes)"
+ldesc: "libfdatetime is a library for date and time data types."
+skip:
+
+homepage: https://github.com/libyal/libfdatetime
+license: LGPL-3.0-or-later

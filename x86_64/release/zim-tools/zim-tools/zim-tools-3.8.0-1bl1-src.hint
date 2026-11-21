@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport file-devel libdocopt-devel libgumbo-devel libgtest-devel libicu-devel libzim-devel Mustache zlib-devel
+sdesc: "Various ZIM command line tools"
+ldesc: "Various ZIM command line tools."
+skip:
+
+homepage: https://github.com/openzim/zim-tools
+license: GPL-3.0-or-later AND BSD-3-Clause

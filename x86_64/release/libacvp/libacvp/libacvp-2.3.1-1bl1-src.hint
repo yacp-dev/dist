@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel libssl-devel
+sdesc: "Client-side implementation of the draft ACVP protocol (utilities)"
+ldesc: "Client-side implementation of the draft ACVP protocol"
+skip:
+
+homepage: https://github.com/cisco/libacvp
+license: Apache-2.0 AND BSD-2-Clause AND MIT AND Unlicense

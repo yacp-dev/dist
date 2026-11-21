@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library embedding RESTful HTTP server functionality (licensing & readmes)"
+ldesc: "libhttpserver is a small C++ library for embedding RESTful HTTP server
+functionality into applications."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-ssdp1
+sdesc: "Oat++ extension module to work with SSDP protocol (development)"
+ldesc: "Oat++ extension module to work with SSDP protocol"
+external-source: oatpp-ssdp
+

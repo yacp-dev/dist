@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C library for Broadcom BCM 2835 as used in Raspberry Pi (licensing & readmes)"
+ldesc: "This is a C library for Raspberry Pi (RPi). It provides access to GPIO and
+other IO functions on the Broadcom BCM 2835 chip, allowing access to the GPIO
+pins on the 26 pin IDE plug on the RPi board so you can control and interface
+with various external devices."
+skip:
+
+homepage: https://www.airspayce.com/mikem/bcm2835/
+license: GPL-3.0-or-later

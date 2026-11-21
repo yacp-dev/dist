@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport zlib-devel
+sdesc: "Client and protocol library for the Drizzle database (licensing & readmes)"
+ldesc: "Client and protocol library for the Drizzle database"
+skip:
+
+homepage: https://launchpad.net/libdrizzle
+license: BSD-3-Clause

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Microbenchmark support library (licensing & readmes)"
+ldesc: "A library to support the benchmarking of functions, similar to unit-tests."
+

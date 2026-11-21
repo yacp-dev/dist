@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport dbus-x11 libdbus1-devel libexpat-devel libglib2.0-devel libpopt-devel libsigc3.0-devel
+sdesc: "C++ wrapper for dbus (utilities)"
+ldesc: "DBus-cxx is a C++ implementation of the DBus protocol. DBus is a
+Linux-specific RPC(remote procedure call) and IPC(inter-process communications)
+mechanism."
+skip:
+
+homepage: https://github.com/dbus-cxx/dbus-cxx/
+license: (LGPL-3.0-or-later OR BSD-3-Clause) AND Apache-2.0

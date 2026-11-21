@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Simple C/C++ library for producing JSON traces suitable for Chrome's built-in trace viewer (licensing & readmes)"
+ldesc: "Simple C/C++ library for producing JSON traces suitable for Chrome's built-in trace viewer"
+skip:
+
+homepage: https://github.com/hrydgard/minitrace
+license: MIT

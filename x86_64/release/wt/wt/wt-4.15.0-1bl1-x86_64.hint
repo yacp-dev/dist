@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C++ library for developing web applications (licensing & readmes)"
+ldesc: "Wt (pronounced witty) is a C++ library and application server for
+developing and deploying web applications."
+

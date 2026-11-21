@@ -1,0 +1,6 @@
+category: Libs
+requires: libfort0.5 pkg-config
+sdesc: "C/C++ library to create formatted ASCII tables for console applications (development)"
+ldesc: "C/C++ library to create formatted ASCII tables for console applications"
+external-source: libfort
+

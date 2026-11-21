@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip (licensing & readmes)"
+ldesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip"
+

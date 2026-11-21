@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Kinematics and Dynamics Library (licensing & readmes)"
+ldesc: "This package contains a recent version of the Kinematics and Dynamics
+Library (KDL), distributed by the Orocos Project."
+

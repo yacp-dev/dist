@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Ruby grammar for tree-sitter (licensing & readmes)"
+ldesc: "Ruby grammar for tree-sitter"
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: girepository-GLib2.0 girepository-Json1.0 libglib2.0-devel libjcat1
+sdesc: "Library for reading and writing Jcat files (GObject Introspection data)"
+ldesc: "This library allows reading and writing gzip-compressed JSON catalog files,
+which can be used to store GPG, PKCS-7 and SHA-256 checksums for each file."
+external-source: libjcat
+

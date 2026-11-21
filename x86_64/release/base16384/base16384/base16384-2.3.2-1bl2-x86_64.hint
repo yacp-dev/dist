@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbase16384_2
+sdesc: "Encode binary files to printable utf16be (utilities)"
+ldesc: "Encode binary files to printable utf16be"
+

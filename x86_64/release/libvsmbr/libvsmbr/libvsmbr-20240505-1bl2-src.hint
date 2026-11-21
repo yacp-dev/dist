@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the Master Boot Record (MBR) volume system format (utilities)"
+ldesc: "libvsmbr is a library to access the Master Boot Record (MBR) volume system."
+skip:
+
+homepage: https://github.com/libyal/libvsmbr
+license: LGPL-3.0-or-later

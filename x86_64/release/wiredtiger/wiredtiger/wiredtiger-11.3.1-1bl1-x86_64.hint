@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libwiredtiger11.3.1
+sdesc: "High performance NoSQL extensible platform for data management (utilities)"
+ldesc: "WiredTiger is an high performance, scalable, production quality, NoSQL, Open
+Source extensible platform for data management."
+

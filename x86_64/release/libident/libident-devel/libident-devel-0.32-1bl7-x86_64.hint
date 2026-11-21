@@ -1,0 +1,8 @@
+category: Libs
+requires: libident0 pkg-config
+sdesc: "Small C library for RFC 1413 Identification protocol (development)"
+ldesc: "LibIdent is a small C library for interfacing with RFC 1413 Identification
+protocol servers, which are used for identifying users. LibIdent supports both
+IPv4 and IPv6 addresses transparently."
+external-source: libident
+

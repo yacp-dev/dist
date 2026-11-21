@@ -1,0 +1,8 @@
+category: Libs
+requires: librelic0 pkg-config
+sdesc: "Modern cryptographic meta-toolkit (development)"
+ldesc: "RELIC is a modern cryptographic meta-toolkit with emphasis on efficiency and
+flexibility. RELIC can be used to build efficient and usable cryptographic
+toolkits tailored for specific security levels and algorithmic choices."
+external-source: relic-toolkit
+

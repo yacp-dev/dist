@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libboost-devel libconfig++-devel libcppdb-devel libfmt-devel liblog4cxx-devel
+sdesc: "Logging data from a photovoltaic installation"
+ldesc: "Logging data from a photovoltaic installation"
+skip:
+
+homepage: https://github.com/coldtobi/solarpowerlog
+license: LGPL-3.0-or-later

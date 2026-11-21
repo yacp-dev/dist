@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "JSON grammar for tree-sitter (licensing & readmes)"
+ldesc: "JSON grammar for tree-sitter"
+

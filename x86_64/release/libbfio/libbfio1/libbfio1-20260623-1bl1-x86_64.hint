@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libcfile1 libclocale1 libcpath1 libcthreads1 libuna1
+sdesc: "Library to provide basic file input/output abstraction (runtime)"
+ldesc: "libbfio is a library to provide basic file input/output abstraction."
+external-source: libbfio
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libprotobuf-c1 libtinyframe0
+sdesc: "library for DNS encapsulations (runtime)"
+ldesc: "A C library for encoding/decoding different DNS encapsulations and
+transporting them over different protocols."
+external-source: dnswire
+

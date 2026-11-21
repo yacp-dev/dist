@@ -1,0 +1,7 @@
+category: Libs
+requires: libtoml-f0 pkg-config
+sdesc: "TOML parser for Fortran (development)"
+ldesc: "A TOML parser implementation for data serialization and deserialization in
+Fortran."
+external-source: toml-f
+

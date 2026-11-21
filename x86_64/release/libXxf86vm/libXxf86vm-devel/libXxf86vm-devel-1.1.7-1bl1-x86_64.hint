@@ -1,0 +1,6 @@
+category: X11
+requires: libX11-devel libXext-devel libXxf86vm1 pkg-config xorgproto
+sdesc: "X.Org libXxf86vm component (development)"
+ldesc: "X.Org libXxf86vm component."
+external-source: libXxf86vm
+

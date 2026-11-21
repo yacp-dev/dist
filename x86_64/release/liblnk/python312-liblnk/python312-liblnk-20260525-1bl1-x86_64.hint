@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libfguid1 liblnk1 libuna1 python312
+sdesc: "Library and tools to access the Windows Shortcut File (LNK) format (python312 bindings)"
+ldesc: "liblnk is a library to access the Windows Shortcut File (LNK) format."
+external-source: liblnk
+

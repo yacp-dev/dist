@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gengetopt libcurl-devel libedit-devel libpcsclite-devel libssl-devel libusb1.0-devel
+sdesc: "Thin wrapper around libyubihsm providing both an interactive and command-line interface to a YubiHSM (utilities)"
+ldesc: "This repository contains most of the components used to interact with the
+YubiHSM 2 at both a user-facing and programmatic level."
+skip:
+
+homepage: https://github.com/Yubico/yubihsm-shell
+license: Apache-2.0

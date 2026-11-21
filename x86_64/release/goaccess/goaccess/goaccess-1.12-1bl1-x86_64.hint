@@ -1,0 +1,8 @@
+category: Web
+requires: cygwin libintl8 libmaxminddb0 libncursesw10 libssl3
+sdesc: "Real-time web log analyzer"
+ldesc: "GoAccess is an open source real-time web log analyzer and interactive viewer
+that runs in a terminal in *nix systems. It provides fast and valuable HTTP
+statistics for system administrators that require a visual server report on
+the fly."
+

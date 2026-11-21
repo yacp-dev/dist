@@ -1,0 +1,9 @@
+category: Games
+requires: cygwin libSDL2_2.0_0
+sdesc: "GameBoy emulator"
+ldesc: "zBoy is a multi-platform, open-source GameBoy Classic (DMG) emulator that
+provides a load/save feature, can perform PCX screenshots and emulates an
+internal battery for ROMs that were designed to use one. It is also one of the
+very few emulators that make it possible to play games in 2-players mode over
+LAN, emulating a link between two consoles."
+

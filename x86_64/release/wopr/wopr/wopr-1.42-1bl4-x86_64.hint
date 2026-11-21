@@ -1,0 +1,11 @@
+category: Science
+requires: cygwin libfolia22 libgcc1 libicu76 libintl8 libstdc++6 libticcutils10 libtimbl8
+sdesc: "Memory Based Word Predictor/Language Model"
+ldesc: "WOPR is a wrapper around the k-nearest neighbor classifier in TiMBL, offering
+word prediction and language modeling functionalities. Trained on a text
+corpus, WOPR can predict missing words, report perplexities at the word level
+and the text level, and generate spelling correction hypotheses. Read more
+about WOPR in the reference guide offering installation instructions,
+walkthroughs, basic performance measurements (including a comparison to
+SRILM), and an overview of options."
+

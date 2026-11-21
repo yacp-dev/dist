@@ -1,0 +1,8 @@
+category: Libs
+requires: libyxml0 pkg-config
+sdesc: "Small, fast and mostly-correct XML parser (development)"
+ldesc: "Yxml is a small (6 KiB) non-validating yet mostly conforming XML parser
+written in C. Its primary goals are small binary size, simplicity and
+correctness. It also happens to be pretty fast."
+external-source: yxml
+

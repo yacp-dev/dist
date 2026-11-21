@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "Simplified perturbations models (utilities)"
+ldesc: "Simplified perturbations models"
+skip:
+
+homepage: https://github.com/dnwrnr/sgp4
+license: Apache-2.0

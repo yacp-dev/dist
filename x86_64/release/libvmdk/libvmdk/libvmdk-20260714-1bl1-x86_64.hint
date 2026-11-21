@@ -1,0 +1,5 @@
+category: Libs
+requires: cygfuse cygwin libcdata1 libcerror1 libclocale1 libcnotify1 libcpath1 libvmdk1
+sdesc: "Library and tools to access the VMware Virtual Disk (VMDK) format (utilities)"
+ldesc: "libvmdk is a library to access the VMware Virtual Disk (VMDK) format."
+

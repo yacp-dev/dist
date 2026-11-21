@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libmdnsd2
+sdesc: "Embeddable Multicast DNS Daemon (utilities)"
+ldesc: "Embeddable Multicast DNS Daemon"
+

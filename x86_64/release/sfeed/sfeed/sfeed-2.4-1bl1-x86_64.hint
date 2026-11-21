@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libncursesw10
+sdesc: "Simple RSS and Atom parser"
+ldesc: "Sfeed is a RSS and Atom parser (and some format programs)."
+

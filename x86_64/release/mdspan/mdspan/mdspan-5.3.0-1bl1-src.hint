@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport libgmock-devel libgtest-devel
+sdesc: "Reference implementation of mdspan targeting C++23"
+ldesc: "Reference implementation of mdspan targeting C++23"
+skip:
+
+homepage: https://github.com/kokkos/mdspan
+license: Apache-2.0 WITH LLVM-exception

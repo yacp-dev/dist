@@ -1,0 +1,6 @@
+category: Net
+requires: libqhttpengine1 pkg-config
+sdesc: "HTTP server for Qt applications (development)"
+ldesc: "Simple set of classes for developing HTTP server applications in Qt."
+external-source: qhttpengine
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library for communication with TI calculators (licensing & readmes)"
+ldesc: "The ticalcs library is a library built on top of the ticables/tifiles
+libraries which handles all calculators through a common API."
+

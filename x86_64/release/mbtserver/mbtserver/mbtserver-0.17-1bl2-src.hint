@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport autoconf-archive libicu-devel libmbt-devel libticcutils-devel libtimbl-devel
+sdesc: "Server extension of mbt (utilities)"
+ldesc: "Server extension of mbt"
+skip:
+
+homepage: https://github.com/LanguageMachines/mbtserver
+license: GPL-3.0-only

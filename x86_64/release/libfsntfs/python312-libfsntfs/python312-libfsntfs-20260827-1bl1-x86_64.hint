@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libfguid1 libfsntfs1 libuna1 python312
+sdesc: "Library and tools to access the Windows New Technology File System (NTFS) (python312 bindings)"
+ldesc: "libfsntfs is a library to access the Windows New Technology File System (NTFS)
+format."
+external-source: libfsntfs
+

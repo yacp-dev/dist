@@ -1,0 +1,10 @@
+category: Utils
+build-depends: cygport libbrotli-devel libbz2-devel libcrypt-devel libdb-devel liblmdb-devel libmemcached-devel libpcre2-devel libssl-devel libzstd-devel openldap-devel zlib-devel
+sdesc: "Implementation of an ICAP server (utilities)"
+ldesc: "c-icap is an implementation of an ICAP server. It can be used with HTTP
+proxies that support the ICAP protocol to implement content adaptation
+and filtering services."
+skip:
+
+homepage: https://github.com/c-icap/c-icap-server
+license: LGPL-2.1-or-later

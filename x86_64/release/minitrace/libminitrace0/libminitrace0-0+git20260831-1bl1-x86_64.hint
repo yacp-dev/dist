@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Simple C/C++ library for producing JSON traces suitable for Chrome's built-in trace viewer (runtime)"
+ldesc: "Simple C/C++ library for producing JSON traces suitable for Chrome's built-in trace viewer"
+external-source: minitrace
+

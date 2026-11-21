@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++ library for date and time operations based on <chrono> (licensing & readmes)"
+ldesc: "C++ library for date and time operations based on <chrono>"
+

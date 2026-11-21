@@ -1,0 +1,6 @@
+category: Libs
+requires: libfsapfs1 pkg-config
+sdesc: "Library and tools to access the Apple File System (APFS) (development)"
+ldesc: "libfsapfs is a library to access the Apple File System (APFS)."
+external-source: libfsapfs
+

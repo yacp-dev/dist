@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library for decoding audio in Sony's ATRAC9 format (licensing & readmes)"
+ldesc: "Library for decoding audio in Sony's ATRAC9 format"
+skip:
+
+homepage: https://github.com/Thealexbarney/LibAtrac9
+license: MIT

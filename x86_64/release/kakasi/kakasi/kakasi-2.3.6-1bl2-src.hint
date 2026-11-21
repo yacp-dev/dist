@@ -1,0 +1,9 @@
+category: Text
+build-depends: cygport gettext-devel libiconv-devel
+sdesc: "Kanji Kana Simple Inverter (utilities)"
+ldesc: "KAKASI is the language processing filter to convert Kanji characters to
+Hiragana, Katakana or Romaji(1) and may be helpful to read Japanese documents."
+skip:
+
+homepage: http://kakasi.namazu.org/index.html.ja
+license: GPL-2.0-or-later

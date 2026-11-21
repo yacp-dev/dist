@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library to handle the LCD and extra keys on the Logitech G15 Gaming Keyboard and similar devices (licensing & readmes)"
+ldesc: "Library to handle the LCD and extra keys on the Logitech G15 Gaming Keyboard
+and similar devices"
+

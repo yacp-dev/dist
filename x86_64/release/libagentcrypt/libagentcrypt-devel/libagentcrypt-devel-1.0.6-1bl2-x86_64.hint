@@ -1,0 +1,9 @@
+category: Libs
+requires: libagentcrypt0 libsodium-devel pkg-config
+sdesc: "Symmetric encryption with SSH Agent (development)"
+ldesc: "A library that allows using the keys in the SSH Agent to perform symmetric,
+authenticated encryption and decryption securely without typing passwords. It
+works with both RSA and ED25519 SSH keys including those made available to a
+remote host by SSH Agent forwarding."
+external-source: libagentcrypt
+

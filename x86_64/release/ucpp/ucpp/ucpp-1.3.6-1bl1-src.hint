@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport asciidoc docbook-xml45 libxml2
+sdesc: "C preprocessor designed to be embeddable, quick, light and fully compliant to C99 (utilities)"
+ldesc: "A C preprocessor is a part of a C compiler responsible for macro replacement,
+conditional compilation and inclusion of header files. It is often found as a
+stand-alone program on Unix systems."
+skip:
+
+homepage: https://gitlab.com/scarabeusiv/ucpp
+license: BSD-3-Clause

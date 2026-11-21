@@ -1,0 +1,6 @@
+category: Libs
+requires: libnoson2 pkg-config
+sdesc: "C++ library for accessing SONOS devices (development)"
+ldesc: "C++ library for accessing SONOS devices"
+external-source: noson
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gcc-fortran libevent-devel libhwloc-devel libopenmpi-devel zlib-devel
+sdesc: "Object-oriented Fortran Unit-testing (licensing & readmes)"
+ldesc: "Zofu (Zofu is Object-oriented Fortran Unit-testing) is a framework for
+carrying out unit testing of Fortran code modules. As the name suggests, it
+makes use of the object-oriented features of Fortran 2003."
+skip:
+
+homepage: https://github.com/acroucher/zofu
+license: LGPL-3.0-or-later

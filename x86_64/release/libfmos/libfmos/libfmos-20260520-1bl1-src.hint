@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libcnotify-devel libcthreads-devel python3-devel
+sdesc: "Library for Mac OS data types (licensing & readmes)"
+ldesc: "libfmos is a library for Mac OS data types."
+skip:
+
+homepage: https://github.com/libyal/libfmos
+license: LGPL-3.0-or-later

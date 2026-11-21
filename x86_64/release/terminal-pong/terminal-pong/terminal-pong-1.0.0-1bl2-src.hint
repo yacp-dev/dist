@@ -1,0 +1,8 @@
+category: Games
+build-depends: cygport libncurses-devel
+sdesc: "Classic ping-pong game written in c++17 and played in terminal"
+ldesc: "Classic ping-pong game written in c++17 and played in terminal"
+skip:
+
+homepage: https://github.com/kumaran-14/terminal-pong
+license: LicenseRef-terminal-pong

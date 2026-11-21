@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libfftw3_3 libgcc1 libstdc++6 python312 python312-numpy
+sdesc: "Highly optimized physical simulation of a violin for sound synthesis (python312 bindings)"
+ldesc: "Artifastring (artificial fast string) is a highly optimized physical
+simulation of string quartet instruments (violins, violas, and cellos) for
+sound synthesis."
+external-source: artifastring
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Fast and lightweight x86/x86_64 disassembler library (runtime)"
+ldesc: "Fast and lightweight x86/x86_64 disassembler library"
+external-source: zydis
+

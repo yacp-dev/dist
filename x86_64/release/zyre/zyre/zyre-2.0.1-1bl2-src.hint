@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport asciidoc libczmq-devel libzmq-devel xmlto
+sdesc: "Local Area Clustering for Peer-to-Peer Applications (utilities)"
+ldesc: "Zyre provides reliable group messaging over local area networks."
+skip:
+
+homepage: https://github.com/zeromq/zyre
+license: MPL-2.0

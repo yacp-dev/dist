@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgomp1 libxrl11 python312
+sdesc: "Library for X-ray matter interaction cross sections for X-ray fluorescence applications (python312 bindings)"
+ldesc: "This is xraylib, a library for X-ray matter interactions cross sections for
+X-ray fluorescence applications: core C library"
+external-source: xraylib
+

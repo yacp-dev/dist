@@ -1,0 +1,6 @@
+category: Libs
+requires: libkms_message0 pkg-config
+sdesc: "Library to generate Amazon Web Services Key Management Service (KMS) requests (development)"
+ldesc: "The companion C library for client side encryption in drivers."
+external-source: libmongocrypt
+

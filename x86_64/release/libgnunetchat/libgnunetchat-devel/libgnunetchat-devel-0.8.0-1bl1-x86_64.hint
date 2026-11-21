@@ -1,0 +1,6 @@
+category: Libs
+requires: libgnunet-devel libgnunetchat0 pkg-config
+sdesc: "Client-side library for applications to utilize the Messenger service of GNUnet (development)"
+ldesc: "Client-side library for applications to utilize the Messenger service of GNUnet"
+external-source: libgnunetchat
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libcairo-devel libdicom-devel libglib2.0-devel libjpeg-devel libopenjp2-devel libopenslide1 libpng-devel libsqlite3-devel libtiff-devel libxml2-devel libzstd-devel pkg-config zlib-devel
+sdesc: "C library for reading virtual slides (development)"
+ldesc: "The OpenSlide library allows programs to access virtual slide files regardless
+of the underlying image format."
+external-source: openslide
+

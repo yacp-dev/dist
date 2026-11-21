@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libuna1
+sdesc: "Library for Update Sequence Number (USN) Journal data types (runtime)"
+ldesc: "libfusn is a library for Update Sequence Number (USN) Journal data types."
+external-source: libfusn
+

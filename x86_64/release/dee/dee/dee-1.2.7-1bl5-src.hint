@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport dbus dbus-test-runner gobject-introspection libglib2.0-devel libicu-devel python3-devel vala
+sdesc: "DBus Model-View-Controller object library (utilities)"
+ldesc: "Libdee is a library that uses DBus to provide objects allowing you
+to create Model-View-Controller type programs across DBus. It also consists of
+utility objects which extend DBus allowing for peer-to-peer discoverability of
+known objects without needing a central registrar."
+skip:
+
+homepage: https://launchpad.net/dee
+license: LGPL-3.0-or-later

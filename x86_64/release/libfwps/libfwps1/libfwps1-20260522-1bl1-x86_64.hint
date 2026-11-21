@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libcnotify1 libuna1
+sdesc: "Library for Windows Property Store data types (runtime)"
+ldesc: "libfwps is a library for Windows Property Store data types."
+external-source: libfwps
+

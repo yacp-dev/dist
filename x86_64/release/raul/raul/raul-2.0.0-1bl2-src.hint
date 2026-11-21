@@ -1,0 +1,9 @@
+category: Audio
+build-depends: cygport 
+sdesc: "Realtime Audio Utility Library"
+ldesc: "Raul (Realtime Audio Utility Library) is a C++ utility library primarily aimed
+at audio/musical applications."
+skip:
+
+homepage: https://github.com/drobilla/raul
+license: GPL-3.0-or-later

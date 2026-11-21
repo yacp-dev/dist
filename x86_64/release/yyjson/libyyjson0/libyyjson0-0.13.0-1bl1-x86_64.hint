@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Fastest JSON library in C (runtime)"
+ldesc: "A high performance JSON library written in ANSI C."
+external-source: yyjson
+

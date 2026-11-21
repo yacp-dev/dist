@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-javascript15.0 pkg-config
+sdesc: "Javascript grammar for tree-sitter (development)"
+ldesc: "Javascript grammar for tree-sitter"
+external-source: tree-sitter-javascript
+

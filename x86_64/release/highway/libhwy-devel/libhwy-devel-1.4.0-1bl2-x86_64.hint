@@ -1,0 +1,6 @@
+category: Libs
+requires: libgtest-devel libhwy1 pkg-config
+sdesc: "Performance-portable, length-agnostic SIMD with runtime dispatch (development)"
+ldesc: "Performance-portable, length-agnostic SIMD with runtime dispatch"
+external-source: highway
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libiconv-devel libpopt-devel
+sdesc: "Library to smooth charset/localization issues (utilities)"
+ldesc: "LIBNATSPEC is a collection of functions for requiest various charsets and
+locales for host system and for other system. The library allows applications
+to be written that are locale and system independent."
+skip:
+
+homepage: https://github.com/Etersoft/libnatspec
+license: LGPL-2.1-or-later

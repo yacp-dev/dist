@@ -1,0 +1,7 @@
+category: Libs
+requires: libglib2.0-devel libgsystem0 pkg-config
+sdesc: "GIO-based library with Unix/Linux specific API (development)"
+ldesc: "LibGSystem is a GIO-based library, targeted primarily for use by operating
+system components."
+external-source: libgsystem
+

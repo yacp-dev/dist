@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libtomcrypt1 libxml2_2
+sdesc: "RSA SecurID-compatible software token for Linux/UNIX systems (runtime)"
+ldesc: "RSA SecurID-compatible software token for Linux/UNIX systems"
+external-source: stoken
+

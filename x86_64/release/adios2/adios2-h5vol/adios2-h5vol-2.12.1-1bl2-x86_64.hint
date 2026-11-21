@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libadios2_2.12 libhdf5_320
+sdesc: "Adaptable Input Output System version 2 (HDF5 VOL connector)"
+ldesc: "ADIOS2 is a unified framework for I/O and in situ data processing of large-scale scientific data, with C, C++ and Fortran bindings."
+external-source: adios2
+

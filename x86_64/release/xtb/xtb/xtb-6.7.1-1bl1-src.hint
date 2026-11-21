@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran libcpx-devel libdftd4-devel liblapack-devel libmctc-lib-devel libmulticharge-devel libtest-drive-devel
+sdesc: "Semiempirical Extended Tight-Binding Program Package (utilities)"
+ldesc: "Semiempirical Extended Tight-Binding Program Package"
+skip:
+
+homepage: https://github.com/grimme-lab/xtb
+license: LGPL-3.0-or-later AND GPL-2.0-or-later AND Apache-2.0

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libfoma0 libreadline8 zlib0
+sdesc: "Multi-purpose finite-state toolkit (utilities)"
+ldesc: "Multi-purpose finite-state toolkit"
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libassa3.5_5 libtirpc-devel pkg-config
+sdesc: "C++ networking library based on Adaptive Communication Patterns (development)"
+ldesc: "libASSA is an object-oriented C++ networking library based on Adaptive
+Communication Patterns."
+external-source: libassa
+

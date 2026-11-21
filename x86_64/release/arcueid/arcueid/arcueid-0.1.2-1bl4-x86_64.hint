@@ -1,0 +1,5 @@
+category: Interpreters
+requires: cygwin libarcueid0 libreadline8
+sdesc: "C interpreter for Paul Graham's Arc dialect of Lisp (utilities)"
+ldesc: "This is Arcueid, an implementation of Paul Graham's Arc dialect of Lisp in C."
+

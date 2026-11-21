@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Lightweight library for converting Japanese kana to romaji and vice versa (licensing & readmes)"
+ldesc: "cpp-kana is a lightweight library for converting Japanese kana to romaji and
+vice versa."
+skip:
+
+homepage: https://github.com/wolfgitpr/cpp-kana
+license: Apache-2.0

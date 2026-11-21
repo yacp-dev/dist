@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport flex libpolkit-gobject1-devel perl
+sdesc: "Middleware to access a smart card using SCard API (utilities)"
+ldesc: "The purpose of PCSC Lite is to provide a Windows(R) SCard interface in a very
+small form factor for communicating to smart cards and readers. PCSC Lite can
+be compiled directly to a desired reader driver or can be used to dynamically
+allocate/deallocate reader drivers at runtime (default)."
+skip:
+
+homepage: https://pcsclite.apdu.fr/
+license: BSD-3-Clause AND BSD-2-Clause AND GPL-3.0-or-later AND ISC

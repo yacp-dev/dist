@@ -1,0 +1,6 @@
+category: Libs
+requires: lib3mf2 libzip-devel pkg-config zlib-devel fast_float
+sdesc: "Implementation of the 3D Manufacturing Format file standard (development)"
+ldesc: "Lib3MF is a C++ implementation of the 3D Manufacturing Format file standard."
+external-source: lib3mf
+

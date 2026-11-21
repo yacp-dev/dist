@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libimobiledevice-glue1.0-devel libplist2.0-devel
+sdesc: "Client library to multiplex connections from and to iOS devices (utilities)"
+ldesc: "A client library to multiplex connections from and to iOS devices by
+connecting to a socket provided by a usbmuxd daemon."
+skip:
+
+homepage: https://github.com/libimobiledevice/libusbmuxd
+license: LGPL-2.1-or-later

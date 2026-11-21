@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libimobiledevice-glue1.0-devel libplist2.0-devel libreadline-devel libssl-devel libtatsu-devel libusbmuxd2.0-devel
+sdesc: "Cross-platform protocol library to communicate with iOS devices (utilities)"
+ldesc: "Cross-platform protocol library to communicate with iOS devices"
+skip:
+
+homepage: https://github.com/libimobiledevice/libimobiledevice
+license: LGPL-2.1-or-later AND GPL-2.0-or-later AND Zlib AND MIT

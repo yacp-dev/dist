@@ -1,0 +1,8 @@
+category: Games
+build-depends: cygport libncurses-devel
+sdesc: "Small collection of solitaire/patience games to play in the terminal"
+ldesc: "A small collection of solitaire games implemented in C using ncurses."
+skip:
+
+homepage: https://github.com/nielssp/csol
+license: MIT

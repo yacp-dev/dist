@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbz2-devel libcmocka-devel liblzma-devel zlib-devel
+sdesc: "Decompression library for rar, tar and zip archives (licensing & readmes)"
+ldesc: "(lib)unarr is a decompression library for RAR, TAR, ZIP and 7z* archives."
+skip:
+
+homepage: https://github.com/selmf/unarr
+license: LGPL-3.0-or-later

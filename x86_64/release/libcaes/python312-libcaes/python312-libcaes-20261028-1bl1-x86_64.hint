@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcaes1 libcerror1 python312
+sdesc: "Library to support cross-platform AES encryption (python312 bindings)"
+ldesc: "libcaes is a library to support cross-platform AES encryption."
+external-source: libcaes
+

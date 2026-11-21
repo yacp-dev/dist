@@ -1,0 +1,6 @@
+category: Libs
+requires: libexe1 pkg-config
+sdesc: "Library and tools to access the executable (EXE) format (development)"
+ldesc: "libexe is a library to access the executable (EXE) format."
+external-source: libexe
+

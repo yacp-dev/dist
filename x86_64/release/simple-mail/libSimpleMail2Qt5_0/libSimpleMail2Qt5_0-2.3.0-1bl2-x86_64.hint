@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libQt5Core5 libstdc++6
+sdesc: "SMTP library written in C++ for Qt (runtime)"
+ldesc: "The SimpleMail is small library writen for Qt 5 (C++11) that allows
+applications to send complex emails (plain text, html, attachments, inline
+files, etc.) using the Simple Mail Transfer Protocol (SMTP)."
+external-source: simple-mail
+

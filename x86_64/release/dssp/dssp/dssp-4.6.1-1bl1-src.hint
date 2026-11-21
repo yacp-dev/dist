@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport libCatch2-devel libcifpp libcifpp-devel libmcfp-devel libsqlite3-devel zlib-devel
+sdesc: "Create DSSP files"
+ldesc: "Create DSSP files"
+skip:
+
+homepage: https://github.com/PDB-REDO/dssp
+license: BSD-2-Clause

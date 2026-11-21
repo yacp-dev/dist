@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libboost-devel libcurl-devel libjsoncpp-devel libjsonrpccpp-devel
+sdesc: "Wrapper for the bitcoind JSON-RPC interface written in C++ (licensing & readmes)"
+ldesc: "This is a C++ wrapper library for JSON-RPC communication with the Bitcoin
+daemon. It allows developers to communicate with the Bitcoin daemon without
+the need to pack and unpack JSON-RPC messages and thus simplifies the
+interaction with it."
+skip:
+
+homepage: https://github.com/hkalodner/bitcoin-api-cpp
+license: MIT

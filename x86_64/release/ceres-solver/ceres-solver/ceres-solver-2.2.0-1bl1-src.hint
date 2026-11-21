@@ -1,0 +1,12 @@
+category: Math
+build-depends: cygport eigen3 libcholmod-devel libcxsparse-devel libgflags-devel libglog-devel liblapack-devel libspqr-devel libsuitesparseconfig-devel
+sdesc: "Nonlinear Least Squares Minimizer (licensing & readmes)"
+ldesc: "Solving nonlinear least squares problems comes up in a broad range of areas
+across science and engineering - from fitting curves in statistics, to
+constructing 3D models from photographs in computer vision. Ceres Solver is a
+portable C++ library that allows for modeling and solving large complicated
+nonlinear least squares problems."
+skip:
+
+homepage: https://github.com/ceres-solver/ceres-solver
+license: BSD-3-Clause AND Apache-2.0

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libunicode0.9
+sdesc: "Modern C++20 Unicode Library (utilities)"
+ldesc: "Modern C++20 Unicode Library"
+

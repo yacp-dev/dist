@@ -1,0 +1,6 @@
+category: Libs
+requires: libbde1 pkg-config
+sdesc: "Library and tools to access the BitLocker Drive Encryption (BDE) encrypted volumes (development)"
+ldesc: "libbde is a library to access the BitLocker Drive Encryption (BDE) format."
+external-source: libbde
+

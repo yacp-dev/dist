@@ -1,0 +1,11 @@
+category: Science
+requires: cygwin libboost_date_time1.66 libboost_filesystem1.66 libboost_iostreams1.66 libboost_program_options1.66 libboost_system1.66 libgcc1 libhts3 libstdc++6
+sdesc: "Structural variant discovery by integrated paired-end and split-read analysis"
+ldesc: "Delly is an integrated structural variant (SV) prediction method that can
+discover, genotype and visualize deletions, tandem duplications, inversions
+and translocations at single-nucleotide resolution in short-read massively
+parallel sequencing data. It uses paired-ends, split-reads and read-depth to
+sensitively and accurately delineate genomic rearrangements throughout the
+genome. Structural variants can be annotated using Delly-sansa and visualized
+using Delly-maze or Delly-suave."
+

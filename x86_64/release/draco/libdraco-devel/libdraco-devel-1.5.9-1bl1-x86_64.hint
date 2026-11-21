@@ -1,0 +1,8 @@
+category: Libs
+requires: libdraco11 pkg-config
+sdesc: "3D geometric mesh and point cloud compression library (development)"
+ldesc: "Draco is an open-source library for compressing and decompressing 3D geometric
+meshes and point clouds. It is intended to improve the storage and
+transmission of 3D graphics."
+external-source: draco
+

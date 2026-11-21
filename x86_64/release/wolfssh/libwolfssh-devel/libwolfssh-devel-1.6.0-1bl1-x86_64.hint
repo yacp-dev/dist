@@ -1,0 +1,7 @@
+category: Net
+requires: bash libwolfssh18 pkg-config
+sdesc: "wolfSSL's Embeddable SSH Server (development)"
+ldesc: "wolfSSH is a small, fast, portable SSH implementation, including support for
+SCP and SFTP."
+external-source: wolfssh
+

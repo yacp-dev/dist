@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport cmake libcmocka-devel libEGL-devel libGL-devel libX11-devel libX11-xcb-devel libxcb-devel
+sdesc: "C library for selecting an OpenGL API and window system at runtime (utilities)"
+ldesc: "Waffle is a cross-platform library that allows one to defer selection of an
+OpenGL API and of window system until runtime. For example, on Linux, Waffle
+enables an application to select X11/EGL with an OpenGL 3.3 core profile,
+Wayland with OpenGL ES2, and other window system / API combinations."
+skip:
+
+homepage: https://waffle.freedesktop.org/
+license: BSD-2-Clause

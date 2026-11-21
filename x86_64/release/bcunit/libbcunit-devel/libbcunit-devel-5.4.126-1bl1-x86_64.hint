@@ -1,0 +1,7 @@
+category: Devel
+requires: libbcunit1 pkg-config
+sdesc: "Fork of the defunct project CUnit (development)"
+ldesc: "This is BCUnit, a fork of the defunct project CUnit, with several fixes and
+patches applied."
+external-source: bcunit
+

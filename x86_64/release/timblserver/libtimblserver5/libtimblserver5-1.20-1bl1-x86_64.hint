@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libticcutils10 libtimbl8 libxml2
+sdesc: "For server functionality around Timbl (runtime)"
+ldesc: "For server functionality around Timbl"
+external-source: timblserver
+

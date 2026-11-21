@@ -1,0 +1,12 @@
+category: Archive
+build-depends: cygport liblz4-devel libsnappy-devel libzstd-devel zlib-devel
+sdesc: "High performance compressor optimized for binary data (licensing & readmes)"
+ldesc: "Blosc is a compression library designed to transmit data to the processor
+cache faster than the traditional non-compressed memory fetch.
+Compression ratios are not very high, but the decompression is very fast.
+Blosc is meant not only to reduce the size of large datasets on-disk or
+in-memory, but also to accelerate memory-bound computations."
+skip:
+
+homepage: https://blosc.org/
+license: BSD-3-Clause

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libwaffle0
+sdesc: "C library for selecting an OpenGL API and window system at runtime (utilities)"
+ldesc: "Waffle is a cross-platform library that allows one to defer selection of an
+OpenGL API and of window system until runtime. For example, on Linux, Waffle
+enables an application to select X11/EGL with an OpenGL 3.3 core profile,
+Wayland with OpenGL ES2, and other window system / API combinations."
+

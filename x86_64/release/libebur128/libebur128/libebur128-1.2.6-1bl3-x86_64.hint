@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library implementing the EBU R128 loudness standard (licensing & readmes)"
+ldesc: "libebur128 is a library that implements the EBU R 128 standard for loudness
+normalisation."
+

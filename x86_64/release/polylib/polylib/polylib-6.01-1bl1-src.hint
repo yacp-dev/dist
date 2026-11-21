@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgmp-devel
+sdesc: "Library of polyhedral functions (utilities)"
+ldesc: "The Polyhedral Library (PolyLib for short) operates on objects made up of
+unions of polyhedra of any dimension."
+skip:
+
+homepage: https://icps.u-strasbg.fr/polylib/
+license: MIT

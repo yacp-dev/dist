@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library for parsing dsh-style configuration files (licensing & readmes)"
+ldesc: "Library for parsing dsh-style configuration files"
+skip:
+
+homepage: https://www.netfort.gr.jp/~dancer/software/downloads/
+license: GPL-2.0-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: libcmockery0 pkg-config
+sdesc: "Reviving cmockery unit test framework from Google (development)"
+ldesc: "Reviving cmockery unit test framework from Google"
+external-source: cmockery2
+

@@ -1,0 +1,13 @@
+category: Math
+build-depends: cygport libfftw3-devel libgtest-devel liblapack-devel
+sdesc: "C++ library of mathematical, signal processing and communication classes and functions (licensing & readmes)"
+ldesc: "IT++ is a C++ library of mathematical, signal processing and communication
+classes and functions. Its main use is in simulation of communication systems
+and for performing research in the area of communications. The kernel of the
+library consists of generic vector and matrix classes, and a set of
+accompanying routines. Such a kernel makes IT++ similar to MATLAB, GNU Octave
+or SciPy."
+skip:
+
+homepage: https://sourceforge.net/projects/itpp/
+license: GPL-3.0-or-later AND BSD-3-Clause

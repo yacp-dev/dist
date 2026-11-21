@@ -1,0 +1,14 @@
+category: Net
+build-depends: cygport gettext-devel libcurl-devel libextractor-devel libgcrypt-devel libgmp-devel libgnutls-devel libidn2-devel libintl-devel libjansson-devel libjose-devel libmicrohttpd-devel libogg-devel libopus-devel libpq-devel libpq5 libpulse-devel libsodium-devel libsqlite3-devel libunistring-devel libzbar-devel zlib-devel
+sdesc: "Framework for distributed, secure and privacy-preserving applications (utilities)"
+ldesc: "GNUnet is peer-to-peer framework providing a network abstractions and
+applications focusing on security and privacy.  So far, we have
+created applications for anonymous file-sharing, decentralized naming
+and identity management, decentralized and confidential telephony and
+tunneling IP traffic over GNUnet.  GNUnet is currently developed by a
+worldwide group of independent free software developers.  GNUnet is a
+GNU package (https://www.gnu.org/)."
+skip:
+
+homepage: https://www.gnunet.org/en/
+license: AGPL-3.0-or-later AND MIT AND 0BSD

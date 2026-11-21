@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Smart and easy to use C++ SQLite3 wrapper (licensing & readmes)"
+ldesc: "SQLiteC++ offers an encapsulation arround the native C APIs of SQLite, with a
+few intuitive and well documented C++ class."
+

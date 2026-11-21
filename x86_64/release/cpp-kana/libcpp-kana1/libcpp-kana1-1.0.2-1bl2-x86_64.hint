@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Lightweight library for converting Japanese kana to romaji and vice versa (runtime)"
+ldesc: "cpp-kana is a lightweight library for converting Japanese kana to romaji and
+vice versa."
+external-source: cpp-kana
+

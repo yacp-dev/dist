@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-python15.0 pkg-config
+sdesc: "Python grammar for tree-sitter (development)"
+ldesc: "Python grammar for tree-sitter"
+external-source: tree-sitter-python
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libjsonrpccpp1 libstdc++6
+sdesc: "C++ framework for json-rpc (utilities)"
+ldesc: "This C++ library provides a json-rpc (remote procedure call) framework for
+Linux and MacOS (or any other UNIX derivate). It is fully JSON-RPC 2.0
+compatible (JSON-RPC 2.0) and provides additional features, such as generic
+authentication mechanisms."
+

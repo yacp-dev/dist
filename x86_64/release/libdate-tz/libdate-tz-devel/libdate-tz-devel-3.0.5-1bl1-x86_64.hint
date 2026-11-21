@@ -1,0 +1,6 @@
+category: Libs
+requires: libdate-tz3 pkg-config
+sdesc: "C++ library for date and time operations based on <chrono> (development)"
+ldesc: "C++ library for date and time operations based on <chrono>"
+external-source: libdate-tz
+

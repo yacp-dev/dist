@@ -1,0 +1,7 @@
+category: Math
+requires: 
+sdesc: "Levenberg-Marquardt least squares minimization amd curve fitting (licensing & readmes)"
+ldesc: "A self-contained C library for Levenberg-Marquardt least-squares minimization
+and curve fitting. To minimize arbitrary user-provided functions, or to fit
+user-provided data."
+

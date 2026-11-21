@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libgit2_1.9
+sdesc: "Static page generator for git"
+ldesc: "stagit is a static page generator for git."
+

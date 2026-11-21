@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-mongo1
+sdesc: "MongoDB driver and BSON support for oatpp (development)"
+ldesc: "MongoDB driver and BSON support for oatpp"
+external-source: oatpp-mongo
+

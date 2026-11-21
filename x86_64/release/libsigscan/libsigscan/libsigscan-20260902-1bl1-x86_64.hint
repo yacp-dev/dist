@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcerror1 libcfile1 libclocale1 libcnotify1 libsigscan1
+sdesc: "Library for binary signature scanning (utilities)"
+ldesc: "libsigscan is a library for binary signature scanning."
+

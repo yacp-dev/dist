@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libquadmath0
+sdesc: "General GTO integrals for quantum chemistry (runtime)"
+ldesc: "libcint is an open source library for analytical Gaussian integrals.
+It provides C/Fortran API to evaluate one-electron / two-electron
+integrals for Cartesian / real-spheric / spinor Gaussian type functions."
+external-source: libcint
+

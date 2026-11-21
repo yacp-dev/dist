@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbfoverlay1 libcdata1 libcerror1 libclocale1 libcnotify1
+sdesc: "Library to provide basic file overlay support (utilities)"
+ldesc: "libbfoverlay is a library to provide basic file overlay support."
+

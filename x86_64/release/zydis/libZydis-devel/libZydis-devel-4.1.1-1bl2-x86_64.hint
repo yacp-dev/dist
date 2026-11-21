@@ -1,0 +1,6 @@
+category: Libs
+requires: libZycore-devel libZydis4.1 pkg-config
+sdesc: "Fast and lightweight x86/x86_64 disassembler library (development)"
+ldesc: "Fast and lightweight x86/x86_64 disassembler library"
+external-source: zydis
+

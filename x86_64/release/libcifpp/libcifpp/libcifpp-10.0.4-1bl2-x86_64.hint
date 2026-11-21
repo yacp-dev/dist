@@ -1,0 +1,5 @@
+category: Libs
+requires: bash
+sdesc: "Library containing code to manipulate mmCIF and PDB files (licensing & readmes)"
+ldesc: "Library containing code to manipulate mmCIF and PDB files"
+

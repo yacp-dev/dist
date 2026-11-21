@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-sqlite1
+sdesc: "SQLite adapter for oatpp ORM (development)"
+ldesc: "SQLite adapter for oatpp ORM"
+external-source: oatpp-sqlite
+

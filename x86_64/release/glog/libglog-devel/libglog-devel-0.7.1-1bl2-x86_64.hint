@@ -1,0 +1,7 @@
+category: Libs
+requires: libglog2 pkg-config
+sdesc: "C++ implementation of the Google logging module (development)"
+ldesc: "The glog library implements application-level logging. This library provides
+logging APIs based on C++-style streams and various helper macros."
+external-source: glog
+

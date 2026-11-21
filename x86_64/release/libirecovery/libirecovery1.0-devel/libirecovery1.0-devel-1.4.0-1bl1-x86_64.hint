@@ -1,0 +1,6 @@
+category: Libs
+requires: libimobiledevice-glue1.0-devel libirecovery1.0_5 pkg-config
+sdesc: "Library and utility to talk to iBoot/iBSS via USB (development)"
+ldesc: "Library and utility to talk to iBoot/iBSS via USB"
+external-source: libirecovery
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libgavl1 pkg-config
+sdesc: "Library for handling uncompressed audio and video data (development)"
+ldesc: "Library for handling uncompressed audio and video data"
+external-source: gavl
+

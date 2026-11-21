@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libboost-devel libcurl-devel libgtest-devel nlohmann_json
+sdesc: "C++ library for Telegram bot API (licensing & readmes)"
+ldesc: "C++ library for Telegram bot API"
+skip:
+
+homepage: https://github.com/reo7sp/tgbot-cpp
+license: MIT

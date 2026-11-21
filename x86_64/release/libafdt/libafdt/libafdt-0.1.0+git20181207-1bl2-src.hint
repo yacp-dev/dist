@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libevent-devel
+sdesc: "Library for Asynchronous File Descriptor Transfer (licensing & readmes)"
+ldesc: "libafdt is a library for performing asynchronous file descriptor transfers
+using libevent."
+skip:
+
+homepage: https://github.com/facebookarchive/libafdt
+license: BSD-3-Clause AND ISC

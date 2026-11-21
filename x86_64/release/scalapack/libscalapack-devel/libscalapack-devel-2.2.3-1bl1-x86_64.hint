@@ -1,0 +1,7 @@
+category: Libs
+requires: liblapack-devel libopenmpi-devel libscalapack2.2 pkg-config
+sdesc: "Scalable LAPACK (development)"
+ldesc: "ScaLAPACK, or Scalable LAPACK, is a library of high performance linear algebra
+routines for distributed memory computers supporting MPI."
+external-source: scalapack
+

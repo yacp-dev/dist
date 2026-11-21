@@ -1,0 +1,7 @@
+category: Libs
+requires: libansilove1 pkg-config
+sdesc: "Library for converting ANSI, ASCII, and other formats to PNG (development)"
+ldesc: "libansilove is a library to convert ANSi and artscene related file format
+into PNG images."
+external-source: libansilove
+

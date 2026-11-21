@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcrypt20 libgpg-error0
+sdesc: "Open implementation of BD+ protocol (runtime)"
+ldesc: "This library is written for the purpose of playing Blu-ray movies. It is
+intended for software that want to support Blu-ray playback (such as VLC and
+MPlayer). We, the authors of this library, do not condone nor endorse piracy."
+external-source: libbdplus
+

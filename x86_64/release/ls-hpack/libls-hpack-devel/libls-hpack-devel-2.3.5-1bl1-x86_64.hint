@@ -1,0 +1,7 @@
+category: Libs
+requires: libls-hpack2 pkg-config
+sdesc: "LiteSpeed HPACK (RFC7541) Library (development)"
+ldesc: "LS-HPACK provides functionality to encode and decode HTTP headers using HPACK
+compression mechanism specified in RFC 7541."
+external-source: ls-hpack
+

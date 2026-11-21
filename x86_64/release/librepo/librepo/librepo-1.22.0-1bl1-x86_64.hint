@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Repodata downloading library (licensing & readmes)"
+ldesc: "A library providing C and Python (libcURL like) API for downloading linux
+repository metadata and packages"
+

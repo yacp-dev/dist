@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libvsmbr1 python312
+sdesc: "Library and tools to access the Master Boot Record (MBR) volume system format (python312 bindings)"
+ldesc: "libvsmbr is a library to access the Master Boot Record (MBR) volume system."
+external-source: libvsmbr
+

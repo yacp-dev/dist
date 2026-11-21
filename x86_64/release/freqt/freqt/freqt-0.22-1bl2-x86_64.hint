@@ -1,0 +1,10 @@
+category: Text
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Implementation of FREQT (FREQuent Tree miner)"
+ldesc: "The algorithm FREQT (FREQuent Tree miner), independently introduced by Asai
+and Zaki, efficiently extracts frequent ordered-sub-trees from a set of
+ordered-trees (forest database). Frequent means that a sub-tree occurs in no
+less than N trees, where N is a user given threshold usually called minimum
+support. FREQT efficiently enumerates frequent sub-trees using right-most
+expansion."
+

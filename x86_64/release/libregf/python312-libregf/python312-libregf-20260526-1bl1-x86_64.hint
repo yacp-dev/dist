@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libregf1 libuna1 python312
+sdesc: "Library and tools to access the Windows NT Registry File (REGF) format (python312 bindings)"
+ldesc: "libregf is a library to access the Windows NT Registry File (REGF) format."
+external-source: libregf
+

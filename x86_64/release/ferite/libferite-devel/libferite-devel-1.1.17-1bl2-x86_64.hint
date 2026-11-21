@@ -1,0 +1,8 @@
+category: Interpreters
+requires: bash cygwin libferite1 libpcre1 libxml2_2
+sdesc: "Ferite programming language (development)"
+ldesc: "ferite is a modern, lighweight, portable, threadsafe scripting engine with a
+language that is very easy to pick up and leverage for any task. It's been 
+designed for rapid deployment in other programs as well as stand alone use."
+external-source: ferite
+

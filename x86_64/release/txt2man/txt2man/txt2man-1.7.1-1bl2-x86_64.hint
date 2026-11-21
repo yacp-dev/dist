@@ -1,0 +1,6 @@
+category: Text
+requires: bash
+sdesc: "Text to man page"
+ldesc: "Txt2man converts flat ASCII text to man page format. It is a shell
+script using gnu awk, that should run on any Unix like system."
+

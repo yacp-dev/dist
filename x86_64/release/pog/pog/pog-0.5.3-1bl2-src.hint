@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libfmt-devel libgmock-devel libgtest-devel libre2-devel
+sdesc: "C++ library for generating LALR(1) parsers"
+ldesc: "Pog is C++17 library for generating LALR(1) parsers."
+skip:
+
+homepage: https://github.com/metthal/pog
+license: MIT

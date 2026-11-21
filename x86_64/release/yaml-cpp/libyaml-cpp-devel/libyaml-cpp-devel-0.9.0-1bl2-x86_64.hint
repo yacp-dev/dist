@@ -1,0 +1,6 @@
+category: Libs
+requires: libyaml-cpp0.9 pkg-config
+sdesc: "YAML parser and emitter for C++ (development)"
+ldesc: "yaml-cpp is a YAML parser and emitter in C++ matching the YAML 1.2 spec."
+external-source: yaml-cpp
+

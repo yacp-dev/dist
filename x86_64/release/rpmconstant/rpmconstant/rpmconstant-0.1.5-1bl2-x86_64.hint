@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libpopt0 librpmconstant0
+sdesc: "Small library to find constants in rpm headers (utilities)"
+ldesc: "This small libraries find constant in rpm header and provide function to find
+value <=> constant name pair."
+

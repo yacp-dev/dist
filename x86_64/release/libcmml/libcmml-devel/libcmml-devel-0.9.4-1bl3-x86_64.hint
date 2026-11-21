@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin-devel libcmml1 libexpat-devel pkg-config
+sdesc: "Library for handling Continuous Media Markup Language (development)"
+ldesc: "Libcmml is a library which enables the handling of documents written in CMML
+(Continuous Media Markup Language) for the Continuous Media Web (CMWeb)."
+external-source: libcmml
+

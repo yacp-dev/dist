@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libpcre2_8_0 libsqlite3_0 libstdc++6 zlib0
+sdesc: "Library containing code to manipulate mmCIF and PDB files (runtime)"
+ldesc: "Library containing code to manipulate mmCIF and PDB files"
+external-source: libcifpp
+

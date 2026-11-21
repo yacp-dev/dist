@@ -1,0 +1,6 @@
+category: Libs
+requires: libfmos1 pkg-config
+sdesc: "Library for Mac OS data types (development)"
+ldesc: "libfmos is a library for Mac OS data types."
+external-source: libfmos
+

@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libglib2.0_0 libtss2-mu0 libtss2-rc0 libtss2-sys1 libtss2-tctildr0
+sdesc: "TPM2 Access Broker & Resource Management Daemon implementing the TCG spec (runtime)"
+ldesc: "This is a system daemon implementing the TPM2 access broker (TAB) & Resource
+Manager (RM) spec from the TCG. The daemon (tpm2-abrmd) is implemented using
+Glib and the GObject system. In this documentation and in the code we use
+tpm2-abrmd and tabrmd interchangeably."
+external-source: tpm2-abrmd
+

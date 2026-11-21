@@ -1,0 +1,6 @@
+category: Libs
+requires: libboost-devel libcurl-devel libTgBot1.13 nlohmann_json pkg-config
+sdesc: "C++ library for Telegram bot API (development)"
+ldesc: "C++ library for Telegram bot API"
+external-source: tgbot-cpp
+

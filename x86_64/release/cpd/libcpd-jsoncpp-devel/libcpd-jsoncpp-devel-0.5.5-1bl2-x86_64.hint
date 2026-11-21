@@ -1,0 +1,6 @@
+category: Libs
+requires: libcpd-jsoncpp0 pkg-config
+sdesc: "C++ implementation of the Coherent Point Drift point set registration algorithm (development / jsoncpp)"
+ldesc: "C++ implementation of the Coherent Point Drift point set registration algorithm"
+external-source: cpd
+

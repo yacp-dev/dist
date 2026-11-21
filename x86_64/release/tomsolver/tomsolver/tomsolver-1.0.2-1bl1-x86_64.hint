@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Simplest, Well-tested, Non-linear equations solver library (licensing & readmes)"
+ldesc: "Simplest, Well-tested, Non-linear equations solver library"
+

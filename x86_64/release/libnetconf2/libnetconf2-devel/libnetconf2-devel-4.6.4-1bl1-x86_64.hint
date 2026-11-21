@@ -1,0 +1,7 @@
+category: Libs
+requires: libnetconf2_5 pkg-config
+sdesc: "NETCONF library in C intended for building NETCONF clients and servers (development)"
+ldesc: "libnetconf2 is a NETCONF library in C intended for building NETCONF clients
+and servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF."
+external-source: libnetconf2
+

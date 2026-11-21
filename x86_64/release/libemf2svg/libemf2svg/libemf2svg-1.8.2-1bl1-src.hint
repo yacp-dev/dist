@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libargp-devel libfontconfig-devel libfreetype-devel libiconv-devel libpng-devel libuemf-devel libxml2-devel
+sdesc: "Microsoft (MS) EMF to SVG conversion library (utilities)"
+ldesc: "MS EMF (Enhanced Metafile) to SVG conversion library."
+skip:
+
+homepage: https://github.com/claricle/libemf2svg
+license: GPL-2.0-or-later

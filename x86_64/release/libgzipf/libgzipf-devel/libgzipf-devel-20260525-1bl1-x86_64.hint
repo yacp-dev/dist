@@ -1,0 +1,6 @@
+category: Libs
+requires: libgzipf1 pkg-config
+sdesc: "Library and tools to access the GZIP file format (development)"
+ldesc: "libgzipf is a library to access the GZIP file format."
+external-source: libgzipf
+

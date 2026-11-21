@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport cppunit glm-devel libboost-devel libepoxy-devel libGL-devel libpng-devel libX11-devel
+sdesc: "C++ Library for rendering OpenGL models stored in glTF format (licensing & readmes)"
+ldesc: "LIBGLTF is a C++ library for rendering OpenGL models stored in glTF format."
+skip:
+
+homepage: https://www.libreoffice.org
+license: MPL-2.0

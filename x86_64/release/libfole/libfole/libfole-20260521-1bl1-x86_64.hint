@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for Object Linking and Embedding (OLE) data types (licensing & readmes)"
+ldesc: "libfole is a library for Object Linking and Embedding (OLE) data types."
+

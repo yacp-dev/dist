@@ -1,0 +1,6 @@
+category: Science
+requires: libcext-devel libcfitsio-devel libcpl26 libfftw3-devel libwcs-devel pkg-config
+sdesc: "Common Pipeline Library (development)"
+ldesc: "ESO common pipeline library for astronomical data reduction"
+external-source: cpl
+

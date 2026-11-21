@@ -1,0 +1,6 @@
+category: Libs
+requires: libjsonnet++0 libjsonnet-devel pkg-config
+sdesc: "Data templating language (development / c++)"
+ldesc: "Data templating language"
+external-source: jsonnet
+

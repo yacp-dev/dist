@@ -1,0 +1,6 @@
+category: Libs
+requires: libcdatetime1 pkg-config
+sdesc: "Library for cross-platform C date and time functions (development)"
+ldesc: "libcdatetime is a library for cross-platform C date and time functions."
+external-source: libcdatetime
+

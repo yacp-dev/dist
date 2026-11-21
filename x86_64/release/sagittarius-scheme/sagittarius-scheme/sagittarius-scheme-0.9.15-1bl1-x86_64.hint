@@ -1,0 +1,5 @@
+category: Scheme
+requires: cygwin libatomic1 libffi8 libiodbc2 libsagittarius0.9.15 libssl3 zlib0
+sdesc: "Free Scheme implementation supporting R6RS and R7RS (utilities)"
+ldesc: "Free Scheme implementation supporting R6RS and R7RS"
+

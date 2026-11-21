@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Simple, small, C++ XML parser (licensing & readmes)"
+ldesc: "TinyXML is a simple, small, C++ XML parser that can be easily integrating into
+other programs."
+

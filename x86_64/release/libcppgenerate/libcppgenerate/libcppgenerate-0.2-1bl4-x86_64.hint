@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for generating C++ code from C++ (licensing & readmes)"
+ldesc: "A library for generating C++ code from code."
+

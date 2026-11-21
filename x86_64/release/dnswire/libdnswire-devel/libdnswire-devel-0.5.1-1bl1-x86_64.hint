@@ -1,0 +1,7 @@
+category: Libs
+requires: libdnswire1 libprotobuf-c-devel libtinyframe-devel pkg-config
+sdesc: "library for DNS encapsulations (development)"
+ldesc: "A C library for encoding/decoding different DNS encapsulations and
+transporting them over different protocols."
+external-source: dnswire
+

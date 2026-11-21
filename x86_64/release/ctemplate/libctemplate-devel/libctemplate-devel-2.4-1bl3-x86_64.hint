@@ -1,0 +1,8 @@
+category: Libs
+requires: libctemplate3 pkg-config
+sdesc: "Powerful but simple template language for C++ (development)"
+ldesc: "CTemplate is a simple but powerful template language for C++. It emphasizes
+separating logic from presentation: it is impossible to embed application
+logic in this template language."
+external-source: ctemplate
+

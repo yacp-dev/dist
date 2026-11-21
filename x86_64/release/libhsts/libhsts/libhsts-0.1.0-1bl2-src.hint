@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport autoconf-archive gettext-devel
+sdesc: "C library to access the HSTS preload list (utilities)"
+ldesc: "The HSTS preload list is a list of domains that support HTTPS.
+The list is compiled by Google and is utilised by Chrome, Firefox and others."
+skip:
+
+homepage: https://gitlab.com/rockdaboot/libhsts
+license: MIT AND BSD-3-Clause

@@ -1,0 +1,6 @@
+category: Libs
+requires: libbackward0 pkg-config
+sdesc: "Beautiful stack trace pretty printer for C++ (development)"
+ldesc: "Beautiful stack trace pretty printer for C++"
+external-source: backward-cpp
+

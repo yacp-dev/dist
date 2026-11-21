@@ -1,0 +1,6 @@
+category: Libs
+requires: libdockapp3 libX11-devel libXext-devel libXpm-devel pkg-config
+sdesc: "Library that provides a framework for developing dockapps (development)"
+ldesc: "Library that provides a framework for developing dockapps"
+external-source: libdockapp
+

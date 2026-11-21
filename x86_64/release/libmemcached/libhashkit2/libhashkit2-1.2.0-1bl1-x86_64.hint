@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin
+sdesc: "C and C++ client library for memcached (runtime / hashkit)"
+ldesc: "libmemcached-awesome is an open source C/C++ client library and tools for the
+memcached server (https://memcached.org/). It has been designed to be light on
+memory usage, thread safe, and provide full access to server side methods."
+external-source: libmemcached
+

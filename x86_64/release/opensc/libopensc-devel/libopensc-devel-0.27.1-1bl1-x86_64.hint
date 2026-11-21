@@ -1,0 +1,12 @@
+category: Libs
+requires: libopensc13 pkg-config
+sdesc: "Smart card library and applications (development)"
+ldesc: "OpenSC provides a set of libraries and utilities to work with smart cards. Its
+main focus is on cards that support cryptographic operations, and facilitate
+their use in security applications such as authentication, mail encryption and
+digital signatures. OpenSC implements the PKCS#11 API so applications
+supporting this API (such as Mozilla Firefox and Thunderbird) can use it. On
+the card OpenSC implements the PKCS#15 standard and aims to be compatible with
+every software/card that does so, too."
+external-source: opensc
+

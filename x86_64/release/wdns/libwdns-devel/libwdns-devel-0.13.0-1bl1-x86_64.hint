@@ -1,0 +1,6 @@
+category: Net
+requires: libwdns1 pkg-config
+sdesc: "Low-level DNS library (development)"
+ldesc: "Low-level DNS library"
+external-source: wdns
+

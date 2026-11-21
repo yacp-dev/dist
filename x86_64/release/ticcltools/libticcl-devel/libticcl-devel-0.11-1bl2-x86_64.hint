@@ -1,0 +1,6 @@
+category: Utils
+requires: libticcl1 libticcutils-devel pkg-config
+sdesc: "Tools for TICCL (development)"
+ldesc: "A collection of tools to process ticcl files"
+external-source: ticcltools
+

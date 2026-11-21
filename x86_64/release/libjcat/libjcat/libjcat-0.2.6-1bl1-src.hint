@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gnutls gobject-introspection libgirepository1.0-devel libglib2.0-devel libgnutls-devel libgpg-error-devel libgpgme-devel libintl-devel libjson-glib1.0-devel libssl-devel vala
+sdesc: "Library for reading and writing Jcat files (utilities)"
+ldesc: "This library allows reading and writing gzip-compressed JSON catalog files,
+which can be used to store GPG, PKCS-7 and SHA-256 checksums for each file."
+skip:
+
+homepage: https://github.com/hughsie/libjcat
+license: LGPL-2.1-or-later

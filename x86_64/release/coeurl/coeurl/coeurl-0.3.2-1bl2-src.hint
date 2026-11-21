@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport doctest libcurl-devel libevent-devel libfmt-devel libspdlog-devel
+sdesc: "Simple async wrapper around CURL for C++ (licensing & readmes)"
+ldesc: "Simple library to do http requests asynchronously via CURL in C++. (Eventually
+as coroutines, once all the compilers I need to support support them.)"
+skip:
+
+homepage: https://nheko.im/nheko-reborn/coeurl
+license: MIT

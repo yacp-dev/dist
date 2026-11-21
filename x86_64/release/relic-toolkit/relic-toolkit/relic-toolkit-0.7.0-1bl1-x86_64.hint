@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Modern cryptographic meta-toolkit (licensing & readmes)"
+ldesc: "RELIC is a modern cryptographic meta-toolkit with emphasis on efficiency and
+flexibility. RELIC can be used to build efficient and usable cryptographic
+toolkits tailored for specific security levels and algorithmic choices."
+

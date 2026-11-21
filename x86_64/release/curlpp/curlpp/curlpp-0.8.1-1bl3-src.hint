@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel
+sdesc: "C++ wrapper for libcURL (licensing & readmes)"
+ldesc: "cURLpp is a C++ wrapper for libcURL"
+skip:
+
+homepage: https://www.curlpp.org/
+license: MIT

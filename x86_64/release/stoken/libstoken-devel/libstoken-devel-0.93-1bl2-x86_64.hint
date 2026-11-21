@@ -1,0 +1,6 @@
+category: Security
+requires: libstoken1 libtomcrypt-devel libxml2-devel pkg-config
+sdesc: "RSA SecurID-compatible software token for Linux/UNIX systems (development)"
+ldesc: "RSA SecurID-compatible software token for Linux/UNIX systems"
+external-source: stoken
+

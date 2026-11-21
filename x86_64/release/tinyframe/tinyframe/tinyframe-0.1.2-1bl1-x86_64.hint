@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Minimalistic Frame Streams library (licensing & readmes)"
+ldesc: "tinyframe is a minimalistic library for reading and writing the Frame Streams
+protocol."
+

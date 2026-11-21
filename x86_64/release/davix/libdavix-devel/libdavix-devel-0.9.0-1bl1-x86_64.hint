@@ -1,0 +1,8 @@
+category: Libs
+requires: libdavix0 pkg-config
+sdesc: "High-performance file management over WebDAV / HTTP (development)"
+ldesc: "Davix aims to make the task of managing files over HTTP-based protocols
+simple. It is being developed by IT-ST at CERN, and while the project's
+purpose is its use on the CERN grid, the functionality offered is generic."
+external-source: davix
+

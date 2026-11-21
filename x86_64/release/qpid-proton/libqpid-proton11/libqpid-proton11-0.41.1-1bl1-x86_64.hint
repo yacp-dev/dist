@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libsasl2_3 libssl3 libuv1
+sdesc: "High-performance, lightweight messaging library (runtime)"
+ldesc: "Qpid Proton is a high-performance, lightweight messaging library. It can be
+used in the widest range of messaging applications, including brokers, client
+libraries, routers, bridges, proxies, and more. Proton makes it trivial to
+integrate with the AMQP 1.0 ecosystem from any platform, environment, or
+language."
+external-source: qpid-proton
+

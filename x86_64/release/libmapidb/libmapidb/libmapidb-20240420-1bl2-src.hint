@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libcnotify-devel
+sdesc: "Library to access the Exchange MAPI database format (licensing & readmes)"
+ldesc: "libmapidb is a library access the Exchange MAPI database format."
+skip:
+
+homepage: https://github.com/libyal/libmapidb
+license: LGPL-3.0-or-later

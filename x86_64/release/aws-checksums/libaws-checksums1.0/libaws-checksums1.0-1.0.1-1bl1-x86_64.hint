@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libaws-c-common1.0
+sdesc: "Cross-Platform HW accelerated CRC32c and CRC32 with fallback to efficient SW implementations (runtime)"
+ldesc: "Cross-Platform HW accelerated CRC32c and CRC32 with fallback to efficient SW
+implementations. C interface with language bindings for each of our SDKs."
+external-source: aws-checksums
+

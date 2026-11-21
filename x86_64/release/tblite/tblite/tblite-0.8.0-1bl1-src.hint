@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran libddx-devel libdftd4-devel liblapack-devel libmctc-lib-devel libmstore-devel libmulticharge-devel libs-dftd3-devel libtoml-f-devel libtrexio-devel
+sdesc: "Light-weight tight-binding framework (utilities)"
+ldesc: "Light-weight tight-binding framework"
+skip:
+
+homepage: https://github.com/tblite/tblite
+license: LGPL-3.0-or-later

@@ -1,0 +1,9 @@
+category: Math
+build-depends: cygport libgmp-devel pkg-config zlib-devel
+sdesc: "Advanced SAT solver (utilities)"
+ldesc: "CryptoMiniSat is a modern, multi-threaded, feature-rich, simplifying SAT
+solver."
+skip:
+
+homepage: https://www.msoos.org/cryptominisat5/
+license: MIT

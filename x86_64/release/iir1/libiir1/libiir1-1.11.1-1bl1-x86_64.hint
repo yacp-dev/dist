@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "DSP IIR Realtime C++ filter library (runtime)"
+ldesc: "DSP IIR Realtime C++ filter library"
+external-source: iir1
+

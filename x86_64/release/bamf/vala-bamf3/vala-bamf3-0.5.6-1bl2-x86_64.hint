@@ -1,0 +1,8 @@
+category: Libs
+requires: 
+sdesc: "Window matching library (vala bindings)"
+ldesc: "Removes the headache of applications matching into a simple DBus
+daemon and c wrapper library. Currently features application matching at amazing
+levels of accuracy (covering nearly every corner case)."
+external-source: bamf
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libFLAC++11 libFLAC14 libgcc1 libssl3 libstdc++6 zlib0
+sdesc: "C++ library for accessing SONOS devices (runtime)"
+ldesc: "C++ library for accessing SONOS devices"
+external-source: noson
+

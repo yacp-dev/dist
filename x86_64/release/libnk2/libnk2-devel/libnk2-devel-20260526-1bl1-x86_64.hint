@@ -1,0 +1,6 @@
+category: Libs
+requires: libnk2_1 pkg-config
+sdesc: "Library and tools to access the Microsoft Outlook Nickfile (NK2) format (development)"
+ldesc: "libnk2 is a library to access the Microsoft Outlook Nickfile (NK2) format."
+external-source: libnk2
+

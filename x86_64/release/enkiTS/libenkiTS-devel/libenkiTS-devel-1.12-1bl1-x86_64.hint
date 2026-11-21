@@ -1,0 +1,7 @@
+category: Libs
+requires: libenkiTS1 pkg-config
+sdesc: "C and C++ Task Scheduler for creating parallel programs (development)"
+ldesc: "A permissively licensed C and C++ Task Scheduler for creating parallel
+programs. Requires C++11 support."
+external-source: enkiTS
+

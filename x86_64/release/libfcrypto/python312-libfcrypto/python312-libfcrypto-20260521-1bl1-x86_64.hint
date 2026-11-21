@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libfcrypto1 python312
+sdesc: "Library for encryption formats (python312 bindings)"
+ldesc: "libfcrypto is a library for encryption formats."
+external-source: libfcrypto
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "HTML grammar for Tree-sitter (runtime)"
+ldesc: "HTML grammar for Tree-sitter"
+external-source: tree-sitter-html
+

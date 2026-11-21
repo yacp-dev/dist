@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcjose-devel libcurl-devel libhiredis-devel libjansson-devel libmemcached-devel libpcre2-devel libssl-devel
+sdesc: "OAuth 2.x and OpenID Connect C library (licensing & readmes)"
+ldesc: "Generic library to build C-based OAuth 2.x and OpenID Connect servers and
+clients e.g. web-server plugins."
+skip:
+
+homepage: https://github.com/OpenIDC/liboauth2
+license: Apache-2.0

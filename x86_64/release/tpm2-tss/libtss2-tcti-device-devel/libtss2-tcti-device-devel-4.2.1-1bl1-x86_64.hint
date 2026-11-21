@@ -1,0 +1,7 @@
+category: Libs
+requires: libtss2-mu-devel libtss2-tcti-device0 pkg-config
+sdesc: "OSS implementation of the TCG TPM2 Software Stack (development / tcti device)"
+ldesc: "This repository hosts source code implementing the Trusted Computing Group's
+(TCG) TPM2 Software Stack (TSS)."
+external-source: tpm2-tss
+

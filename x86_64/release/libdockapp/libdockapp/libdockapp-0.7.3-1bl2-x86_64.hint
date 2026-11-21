@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library that provides a framework for developing dockapps (licensing & readmes)"
+ldesc: "Library that provides a framework for developing dockapps"
+

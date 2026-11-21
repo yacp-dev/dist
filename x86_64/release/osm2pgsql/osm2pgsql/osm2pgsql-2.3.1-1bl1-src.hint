@@ -1,0 +1,10 @@
+category: Utils
+build-depends: cygport libboost-devel libbz2-devel libexpat-devel liblua-devel libpq-devel libpq5 libproj-devel lua nlohmann_json proj zlib-devel
+sdesc: "OpenStreetMap data to PostgreSQL converter"
+ldesc: "osm2pgsql is a tool for loading OpenStreetMap data into a PostgreSQL / PostGIS
+database suitable for applications like rendering into a map, geocoding with
+Nominatim, or general analysis."
+skip:
+
+homepage: https://github.com/osm2pgsql-dev/osm2pgsql
+license: GPL-2.0-or-later AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT

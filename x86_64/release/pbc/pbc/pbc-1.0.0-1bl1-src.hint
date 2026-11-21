@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport autoconf-archive bison flex libgtest-devel libgmp-devel
+sdesc: "Pairing-Based Cryptography Library (licensing & readmes)"
+ldesc: "Pairing-based cryptography is a relatively young area of cryptography that
+revolves around a certain function with special properties."
+skip:
+
+homepage: https://crypto.stanford.edu/pbc/
+license: LGPL-3.0-or-later

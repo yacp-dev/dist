@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libiconv-devel libusb1.0-devel
+sdesc: "Simple cross-platform library for communicating with HID devices (licensing & readmes)"
+ldesc: "HIDAPI is a multi-platform library which allows an application to interface
+with USB and Bluetooth HID-Class devices on Windows, Linux, FreeBSD, and
+macOS. HIDAPI can be either built as a shared library (.so, .dll or .dylib) or
+can be embedded directly into a target application by adding a single source
+file (per platform) and a single header."
+skip:
+
+homepage: https://github.com/libusb/hidapi
+license: BSD-3-Clause OR GPL-3.0-only

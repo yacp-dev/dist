@@ -1,0 +1,9 @@
+category: Libs
+requires: libcfp1
+sdesc: "Library for compressed numerical arrays that support high throughput read and write random access (development / CFP arrays)"
+ldesc: "zfp is an open source C/C++ library for compressed numerical arrays that
+support high throughput read and write random access. zfp also supports
+streaming compression of integer and floating-point data, e.g., for applications
+that read and write large data sets to and from disk."
+external-source: zfp
+

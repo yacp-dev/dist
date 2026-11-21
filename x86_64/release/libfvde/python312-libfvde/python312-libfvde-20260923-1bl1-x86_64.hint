@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libfguid1 libfvde1 python312
+sdesc: "Library and tools to access FileVault Drive Encryption (FVDE) encrypted volumes (python312 bindings)"
+ldesc: "libfvde is a library to access FileVault Drive Encryption (FVDE) (or
+FileVault2) encrypted volumes."
+external-source: libfvde
+

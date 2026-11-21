@@ -1,0 +1,7 @@
+category: Libs
+requires: libssl-devel libxlsxwriter11 pkg-config zlib-devel
+sdesc: "C library for creating Excel XLSX files (development)"
+ldesc: "Libxlsxwriter is a C library that can be used to write text, numbers, formulas
+and hyperlinks to multiple worksheets in an Excel 2007+ XLSX file."
+external-source: libxlsxwriter
+

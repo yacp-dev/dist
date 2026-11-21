@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libtss2-mu0 libtss2-tctildr0
+sdesc: "OSS implementation of the TCG TPM2 Software Stack (runtime / tcti pcap)"
+ldesc: "This repository hosts source code implementing the Trusted Computing Group's
+(TCG) TPM2 Software Stack (TSS)."
+external-source: tpm2-tss
+

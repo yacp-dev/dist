@@ -1,0 +1,6 @@
+category: Libs
+requires: libarchive_cpp_wrapper1 pkg-config
+sdesc: "C++ wrapper arround libarchive library (development)"
+ldesc: "C++ wrapper arround libarchive library"
+external-source: libarchive_cpp_wrapper
+

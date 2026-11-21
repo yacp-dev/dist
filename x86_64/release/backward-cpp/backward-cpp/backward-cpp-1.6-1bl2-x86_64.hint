@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Beautiful stack trace pretty printer for C++ (licensing & readmes)"
+ldesc: "Beautiful stack trace pretty printer for C++"
+

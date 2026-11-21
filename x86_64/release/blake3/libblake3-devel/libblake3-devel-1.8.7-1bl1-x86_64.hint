@@ -1,0 +1,6 @@
+category: Libs
+requires: libblake3_0 libtbb-devel pkg-config
+sdesc: "C implementation of the BLAKE3 cryptographic hash function (development)"
+ldesc: "C implementation of the BLAKE3 cryptographic hash function"
+external-source: blake3
+

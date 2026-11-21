@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libgcc1 libQt5Core5 libstdc++6
+sdesc: "HTTP server for Qt applications (runtime)"
+ldesc: "Simple set of classes for developing HTTP server applications in Qt."
+external-source: qhttpengine
+

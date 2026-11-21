@@ -1,0 +1,8 @@
+category: Games
+requires: 
+sdesc: "WorldForge message protocol library (licensing & readmes)"
+ldesc: "Atlas-C++ is the perhaps the most important library in the entire WorldForge
+project, since nearly every other module requires it. Atlas-C++ provides a
+native implementation of the entire Atlas specification including negotiation,
+message encode and decode and the overlying Objects layer."
+

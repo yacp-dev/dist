@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran libgsl-devel
+sdesc: "BSD licensed random number generators and distributions for C and Fortran (licensing & readmes)"
+ldesc: "A lightweight and easy-to-use library that wraps C++11's random number
+generators, making them available from C and Fortran."
+skip:
+
+homepage: https://github.com/tschoonj/easyRNG
+license: BSD-3-Clause

@@ -1,0 +1,8 @@
+category: Graphics
+build-depends: cygport libjpeg-devel
+sdesc: "Prints information and tests integrity of JPEG/JFIF files"
+ldesc: "Prints information and tests integrity of JPEG/JFIF files"
+skip:
+
+homepage: https://github.com/tjko/jpeginfo
+license: GPL-3.0-or-later

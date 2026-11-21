@@ -1,0 +1,6 @@
+category: Devel
+requires: pkg-config
+sdesc: "Headers for URDF parsers"
+ldesc: "The URDF (U-Robot Description Format) headers provides core data structure
+headers for URDF."
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran
+sdesc: "Software for solving nonlinear equations and nonlinear least squares problems (licensing & readmes)"
+ldesc: "Software for solving nonlinear equations and nonlinear least squares problems"
+skip:
+
+homepage: https://salsa.debian.org/science-team/minpack
+license: Minpack

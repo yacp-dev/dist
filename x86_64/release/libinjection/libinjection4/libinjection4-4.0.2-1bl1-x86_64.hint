@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "SQL / SQLI tokenizer parser analyzer (runtime)"
+ldesc: "SQL / SQLI tokenizer parser analyzer"
+external-source: libinjection
+

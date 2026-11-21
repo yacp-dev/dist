@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbde1 libbfio1 libcerror1 libfguid1 python312
+sdesc: "Library and tools to access the BitLocker Drive Encryption (BDE) encrypted volumes (python312 bindings)"
+ldesc: "libbde is a library to access the BitLocker Drive Encryption (BDE) format."
+external-source: libbde
+

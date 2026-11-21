@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libvvenc1.14
+sdesc: "Fraunhofer Versatile Video Encoder (utilities)"
+ldesc: "The Fraunhofer Versatile Video Encoder (VVenC) is a fast and efficient
+real-world VVC encoder implementation."
+

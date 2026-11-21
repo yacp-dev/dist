@@ -1,0 +1,6 @@
+category: Libs
+requires: libfaad2 pkg-config
+sdesc: "Freeware Advanced Audio (AAC) Decoder including SBR decoding (development)"
+ldesc: "Freeware Advanced Audio (AAC) Decoder including SBR decoding"
+external-source: faad2
+

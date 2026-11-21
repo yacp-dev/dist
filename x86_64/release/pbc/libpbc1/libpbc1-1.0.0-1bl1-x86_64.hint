@@ -1,0 +1,7 @@
+category: Security
+requires: cygwin libgmp10
+sdesc: "Pairing-Based Cryptography Library (runtime)"
+ldesc: "Pairing-based cryptography is a relatively young area of cryptography that
+revolves around a certain function with special properties."
+external-source: pbc
+

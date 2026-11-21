@@ -1,0 +1,10 @@
+category: Science
+build-depends: cygport libhdf5-devel liblapack-devel
+sdesc: "Spin-adapted implementation of DMRG for ab initio quantum chemistry (utilities)"
+ldesc: "CheMPS2 is a scientific library which contains a spin-adapted implementation
+of the density matrix renormalization group (DMRG) for ab initio quantum
+chemistry."
+skip:
+
+homepage: https://github.com/SebWouters/CheMPS2
+license: GPL-2.0-or-later

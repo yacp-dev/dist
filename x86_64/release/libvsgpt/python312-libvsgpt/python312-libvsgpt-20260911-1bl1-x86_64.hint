@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libfguid1 libvsgpt1 python312
+sdesc: "Library to access the GUID Partition Table (GPT) volume system (python312 bindings)"
+ldesc: "libvsgpt is a library to access the GUID Partition Table (GPT) volume system."
+external-source: libvsgpt
+

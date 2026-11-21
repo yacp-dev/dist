@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcsplit-devel libcpath-devel libcthreads-devel libfcache-devel libfdata-devel libfdatetime-devel libfguid-devel libfmapi-devel libfvalue-devel libfwnt-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the Extensible Storage Engine (ESE) Database File (EDB) format (utilities)"
+ldesc: "libesedb is a library to access the Extensible Storage Engine (ESE) Database
+File (EDB) format."
+skip:
+
+homepage: https://github.com/libyal/libesedb
+license: LGPL-3.0-or-later

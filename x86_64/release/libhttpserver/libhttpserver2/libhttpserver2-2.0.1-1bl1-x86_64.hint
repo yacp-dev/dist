@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libgnutls30 libmicrohttpd12 libstdc++6
+sdesc: "Library embedding RESTful HTTP server functionality (runtime)"
+ldesc: "libhttpserver is a small C++ library for embedding RESTful HTTP server
+functionality into applications."
+external-source: libhttpserver
+

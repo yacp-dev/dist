@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Small utility for listing and reaping zombie processes"
+ldesc: "Small utility for listing and reaping zombie processes"
+skip:
+
+homepage: https://github.com/orhun/zps
+license: GPL-3.0-or-later

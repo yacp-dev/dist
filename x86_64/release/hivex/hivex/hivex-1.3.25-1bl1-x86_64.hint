@@ -1,0 +1,7 @@
+category: Libs
+requires: bash cygwin libhivex0 libintl8 libreadline8 libxml2_2
+sdesc: "Read and write Windows Registry binary hive files (utilities)"
+ldesc: "Hive files are the undocumented binary files that Windows uses to
+store the Windows Registry on disk.  Hivex is a library that can read
+and write to these files."
+

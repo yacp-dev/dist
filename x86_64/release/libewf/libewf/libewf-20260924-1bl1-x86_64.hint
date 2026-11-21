@@ -1,0 +1,5 @@
+category: Libs
+requires: cygfuse cygwin libcdata1 libcdatetime1 libcerror1 libcfile1 libclocale1 libcnotify1 libcpath1 libcsplit1 libcthreads1 libewf3 libfdatetime1 libhmac1 libodraw1 libsmdev1 libsmraw1 libuna1 libuuid1
+sdesc: "Library to access the Expert Witness Compression Format (EWF) (utilities)"
+ldesc: "libewf is a library to access the Expert Witness Compression Format (EWF)."
+

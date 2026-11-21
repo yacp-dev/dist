@@ -1,0 +1,9 @@
+category: Games
+build-depends: cygport cli11 crcpp libADLMIDI-devel libCatch2-devel libpng-devel libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel utf8cpp-devel
+sdesc: "Cross-platform reimplementation of engine for the classic Bullfrog game, Syndicate"
+ldesc: "FreeSynd is a cross-platform, GPLed reimplementation of engine for the classic
+Bullfrog game, Syndicate."
+skip:
+
+homepage: https://sourceforge.net/projects/freesynd/
+license: GPL-3.0-or-later AND MIT

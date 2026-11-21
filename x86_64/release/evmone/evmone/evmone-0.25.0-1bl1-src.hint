@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport cli11 intx libbenchmark-devel libgmock-devel libgtest-devel nlohmann_json
+sdesc: "Fast Ethereum Virtual Machine implementation (utilities)"
+ldesc: "evmone is a C++ implementation of the Ethereum Virtual Machine (EVM). Created
+by members of the Ewasm team, the project aims for clean, standalone EVM
+implementation that can be imported as an execution module by Ethereum Client
+projects. The codebase of evmone is optimized to provide fast and efficient
+execution of EVM smart contracts."
+skip:
+
+homepage: https://github.com/ipsilon/evmone
+license: Apache-2.0

@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libcares2 libgnutls30
+sdesc: "SIP swiss army knife"
+ldesc: "SIP swiss army knife"
+

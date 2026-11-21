@@ -1,0 +1,10 @@
+category: Libs
+requires: libcurl-devel libprometheus-cpp-core-devel libprometheus-cpp-push1.3 pkg-config
+sdesc: "Prometheus Client Library for Modern C++ (development / push)"
+ldesc: "This library aims to enable Metrics-Driven Development for C++ services. It
+implements the Prometheus Data Model, a powerful abstraction on which to
+collect and expose metrics. We offer the possibility for metrics to be
+collected by Prometheus, but other push/pull collections can be added as
+plugins."
+external-source: prometheus-cpp
+

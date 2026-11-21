@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libplist2.0_12
+sdesc: "Library to handle Apple Property List format in binary or XML (utilities)"
+ldesc: "Library to handle Apple Property List format in binary or XML"
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libls-qpack2
+sdesc: "QPACK compression library for use with HTTP/3 (utilities)"
+ldesc: "QPACK is the compression mechanism used by HTTP/3 to compress HTTP headers. It
+is in the process of being standardazed by the QUIC Working Group. The QPACK
+Internet-Draft is has been stable for some time and we don't expect functional
+changes to it before the final RFC is released."
+

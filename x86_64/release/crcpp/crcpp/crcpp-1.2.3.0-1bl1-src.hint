@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Easy to use and fast C++ CRC library"
+ldesc: "CRC++ is a portable and lightweight C++ CRC library."
+skip:
+
+homepage: https://github.com/d-bahr/CRCpp
+license: BSD-3-Clause

@@ -1,0 +1,6 @@
+category: Libs
+requires: libfwsi1 pkg-config
+sdesc: "Library to access the Windows Shell Item format (development)"
+ldesc: "libfwsi is a library to access the Windows Shell Item format."
+external-source: libfwsi
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libfaupl1
+sdesc: "Fast URL decoder library (utilities)"
+ldesc: "Fast URL decoder library"
+

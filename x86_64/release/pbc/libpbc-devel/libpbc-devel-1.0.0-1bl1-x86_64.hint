@@ -1,0 +1,7 @@
+category: Security
+requires: libpbc1 pkg-config
+sdesc: "Pairing-Based Cryptography Library (development)"
+ldesc: "Pairing-based cryptography is a relatively young area of cryptography that
+revolves around a certain function with special properties."
+external-source: pbc
+

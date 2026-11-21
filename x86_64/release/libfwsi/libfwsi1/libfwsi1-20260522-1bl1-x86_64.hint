@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libcnotify1 libuna1
+sdesc: "Library to access the Windows Shell Item format (runtime)"
+ldesc: "libfwsi is a library to access the Windows Shell Item format."
+external-source: libfwsi
+

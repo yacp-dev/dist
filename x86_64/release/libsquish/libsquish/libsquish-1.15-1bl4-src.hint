@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libpng-devel
+sdesc: "Open source DXT compression library (utilities)"
+ldesc: "The squish library (abbreviated to libsquish) is an open source DXT
+compression library written in C++."
+skip:
+
+homepage: https://sourceforge.net/projects/libsquish/
+license: MIT

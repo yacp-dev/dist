@@ -1,0 +1,11 @@
+category: Net
+build-depends: cygport docbook-xml44 docbook-xsl libbz2-devel libexpat-devel libgcrypt-devel libgpg-error-devel libicu-devel libiconv-devel libxml2-devel libxslt-devel libyaz-devel rsvg zlib-devel
+sdesc: "High-performance, structured text indexing and retrival engine (utilities)"
+ldesc: "Zebra is a high-performance, general-purpose structured text indexing and
+retrieval engine. It reads structured records in a variety of input formats
+(eg. email, XML, MARC) and allows access to them through exact boolean search
+expressions and relevance-ranked free-text queries."
+skip:
+
+homepage: https://github.com/indexdata/idzebra
+license: GPL-2.0-or-later

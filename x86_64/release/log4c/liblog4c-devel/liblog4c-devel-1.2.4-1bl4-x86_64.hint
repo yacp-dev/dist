@@ -1,0 +1,8 @@
+category: Libs
+requires: bash liblog4c3 pkg-config
+sdesc: "Logging for C Library (development)"
+ldesc: "Log4c is a C language library for flexible logging to files, syslog and other
+destinations. It is modeled after the Log for Java library (log4j), staying as
+close to their API as is reasonable."
+external-source: log4c
+

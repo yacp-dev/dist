@@ -1,0 +1,11 @@
+category: Net
+build-depends: cygport libwolfssl-devel
+sdesc: "Small, fast, portable MQTT client implementation, including support for TLS 1.3 (licensing & readmes)"
+ldesc: "This is an implementation of the MQTT Client written in C for embedded use,
+which supports SSL/TLS via the wolfSSL library. This library was built from
+the ground up to be multi-platform, space conscience and extensible.
+Integrates with wolfSSL to provide TLS support."
+skip:
+
+homepage: https://github.com/wolfSSL/wolfMQTT
+license: GPL-3.0-or-later

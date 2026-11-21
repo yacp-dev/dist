@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libwolfssl46
+sdesc: "Portable TPM 2.0 project designed for embedded use (runtime)"
+ldesc: "wolfTPM is a highly portable TPM 2.0 library, designed for embedded use."
+external-source: wolftpm
+

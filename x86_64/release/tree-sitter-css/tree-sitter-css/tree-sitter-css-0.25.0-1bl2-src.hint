@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "CSS grammar for Tree-sitter (licensing & readmes)"
+ldesc: "CSS grammar for Tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-css
+license: MIT

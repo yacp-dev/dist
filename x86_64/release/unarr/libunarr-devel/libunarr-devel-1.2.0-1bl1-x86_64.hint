@@ -1,0 +1,6 @@
+category: Libs
+requires: libbz2-devel liblzma-devel libunarr1 pkg-config zlib-devel
+sdesc: "Decompression library for rar, tar and zip archives (development)"
+ldesc: "(lib)unarr is a decompression library for RAR, TAR, ZIP and 7z* archives."
+external-source: unarr
+

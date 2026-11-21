@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libfguid1 libfvalue1 libuna1
+sdesc: "Library for plist format (runtime)"
+ldesc: "libfplist is a library for plist formats."
+external-source: libfplist
+

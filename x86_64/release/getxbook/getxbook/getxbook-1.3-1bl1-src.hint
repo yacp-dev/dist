@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libssl-devel
+sdesc: "Tools to download ebooks from various sources"
+ldesc: "Tools to download ebooks from various sources"
+skip:
+
+homepage: https://njw.name/getxbook/
+license: ISC

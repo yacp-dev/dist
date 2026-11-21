@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libarms-devel libexpat-devel libssl-devel check
+sdesc: "ARMS service daemon for Unix"
+ldesc: "ARMS service daemon for Unix"
+skip:
+
+homepage: https://dev.smf.jp/libarms/
+license: BSD-2-Clause

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Light and powerful C++ web framework (runtime)"
+ldesc: "Oat++ is a modern Web Framework for C++. It's fully loaded and contains all
+necessary components for effective production level development. It's also
+light and has a small memory footprint."
+external-source: oatpp
+

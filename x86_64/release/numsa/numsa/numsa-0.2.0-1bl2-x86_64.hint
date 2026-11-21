@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgfortran5 libmctc-lib0 libnumsa0
+sdesc: "Solvent accessible surface area calculation (licensing & readmes)"
+ldesc: "Numerical surface area integrator for molecular inputs."
+

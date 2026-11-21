@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libogg-devel
+sdesc: "C library for reading and writing Ogg files and streams (utilities)"
+ldesc: "C library for reading and writing Ogg files and streams"
+skip:
+
+homepage: https://www.xiph.org/oggz/
+license: BSD-3-Clause

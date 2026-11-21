@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libfolia22 libgcc1 libicu76 libstdc++6 libticcutils10 libxml2_2
+sdesc: "Test suite for libfolia"
+ldesc: "This package provides series of tests for libfolia."
+

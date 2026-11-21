@@ -1,0 +1,7 @@
+category: Libs
+requires: libcjson1 pkg-config
+sdesc: "Ultralightweight JSON parser in ANSI C (development)"
+ldesc: "cJSON aims to be the dumbest possible parser that you can get your job done
+with. It's a single file of C, and a single header file."
+external-source: cjson
+

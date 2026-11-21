@@ -1,0 +1,7 @@
+category: Libs
+requires: libhmac1 pkg-config
+sdesc: "Library to support various Hash-based Message Authentication Codes (HMAC) (development)"
+ldesc: "libhmac is a library to support various Hash-based Message Authentication
+Codes (HMAC)."
+external-source: libhmac
+

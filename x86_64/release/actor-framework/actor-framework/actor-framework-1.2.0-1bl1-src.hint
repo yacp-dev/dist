@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libssl-devel
+sdesc: "Implementation of the Actor Model for C++ (licensing & readmes)"
+ldesc: "An Open Source Implementation of the Actor Model in C++"
+skip:
+
+homepage: https://github.com/actor-framework/actor-framework
+license: BSD-3-Clause

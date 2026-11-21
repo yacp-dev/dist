@@ -1,0 +1,6 @@
+category: Libs
+requires: libahp_gt2 pkg-config
+sdesc: "Driver library for the AHP® GT Correlators (development)"
+ldesc: "Driver library for the AHP® GT Correlators"
+external-source: libahp-gt
+

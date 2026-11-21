@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libqb100 libxml2
+sdesc: "Library providing high performance logging, tracing, ipc, and poll (utilities)"
+ldesc: "libqb is a library with the primary purpose of providing high-performance,
+reusable features for client-server architecture, such as logging, tracing,
+inter-process communication (IPC), and polling."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libewf3 pkg-config
+sdesc: "Library to access the Expert Witness Compression Format (EWF) (development)"
+ldesc: "libewf is a library to access the Expert Witness Compression Format (EWF)."
+external-source: libewf
+

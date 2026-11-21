@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libboost_regex1.66 libboost_system1.66 libgcc1 libssl3 libstdc++6
+sdesc: "Cross platform C++ library for MIME format and SMTP, POP3 and IMAP protocols (runtime)"
+ldesc: "mailio is a cross platform C++ library for MIME format and SMTP, POP3 and IMAP
+protocols. It is based on the standard C++ 17 and Boost library."
+external-source: mailio
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libgtest-devel zlib-devel
+sdesc: "Binary-based efficient object serialization library (licensing & readmes)"
+ldesc: "MessagePack is a binary-based efficient object serialization library. It
+enables to exchange structured objects between many languages like JSON. But
+unlike JSON, it is very fast and small."
+skip:
+
+homepage: https://msgpack.org/
+license: BSL-1.0

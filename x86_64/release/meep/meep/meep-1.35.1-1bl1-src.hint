@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport autoconf-archive gcc-fortran libctl-devel libfftw3-devel libGDSII-devel libgmp-devel libgsl-devel libguile3.0-devel libharminv-devel libhdf5-devel liblapack-devel libmpb-devel python3-devel python312-numpy swig zlib-devel
+sdesc: "Simulation software to model electromagnetic systems (utilities)"
+ldesc: "Meep (or MEEP) is a free finite-difference time-domain (FDTD) simulation
+software package developed at MIT to model electromagnetic systems."
+skip:
+
+homepage: https://github.com/NanoComp/meep/
+license: GPL-2.0-or-later AND BSD-3-Clause

@@ -1,0 +1,6 @@
+category: Libs
+requires: libscca1 pkg-config
+sdesc: "Library and tools to access the Windows Prefetch File (SCCA) format (development)"
+ldesc: "libscca is a library to access the Windows Prefetch File (SCCA) format."
+external-source: libscca
+

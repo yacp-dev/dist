@@ -1,0 +1,8 @@
+category: Libs
+requires: libbliss0 libgmp-devel pkg-config
+sdesc: "Graphs, isomorphism, and canonical labeling (development)"
+ldesc: "bliss is an open-source tool for computing canonical labelings and
+automorphism groups of graphs. Its algorithms are described in the following
+papers, please cite them if you use bliss in your research or software tools."
+external-source: bliss
+

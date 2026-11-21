@@ -1,0 +1,10 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Semantic Versioning for modern C++"
+ldesc: "C++ library compare and manipulate versions are available as extensions to the
+<major>.<minor>.<patch>-<prerelease_type>.<prerelease_number> format complying
+with Semantic Versioning 2.0.0"
+skip:
+
+homepage: https://github.com/Neargye/semver
+license: MIT

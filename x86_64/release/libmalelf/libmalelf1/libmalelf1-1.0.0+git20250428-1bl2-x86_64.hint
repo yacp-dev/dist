@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libudis86_0 libxml2
+sdesc: "Library for Dissect and Infect ELF Binaries (runtime)"
+ldesc: "Library for Dissect and Infect ELF Binaries"
+external-source: libmalelf
+

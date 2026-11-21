@@ -1,0 +1,9 @@
+category: Net
+requires: cygwin libbrotli-devel libhttrack3 libssl-devel libzstd-devel pkg-config
+sdesc: "HTTrack Website Copier, copy websites to your computer (development)"
+ldesc: "HTTrack is an offline browser utility, allowing you to download a World Wide
+website from the Internet to a local directory, building recursively all
+directories, getting html, images, and other files from the server to your
+computer."
+external-source: httrack
+

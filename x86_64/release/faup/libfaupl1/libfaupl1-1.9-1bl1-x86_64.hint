@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin liblua5.3
+sdesc: "Fast URL decoder library (runtime)"
+ldesc: "Fast URL decoder library"
+external-source: faup
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libczmq4 libzmq5
+sdesc: "Local Area Clustering for Peer-to-Peer Applications (runtime)"
+ldesc: "Zyre provides reliable group messaging over local area networks."
+external-source: zyre
+

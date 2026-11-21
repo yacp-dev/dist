@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libstdc++6
+sdesc: "Unicode validation and transcoding at billions of characters per second (runtime)"
+ldesc: "Unicode validation and transcoding at billions of characters per second"
+external-source: simdutf
+

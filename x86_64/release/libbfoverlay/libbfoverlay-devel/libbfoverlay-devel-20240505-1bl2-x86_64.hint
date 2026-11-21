@@ -1,0 +1,6 @@
+category: Libs
+requires: libbfoverlay1 pkg-config
+sdesc: "Library to provide basic file overlay support (development)"
+ldesc: "libbfoverlay is a library to provide basic file overlay support."
+external-source: libbfoverlay
+

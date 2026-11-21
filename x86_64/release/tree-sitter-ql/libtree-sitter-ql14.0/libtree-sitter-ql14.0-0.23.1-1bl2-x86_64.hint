@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Tree-sitter grammar for the CodeQL language (runtime)"
+ldesc: "Tree-sitter grammar for the CodeQL language"
+external-source: tree-sitter-ql
+

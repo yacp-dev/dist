@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libarchive13 libdb18.1 libgpg-error0 libgpgme45
+sdesc: "Debian package repository manager"
+ldesc: "This project is a leightweight feature complete manager of a debian
+package (i.e. binary .deb and source .dsc+.tar.gz+.diff.gz) repository."
+

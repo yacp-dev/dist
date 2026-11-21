@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libCatch2-devel
+sdesc: "Library for parsing command line arguments and configuration files (licensing & readmes)"
+ldesc: "Library for parsing command line arguments and configuration files"
+skip:
+
+homepage: https://github.com/mhekkel/libmcfp
+license: BSD-2-Clause AND CC0-1.0

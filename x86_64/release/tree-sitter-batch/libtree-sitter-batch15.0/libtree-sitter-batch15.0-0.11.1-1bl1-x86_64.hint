@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Windows Batch/CMD grammar for tree-sitter (runtime)"
+ldesc: "Windows Batch/CMD grammar for tree-sitter"
+external-source: tree-sitter-batch
+

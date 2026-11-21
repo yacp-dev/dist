@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libcairo2 libgdk_pixbuf2.0_0 libgee0.8_2 libglib2.0_0 libgtk3_0 libintl8 libpango1.0_0
+sdesc: "Library that extends GTK with common widgets and utilities (runtime)"
+ldesc: "Granite is a companion library for GTK and GLib. Among other things, it
+provides complex widgets and convenience functions designed for use in apps
+built for elementary OS."
+external-source: granite
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libebur128_1 pkg-config
+sdesc: "Library implementing the EBU R128 loudness standard (development)"
+ldesc: "libebur128 is a library that implements the EBU R 128 standard for loudness
+normalisation."
+external-source: libebur128
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libfshfs1 pkg-config
+sdesc: "Library and tools to access the Mac OS Hierarchical File System (HFS) (development)"
+ldesc: "libfshfs is a library to access the Mac OS Hierarchical File System (HFS)."
+external-source: libfshfs
+

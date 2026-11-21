@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C library for prototyping and experimenting with quantum-resistant cryptography (licensing & readmes)"
+ldesc: "C library for prototyping and experimenting with quantum-resistant cryptography"
+

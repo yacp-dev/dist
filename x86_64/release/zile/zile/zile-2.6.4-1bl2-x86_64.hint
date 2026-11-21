@@ -1,0 +1,7 @@
+category: Editors
+requires: cygwin libgee0.8_2 libglib2.0_0 libncursesw10
+sdesc: "Zile Is Lossy Emacs"
+ldesc: "GNU Zile is a text editor development kit, so that you can (relatively)
+quickly develop your own ideal text editor without reinventing the wheel for
+many of the common algorithms and data-structures needed to do so."
+

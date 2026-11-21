@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Go grammar for tree-sitter (licensing & readmes)"
+ldesc: "Go grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-go
+license: MIT

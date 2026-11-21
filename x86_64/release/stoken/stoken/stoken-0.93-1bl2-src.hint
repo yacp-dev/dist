@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport libcairo-devel libglib2.0-devel libgtk3-devel libtomcrypt-devel libxml2-devel
+sdesc: "RSA SecurID-compatible software token for Linux/UNIX systems (utilities)"
+ldesc: "RSA SecurID-compatible software token for Linux/UNIX systems"
+skip:
+
+homepage: https://github.com/stoken-dev/stoken
+license: LGPL-2.1-or-later

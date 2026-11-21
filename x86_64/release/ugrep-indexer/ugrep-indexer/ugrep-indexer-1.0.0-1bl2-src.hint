@@ -1,0 +1,8 @@
+category: Text
+build-depends: cygport libbrotli-devel libbz2-devel liblz4-devel liblzma-devel libzstd-devel zlib-devel
+sdesc: "Monotonic indexer to speed up grepping by >10x"
+ldesc: "Monotonic indexer to speed up grepping by >10x"
+skip:
+
+homepage: https://github.com/Genivia/ugrep-indexer
+license: BSD-3-Clause

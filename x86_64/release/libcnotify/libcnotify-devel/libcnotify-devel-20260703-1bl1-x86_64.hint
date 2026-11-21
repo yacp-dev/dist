@@ -1,0 +1,6 @@
+category: Libs
+requires: libcnotify1 pkg-config
+sdesc: "Library for cross-platform C notification functions (development)"
+ldesc: "libcnotify is a library for cross-platform C notification functions."
+external-source: libcnotify
+

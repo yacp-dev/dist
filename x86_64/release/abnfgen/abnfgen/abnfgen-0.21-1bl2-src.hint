@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Quickly generate random documents that match an ABFN grammar"
+ldesc: "Given an Augmented Backus-Naur form (ABNF) grammar (Wikipedia, RFC 4234),
+abnfgen quickly generates lots of random documents that match that grammar."
+skip:
+
+homepage: https://www.quut.com/abnfgen/

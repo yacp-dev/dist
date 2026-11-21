@@ -1,0 +1,6 @@
+category: Libs
+requires: libfaupl1 pkg-config
+sdesc: "Fast URL decoder library (development)"
+ldesc: "Fast URL decoder library"
+external-source: faup
+

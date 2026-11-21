@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbliss0 libgcc1 libgmp10 libstdc++6
+sdesc: "Graphs, isomorphism, and canonical labeling (utilities)"
+ldesc: "bliss is an open-source tool for computing canonical labelings and
+automorphism groups of graphs. Its algorithms are described in the following
+papers, please cite them if you use bliss in your research or software tools."
+

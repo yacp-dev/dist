@@ -1,0 +1,6 @@
+category: Libs
+requires: libmalelf1 pkg-config
+sdesc: "Library for Dissect and Infect ELF Binaries (development)"
+ldesc: "Library for Dissect and Infect ELF Binaries"
+external-source: libmalelf
+

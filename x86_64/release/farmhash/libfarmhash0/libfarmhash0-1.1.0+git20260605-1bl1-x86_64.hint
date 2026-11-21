@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "The FarmHash family of hash functions (runtime)"
+ldesc: "FarmHash is a successor to CityHash, and includes many of the same
+tricks and techniques, several of them taken from Austin Appleby's MurmurHash."
+external-source: farmhash
+

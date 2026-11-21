@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport hdf5 libhdf4-devel libhdf5-devel
+sdesc: "Tools for converting between HDF4 and HDF5 formats (utilities)"
+ldesc: "Tools for converting between HDF4 and HDF5 formats"
+skip:
+
+homepage: https://support.hdfgroup.org/downloads/h4h5tools/h4h5tools_2_2_5.html
+license: BSD-3-Clause

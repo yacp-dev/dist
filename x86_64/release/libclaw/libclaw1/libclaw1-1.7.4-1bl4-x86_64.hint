@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libintl8 libjpeg8 libpng16 libstdc++6
+sdesc: "C++ Library of various utility functions (runtime)"
+ldesc: "Claw is a generalist library written in C++ and providing structures and
+algorithms, like containers, string algorithms, tweeners and more."
+external-source: libclaw
+

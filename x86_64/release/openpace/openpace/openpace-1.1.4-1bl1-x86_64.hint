@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libeac3 libssl3
+sdesc: "Cryptographic library for EAC version 2 (utilities)"
+ldesc: "OpenPACE implements Extended Access Control (EAC) version 2 as specified in
+BSI TR-03110."
+

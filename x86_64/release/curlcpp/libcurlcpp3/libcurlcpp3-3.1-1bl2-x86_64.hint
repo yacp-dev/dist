@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libstdc++6
+sdesc: "Object oriented C++ wrapper for CURL (runtime)"
+ldesc: "An object-oriented C++ wrapper for cURL tool"
+external-source: curlcpp
+

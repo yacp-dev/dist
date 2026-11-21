@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libaws-c-common1.0
+sdesc: "C99 library implementing AWS SDK specific utilities (runtime)"
+ldesc: "C99 library implementing AWS SDK specific utilities"
+external-source: aws-c-sdkutils
+

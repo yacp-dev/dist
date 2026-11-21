@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libfguid1 libolecf1 python312
+sdesc: "Library and tools to access the OLE 2 Compound File (OLECF) format (python312 bindings)"
+ldesc: "libolecf is a library to access the OLE 2 Compound File (OLECF) format."
+external-source: libolecf
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgfortran5
+sdesc: "TOML parser for Fortran (runtime)"
+ldesc: "A TOML parser implementation for data serialization and deserialization in
+Fortran."
+external-source: toml-f
+

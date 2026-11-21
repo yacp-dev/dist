@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcmocka-devel
+sdesc: "C implementation of the MessagePack serialization format (licensing & readmes)"
+ldesc: "CMP is a C implementation of the MessagePack serialization format. It
+currently implements version 5 of the MessagePack Spec."
+skip:
+
+homepage: https://github.com/camgunz/cmp
+license: MIT

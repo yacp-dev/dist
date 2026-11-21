@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libfmt-devel libgmock-devel libgtest-devel mdspan nlohmann_json rapidjson-devel
+sdesc: "Model compiler for decision tree ensembles (licensing & readmes)"
+ldesc: "Treelite is a model compiler for efficient deployment of decision tree
+ensembles."
+skip:
+
+homepage: https://github.com/dmlc/treelite
+license: Apache-2.0

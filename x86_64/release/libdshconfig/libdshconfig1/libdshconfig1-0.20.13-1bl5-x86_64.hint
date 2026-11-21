@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library for parsing dsh-style configuration files (runtime)"
+ldesc: "Library for parsing dsh-style configuration files"
+external-source: libdshconfig
+

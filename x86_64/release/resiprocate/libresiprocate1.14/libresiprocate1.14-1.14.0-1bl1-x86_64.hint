@@ -1,0 +1,6 @@
+category: Net
+requires: cppunit cygwin libcares2 libdb18.1 libfmt12 libgcc1 libGeoIP1 libmariadb3 libNetxx0 libpopt0 libpq5 libradcli10 libssl3 libstdc++6
+sdesc: "C++ implementation of SIP, ICE, TURN and related protocols (runtime)"
+ldesc: "C++ implementation of SIP, ICE, TURN and related protocols"
+external-source: resiprocate
+

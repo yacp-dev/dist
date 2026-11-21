@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgfortran5
+sdesc: "C library to access the binary planetary ephemeris files (runtime)"
+ldesc: "This library is designed to access the binary planetary ephemeris files, such
+INPOPxx, JPL DExxx and SPICE ephemeris files."
+external-source: calceph
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libZXing4
+sdesc: "C++ Multi-format 1D/2D barcode image processing library (utilities)"
+ldesc: "C++ Multi-format 1D/2D barcode image processing library"
+

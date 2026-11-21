@@ -1,0 +1,8 @@
+category: Libs
+requires: girepository-GLib2.0 libaccounts-glib0 libglib2.0-devel
+sdesc: "Single signon authentication library for GLib applications (GObject Introspection data)"
+ldesc: "This project is a library for managing single signon credentials which can be
+used from GLib applications. It is effectively a GLib binding for the D-Bus
+API provided by signond. It is part of the accounts-sso project."
+external-source: libaccounts-glib
+

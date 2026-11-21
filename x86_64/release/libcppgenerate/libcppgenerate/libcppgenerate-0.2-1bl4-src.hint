@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library for generating C++ code from C++ (licensing & readmes)"
+ldesc: "A library for generating C++ code from code."
+skip:
+
+homepage: https://github.com/rm5248/libcppgenerate
+license: Apache-2.0

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ library for date and time operations based on <chrono> (runtime)"
+ldesc: "C++ library for date and time operations based on <chrono>"
+external-source: libdate-tz
+

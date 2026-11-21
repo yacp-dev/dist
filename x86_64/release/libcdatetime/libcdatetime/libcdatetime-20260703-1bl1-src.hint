@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel
+sdesc: "Library for cross-platform C date and time functions (licensing & readmes)"
+ldesc: "libcdatetime is a library for cross-platform C date and time functions."
+skip:
+
+homepage: https://github.com/libyal/libcdatetime
+license: LGPL-3.0-or-later

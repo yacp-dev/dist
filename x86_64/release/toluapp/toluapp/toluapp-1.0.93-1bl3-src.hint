@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport lua5.1-devel
+sdesc: "Tool to integrate C/Cpp code with Lua (utilities)"
+ldesc: "tolua++ is an extension of toLua, a tool to integrate C/C++ code with Lua.
+tolua++ includes new features oriented to c++, such as class templates."
+skip:
+
+homepage: https://github.com/LuaDist/toluapp
+license: MIT

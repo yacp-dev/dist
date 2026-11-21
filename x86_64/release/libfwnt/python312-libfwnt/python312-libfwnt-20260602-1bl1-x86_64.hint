@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libfwnt1 python312
+sdesc: "Library for Windows NT data types (python312 bindings)"
+ldesc: "libfwnt is a library for Windows NT data types."
+external-source: libfwnt
+

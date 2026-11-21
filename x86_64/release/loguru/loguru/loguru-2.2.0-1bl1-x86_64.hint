@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Lightweight and flexible C++ logging library (licensing & readmes)"
+ldesc: "Lightweight and flexible C++ logging library"
+

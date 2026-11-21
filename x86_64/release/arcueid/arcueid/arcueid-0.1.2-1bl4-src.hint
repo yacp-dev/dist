@@ -1,0 +1,8 @@
+category: Interpreters
+build-depends: cygport check libgmp-devel libreadline-devel
+sdesc: "C interpreter for Paul Graham's Arc dialect of Lisp (utilities)"
+ldesc: "This is Arcueid, an implementation of Paul Graham's Arc dialect of Lisp in C."
+skip:
+
+homepage: https://github.com/dido/arcueid
+license: LGPL-3.0-or-later AND GPL-3.0-or-later AND MIT

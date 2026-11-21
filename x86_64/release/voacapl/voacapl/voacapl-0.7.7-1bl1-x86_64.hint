@@ -1,0 +1,7 @@
+category: Science
+requires: bash cygwin libgcc1 libgfortran5
+sdesc: "HF propagation prediction tool"
+ldesc: "This page describes the installation and operation of the VOACAP HF Circuit
+Prediction engine on any machine supporting the GCC compiler. The basic engine
+runs from a command line and requires no graphical interface."
+

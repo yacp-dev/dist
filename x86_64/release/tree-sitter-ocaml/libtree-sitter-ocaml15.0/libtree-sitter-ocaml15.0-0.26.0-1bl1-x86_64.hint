@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "OCaml grammar for tree-sitter (runtime)"
+ldesc: "OCaml grammar for tree-sitter"
+external-source: tree-sitter-ocaml
+

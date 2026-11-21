@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport bison libpng-devel
+sdesc: "Rednex GameBoy Development System"
+ldesc: "RGBDS (Rednex Game Boy Development System) is a free assembler/linker package
+for the Game Boy and Game Boy Color."
+skip:
+
+homepage: https://github.com/gbdev/rgbds
+license: MIT

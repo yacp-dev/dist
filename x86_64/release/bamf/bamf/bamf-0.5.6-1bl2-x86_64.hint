@@ -1,0 +1,7 @@
+category: Libs
+requires: bash cygwin libgdk_pixbuf2.0_0 libglib2.0_0 libgtk3_0 libgtop2.0_10 libstartup-notification1_0 libwnck3_0 libX11_6
+sdesc: "Window matching library (utilities)"
+ldesc: "Removes the headache of applications matching into a simple DBus
+daemon and c wrapper library. Currently features application matching at amazing
+levels of accuracy (covering nearly every corner case)."
+

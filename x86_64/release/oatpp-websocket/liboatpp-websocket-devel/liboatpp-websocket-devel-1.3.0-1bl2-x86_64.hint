@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-websocket1
+sdesc: "Oatpp-websocket submodule (development)"
+ldesc: "Oatpp-websocket submodule"
+external-source: oatpp-websocket
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libvslvm1 pkg-config
+sdesc: "Library and tools to access the Linux Logical Volume Manager (LVM) volume system format (development)"
+ldesc: "libvslvm is a library to access the Linux Logical Volume Manager (LVM) volume
+system format."
+external-source: libvslvm
+

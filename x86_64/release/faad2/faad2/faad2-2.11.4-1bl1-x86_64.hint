@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libfaad2
+sdesc: "Freeware Advanced Audio (AAC) Decoder including SBR decoding (utilities)"
+ldesc: "Freeware Advanced Audio (AAC) Decoder including SBR decoding"
+

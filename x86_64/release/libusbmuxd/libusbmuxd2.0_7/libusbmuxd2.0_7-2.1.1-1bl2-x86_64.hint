@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libimobiledevice-glue1.0_0 libplist2.0_12
+sdesc: "Client library to multiplex connections from and to iOS devices (runtime)"
+ldesc: "A client library to multiplex connections from and to iOS devices by
+connecting to a socket provided by a usbmuxd daemon."
+external-source: libusbmuxd
+

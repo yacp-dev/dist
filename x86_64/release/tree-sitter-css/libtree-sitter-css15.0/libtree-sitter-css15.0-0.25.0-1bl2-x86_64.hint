@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "CSS grammar for Tree-sitter (runtime)"
+ldesc: "CSS grammar for Tree-sitter"
+external-source: tree-sitter-css
+

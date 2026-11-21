@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libadios2-devel libviskores-devel rapidjson-devel
+sdesc: "Library for reading ADIOS2 data into Viskores datasets (licensing & readmes)"
+ldesc: "Fides is a library that provides a schema for reading and writing
+data stored in ADIOS2 using a JSON-based data model, and for turning it into
+Viskores datasets for visualization."
+skip:
+
+homepage: https://gitlab.kitware.com/vtk/fides
+license: BSD-3-Clause

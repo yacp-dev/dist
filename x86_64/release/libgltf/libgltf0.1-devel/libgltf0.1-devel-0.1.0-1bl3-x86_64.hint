@@ -1,0 +1,6 @@
+category: Libs
+requires: libepoxy-devel libgltf0.1_1 pkg-config
+sdesc: "C++ Library for rendering OpenGL models stored in glTF format (development)"
+ldesc: "LIBGLTF is a C++ library for rendering OpenGL models stored in glTF format."
+external-source: libgltf
+

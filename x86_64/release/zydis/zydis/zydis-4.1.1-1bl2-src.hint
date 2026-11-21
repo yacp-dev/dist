@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libZycore-devel
+sdesc: "Fast and lightweight x86/x86_64 disassembler library (utilities)"
+ldesc: "Fast and lightweight x86/x86_64 disassembler library"
+skip:
+
+homepage: https://zydis.re/
+license: MIT

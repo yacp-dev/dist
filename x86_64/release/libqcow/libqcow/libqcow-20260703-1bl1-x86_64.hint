@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libclocale1 libcnotify1 libcpath1 libqcow1 libuna1
+sdesc: "Library and tools to access the QEMU Copy-On-Write (QCOW) image format (utilities)"
+ldesc: "libqcow is a library to access the QEMU Copy-On-Write (QCOW) image format."
+

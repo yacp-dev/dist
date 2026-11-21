@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Lightweight Chinese/Cantonese to Pinyin library (runtime)"
+ldesc: "cpp-pinyin is a lightweight Chinese/Cantonese to Pinyin library."
+external-source: cpp-pinyin
+

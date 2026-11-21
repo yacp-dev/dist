@@ -1,0 +1,10 @@
+category: Audio
+build-depends: cygport check gettext-devel libiconv-devel libshout-devel libtag_c-devel libxml2-devel
+sdesc: "Command line source client for Icecast media streaming servers"
+ldesc: "Ezstream is a command line source client for Icecast media streaming servers.
+It began as the successor of the old shout utility, and has since gained a
+lot of useful features."
+skip:
+
+homepage: https://www.icecast.org/ezstream/
+license: GPL-2.0-only AND ISC

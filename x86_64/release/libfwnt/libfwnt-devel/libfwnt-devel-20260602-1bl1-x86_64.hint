@@ -1,0 +1,6 @@
+category: Libs
+requires: libfwnt1 pkg-config
+sdesc: "Library for Windows NT data types (development)"
+ldesc: "libfwnt is a library for Windows NT data types."
+external-source: libfwnt
+

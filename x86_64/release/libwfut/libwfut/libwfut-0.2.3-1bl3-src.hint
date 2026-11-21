@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libcurl-devel libsigc2.0-devel libtinyxml-devel zlib-devel
+sdesc: "C++ implementation of the client side of WFUT (utilities)"
+ldesc: "libwfut is a C++ implementation of the client side of WFUT (forge/tools/WFUT).
+The aim of this library is to provide update capabilities for C++ based
+clients. As an example of library usage, a command line update tool is also
+provided."
+skip:
+
+homepage: https://github.com/worldforge/libwfut
+license: LGPL-2.1-or-later

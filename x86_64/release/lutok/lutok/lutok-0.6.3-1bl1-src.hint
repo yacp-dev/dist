@@ -1,0 +1,8 @@
+category: Lua
+build-depends: cygport liblua-devel
+sdesc: "Lightweight C++ API for Lua (licensing & readmes)"
+ldesc: "Lutok is a lightweight C++ API library for Lua."
+skip:
+
+homepage: https://github.com/freebsd/lutok
+license: BSD-3-Clause

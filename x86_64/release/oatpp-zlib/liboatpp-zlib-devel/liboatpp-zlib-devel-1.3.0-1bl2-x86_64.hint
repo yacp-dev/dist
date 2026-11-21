@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-zlib1
+sdesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip (development)"
+ldesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip"
+external-source: oatpp-zlib
+

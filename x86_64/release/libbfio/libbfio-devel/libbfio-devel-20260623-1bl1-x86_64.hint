@@ -1,0 +1,6 @@
+category: Libs
+requires: libbfio1 pkg-config
+sdesc: "Library to provide basic file input/output abstraction (development)"
+ldesc: "libbfio is a library to provide basic file input/output abstraction."
+external-source: libbfio
+

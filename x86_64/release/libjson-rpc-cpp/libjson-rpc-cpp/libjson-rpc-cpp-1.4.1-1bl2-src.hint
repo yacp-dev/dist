@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libargtable2-devel libcurl-devel libjsoncpp-devel libmicrohttpd-devel
+sdesc: "C++ framework for json-rpc (utilities)"
+ldesc: "This C++ library provides a json-rpc (remote procedure call) framework for
+Linux and MacOS (or any other UNIX derivate). It is fully JSON-RPC 2.0
+compatible (JSON-RPC 2.0) and provides additional features, such as generic
+authentication mechanisms."
+skip:
+
+homepage: https://github.com/cinemast/libjson-rpc-cpp
+license: MIT AND Zlib

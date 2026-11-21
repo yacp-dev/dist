@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libcnotify1 libfdatetime1 libregf1 libuna1
+sdesc: "Library and tools to access the Windows NT Registry File (REGF) format (utilities)"
+ldesc: "libregf is a library to access the Windows NT Registry File (REGF) format."
+

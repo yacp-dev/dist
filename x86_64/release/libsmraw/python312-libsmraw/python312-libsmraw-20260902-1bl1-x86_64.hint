@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libsmraw1 python312
+sdesc: "Library and tools to access the (split) RAW image format (python312 bindings)"
+ldesc: "libsmraw is a library to access the (split) RAW image format."
+external-source: libsmraw
+

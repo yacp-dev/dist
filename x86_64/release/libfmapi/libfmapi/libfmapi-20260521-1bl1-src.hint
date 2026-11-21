@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcdata-devel libcerror-devel libcnotify-devel libcthreads-devel libfdatetime-devel libfguid-devel libfwnt-devel libuna-devel
+sdesc: "Library for MAPI data types (licensing & readmes)"
+ldesc: "libfmapi is a library for MAPI data types."
+skip:
+
+homepage: https://github.com/libyal/libfmapi
+license: LGPL-3.0-or-later

@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libexpat1 libusb1.0 libxdffileio0
+sdesc: "Library to acquire data from EEG and biosignal acquisition systems (licensing & readmes)"
+ldesc: "eegdev is a library that provides an interface for accessing
+various EEG (and other biosignals) acquisition systems in a unified way. The
+interface has been designed in order to be both flexible and efficient. The
+device specific part is implemented by the means of plugins which makes adding
+new device backend fairly easy even if the library does not support them yet
+officially."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbabeltrace1 libglib2.0_0 libpopt0 libuuid1
+sdesc: "Trace Viewer and Converter, mainly for the Common Trace Format (utilities)"
+ldesc: "This project provides trace read and write libraries, as well as a trace
+converter. A plugin can be created for any trace format to allow its conversion
+to/from another trace format."
+

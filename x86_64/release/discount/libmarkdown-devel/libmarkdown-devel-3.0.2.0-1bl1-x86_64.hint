@@ -1,0 +1,6 @@
+category: Text
+requires: libmarkdown3 pkg-config
+sdesc: "My C implementation of John Gruber's Markdown markup language (development)"
+ldesc: "My C implementation of John Gruber's Markdown markup language"
+external-source: discount
+

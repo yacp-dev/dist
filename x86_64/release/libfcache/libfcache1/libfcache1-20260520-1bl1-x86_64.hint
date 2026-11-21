@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1
+sdesc: "Library to provide generic file data cache functions (runtime)"
+ldesc: "libfcache is a library to provide generic file data cache functions."
+external-source: libfcache
+

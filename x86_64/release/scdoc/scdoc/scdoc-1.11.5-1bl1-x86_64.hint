@@ -1,0 +1,5 @@
+category: Text
+requires: cygwin pkg-config
+sdesc: "Small man page generator"
+ldesc: "scdoc is a simple man page generator for POSIX systems written in C99."
+

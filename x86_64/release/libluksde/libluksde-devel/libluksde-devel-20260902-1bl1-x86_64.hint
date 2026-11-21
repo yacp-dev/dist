@@ -1,0 +1,6 @@
+category: Libs
+requires: libluksde1 pkg-config
+sdesc: "Library and tools to access LUKS Disk Encryption encrypted volumes (development)"
+ldesc: "libluksde is a library to access LUKS Disk Encryption encrypted volumes."
+external-source: libluksde
+

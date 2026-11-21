@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libfftw3-devel libusb1.0-devel
+sdesc: "Library for communicating with HackRF SDR platform (utilities)"
+ldesc: "This repository contains host software (Linux/Windows) for HackRF, a project
+to produce a low cost, open source software radio platform."
+skip:
+
+homepage: https://greatscottgadgets.com/hackrf/
+license: GPL-2.0-or-later

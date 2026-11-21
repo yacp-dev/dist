@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for Windows NT data types (licensing & readmes)"
+ldesc: "libfwnt is a library for Windows NT data types."
+

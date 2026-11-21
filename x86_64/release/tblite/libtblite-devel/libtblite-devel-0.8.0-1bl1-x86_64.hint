@@ -1,0 +1,6 @@
+category: Libs
+requires: libddx-devel libdftd4-devel liblapack-devel libmctc-lib-devel libmulticharge-devel libs-dftd3-devel libtblite0 libtoml-f-devel pkg-config
+sdesc: "Light-weight tight-binding framework (development)"
+ldesc: "Light-weight tight-binding framework"
+external-source: tblite
+

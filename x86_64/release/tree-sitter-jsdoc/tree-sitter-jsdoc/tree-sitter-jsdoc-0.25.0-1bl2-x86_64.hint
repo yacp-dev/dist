@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "JSDoc grammar for Tree-sitter (licensing & readmes)"
+ldesc: "JSDoc grammar for Tree-sitter"
+

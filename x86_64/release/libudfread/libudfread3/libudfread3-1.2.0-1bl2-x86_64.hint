@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "UDF reader library (runtime)"
+ldesc: "This library allows reading UDF filesystems, like raw devices and image files."
+external-source: libudfread
+

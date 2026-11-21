@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libyang5
+sdesc: "YANG data modeling language library (utilities)"
+ldesc: "libyang is a YANG data modelling language parser and toolkit written (and
+providing API) in C."
+

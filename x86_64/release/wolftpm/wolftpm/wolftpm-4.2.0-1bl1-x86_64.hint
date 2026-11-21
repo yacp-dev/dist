@@ -1,0 +1,5 @@
+category: Net
+requires: 
+sdesc: "Portable TPM 2.0 project designed for embedded use (licensing & readmes)"
+ldesc: "wolfTPM is a highly portable TPM 2.0 library, designed for embedded use."
+

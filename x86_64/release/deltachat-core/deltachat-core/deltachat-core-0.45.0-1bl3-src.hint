@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libetpan-devel libsasl2-devel libsqlite3-devel libssl-devel zlib-devel
+sdesc: "Delta Chat Core Library (utilities)"
+ldesc: "Delta.Chat C-Library with e2e chat-over-email functionality"
+skip:
+
+homepage: https://github.com/deltachat/deltachat-core
+license: MPL-2.0 AND MIT AND BSD-2-Clause AND Apache-2.0

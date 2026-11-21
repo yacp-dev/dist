@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libepoxy0 libgcc1 libstdc++6
+sdesc: "C++ Library for rendering OpenGL models stored in glTF format (runtime)"
+ldesc: "LIBGLTF is a C++ library for rendering OpenGL models stored in glTF format."
+external-source: libgltf
+

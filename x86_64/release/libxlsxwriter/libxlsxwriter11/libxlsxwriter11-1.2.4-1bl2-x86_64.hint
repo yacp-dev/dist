@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libssl3 zlib0
+sdesc: "C library for creating Excel XLSX files (runtime)"
+ldesc: "Libxlsxwriter is a C library that can be used to write text, numbers, formulas
+and hyperlinks to multiple worksheets in an Excel 2007+ XLSX file."
+external-source: libxlsxwriter
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libbz2-devel libcaes-devel libcdata-devel libcdirectory-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfguid-devel libfmos-devel libfplist-devel libfvalue-devel libhmac-devel liblzma-devel libuna-devel python3-devel zlib-devel
+sdesc: "Library and tools to access the Mac OS disk image formats (utilities)"
+ldesc: "libmodi is a library to access the Mac OS disk image formats."
+skip:
+
+homepage: https://github.com/libyal/libmodi
+license: LGPL-3.0-or-later

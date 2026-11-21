@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcurl-devel libmicrohttpd-devel
+sdesc: "Library embedding RESTful HTTP server functionality (licensing & readmes)"
+ldesc: "libhttpserver is a small C++ library for embedding RESTful HTTP server
+functionality into applications."
+skip:
+
+homepage: https://github.com/etr/libhttpserver
+license: LGPL-2.1-or-later

@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libh4toh5_0 libhdf4_11 libhdf5_320
+sdesc: "Tools for converting between HDF4 and HDF5 formats (utilities)"
+ldesc: "Tools for converting between HDF4 and HDF5 formats"
+

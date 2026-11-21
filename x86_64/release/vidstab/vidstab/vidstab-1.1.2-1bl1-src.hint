@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Video stabilization library (licensing & readmes)"
+ldesc: "Vidstab is a video stabilization library which can be plugged-in with Ffmpeg
+and Transcode."
+skip:
+
+homepage: https://github.com/georgmartius/vid.stab
+license: GPL-2.0-or-later

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libboost_filesystem1.66 libboost_program_options1.66 libboost_system1.66 libboost_thread1.66 libfcgi0 libfontconfig1 libgcc1 libGL1 libGLEW2.1 libglib2.0_0 libGraphicsMagick3 libhpdf2.4 libmariadb3 libpango1.0_0 libpq5 libssl3 libstdc++6 libX11_6 zlib0
+sdesc: "C++ library for developing web applications (runtime)"
+ldesc: "Wt (pronounced witty) is a C++ library and application server for
+developing and deploying web applications."
+external-source: wt
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport cppcheck libgtest-devel
+sdesc: "ROS-independent package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages (licensing & readmes)"
+ldesc: "A ROS-independent package for logging that seamlessly pipes into
+rosconsole/rosout for ROS-dependent packages"
+skip:
+
+homepage: https://github.com/ros/console_bridge
+license: BSD-3-Clause

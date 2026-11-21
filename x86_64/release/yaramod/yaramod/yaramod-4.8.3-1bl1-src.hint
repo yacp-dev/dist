@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libfmt-devel libgtest-devel libre2-devel pog python3-devel
+sdesc: "Parsing of YARA rules into AST and building new rulesets in C++ (licensing & readmes)"
+ldesc: "yaramod is a library that provides parsing of YARA rules into AST and a C++
+programming interface to build new YARA rulesets. This project is not
+associated with the YARA project."
+skip:
+
+homepage: https://github.com/avast/yaramod
+license: MIT AND CC0-1.0

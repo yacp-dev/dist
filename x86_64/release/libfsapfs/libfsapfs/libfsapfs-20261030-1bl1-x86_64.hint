@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libcnotify1 libfdatetime1 libfguid1 libfsapfs1 libhmac1 libuna1
+sdesc: "Library and tools to access the Apple File System (APFS) (utilities)"
+ldesc: "libfsapfs is a library to access the Apple File System (APFS)."
+

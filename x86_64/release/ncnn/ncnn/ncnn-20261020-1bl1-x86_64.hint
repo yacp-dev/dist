@@ -1,0 +1,13 @@
+category: Science
+requires: cygwin libgcc1 libgomp1 libncnn1 libprotobuf32 libstdc++6
+sdesc: "High-performance neural network inference framework optimized for the mobile platform (utilities)"
+ldesc: "ncnn is a high-performance neural network inference computing framework
+optimized for mobile platforms. ncnn is deeply considerate about deployment
+and uses on mobile phones from the beginning of design. ncnn does not have
+third party dependencies. it is cross-platform, and runs faster than all known
+open source frameworks on mobile phone cpu. Developers can easily deploy deep
+learning algorithm models to the mobile platform by using efficient ncnn
+implementation, create intelligent APPs, and bring the artificial intelligence
+to your fingertips. ncnn is currently being used in many Tencent applications,
+such as QQ, Qzone, WeChat, Pitu and so on."
+

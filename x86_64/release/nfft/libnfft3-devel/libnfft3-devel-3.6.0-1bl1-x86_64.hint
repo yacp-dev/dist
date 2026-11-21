@@ -1,0 +1,8 @@
+category: Libs
+requires: libfftw3-devel libnfft3_4 pkg-config
+sdesc: "Library for nonequispaced discrete Fourier transform (development)"
+ldesc: "The NFFT is a C subroutine library for computing the nonequispaced discrete
+Fourier transform (NDFT) in one or more dimensions, of arbitrary input size,
+and of complex data."
+external-source: nfft
+

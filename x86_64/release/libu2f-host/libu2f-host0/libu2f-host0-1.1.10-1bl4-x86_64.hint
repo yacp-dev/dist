@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libhidapi0 libjson-c5
+sdesc: "Yubico Universal 2nd Factor (U2F) Host C Library (runtime)"
+ldesc: "Libu2f-host provides a C library and command-line tool that implements the
+host-side of the U2F protocol. There are APIs to talk to a U2F device and
+perform the U2F Register and U2F Authenticate operations."
+external-source: libu2f-host
+

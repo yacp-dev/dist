@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Light and powerful C++ web framework (licensing & readmes)"
+ldesc: "Oat++ is a modern Web Framework for C++. It's fully loaded and contains all
+necessary components for effective production level development. It's also
+light and has a small memory footprint."
+

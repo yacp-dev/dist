@@ -1,0 +1,6 @@
+category: Scheme
+requires: bash libsagittarius0.9.15 pkg-config
+sdesc: "Free Scheme implementation supporting R6RS and R7RS (development)"
+ldesc: "Free Scheme implementation supporting R6RS and R7RS"
+external-source: sagittarius-scheme
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libfontconfig1 libfreetype6 libiconv2 libpng16 libuemf0
+sdesc: "Microsoft (MS) EMF to SVG conversion library (runtime)"
+ldesc: "MS EMF (Enhanced Metafile) to SVG conversion library."
+external-source: libemf2svg
+

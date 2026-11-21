@@ -1,0 +1,7 @@
+category: Libs
+requires: libcoeurl0.3 libcurl-devel libevent-devel libspdlog-devel pkg-config
+sdesc: "Simple async wrapper around CURL for C++ (development)"
+ldesc: "Simple library to do http requests asynchronously via CURL in C++. (Eventually
+as coroutines, once all the compilers I need to support support them.)"
+external-source: coeurl
+

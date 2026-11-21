@@ -1,0 +1,6 @@
+category: Libs
+requires: libcpd0 pkg-config libfgt-devel
+sdesc: "C++ implementation of the Coherent Point Drift point set registration algorithm (development)"
+ldesc: "C++ implementation of the Coherent Point Drift point set registration algorithm"
+external-source: cpd
+

@@ -1,0 +1,5 @@
+category: Interpreters
+requires: cygwin libreadline8
+sdesc: "Implementation of the Arc programming language"
+ldesc: "Implementation of the Arc programming language"
+

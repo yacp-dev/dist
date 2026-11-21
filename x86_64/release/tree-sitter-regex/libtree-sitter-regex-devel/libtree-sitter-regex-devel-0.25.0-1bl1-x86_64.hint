@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-regex15.0 pkg-config
+sdesc: "Tree-sitter parser for regular expressions (development)"
+ldesc: "Tree-sitter parser for regular expressions"
+external-source: tree-sitter-regex
+

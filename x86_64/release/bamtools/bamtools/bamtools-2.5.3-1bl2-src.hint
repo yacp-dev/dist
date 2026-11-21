@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libjsoncpp-devel zlib-devel
+sdesc: "C++ API & command-line toolkit for working with BAM data (utilities)"
+ldesc: "BamTools provides both a programmer's API and an end-user's toolkit for
+handling BAM files."
+skip:
+
+homepage: https://github.com/pezmaster31/bamtools
+license: MIT

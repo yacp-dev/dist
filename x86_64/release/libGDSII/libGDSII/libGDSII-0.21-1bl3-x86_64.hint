@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libGDSII0 libstdc++6
+sdesc: "C++ library and command-line utility for reading GDSII geometry files (utilities)"
+ldesc: "libGDSII is a C++ library for working with GDSII binary data files, intended
+primarily for use with the computational electromagnetism codes scuff-em and
+meep but sufficiently general-purpose to allow other uses as well."
+

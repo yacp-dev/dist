@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libgcc1 libicu76 libmbt2 libmbtserver2 libstdc++6 libticcutils10 libtimbl8
+sdesc: "Server extension of mbt (utilities)"
+ldesc: "Server extension of mbt"
+

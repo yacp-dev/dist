@@ -1,0 +1,5 @@
+category: Games
+requires: cygwin libcairo2 libgcc1 libintl8 libncursesw10
+sdesc: "Ncurses based sudoku game"
+ldesc: "Ncurses based sudoku game"
+

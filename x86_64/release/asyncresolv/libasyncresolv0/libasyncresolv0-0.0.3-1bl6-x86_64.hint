@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Asynchronous DNS query library written in C++ (runtime)"
+ldesc: "AsyncResolv is an asynchronous DNS query library written in C++.Resolver is
+capable of most rfc1035 resource records parsing, supports queries over UDP
+and over TCP (if UDP failed)"
+external-source: asyncresolv
+

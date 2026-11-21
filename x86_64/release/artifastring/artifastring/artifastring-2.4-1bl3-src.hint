@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport eigen3 libfftw3-devel python3-devel python312-numpy swig
+sdesc: "Highly optimized physical simulation of a violin for sound synthesis (utilities)"
+ldesc: "Artifastring (artificial fast string) is a highly optimized physical
+simulation of string quartet instruments (violins, violas, and cellos) for
+sound synthesis."
+skip:
+
+homepage: https://github.com/gperciva/artifastring
+license: GPL-3.0-or-later

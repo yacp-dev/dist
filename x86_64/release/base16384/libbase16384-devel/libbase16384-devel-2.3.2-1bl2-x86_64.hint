@@ -1,0 +1,6 @@
+category: Libs
+requires: libbase16384_2 pkg-config
+sdesc: "Encode binary files to printable utf16be (development)"
+ldesc: "Encode binary files to printable utf16be"
+external-source: base16384
+

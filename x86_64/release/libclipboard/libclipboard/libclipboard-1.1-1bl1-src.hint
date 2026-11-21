@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "Cross-platform clipboard library (licensing & readmes)"
+ldesc: "libclipboard is a cross-platform clipboard library written in C.
+It supports reading and writing text on the Windows, X11 and macOS
+clipboards, and provides custom allocator support."
+skip:
+
+homepage: https://github.com/jtanx/libclipboard
+license: MIT

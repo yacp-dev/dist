@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library for the high-level algorithmic differentiation of scientific models (licensing & readmes)"
+ldesc: "libadjoint is a library for the high-level algorithmic differentiation of
+scientific models. It's mainly used by dolfin-adjoint."
+

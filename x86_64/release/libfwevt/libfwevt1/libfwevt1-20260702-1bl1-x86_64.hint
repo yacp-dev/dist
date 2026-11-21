@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libcnotify1 libfdatetime1 libfguid1 libfwnt1 libuna1
+sdesc: "Library for Windows XML Event Log (EVTX) data types (runtime)"
+ldesc: "libfwevt is a library for Windows XML Event Log (EVTX) data types."
+external-source: libfwevt
+

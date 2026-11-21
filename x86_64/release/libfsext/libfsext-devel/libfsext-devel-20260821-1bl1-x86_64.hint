@@ -1,0 +1,6 @@
+category: Libs
+requires: libfsext1 pkg-config
+sdesc: "Library and tools to access the Extended File System (development)"
+ldesc: "libfsext is a library to access the Extended File System (ext)."
+external-source: libfsext
+

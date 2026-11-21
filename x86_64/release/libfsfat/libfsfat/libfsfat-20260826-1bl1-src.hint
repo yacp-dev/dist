@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfdatetime-devel libfguid-devel libhmac-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the File Allocation Table (FAT) file system (utilities)"
+ldesc: "libfsfat is a library to access the File Allocation Table (FAT) file system
+format."
+skip:
+
+homepage: https://github.com/libyal/libfsfat
+license: LGPL-3.0-or-later

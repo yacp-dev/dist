@@ -1,0 +1,9 @@
+category: Utils
+build-depends: cygport libImlib2-devel
+sdesc: "Seven Segment Optical Character Recognition"
+ldesc: "Seven Segment Optical Character Recognition or ssocr for short is a program to
+recognize digits of a seven segment display."
+skip:
+
+homepage: https://www.unix-ag.uni-kl.de/~auerswal/ssocr/
+license: GPL-3.0-or-later

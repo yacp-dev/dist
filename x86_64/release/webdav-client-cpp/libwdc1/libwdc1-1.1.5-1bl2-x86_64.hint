@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libpugixml1 libstdc++6
+sdesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers (runtime)"
+ldesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers"
+external-source: webdav-client-cpp
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libdrpm0 pkg-config
+sdesc: "Library for making, reading and applying deltarpm packages (development)"
+ldesc: "Library for making, reading and applying deltarpm packages"
+external-source: drpm
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport check libcurl-devel libglib2.0-devel libgpgme-devel libssl-devel libxml2-devel libzck-devel python3-devel
+sdesc: "Repodata downloading library (licensing & readmes)"
+ldesc: "A library providing C and Python (libcURL like) API for downloading linux
+repository metadata and packages"
+skip:
+
+homepage: https://github.com/rpm-software-management/librepo/
+license: LGPL-2.1-or-later

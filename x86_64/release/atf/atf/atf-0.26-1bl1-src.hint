@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Libraries to write tests in C, C++ and shell (utilities)"
+ldesc: "ATF, or Automated Testing Framework, is a collection of libraries to write
+test programs in C, C++ and POSIX shell."
+skip:
+
+homepage: https://github.com/freebsd/atf
+license: BSD-2-Clause AND BSD-3-Clause

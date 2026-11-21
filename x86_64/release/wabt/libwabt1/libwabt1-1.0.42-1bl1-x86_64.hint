@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libssl3 libstdc++6
+sdesc: "WebAssembly Binary Toolkit (runtime / wabt)"
+ldesc: "WABT (we pronounce it wabbit) is a suite of tools for WebAssembly"
+external-source: wabt
+

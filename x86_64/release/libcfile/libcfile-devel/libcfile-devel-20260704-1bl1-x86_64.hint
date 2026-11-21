@@ -1,0 +1,6 @@
+category: Libs
+requires: libcfile1 pkg-config
+sdesc: "Library for cross-platform C file functions (development)"
+ldesc: "libcfile is a library for cross-platform C file functions."
+external-source: libcfile
+

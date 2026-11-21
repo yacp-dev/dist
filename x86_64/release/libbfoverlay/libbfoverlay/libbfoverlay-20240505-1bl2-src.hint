@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport cygfuse gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfvalue-devel libuna-devel
+sdesc: "Library to provide basic file overlay support (utilities)"
+ldesc: "libbfoverlay is a library to provide basic file overlay support."
+skip:
+
+homepage: https://github.com/libyal/libbfoverlay
+license: LGPL-3.0-or-later

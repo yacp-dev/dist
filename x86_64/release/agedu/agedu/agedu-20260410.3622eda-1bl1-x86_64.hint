@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin
+sdesc: "Unix utility for tracking down wasted disk space"
+ldesc: "Unix utility for tracking down wasted disk space"
+

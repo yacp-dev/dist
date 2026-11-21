@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libgcc1 libhts3 libstdc++6 libz-ng2
+sdesc: "Flexible and efficient preprocessing, parsing, and manipulation of sequencing"
+ldesc: "splitcode is a tool that enables flexible and efficient preprocessing, parsing,
+and manipulation of sequencing reads according to a user’s specifications."
+

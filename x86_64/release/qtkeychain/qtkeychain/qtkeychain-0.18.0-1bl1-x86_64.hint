@@ -1,0 +1,5 @@
+category: Security
+requires: 
+sdesc: "Platform-independent Qt API for storing passwords securely (licensing & readmes)"
+ldesc: "QtKeychain is a Qt API to store passwords and other secret data securely."
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libvanessa_logger-devel
+sdesc: "Vanessa Library of Abstract Data Types (licensing & readmes)"
+ldesc: "vanessa_adt is a library of Abstract Data Types (ADTs) that may be useful.
+Includes queue, dynamic array and key value ADT."
+skip:
+
+homepage: https://projects.horms.net/projects/vanessa/
+license: LGPL-2.1-or-later

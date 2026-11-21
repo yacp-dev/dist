@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libgzipf1 python312
+sdesc: "Library and tools to access the GZIP file format (python312 bindings)"
+ldesc: "libgzipf is a library to access the GZIP file format."
+external-source: libgzipf
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libiconv2
+sdesc: "Read and write Windows Registry binary hive files (runtime)"
+ldesc: "Hive files are the undocumented binary files that Windows uses to
+store the Windows Registry on disk.  Hivex is a library that can read
+and write to these files."
+external-source: hivex
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libNetxx0 pkg-config
+sdesc: "C++ network programming library (development)"
+ldesc: "Netxx is a C++ network programming library. It is designed to take the pain
+out of programming network communications applications."
+external-source: Netxx
+

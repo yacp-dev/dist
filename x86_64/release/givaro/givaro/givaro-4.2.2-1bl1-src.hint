@@ -1,0 +1,9 @@
+category: Math
+build-depends: cygport libgmp-devel
+sdesc: "C++ library for arithmetic and algebraic computations (licensing & readmes)"
+ldesc: "In the joint CNRS-INRIA / INPG-UJF project APACHE, Givaro is a C++ library for
+arithmetic and algebraic computations."
+skip:
+
+homepage: https://github.com/linbox-team/givaro
+license: CECILL-B

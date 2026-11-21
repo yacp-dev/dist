@@ -1,0 +1,5 @@
+category: Games
+requires: bash cygwin libgcc1 libpng16 libSDL1.2_0 libSDL_image1.2_0 libSDL_mixer1.2_0 libstdc++6
+sdesc: "Computer role-playing game (CRPG) engine with game called HaximA"
+ldesc: "Computer role-playing game (CRPG) engine with game called HaximA"
+

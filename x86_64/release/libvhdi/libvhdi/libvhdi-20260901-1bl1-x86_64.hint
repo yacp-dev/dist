@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libclocale1 libcnotify1 libcpath1 libfguid1 libvhdi1
+sdesc: "Library and tools to access the Virtual Hard Disk (VHD) image format (utilities)"
+ldesc: "libvhdi is a library to access the Virtual Hard Disk (VHD) image format."
+

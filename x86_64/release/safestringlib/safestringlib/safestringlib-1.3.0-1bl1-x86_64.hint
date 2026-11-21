@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Safe string library (licensing & readmes)"
+ldesc: "The Safe String Library is a C Library providing string and memory buffer
+routines that protect against buffer overflows."
+

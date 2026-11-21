@@ -1,0 +1,5 @@
+category: Science
+requires: bash cygwin libctl7 libguile3.0_1 libhdf5_320 libmpb6 libnlopt1
+sdesc: "Computation of photonic band structures in periodic media (utilities)"
+ldesc: "MPB is a free software package for computing photonic band structures and modes."
+

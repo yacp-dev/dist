@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport git libiconv-devel libintl-devel libgmock-devel libgtest-devel libyaml-cpp-devel
+sdesc: "Datadog's implementation of a WAF engine (licensing & readmes)"
+ldesc: "libddwaf is Datadog's implementation of a Web Application Firewall (WAF)
+engine, with a goal of low performance and memory overhead, and embeddability
+in a wide variety of language runtimes through a C API."
+skip:
+
+homepage: https://github.com/DataDog/libddwaf
+license: (Apache-2.0 OR BSD-3-Clause) AND Apache-2.0 AND BSD-3-Clause AND BSD-4-Clause AND MIT

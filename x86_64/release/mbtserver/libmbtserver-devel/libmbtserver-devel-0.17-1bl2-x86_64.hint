@@ -1,0 +1,6 @@
+category: Science
+requires: libmbt-devel libmbtserver2 pkg-config
+sdesc: "Server extension of mbt (development)"
+ldesc: "Server extension of mbt"
+external-source: mbtserver
+

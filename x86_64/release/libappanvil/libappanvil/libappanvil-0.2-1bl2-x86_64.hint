@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Community-built parser library for AppArmor profiles (licensing & readmes)"
+ldesc: "Community-built parser library for AppArmor profiles"
+

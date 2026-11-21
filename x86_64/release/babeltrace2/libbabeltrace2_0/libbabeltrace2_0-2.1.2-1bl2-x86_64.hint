@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libglib2.0_0 libstdc++6 python312
+sdesc: "Open-source trace manipulation toolkit (runtime)"
+ldesc: "Babeltrace 2 is also the reference parser implementation of the Common Trace
+Format (CTF), a very versatile trace format followed by various tracers and
+tools such as LTTng and barectf. The Babeltrace 2 library and its Python
+bindings can read and write CTF traces."
+external-source: babeltrace2
+

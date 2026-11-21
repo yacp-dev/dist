@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libavcodec-devel libavformat-devel libavutil-devel libggml-devel libllama-devel libSDL2-devel libswresample-devel
+sdesc: "Port of OpenAI's Whisper model in C/C++ (utilities)"
+ldesc: "Port of OpenAI's Whisper model in C/C++"
+skip:
+
+homepage: https://github.com/ggml-org/whisper.cpp
+license: MIT

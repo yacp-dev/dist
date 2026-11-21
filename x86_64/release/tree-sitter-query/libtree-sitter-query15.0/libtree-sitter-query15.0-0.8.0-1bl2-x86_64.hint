@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "TS query grammar for tree-sitter (runtime)"
+ldesc: "TS query grammar for tree-sitter"
+external-source: tree-sitter-query
+

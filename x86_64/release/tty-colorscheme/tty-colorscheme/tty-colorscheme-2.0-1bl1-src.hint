@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Simple script to change colors in the linux TTY with 300 colorschemes"
+ldesc: "Simple script to change colors in the linux TTY with 300 colorschemes"
+skip:
+
+homepage: https://github.com/red-magic/tty-colorscheme
+license: LicenseRef-Unknown

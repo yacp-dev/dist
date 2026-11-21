@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Concepts And Meta-Programming library (licensing & readmes)"
+ldesc: "Compiler agnostic metaprogramming library providing concepts, type operations
+and tuples for C++ and cuda"
+

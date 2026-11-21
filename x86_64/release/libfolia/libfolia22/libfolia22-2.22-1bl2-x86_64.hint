@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libgcc1 libicu76 libstdc++6 libticcutils10 libxml2
+sdesc: "FoLiA library for C++ (runtime)"
+ldesc: "This is a C++ Library, developed by Ko van der Sloot, for working with the
+Format for Linguistic Annotation (FoLiA). The software is intended for C++
+developers, and provides a high-level API to read, manipulate, and create
+FoLiA documents. This software is a necessary dependency for various other
+tools that use FoLiA."
+external-source: libfolia
+

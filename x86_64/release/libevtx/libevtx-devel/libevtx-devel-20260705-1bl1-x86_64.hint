@@ -1,0 +1,6 @@
+category: Libs
+requires: libevtx1 pkg-config
+sdesc: "Library and tools to access the Windows XML Event Log (EVTX) format (development)"
+ldesc: "libevtx is a library to access the Windows XML Event Log (EVTX) format."
+external-source: libevtx
+

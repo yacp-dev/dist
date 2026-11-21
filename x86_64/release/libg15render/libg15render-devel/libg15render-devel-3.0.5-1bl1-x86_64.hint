@@ -1,0 +1,7 @@
+category: Libs
+requires: libfreetype-devel libg15-devel libg15render3 pkg-config
+sdesc: "Small library for display text and graphics on a Logitech G15 keyboard (development)"
+ldesc: "This is a library to render text and shapes into a buffer usable by the
+Logitech G15 Gaming Keyboard."
+external-source: libg15render
+

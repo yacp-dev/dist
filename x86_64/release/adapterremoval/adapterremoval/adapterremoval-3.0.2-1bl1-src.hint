@@ -1,0 +1,14 @@
+category: Science
+build-depends: cygport libdeflate-devel libisal-devel
+sdesc: "Rapid adapter trimming, identification, and read merging"
+ldesc: "AdapterRemoval searches for and removes adapter sequences from High-Throughput
+Sequencing (HTS) data and (optionally) trims low quality bases from the 3' end
+of reads following adapter removal. AdapterRemoval can analyze both single end
+and paired end data, and can be used to merge overlapping paired-ended reads
+into (longer) consensus sequences. Additionally, AdapterRemoval can construct
+a consensus adapter sequence for paired-ended reads, if which this information
+is not available."
+skip:
+
+homepage: https://github.com/MikkelSchubert/adapterremoval
+license: GPL-3.0-or-later AND MIT

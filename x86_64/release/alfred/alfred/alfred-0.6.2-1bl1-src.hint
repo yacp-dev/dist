@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport libboost-devel libhts-devel zlib-devel
+sdesc: "BAM Statistics, Feature Counting and Annotation"
+ldesc: "BAM Statistics, Feature Counting and Annotation"
+skip:
+
+homepage: https://github.com/tobiasrausch/alfred
+license: BSD-3-Clause

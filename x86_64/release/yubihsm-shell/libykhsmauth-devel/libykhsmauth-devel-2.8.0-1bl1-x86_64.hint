@@ -1,0 +1,7 @@
+category: Libs
+requires: libpcsclite-devel libssl-devel libykhsmauth2 pkg-config
+sdesc: "C library for using the YubiKey HSM Auth application (development)"
+ldesc: "This repository contains most of the components used to interact with the
+YubiHSM 2 at both a user-facing and programmatic level."
+external-source: yubihsm-shell
+

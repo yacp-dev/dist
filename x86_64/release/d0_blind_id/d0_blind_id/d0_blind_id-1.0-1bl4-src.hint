@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgmp-devel
+sdesc: "Blind-ID library for user identification using RSA blind signatures (utilities)"
+ldesc: "Cryptographic library to perform identification using Schnorr Identification
+scheme and Blind RSA Signatures"
+skip:
+
+homepage: https://github.com/divVerent/d0_blind_id
+license: BSD-3-Clause

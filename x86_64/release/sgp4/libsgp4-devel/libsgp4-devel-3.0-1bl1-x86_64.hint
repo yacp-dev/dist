@@ -1,0 +1,6 @@
+category: Libs
+requires: libsgp4_3 pkg-config
+sdesc: "Simplified perturbations models (development)"
+ldesc: "Simplified perturbations models"
+external-source: sgp4
+

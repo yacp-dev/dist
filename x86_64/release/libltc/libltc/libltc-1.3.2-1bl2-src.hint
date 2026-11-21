@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "POSIX-C Library for handling Linear/Logitudinal Time Code (licensing & readmes)"
+ldesc: "Linear (or Longitudinal) Timecode (LTC) is an encoding of timecode data as a
+Manchester-Biphase encoded audio signal. The audio signal is commonly recorded
+on a VTR track or other storage media."
+skip:
+
+homepage: https://github.com/x42/libltc
+license: LGPL-3.0-or-later

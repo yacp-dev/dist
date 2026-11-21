@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liboatpp1 libstdc++6
+sdesc: "Oatpp client for consul (runtime)"
+ldesc: "Oatpp client for consul"
+external-source: oatpp-consul
+

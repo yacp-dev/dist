@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport doxygen libxml2-devel
+sdesc: "Library providing high performance logging, tracing, ipc, and poll (utilities)"
+ldesc: "libqb is a library with the primary purpose of providing high-performance,
+reusable features for client-server architecture, such as logging, tracing,
+inter-process communication (IPC), and polling."
+skip:
+
+homepage: https://github.com/ClusterLabs/libqb/
+license: LGPL-2.1-or-later

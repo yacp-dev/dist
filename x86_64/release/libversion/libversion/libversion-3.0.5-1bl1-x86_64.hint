@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libversion1
+sdesc: "Advanced version string comparison library (utilities)"
+ldesc: "Advanced version string comparison library."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libcfile1 libclocale1 libcnotify1 libcsplit1 libhmac1
+sdesc: "Library to support various Hash-based Message Authentication Codes (HMAC) (utilities)"
+ldesc: "libhmac is a library to support various Hash-based Message Authentication
+Codes (HMAC)."
+

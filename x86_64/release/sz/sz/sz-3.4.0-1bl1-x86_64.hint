@@ -1,0 +1,5 @@
+category: Archive
+requires: cygwin libgcc1 libgomp1 libstdc++6 libzstd1
+sdesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets (utilities)"
+ldesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets"
+

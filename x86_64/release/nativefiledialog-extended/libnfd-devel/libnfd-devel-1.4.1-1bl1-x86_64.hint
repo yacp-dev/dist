@@ -1,0 +1,9 @@
+category: Libs
+requires: libnfd1 pkg-config
+sdesc: "Cross platform (Windows, Mac, Linux) native file dialog library (development)"
+ldesc: "A small C library with that portably invokes native file open, folder select
+and file save dialogs. Write dialog code once and have it pop up native
+dialogs on all supported platforms. Avoid linking large dependencies like
+wxWidgets and Qt."
+external-source: nativefiledialog-extended
+

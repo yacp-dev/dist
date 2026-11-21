@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-typescript14.0 pkg-config
+sdesc: "TypeScript grammar for tree-sitter (development)"
+ldesc: "TypeScript grammar for tree-sitter"
+external-source: tree-sitter-typescript
+

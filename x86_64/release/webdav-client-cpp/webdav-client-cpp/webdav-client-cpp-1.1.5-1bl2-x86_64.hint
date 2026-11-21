@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers (licensing & readmes)"
+ldesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers"
+

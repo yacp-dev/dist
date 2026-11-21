@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libevent2.1_7
+sdesc: "Library for Asynchronous File Descriptor Transfer (runtime)"
+ldesc: "libafdt is a library for performing asynchronous file descriptor transfers
+using libevent."
+external-source: libafdt
+

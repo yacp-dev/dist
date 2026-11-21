@@ -1,0 +1,7 @@
+category: X11
+requires: libpciaccess0 pkg-config zlib-devel
+sdesc: "Generic PCI access library (development)"
+ldesc: "libpciaccess is a library for portable PCI access routines across multiple
+operating systems."
+external-source: libpciaccess
+

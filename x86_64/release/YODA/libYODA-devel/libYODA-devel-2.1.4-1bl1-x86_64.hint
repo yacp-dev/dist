@@ -1,0 +1,9 @@
+category: Science
+requires: bash libhdf5-devel libyaml-cpp-devel libYODA0 pkg-config zlib-devel
+sdesc: "Yet more Objects for Data Analysis (development)"
+ldesc: "YODA is a small set of data analysis (specifically histogramming) classes
+being developed by MCnet members as a lightweight common system for MC event
+generator validation analyses, particularly as the core histogramming system
+in Rivet."
+external-source: YODA
+

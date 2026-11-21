@@ -1,0 +1,7 @@
+category: Utils
+requires: cygwin libjson-c5 libtlog0
+sdesc: "Terminal I/O logger (utilities)"
+ldesc: "Tlog is a terminal I/O recording and playback package suitable for
+implementing centralized user session recording. At the moment it is not ready
+for production and is to be considered development preview quality."
+

@@ -1,0 +1,8 @@
+category: Interpreters
+build-depends: cygport libncurses-devel
+sdesc: "Interpreter and compiler to be compatible with Arity/Prolog32"
+ldesc: "Interpreter and compiler to be compatible with Arity/Prolog32"
+skip:
+
+homepage: https://github.com/sasagawa888/nprolog
+license: BSD-2-Clause

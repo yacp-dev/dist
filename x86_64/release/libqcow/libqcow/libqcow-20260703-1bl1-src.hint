@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcaes-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libuna-devel python3-devel zlib-devel
+sdesc: "Library and tools to access the QEMU Copy-On-Write (QCOW) image format (utilities)"
+ldesc: "libqcow is a library to access the QEMU Copy-On-Write (QCOW) image format."
+skip:
+
+homepage: https://github.com/libyal/libqcow
+license: LGPL-3.0-or-later

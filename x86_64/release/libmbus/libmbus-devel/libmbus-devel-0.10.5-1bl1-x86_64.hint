@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin-devel libmbus0 pkg-config
+sdesc: "Meter-bus library and utility programs (development)"
+ldesc: "libmbus is an open source library for the M-bus (Meter-Bus) protocol."
+external-source: libmbus
+

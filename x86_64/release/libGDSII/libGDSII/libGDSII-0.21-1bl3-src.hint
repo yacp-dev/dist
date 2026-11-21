@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C++ library and command-line utility for reading GDSII geometry files (utilities)"
+ldesc: "libGDSII is a C++ library for working with GDSII binary data files, intended
+primarily for use with the computational electromagnetism codes scuff-em and
+meep but sufficiently general-purpose to allow other uses as well."
+skip:
+
+homepage: https://github.com/HomerReid/libGDSII
+license: GPL-2.0-or-later

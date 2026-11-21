@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "JSON grammar for tree-sitter (runtime)"
+ldesc: "JSON grammar for tree-sitter"
+external-source: tree-sitter-json
+

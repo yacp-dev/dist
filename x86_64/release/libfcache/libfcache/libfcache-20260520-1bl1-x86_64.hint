@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library to provide generic file data cache functions (licensing & readmes)"
+ldesc: "libfcache is a library to provide generic file data cache functions."
+

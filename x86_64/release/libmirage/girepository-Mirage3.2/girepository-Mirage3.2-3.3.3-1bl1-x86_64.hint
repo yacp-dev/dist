@@ -1,0 +1,8 @@
+category: Libs
+requires: girepository-GLib2.0 libglib2.0-devel libmirage12
+sdesc: "CD-ROM image access library (GObject Introspection data)"
+ldesc: "libMirage is a CD-ROM image access library. It is written in C and based on
+GLib. It's aim is to provide uniform access to the data stored in various
+image formats."
+external-source: libmirage
+

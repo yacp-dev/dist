@@ -1,0 +1,6 @@
+category: Libs
+requires: libfmapi1 pkg-config
+sdesc: "Library for MAPI data types (development)"
+ldesc: "libfmapi is a library for MAPI data types."
+external-source: libfmapi
+

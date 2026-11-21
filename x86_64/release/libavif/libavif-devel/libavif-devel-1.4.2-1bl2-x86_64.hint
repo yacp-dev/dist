@@ -1,0 +1,7 @@
+category: Libs
+requires: libaom-devel libavif16 libdav1d-devel libsvtav1-devel libwebp-devel pkg-config
+sdesc: "Library for encoding and decoding .avif files (development)"
+ldesc: "This library aims to be a friendly, portable C implementation of the AV1 Image
+File Format."
+external-source: libavif
+

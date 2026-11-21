@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Julia grammar for tree-sitter (runtime)"
+ldesc: "Julia grammar for tree-sitter"
+external-source: tree-sitter-julia
+

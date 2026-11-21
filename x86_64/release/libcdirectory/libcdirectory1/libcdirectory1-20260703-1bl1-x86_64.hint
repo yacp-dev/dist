@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libuna1
+sdesc: "Library for cross-platform C directory functions (runtime)"
+ldesc: "libcdirectory is a library for cross-platform C directory functions."
+external-source: libcdirectory
+

@@ -1,0 +1,9 @@
+category: Libs
+requires: libpoke2 pkg-config
+sdesc: "The extensible editor for structured for binary data (development)"
+ldesc: "GNU poke is an interactive, extensible editor for binary data.  Not
+limited to editing basic entities such as bits and bytes, it provides
+a full-fledged procedural, interactive programming language designed
+to describe data structures and to operate on them."
+external-source: poke
+

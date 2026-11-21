@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libfftw3_3 liblapack0
+sdesc: "Computation of photonic band structures in periodic media (runtime)"
+ldesc: "MPB is a free software package for computing photonic band structures and modes."
+external-source: mpb
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libuuid-devel
+sdesc: "Implementation in C of the Smart Message Language (SML) protocol (utilities)"
+ldesc: "libSML is a library which implements the Smart Message Language (SML) protocol
+specified by VDE's Forum Netztechnik/Netzbetrieb (FNN). It can be utilized to
+communicate to FNN specified Smart Meters or Smart Meter components (EDL/MUC)."
+skip:
+
+homepage: https://github.com/volkszaehler/libsml
+license: GPL-3.0-or-later

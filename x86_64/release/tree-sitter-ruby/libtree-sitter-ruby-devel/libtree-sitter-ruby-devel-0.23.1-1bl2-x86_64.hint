@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-ruby14.0 pkg-config
+sdesc: "Ruby grammar for tree-sitter (development)"
+ldesc: "Ruby grammar for tree-sitter"
+external-source: tree-sitter-ruby
+

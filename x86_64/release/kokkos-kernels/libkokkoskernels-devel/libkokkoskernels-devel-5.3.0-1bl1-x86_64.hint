@@ -1,0 +1,13 @@
+category: Libs
+requires: libkokkoskernels5.3 pkg-config libkokkos-devel
+sdesc: "C++ Performance Portability Programming EcoSystem: Math Kernels (development)"
+ldesc: "KokkosKernels implements local computational kernels for linear algebra and
+graph operations, using the Kokkos shared-memory parallel programming model.
+'Local' means not using MPI, or running within a single MPI process without
+knowing about MPI. 'Computational kernels' are coarse-grained operations; they
+take a lot of work and make sense to parallelize inside using Kokkos.
+KokkosKernels can be the building block of a parallel linear algebra library
+like Tpetra that uses MPI and threads for parallelism, or it can be used
+stand-alone in your application."
+external-source: kokkos-kernels
+

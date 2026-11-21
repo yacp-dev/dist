@@ -1,0 +1,6 @@
+category: Libs
+requires: libwrc1 pkg-config
+sdesc: "Library to access the Windows Resource Compiler (WRC) format (development)"
+ldesc: "libwrc is a library to access the Windows Resource Compiler (WRC) format."
+external-source: libwrc
+

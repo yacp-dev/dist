@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libimobiledevice-glue1.0_0
+sdesc: "Library and utility to talk to iBoot/iBSS via USB (runtime)"
+ldesc: "Library and utility to talk to iBoot/iBSS via USB"
+external-source: libirecovery
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libCatch2-devel
+sdesc: "Freundlich's C++ toolkit (licensing & readmes)"
+ldesc: "Freundlich's C++ Toolkit (fcppt) is a collection of libraries that aim to
+improve general C++ code through better typing and functional programming."
+skip:
+
+homepage: https://github.com/cpreh/fcppt
+license: BSL-1.0

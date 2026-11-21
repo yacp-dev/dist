@@ -1,0 +1,6 @@
+category: Security
+requires: libduo3 libssl-devel pkg-config
+sdesc: "Duo two-factor authentication for Unix systems (development)"
+ldesc: "Duo two-factor authentication for Unix systems"
+external-source: duo_unix
+

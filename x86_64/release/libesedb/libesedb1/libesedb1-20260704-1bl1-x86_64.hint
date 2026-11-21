@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libfcache1 libfdata1 libfvalue1 libfwnt1 libintl8 libuna1
+sdesc: "Library and tools to access the Extensible Storage Engine (ESE) Database File (EDB) format (runtime)"
+ldesc: "libesedb is a library to access the Extensible Storage Engine (ESE) Database
+File (EDB) format."
+external-source: libesedb
+

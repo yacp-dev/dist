@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libcthreads1 libuna1
+sdesc: "Library and tools to access the Windows Shortcut File (LNK) format (runtime)"
+ldesc: "liblnk is a library to access the Windows Shortcut File (LNK) format."
+external-source: liblnk
+

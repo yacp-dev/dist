@@ -1,0 +1,8 @@
+category: Libs
+requires: libfmt-devel libsemigroups3 pkg-config
+sdesc: "C++ library for semigroups and monoids (development)"
+ldesc: "libsemigroups is a C++ library for semigroups and monoids; it is partly based
+on Algorithms for computing finite semigroups, Expository Slides, and
+Semigroupe 2.01 by Jean-Eric Pin."
+external-source: libsemigroups
+

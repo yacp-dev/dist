@@ -1,0 +1,8 @@
+category: Libs
+requires: libfsmtrie3 pkg-config
+sdesc: "Fast string matching trie library (development)"
+ldesc: "This is the Fast String Matcher Trie project. This C-based library
+provides a simple API for the storage and fast matching of ASCII, Extended
+ASCII, and 32-bit wide token strings."
+external-source: fsmtrie
+

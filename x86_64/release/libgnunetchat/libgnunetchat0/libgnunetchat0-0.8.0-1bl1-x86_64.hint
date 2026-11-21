@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgnunetarm2 libgnunetfs2 libgnunetgns0 libgnunetgnsrecord1 libgnunethello0 libgnunetidentity1 libgnunetmessenger0 libgnunetnamestore0 libgnunetpils0 libgnunetreclaim0 libgnunetregex3 libgnunetutil23
+sdesc: "Client-side library for applications to utilize the Messenger service of GNUnet (runtime)"
+ldesc: "Client-side library for applications to utilize the Messenger service of GNUnet"
+external-source: libgnunetchat
+

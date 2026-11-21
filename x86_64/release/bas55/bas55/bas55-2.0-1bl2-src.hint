@@ -1,0 +1,10 @@
+category: Interpreters
+build-depends: cygport 
+sdesc: "Minimal BASIC programming language interpreter as defined by ECMA-55"
+ldesc: "bas55 is an implementation of the Minimal BASIC programming language as
+defined by the ECMA-55 standard. bas55 provides an interpreter and an editor
+with line renumbering capabilities."
+skip:
+
+homepage: https://jorgicor.niobe.org/bas55/
+license: GPL-3.0-or-later

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libQt5Core-devel libQt5Gui-devel
+sdesc: "Qt (C++) widgets to manage color inputs (licensing & readmes)"
+ldesc: "Here is a color dialog that is more user-friendly than the default
+QColorDialog and several other color-related widgets."
+skip:
+
+homepage: https://gitlab.com/mattbas/Qt-Color-Widgets
+license: LGPL-3.0-or-later AND BSD-2-Clause AND CC-BY-SA-4.0

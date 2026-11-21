@@ -1,0 +1,10 @@
+category: Libs
+requires: libwandio6 pkg-config
+sdesc: "Variety of supported compression methods (development)"
+ldesc: "Libwandio is a software library written in C that provides an API for
+transparently reading from and writing to files using a variety of supported
+compression methods. Provided pthreads are available, I/O performance will be
+improved by doing any compression and/or decompression using a separate
+thread."
+external-source: wandio
+

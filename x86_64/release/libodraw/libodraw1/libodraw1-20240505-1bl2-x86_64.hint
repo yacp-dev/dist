@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libcpath1 libuna1
+sdesc: "Library and tools to access to optical disc (split) RAW image files (bin/cue, iso/cue) (runtime)"
+ldesc: "libodraw is a library to access to optical disc (split) RAW image files
+(bin/cue, iso/cue)."
+external-source: libodraw
+

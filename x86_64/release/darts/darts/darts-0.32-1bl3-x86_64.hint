@@ -1,0 +1,5 @@
+category: Devel
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Double-ARray Trie System"
+ldesc: "C++ Template Library for Double-Array"
+

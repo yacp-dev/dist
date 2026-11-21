@@ -1,0 +1,6 @@
+category: Libs
+requires: libvsbsdl1 pkg-config
+sdesc: "Library and tools to access BSD disklabel volume system format (development)"
+ldesc: "libvsbsdl is a library to access the BSD disklabel volume system format."
+external-source: libvsbsdl
+

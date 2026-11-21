@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liblua-devel
+sdesc: "Fast URL decoder library (utilities)"
+ldesc: "Fast URL decoder library"
+skip:
+
+homepage: https://github.com/stricaud/faup
+license: WTFPL AND MIT AND BSD-2-Clause AND LGPL-2.0-or-later

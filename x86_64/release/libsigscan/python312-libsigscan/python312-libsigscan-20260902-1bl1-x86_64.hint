@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libsigscan1 python312
+sdesc: "Library for binary signature scanning (python312 bindings)"
+ldesc: "libsigscan is a library for binary signature scanning."
+external-source: libsigscan
+

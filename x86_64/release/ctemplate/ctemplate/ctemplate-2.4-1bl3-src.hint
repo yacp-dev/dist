@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Powerful but simple template language for C++ (utilities)"
+ldesc: "CTemplate is a simple but powerful template language for C++. It emphasizes
+separating logic from presentation: it is impossible to embed application
+logic in this template language."
+skip:
+
+homepage: https://github.com/OlafvdSpek/ctemplate
+license: BSD-3-Clause

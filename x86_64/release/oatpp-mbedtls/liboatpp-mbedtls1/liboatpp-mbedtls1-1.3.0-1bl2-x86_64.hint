@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libmbedcrypto5 libmbedtls13 libmbedx509_1 liboatpp1 libstdc++6
+sdesc: "Client/Server Secure ConnectionProvider for oatpp applications (runtime)"
+ldesc: "Client/Server Secure ConnectionProvider for oatpp applications"
+external-source: oatpp-mbedtls
+

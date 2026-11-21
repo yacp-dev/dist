@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config
+sdesc: "Basic tools (containers, algorithms) used by other quantstack packages"
+ldesc: "Basic tools (containers, algorithms) used by other quantstack packages"
+

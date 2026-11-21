@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Meter-bus library and utility programs (runtime)"
+ldesc: "libmbus is an open source library for the M-bus (Meter-Bus) protocol."
+external-source: libmbus
+

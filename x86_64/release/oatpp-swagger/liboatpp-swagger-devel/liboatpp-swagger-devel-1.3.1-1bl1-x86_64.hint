@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-swagger1
+sdesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services (development)"
+ldesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services"
+external-source: oatpp-swagger
+

@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libgnutls-devel libnettle-devel
+sdesc: "Simple RADIUS client library (licensing & readmes)"
+ldesc: "The radcli library is a library for writing RADIUS Clients. The library's
+approach is to allow writing RADIUS-aware application in less than 50 lines of
+C code. It was based originally on freeradius-client and radiusclient-ng and
+is source compatible with them."
+skip:
+
+homepage: https://github.com/radcli/radcli
+license: BSD-2-Clause AND UMich-Merit AND HPND-Fenneberg-Livingston AND BSD-MIT AND CC0-1.0 AND MIT

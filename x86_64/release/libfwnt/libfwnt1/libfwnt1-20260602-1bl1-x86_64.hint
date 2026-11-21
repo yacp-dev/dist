@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libcnotify1
+sdesc: "Library for Windows NT data types (runtime)"
+ldesc: "libfwnt is a library for Windows NT data types."
+external-source: libfwnt
+

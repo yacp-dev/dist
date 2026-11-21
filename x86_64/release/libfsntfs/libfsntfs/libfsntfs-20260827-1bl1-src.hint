@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfdatetime-devel libfguid-devel libfusn-devel libfwnt-devel libhmac-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the Windows New Technology File System (NTFS) (utilities)"
+ldesc: "libfsntfs is a library to access the Windows New Technology File System (NTFS)
+format."
+skip:
+
+homepage: https://github.com/libyal/libfsntfs
+license: LGPL-3.0-or-later

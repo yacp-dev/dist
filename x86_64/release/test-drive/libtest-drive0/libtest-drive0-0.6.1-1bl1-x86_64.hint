@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgfortran5 libquadmath0
+sdesc: "Simple testing framework (runtime)"
+ldesc: "Simple testing framework"
+external-source: test-drive
+

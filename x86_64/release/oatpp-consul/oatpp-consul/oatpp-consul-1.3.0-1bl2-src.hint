@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liboatpp-devel
+sdesc: "Oatpp client for consul (licensing & readmes)"
+ldesc: "Oatpp client for consul"
+skip:
+
+homepage: https://github.com/oatpp/oatpp-consul
+license: Apache-2.0

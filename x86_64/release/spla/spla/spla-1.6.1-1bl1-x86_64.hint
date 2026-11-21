@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Specialized Parallel Linear Algebra (licensing & readmes)"
+ldesc: "SPLA provides specialized functions for linear algebra computations with a C++
+and C interface, which are inspired by requirements in computational material
+science codes."
+

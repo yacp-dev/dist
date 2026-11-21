@@ -1,0 +1,6 @@
+category: Libs
+requires: libfortran-pcre2_0 libpcre2-devel pkg-config
+sdesc: "Fortran 2018 interface bindings to PCRE2 (development)"
+ldesc: "Fortran 2018 interface bindings to PCRE2"
+external-source: fortran-pcre2
+

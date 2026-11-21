@@ -1,0 +1,6 @@
+category: Libs
+requires: libarms0 pkg-config
+sdesc: "Client library for SMFv2 system (development)"
+ldesc: "libarms is a client library for SMFv2 system supplied by IIJ."
+external-source: libarms
+

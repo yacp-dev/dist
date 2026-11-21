@@ -1,0 +1,7 @@
+category: Text
+requires: bash libkakasi2 pkg-config
+sdesc: "Kanji Kana Simple Inverter (development)"
+ldesc: "KAKASI is the language processing filter to convert Kanji characters to
+Hiragana, Katakana or Romaji(1) and may be helpful to read Japanese documents."
+external-source: kakasi
+

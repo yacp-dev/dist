@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for Transactional Registry (TxR) data types (runtime)"
+ldesc: "libftxr is a library for Transactional Registry (TxR) data types."
+external-source: libftxr
+

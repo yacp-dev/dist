@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfdatetime-devel libfguid-devel libfmapi-devel libfvalue-devel libfwnt-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the Microsoft Outlook Nickfile (NK2) format (utilities)"
+ldesc: "libnk2 is a library to access the Microsoft Outlook Nickfile (NK2) format."
+skip:
+
+homepage: https://github.com/libyal/libnk2
+license: LGPL-3.0-or-later

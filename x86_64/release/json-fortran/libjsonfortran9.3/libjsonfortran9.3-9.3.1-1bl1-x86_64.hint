@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libgfortran5
+sdesc: "Fortran 2008 JSON API (runtime)"
+ldesc: "A user-friendly, thread-safe, and object-oriented API for reading and writing
+JSON files, written in modern Fortran."
+external-source: json-fortran
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-batch15.0 pkg-config
+sdesc: "Windows Batch/CMD grammar for tree-sitter (development)"
+ldesc: "Windows Batch/CMD grammar for tree-sitter"
+external-source: tree-sitter-batch
+

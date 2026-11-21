@@ -1,0 +1,7 @@
+category: Video
+requires: cygwin libcairo2 libgavl1 libgcc1 libopencv3.4 libstdc++6 pkg-config
+sdesc: "Large collection of free and portable video plugins"
+ldesc: "The frei0r project is a collection of free and open source video effects
+plugins that can be used with a variety of video editing and processing
+software."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libfdata1 libuna1
+sdesc: "Library and tools to access the executable (EXE) format (runtime)"
+ldesc: "libexe is a library to access the executable (EXE) format."
+external-source: libexe
+

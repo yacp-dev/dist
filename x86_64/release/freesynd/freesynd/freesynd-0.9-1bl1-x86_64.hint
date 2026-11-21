@@ -1,0 +1,6 @@
+category: Games
+requires: cygwin libADLMIDI1 libgcc1 libpng16 libSDL2_2.0_0 libSDL2_image2.0_0 libSDL2_mixer2.0_0 libstdc++6
+sdesc: "Cross-platform reimplementation of engine for the classic Bullfrog game, Syndicate"
+ldesc: "FreeSynd is a cross-platform, GPLed reimplementation of engine for the classic
+Bullfrog game, Syndicate."
+

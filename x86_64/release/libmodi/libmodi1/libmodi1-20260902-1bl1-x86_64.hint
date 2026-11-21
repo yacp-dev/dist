@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libbz2_1 libcdata1 libcdirectory1 libcerror1 libcfile1 libclocale1 libcnotify1 libcpath1 libcthreads1 libfcache1 libfdata1 libfmos1 libfplist1 libfvalue1 libintl8 liblzma5 libuna1 zlib0
+sdesc: "Library and tools to access the Mac OS disk image formats (runtime)"
+ldesc: "libmodi is a library to access the Mac OS disk image formats."
+external-source: libmodi
+

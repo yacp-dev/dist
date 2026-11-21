@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libclocale-devel libcsplit-devel libuna-devel
+sdesc: "Library for cross-platform C path functions (licensing & readmes)"
+ldesc: "libcpath is a library for cross-platform C path functions."
+skip:
+
+homepage: https://github.com/libyal/libcpath
+license: LGPL-3.0-or-later

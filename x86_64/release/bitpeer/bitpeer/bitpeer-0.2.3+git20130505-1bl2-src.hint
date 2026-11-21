@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport libevent-devel libssl-devel
+sdesc: "Experimental Bitcoin relay server"
+ldesc: "Bitpeer is an experimental Bitcoin relay server. Its event-driven
+architecture makes it extremely fast, and it was designed to be very
+lightweight."
+skip:
+
+homepage: https://github.com/TvdW/bitpeer
+license: BSD-3-Clause

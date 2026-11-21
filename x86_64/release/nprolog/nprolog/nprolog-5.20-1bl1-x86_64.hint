@@ -1,0 +1,5 @@
+category: Interpreters
+requires: cygwin libgcc1
+sdesc: "Interpreter and compiler to be compatible with Arity/Prolog32"
+ldesc: "Interpreter and compiler to be compatible with Arity/Prolog32"
+

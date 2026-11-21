@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin
+sdesc: "Compressed bitset with supporting data structures and algorithms (runtime)"
+ldesc: "The bitset structure uses word-aligned run-length encoding to
+compress sets of unsigned integers. 64-bit offsets are supported for very sparse
+sets. Unlike most succinct data structures which are immutable and append-only,
+the included bitset structure is mutable after construction."
+external-source: bitset
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libtbb-devel
+sdesc: "C implementation of the BLAKE3 cryptographic hash function (utilities)"
+ldesc: "C implementation of the BLAKE3 cryptographic hash function"
+skip:
+
+homepage: https://github.com/BLAKE3-team/BLAKE3
+license: Apache-2.0 OR CC0-1.0

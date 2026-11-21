@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libfftw3-devel
+sdesc: "Library for applying dithering to PCM audio sources (licensing & readmes)"
+ldesc: "Library for applying dithering to PCM audio sources"
+skip:
+
+homepage: https://web.archive.org/web/20230819182328/http://plugin.org.uk/libgdither/README
+license: GPL-2.0-or-later

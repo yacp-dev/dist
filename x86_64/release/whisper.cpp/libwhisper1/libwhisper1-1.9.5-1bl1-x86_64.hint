@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libggml0 libstdc++6
+sdesc: "Port of OpenAI's Whisper model in C/C++ (runtime)"
+ldesc: "Port of OpenAI's Whisper model in C/C++"
+external-source: whisper.cpp
+

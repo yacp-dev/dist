@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Advanced version string comparison library (runtime)"
+ldesc: "Advanced version string comparison library."
+external-source: libversion
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libreflex6 libreflexmin6 pkg-config re-flex
+sdesc: "High-performance C++ regex library and lexical analyzer generator with Unicode support (development)"
+ldesc: "High-performance C++ regex library and lexical analyzer generator with Unicode
+support."
+external-source: re-flex
+

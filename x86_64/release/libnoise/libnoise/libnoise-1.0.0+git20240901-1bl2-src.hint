@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Portable, open-source, coherent noise-generating library for C++ (licensing & readmes)"
+ldesc: "libnoise is a portable C++ library that is used to generate coherent noise, a
+type of smoothly-changing noise. libnoise can generate Perlin noise, ridged
+multifractal noise, and other types of coherent-noise."
+skip:
+
+homepage: https://github.com/qknight/libnoise
+license: LGPL-2.1-or-later

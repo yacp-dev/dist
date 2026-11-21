@@ -1,0 +1,7 @@
+category: Science
+requires: cygwin libdeflate0 libgcc1 libhwy1 libintl8 libisal2 libstdc++6
+sdesc: "Ultra-fast all-in-one FASTQ preprocessor"
+ldesc: "A tool designed to provide fast all-in-one preprocessing for FastQ files. This
+tool is developed in C++ with multithreading supported to afford high
+performance."
+

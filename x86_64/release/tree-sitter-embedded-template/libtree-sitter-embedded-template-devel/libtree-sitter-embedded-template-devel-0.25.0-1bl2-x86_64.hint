@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-embedded-template15.0 pkg-config
+sdesc: "Tree-sitter grammar for embedded template languages like ERB, EJS (development)"
+ldesc: "Tree-sitter grammar for embedded template languages like ERB, EJS"
+external-source: tree-sitter-embedded-template
+

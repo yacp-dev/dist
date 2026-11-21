@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Julia grammar for tree-sitter (licensing & readmes)"
+ldesc: "Julia grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-julia
+license: MIT

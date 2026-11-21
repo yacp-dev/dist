@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library to support cross-platform AES encryption (licensing & readmes)"
+ldesc: "libcaes is a library to support cross-platform AES encryption."
+

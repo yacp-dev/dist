@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Rust grammar for tree-sitter (licensing & readmes)"
+ldesc: "Rust grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-rust
+license: MIT

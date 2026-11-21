@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services (licensing & readmes)"
+ldesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services"
+

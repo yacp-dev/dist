@@ -1,0 +1,6 @@
+category: Libs
+requires: libevt1 pkg-config
+sdesc: "Library and tools to access the Windows Event Log (EVT) format (development)"
+ldesc: "libevt is a library to access the Windows Event Log (EVT) format."
+external-source: libevt
+

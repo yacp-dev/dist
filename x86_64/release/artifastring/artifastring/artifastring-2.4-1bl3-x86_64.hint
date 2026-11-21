@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libartifastring0 libgcc1 libstdc++6 python3 python312-artifastring
+sdesc: "Highly optimized physical simulation of a violin for sound synthesis (utilities)"
+ldesc: "Artifastring (artificial fast string) is a highly optimized physical
+simulation of string quartet instruments (violins, violas, and cellos) for
+sound synthesis."
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport bison flex
+sdesc: "vCard library (licensing & readmes)"
+ldesc: "The libvc library is a C library for accessing and manipulating vCard files.
+This package contains only the shared libraries for use by applications that
+need them at run-time."
+skip:
+
+homepage: https://github.com/libvc/libvc
+license: LGPL-2.1-or-later

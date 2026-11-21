@@ -1,0 +1,12 @@
+category: Audio
+build-depends: cygport 
+sdesc: "Apple Lossless Audio Codec (utilities)"
+ldesc: "The Apple Lossless Audio Codec (ALAC) is an audio codec developed by Apple and
+supported on iPhone, iPad, most iPods, Mac and iTunes. ALAC is a data
+compression method which reduces the size of audio files with no loss of
+information. A decoded ALAC stream is bit-for-bit identical to the original
+uncompressed audio file."
+skip:
+
+homepage: https://github.com/macosforge/alac
+license: Apache-2.0

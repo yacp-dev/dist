@@ -1,0 +1,9 @@
+category: Libs
+requires: libcurl-devel libjsoncpp-devel libjsonrpccpp1 libmicrohttpd-devel pkg-config
+sdesc: "C++ framework for json-rpc (development)"
+ldesc: "This C++ library provides a json-rpc (remote procedure call) framework for
+Linux and MacOS (or any other UNIX derivate). It is fully JSON-RPC 2.0
+compatible (JSON-RPC 2.0) and provides additional features, such as generic
+authentication mechanisms."
+external-source: libjson-rpc-cpp
+

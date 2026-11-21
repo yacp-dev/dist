@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Asynchronous Low Latency C++ Logging Library"
+ldesc: "Quill is a cross-platform low latency logging library based on C++14."
+skip:
+
+homepage: https://github.com/odygrd/quill
+license: MIT

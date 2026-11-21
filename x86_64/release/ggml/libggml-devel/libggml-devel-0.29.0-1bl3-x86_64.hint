@@ -1,0 +1,6 @@
+category: Libs
+requires: libggml0 pkg-config
+sdesc: "Tensor library for machine learning (development)"
+ldesc: "Tensor library for machine learning"
+external-source: ggml
+

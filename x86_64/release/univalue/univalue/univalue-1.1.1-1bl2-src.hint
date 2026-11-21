@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C++ universal value object and JSON library (licensing & readmes)"
+ldesc: "A universal value object, with JSON encoding (output) and decoding (input)."
+skip:
+
+homepage: https://github.com/jgarzik/univalue
+license: MIT

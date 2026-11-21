@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport cygfuse gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfvalue-devel libuna-devel python3-devel zlib-devel
+sdesc: "Library and tools to access the VMware Virtual Disk (VMDK) format (utilities)"
+ldesc: "libvmdk is a library to access the VMware Virtual Disk (VMDK) format."
+skip:
+
+homepage: https://github.com/libyal/libvmdk
+license: LGPL-3.0-or-later

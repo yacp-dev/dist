@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "SIMD Library for Evaluating Elementary Functions, vectorized libm and DFT (licensing & readmes)"
+ldesc: "In this library, functions for evaluating some elementary functions are
+implemented. The library also includes DFT subroutines."
+skip:
+
+homepage: https://github.com/shibatch/sleef
+license: BSL-1.0

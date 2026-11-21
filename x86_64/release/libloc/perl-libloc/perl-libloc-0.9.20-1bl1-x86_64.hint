@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libloc1 perl5_044 perl_base
+sdesc: "Library to determine the location of someone on the Internet (perl bindings)"
+ldesc: "Library to determine the location of someone on the Internet"
+external-source: libloc
+

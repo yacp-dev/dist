@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libssl1.0-devel
+sdesc: "C++ network programming library (licensing & readmes)"
+ldesc: "Netxx is a C++ network programming library. It is designed to take the pain
+out of programming network communications applications."
+skip:
+
+homepage: https://sourceforge.net/projects/netxx/
+license: BSD-3-Clause

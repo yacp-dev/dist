@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C++ library to manage Progress bars (licensing & readmes)"
+ldesc: "libProgressBar is a C++ library to manage... Progress bars!!!"
+skip:
+
+homepage: https://gite.lirmm.fr/doccy/libProgressBar/
+license: LGPL-2.0-only

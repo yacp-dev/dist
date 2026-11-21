@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1
+sdesc: "C library for finding and handling crystal symmetries (runtime)"
+ldesc: "Spglib is a C library for finding and handling crystal symmetries."
+external-source: spglib
+

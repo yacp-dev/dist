@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libgcc1 libgomp1 libicu76 libstdc++6 libticcl1 libticcutils10 libxml2_2
+sdesc: "Tools for TICCL (utilities)"
+ldesc: "A collection of tools to process ticcl files"
+

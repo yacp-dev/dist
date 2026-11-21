@@ -1,0 +1,7 @@
+category: Libs
+requires: libbamtools2.5.3 libjsoncpp-devel pkg-config zlib-devel
+sdesc: "C++ API & command-line toolkit for working with BAM data (development)"
+ldesc: "BamTools provides both a programmer's API and an end-user's toolkit for
+handling BAM files."
+external-source: bamtools
+

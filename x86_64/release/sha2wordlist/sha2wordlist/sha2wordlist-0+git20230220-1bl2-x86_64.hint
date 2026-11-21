@@ -1,0 +1,6 @@
+category: Text
+requires: cygwin
+sdesc: "Display SHA-256 as PGP words"
+ldesc: "sha2wordlist digests STDIN and output a SHA-256 checksum displayed as PGP
+words."
+

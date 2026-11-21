@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libgflags2.2 libstdc++6 libunwind1
+sdesc: "C++ implementation of the Google logging module (runtime)"
+ldesc: "The glog library implements application-level logging. This library provides
+logging APIs based on C++-style streams and various helper macros."
+external-source: glog
+

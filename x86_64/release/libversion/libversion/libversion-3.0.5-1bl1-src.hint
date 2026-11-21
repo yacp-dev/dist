@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Advanced version string comparison library (utilities)"
+ldesc: "Advanced version string comparison library."
+skip:
+
+homepage: https://github.com/repology/libversion
+license: MIT

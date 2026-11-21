@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran python3-devel python312-numpy swig
+sdesc: "Library for X-ray matter interaction cross sections for X-ray fluorescence applications (licensing & readmes)"
+ldesc: "This is xraylib, a library for X-ray matter interactions cross sections for
+X-ray fluorescence applications: core C library"
+skip:
+
+homepage: https://github.com/tschoonj/xraylib
+license: BSD-3-Clause

@@ -1,0 +1,6 @@
+category: Libs
+requires: libmcfp2 pkg-config
+sdesc: "Library for parsing command line arguments and configuration files (development)"
+ldesc: "Library for parsing command line arguments and configuration files"
+external-source: libmcfp
+

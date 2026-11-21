@@ -1,0 +1,11 @@
+category: Science
+build-depends: cygport autoconf-archive hdf5 libhdf5-devel libyaml-cpp-devel python312-cython python312-matplotlib python312-numpy python3-devel zlib-devel
+sdesc: "Yet more Objects for Data Analysis (licensing & readmes)"
+ldesc: "YODA is a small set of data analysis (specifically histogramming) classes
+being developed by MCnet members as a lightweight common system for MC event
+generator validation analyses, particularly as the core histogramming system
+in Rivet."
+skip:
+
+homepage: https://yoda.hepforge.org/
+license: GPL-3.0-only AND BSD-3-Clause AND MIT

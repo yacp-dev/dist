@@ -1,0 +1,6 @@
+category: Libs
+requires: libcurl-devel libcurlcpp3 pkg-config
+sdesc: "Object oriented C++ wrapper for CURL (development)"
+ldesc: "An object-oriented C++ wrapper for cURL tool"
+external-source: curlcpp
+

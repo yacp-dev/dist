@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config
+sdesc: "Implementations of SIMD instruction sets"
+ldesc: "Implementations of SIMD instruction sets"
+

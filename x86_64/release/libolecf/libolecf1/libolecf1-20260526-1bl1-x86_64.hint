@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libfvalue1 libuna1
+sdesc: "Library and tools to access the OLE 2 Compound File (OLECF) format (runtime)"
+ldesc: "libolecf is a library to access the OLE 2 Compound File (OLECF) format."
+external-source: libolecf
+

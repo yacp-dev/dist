@@ -1,0 +1,8 @@
+category: Scheme
+build-depends: cygport libffi-devel libgc-devel libiodbc-devel libssl-devel zlib-devel
+sdesc: "Free Scheme implementation supporting R6RS and R7RS (utilities)"
+ldesc: "Free Scheme implementation supporting R6RS and R7RS"
+skip:
+
+homepage: https://github.com/ktakashi/sagittarius-scheme
+license: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND MIT AND Unlicense

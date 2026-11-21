@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Compact general purpose allocator with excellent performance (licensing & readmes)"
+ldesc: "mimalloc (pronounced 'me-malloc') is a general purpose allocator with
+excellent performance characteristics. Initially developed by Daan Leijen for
+the run-time systems of the Koka and Lean languages."
+skip:
+
+homepage: https://github.com/microsoft/mimalloc
+license: MIT

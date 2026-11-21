@@ -1,0 +1,6 @@
+category: Libs
+requires: libcext0 pkg-config
+sdesc: "ESO's C Library Extensions (development)"
+ldesc: "This is libcext, ESO's C Library Extensions. It is a C utility library, which is used to implement ESO's Common Pipeline Library (CPL)."
+external-source: cext
+

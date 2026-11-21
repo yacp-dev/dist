@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Masm compatible assembler"
+ldesc: "Masm compatible assembler"
+skip:
+
+homepage: https://github.com/Baron-von-Riedesel/JWasm
+license: Watcom-1.0

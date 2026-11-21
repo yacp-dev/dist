@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libSDL-devel libogg-devel
+sdesc: "New video compression technology (licensing & readmes)"
+ldesc: "Daala is the code-name for a new video compression technology. The effort is a
+collaboration between Mozilla Foundation, Xiph.Org Foundation and other
+contributors."
+skip:
+
+homepage: https://www.xiph.org/daala/
+license: BSD-2-Clause

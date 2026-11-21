@@ -1,0 +1,5 @@
+category: Security
+requires: cygwin libssl3
+sdesc: "PKCS11 provider for OpenSSL 3.0+"
+ldesc: "PKCS11 provider for OpenSSL 3.0+"
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Fastest JSON library in C (licensing & readmes)"
+ldesc: "A high performance JSON library written in ANSI C."
+

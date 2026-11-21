@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libbz2_1 libcdata1 libcerror1 libclocale1 libcnotify1 libcthreads1 libfcache1 libfdata1 libfvalue1 libhmac1 libuna1 zlib0
+sdesc: "Library to access the Expert Witness Compression Format (EWF) (runtime)"
+ldesc: "libewf is a library to access the Expert Witness Compression Format (EWF)."
+external-source: libewf
+

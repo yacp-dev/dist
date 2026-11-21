@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library intended to support the filesystem functions of an emulated CP/M computer (licensing & readmes)"
+ldesc: "CPMREDIR is a library intended to support the filesystem functions of an
+emulated CP/M computer, in a Unix or Windows (mingw32) environment."
+skip:
+
+homepage: https://www.seasip.info/Unix/Zxcc/
+license: LGPL-2.0-or-later

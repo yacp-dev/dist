@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libonig-devel
+sdesc: "Breadth-first version of the UNIX find command"
+ldesc: "Breadth-first version of the UNIX find command"
+skip:
+
+homepage: https://github.com/tavianator/bfs
+license: 0BSD

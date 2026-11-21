@@ -1,0 +1,7 @@
+category: Libs
+requires: libfishsound1 pkg-config
+sdesc: "Simple programming interface for decoding and encoding audio data (development)"
+ldesc: "libfishsound provides a simple programming interface for decoding and encoding
+audio data using the Xiph.org codecs (FLAC, Speex and Vorbis)."
+external-source: libfishsound
+

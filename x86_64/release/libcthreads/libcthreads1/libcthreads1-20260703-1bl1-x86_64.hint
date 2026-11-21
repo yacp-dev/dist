@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for cross-platform C threads functions (runtime)"
+ldesc: "libcthreads is a library for cross-platform C threads functions."
+external-source: libcthreads
+

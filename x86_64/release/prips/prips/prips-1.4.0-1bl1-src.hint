@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport 
+sdesc: "Print the IP addresses in a given range"
+ldesc: "prips is a tool that can be used to print all of the IP addresses in a given
+range. It can enhance the usability of tools that are made to work on only one
+host at a time (e.g. whois)."
+skip:
+
+homepage: https://devel.ringlet.net/sysutils/prips/
+license: GPL-2.0-or-later

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Fast Common Data Representation (CDR) Serialization Library (runtime)"
+ldesc: "eProsima Fast CDR is a C++ library that provides two serialization mechanisms.
+One is the standard CDR serialization mechanism, while the other is a faster
+implementation that modifies the standard."
+external-source: fast-cdr
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcthreads-devel libuna-devel python3-devel
+sdesc: "Library to access to storage media devices (utilities)"
+ldesc: "libsmdev is a library to access to storage media devices."
+skip:
+
+homepage: https://github.com/libyal/libsmdev
+license: LGPL-3.0-or-later

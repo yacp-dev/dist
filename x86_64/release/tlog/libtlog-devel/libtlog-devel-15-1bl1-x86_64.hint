@@ -1,0 +1,8 @@
+category: Utils
+requires: libcurl-devel libjson-c-devel libtlog0 pkg-config
+sdesc: "Terminal I/O logger (development)"
+ldesc: "Tlog is a terminal I/O recording and playback package suitable for
+implementing centralized user session recording. At the moment it is not ready
+for production and is to be considered development preview quality."
+external-source: tlog
+

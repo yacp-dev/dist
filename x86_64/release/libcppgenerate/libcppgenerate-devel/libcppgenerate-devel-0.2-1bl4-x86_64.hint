@@ -1,0 +1,6 @@
+category: Libs
+requires: libcppgenerate0 pkg-config
+sdesc: "Library for generating C++ code from C++ (development)"
+ldesc: "A library for generating C++ code from code."
+external-source: libcppgenerate
+

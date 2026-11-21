@@ -1,0 +1,7 @@
+category: Math
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Advanced SAT solver (runtime)"
+ldesc: "CryptoMiniSat is a modern, multi-threaded, feature-rich, simplifying SAT
+solver."
+external-source: cryptominisat
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Software for solving nonlinear equations and nonlinear least squares problems (runtime)"
+ldesc: "Software for solving nonlinear equations and nonlinear least squares problems"
+external-source: minpack
+

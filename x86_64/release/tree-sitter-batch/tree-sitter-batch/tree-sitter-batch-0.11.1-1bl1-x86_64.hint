@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Windows Batch/CMD grammar for tree-sitter (licensing & readmes)"
+ldesc: "Windows Batch/CMD grammar for tree-sitter"
+

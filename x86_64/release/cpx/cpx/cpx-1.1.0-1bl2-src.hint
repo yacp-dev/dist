@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport gcc-fortran liblapack-devel libmctc-lib-devel libnumsa-devel libtest-drive-devel libtoml-f-devel
+sdesc: "Extended conductor-like polarizable continuum solvation model (utilities)"
+ldesc: "This is an fully open source solvation model, based on the original conductor
+like screening model for realistic solvation (COSMO-RS) model by Klamt et al.
+in combination with the universal solvation model based on solute electron
+density (SMD) by Marenich, Cramer and Truhlar."
+skip:
+
+homepage: https://github.com/grimme-lab/CPCM-X
+license: LGPL-3.0-or-later

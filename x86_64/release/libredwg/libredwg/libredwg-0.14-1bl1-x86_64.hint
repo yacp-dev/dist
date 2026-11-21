@@ -1,0 +1,7 @@
+category: Libs
+requires: bash cygwin libpcre2_16_0 libpcre2_8_0 libps0 libredwg0
+sdesc: "Free C library to read and write DWG files (utilities)"
+ldesc: "GNU LibreDWG is a free C library to handle DWG files. It aims to be a free
+replacement for the OpenDWG libraries. DWG is the native file format of
+AutoCAD."
+

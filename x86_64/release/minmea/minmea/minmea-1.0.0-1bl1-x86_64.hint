@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "lightweight GPS NMEA 0183 parser library in pure C (licensing & readmes)"
+ldesc: "Minmea is a minimalistic GPS parser library written in pure C intended for
+resource-constrained platforms, especially microcontrollers and other embedded
+systems."
+

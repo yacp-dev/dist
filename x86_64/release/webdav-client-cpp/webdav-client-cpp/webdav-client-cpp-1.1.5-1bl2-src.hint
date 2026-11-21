@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libboost-devel libcurl-devel libpugixml-devel
+sdesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers (licensing & readmes)"
+ldesc: "C++ WebDAV Client provides easy and convenient to work with WebDAV-servers"
+skip:
+
+homepage: https://github.com/CloudPolis/webdav-client-cpp
+license: curl

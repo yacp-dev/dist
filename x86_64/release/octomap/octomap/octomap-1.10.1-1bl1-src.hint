@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Efficient Probabilistic 3D Mapping Framework Based on Octrees (utilities)"
+ldesc: "Efficient Probabilistic 3D Mapping Framework Based on Octrees"
+skip:
+
+homepage: https://github.com/OctoMap/octomap
+license: BSD-3-Clause
