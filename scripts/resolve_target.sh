@@ -60,6 +60,7 @@ match() {
   echo "$best"
 }
 
+original_target="$target"
 package="$(match "$target" "$dirs")"
 if [[ -z "$package" ]]; then
   lower_match="$(match "$(tr '[:upper:]' '[:lower:]' <<<"$target")" "$(tr '[:upper:]' '[:lower:]' <<<"$dirs")")"
@@ -74,19 +75,35 @@ fi
 # longest directory name on that branch, and its .cygport has to be at
 # exactly the target's version. Looked up even when master matched,
 # since a new foo-bar would otherwise be taken for master's foo at
-# version bar-<ver>.
+# version bar-<ver>. A branch can also rename an existing package's directory
+# (e.g. CheMPS2/ -> chemps2/).
 branch=""
-if gh api "repos/$repo/branches/dorgann/$target" >/dev/null 2>&1; then
-  branch_package="$(match "$target" "$(gh api "repos/$repo/git/trees/dorgann/$target" --jq '.tree[] | select(.type == "tree") | .path')")"
-  # The same name counts too when master's directory has no .cygport (a
-  # stale leftover): the package isn't on master, and the branch holds it.
-  if (( ${#branch_package} > ${#package} )) ||
-     { [[ -n "$package" && "$branch_package" == "$package" ]] &&
-       ! gh api "repos/$repo/contents/$package" --jq '.[].name' | grep -q '\.cygport$'; }; then
-    package="$branch_package"
-    branch="dorgann/$target"
-  fi
+if [[ "$original_target" =~ ^(.*)-[0-9]+bl[0-9]+$ ]]; then
+  branch_candidate="${BASH_REMATCH[1]}"
+elif [[ "$target" =~ ^(.*)-[0-9]+bl[0-9]+$ ]]; then
+  branch_candidate="${BASH_REMATCH[1]}"
+else
+  branch_candidate="$target"
 fi
+
+for b in "$original_target" "$branch_candidate" "$target"; do
+  [[ -n "$b" ]] || continue
+  if gh api "repos/$repo/branches/dorgann/$b" >/dev/null 2>&1; then
+    branch_tree="$(gh api "repos/$repo/git/trees/dorgann/$b" --jq '.tree[] | select(.type == "tree") | .path')"
+    branch_package="$(match "$original_target" "$branch_tree")"
+    [[ -n "$branch_package" ]] || branch_package="$(match "$target" "$branch_tree")"
+    if (( ${#branch_package} > ${#package} )) ||
+       { [[ -n "$package" && "$branch_package" == "$package" ]] &&
+         ! gh api "repos/$repo/contents/$package" --jq '.[].name' | grep -q '\.cygport$'; } ||
+       { [[ -n "$package" && "$branch_package" != "$package" ]] &&
+         [[ "$(tr '[:upper:]' '[:lower:]' <<<"$branch_package")" == "$(tr '[:upper:]' '[:lower:]' <<<"$package")" ]]; }; then
+      package="$branch_package"
+      branch="dorgann/$b"
+      target="$package${original_target:${#package}}"
+      break
+    fi
+  fi
+done
 [[ -n "$package" ]] || { echo "No package in $repo matches '$target' (a new package needs its recipe pushed as dorgann/<pkg>-<ver> first)" >&2; exit 1; }
 
 if [[ -n "$branch" ]]; then
@@ -96,14 +113,42 @@ if [[ -n "$branch" ]]; then
   name="${name#"$package"-}"
   version="${name%-*}"
   release="${name##*-}"
-  [[ "$target" == "$package-$version" ]] || { echo "$branch carries $cygport_file, not $target" >&2; exit 1; }
+  [[ "$target" == "$package-$version" || "$target" == "$package-$version-$release" ]] || { echo "$branch carries $cygport_file, not $target" >&2; exit 1; }
 
-  result="mode=new
+  master_package="$(grep -ix -- "$package" <<<"$dirs" | head -n 1 || true)"
+  master_cygport=""
+  if [[ -n "$master_package" ]]; then
+    master_cygport="$(gh api "repos/$repo/contents/$master_package" --jq '.[].name' | grep '\.cygport$' | head -n 1 || true)"
+  fi
+
+  if [[ -n "$master_cygport" ]]; then
+    current="${master_cygport%.cygport}"
+    current="${current#"$master_package"-}"
+    current_release="${current##*-}"
+    current_version="${current%-*}"
+    next_release=""
+    if [[ "$current_release" =~ ^([0-9]+)bl([0-9]+)$ ]]; then
+      next_release="${BASH_REMATCH[1]}bl$((BASH_REMATCH[2] + 1))"
+    fi
+    if [[ "$version" != "$current_version" ]]; then
+      mode="bump"
+    elif [[ -n "$next_release" && "$release" == "$next_release" ]]; then
+      mode="gcc-rebuild"
+    else
+      mode="rebuild"
+    fi
+  else
+    mode="new"
+    current_version=""
+    current_release=""
+  fi
+
+  result="mode=$mode
 package=$package
 version=$version
 release=$release
-current_version=
-current_release=
+current_version=$current_version
+current_release=$current_release
 cygport_file=$cygport_file"
   echo "$result"
   if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
