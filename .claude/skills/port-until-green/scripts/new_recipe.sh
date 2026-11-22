@@ -109,6 +109,7 @@ mkdir -p "$worktrees"
 git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
 mkdir -p "$wt/$package"
 printf '%s\n' "$content" > "$wt/$file"
+bash "$(dirname "$0")/format_build_requires.sh" --dir "$wt/$package" --file "$(basename "$file")" >/dev/null 2>&1 || true
 git -C "$wt" add "$file"
 git -C "$wt" commit -q -m "$package-$version"
 

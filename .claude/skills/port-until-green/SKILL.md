@@ -113,6 +113,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   a git snapshot to upstream HEAD (Step 1).
 - `scripts/distro_patches.sh --project NAME --version V --out DIR` — the
   distros' patches with pinned URLs ("Distro patches", Step 2).
+- `scripts/format_build_requires.sh --dir DIR --file FILE` — rewrites
+  `BUILD_REQUIRES` and `PATCH_URI` into one entry per tab-indented line.
 - `scripts/new_recipe.sh --package P --version V --source URL --homepage URL [--dry-run]` —
   a draft recipe for a package not in ports ("New packages", Step 1).
 - `scripts/decompose_patch.py --patch P [--dest DIR] [--cygport FILE] [--drop-patch]` —

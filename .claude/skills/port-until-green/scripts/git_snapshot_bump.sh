@@ -109,6 +109,8 @@ mkdir -p "$worktrees"
 git -C "$ports" worktree add -q -B "$branch" "$wt" origin/master
 cd "$wt"
 PATH="$shim:$PATH" bash "$dorgann/scripts/bump_version.sh" --dir "$package" --version "$version" --git-rev "$new_rev" >&2
+cygport="$(cd "$package" && ls ./*.cygport 2>/dev/null | head -n 1)"
+[[ -n "$cygport" ]] && bash "$(dirname "$0")/format_build_requires.sh" --dir "$package" --file "${cygport#./}" >/dev/null 2>&1 || true
 git add -A -- "$package"
 git commit -q -m "$package-$version"
 git push -q origin "$branch"

@@ -136,6 +136,11 @@ if [[ -n "$rebuild" ]]; then
 else
   PATH="$here/bin:$PATH" bash "$dorgann/scripts/bump_version.sh" --dir "$wt/$package" --version "$version" >/dev/null
 fi
+
+top="$wt/$package"
+cygport="$(cd "$top" && ls ./*.cygport 2>/dev/null | head -n 1)"
+[[ -n "$cygport" ]] && bash "$here/format_build_requires.sh" --dir "$top" --file "${cygport#./}" >/dev/null 2>&1 || true
+
 git -C "$wt" add -A -- "$package"
 git -C "$wt" commit -q -m "$package-$version"
 
