@@ -1137,6 +1137,11 @@ When performing basic coreutils file operations in `src_install` (such as
 **Where things go in a recipe.** Whenever you add or touch one of these,
 and in a recipe you've just bumped even if a run didn't complain:
 
+- The first `SRC_URI` entry (the main source) never gets a `#/<name>` rename:
+  cygport puts the whole `SRC_URI` entry, `#/` included, into the README. Use
+  the URL as is (`.../archive/refs/tags/v${PV}.tar.gz`); the tarball name
+  doesn't matter, since `SRC_DIR` is the extracted directory. Renames are
+  for additional entries only (e.g. FetchContent sources above).
 - `PATCH_URI` on the line right after `SRC_URI`, no blank line between
   them, then the blank line before `CATEGORY`.
 - A Fedora patch in `PATCH_URI` pinned to a commit (`.../raw/<commit>/f/...`,
