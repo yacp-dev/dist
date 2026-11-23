@@ -40,12 +40,19 @@ def parse_patch(patch_path):
             continue
         has_files = True
 
-        # Check if the original file is empty / newly created
-        # Common diff indicators: /dev/null or 1970-01-01 / 1969-12-31 timestamp
+        # A new file has the empty-file header (/dev/null, or the 1970/1969
+        # epoch timestamp) AND only `@@ -0,0 +1,N @@` hunks. The timestamp
+        # alone is not enough: cygport diff stamps every origsrc file with
+        # the epoch, so a patch modifying an existing file carries it too.
         if not (
             "/dev/null" in orig_line
             or "1970-01-01" in orig_line
             or "1969-12-31" in orig_line
+        ):
+            return None
+        hunk_headers = [l for l in lines[2:] if l.startswith("@@ ")]
+        if not hunk_headers or any(
+            not re.match(r"@@ -0,0 ", h) for h in hunk_headers
         ):
             return None
 
