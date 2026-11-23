@@ -401,6 +401,15 @@ normally fine as they are):
     run `scripts/decompose_patch.py --patch "$patch" --cygport "$cygport" --drop-patch`
     or extract the files into the package directory, add them to `SRC_URI`,
     drop the `.src.patch`, and commit.
+  - **`.src.patch` creates `configure.ac` and `Makefile.am` from scratch** →
+    when an existing `.src.patch` adds new `configure.ac` and `Makefile.am` files
+    (legacy autotools boilerplate for an upstream project that had no proper build system),
+    rebuild the build system with **CMake** instead of carrying forward the autotools patch:
+    1. Switch the recipe from `inherit autotools` (or plain cygport) to `inherit cmake` (and `inherit git` if tracking git).
+    2. Drop the `.src.patch` (or remove the autotools hunks from it).
+    3. Place `CMakeLists.txt` in the package directory and add it to `SRC_URI` (`SRC_URI+=" CMakeLists.txt"`).
+    4. Implement target building (`add_library(...)`, `target_include_directories(...)`, `target_link_libraries(...)`, `set_target_properties(... PROPERTIES SOVERSION ...)`), headers, and installation in `CMakeLists.txt`.
+    5. For `.pc` (pkg-config), embed and generate it directly inside `CMakeLists.txt` using `file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/<pkg>.pc" "...")` and install it with `install(FILES "${CMAKE_CURRENT_BINARY_DIR}/<pkg>.pc" DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)` rather than adding a separate `.pc.in` file to `SRC_URI`.
   - A `note:` about hooks (`src_unpack_hook`, `DISTCLEANFILES`, ...)
     means cygport changes the tree before patching in ways the script
     doesn't reproduce: treat a `FAILS` there as a lead, not a result.
@@ -1056,6 +1065,12 @@ Edit only files under the package directory. Common fixes:
   (`movit`, `portage-utils` and `libklvanc` in ports do this):
   `CYGPORT_USE_UNSTABLE_API=1`, then `cd ${origsrcdir}/${SRC_DIR}` and a
   `sed -i` on the file. Check for this on every bump, even a green one.
+- **The `.src.patch` adds new `configure.ac` and `Makefile.am`** →
+  convert the recipe to CMake instead of maintaining the legacy autotools patch.
+  Switch to `inherit cmake` (and `inherit git` if needed), drop the `.src.patch`,
+  provide `CMakeLists.txt` in the package directory, and list it in `SRC_URI`.
+  Embed the `.pc` generation directly inside `CMakeLists.txt` with `file(WRITE ...)`
+  and install it to `${CMAKE_INSTALL_LIBDIR}/pkgconfig`.
 - **README's runtime requirements empty** (`Audit recipe` warns, `Update
   README` logs `which: no <dll>`) → `cygport dep` stopped at a
   DLL it couldn't find and printed nothing. Usually that's an import
