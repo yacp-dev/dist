@@ -113,6 +113,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   a git snapshot to upstream HEAD (Step 1).
 - `scripts/distro_patches.sh --project NAME --version V --out DIR` — the
   distros' patches with pinned URLs ("Distro patches", Step 2).
+- `scripts/merge_pr.sh <PR | pkg-ver | branch>` — rebase & merge on GitHub,
+  delete remote branch, pull master in `$PORTS_DIR`, verify no diff, and delete
+  local branch ("Merging").
 - `scripts/format_build_requires.sh --dir DIR --file FILE` — rewrites
   `BUILD_REQUIRES` and `PATCH_URI` into one entry per tab-indented line.
 - `scripts/new_recipe.sh --package P --version V --source URL --homepage URL [--dry-run]` —
@@ -1268,3 +1271,13 @@ decision needed from the user. Always include it on stop; omit on success.>
   without opening anything.
 - For `deploy`, the Run line carries the build run and the publish run;
   keep the Target row naming both.
+
+### Merging
+
+When the user asks to merge the ready PR (e.g. "マージして", "merge PR", "マージお願いします"):
+Run `scripts/merge_pr.sh <PR or branch>`:
+1. Rebase & merges the PR on GitHub via `gh pr merge --rebase --delete-branch` (deleting the remote branch).
+2. Updates `$PORTS_DIR` (`git checkout master && git pull --ff-only origin master && git fetch --prune origin`).
+3. Verifies that the changes at HEAD match the local branch `dorgann/<pkg>-<ver>`.
+4. Deletes the local branch safely.
+Report the result to the user.
