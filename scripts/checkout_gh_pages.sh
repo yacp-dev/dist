@@ -32,13 +32,24 @@ done
 
 remote_url="https://x-access-token:${GH_TOKEN}@github.com/${repo}.git"
 
-if git clone --quiet --branch gh-pages --single-branch --depth 1 "$remote_url" "$dir" 2>/dev/null; then
+# Decide "doesn't exist yet" only from ls-remote's own answer (exit status 2:
+# no matching ref). Any other failure (network, auth, rate limit) must stop
+# the run: treating it as a missing branch bootstraps an empty gh-pages that
+# the publish then force-pushes over the real one.
+ls_status=0
+git ls-remote --exit-code --heads "$remote_url" gh-pages >/dev/null 2>&1 || ls_status=$?
+
+if [[ $ls_status -eq 0 ]]; then
+  git clone --quiet --branch gh-pages --single-branch --depth 1 "$remote_url" "$dir"
   echo "Checked out existing gh-pages branch" >&2
-else
+elif [[ $ls_status -eq 2 ]]; then
   echo "gh-pages branch doesn't exist yet -- starting fresh" >&2
   mkdir -p "$dir"
   git -C "$dir" init --quiet -b gh-pages
   git -C "$dir" remote add origin "$remote_url"
+else
+  echo "Could not query gh-pages on ${repo} (git ls-remote exit status ${ls_status}); refusing to bootstrap a fresh branch" >&2
+  exit 1
 fi
 
 git -C "$dir" config user.name "github-actions[bot]"
