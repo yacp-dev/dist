@@ -25,7 +25,7 @@ conclusion="$(gh run view "$run" -R "$repo" --json conclusion --jq .conclusion)"
 
 artifact="$(gh api "repos/$repo/actions/runs/$run/artifacts" \
   --jq '[.artifacts[] | select(.name | endswith("-dist"))] | .[0] | select(.) | "\(.id) \(.name) \(.expired)"')"
-[[ -n "$artifact" ]] || { echo "run $run has no *-dist artifact" >&2; exit 1; }
+[[ -n "$artifact" ]] || { echo "run $run has no *-dist artifact (a recipe with YACP_NO_REDISTRIBUTE=1 uploads none, and is not published)" >&2; exit 1; }
 read -r id name expired <<<"$artifact"
 [[ "$expired" == false ]] || { echo "artifact $id ($name) has expired" >&2; exit 1; }
 

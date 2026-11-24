@@ -126,9 +126,17 @@ if [[ -n "$primary_artifact_id" ]]; then
   fi
 fi
 
+# Nothing to publish is not an error: a package whose recipe sets
+# YACP_NO_REDISTRIBUTE=1 leaves no dist artifact (build-package.yml), so
+# the `publish` event for its merged PR arrives with an empty artifact id,
+# and no merged PR has an unpublished one either. published_packages stays
+# empty, which publish.yml reads as "skip the rest".
 if [[ ${#ordered_artifacts[@]} -eq 0 ]]; then
-  echo "No artifacts to publish" >&2
-  exit 1
+  echo "No artifacts to publish -- nothing to do" >&2
+  if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+    echo "published_packages=" >> "$GITHUB_OUTPUT"
+  fi
+  exit 0
 fi
 
 echo "Artifacts to download and layout: ${ordered_artifacts[*]}" >&2

@@ -56,7 +56,7 @@
 # half the space a PR body has to spare.
 #
 # Usage:
-#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--version <v>] [--mode <mode>] [--artifact-id <id-or-empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>] [--audit-oks-file <path-or-empty>] [--audit-oks-count <n-or-empty>] [--check <verdict-or-empty>] [--check-tests <str-or-empty>] [--check-skipped <n-or-empty>] [--check-upstream-tests <str-or-empty>] [--dropped-files <files-or-empty>] [--run-url <url>] [--pr-body-file <path> [--pr-kind ready|draft]]
+#   write_job_summary.sh --package foo --pr-url <url-or-empty> [--version <v>] [--mode <mode>] [--artifact-id <id-or-empty>] [--redistribute <true|false|empty>] [--audit-file <path-or-empty>] [--audit-warnings <n-or-empty>] [--audit-open <true-or-empty>] [--audit-oks-file <path-or-empty>] [--audit-oks-count <n-or-empty>] [--check <verdict-or-empty>] [--check-tests <str-or-empty>] [--check-skipped <n-or-empty>] [--check-upstream-tests <str-or-empty>] [--dropped-files <files-or-empty>] [--run-url <url>] [--pr-body-file <path> [--pr-kind ready|draft]]
 
 set -euo pipefail
 
@@ -65,6 +65,7 @@ pr_url=""
 version=""
 mode=""
 artifact_id=""
+redistribute=""
 audit_file=""
 audit_warnings=""
 audit_open=""
@@ -86,6 +87,7 @@ while [[ $# -gt 0 ]]; do
     --version) version="$2"; shift 2 ;;
     --mode) mode="$2"; shift 2 ;;
     --artifact-id) artifact_id="$2"; shift 2 ;;
+    --redistribute) redistribute="$2"; shift 2 ;;
     --audit-file) audit_file="$2"; shift 2 ;;
     --audit-warnings) audit_warnings="$2"; shift 2 ;;
     --audit-open) audit_open="$2"; shift 2 ;;
@@ -230,6 +232,16 @@ render_ok() {
   ' "$1"
 }
 
+# Why Upload dist artifact left no artifact: a recipe that sets
+# YACP_NO_REDISTRIBUTE=1 (redistribute.sh), or the step deciding that failed.
+no_artifact_reason() {
+  if [[ "$redistribute" == false ]]; then
+    echo "the recipe sets YACP_NO_REDISTRIBUTE, so the build is not redistributed"
+  else
+    echo "redistribution couldn't be decided (see Decide redistribution), so nothing was uploaded"
+  fi
+}
+
 report_body() {
   # A GFM table needs a header row, so the first row (package) is it: an
   # empty "| | |" header showed as a blank line at the top of the table.
@@ -248,6 +260,9 @@ report_body() {
   fi
   if [[ -n "$pr_url" ]]; then
     echo "| **PR** | $pr_url |"
+  fi
+  if [[ -z "$pr_body_file" && "$redistribute" == false ]]; then
+    echo "| **dist artifact** | none: $(no_artifact_reason) |"
   fi
   if [[ -z "$pr_body_file" && -n "$artifact_id" && -z "$pr_url" ]]; then
     echo "| **dist artifact** | $artifact_id (no PR was created -- deploy mode) |"
@@ -329,9 +344,13 @@ repo="${GITHUB_REPOSITORY:-yacp-dev/dist}"
   if [[ "$pr_kind" != draft ]]; then
     echo "<!-- dorgann-meta: {\"artifact_id\":\"$artifact_id\"} -->"
     echo
-    echo "To publish this build to gh-pages:"
-    echo '```'
-    echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo $repo"
-    echo '```'
+    if [[ -z "$artifact_id" ]]; then
+      echo "No dist artifact: $(no_artifact_reason). Nothing for publish.yml to publish."
+    else
+      echo "To publish this build to gh-pages:"
+      echo '```'
+      echo "gh workflow run publish.yml -f artifact_id=$artifact_id --repo $repo"
+      echo '```'
+    fi
   fi
 } > "$pr_body_file"

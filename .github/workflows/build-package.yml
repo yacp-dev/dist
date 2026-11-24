@@ -613,8 +613,21 @@ jobs:
           git -C yacp add -A -- ${{ needs.gate.outputs.package }} ":(exclude)${{ needs.gate.outputs.package }}/*.x86_64/**" ":(exclude)${{ needs.gate.outputs.package }}/*.tar.*"
           git -C yacp diff --cached
 
+      # A recipe whose license forbids redistributing binaries sets
+      # YACP_NO_REDISTRIBUTE=1 (scripts/redistribute.sh): the artifacts of
+      # this public repository are downloadable by anyone, so for such a
+      # package nothing is uploaded -- and publish.yml, which only ever
+      # reads these artifacts, has nothing to publish. The upload runs
+      # only on an explicit `true`, so this step failing (continue-on-error,
+      # to keep the PR) leaves the artifact out rather than uploading it.
+      - name: Decide redistribution
+        id: redistribute
+        continue-on-error: true
+        run: bash -- scripts/redistribute.sh --dir "yacp/${{ needs.gate.outputs.package }}" --file "${{ steps.detect.outputs.cygport_file }}"
+
       - name: Upload dist artifact
         id: upload
+        if: steps.redistribute.outputs.redistribute == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: ${{ needs.gate.outputs.package }}-${{ steps.detect.outputs.version }}-dist
@@ -676,7 +689,7 @@ jobs:
       # isn't known yet, so the table has no PR row.
       - name: Render PR body
         if: always() && steps.detect.outcome == 'success' && needs.gate.outputs.mode != 'deploy'
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --dropped-files "${{ steps.port.outputs.dropped_files }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" --pr-body-file pr-body.md --pr-kind ${{ job.status == 'success' && 'ready' || 'draft' }}
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --dropped-files "${{ steps.port.outputs.dropped_files }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --redistribute "${{ steps.redistribute.outputs.redistribute }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}" --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" --pr-body-file pr-body.md --pr-kind ${{ job.status == 'success' && 'ready' || 'draft' }}
 
       # The squash commit's title: `<pkg>-<ver>`, plus the changelog entry
       # when it isn't the default "Version bump." (`(rebuild with
@@ -834,4 +847,4 @@ jobs:
       # survives.
       - name: Write job summary
         if: always()
-        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --dropped-files "${{ steps.port.outputs.dropped_files }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}"
+        run: bash -- scripts/write_job_summary.sh --package "${{ needs.gate.outputs.package }}" --version "${{ steps.detect.outputs.version }}" --mode "${{ needs.gate.outputs.mode }}" --check "${{ steps.audit.outputs.check }}" --check-tests "${{ steps.audit.outputs.check_tests }}" --check-skipped "${{ steps.audit.outputs.check_skipped }}" --check-upstream-tests "${{ steps.audit.outputs.check_upstream_tests }}" --dropped-files "${{ steps.port.outputs.dropped_files }}" --artifact-id "${{ steps.upload.outputs.artifact-id }}" --redistribute "${{ steps.redistribute.outputs.redistribute }}" --audit-file "${{ steps.audit.outputs.report_file }}" --audit-warnings "${{ steps.audit.outputs.warnings }}" --audit-open "${{ steps.audit.outputs.open }}" --audit-oks-file "${{ steps.audit.outputs.oks_file }}" --audit-oks-count "${{ steps.audit.outputs.oks_count }}" --pr-url "${{ steps.create-pr.outputs.pull-request-url }}${{ steps.create-draft-pr.outputs.pull-request-url }}"

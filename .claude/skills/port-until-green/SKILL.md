@@ -887,6 +887,12 @@ LICENSE_URI="COPYING"
 If the source contradicts itself (the headers don't match the license
 file), has no license file at all, or uses a custom or non-SPDX license,
 don't guess. Leave it out and tell the user what you found.
+A license that forbids redistributing binaries (non-commercial only, "may
+not be redistributed without approval") also needs `YACP_NO_REDISTRIBUTE=1`
+in the recipe, with a comment saying why, once the user has decided on the
+`LICENSE` value: the run then uploads no dist artifact (the repository is
+public), so there is nothing to merge-publish or `deploy`. Propose it; don't
+add it unasked.
 
 Commit as `<pkg>-<ver> (add LICENSE)` and re-run the same target.
 Afterwards, check that `Audit recipe`'s `== Recipe ==` section no

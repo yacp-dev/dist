@@ -30,8 +30,11 @@ name: publish
 # merge state" design (doc/spec.md 4.4) -- accepted deliberately, not an
 # oversight.
 #
-# FUTURE: exclude packages whose LICENSE doesn't permit binary
-# redistribution before publishing (not implemented yet).
+# Packages whose license doesn't permit binary redistribution set
+# YACP_NO_REDISTRIBUTE=1 in their recipe: build-package.yml uploads no dist
+# artifact for them, so there is nothing here to publish. A `publish` event
+# with an empty artifact_id (distribute.yml sends one for such a merged PR)
+# finds nothing to lay out, and every step after the layout is skipped.
 
 on:
   workflow_dispatch:
@@ -68,6 +71,8 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    outputs:
+      published_packages: ${{ steps.layout.outputs.published_packages }}
     steps:
       - name: Checkout dorgann
         uses: actions/checkout@v7
@@ -120,6 +125,7 @@ jobs:
       # from source -- about 70 of Install calm's 89 seconds. Move this
       # forward once zstandard ships wheels for the newer Python.
       - uses: actions/setup-python@v7
+        if: steps.layout.outputs.published_packages != ''
         with:
           python-version: '3.14'
 
@@ -127,9 +133,11 @@ jobs:
       # so this puts a `mksetupini` command directly on PATH -- no need
       # for calm's own PYTHONPATH-based invocation wrapper (calm.sh).
       - name: Install calm
+        if: steps.layout.outputs.published_packages != ''
         run: pip install git+https://github.com/cygwin/calm.git
 
       - name: Generate setup.ini
+        if: steps.layout.outputs.published_packages != ''
         run: bash -- scripts/generate_setup_ini.sh --gh-pages-dir gh-pages
 
       # gh-pages is rebuilt to a single commit on every run (3.3), so this
@@ -140,6 +148,7 @@ jobs:
       # link, and a commit that's replaced on every run isn't a place
       # worth keeping a for-now-only reference anyway.
       - name: Commit and force-push gh-pages
+        if: steps.layout.outputs.published_packages != ''
         run: bash -- scripts/publish_gh_pages.sh --dir gh-pages --message "Publish ${{ steps.layout.outputs.published_packages }}"
 
       # Pages is deployed from this workflow (build_type: workflow), not
@@ -150,12 +159,14 @@ jobs:
       # longer publishes anything by itself. upload-pages-artifact skips
       # dotfiles, so gh-pages/.git stays out of the artifact.
       - name: Upload Pages artifact
+        if: steps.layout.outputs.published_packages != ''
         uses: actions/upload-pages-artifact@v5
         with:
           path: gh-pages
 
   deploy:
     needs: publish
+    if: needs.publish.outputs.published_packages != ''
     runs-on: ubuntu-latest
     permissions:
       pages: write
