@@ -1148,8 +1148,12 @@ and in a recipe you've just bumped even if a run didn't complain:
   the URL as is (`.../archive/refs/tags/v${PV}.tar.gz`); the tarball name
   doesn't matter, since `SRC_DIR` is the extracted directory. Renames are
   for additional entries only (e.g. FetchContent sources above).
-- `PATCH_URI` on the line right after `SRC_URI`, no blank line between
-  them, then the blank line before `CATEGORY`.
+- Source and patch information at the top: `PATCH_URI` on the line right
+  after `SRC_URI`, no blank line between them, then the blank line before
+  `CATEGORY`. A cygclass that sets `SRC_URI` itself (`inherit git` and the
+  like) needs extra sources added after the `inherit`, as `SRC_URI+=`;
+  `PATCH_URI` still stays at the top, right after the last source variable
+  (`GIT_REV`, `GIT_TAG`, ...).
 - A Fedora patch in `PATCH_URI` pinned to a commit (`.../raw/<commit>/f/...`,
   the URL `distro_patches.sh` prints), not `raw/rawhide/f/`, which moves
   on. One inherited from master gets pinned on the bump too, once the
