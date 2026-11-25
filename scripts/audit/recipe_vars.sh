@@ -105,10 +105,17 @@ audit_recipe_vars() {
     rwarn "LICENSE_URI is not defined"
   elif [[ "$LICENSE_URI" == http://* || "$LICENSE_URI" == https://* ]]; then
     check_url LICENSE_URI "$LICENSE_URI"
-  elif [[ -d "$S" && ! -e "$S/$LICENSE_URI" ]]; then
-    rwarn "LICENSE_URI = $LICENSE_URI is not found under \$S"
   elif [[ -d "$S" ]]; then
-    ok "Recipe: LICENSE_URI = $LICENSE_URI is under \$S"
+    # LICENSE_URI may list several files, space-separated (e.g. pdal)
+    local lu_missing=() lu
+    for lu in $LICENSE_URI; do
+      [[ -e "$S/$lu" ]] || lu_missing+=("$lu")
+    done
+    if (( ${#lu_missing[@]} )); then
+      rwarn "LICENSE_URI = ${lu_missing[*]} is not found under \$S"
+    else
+      ok "Recipe: LICENSE_URI = $LICENSE_URI is under \$S"
+    fi
   fi
 
   if [[ -n "${BUILD_REQUIRES// /}" ]]; then
