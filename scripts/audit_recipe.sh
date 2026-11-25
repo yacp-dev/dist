@@ -1123,6 +1123,17 @@ audit_cmake_requires() {
           *-config) pkgname="${pkgname%-config}" ;;
           *) pkgname="${pkgname%Config}" ;;
         esac
+        # A lowercase <name>-config.cmake is also found for a
+        # find_package(<Name>), and the config may build its other
+        # files' names from ${CMAKE_FIND_PACKAGE_NAME} (VTK's
+        # vtk-config.cmake includes VTK-targets.cmake): take the
+        # spelling of its targets file when that differs only in case.
+        local alt
+        alt="$(find "$(dirname "$cfg")" -maxdepth 1 -type f \( -name '*-targets.cmake' -o -name '*Targets.cmake' \) \
+                 -exec basename {} \; \
+                 | sed -E 's/(-targets|Targets)\.cmake$//' \
+                 | awk -v want="$(tr '[:upper:]' '[:lower:]' <<<"$pkgname")" 'tolower($0) == want { print; exit }')"
+        [[ -n "$alt" ]] && pkgname="$alt"
         echo "find_package($pkgname REQUIRED CONFIG)"
       fi
       cat <<'EOF'
