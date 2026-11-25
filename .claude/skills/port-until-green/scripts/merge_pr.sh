@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Merge a yacp-dev/ports PR via rebase & merge, delete the remote branch,
-# pull origin/master into the local ports clone ($PORTS_DIR),
+# fast-forward the local ports clone ($PORTS_DIR) to origin/master,
 # verify that the commit at HEAD matches the local branch, and delete the local branch.
 #
 # Usage:
@@ -167,9 +167,12 @@ else
 fi
 
 echo "Fetching and fast-forwarding master..."
-git -C "$ports" fetch origin master
-git -C "$ports" pull --ff-only origin master
-git -C "$ports" fetch --prune origin
+# No `git pull`: it merges FETCH_HEAD, which a concurrent session's fetch into
+# this shared clone can fill with several branches ("Cannot fast-forward to
+# multiple branches"). Fetch without touching FETCH_HEAD, then fast-forward to
+# the remote-tracking ref.
+git -C "$ports" fetch --no-write-fetch-head --prune origin
+git -C "$ports" merge --ff-only refs/remotes/origin/master
 
 # 4. Remove associated worktree if exists
 wt="$(git -C "$ports" worktree list --porcelain | awk -v b="branch refs/heads/$branch" '/^worktree /{w=substr($0, 10)} $0 == b {print w}')"

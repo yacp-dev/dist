@@ -1288,7 +1288,7 @@ decision needed from the user. Always include it on stop; omit on success.>
 When the user asks to merge the ready PR (e.g. "マージして", "merge PR", "マージお願いします"):
 Run `scripts/merge_pr.sh <PR or branch>`:
 1. Rebase & merges the PR on GitHub via `gh pr merge --rebase --delete-branch` (deleting the remote branch).
-2. Updates `$PORTS_DIR` (`git checkout master && git pull --ff-only origin master && git fetch --prune origin`).
+2. Updates `$PORTS_DIR` (`git checkout master`, `git fetch --no-write-fetch-head --prune origin`, `git merge --ff-only origin/master`; no `git pull`, whose FETCH_HEAD a concurrent session's fetch can spoil).
 3. Verifies that the changes at HEAD match the local branch `dorgann/<pkg>-<ver>`.
 4. Deletes the local branch safely.
 Report the result to the user.
