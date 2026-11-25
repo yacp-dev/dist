@@ -57,7 +57,7 @@ ordered_artifacts=()
 # 1. Scan recently merged PRs in ports for unpublished artifacts
 echo "Checking recently merged PRs in $ports_repo (limit: $scan_limit) for unpublished artifacts..." >&2
 
-pr_json="$(gh pr list --repo "$ports_repo" --state merged -L "$scan_limit" --json number,title,headRefName,body,mergedAt 2>/dev/null || true)"
+pr_json="$(gh pr list --repo "$ports_repo" --state merged -L "$scan_limit" --json number,title,headRefName,body,mergedAt,files 2>/dev/null || true)"
 
 if [[ -n "$pr_json" ]]; then
   # Extract candidate PR metadata: {number, title, pkg, ver, aid}
@@ -69,7 +69,8 @@ if [[ -n "$pr_json" ]]; then
         title: .title,
         pkg: ((.body | capture("\\| \\*\\*package\\*\\* \\| (?<pkg>[^ |]+) \\|").pkg) // ""),
         ver: ((.body | capture("\\| \\*\\*version\\*\\* \\| (?<ver>[^ |]+) \\|").ver) // ""),
-        aid: ((.body | capture("<!-- dorgann-meta: (?<meta>.*) -->").meta | fromjson | .artifact_id) // "")
+        aid: ((.body | capture("<!-- dorgann-meta: (?<meta>.*) -->").meta | fromjson | .artifact_id) // ""),
+        cygports: [ (.files // [])[].path | select(endswith(".cygport")) ]
       } catch empty
     ] | reverse | .[]
   ' <<<"$pr_json" 2>/dev/null || true)"
@@ -93,18 +94,25 @@ if [[ -n "$pr_json" ]]; then
 
     [[ -n "$pkg" && -n "$ver" && -n "$aid" ]] || continue
 
+    # The release too, from the merged .cygport's name: a rebuild
+    # (1bl1 -> 1bl2) has the same version as what gh-pages already has,
+    # so matching the version alone took every rebuild as published.
+    rel="$(jq -r --arg p "$pkg/$pkg-$ver-" '.cygports[] | select(startswith($p)) | ltrimstr($p) | rtrimstr(".cygport")' <<<"$item" | head -n1)"
+    pattern="*${ver}*.tar.*"
+    [[ -n "$rel" ]] && pattern="*-${ver}-${rel}[-.]*.tar.*"
+
     already_published=false
     if [[ -d "$release_dir/$pkg" ]]; then
-      match="$(find "$release_dir/$pkg" -maxdepth 2 -type f -name "*${ver}*.tar.*" -print -quit 2>/dev/null || true)"
+      match="$(find "$release_dir/$pkg" -maxdepth 2 -type f -name "$pattern" -print -quit 2>/dev/null || true)"
       if [[ -n "$match" ]]; then
         already_published=true
       fi
     fi
 
     if [[ "$already_published" == true ]]; then
-      echo "PR #$num ($pkg $ver, artifact $aid) is already published in $release_dir/$pkg" >&2
+      echo "PR #$num ($pkg $ver${rel:+-$rel}, artifact $aid) is already published in $release_dir/$pkg" >&2
     else
-      echo "PR #$num ($pkg $ver, artifact $aid) is NOT yet in $release_dir/$pkg -- adding to publish queue" >&2
+      echo "PR #$num ($pkg $ver${rel:+-$rel}, artifact $aid) is NOT yet in $release_dir/$pkg -- adding to publish queue" >&2
       if [[ -z "${seen_artifacts[$aid]:-}" ]]; then
         seen_artifacts["$aid"]=1
         ordered_artifacts+=("$aid")
