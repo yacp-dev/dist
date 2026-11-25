@@ -63,7 +63,8 @@
 #
 # For BUILD_REQUIRES, each package's installed file list
 # (/etc/setup/<pkg>.lst.gz) is matched against evidence of use, strongest
-# first: a binary in $D (or, for test-only dependencies, in $B) importing
+# first: a binary in $D (or, for test-only dependencies, in the build
+# trees: $B and meson's ${S}/_build.${CHOST}) importing
 # one of its DLLs; one of its files showing up in the compiler's own
 # dependency output (.d/.deps files, `ninja -t deps`); one of its
 # commands, .pc/m4/cmake names or -l flags appearing in the build logs;
@@ -158,6 +159,18 @@ if [[ -z "$vars_decl" ]]; then
 fi
 PN="" PV="" PVR="" CATEGORY="" S="" B="" D="" C="" logdir="" checklog="" workdir="" BUILD_REQUIRES="" DEPS_PATH="" HOMEPAGE="" LICENSE="" LICENSE_URI=""
 eval "$vars_decl"
+
+# Where the build ran: $B, and for meson ${S}/_build.${CHOST}, which isn't
+# under $B -- its .ninja_deps and meson-log.txt are only there (rubberband
+# 4.0.0: ladspa-sdk's ladspa.h, read by the compiler, went unseen).
+build_trees=()
+[[ -n "$B" && -d "$B" ]] && build_trees+=("$B")
+if [[ -n "$S" ]]; then
+  for f in "$S"/_build.*; do
+    [[ -d "$f" ]] && build_trees+=("$f")
+  done
+fi
+unset f
 
 # The PATH cygport itself runs with, which is where cygport dep looks for
 # a DLL: .cygportrc's, with what /etc/profile.d adds for installed packages
@@ -585,13 +598,19 @@ audit_build_requires() {
   # DLLs that the binaries import, from $D and (tests, helper tools
   # built and run during the build) $B, and the strings in them, for
   # commands they run through system()/exec without the build logging it.
-  local tree
+  local tree dirs
   for tree in D B; do
-    if [[ -d "${!tree}" ]]; then
-      find "${!tree}" -type f \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' \) -print0 2>/dev/null \
+    if [[ "$tree" == D ]]; then
+      dirs=()
+      [[ -d "$D" ]] && dirs=("$D")
+    else
+      dirs=("${build_trees[@]}")
+    fi
+    if (( ${#dirs[@]} > 0 )); then
+      find "${dirs[@]}" -type f \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' \) -print0 2>/dev/null \
         | xargs -0 -r objdump -p 2>/dev/null \
         | sed -n 's/^[[:space:]]*DLL Name: //p' | tr '[:upper:]' '[:lower:]' | sort -u > "$tmp/imports.$tree"
-      find "${!tree}" -type f \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' \) -print0 2>/dev/null \
+      find "${dirs[@]}" -type f \( -iname '*.dll' -o -iname '*.exe' -o -iname '*.so' \) -print0 2>/dev/null \
         | xargs -0 -r strings -a 2>/dev/null | sort -u > "$tmp/strings.$tree"
     else
       : > "$tmp/imports.$tree"
@@ -602,12 +621,12 @@ audit_build_requires() {
   # Files outside the build tree that the compiler read, from its own
   # dependency output, with /x/../ collapsed.
   {
-    if [[ -d "$B" ]]; then
-      find "$B" -type f \( -name '*.d' -o -path '*/.deps/*' -o -name '*.Po' -o -name '*.Plo' \
+    if (( ${#build_trees[@]} > 0 )); then
+      find "${build_trees[@]}" -type f \( -name '*.d' -o -path '*/.deps/*' -o -name '*.Po' -o -name '*.Plo' \
         -o -name compiler_depend.make -o -name depend.make \) -print0 2>/dev/null \
         | xargs -0 -r grep -ohE '/usr/[^[:space:]:\\]+' 2>/dev/null
       if command -v ninja >/dev/null; then
-        find "$B" -name .ninja_deps -print0 2>/dev/null | while IFS= read -r -d '' f; do
+        find "${build_trees[@]}" -name .ninja_deps -print0 2>/dev/null | while IFS= read -r -d '' f; do
           ninja -C "$(dirname "$f")" -t deps 2>/dev/null | grep -oE '/usr/[^[:space:]]+'
         done
       fi
@@ -620,10 +639,10 @@ audit_build_requires() {
   shopt -s nullglob
   corpus+=("$logdir"/*.log "$S"/aclocal.m4)
   shopt -u nullglob
-  if [[ -d "$B" ]]; then
+  if (( ${#build_trees[@]} > 0 )); then
     while IFS= read -r -d '' f; do
       corpus+=("$f")
-    done < <(find "$B" -maxdepth 4 -type f \( -name config.log -o -name meson-log.txt -o -name CMakeCache.txt \
+    done < <(find "${build_trees[@]}" -maxdepth 4 -type f \( -name config.log -o -name meson-log.txt -o -name CMakeCache.txt \
       -o -name CMakeConfigureLog.yaml -o -name CMakeOutput.log -o -name aclocal.m4 \) -print0 2>/dev/null)
   fi
 
@@ -793,10 +812,10 @@ audit_missing_deps() {
   shopt -s nullglob
   logs+=("$logdir"/*-compile.log)
   shopt -u nullglob
-  if [[ -d "$B" ]]; then
+  if (( ${#build_trees[@]} > 0 )); then
     while IFS= read -r -d '' f; do
       logs+=("$f")
-    done < <(find "$B" -maxdepth 4 -type f \( -name config.log -o -name meson-log.txt \) -print0 2>/dev/null)
+    done < <(find "${build_trees[@]}" -maxdepth 4 -type f \( -name config.log -o -name meson-log.txt \) -print0 2>/dev/null)
   fi
   if [[ ${#logs[@]} -eq 0 ]]; then
     say "no compile log to read"
