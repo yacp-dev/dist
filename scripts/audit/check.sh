@@ -46,7 +46,9 @@
 # or crash message comes last). meson's testlog.txt separates tests with
 # "==== N/M ====" lines and records "result: exit status <n>" (or e.g.
 # "result: timeout"; 77 is a skip); ctest's LastTest.log starts each test
-# with "N/M Testing: name" and says "Test Failed" -- its "----" lines
+# with "N/M Testing: name" and says "Test Failed" -- or, for a test
+# judged by PASS_/FAIL_REGULAR_EXPRESSION, "Test Fail Reason:" instead
+# (OpenCoarrays 2.11.0's issue-511 went unshown) -- its "----" lines
 # also come *inside* a test, around the output, so splitting on them
 # left only the "Test Failed" tail ("Subprocess aborted" and not a line of
 # why); automake's per-test .log files are named in
@@ -76,7 +78,7 @@ check_failure_blocks() {
       ;;
     */LastTest.log)
       sep='^[0-9]+/[0-9]+ Testing: '
-      bad_re='Test Failed'
+      bad_re='Test Failed|^Test Fail Reason:'
       ;;
     *)
       head -n 40 "$log"
