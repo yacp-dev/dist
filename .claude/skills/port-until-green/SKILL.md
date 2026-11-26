@@ -175,7 +175,7 @@ starts with (package names can contain dashes), then splits the rest into
   gcc-<ver>` if the gcc differs from the one in the README's build
   requirements, else `Rebuild`. A rebuild for a fix the packages
   ship (a `.pc`, `REQUIRES`, a missing file) says what it fixes
-  instead: see `changelog_message` in Step 2.
+  instead, unless gcc changed: see `changelog_message` in Step 2.
 - **`gcc-rebuild`** (`<pkg>-<ver>-<rel>`, same version, `<rel>` is ports'
   release + 1) → the same release bump, taken as a rebuild for a newer
   gcc. The changelog message comes from `scripts/changelog_message.sh`,
@@ -487,8 +487,9 @@ normally fine as they are):
   it reads it. The same section says whether the source needs
   `-DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5` (a `cmake_minimum_required`
   below 3.5) or the recipe's flag is no longer needed: add or drop it.
-- **.pc files** (version updates only; the report doesn't check this, so
-  look yourself) — a `.pc`/`.pc.in` that yacp-dev adds (a file in the
+- **.pc files** (version updates and gcc rebuilds — `gcc-rebuild`, or a
+  `rebuild` whose gcc changed; the report doesn't check this, so look
+  yourself) — a `.pc`/`.pc.in` that yacp-dev adds (a file in the
   package directory listed in `SRC_URI`, or a new file in the
   `.src.patch`) and that a `CMakeLists.txt` of yacp-dev's or a
   `.src.patch` hunk `configure_file()`s → convert it to `file(WRITE ...)`
@@ -556,7 +557,11 @@ changelog message is decided again from the files on each run. For
 
 A rebuild done to fix what the packages ship, not for a new gcc
 (a broken `.pc`, a missing dependency of the `-devel` package), gets a changelog line saying so rather than
-`Rebuild`: pass `-f changelog_message="Fix <what>"` on every dispatch,
+`Rebuild`. When gcc changed too (a `gcc-rebuild`, or `gcc_changed.sh`
+says `changed`), `Rebuild with gcc-<ver>` wins: pass no
+`changelog_message`, whatever else the branch fixes (mini18n 0.2.1-1bl3:
+the `.pc` rewrite and a smoke test went in under `Rebuild with
+gcc-14.4.0`). Otherwise pass `-f changelog_message="Fix <what>"` on every dispatch,
 since each run writes the README's entry anew. Keep it short, in the
 style of ports' READMEs (`Fix uvwasi.pc`, `Fix *.cmake`). Fixes the
 preflight makes on its own (unused `-D` variables, LICENSE) don't
@@ -1132,8 +1137,8 @@ Edit only files under the package directory. Common fixes:
   or a `-DVERSION:STRING=${PV}` the recipe passes). A recipe already in
   ports that does it the old way (a `.pc`/`.pc.in` in `SRC_URI` or created
   by the `.src.patch`, `configure_file()`d by a `CMakeLists.txt` of
-  yacp-dev's) gets converted on its next version bump: see ".pc files" in
-  Step 1b.
+  yacp-dev's) gets converted on its next version bump or gcc rebuild:
+  see ".pc files" in Step 1b.
 - **README's runtime requirements empty** (`Audit recipe` warns, `Update
   README` logs `which: no <dll>`) → `cygport dep` stopped at a
   DLL it couldn't find and printed nothing. Usually that's an import
