@@ -490,7 +490,7 @@ audit_license() {
                  printf '%s\0' "$B/$rel"
                fi
              done < "$tmp/compiled" \
-             | xargs -0 -r grep -lIE --null -- 'General Public License|GPL|Permission is hereby granted|Redistribution and use in source|Apache License|Mozilla Public License|Permission to use, copy, modify|provided .as-is.|Boost Software License|unencumbered software|Eclipse Public License|Artistic License|CC0 1\.0|PYTHON SOFTWARE FOUNDATION' 2>/dev/null)
+             | xargs -0 -r grep -lIE --null -- 'General Public License|GPL|Permission is hereby granted|Redistribution and use in source|Apache License|Mozilla Public License|Permission to use, copy, modify|provided .as-is.|Boost Software License|unencumbered software|Eclipse Public License|Artistic License|CC0 1\.0|PYTHON SOFTWARE FOUNDATION|CeCILL' 2>/dev/null)
     for id in "${!header_text_count[@]}"; do
       say "License text in compiled sources' headers: $id: ${header_text_count[$id]} file(s), e.g. ${header_text_example[$id]}"
       text_ids["$(license_base "$id")"]="the header of ${header_text_example[$id]}"

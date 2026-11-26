@@ -67,6 +67,15 @@ identify_license_text() {
     fi
   done
   [[ "$text" == *"Apache License"*"Version 2.0"* ]] && echo "Apache-2.0"
+  # CeCILL (yass's COPYING): the plain license is versioned at the end of
+  # its text ("Version 2.0 dated 2006-09-05"); CeCILL-B and CeCILL-C are
+  # licenses of their own, with no version in the SPDX id.
+  if [[ "$text" == *"CeCILL FREE SOFTWARE LICENSE AGREEMENT"* &&
+        "$text" =~ CeCILL\ FREE\ SOFTWARE\ LICENSE\ AGREEMENT.*Version\ ([0-9]+\.[0-9]+)\ dated ]]; then
+    echo "CECILL-${BASH_REMATCH[1]}"
+  fi
+  [[ "$text" == *"CeCILL-B FREE SOFTWARE LICENSE AGREEMENT"* ]] && echo "CECILL-B"
+  [[ "$text" == *"CeCILL-C FREE SOFTWARE LICENSE AGREEMENT"* ]] && echo "CECILL-C"
   [[ "$text" == *"Mozilla Public License Version 2.0"* || "$text" == *"Mozilla Public License, v. 2.0"* ]] && echo "MPL-2.0"
   # NCSA opens with MIT's grant but keeps its notice with "the above
   # copyright notice, this list of conditions" instead (LLVM's, whose
@@ -175,6 +184,16 @@ identify_license_notice() {
     ver="${BASH_REMATCH[4]}"
     [[ "$ver" == *.* ]] || ver="$ver.0"
     echo "$fam-$ver-or-later"
+  fi
+  # The CeCILL notice follows the GNU one's wording (yass: "the CeCILL
+  # License as published by the CEA-CNRS-INRIA; either version 2 of the
+  # License, or (at your option) any later version"). SPDX has no
+  # CECILL-*-or-later id: like the GNU ones above, it only says which
+  # CeCILL versions LICENSE may name.
+  if [[ "$text" =~ CeCILL\ [^.]{0,200}[Vv]ersion\ ([0-9]+(\.[0-9]+)?)[^.\;]{0,80}(any\ later\ version|or\ later) ]]; then
+    ver="${BASH_REMATCH[1]}"
+    [[ "$ver" == *.* ]] || ver="$ver.0"
+    echo "CECILL-$ver-or-later"
   fi
 }
 
