@@ -103,6 +103,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/preflight_bump.sh --package P --version V --work DIR [--source URL]` —
   the bump in its own worktree, not pushed, and a report of what would
   fail (Step 1b).
+- `scripts/summary_candidates.sh --recipe F [--package P]` — whether
+  `SUMMARY` is over 80 characters, with shorter descriptions from GitHub,
+  the homepage, Debian and Repology (Step 1b, "SUMMARY").
 - `scripts/unused_cmake_args.sh --recipe F --source DIR [--old-source DIR]`,
   `scripts/cmake_min_version.sh --recipe F --source DIR` — run by the
   preflight; usable on their own.
@@ -222,6 +225,11 @@ review on GitHub before anything is built (doc/spec.md 4.8):
    `DESCRIPTION="` and the closing quote included, at most 80 wide; break at
    spaces, continuation lines unindented, as in ports' recipes);
    `new_recipe.sh` does it, and so must any hand edit.
+   `SUMMARY` is at most 80 characters (the value, without `SUMMARY="`):
+   take it from the GitHub description or the homepage when one fits,
+   and otherwise shorten it as under "SUMMARY" in Step 1b
+   (`scripts/summary_candidates.sh --recipe <cygport>`), giving the
+   candidates in step 3's report.
    The template's `lib<name>0` names assume a plain `lib`-prefixed
    runtime; fix them when upstream says otherwise. Follow ports' style
    (a similar recipe there is the best reference). No README:
@@ -459,6 +467,19 @@ normally fine as they are):
   `usr/lib/python3.N` (log4cplus in ports), in its own commit,
   `<pkg>-<ver> (switch to python3)`. A build on the old Python goes
   green, so no run would point it out.
+- **SUMMARY** — `summary: N chars (over 80)` → the value of `SUMMARY`
+  is too long. The report lists, as `candidate (...)` lines, the short
+  descriptions the GitHub repository, the homepage, Debian
+  (`debian/control`) and Repology give, each with its length (`fits`
+  when at most 80). Don't change `SUMMARY` on your own: in the
+  one-line summary before dispatching (and in the final report's
+  `Left as is`), give the user up to three candidates of at most 80
+  characters: those marked `fits` that describe the package as a
+  whole (not a `-dev`/bindings subpackage's), and, when none says
+  what upstream's own text does, a shortened version of upstream's
+  wording. Each with its length and source. Once the user picks one,
+  commit it as `<pkg>-<ver> (shorten SUMMARY)`. Other `*_SUMMARY`
+  variables that only append to `${SUMMARY}` follow it.
 - **gettext** — `configure.ac` (as patched) mentions `AM_GNU_GETTEXT`,
   `AM_ICONV` or `AC_GGZ_INTL` (cygport greps the text, so a comment or an
   `m4_ifdef` counts) and `BUILD_REQUIRES` lacks `gettext-devel` → add it
@@ -588,7 +609,9 @@ already has them.
     verdict → "Skipped tests" as well.
   - `== Recipe`: a missing `LICENSE*` → "Missing LICENSE"; `inherit git`
     with no pin → "Git HEAD" under Step 1b (the run built whatever HEAD
-    was).
+    was); `summary: N chars (over 80)` → "SUMMARY" under Step 1b
+    (propose the candidates; the PR stays ready, so it doesn't hold up the
+    merge verdict once the user has seen them).
   - `== Audit` and `== PR body`, by section:
 
     | Section / block | What it means → the fix |

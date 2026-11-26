@@ -47,6 +47,9 @@
 #      python39-${PN}, usr/lib/python3.9) other than the one Cygwin curr's
 #      python3-devel pulls in, and python CONTENTS not pinned to it. A
 #      build on a superseded Python goes green, so no run would say so.
+#   6b. Whether SUMMARY is over 80 characters, and if so, the short
+#      descriptions GitHub, the homepage, Debian and Repology give, as
+#      candidates for a shorter one (summary_candidates.sh).
 #   7. For a cmake recipe, the -D<VAR> it passes that no build file in the
 #      patched source reads (unused_cmake_args.sh). CMake only warns about
 #      them in the compile log, which nobody reads on a green run. Also
@@ -569,6 +572,12 @@ else
     fi
   fi
 fi
+
+# 6b. SUMMARY: over 80 characters, the short descriptions upstream and the
+# distros give, as candidates for the user (summary_candidates.sh).
+echo
+echo "== SUMMARY =="
+bash "$here/summary_candidates.sh" --recipe "$cygport" --package "$package" || echo "couldn't check SUMMARY -- check by hand"
 
 # 7. CMake options, read against src/ so that a variable only the
 # .src.patch reads (cctz's -DSOVERSION) counts as read.

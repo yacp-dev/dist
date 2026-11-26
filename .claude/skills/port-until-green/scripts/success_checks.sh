@@ -6,6 +6,8 @@
 #   == Recipe           LICENSE/LICENSE_SPDX/LICENSE_URI missing from the
 #                       branch's cygport, or `inherit git` with neither
 #                       GIT_REV nor GIT_TAG
+#                       , and SUMMARY over 80 characters with candidates
+#                       for a shorter one (summary_candidates.sh)
 #   == Audit            each section of the Audit recipe report with a
 #                       WARNING: line, whole, plus "Dependencies the
 #                       build didn't find" (candidates, not warnings)
@@ -74,6 +76,13 @@ else
     echo "inherit git with neither GIT_REV nor GIT_TAG (Git HEAD, Step 1b)"; found=1
   fi
   if (( found )); then todo=$((todo + 1)); else echo "ok"; fi
+  tmp_recipe="$(mktemp -d)/$pkg/$cygport"
+  mkdir -p "$(dirname "$tmp_recipe")"
+  printf '%s\n' "$recipe" > "$tmp_recipe"
+  summary="$(bash "$here/summary_candidates.sh" --recipe "$tmp_recipe" --package "$pkg" 2>&1)" || summary="couldn't check SUMMARY: $summary"
+  rm -rf "$(dirname "$(dirname "$tmp_recipe")")"
+  echo "$summary"
+  [[ "$summary" == "summary: "*" chars (ok)" ]] || todo=$((todo + 1))
 fi
 
 # The Audit recipe step's lines: third tab-separated field is
