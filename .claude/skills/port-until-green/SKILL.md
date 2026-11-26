@@ -212,7 +212,9 @@ review on GitHub before anything is built (doc/spec.md 4.8):
    names in `DOCS`. The manual pages of C functions (`usr/share/man/man3`)
    go in the `-devel` package, as in other distributions; the main
    package then lists `usr/share/doc` and the other man directories
-   (`usr/share/man/man1`), not `usr/share`.
+   (`usr/share/man/man1`), not `usr/share`. A `CMakeLists.txt` you
+   write for it generates any `.pc` with `file(WRITE ...)`, as in "A
+   `.pc` yacp-dev writes itself" (Step 4): no `.pc`/`.pc.in` file.
    `DESCRIPTION` is folded at 80 columns (every line, the opening
    `DESCRIPTION="` and the closing quote included, at most 80 wide; break at
    spaces, continuation lines unindented, as in ports' recipes);
@@ -1080,6 +1082,38 @@ Edit only files under the package directory. Common fixes:
   provide `CMakeLists.txt` in the package directory, and list it in `SRC_URI`.
   Embed the `.pc` generation directly inside `CMakeLists.txt` with `file(WRITE ...)`
   and install it to `${CMAKE_INSTALL_LIBDIR}/pkgconfig`.
+- **A `.pc` yacp-dev writes itself** → whenever yacp-dev writes a
+  `CMakeLists.txt` of its own (in `SRC_URI`, or created by the
+  `.src.patch`) and the package needs a `.pc` upstream doesn't ship,
+  generate the `.pc` inside that `CMakeLists.txt` with `file(WRITE ...)`.
+  Never add a new `.pc` or `.pc.in` file (in `SRC_URI` or the
+  `.src.patch`), and no `configure_file()` of one. The same goes for a
+  `.pc` the `.src.patch` adds to upstream's `CMakeLists.txt`
+  (zlibcomplete 1.0.5). Escape the `${...}` that pkg-config expands
+  (`\${prefix}`), let CMake expand the rest, and give it `Requires`
+  (or `Requires.private`) for what its public headers include:
+
+  ```cmake
+  include(GNUInstallDirs)
+  file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/<pkg>.pc"
+  "prefix=${CMAKE_INSTALL_PREFIX}
+  exec_prefix=\${prefix}
+  libdir=\${exec_prefix}/${CMAKE_INSTALL_LIBDIR}
+  includedir=\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}
+
+  Name: <pkg>
+  Description: <summary>
+  Version: ${PROJECT_VERSION}
+  Requires: <dep>
+  Libs: -L\${libdir} -l<name>
+  Cflags: -I\${includedir}
+  ")
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/<pkg>.pc"
+          DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+  ```
+
+  `Version:` takes whichever variable holds the version (`PROJECT_VERSION`,
+  or a `-DVERSION:STRING=${PV}` the recipe passes).
 - **README's runtime requirements empty** (`Audit recipe` warns, `Update
   README` logs `which: no <dll>`) → `cygport dep` stopped at a
   DLL it couldn't find and printed nothing. Usually that's an import
