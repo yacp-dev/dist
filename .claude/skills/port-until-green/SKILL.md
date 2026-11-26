@@ -484,6 +484,17 @@ normally fine as they are):
   it reads it. The same section says whether the source needs
   `-DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5` (a `cmake_minimum_required`
   below 3.5) or the recipe's flag is no longer needed: add or drop it.
+- **.pc files** (version updates only; the report doesn't check this, so
+  look yourself) — a `.pc`/`.pc.in` that yacp-dev adds (a file in the
+  package directory listed in `SRC_URI`, or a new file in the
+  `.src.patch`) and that a `CMakeLists.txt` of yacp-dev's or a
+  `.src.patch` hunk `configure_file()`s → convert it to `file(WRITE ...)`
+  in that `CMakeLists.txt`, as in "A `.pc` yacp-dev writes itself" (Step
+  4): same contents, the `.pc`/`.pc.in` file and its `SRC_URI` entry
+  dropped (the `.src.patch` regenerated as in Step 4). One commit,
+  `<pkg>-<ver> (write <pkg>.pc from CMakeLists.txt)`. A `.pc.in`
+  upstream ships stays as it is, and so does one an autotools or meson
+  build installs.
 
 Also go through "Distro patches" (under Step 2) now, so they're in the
 first run rather than added after it.
@@ -1113,7 +1124,11 @@ Edit only files under the package directory. Common fixes:
   ```
 
   `Version:` takes whichever variable holds the version (`PROJECT_VERSION`,
-  or a `-DVERSION:STRING=${PV}` the recipe passes).
+  or a `-DVERSION:STRING=${PV}` the recipe passes). A recipe already in
+  ports that does it the old way (a `.pc`/`.pc.in` in `SRC_URI` or created
+  by the `.src.patch`, `configure_file()`d by a `CMakeLists.txt` of
+  yacp-dev's) gets converted on its next version bump: see ".pc files" in
+  Step 1b.
 - **README's runtime requirements empty** (`Audit recipe` warns, `Update
   README` logs `which: no <dll>`) → `cygport dep` stopped at a
   DLL it couldn't find and printed nothing. Usually that's an import
