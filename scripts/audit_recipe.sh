@@ -50,14 +50,13 @@
 # those into $D/usr/src/debug/$PF for the debuginfo package). Files of a
 # backend the build leaves out don't count. The texts at
 # the top of $S are the project's own and always count, except for a
-# section that names its own files on a "Files:" line (draco's MIT one
-# for a docs script): that counts when one of those files ships. A text
+# section that names its own files on a "Files:" line (e.g. an MIT
+# one for a docs script): that counts when one of those files ships. A text
 # further down (vendor/libbacktrace/LICENSE) counts when a compiled
 # source sits below it, as does one in a <name>-src directory CMake's
-# FetchContent cloned into $B (forge's extern/fg_glm-src/copying.txt),
+# FetchContent cloned into $B,
 # and a REUSE text when a shipped header names it, or a whole license
-# text in a compiled source's header comment with no SPDX line (MIT in
-# libarchive-qt's lib/lz4dec.c). With no binaries
+# text in a compiled source's header comment with no SPDX line. With no binaries
 # in $D, $D is all that ships; with binaries but no $D/usr/src/debug --
 # no debuginfo -- what was compiled is unknown, and all of $S counts.
 #
@@ -69,11 +68,10 @@
 # dependency output (.d/.deps files, `ninja -t deps`); one of its
 # commands, .pc/m4/cmake names or -l flags appearing in the build logs;
 # one of its commands named in the strings of a binary in $D or $B (one
-# run through system() that no log shows, like abpoa's `dot`); once
+# run through system() that no log shows, like `dot`); once
 # cygport check ran, one of its commands that a test script checks for,
-# spawns or names by path (ngircd's testsuite: `type telnet`, expect's
-# `spawn telnet`, `[ -x /usr/bin/pgrep ]`; wolfssh's scripts/fwd.test:
-# `command -v nc`). The last three are weak --
+# spawns or names by path (`type telnet`, expect's `spawn telnet`,
+# `[ -x /usr/bin/pgrep ]`, `command -v nc`). The last three are weak --
 # configure's "checking for foo... no" mentions a tool it then doesn't
 # use, a command name can be just a word in a string, and a test that
 # checks for a command may skip itself without it -- but a package with
@@ -161,8 +159,8 @@ PN="" PV="" PVR="" CATEGORY="" S="" B="" D="" C="" logdir="" checklog="" workdir
 eval "$vars_decl"
 
 # Where the build ran: $B, and for meson ${S}/_build.${CHOST}, which isn't
-# under $B -- its .ninja_deps and meson-log.txt are only there (rubberband
-# 4.0.0: ladspa-sdk's ladspa.h, read by the compiler, went unseen).
+# under $B -- its .ninja_deps and meson-log.txt are only there (without
+# them, a header the compiler read goes unseen).
 build_trees=()
 [[ -n "$B" && -d "$B" ]] && build_trees+=("$B")
 if [[ -n "$S" ]]; then
@@ -212,10 +210,9 @@ print_oks() {
 }
 
 # A top-level license text made of sections, each saying which files it
-# covers with a "Files:" line (Debian copyright style), as draco's
-# LICENSE does: Apache-2.0 for the project, then MIT for
-# docs/assets/js/ASCIIMathML.js and the Unlicense for
-# docs/assets/css/pygments/*. A section counts when one of its files
+# covers with a "Files:" line (Debian copyright style), e.g.
+# Apache-2.0 for the project, then MIT for a docs script and the
+# Unlicense for a stylesheet directory. A section counts when one of its files
 # ships -- compiled, or installed into $D under the same name -- and,
 # like the rest, when what ships is unknown. The text before the first
 # "Files:" line is the project's own and always counts. Sections are
@@ -392,8 +389,8 @@ audit_license() {
     fi
     ids="$(identify_license_text "$f" | sort -u | tr '\n' ' ')"
     ids="${ids% }"
-    # A text the packages don't install (upstream's LICENSE-THIRD-PARTY,
-    # which only lists googletest and pybind11, not built here) says nothing
+    # A text the packages don't install (e.g. upstream's
+    # LICENSE-THIRD-PARTY, listing only what isn't built here) says nothing
     # about what they carry. LICENSE_URI is the license text cygport ships.
     if [[ -n "$shipped_known" && "$rel" != "$LICENSE_URI" && "$rel" != */* ]] \
          && ! grep -qxF -- "$rel" "$tmp/installed_names"; then
@@ -420,7 +417,7 @@ audit_license() {
   # when a compiled source sits below them. Unrecognized ones are left
   # out -- at that depth, LICENSE* also matches source files. The same
   # goes for code CMake's FetchContent cloned at configure time, into
-  # <name>-src under $B (forge's glm, MIT, in extern/fg_glm-src).
+  # <name>-src under $B.
   local dir covered
   while IFS= read -r -d '' f; do
     if [[ "$f" == "$S"/* ]]; then
@@ -458,8 +455,7 @@ audit_license() {
                   -print0 2>/dev/null | sort -z)
 
   # A license whose whole text is in a compiled source's header comment,
-  # with no SPDX line or license file to go with it (libarchive-qt's
-  # lib/lz4dec.c, smallz4cat under MIT). Only the top of the file is
+  # with no SPDX line or license file to go with it. Only the top of the file is
   # read; GNU notices ("either version 3 of the License") aren't the
   # license text and aren't recognized. grep picks the candidates first,
   # since a fork per compiled source is slow on Cygwin.
@@ -569,8 +565,8 @@ audit_license() {
   local where="in the source" rb
   [[ -n "$shipped_known" ]] && where="of what the packages ship"
   for r in "${recipe[@]}"; do
-    # A LicenseRef names a license SPDX doesn't list (htslib's public-domain
-    # md5.c), which no text here identifies.
+    # A LicenseRef names a license SPDX doesn't list (e.g. a
+    # public-domain file), which no text here identifies.
     if [[ "$r" == LicenseRef-* ]]; then
       say "LICENSE has $r -- not an SPDX license, check it by hand"
       continue
@@ -734,7 +730,7 @@ audit_build_requires() {
     fi
 
     # Its commands named in a binary's strings: run at runtime or by a
-    # test (abpoa's system("dot ..."), which no log shows).
+    # test (a system("dot ..."), which no log shows).
     sed -nE 's#^/usr/bin/([^/]+)$#\1#p' "$tmp/files" | grep -viE '\.dll$' | sed 's/\.exe$//' \
       | sort -u > "$tmp/tools"
     awk 'length >= 3' "$tmp/tools" > "$tmp/commands"
@@ -755,9 +751,8 @@ audit_build_requires() {
     fi
 
     # Its commands checked for or spawned by a test script, or named by
-    # their path (ngircd's getpid.sh: `[ -x /usr/bin/pgrep ]`), or the
-    # interpreter of one, by path or through env (zlibcomplete's
-    # test/runrubytests: `#!/usr/bin/env ruby`). What has
+    # their path (`[ -x /usr/bin/pgrep ]`), or the interpreter of one, by
+    # path or through env (`#!/usr/bin/env ruby`). What has
     # to precede the name keeps a short one from matching any word, so this
     # takes the 1- and 2-letter commands too (netcat's nc).
     hit=""
@@ -775,8 +770,8 @@ audit_build_requires() {
     fi
 
     # Its commands run by the recipe's src_test: at the start of a command
-    # (after `;`, `&&`, `|`, or variable assignments), as valkey's
-    # `VALKEY_BIN_DIR=... tclsh tests/test_helper.tcl` does.
+    # (after `;`, `&&`, `|`, or variable assignments), e.g.
+    # `FOO_BIN_DIR=... tclsh tests/test_helper.tcl`.
     hit=""
     if [[ -s "$tmp/tools" && -s "$src_test_body" ]]; then
       local cmd_re
@@ -797,8 +792,8 @@ audit_build_requires() {
 
 # What the build looked for and didn't find, that a Cygwin package
 # provides: an optional dependency missing from BUILD_REQUIRES leaves
-# out part of the package without failing anything (libwebsockets
-# 5.0.0's HLS plugin, built only when pkg-config finds ffmpeg). Read
+# out part of the package without failing anything (e.g. a
+# plugin built only when pkg-config finds ffmpeg). Read
 # from pkg-config's "Package 'x' not found" / "No package 'x' found",
 # meson's "Dependency x found: NO" and CMake's "Could not find a package
 # configuration file provided by "X"", in the compile log (configure
@@ -1146,8 +1141,8 @@ audit_cmake_requires() {
         esac
         # A lowercase <name>-config.cmake is also found for a
         # find_package(<Name>), and the config may build its other
-        # files' names from ${CMAKE_FIND_PACKAGE_NAME} (VTK's
-        # vtk-config.cmake includes VTK-targets.cmake): take the
+        # files' names from ${CMAKE_FIND_PACKAGE_NAME} (e.g.
+        # foo-config.cmake including Foo-targets.cmake): take the
         # spelling of its targets file when that differs only in case.
         local alt
         alt="$(find "$(dirname "$cfg")" -maxdepth 1 -type f \( -name '*-targets.cmake' -o -name '*Targets.cmake' \) \
@@ -1258,9 +1253,9 @@ EOF
     if [[ ${#missing[@]} -eq 0 ]]; then
       say "$rel ($sub): needs ${owners% } -- all required"
     else
-      # Only what adding brings in the rest: mongo-cxx-driver's
-      # libmongocxx-devel misses libmongoc2-devel, and with it libbson2-devel,
-      # libssl-devel, ... which libmongoc2-devel requires.
+      # Only what adding brings in the rest: a -devel missing
+      # libfoo-devel misses what libfoo-devel requires too, and adding
+      # libfoo-devel alone covers those.
       local -A brings=()
       local q
       for p in "${missing[@]}"; do

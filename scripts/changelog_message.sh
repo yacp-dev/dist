@@ -27,8 +27,8 @@
 # Decided from the files themselves rather than build-package.yml's
 # resolved mode, since a release-only bump also reaches here via
 # branch-rebuild mode (re-running a rebuild whose first attempt failed),
-# where the release isn't bumped again -- confirmed by a real run (superlu
-# 7.0.1-1bl2) that wrote "Version bump." for exactly that case.
+# where the release isn't bumped again -- confirmed by a real run that
+# wrote "Version bump." for exactly that case.
 #
 # Usage:
 #   changelog_message.sh --dir yacp --package superlu \

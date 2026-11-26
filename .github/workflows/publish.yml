@@ -53,7 +53,7 @@ permissions:
 # -- reads, reshapes, and force-pushes the *same* gh-pages branch as one
 # whole tree (doc/spec.md 3.3), so two runs overlapping at all is
 # unsafe regardless of whether they touch the same package: confirmed by
-# a real race (two runs for different packages, last and libucl,
+# a real race (two runs for different packages
 # triggered close together) where the later run's Checkout gh-pages
 # cloned before the earlier run's Commit and force-push had landed, so
 # its own force-push then silently reverted the earlier run's changes.

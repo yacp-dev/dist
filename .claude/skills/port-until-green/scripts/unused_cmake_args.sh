@@ -9,8 +9,8 @@
 # CMakeLists.txt, *.cmake or *.cmake.in under the source, vendored
 # directories included (a subproject may read it), outside comments and
 # message() calls, or anywhere in a header template configure_file()
-# fills in (*.h.in, *.h.cmake: libwebsockets' LWS_WITH_SERVER_STATUS is
-# only in lws_config.h.in's #cmakedefine, which isn't a comment there).
+# fills in (*.h.in, *.h.cmake: a variable may appear only in a #cmakedefine,
+# which isn't a comment there).
 # A variable only shown in the configure summary changes nothing
 # (printed under "Build tests:" while
 # BUILD_TESTING decided), and CMake doesn't warn about it either, since
@@ -59,8 +59,8 @@ build_files() {
 # Whether a build file under $1 names $2 as a word, leaving out
 # comments and message() calls. The file list is read whole before
 # perl can exit on a match: otherwise find dies of SIGPIPE, and
-# pipefail turns a found variable into an unused one (libwebsockets'
-# 342 build files).
+# pipefail turns a found variable into an unused one (on a tree with
+# hundreds of build files).
 reads() {
   build_files "$1" | perl -0e '
     my $v = shift;

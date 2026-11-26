@@ -88,7 +88,7 @@ export LC_ALL=C
 
 # --- progress and watchdog ---------------------------------------------
 
-# This step has hung with no output at all (mailio 0.26.2), so name each
+# This step has hung with no output at all, so name each
 # stage on stderr, and if the whole run takes longer than
 # GENERATE_README_WATCHDOG seconds (default 240), print the process list once
 # so the log shows what it is stuck on.
@@ -158,7 +158,7 @@ runtime_requirements() {
     out="$(cat "$GENERATE_README_DEP")"
   else
     dep_path="$(find "$D" -type f \( -name '*.exe' -o -name '*.dll' -o -name '*.so' \) -printf '%h\n' 2>/dev/null | sort -u | paste -sd: -)"
-    # `cygport dep` has been seen to hang (mailio 0.26.2: no output for
+    # `cygport dep` has been seen to hang (no output for
     # hours), so bound it and say what it was doing instead of waiting
     # for the job's own timeout. The log goes to a file so a killed run
     # still leaves what it printed.
@@ -255,8 +255,8 @@ detect_tools() {
   # grep reads a file, not a here-string: bash feeds a large here-string
   # through a forked writer, and when `grep -q` exits at its first match
   # that writer was left blocked on Cygwin, hanging the whole step
-  # (mailio 0.26.2: a compile log of a few hundred KB, one process listing
-  # showed the writer's bash with no child).
+  # (a compile log of a few hundred KB; one process listing showed
+  # the writer's bash with no child).
   log_file="$(mktemp)"
   (( ${#logs[@]} == 0 )) || cat "${logs[@]}" >"$log_file" 2>/dev/null || true
   log_has() { grep -qE "$1" "$log_file"; }

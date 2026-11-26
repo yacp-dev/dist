@@ -19,7 +19,7 @@
 # missing rather than resolving to a same-named Windows one.
 #
 # check's output stops reaching the job log after CHECK_LOG_LIMIT_BYTES.
-# A test that loops printing filled tomsfastmath 0.13.1's job log to 7.8 GB
+# A test that loops printing filled a job log to 7.8 GB
 # in its 10 minutes, and `gh run view --log` can't download one that size,
 # which every later reading of the run needs. cygport's own check log,
 # which Audit recipe reads, still gets all of it.

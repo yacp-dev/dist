@@ -180,7 +180,7 @@ if grep -q 'gitweb\.gentoo\.org' "$cygport"; then
 fi
 
 # 1c. git.pld-linux.org -> GitHub mirror: gitweb there serves a bot
-# challenge page instead of the file, so the patch is HTML (yasr 0.6.9).
+# challenge page instead of the file, so the patch is HTML.
 if grep -qE 'git\.pld-linux\.org/[^[:space:]"]*[?;&]f=' "$cygport"; then
   echo
   echo "== PLD URLs =="
@@ -598,7 +598,7 @@ echo "== SUMMARY =="
 bash "$here/summary_candidates.sh" --recipe "$cygport" --package "$package" || echo "couldn't check SUMMARY -- check by hand"
 
 # 7. CMake options, read against src/ so that a variable only the
-# .src.patch reads (cctz's -DSOVERSION) counts as read.
+# .src.patch reads (e.g. -DSOVERSION) counts as read.
 if [[ " $inherits " == *" cmake "* ]]; then
   echo
   echo "== CMake options =="
@@ -622,11 +622,11 @@ fi
 # /usr/share/gettext/config.rpath when configure.ac mentions one of these
 # macros, so a missing gettext-devel fails `cygport compile` on the first
 # run. It greps the text, so a macro in a comment or inside m4_ifdef counts
-# too (libhsts's `#AM_ICONV`), and that is what is matched here. Read
-# against src/ (the .src.patch may add the macro itself, as wolftpm's did).
+# too (e.g. `#AM_ICONV`), and that is what is matched here. Read against
+# src/ (the .src.patch may add the macro itself).
 # With gettext-devel installed, autopoint also runs when configure.ac has
 # AM_GNU_GETTEXT_VERSION, and it stops on an optional (m4_ifdef) or old
-# AM_GNU_GETTEXT without `external` (autopoint 0.26 on libhsts 0.1.0).
+# AM_GNU_GETTEXT without `external` (autopoint 0.26).
 if [[ -n "$source_ok" && -f "$work/src/$SRC_DIR/configure.ac" ]]; then
   configure_ac="$work/src/$SRC_DIR/configure.ac"
   gettext_macros="$(grep -oE 'AM_GNU_GETTEXT_VERSION|AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL' "$configure_ac" |

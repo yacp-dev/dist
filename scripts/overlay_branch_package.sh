@@ -11,7 +11,7 @@
 # with nothing "new" committed during a run that only re-validates an
 # already-fixed branch, it collapsed the whole branch down to be
 # byte-identical to base and deleted/closed it outright -- confirmed by a
-# real run against libucl). Overlaying just one directory's content on
+# real run). Overlaying just one directory's content on
 # top of an ordinary master checkout sidesteps that entirely, since it's
 # exactly the shape (an uncommitted diff against a freshly-checked-out
 # default branch) create-pull-request already knows how to diff and

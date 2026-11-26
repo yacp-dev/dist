@@ -96,8 +96,8 @@ done
 # Runtime REQUIRES aren't needed to build, but have to be installed all the
 # same: `xezat bump` looks each one up in /etc/setup/installed.db to write
 # the README's runtime requirements, and crashes ("comparison of String with
-# nil failed") on one that isn't there -- seen with fetch-crl's
-# REQUIRES="perl-libwww-perl". Being installed also lets `cygport dep` find
+# nil failed") on one that isn't there (e.g.
+# REQUIRES="perl-libwww-perl"). Being installed also lets `cygport dep` find
 # the dependencies it would otherwise miss on a clean runner (it only maps
 # e.g. `use LWP` to a package when LWP.pm is present). A package this same
 # recipe builds can't be installed from anywhere, so it's left out.
@@ -127,7 +127,7 @@ add_for_inherit lua lua liblua-devel
 # tarball): cygport's fetch shells out to the VCS client itself. These
 # used to work only by accident, via Git for Windows etc. leaking in
 # through the runner's Windows PATH -- confirmed by a real run
-# (minitrace, `inherit git`) failing "git is required to build this
+# (`inherit git`) failing "git is required to build this
 # package" once configure_cygport.sh restricted cygport's PATH to
 # /usr/bin.
 add_for_inherit git git

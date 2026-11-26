@@ -47,13 +47,13 @@ license_base() {
 # a text it doesn't know.
 identify_license_text() {
   # C locale: a license text can hold bytes that are invalid UTF-8 (a Latin-1
-  # quote in ButterflyPACK's license.txt), which make macOS sed and tr fail
+  # quote), which make macOS sed and tr fail
   # and bash's pattern matching miss. Every pattern here is ASCII.
   local -x LC_ALL=C
   local text
-  # Without line-leading comment marks: libbacktrace's LICENSE is "# "-
-  # prefixed, which would split "used to # endorse" below. The same for
-  # a "/* ... */" block comment written one line at a time (mt19937.c),
+  # Without line-leading comment marks: a "# "-prefixed LICENSE would
+  # split "used to # endorse" below. The same for a "/* ... */" block
+  # comment written one line at a time,
   # whose "*/ /*" would split "General Public License".
   text="$(sed -E -e 's@^[[:space:]]*(#+|//+|/\*+|\*+|;+|--)[[:space:]]?@@' -e 's@[[:space:]]*\*+/[[:space:]]*$@@' "$1" | tr -s '[:space:]' ' ')"
   local gnu name ver
@@ -67,7 +67,7 @@ identify_license_text() {
     fi
   done
   [[ "$text" == *"Apache License"*"Version 2.0"* ]] && echo "Apache-2.0"
-  # CeCILL (yass's COPYING): the plain license is versioned at the end of
+  # CeCILL: the plain license is versioned at the end of
   # its text ("Version 2.0 dated 2006-09-05"); CeCILL-B and CeCILL-C are
   # licenses of their own, with no version in the SPDX id.
   if [[ "$text" == *"CeCILL FREE SOFTWARE LICENSE AGREEMENT"* &&
@@ -78,18 +78,16 @@ identify_license_text() {
   [[ "$text" == *"CeCILL-C FREE SOFTWARE LICENSE AGREEMENT"* ]] && echo "CECILL-C"
   [[ "$text" == *"Mozilla Public License Version 2.0"* || "$text" == *"Mozilla Public License, v. 2.0"* ]] && echo "MPL-2.0"
   # NCSA opens with MIT's grant but keeps its notice with "the above
-  # copyright notice, this list of conditions" instead (LLVM's, whose
-  # code capstone's arch/ disassemblers derive from).
+  # copyright notice, this list of conditions" instead (LLVM's).
   if [[ "$text" == *"University of Illinois/NCSA Open Source License"* ]]; then
     echo "NCSA"
-  # MIT-0 is MIT without the condition to keep the notice (minicoro's
-  # LICENSE, compiled into BehaviorTree.CPP). The condition may name
-  # several notices (htslib's bgzip.c: "The above copyright notices and
+  # MIT-0 is MIT without the condition to keep the notice. The
+  # condition may name several notices ("The above copyright notices and
   # this permission notice").
   # The ICU License (SPDX ICU) is MIT's grant with the notice condition
   # worded "the above copyright notice(s) and this permission notice
   # appear in all copies", which isn't MIT's sentence and isn't MIT-0
-  # either (cg3's license.icu.txt, ICU's uoptions code).
+  # either.
   elif [[ "$text" == *"ICU License"* ||
           "$text" == *"above copyright notice(s) and this permission notice appear in all copies"* ]]; then
     echo "ICU"
@@ -102,21 +100,21 @@ identify_license_text() {
     fi
   fi
   # The BSD licenses grant it "provided that" conditions are met; a grant
-  # with none ("... with or without modification, are permitted.", the
-  # public-domain fallback of Solar Designer's md5.c in htslib) isn't one.
+  # with none ("... with or without modification, are permitted.", e.g. a
+  # public-domain fallback) isn't one.
   # The conditions are the BSD ones only when the list starts with them: a
   # header that adds its own first ("1. This software is only used for
-  # private, research, or academic purposes", libprng's) is a custom license.
+  # private, research, or academic purposes") is a custom license.
   if [[ "$text" == *"Redistribution and use in source and binary forms"*"provided that"* &&
         "$text" =~ provided\ that[^.]{0,60}:?\ ?[-*0-9.\(\)\ ]{0,8}Redistributions?\ of\ source\ code ]]; then
     if [[ "$text" == *"advertising materials"* ]]; then
       echo "BSD-4-Clause"
     elif [[ "$text" == *"Neither the name"* || "$text" == *"used to endorse or promote"* ]]; then
-      # The Clear BSD License (vvenc) is the 3-clause text plus an explicit
+      # The Clear BSD License is the 3-clause text plus an explicit
       # denial of patent rights.
       if [[ "$text" == *"NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED"* ]]; then
         echo "BSD-3-Clause-Clear"
-      # BSD-3-Clause-LBNL (ButterflyPACK) is the 3-clause text plus the
+      # BSD-3-Clause-LBNL is the 3-clause text plus the
       # "Enhancements" grant to Lawrence Berkeley National Laboratory.
       elif [[ "$text" == *"You are under no obligation whatsoever to provide any bug fixes"*"Enhancements"* ]]; then
         echo "BSD-3-Clause-LBNL"
@@ -138,15 +136,15 @@ identify_license_text() {
   [[ "$text" == *"provided 'as-is', without any express or implied warranty"*"Altered source versions must be plainly marked"* ]] && echo "Zlib"
   [[ "$text" == *"Boost Software License - Version 1.0"* ]] && echo "BSL-1.0"
   [[ "$text" == *"This is free and unencumbered software released into the public domain"* ]] && echo "Unlicense"
-  # The space after the dash isn't always there (adolc's LICENSE: "Eclipse
-  # Public License -v 1.0").
+  # The space after the dash isn't always there ("Eclipse Public
+  # License -v 1.0").
   [[ "$text" =~ Eclipse\ Public\ License\ -\ ?v\ 2\.0 ]] && echo "EPL-2.0"
   [[ "$text" =~ Eclipse\ Public\ License\ -\ ?v\ 1\.0 ]] && echo "EPL-1.0"
   [[ "$text" == *"The Artistic License 2.0"* ]] && echo "Artistic-2.0"
   [[ "$text" == *"CC0 1.0 Universal"* ]] && echo "CC0-1.0"
   [[ "$text" == *"PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2"* ]] && echo "PSF-2.0"
   [[ "$text" == *"Server Side Public License, version 1"* ]] && echo "SSPL-1.0"
-  # Sam Hocevar's WTFPL (zimg's COPYING); its name spells out the f-word
+  # Sam Hocevar's WTFPL: its name spells out the f-word
   # and the version is in the title, so the title alone tells it.
   [[ "$text" == *"DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE"* ]] && echo "WTFPL"
   return 0
@@ -185,7 +183,7 @@ identify_license_notice() {
     [[ "$ver" == *.* ]] || ver="$ver.0"
     echo "$fam-$ver-or-later"
   fi
-  # The CeCILL notice follows the GNU one's wording (yass: "the CeCILL
+  # The CeCILL notice follows the GNU one's wording ("the CeCILL
   # License as published by the CEA-CNRS-INRIA; either version 2 of the
   # License, or (at your option) any later version"). SPDX has no
   # CECILL-*-or-later id: like the GNU ones above, it only says which

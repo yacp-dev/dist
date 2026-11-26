@@ -492,7 +492,7 @@ normally fine as they are):
   macros, and without it `cygport compile` fails on the first run. With
   `gettext-devel` installed, `autopoint` also runs when there is an
   `AM_GNU_GETTEXT_VERSION`, and autopoint 0.26 stops on an
-  `AM_GNU_GETTEXT` without `external` (libhsts 0.1.0). When the source
+  `AM_GNU_GETTEXT` without `external`. When the source
   doesn't really use gettext (the report says `no po/`, nothing in the
   code includes libintl), remove the gettext block from `configure.ac` in
   the `.src.patch`, and keep `gettext-devel` for `config.rpath` for as long
@@ -585,9 +585,9 @@ A rebuild done to fix what the packages ship, not for a new gcc
 `Rebuild` (or `Repackage`, which `changelog_message.sh` writes instead of
 `Rebuild` for a package with nothing compiled). When gcc changed too (a `gcc-rebuild`, or `gcc_changed.sh`
 says `changed`), `Rebuild with gcc-<ver>` wins: pass no
-`changelog_message`, whatever else the branch fixes (mini18n 0.2.1-1bl3:
-the `.pc` rewrite and a smoke test went in under `Rebuild with
-gcc-14.4.0`). Otherwise pass `-f changelog_message="Fix <what>"` on every dispatch,
+`changelog_message`, whatever else the branch fixes (a `.pc`
+rewrite or a smoke test goes in under `Rebuild with gcc-<ver>` too).
+Otherwise pass `-f changelog_message="Fix <what>"` on every dispatch,
 since each run writes the README's entry anew. Keep it short, in the
 style of ports' READMEs (`Fix uvwasi.pc`, `Fix *.cmake`). Fixes the
 preflight makes on its own (unused `-D` variables, LICENSE) don't
@@ -828,7 +828,7 @@ depends on upstream, so look at the source before reporting it:
   `check_summary.sh` lists under `check-smoke-test:` (exits 0 on
   `--version`/`--help`) gets `verbose ./${PN}.exe --version`. One not
   listed often prints its usage and exits non-zero without arguments
-  (zip2hashcat: usage on stderr, exit 1): read its `main()` and usage
+  (e.g. usage on stderr, exit 1): read its `main()` and usage
   path (or the build files for a script), and where the startup
   behavior is plain, expect exactly that exit code and a line of its
   usage text (e.g. `verbose ./${PN}.exe -v`), saying in the proposal
@@ -861,8 +861,8 @@ ctest test whose own output
 says it skipped. cygport's steps run with the Windows directories left
 out of `PATH` (`scripts/cygwin_path.sh`), so a tool the recipe doesn't
 install makes a test skip itself (or fail as `command not found`)
-instead of running a same-named Windows one -- before that, libavif
-1.4.2's ImageMagick tests ran System32's `convert.exe` and failed with
+instead of running a same-named Windows one -- before that, ImageMagick
+tests ran System32's `convert.exe` and failed with
 `Invalid drive specification.`. For each skipped test, find why (the
 line it printed, the test script, or the build file that disabled it):
 
@@ -906,7 +906,7 @@ Work out the license from, in this order of trust:
    (`grep -rhoE 'SPDX-License-Identifier: [A-Za-z0-9.+-]+' . | sort | uniq -c`
    over the whole tree, then drop what only unshipped files carry).
 2. A License section in the README, which often says which part is
-   under which license (libqmi: library LGPL-2.1-or-later, tools
+   under which license (e.g. library LGPL-2.1-or-later, tools
    GPL-2.0-or-later).
 3. The license text files themselves (`COPYING`, `COPYING.LIB`,
    `LICENSE*`), by their headings, to tell the version apart. Use
@@ -914,7 +914,7 @@ Work out the license from, in this order of trust:
    option) any later version"; otherwise use `-only`.
 4. Build metadata (meson `license:`, `pyproject.toml`, `Cargo.toml`,
    `package.json`, `*.gemspec`) last: it is often vague or out of
-   date (libqmi's meson.build says `'GPL2'`).
+   date (`'GPL2'` in a meson.build).
 
 Then write it in the recipe's style, after `DESCRIPTION` and before
 `BUILD_REQUIRES`, the way `libiscsi` in ports does:
@@ -1000,7 +1000,7 @@ Classify it, because the response differs:
 | Kind | Typical signs | What to do |
 |---|---|---|
 | Transient | mirror `connection error`, `download error`, HTTP 5xx, runner lost | No commit. Re-run the same run's failed jobs: `gh run rerun <id> -R yacp-dev/dist --failed`. It stays one run with attempt N+1, and uses the same commit and inputs, which is what a transient retry needs. Doesn't count toward the attempt limit, but give up after 3 in a row and report. Wait on the same run id again. |
-| Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call (avro-cpp's Boost workaround built but every test failed, yacp-dev/dist#92). Report as under "Stopping". |
+| Unavailable dependency | the new version needs a library/program (or a minimum version of one) that neither the Cygwin mirror's curr nor dist.yacp.dev provides — e.g. `Dependency "rest-1.0" not found` with only `rest-0.7` packaged, `find_package(Boost 1.70 ...)` with curr at 1.66 | **Stop the loop now**, even on the first attempt — no recipe fix can supply it. Confirm first (see "Checking a dependency is unavailable" in Step 4); a `[test]` version doesn't count. Don't work around it by patching out the check, dropping the version requirement, or disabling the feature/tests that need it — that's the user's call. Report as under "Stopping". |
 | Recipe (ports) | missing header/library/program, `.src.patch` hunk fails in `cygport prep`, file list / `PKG_NAMES` mismatch after an ABI soname bump, new configure option, test-only failure | Fix on the branch (Step 4). |
 | dorgann | a step in the workflow itself or `scripts/*.sh` misbehaves regardless of the recipe (e.g. a script crashes, wrong path handling, `generate_readme.sh` writes a wrong README) | Don't edit dorgann — its changes affect every package, so the user wants to review them. If the bug's damage is in the branch content and can be undone there (e.g. `bump_version.sh` mangled a file during the preflight's one-time bump; branch-rebuild runs don't re-bump), fix it on the branch like a recipe fix and carry on, then report the dorgann bug with evidence and a proposed fix at the end. If it would recur on every run, **stop** and report. |
 | No branch | the run was refused by **Require existing branch for version bump** (a `bump` target with no `dorgann/<pkg>-<ver>` on yacp), or failed before `Detect existing cygport`/`Bump release` succeeded, so no branch/draft PR exists | A refusal means Step 1b never pushed the branch: go back to Step 1b. If it's transient, re-run it with `--failed` (as in the Transient row). If it's the bump itself — here, or `preflight_bump.sh` failing in `bump_version.sh`/`bump_release.sh` — (e.g. the version string doesn't appear in the cygport), the fix is a manual bump: create the branch yourself from master in a worktree (`git -C "$ports" worktree add -B dorgann/<pkg>-<ver> <scratchpad>/worktrees/<pkg>-<ver> origin/master`, the path written out literally) with the renamed cygport, push, then dispatch `<pkg>-<ver>` again. |
@@ -1139,10 +1139,10 @@ Edit only files under the package directory. Common fixes:
   generate the `.pc` inside that `CMakeLists.txt` with `file(WRITE ...)`.
   Never add a new `.pc` or `.pc.in` file (in `SRC_URI` or the
   `.src.patch`), and no `configure_file()` of one. The same goes for a
-  `.pc` the `.src.patch` adds to upstream's `CMakeLists.txt`
-  (zlibcomplete 1.0.5). Escape the `${...}` that pkg-config expands
-  (`\${prefix}`), let CMake expand the rest, and give it `Requires`
-  (or `Requires.private`) for what its public headers include:
+  `.pc` the `.src.patch` adds to upstream's `CMakeLists.txt`.
+  Escape the `${...}` that pkg-config expands (`\${prefix}`), let CMake
+  expand the rest, and give it `Requires` (or `Requires.private`) for what its
+  public headers include:
 
   ```cmake
   include(GNUInstallDirs)
@@ -1216,8 +1216,7 @@ Edit only files under the package directory. Common fixes:
   whose tests read `$(srcdir)`) → remove the copies right after the test
   command, whether it passed or not, so `cygport diff` doesn't record them
   as binary files in the `.src.patch` (the reverse of the copy: `cygtest ||
-  status=$?`, `verbose rm -f ${S}/tests/<data>`, `return ${status}`;
-  libhsts 0.1.0).
+  status=$?`, `verbose rm -f ${S}/tests/<data>`, `return ${status}`).
 - **Only `cygport check` fails** → that step doesn't block the PR; if the
   run failed anyway, look for the real failing step instead. Test suite
   failures on a green run are handled under Step 2.
@@ -1251,8 +1250,8 @@ and in a recipe you've just bumped even if a run didn't complain:
 - A Gentoo file (`PATCH_URI`, `SRC_URI`) from the GitHub mirror pinned to a
   commit (`https://raw.githubusercontent.com/gentoo/gentoo/<commit>/<path>`,
   `gentoo/guru` for GURU), never `gitweb.gentoo.org`: gitweb answers 503
-  often enough to fail a run on its own (zopfli 1.0.3-1bl2's deploy, twice
-  in a row). `scripts/gentoo_github_urls.sh --file <cygport>` rewrites them
+  often enough to fail a run on its own (twice in a row on one
+  deploy). `scripts/gentoo_github_urls.sh --file <cygport>` rewrites them
   (an unpinned URL gets the newest commit that touched the file, a `?id=`
   keeps its commit); the preflight runs it and commits `<pkg>-<ver> (take
   Gentoo patches from GitHub)`. On a branch that already existed, run it
@@ -1261,7 +1260,7 @@ and in a recipe you've just bumped even if a run didn't complain:
   commit (`https://raw.githubusercontent.com/pld-linux/<package>/<commit>/<file>`),
   never `git.pld-linux.org`: it serves a bot challenge page instead of the
   file, so cygport downloads HTML and prep fails with `Only garbage was
-  found in the patch input` (yasr 0.6.9). `scripts/pld_github_urls.sh
+  found in the patch input`. `scripts/pld_github_urls.sh
   --file <cygport>` rewrites them (an `h=` blob gets the newest commit where
   the file is that blob, a full-SHA `hb=` keeps its commit, otherwise the
   newest commit that touched the file; a `#/<name>` that repeats the file

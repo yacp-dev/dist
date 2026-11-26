@@ -7,9 +7,8 @@
 #
 # git.pld-linux.org serves a bot challenge page (Anubis) instead of the
 # file to non-browser clients, so cygport prep downloads HTML and the
-# patch fails with "Only garbage was found in the patch input" (yasr
-# 0.6.9-1bl4's preflight). GitHub's pld-linux organization mirrors the
-# same package repositories.
+# patch fails with "Only garbage was found in the patch input".
+# GitHub's pld-linux organization mirrors the same package repositories.
 #
 # The commit: an hb= that is a full 40-digit SHA is kept. Otherwise, with
 # an h= (the blob gitweb was asked for), the newest commit touching the

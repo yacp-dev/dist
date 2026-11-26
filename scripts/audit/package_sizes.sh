@@ -2,8 +2,8 @@
 #
 # Each tarball cygport package left in dist/$PN, against GitHub's 100 MiB
 # file limit: publish.yml pushes the release area to the gh-pages branch,
-# and GitHub rejects the whole push over one file past it (libjxl
-# 0.13.0-1bl1's -src.tar.xz, 112.21 MB with every git submodule in it).
+# and GitHub rejects the whole push over one file past it (e.g.
+# a -src.tar.xz with every git submodule in it).
 # The build itself goes green, so without this the PR gets merged and only
 # the publish run fails. A -debuginfo tarball is only listed:
 # layout_release_area.sh --exclude-debuginfo leaves it out of gh-pages.

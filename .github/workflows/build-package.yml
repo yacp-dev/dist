@@ -278,7 +278,7 @@ jobs:
       # Cygwin's git defaults to, a patch generated against a plain LF
       # checkout can fail to apply against a CRLF-converted one at every
       # -p level cygport tries, with no more detail than "will not apply"
-      # (confirmed against a real run -- htslib's src.patch, verified
+      # (confirmed against a real run -- a src.patch, verified
       # byte-for-byte correct against the actual upstream Makefile, still
       # wouldn't apply in CI while applying fine locally).
       - name: Configure git safe.directory (Cygwin)
@@ -597,8 +597,8 @@ jobs:
       # DISTDIR (confirmed against cygport's actual source; DISTDIR only
       # applies to src_fetch.cygpart's plain-URL path) -- so
       # configure_cygport.sh can't redirect it, and it isn't inside
-      # *.x86_64/ either, confirmed by a real run (htslib) committing an
-      # untracked htslib-<PV>.tar.bz2 nobody wanted. yacp's own convention
+      # *.x86_64/ either, confirmed by a real run committing an
+      # untracked <PN>-<PV>.tar.bz2 nobody wanted. yacp's own convention
       # never commits these even for existing git-sourced packages, so
       # exclude the pattern outright.
       #
@@ -797,7 +797,7 @@ jobs:
       #
       # deploy is excluded explicitly here too (matching Create
       # Pull Request above) rather than relying on there being no diff to
-      # push -- confirmed by a real run (socket++ 1.12.13) that
+      # push -- confirmed by a real run that
       # peter-evans/create-pull-request happens to no-op gracefully
       # ("Branch ... is not ahead of base 'master' and will not be
       # created") when deploy genuinely has nothing to commit, but

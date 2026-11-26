@@ -140,7 +140,7 @@ new_basename="${pn}-${new_version}-1bl1"
 # Each PKG_NAMES entry is expanded the way cygport would for the old and
 # the new PV (${PV}, ${PV[n]}, $PV_MAJ, $PV_MAJ_MIN -- cygport's PV array
 # is the full version followed by its [-._]-separated parts -- plus a
-# literal old version, as in skyutils' lib${PN}2.8_4), and only names that
+# literal old version, e.g. lib${PN}2.8_4), and only names that
 # actually change get renamed. Matching the underscore form by shape alone
 # can't work: libCatch2_3_15_3's own "2_" looks just like part of a longer
 # version, and names that don't come from PV must stay as they are. This

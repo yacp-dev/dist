@@ -106,7 +106,7 @@ audit_recipe_vars() {
   elif [[ "$LICENSE_URI" == http://* || "$LICENSE_URI" == https://* ]]; then
     check_url LICENSE_URI "$LICENSE_URI"
   elif [[ -d "$S" ]]; then
-    # LICENSE_URI may list several files, space-separated (e.g. pdal)
+    # LICENSE_URI may list several files, space-separated
     local lu_missing=() lu
     for lu in $LICENSE_URI; do
       [[ -e "$S/$lu" ]] || lu_missing+=("$lu")
@@ -132,7 +132,7 @@ audit_recipe_vars() {
   fi
 
   # gitweb.gentoo.org answers 503 ("No healthy backends") often enough to
-  # fail cygport prep by itself (zopfli 1.0.3-1bl2); GitHub's mirror is the
+  # fail cygport prep by itself; GitHub's mirror is the
   # same repository.
   local gitweb
   while IFS= read -r gitweb; do
@@ -141,7 +141,7 @@ audit_recipe_vars() {
   grep -q 'gitweb\.gentoo\.org' "$cygport_file" || ok "Recipe: no gitweb.gentoo.org URL"
 
   # git.pld-linux.org serves a bot challenge page (Anubis) instead of the
-  # file, so a patch from it is HTML and fails cygport prep (yasr 0.6.9).
+  # file, so a patch from it is HTML and fails cygport prep.
   # Only file URLs (f=): a repository link as HOMEPAGE isn't downloaded.
   local pld
   while IFS= read -r pld; do

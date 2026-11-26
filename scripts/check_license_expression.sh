@@ -3,7 +3,7 @@
 # hint.py parses the license: of every package's hint with the
 # license_expression library, strictly, and refuses to write setup.ini
 # for the whole dist when one doesn't parse. A recipe whose LICENSE fails
-# that builds green and only breaks at publish (duo_unix 2.3.0's
+# that builds green and only breaks at publish (e.g.
 # `GPL-2.0-with-classpath-exception`, a deprecated SPDX id, instead of
 # `GPL-2.0-only WITH Classpath-exception-2.0`). This repeats calm's check,
 # including the extra ids it permits, so the failure shows up in the

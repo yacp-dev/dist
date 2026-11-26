@@ -43,7 +43,7 @@ wt="$worktrees/$pkg-$ver"
 
 # --no-write-fetch-head: $ports is shared and a concurrent `git pull` merges
 # whatever FETCH_HEAD holds, so a named-branch fetch here would get merged
-# into its master (seen with dorgann/libminc-2.5.0).
+# into its master.
 if ! git -C "$ports" fetch -q --no-write-fetch-head origin "$branch" 2>/dev/null; then
   # Before the first push (Step 1b: preflight_bump.sh's worktree, committed
   # but not pushed) there is nothing to refresh and nothing to lose: hand

@@ -8,11 +8,11 @@
 #     -> https://raw.githubusercontent.com/gentoo/guru/<sha>/<path>
 #
 # gitweb.gentoo.org answers 503 ("No healthy backends") often enough to
-# fail cygport prep on a recipe that hasn't changed (zopfli 1.0.3-1bl2's
-# deploy, run 45738880501, twice in a row); GitHub's mirror is the same
-# repository. An unpinned URL (no ?id=) gets the newest commit that
-# touched the file -- the content master's gitweb would serve -- or, when
-# that commit deleted it, that commit's parent. A ?id= keeps its commit.
+# fail cygport prep on a recipe that hasn't changed, twice in a row at
+# times; GitHub's mirror is the same repository. An unpinned URL
+# (no ?id=) gets the newest commit that touched the file -- the content
+# master's gitweb would serve -- or, when that commit deleted it, that
+# commit's parent. A ?id= keeps its commit.
 #
 # ${PN}, ${PV}, ${P}, ${PF}, ${PR}, ${PVR} in the path are expanded from
 # the .cygport's file name to look the file up, and kept as written in

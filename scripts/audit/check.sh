@@ -7,8 +7,7 @@
 #   check: FAILED      the step failed (or timed out); then why, below
 #   check: FAILED (N of M unit tests failed, though cygport check passed)
 #                      a test driver that exits 0 on failures and only
-#                      prints "unit testing failed: N" (libosip2's
-#                      src/test/tst)
+#                      prints "unit testing failed: N"
 #   check: empty (<reason>)
 #                      it passed without running any tests
 #   check: passed
@@ -28,9 +27,8 @@
 # --- Why it failed ------------------------------------------------------
 #
 # The reason sits in a test log that never leaves the runner: meson's
-# testlog.txt, ctest's LastTest.log, automake's test-suite.log. libeconf
-# 0.8.6 was the case in point: all 73 tests failed with exit status 127
-# and nothing in the job log said why, even though meson had already put
+# testlog.txt, ctest's LastTest.log, automake's test-suite.log. In one
+# case all tests failed with exit status 127 and nothing in the job log said why, even though meson had already put
 # the build root (where the DLL was) on PATH.
 #
 # Exit status 127 on Cygwin means the program couldn't be started at all
@@ -47,8 +45,8 @@
 # "==== N/M ====" lines and records "result: exit status <n>" (or e.g.
 # "result: timeout"; 77 is a skip); ctest's LastTest.log starts each test
 # with "N/M Testing: name" and says "Test Failed" -- or, for a test
-# judged by PASS_/FAIL_REGULAR_EXPRESSION, "Test Fail Reason:" instead
-# (OpenCoarrays 2.11.0's issue-511 went unshown) -- its "----" lines
+# judged by PASS_/FAIL_REGULAR_EXPRESSION, "Test Fail Reason:" instead,
+# which went unshown before -- its "----" lines
 # also come *inside* a test, around the output, so splitting on them
 # left only the "Test Failed" tail ("Subprocess aborted" and not a line of
 # why); automake's per-test .log files are named in
@@ -367,7 +365,7 @@ check_skipped_tests() {
   perl -pe 's/\e\[[0-9;]*m//g' "$checklog" | awk '
     # ctest: " 60/63 Test #60: test_cmd_stdin ......***Not Run (Disabled)   0.00 sec"
     # A plain "Not Run" is ctest not finding the executable ("Unable to
-    # find executable: hyphy"): a failure, already in the totals, not a skip.
+    # find executable: foo"): a failure, already in the totals, not a skip.
     /Test +#[0-9]+: .*\*\*\*(Skipped|Not Run \(Disabled\))/ {
       name = $0; sub(/.*Test +#[0-9]+: /, "", name); sub(/ .*/, "", name)
       why = $0; sub(/.*\*\*\*/, "", why); sub(/ +[0-9.]+ sec.*/, "", why)
