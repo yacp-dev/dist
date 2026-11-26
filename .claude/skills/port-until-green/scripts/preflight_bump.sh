@@ -23,6 +23,9 @@
 #      GitHub mirror pinned to a commit (gentoo_github_urls.sh), committed
 #      as <pkg>-<ver> (take Gentoo patches from GitHub): gitweb's 503s
 #      fail runs on their own.
+#      git.pld-linux.org file URLs likewise (pld_github_urls.sh), as
+#      <pkg>-<ver> (take PLD patches from GitHub): that gitweb serves a
+#      bot challenge page instead of the file.
 #   2. The new version's source, from the bumped recipe's SRC_URI (or
 #      GIT_URI + GIT_TAG), unpacked into <work>/origsrc/ like cygport's
 #      prep does.
@@ -174,6 +177,21 @@ if grep -q 'gitweb\.gentoo\.org' "$cygport"; then
     echo "committed: $package-$version (take Gentoo patches from GitHub)"
   fi
   (( gentoo_rc == 0 )) || echo "WARNING: some gitweb.gentoo.org URLs are left (above) -- rewrite them by hand"
+fi
+
+# 1c. git.pld-linux.org -> GitHub mirror: gitweb there serves a bot
+# challenge page instead of the file, so the patch is HTML (yasr 0.6.9).
+if grep -qE 'git\.pld-linux\.org/[^[:space:]"]*[?;&]f=' "$cygport"; then
+  echo
+  echo "== PLD URLs =="
+  pld_rc=0
+  bash "$here/pld_github_urls.sh" --file "$cygport" 2>&1 || pld_rc=$?
+  if ! git -C "$wt" diff --quiet -- "$package"; then
+    git -C "$wt" add -A -- "$package"
+    git -C "$wt" commit -q -m "$package-$version (take PLD patches from GitHub)"
+    echo "committed: $package-$version (take PLD patches from GitHub)"
+  fi
+  (( pld_rc == 0 )) || echo "WARNING: some git.pld-linux.org URLs are left (above) -- rewrite them by hand"
 fi
 
 # 2. Source. The variables cygport needs to place the source and the

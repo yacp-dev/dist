@@ -140,6 +140,15 @@ audit_recipe_vars() {
   done < <(grep -oE 'https?://gitweb\.gentoo\.org/[^[:space:]"'\'']+' "$cygport_file" | sort -u)
   grep -q 'gitweb\.gentoo\.org' "$cygport_file" || ok "Recipe: no gitweb.gentoo.org URL"
 
+  # git.pld-linux.org serves a bot challenge page (Anubis) instead of the
+  # file, so a patch from it is HTML and fails cygport prep (yasr 0.6.9).
+  # Only file URLs (f=): a repository link as HOMEPAGE isn't downloaded.
+  local pld
+  while IFS= read -r pld; do
+    [[ -n "$pld" ]] && rwarn "$pld is on git.pld-linux.org -- take it from the GitHub mirror, pinned to a commit (https://raw.githubusercontent.com/pld-linux/<package>/<commit>/<file>; port-until-green's pld_github_urls.sh rewrites it)"
+  done < <(grep -oE 'https?://git\.pld-linux\.org/[^[:space:]"'\'']+' "$cygport_file" | grep -E '[?;&]f=' | sort -u)
+  grep -E 'git\.pld-linux\.org/[^[:space:]"]*[?;&]f=' "$cygport_file" >/dev/null || ok "Recipe: no git.pld-linux.org file URL"
+
   local misplaced w1=$warnings
   while IFS= read -r misplaced; do
     [[ -n "$misplaced" ]] && rwarn "$misplaced"

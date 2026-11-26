@@ -119,6 +119,8 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
 - `scripts/gentoo_github_urls.sh --file F [--dry-run]` — rewrites a
   recipe's `gitweb.gentoo.org` URLs to the GitHub mirror, pinned to a
   commit ("Where things go in a recipe", Step 4).
+- `scripts/pld_github_urls.sh --file F [--dry-run]` — the same for
+  `git.pld-linux.org` file URLs, to `pld-linux/<package>` on GitHub.
 - `scripts/merge_pr.sh <PR | pkg-ver | branch>` — rebase & merge on GitHub,
   delete remote branch, pull master in `$PORTS_DIR`, verify no diff, and delete
   local branch ("Merging").
@@ -619,7 +621,7 @@ already has them.
 
     | Section / block | What it means → the fix |
     |---|---|
-    | `== Recipe ==` | A `HOMEPAGE` that redirects → the URL the warning names (a redirect that only changes the GitHub user changes `SRC_URI` too). An invalid `CATEGORY`. A `gitweb.gentoo.org` URL → `scripts/gentoo_github_urls.sh --file <cygport>`, `<pkg>-<ver> (take Gentoo patches from GitHub)`. `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of place → "Where things go in a recipe" (Step 4). A `BUILD_REQUIRES` package that isn't installed → a misspelling or not a Cygwin package: correct or drop it. A `LICENSE` mksetupini rejects → as under LICENSE in Step 1b. |
+    | `== Recipe ==` | A `HOMEPAGE` that redirects → the URL the warning names (a redirect that only changes the GitHub user changes `SRC_URI` too). An invalid `CATEGORY`. A `gitweb.gentoo.org` URL → `scripts/gentoo_github_urls.sh --file <cygport>`, `<pkg>-<ver> (take Gentoo patches from GitHub)`. A `git.pld-linux.org` file URL → `scripts/pld_github_urls.sh --file <cygport>`, `<pkg>-<ver> (take PLD patches from GitHub)`. `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of place → "Where things go in a recipe" (Step 4). A `BUILD_REQUIRES` package that isn't installed → a misspelling or not a Cygwin package: correct or drop it. A `LICENSE` mksetupini rejects → as under LICENSE in Step 1b. |
     | `== *-config ==`, `== *.pc ==` | Version, prefix or `-l` libraries wrong, or it names the build tree → fix it in `src_install` or a `PATCH_URI` patch. |
     | `== AppStream ==` | A file in `/usr/share/appdata` → move it to `/usr/share/metainfo`. |
     | `== Duplicate files ==` | "Upstream's install duplicates" (Step 4). |
@@ -737,7 +739,9 @@ script printed (`.../debian/<full version>/...`, Fedora's, Gentoo's, AUR's and P
 `.../<commit>/...`), not a branch URL such as `raw/rawhide/f/` that
 moves on, and for Gentoo the GitHub mirror's
 `raw.githubusercontent.com/gentoo/gentoo/<commit>/...` the script prints,
-never `gitweb.gentoo.org`. Commit them on their own, as `<pkg>-<ver> (add distro
+never `gitweb.gentoo.org`, and for PLD the `pld-linux/<package>` mirror's
+`raw.githubusercontent.com/pld-linux/<package>/<commit>/...`, never
+`git.pld-linux.org`. Commit them on their own, as `<pkg>-<ver> (add distro
 patches)`, with one line per patch in the body saying what it fixes. If
 a later run fails because of one, drop it rather than fixing it, and say
 so in the report. On a re-run of a branch whose `PATCH_URI` already
@@ -1253,6 +1257,17 @@ and in a recipe you've just bumped even if a run didn't complain:
   keeps its commit); the preflight runs it and commits `<pkg>-<ver> (take
   Gentoo patches from GitHub)`. On a branch that already existed, run it
   and commit the same way.
+- A PLD file the same way, from `pld-linux/<package>` on GitHub pinned to a
+  commit (`https://raw.githubusercontent.com/pld-linux/<package>/<commit>/<file>`),
+  never `git.pld-linux.org`: it serves a bot challenge page instead of the
+  file, so cygport downloads HTML and prep fails with `Only garbage was
+  found in the patch input` (yasr 0.6.9). `scripts/pld_github_urls.sh
+  --file <cygport>` rewrites them (an `h=` blob gets the newest commit where
+  the file is that blob, a full-SHA `hb=` keeps its commit, otherwise the
+  newest commit that touched the file; a `#/<name>` that repeats the file
+  name is dropped); the preflight runs it and commits `<pkg>-<ver> (take
+  PLD patches from GitHub)`. On a branch that already existed, run it and
+  commit the same way.
 - `LICENSE`, `LICENSE_SPDX`, `LICENSE_URI` after `DESCRIPTION`, one blank
   line between, and before `BUILD_REQUIRES`.
 - `BUILD_REQUIRES` tab-indented, one package per line, even a short list;
