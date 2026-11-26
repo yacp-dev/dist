@@ -20,3 +20,4 @@ vanessa_socket	vanessa-socket
 diamond	diamond-aligner
 fast_float	fast-float
 pcl	pcl-pointclouds
+ykclient	yubico-c-client
