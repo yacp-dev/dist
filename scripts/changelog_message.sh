@@ -14,7 +14,14 @@
 #   "Rebuild with gcc-<upstream>",
 #   matching yacp's own existing convention (e.g. "Rebuild with
 #   gcc-13.4.0" -- upstream version only, no Cygwin package release).
-# - Only the release changed, gcc unchanged (or not recorded at all):
+# - Only the release changed, and the HEAD README's "Build requirements"
+#   names no compiler (gcc-core/gcc-g++/gcc-fortran, or an old README's
+#   gcc4-core/gcc4-g++) and no binutils: nothing was compiled
+#   (generate_readme.sh lists a compiler and binutils only for what the
+#   debuginfo or the installed .exe/.dll/.a/.so show was built), e.g. a
+#   shell script, a header-only library or a data package: "Repackage".
+# - Only the release changed, gcc unchanged (or the README has no "Build
+#   requirements" at all, so whether it was compiled is unknown):
 #   "Rebuild".
 #
 # Decided from the files themselves rather than build-package.yml's
@@ -81,9 +88,13 @@ if [[ -n "$head_cygport" ]] && [[ "$(tr '[:upper:]' '[:lower:]' <<<"$(strip_rele
   fi
   # gcc-core, gcc-g++ and gcc-fortran always share one version, and a
   # C++-only package's README lists gcc-g++ rather than gcc-core.
-  old_gcc="$(git -C "$dir" show "HEAD:$head_package/README" 2>/dev/null | sed -En 's/^[[:space:]]*gcc-(core|g\+\+|fortran)-([0-9][^-]*)-[^-]*$/\2/p' | head -n 1 || true)"
+  head_readme="$(git -C "$dir" show "HEAD:$head_package/README" 2>/dev/null || true)"
+  old_gcc="$(sed -En 's/^[[:space:]]*gcc-(core|g\+\+|fortran)-([0-9][^-]*)-[^-]*$/\2/p' <<<"$head_readme" | head -n 1 || true)"
   if [[ -n "$old_gcc" && -n "$gcc_upstream" && "$old_gcc" != "$gcc_upstream" ]]; then
     message="Rebuild with gcc-$gcc_upstream"
+  elif grep -q '^Build requirements:' <<<"$head_readme" \
+       && ! sed -n '/^Build requirements:/,/^$/p' <<<"$head_readme" | grep -qE '^[[:space:]]*(gcc[0-9]*-[a-z+]+|binutils)-[0-9]'; then
+    message="Repackage"
   else
     message="Rebuild"
   fi

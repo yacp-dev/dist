@@ -133,7 +133,7 @@ This has the side effect of stopping monitoring for the whole package (a real ne
   | `target` | Mode | Build |
   |---|---|---|
   | `<pkg>-<ver>`, `<ver>` ≠ yacp's | `bump` | Version bump, on the branch port-until-green's preflight pushed (refused without it) |
-  | `<pkg>-<ver>`, `<ver>` = yacp's | `rebuild` | Release bump only, `1bl1` → `1bl2` (Bump release) |
+  | `<pkg>-<ver>`, `<ver>` = yacp's | `rebuild` | Release bump only, `1bl1` → `1bl2` (Bump release); changelog `Rebuild`, or `Repackage` when the README's build requirements name no compiler (nothing compiled) |
   | `<pkg>-<ver>-<rel>`, `<rel>` = yacp's + 1 | `gcc-rebuild` | Same as `rebuild`, for a newer gcc (`Rebuild with gcc-<ver>`) |
   | `<pkg>-<ver>-<rel>` = yacp's | `deploy` | Build as committed, no PR, just the dist artifact for 4.4.2 |
   | `<pkg>` | `latest` | Refused (needs a version; see Step 3 in chapter 7) |

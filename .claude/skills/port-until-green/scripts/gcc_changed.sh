@@ -10,6 +10,9 @@
 # Output (one line):
 #   changed <readme gcc> -> <curr gcc>    the changelog says "Rebuild with gcc-<curr>"
 #   same <gcc>                            it would only say "Rebuild"
+#   none                                  nothing compiled (README's build
+#                                         requirements name no gcc/binutils):
+#                                         it says "Repackage"
 #   unknown <reason>                      the README records no gcc
 
 set -euo pipefail
@@ -37,7 +40,10 @@ curr_gcc="$(awk '/^@ gcc-core$/ { f = 1; next } f && /^version:/ { print $2; exi
 curr_gcc="${curr_gcc%-*}"
 [[ -n "$curr_gcc" ]] || { echo "unknown could not read gcc-core from the Cygwin mirror"; exit 0; }
 
-if [[ -z "$readme_gcc" ]]; then
+if grep -q '^Build requirements:' <<<"$readme" \
+   && ! sed -n '/^Build requirements:/,/^$/p' <<<"$readme" | grep -qE '^[[:space:]]*(gcc[0-9]*-[a-z+]+|binutils)-[0-9]'; then
+  echo "none $pkg's README names no compiler: nothing compiled"
+elif [[ -z "$readme_gcc" ]]; then
   echo "unknown $pkg's README records no gcc (curr: $curr_gcc)"
 elif [[ "$readme_gcc" == "$curr_gcc" ]]; then
   echo "same $curr_gcc"

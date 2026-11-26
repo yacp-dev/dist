@@ -176,7 +176,8 @@ starts with (package names can contain dashes), then splits the rest into
 - **`rebuild`** (`<pkg>-<ver>`, `<ver>` equals ports) → bump only the
   release, e.g. `1bl1` → `1bl2`. `generate_readme.sh` writes `Rebuild with
   gcc-<ver>` if the gcc differs from the one in the README's build
-  requirements, else `Rebuild`. A rebuild for a fix the packages
+  requirements, `Repackage` if those name no compiler (nothing compiled:
+  a script, header-only or data package), else `Rebuild`. A rebuild for a fix the packages
   ship (a `.pc`, `REQUIRES`, a missing file) says what it fixes
   instead, unless gcc changed: see `changelog_message` in Step 2.
 - **`gcc-rebuild`** (`<pkg>-<ver>-<rel>`, same version, `<rel>` is ports'
@@ -184,8 +185,9 @@ starts with (package names can contain dashes), then splits the rest into
   gcc. The changelog message comes from `scripts/changelog_message.sh`,
   which writes `Rebuild with gcc-<ver>` only when gcc actually changed, so
   check that first: `scripts/gcc_changed.sh --package <pkg>`. `same` or
-  `unknown` → it would only say `Rebuild`; tell the user (with its
-  reason) and ask whether to go ahead.
+  `unknown` → it would only say `Rebuild`, `none` → `Repackage` (no
+  gcc to rebuild with); tell the user (with its reason) and ask whether
+  to go ahead.
 - **`deploy`** (`<pkg>-<ver>-<rel>` equal to ports) → build the committed
   recipe as is and publish it to dist. No branch, no PR.
 - **`invalid`** (exit status 2) → pass its `message=` on to the user: give
@@ -578,7 +580,8 @@ changelog message is decided again from the files on each run. For
 
 A rebuild done to fix what the packages ship, not for a new gcc
 (a broken `.pc`, a missing dependency of the `-devel` package), gets a changelog line saying so rather than
-`Rebuild`. When gcc changed too (a `gcc-rebuild`, or `gcc_changed.sh`
+`Rebuild` (or `Repackage`, which `changelog_message.sh` writes instead of
+`Rebuild` for a package with nothing compiled). When gcc changed too (a `gcc-rebuild`, or `gcc_changed.sh`
 says `changed`), `Rebuild with gcc-<ver>` wins: pass no
 `changelog_message`, whatever else the branch fixes (mini18n 0.2.1-1bl3:
 the `.pc` rewrite and a smoke test went in under `Rebuild with

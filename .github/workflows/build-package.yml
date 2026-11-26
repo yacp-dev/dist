@@ -447,7 +447,7 @@ jobs:
 
       # A release-only bump (`rebuild`/`gcc-rebuild`, or a branch-rebuild
       # re-run of one -- where the release isn't bumped again) gets
-      # "Rebuild with gcc-<ver>"/"Rebuild" instead of the default
+      # "Rebuild with gcc-<ver>"/"Rebuild"/"Repackage" instead of the default
       # "Version bump.", decided by comparing against yacp's HEAD rather
       # than trusting the resolved mode -- see changelog_message.sh. A non-empty
       # `changelog_message` input overrides whatever this decides (see
