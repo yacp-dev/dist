@@ -755,20 +755,22 @@ audit_build_requires() {
     fi
 
     # Its commands checked for or spawned by a test script, or named by
-    # their path (ngircd's getpid.sh: `[ -x /usr/bin/pgrep ]`). What has
+    # their path (ngircd's getpid.sh: `[ -x /usr/bin/pgrep ]`), or the
+    # interpreter of one, by path or through env (zlibcomplete's
+    # test/runrubytests: `#!/usr/bin/env ruby`). What has
     # to precede the name keeps a short one from matching any word, so this
     # takes the 1- and 2-letter commands too (netcat's nc).
     hit=""
     if [[ -s "$tmp/tools" && ${#scripts[@]} -gt 0 ]]; then
       local cmd_re
       cmd_re="$(sed 's/[][\.*^$+?(){}|]/\\&/g' "$tmp/tools" | paste -sd '|' -)"
-      hit="$(grep -ohIE "(^|[^[:alnum:]_-])((spawn|command[[:space:]]+-v|which|type([[:space:]]+-[pP])?|hash)[[:space:]]+(-[[:alnum:]]+[[:space:]]+)*|(/usr)?/bin/)($cmd_re)([^[:alnum:]_.-]|$)" \
+      hit="$(grep -ohIE "(^|[^[:alnum:]_-])((spawn|command[[:space:]]+-v|which|type([[:space:]]+-[pP])?|hash|env)[[:space:]]+(-[[:alnum:]]+[[:space:]]+)*|(/usr)?/bin/)($cmd_re)([^[:alnum:]_.-]|$)" \
           "${scripts[@]}" 2>/dev/null \
         | sed -E 's/^[^[:alnum:]_-]//; s/[^[:alnum:]_.-]$//; s#.*[[:space:]/]##' \
         | sort | uniq -c | sort -rn | head -3 | awk '{print $2}' | tr '\n' ' ')"
     fi
     if [[ -n "$hit" ]]; then
-      say "$pkg: probably used -- the test scripts check for, spawn or name ${hit% } (weak: a test that skips itself without it counts too)"
+      say "$pkg: probably used -- the test scripts check for, spawn, run or name ${hit% } (weak: a test that skips itself without it counts too)"
       continue
     fi
 
