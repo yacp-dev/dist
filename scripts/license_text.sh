@@ -195,6 +195,20 @@ identify_license_notice() {
   fi
 }
 
+# Prints the SPDX id(s) a source file's header names in a one-line
+# notice instead of the license text ("Licensed under the MIT License
+# (the "License"); you may not use this file except in compliance with
+# the License."), one per line. Only a license without versions is
+# recognized: a notice naming a versioned one says less reliably which
+# version than its text does.
+identify_license_name_notice() {
+  local -x LC_ALL=C
+  local text
+  text="$(sed -E -e 's@^[[:space:]]*(#+|//+|/\*+|\*+|;+|--)[[:space:]]?@@' -e 's@[[:space:]]*\*+/[[:space:]]*$@@' "$1" | tr -s '[:space:]' ' ')"
+  [[ "$text" =~ (Licensed|licensed|released|distributed)\ under\ the\ (terms\ of\ the\ )?MIT\ [Ll]icen[cs]e ]] && echo "MIT"
+  return 0
+}
+
 # Whether the first version is not newer than the second (2.0, 3.0).
 license_version_le() {
   [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n 1)" == "$1" ]]

@@ -461,6 +461,7 @@ audit_license() {
   # since a fork per compiled source is slow on Cygwin.
   if [[ -s "$tmp/compiled" ]]; then
     declare -A header_text_count=() header_text_example=() notice_count=() notice_example=()
+    declare -A name_notice_count=() name_notice_example=()
     while IFS= read -r -d '' f; do
       if [[ "$f" == "$S"/* ]]; then
         rel="${f#"$S"/}"
@@ -479,6 +480,10 @@ audit_license() {
         notice_count["$id"]=$((${notice_count[$id]:-0} + 1))
         [[ -n "${notice_example[$id]:-}" ]] || notice_example["$id"]="$rel"
       done
+      for id in $(identify_license_name_notice "$tmp/header_notice" | sort -u); do
+        name_notice_count["$id"]=$((${name_notice_count[$id]:-0} + 1))
+        [[ -n "${name_notice_example[$id]:-}" ]] || name_notice_example["$id"]="$rel"
+      done
     done < <(while IFS= read -r rel; do
                if [[ -f "$S/$rel" ]]; then
                  printf '%s\0' "$S/$rel"
@@ -486,7 +491,7 @@ audit_license() {
                  printf '%s\0' "$B/$rel"
                fi
              done < "$tmp/compiled" \
-             | xargs -0 -r grep -lIE --null -- 'General Public License|GPL|Permission is hereby granted|Redistribution and use in source|Apache License|Mozilla Public License|Permission to use, copy, modify|provided .as-is.|Boost Software License|unencumbered software|Eclipse Public License|Artistic License|CC0 1\.0|PYTHON SOFTWARE FOUNDATION|CeCILL' 2>/dev/null)
+             | xargs -0 -r grep -lIE --null -- 'General Public License|GPL|Permission is hereby granted|Redistribution and use in source|Apache License|Mozilla Public License|Permission to use, copy, modify|provided .as-is.|Boost Software License|unencumbered software|Eclipse Public License|Artistic License|CC0 1\.0|PYTHON SOFTWARE FOUNDATION|CeCILL|under the (terms of the )?MIT [Ll]icen[cs]e' 2>/dev/null)
     for id in "${!header_text_count[@]}"; do
       say "License text in compiled sources' headers: $id: ${header_text_count[$id]} file(s), e.g. ${header_text_example[$id]}"
       text_ids["$(license_base "$id")"]="the header of ${header_text_example[$id]}"
@@ -502,6 +507,12 @@ audit_license() {
   for id in "${!notice_count[@]}"; do
     say "License notice in compiled sources' headers: $id: ${notice_count[$id]} file(s), e.g. ${notice_example[$id]}"
     found_orlater["$(license_base "$id")"]=1
+    found_base["$(license_base "$id")"]=1
+  done
+  # A one-line notice naming the license ("Licensed under the MIT
+  # License") counts toward what LICENSE says the same way.
+  for id in "${!name_notice_count[@]}"; do
+    say "License notice in compiled sources' headers: $id: ${name_notice_count[$id]} file(s), e.g. ${name_notice_example[$id]}"
     found_base["$(license_base "$id")"]=1
   done
 
