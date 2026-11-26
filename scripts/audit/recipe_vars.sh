@@ -131,6 +131,15 @@ audit_recipe_vars() {
     fi
   fi
 
+  # gitweb.gentoo.org answers 503 ("No healthy backends") often enough to
+  # fail cygport prep by itself (zopfli 1.0.3-1bl2); GitHub's mirror is the
+  # same repository.
+  local gitweb
+  while IFS= read -r gitweb; do
+    [[ -n "$gitweb" ]] && rwarn "$gitweb is on gitweb.gentoo.org -- take it from the GitHub mirror, pinned to a commit (https://raw.githubusercontent.com/gentoo/gentoo/<commit>/<path>; port-until-green's gentoo_github_urls.sh rewrites it)"
+  done < <(grep -oE 'https?://gitweb\.gentoo\.org/[^[:space:]"'\'']+' "$cygport_file" | sort -u)
+  grep -q 'gitweb\.gentoo\.org' "$cygport_file" || ok "Recipe: no gitweb.gentoo.org URL"
+
   local misplaced w1=$warnings
   while IFS= read -r misplaced; do
     [[ -n "$misplaced" ]] && rwarn "$misplaced"

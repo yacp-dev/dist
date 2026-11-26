@@ -113,6 +113,9 @@ Helpers bundled with this skill (paths relative to this SKILL.md):
   a git snapshot to upstream HEAD (Step 1).
 - `scripts/distro_patches.sh --project NAME --version V --out DIR` — the
   distros' patches with pinned URLs ("Distro patches", Step 2).
+- `scripts/gentoo_github_urls.sh --file F [--dry-run]` — rewrites a
+  recipe's `gitweb.gentoo.org` URLs to the GitHub mirror, pinned to a
+  commit ("Where things go in a recipe", Step 4).
 - `scripts/merge_pr.sh <PR | pkg-ver | branch>` — rebase & merge on GitHub,
   delete remote branch, pull master in `$PORTS_DIR`, verify no diff, and delete
   local branch ("Merging").
@@ -585,7 +588,7 @@ already has them.
 
     | Section / block | What it means → the fix |
     |---|---|
-    | `== Recipe ==` | A `HOMEPAGE` that redirects → the URL the warning names (a redirect that only changes the GitHub user changes `SRC_URI` too). An invalid `CATEGORY`. `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of place → "Where things go in a recipe" (Step 4). A `BUILD_REQUIRES` package that isn't installed → a misspelling or not a Cygwin package: correct or drop it. A `LICENSE` mksetupini rejects → as under LICENSE in Step 1b. |
+    | `== Recipe ==` | A `HOMEPAGE` that redirects → the URL the warning names (a redirect that only changes the GitHub user changes `SRC_URI` too). An invalid `CATEGORY`. A `gitweb.gentoo.org` URL → `scripts/gentoo_github_urls.sh --file <cygport>`, `<pkg>-<ver> (take Gentoo patches from GitHub)`. `PATCH_URI`, `*_REQUIRES` or `LICENSE` out of place → "Where things go in a recipe" (Step 4). A `BUILD_REQUIRES` package that isn't installed → a misspelling or not a Cygwin package: correct or drop it. A `LICENSE` mksetupini rejects → as under LICENSE in Step 1b. |
     | `== *-config ==`, `== *.pc ==` | Version, prefix or `-l` libraries wrong, or it names the build tree → fix it in `src_install` or a `PATCH_URI` patch. |
     | `== AppStream ==` | A file in `/usr/share/appdata` → move it to `/usr/share/metainfo`. |
     | `== Duplicate files ==` | "Upstream's install duplicates" (Step 4). |
@@ -701,7 +704,9 @@ again that it applies on top of the candidate.
 Add the ones that apply to the end of `PATCH_URI` with the pinned URL the
 script printed (`.../debian/<full version>/...`, Fedora's, Gentoo's, AUR's and PLD's
 `.../<commit>/...`), not a branch URL such as `raw/rawhide/f/` that
-moves on. Commit them on their own, as `<pkg>-<ver> (add distro
+moves on, and for Gentoo the GitHub mirror's
+`raw.githubusercontent.com/gentoo/gentoo/<commit>/...` the script prints,
+never `gitweb.gentoo.org`. Commit them on their own, as `<pkg>-<ver> (add distro
 patches)`, with one line per patch in the body saying what it fixes. If
 a later run fails because of one, drop it rather than fixing it, and say
 so in the report. On a re-run of a branch whose `PATCH_URI` already
@@ -1208,6 +1213,15 @@ and in a recipe you've just bumped even if a run didn't complain:
   on. One inherited from master gets pinned on the bump too, once the
   pinned file is checked to be the same patch, in its own commit,
   `<pkg>-<ver> (pin Fedora patch in PATCH_URI)`.
+- A Gentoo file (`PATCH_URI`, `SRC_URI`) from the GitHub mirror pinned to a
+  commit (`https://raw.githubusercontent.com/gentoo/gentoo/<commit>/<path>`,
+  `gentoo/guru` for GURU), never `gitweb.gentoo.org`: gitweb answers 503
+  often enough to fail a run on its own (zopfli 1.0.3-1bl2's deploy, twice
+  in a row). `scripts/gentoo_github_urls.sh --file <cygport>` rewrites them
+  (an unpinned URL gets the newest commit that touched the file, a `?id=`
+  keeps its commit); the preflight runs it and commits `<pkg>-<ver> (take
+  Gentoo patches from GitHub)`. On a branch that already existed, run it
+  and commit the same way.
 - `LICENSE`, `LICENSE_SPDX`, `LICENSE_URI` after `DESCRIPTION`, one blank
   line between, and before `BUILD_REQUIRES`.
 - `BUILD_REQUIRES` tab-indented, one package per line, even a short list;

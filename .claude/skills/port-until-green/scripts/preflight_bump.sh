@@ -19,6 +19,10 @@
 #      bump the workflow does), committed
 #      as <pkg>-<ver> but NOT pushed: fixes go on top, then the caller
 #      pushes and dispatches.
+#      gitweb.gentoo.org URLs in the recipe are then rewritten to the
+#      GitHub mirror pinned to a commit (gentoo_github_urls.sh), committed
+#      as <pkg>-<ver> (take Gentoo patches from GitHub): gitweb's 503s
+#      fail runs on their own.
 #   2. The new version's source, from the bumped recipe's SRC_URI (or
 #      GIT_URI + GIT_TAG), unpacked into <work>/origsrc/ like cygport's
 #      prep does.
@@ -153,6 +157,21 @@ echo "worktree: $wt"
 echo "branch:   $branch (committed locally, not pushed)"
 [[ -n "$rebuild" ]] && echo "rebuild:  $version is master's version -- release bumped to ${pf##*-}"
 echo "work:     $work"
+
+# 1b. gitweb.gentoo.org -> GitHub mirror, before anything downloads a
+# patch: gitweb answers 503 often enough to fail a run on its own.
+if grep -q 'gitweb\.gentoo\.org' "$cygport"; then
+  echo
+  echo "== Gentoo URLs =="
+  gentoo_rc=0
+  bash "$here/gentoo_github_urls.sh" --file "$cygport" 2>&1 || gentoo_rc=$?
+  if ! git -C "$wt" diff --quiet -- "$package"; then
+    git -C "$wt" add -A -- "$package"
+    git -C "$wt" commit -q -m "$package-$version (take Gentoo patches from GitHub)"
+    echo "committed: $package-$version (take Gentoo patches from GitHub)"
+  fi
+  (( gentoo_rc == 0 )) || echo "WARNING: some gitweb.gentoo.org URLs are left (above) -- rewrite them by hand"
+fi
 
 # 2. Source. The variables cygport needs to place the source and the
 # patches are evaluated the way cygport would see them (bin/cygport.in
