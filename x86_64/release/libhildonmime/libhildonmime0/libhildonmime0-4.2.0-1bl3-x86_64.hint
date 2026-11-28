@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libdbus1_3 libglib2.0_0
+sdesc: "Library for activating an application to handle a certain mime type (runtime)"
+ldesc: "Library for activating an application to handle a certain mime type"
+external-source: libhildonmime
+

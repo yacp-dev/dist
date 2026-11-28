@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libcpmio-devel libcpmredir-devel
+sdesc: "Two-purpose CP/M 2/3 emulator"
+ldesc: "ZXCC is a two-purpose CP/M 2/3 emulator."
+skip:
+
+homepage: https://seasip.info/Unix/Zxcc/
+license: GPL-2.0-or-later

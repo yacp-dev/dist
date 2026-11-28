@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libcnotify1 libcthreads1 libfdata1 libfvalue1 libuna1
+sdesc: "Library and tools to access the (split) RAW image format (runtime)"
+ldesc: "libsmraw is a library to access the (split) RAW image format."
+external-source: libsmraw
+

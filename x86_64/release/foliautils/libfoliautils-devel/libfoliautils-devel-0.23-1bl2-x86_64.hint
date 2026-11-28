@@ -1,0 +1,8 @@
+category: Utils
+requires: libfoliautils1 pkg-config
+sdesc: "Tools for working with the Format for Linguistic Annotation (FoLiA) (development)"
+ldesc: "Command-line utilities for working with the Format for Linguistic Annotation
+(FoLiA), powered by libfolia (C++), written by Ko van der Sloot (TiCC, Tilburg
+University)"
+external-source: foliautils
+

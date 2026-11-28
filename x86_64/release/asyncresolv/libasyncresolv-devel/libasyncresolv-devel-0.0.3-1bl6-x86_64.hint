@@ -1,0 +1,8 @@
+category: Libs
+requires: libasyncresolv0 pkg-config
+sdesc: "Asynchronous DNS query library written in C++ (development)"
+ldesc: "AsyncResolv is an asynchronous DNS query library written in C++.Resolver is
+capable of most rfc1035 resource records parsing, supports queries over UDP
+and over TCP (if UDP failed)"
+external-source: asyncresolv
+

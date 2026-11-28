@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "TS query grammar for tree-sitter (licensing & readmes)"
+ldesc: "TS query grammar for tree-sitter"
+

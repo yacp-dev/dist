@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libGLESv2_2 libSDL2_2.0_0 libSDL2_image2.0_0 libSDL2_mixer2.0_0
+sdesc: "OpenGL ES Toolkit (runtime)"
+ldesc: "LibESTK is a utility library ment to make OpenGL ES 2.0 operations easier to
+perform with fewer calls compared to the standard OpenGL library."
+external-source: libestk
+

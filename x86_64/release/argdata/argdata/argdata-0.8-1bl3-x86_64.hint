@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Binary serialisation format inspired by YAML, MessagePack and nvlists (licensing & readmes)"
+ldesc: "Argdata is a binary serialisation format inspired by YAML, MessagePack and
+nvlists."
+

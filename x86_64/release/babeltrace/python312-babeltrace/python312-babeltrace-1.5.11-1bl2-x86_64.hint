@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libbabeltrace1 libglib2.0_0 python312
+sdesc: "Trace Viewer and Converter, mainly for the Common Trace Format (python3.12 bindings)"
+ldesc: "This project provides trace read and write libraries, as well as a trace
+converter. A plugin can be created for any trace format to allow its conversion
+to/from another trace format."
+external-source: babeltrace
+

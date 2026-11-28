@@ -1,0 +1,8 @@
+category: Science
+requires: cygwin libblosc1 libgcc1 libgomp1 libhdf5_320 libstdc++6
+sdesc: "High-throughput compression of FASTQ data (runtime)"
+ldesc: "SeqDB is a file format, compressor and storage tool for the raw data produced
+by Next-Generation Sequencing platforms like the Illumina HiSeq 2000 and MiSeq
+and the Life Technologies Ion Torrent PGM."
+external-source: seqdb
+

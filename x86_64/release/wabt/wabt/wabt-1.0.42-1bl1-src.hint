@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel libssl-devel libuv-devel libuvwasi-devel
+sdesc: "WebAssembly Binary Toolkit (utilities)"
+ldesc: "WABT (we pronounce it wabbit) is a suite of tools for WebAssembly"
+skip:
+
+homepage: https://github.com/WebAssembly/wabt
+license: Apache-2.0

@@ -1,0 +1,8 @@
+category: Libs
+requires: 
+sdesc: "High-performance regular expression matching library (licensing & readmes)"
+ldesc: "A fork of Intel's Hyperscan, modified to run on more platforms. Currently ARM
+NEON/ASIMD is 100% functional, and Power VSX are in development. ARM SVE2 will
+be implemented when harwdare becomes accessible to the developers. More
+platforms will follow in the future, on demand/request."
+

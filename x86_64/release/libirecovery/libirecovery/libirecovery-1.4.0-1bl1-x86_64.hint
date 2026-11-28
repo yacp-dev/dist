@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libirecovery1.0_5 libreadline8
+sdesc: "Library and utility to talk to iBoot/iBSS via USB (utilities)"
+ldesc: "Library and utility to talk to iBoot/iBSS via USB"
+

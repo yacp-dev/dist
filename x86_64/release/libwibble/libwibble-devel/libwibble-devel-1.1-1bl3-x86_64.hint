@@ -1,0 +1,6 @@
+category: Libs
+requires: libwibble0 pkg-config
+sdesc: "Library of various useful C++ code (development)"
+ldesc: "Library of various useful C++ code"
+external-source: libwibble
+

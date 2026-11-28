@@ -1,0 +1,8 @@
+category: Games
+requires: libmercator0.3_4 libwfmath1.0-devel pkg-config
+sdesc: "Terrain library for WorldForge client/server (development)"
+ldesc: "Mercator is primarily aimed at terrain for multiplayer online games and forms
+one of the WorldForge core libraries. It is intended to be used as a terrain
+library on the client, while a subset of features are useful on the server."
+external-source: mercator
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libvsmbr1 pkg-config
+sdesc: "Library and tools to access the Master Boot Record (MBR) volume system format (development)"
+ldesc: "libvsmbr is a library to access the Master Boot Record (MBR) volume system."
+external-source: libvsmbr
+

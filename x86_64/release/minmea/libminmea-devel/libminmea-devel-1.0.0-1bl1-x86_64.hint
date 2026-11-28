@@ -1,0 +1,8 @@
+category: Libs
+requires: libminmea1 pkg-config
+sdesc: "lightweight GPS NMEA 0183 parser library in pure C (development)"
+ldesc: "Minmea is a minimalistic GPS parser library written in pure C intended for
+resource-constrained platforms, especially microcontrollers and other embedded
+systems."
+external-source: minmea
+

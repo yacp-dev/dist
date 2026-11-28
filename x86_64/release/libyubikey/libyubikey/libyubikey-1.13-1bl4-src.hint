@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport asciidoc docbook-xml45
+sdesc: "YubiKey C low-level library (utilities)"
+ldesc: "This package make up the low-level C software development kit for the Yubico
+YubiKey authentication device."
+skip:
+
+homepage: https://github.com/Yubico/yubico-c
+license: BSD-2-Clause

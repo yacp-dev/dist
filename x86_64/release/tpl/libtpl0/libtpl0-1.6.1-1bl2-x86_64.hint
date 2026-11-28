@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Small binary serialization library (runtime)"
+ldesc: "Small binary serialization library"
+external-source: tpl
+

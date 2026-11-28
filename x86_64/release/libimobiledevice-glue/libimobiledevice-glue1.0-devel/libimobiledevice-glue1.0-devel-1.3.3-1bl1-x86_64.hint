@@ -1,0 +1,6 @@
+category: Libs
+requires: libimobiledevice-glue1.0_0 libplist2.0-devel pkg-config
+sdesc: "Library with common code used by the libraries and tools around the libimobiledevice project (development)"
+ldesc: "Library with common code used by the libraries and tools around the libimobiledevice project"
+external-source: libimobiledevice-glue
+

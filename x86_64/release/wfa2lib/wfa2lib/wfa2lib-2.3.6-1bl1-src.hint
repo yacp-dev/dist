@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport time
+sdesc: "Wavefront alignment algorithm library v2 (licensing & readmes)"
+ldesc: "Wavefront alignment algorithm library v2"
+skip:
+
+homepage: https://github.com/Marco-Sola-Lab/WFA2-lib
+license: MIT

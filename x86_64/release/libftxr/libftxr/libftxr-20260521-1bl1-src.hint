@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libcnotify-devel libfdatetime-devel libfguid-devel libfusn-devel libuna-devel
+sdesc: "Library for Transactional Registry (TxR) data types (licensing & readmes)"
+ldesc: "libftxr is a library for Transactional Registry (TxR) data types."
+skip:
+
+homepage: https://github.com/libyal/libftxr
+license: LGPL-3.0-or-later

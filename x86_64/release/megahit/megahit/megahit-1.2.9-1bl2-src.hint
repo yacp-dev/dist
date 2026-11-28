@@ -1,0 +1,10 @@
+category: Science
+build-depends: cygport python3 zlib-devel
+sdesc: "Ultra-fast and memory-efficient (meta-)genome assembler"
+ldesc: "MEGAHIT is an ultra-fast and memory-efficient NGS assembler. It is optimized
+for metagenomes, but also works well on generic single genome assembly (small
+or mammalian size) and single-cell assembly."
+skip:
+
+homepage: https://github.com/voutcn/megahit
+license: GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND MIT

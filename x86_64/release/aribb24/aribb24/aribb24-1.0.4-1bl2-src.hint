@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libpng-devel
+sdesc: "library for ARIB STD-B24, decoding JIS 8 bit characters and parsing MPEG-TS stream (licensing & readmes)"
+ldesc: "library for ARIB STD-B24, decoding JIS 8 bit characters and parsing MPEG-TS stream"
+skip:
+
+homepage: https://code.videolan.org/jeeb/aribb24
+license: LGPL-3.0-or-later

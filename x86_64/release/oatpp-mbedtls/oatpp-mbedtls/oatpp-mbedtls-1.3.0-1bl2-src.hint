@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liboatpp-devel mbedtls-devel
+sdesc: "Client/Server Secure ConnectionProvider for oatpp applications (licensing & readmes)"
+ldesc: "Client/Server Secure ConnectionProvider for oatpp applications"
+skip:
+
+homepage: https://github.com/oatpp/oatpp-mbedtls
+license: Apache-2.0

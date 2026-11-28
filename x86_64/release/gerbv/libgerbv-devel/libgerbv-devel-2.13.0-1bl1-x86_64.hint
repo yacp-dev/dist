@@ -1,0 +1,9 @@
+category: Libs
+requires: libgerbv1 libglib2.0-devel libgtk2.0-devel pkg-config
+sdesc: "Gerber (RS-274X) viewer (development)"
+ldesc: "Gerbv is an open source Gerber file (RS-274X only) viewer. Gerbv lets you load
+several files on top of each other, do measurements on the displayed image,
+etc. Besides viewing Gerbers, you may also view Excellon drill files as well
+as pick-place file"
+external-source: gerbv
+

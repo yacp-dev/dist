@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C++ testing framework for parameter sweeps (licensing & readmes)"
+ldesc: "TestSweeper is a C++ testing framework for parameter sweeps. It handles
+parsing command line options, iterating over the test space, and printing
+results. This simplifies test functions by allowing them to concentrate on
+setting up and solving one problem at a time."
+skip:
+
+homepage: https://github.com/icl-utk-edu/testsweeper
+license: BSD-3-Clause

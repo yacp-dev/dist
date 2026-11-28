@@ -1,0 +1,6 @@
+category: Utils
+requires: cygwin libImlib2_1
+sdesc: "Seven Segment Optical Character Recognition"
+ldesc: "Seven Segment Optical Character Recognition or ssocr for short is a program to
+recognize digits of a seven segment display."
+

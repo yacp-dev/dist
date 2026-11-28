@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "CBOR library (runtime)"
+ldesc: "CBOR library with no dependencies, small memory footprint and code size,
+developed for both desktop and embedded applications."
+external-source: libecbor
+

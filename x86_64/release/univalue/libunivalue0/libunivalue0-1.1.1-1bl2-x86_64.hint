@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ universal value object and JSON library (runtime)"
+ldesc: "A universal value object, with JSON encoding (output) and decoding (input)."
+external-source: univalue
+

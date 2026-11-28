@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Erasure Code API library written in C with pluggable backends (licensing & readmes)"
+ldesc: "An API library for Erasure Code, written in C. It provides a number of
+pluggable backends, such as Intel ISA-L library."
+

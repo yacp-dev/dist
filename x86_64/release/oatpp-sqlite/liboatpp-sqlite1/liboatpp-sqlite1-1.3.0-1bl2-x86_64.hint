@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liboatpp1 libsqlite3_0 libstdc++6
+sdesc: "SQLite adapter for oatpp ORM (runtime)"
+ldesc: "SQLite adapter for oatpp ORM"
+external-source: oatpp-sqlite
+

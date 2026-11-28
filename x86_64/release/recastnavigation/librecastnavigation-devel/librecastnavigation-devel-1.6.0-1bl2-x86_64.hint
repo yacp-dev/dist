@@ -1,0 +1,6 @@
+category: Libs
+requires: librecastnavigation1 pkg-config
+sdesc: "Industry-standard navigation-mesh toolset for games (development)"
+ldesc: "Recast is state of the art navigation mesh construction toolset for games."
+external-source: recastnavigation
+

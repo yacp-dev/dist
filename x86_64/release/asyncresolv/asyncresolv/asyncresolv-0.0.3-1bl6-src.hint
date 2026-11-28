@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Asynchronous DNS query library written in C++ (utilities)"
+ldesc: "AsyncResolv is an asynchronous DNS query library written in C++.Resolver is
+capable of most rfc1035 resource records parsing, supports queries over UDP
+and over TCP (if UDP failed)"
+skip:
+
+homepage: https://sourceforge.net/projects/asyncresolv/
+license: GPL-2.0-or-later AND LGPL-2.0-only

@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libbz2_1 libgcc1 liblzma5 zlib0
+sdesc: "Graph partitioning and sparse matrix ordering library (runtime)"
+ldesc: "Scotch is a software package for graph and mesh/hypergraph
+partitioning, graph clustering, static mapping and sparse matrix ordering.
+PT-Scotch is its parallel, MPI-based version, and libptscotchparmetis provides
+a ParMETIS-compatible interface on top of it."
+external-source: scotch
+

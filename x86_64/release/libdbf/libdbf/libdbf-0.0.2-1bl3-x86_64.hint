@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Library for reading DBF files (licensing & readmes)"
+ldesc: "This is a C library to read DBF files. The code is originally from
+https://sourceforge.net/projects/dbf.berlios/. While the dbf code from that
+source compiles just fine, the underlying library doesn't."
+

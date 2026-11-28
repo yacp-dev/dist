@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Implementation of the mathematical construct of affine arithmetics in C++ (licensing & readmes)"
+ldesc: "The aaflib is an implementation of the mathematical construct of affine
+arithmetics in C++."
+

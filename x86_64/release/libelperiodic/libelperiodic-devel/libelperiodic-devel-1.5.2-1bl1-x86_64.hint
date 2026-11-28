@@ -1,0 +1,8 @@
+category: Libs
+requires: libelperiodic1 pkg-config
+sdesc: "Library to run frequent periodic tasks (development)"
+ldesc: "The libElPeriodic is designed to simplify writing control loops that are
+expected to run at constant tick intervals with smallest possible overhead and
+little or no support from the underlying run time environment."
+external-source: libelperiodic
+

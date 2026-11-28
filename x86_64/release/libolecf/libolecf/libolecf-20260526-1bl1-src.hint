@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfdatetime-devel libfguid-devel libfole-devel libfvalue-devel libfwps-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the OLE 2 Compound File (OLECF) format (utilities)"
+ldesc: "libolecf is a library to access the OLE 2 Compound File (OLECF) format."
+skip:
+
+homepage: https://github.com/libyal/libolecf
+license: LGPL-3.0-or-later

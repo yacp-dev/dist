@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-mbedtls1
+sdesc: "Client/Server Secure ConnectionProvider for oatpp applications (development)"
+ldesc: "Client/Server Secure ConnectionProvider for oatpp applications"
+external-source: oatpp-mbedtls
+

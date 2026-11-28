@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libfaad2 libfftw3_3 libgcc1 libmp3lame0 libmpg123_0 libstdc++6
+sdesc: "DAB/DAB+ Software Defined Radio (SDR)"
+ldesc: "DAB/DAB+ Software Defined Radio (SDR)"
+

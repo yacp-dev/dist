@@ -1,0 +1,9 @@
+category: Math
+requires: cygwin libgcc1 libmuparser2 libreadline8 libstdc++6
+sdesc: "Convenient calculator for the command line"
+ldesc: "mucalc is a convenient calculator for the command line. It evaluates
+mathematical expressions that are given as arguments, read from an input
+stream, or typed interactively. In interactive mode, it provides line editing
+with tab-completion and persistent history using GNU readline. The evaluation
+of expressions is handled by the muParser math parser library."
+

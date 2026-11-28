@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libglib2.0-devel libxml2-devel
+sdesc: "DOM C library developped for the Gnome project (licensing & readmes)"
+ldesc: "DOM C library developped for the Gnome project"
+skip:
+
+homepage: http://gdome2.cs.unibo.it/
+license: LGPL-2.1-or-later

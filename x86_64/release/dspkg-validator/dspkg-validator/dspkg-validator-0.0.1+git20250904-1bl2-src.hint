@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport nlohmann_json
+sdesc: "Validator for Synthrt package (licensing & readmes)"
+ldesc: "Validator for Synthrt package"
+skip:
+
+homepage: https://github.com/wolfgitpr/dspkg-validator
+license: Apache-2.0

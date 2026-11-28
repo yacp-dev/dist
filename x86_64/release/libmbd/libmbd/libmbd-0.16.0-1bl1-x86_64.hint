@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Many-body dispersion library (licensing & readmes)"
+ldesc: "Libmbd implements the many-body dispersion (MBD) method in several programming
+languages and frameworks."
+

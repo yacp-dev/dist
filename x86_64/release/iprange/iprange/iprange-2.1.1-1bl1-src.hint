@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport help2man
+sdesc: "Manage IP ranges"
+ldesc: "Manage IP ranges"
+skip:
+
+homepage: https://github.com/firehol/iprange
+license: GPL-2.0-or-later

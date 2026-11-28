@@ -1,0 +1,6 @@
+category: Libs
+requires: libu5e0 pkg-config
+sdesc: "Unicode Text C++ library (development)"
+ldesc: "Unicode Text C++ library"
+external-source: u5e
+

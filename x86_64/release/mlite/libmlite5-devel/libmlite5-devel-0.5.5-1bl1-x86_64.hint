@@ -1,0 +1,6 @@
+category: Utils
+requires: libmlite5_0 libQt5Core-devel pkg-config
+sdesc: "Useful classes originating from MeeGo Touch (development)"
+ldesc: "Useful classes originating from MeeGo Touch"
+external-source: mlite
+

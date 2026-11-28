@@ -1,0 +1,7 @@
+category: Devel
+requires: libdbustest1 libglib2.0-devel pkg-config
+sdesc: "Utility to run executables under new DBus session for testing (development)"
+ldesc: "A small little utility to run a couple of executables under a new DBus session
+for testing."
+external-source: dbus-test-runner
+

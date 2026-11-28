@@ -1,0 +1,9 @@
+category: Text
+requires: cygwin libbrotlidec1 libbz2_1 libbzip3_1 libgcc1 liblz4_1 liblzma5 libpcre2_8_0 libstdc++6 libzstd1 zlib0
+sdesc: "Ultra fast grep with query UI, fuzzy search, archive search, and more"
+ldesc: "An ultra fast, user-friendly, compatible grep. Ugrep combines the best features
+of other grep, adds new features, and searches fast. Includes a TUI and adds
+Google-like search, fuzzy search, hexdumps, searches nested archives (zip, 7z,
+tar, pax, cpio), compressed files (gz, Z, bz2, lzma, xz, lz4, zstd, brotli),
+pdfs, docs, and more"
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgfortran5 libmctc-lib0 libtblite0 libtoml-f0
+sdesc: "Light-weight tight-binding framework (utilities)"
+ldesc: "Light-weight tight-binding framework"
+

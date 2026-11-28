@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Java grammar for tree-sitter (runtime)"
+ldesc: "Java grammar for tree-sitter"
+external-source: tree-sitter-java
+

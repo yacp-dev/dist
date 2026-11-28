@@ -1,0 +1,6 @@
+category: Libs
+requires: libfftw3-devel librubberband3 libsamplerate-devel pkg-config
+sdesc: "Audio time-stretching and pitch-shifting library (development)"
+ldesc: "An audio time-stretching and pitch-shifting library and utility program."
+external-source: rubberband
+

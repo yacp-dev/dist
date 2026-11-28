@@ -1,0 +1,6 @@
+category: Libs
+requires: liborcania2.3 pkg-config
+sdesc: "Potluck with different functions for different purposes (development)"
+ldesc: "Potluck with different functions for different purposes"
+external-source: orcania
+

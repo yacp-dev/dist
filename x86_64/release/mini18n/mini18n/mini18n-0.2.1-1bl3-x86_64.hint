@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Minimal internationalization library (licensing & readmes)"
+ldesc: "mini18n is a small and non-intrusive translation library, designed for small
+memory and (non-)GNU systems."
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libggml-devel libssl-devel python312-jinja2
+sdesc: "LLM inference in C/C++ (utilities)"
+ldesc: "LLM inference in C/C++"
+skip:
+
+homepage: https://github.com/ggml-org/llama.cpp
+license: MIT AND BSD-2-Clause AND Unlicense

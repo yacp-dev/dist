@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libQt5Core-devel
+sdesc: "HTTP server for Qt applications (licensing & readmes)"
+ldesc: "Simple set of classes for developing HTTP server applications in Qt."
+skip:
+
+homepage: https://github.com/nitroshare/qhttpengine
+license: MIT

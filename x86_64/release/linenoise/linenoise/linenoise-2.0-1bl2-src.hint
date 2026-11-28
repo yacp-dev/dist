@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Small self-contained alternative to readline and libedit (licensing & readmes)"
+ldesc: "A minimal, zero-config, BSD licensed, readline replacement used in Redis,
+MongoDB, and Android."
+skip:
+
+homepage: https://github.com/antirez/linenoise
+license: BSD-2-Clause

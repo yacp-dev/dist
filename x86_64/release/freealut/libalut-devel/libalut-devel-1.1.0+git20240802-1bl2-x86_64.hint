@@ -1,0 +1,6 @@
+category: Libs
+requires: bash libalut0 libopenal-devel pkg-config
+sdesc: "Freealut library for OpenAL (development)"
+ldesc: "Freealut is a free implementation of OpenAL's ALUT standard."
+external-source: freealut
+

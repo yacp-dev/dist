@@ -1,0 +1,6 @@
+category: Libs
+requires: libcurl-devel libopentelemetry1 libprometheus-cpp-pull-devel libprotobuf-devel pkg-config zlib-devel nlohmann_json libopentracing-devel
+sdesc: "OpenTelemetry C++ Client (development)"
+ldesc: "OpenTelemetry C++ Client"
+external-source: opentelemetry-cpp
+

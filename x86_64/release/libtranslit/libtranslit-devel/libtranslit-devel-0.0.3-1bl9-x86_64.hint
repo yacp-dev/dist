@@ -1,0 +1,6 @@
+category: Text
+requires: libglib2.0-devel libtranslit0 pkg-config
+sdesc: "Transliteration library with multiple backends (development)"
+ldesc: "Transliteration library with multiple backends"
+external-source: libtranslit
+

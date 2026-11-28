@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbz2_1 zlib0
+sdesc: "Library for accessing discs and disc image files (runtime)"
+ldesc: "LIBDSK is a library for accessing discs and disc image files."
+external-source: libdsk
+

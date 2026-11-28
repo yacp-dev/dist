@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libgmp-devel python3-devel
+sdesc: "C library for manipulating polynomials (licensing & readmes)"
+ldesc: "LibPoly is a C library for manipulating polynomials. The target applications
+are symbolic reasoning engines, such as SMT solvers, that need to reason about
+polynomial constraints. It is research software under development, so the
+features and the API might change rapidly."
+skip:
+
+homepage: https://github.com/SRI-CSL/libpoly
+license: LGPL-3.0-or-later AND MIT

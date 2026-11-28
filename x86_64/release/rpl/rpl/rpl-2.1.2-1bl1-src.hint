@@ -1,0 +1,9 @@
+category: Text
+build-depends: cygport gengetopt help2man libglib2.0-devel libpcre2-devel libuchardet-devel
+sdesc: "Intelligent recursive search/replace utility"
+ldesc: "A search/replace utility. rpl replaces strings with new strings in multiple
+text files."
+skip:
+
+homepage: https://github.com/rrthomas/rpl
+license: GPL-3.0-or-later AND LGPL-2.1-or-later

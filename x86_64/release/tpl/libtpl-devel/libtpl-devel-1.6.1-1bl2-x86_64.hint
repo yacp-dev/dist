@@ -1,0 +1,6 @@
+category: Libs
+requires: libtpl0 pkg-config
+sdesc: "Small binary serialization library (development)"
+ldesc: "Small binary serialization library"
+external-source: tpl
+

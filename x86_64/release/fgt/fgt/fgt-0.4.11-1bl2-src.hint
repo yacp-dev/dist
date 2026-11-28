@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport eigen3 libgtest-devel
+sdesc: "C++ library for fast Gauss transforms (licensing & readmes)"
+ldesc: "C++ library for fast Gauss transforms"
+skip:
+
+homepage: https://github.com/gadomski/fgt
+license: LGPL-2.1-or-later AND BSD-2-Clause

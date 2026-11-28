@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "XXTEA encryption algorithm library for C (licensing & readmes)"
+ldesc: "XXTEA is a fast and secure encryption algorithm. This is a XXTEA library for
+C."
+

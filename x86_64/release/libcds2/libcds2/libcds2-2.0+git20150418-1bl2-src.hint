@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "Compressed Data Structure Library"
+ldesc: "Compressed Data Structure Library"
+skip:
+
+homepage: https://github.com/fclaude/libcds2
+license: BSD-3-Clause

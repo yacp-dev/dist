@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Lightweight C99 portability and data structure library (licensing & readmes)"
+ldesc: "Zix is a lightweight C library of portability wrappers and data structures."
+

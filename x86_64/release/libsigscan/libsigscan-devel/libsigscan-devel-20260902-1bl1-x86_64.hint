@@ -1,0 +1,6 @@
+category: Libs
+requires: libsigscan1 pkg-config
+sdesc: "Library for binary signature scanning (development)"
+ldesc: "libsigscan is a library for binary signature scanning."
+external-source: libsigscan
+

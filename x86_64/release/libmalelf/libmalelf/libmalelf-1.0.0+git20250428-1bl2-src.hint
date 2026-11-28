@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport CUnit libxml2-devel nasm udis86-devel
+sdesc: "Library for Dissect and Infect ELF Binaries (utilities)"
+ldesc: "Library for Dissect and Infect ELF Binaries"
+skip:
+
+homepage: https://github.com/i4ki/libmalelf
+license: Apache-2.0

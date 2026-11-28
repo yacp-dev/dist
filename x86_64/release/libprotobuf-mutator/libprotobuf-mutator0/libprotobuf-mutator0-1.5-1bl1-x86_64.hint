@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libprotobuf32 libstdc++6
+sdesc: "Library for structured fuzzing with protobuffers (runtime)"
+ldesc: "Library for structured fuzzing with protobuffers (runtime)"
+external-source: libprotobuf-mutator
+

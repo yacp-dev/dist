@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libglog2 libstdc++6
+sdesc: "C++ library for parallel graph processing (runtime)"
+ldesc: "libgrape-lite is a C++ library from Alibaba for parallel graph processing."
+external-source: libgrape-lite
+

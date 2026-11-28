@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libfmt-devel libhwy-devel libjpeg-devel liblcms2-devel libpng-devel libtiff-devel perl perl-Image-ExifTool
+sdesc: "JPEG 2000 codec (utilities)"
+ldesc: "Grok is a high performance open source JPEG 2000 codec."
+skip:
+
+homepage: https://github.com/GrokImageCompression/grok
+license: AGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND MIT

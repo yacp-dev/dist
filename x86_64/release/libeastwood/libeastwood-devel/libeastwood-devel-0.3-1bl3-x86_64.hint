@@ -1,0 +1,7 @@
+category: Games
+requires: libeastwood1.0.0 libsamplerate-devel libSDL-devel libSDL_mixer-devel pkg-config
+sdesc: "libeastwood game data library (development)"
+ldesc: "This library provides support for handling wsa, shp, icn, cps, pal, adl, voc,
+pak++ data files used in ie. Westwood games."
+external-source: libeastwood
+

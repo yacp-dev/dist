@@ -1,0 +1,11 @@
+category: Security
+build-depends: cygport libcrypt-devel libtomcrypt-devel libtommath-devel zlib-devel
+sdesc: "Relatively small SSH 2 server and client"
+ldesc: "Dropbear is a relatively small SSH server and client. It runs on a variety of
+POSIX-based platforms. Dropbear is open source software, distributed under a
+MIT-style license. Dropbear is particularly useful for embedded-type Linux (or
+other Unix) systems, such as wireless routers."
+skip:
+
+homepage: https://matt.ucc.asn.au/dropbear/dropbear.html
+license: MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause

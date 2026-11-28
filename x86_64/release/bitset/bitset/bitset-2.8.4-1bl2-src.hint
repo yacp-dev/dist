@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Compressed bitset with supporting data structures and algorithms (licensing & readmes)"
+ldesc: "The bitset structure uses word-aligned run-length encoding to
+compress sets of unsigned integers. 64-bit offsets are supported for very sparse
+sets. Unlike most succinct data structures which are immutable and append-only,
+the included bitset structure is mutable after construction."
+skip:
+
+homepage: https://github.com/chriso/bitset
+license: LicenseRef-bitset

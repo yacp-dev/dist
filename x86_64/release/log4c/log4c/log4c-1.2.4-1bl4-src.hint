@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libexpat-devel
+sdesc: "Logging for C Library (licensing & readmes)"
+ldesc: "Log4c is a C language library for flexible logging to files, syslog and other
+destinations. It is modeled after the Log for Java library (log4j), staying as
+close to their API as is reasonable."
+skip:
+
+homepage: https://sourceforge.net/projects/log4c/
+license: LGPL-2.1-or-later AND MIT

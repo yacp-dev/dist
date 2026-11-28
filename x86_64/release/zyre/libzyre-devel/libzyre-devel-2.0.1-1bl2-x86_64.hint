@@ -1,0 +1,6 @@
+category: Libs
+requires: libczmq-devel libzmq-devel libzyre2 pkg-config
+sdesc: "Local Area Clustering for Peer-to-Peer Applications (development)"
+ldesc: "Zyre provides reliable group messaging over local area networks."
+external-source: zyre
+

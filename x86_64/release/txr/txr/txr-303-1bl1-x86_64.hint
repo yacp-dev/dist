@@ -1,0 +1,11 @@
+category: Science
+requires: cygwin libcrypt2 libffi8 libgcc1 zlib0
+sdesc: "Programming language for convenient data munging"
+ldesc: "TXR is a pragmatic, convenient tool ready to take on your daily hacking
+challenges with its dual personality: its whole-document pattern matching and
+extraction language for scraping information from arbitrary text sources, and
+its powerful data-processing language to slice through problems like a hot
+knife through butter. Many tasks can be accomplished with TXR one liners
+directly from your system prompt. TXR is relatively new: the project started
+in 2009."
+

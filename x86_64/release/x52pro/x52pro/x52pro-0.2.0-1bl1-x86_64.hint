@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libx52pro0
+sdesc: "x52 PRO linux library (utilities)"
+ldesc: "User-space library and tools to control the Multi-Function Display
+(MFD) and LEDs on Saitek X52 and X52 Pro joysticks."
+

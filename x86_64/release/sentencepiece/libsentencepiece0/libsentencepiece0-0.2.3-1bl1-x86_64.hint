@@ -1,0 +1,12 @@
+category: Text
+requires: cygwin libabseil2608.0.0 libgcc1 libgomp1 libprotobuf32 libstdc++6
+sdesc: "Unsupervised text tokenizer for Neural Network-based text generation (runtime)"
+ldesc: "SentencePiece is an unsupervised text tokenizer and detokenizer mainly for
+Neural Network-based text generation systems where the vocabulary size is
+predetermined prior to the neural model training. SentencePiece implements
+subword units (e.g., byte-pair-encoding (BPE) [Sennrich et al.]) and unigram
+language model [Kudo.]) with the extension of direct training from raw
+entences. SentencePiece allows us to make a purely end-to-end system that does
+not depend on language-specific pre/postprocessing."
+external-source: sentencepiece
+

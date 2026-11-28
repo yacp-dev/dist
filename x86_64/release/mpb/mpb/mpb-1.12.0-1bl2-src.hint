@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport gcc-fortran libctl-devel libfftw3-devel libgmp-devel libguile3.0-devel libhdf5-devel liblapack-devel libnlopt-devel
+sdesc: "Computation of photonic band structures in periodic media (utilities)"
+ldesc: "MPB is a free software package for computing photonic band structures and modes."
+skip:
+
+homepage: https://github.com/NanoComp/mpb
+license: GPL-2.0-or-later

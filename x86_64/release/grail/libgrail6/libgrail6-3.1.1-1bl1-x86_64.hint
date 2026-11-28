@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libframe6 libgcc1 libstdc++6
+sdesc: "Gesture Recognition And Instantiation Library (runtime)"
+ldesc: "Grail consists of an interface and tools for handling gesture
+recognition and gesture instantiation."
+external-source: grail
+

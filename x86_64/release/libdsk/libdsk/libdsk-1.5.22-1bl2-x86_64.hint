@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libdsk5
+sdesc: "Library for accessing discs and disc image files (utilities)"
+ldesc: "LIBDSK is a library for accessing discs and disc image files."
+

@@ -1,0 +1,8 @@
+category: Science
+requires: cygwin libgcc1 libOpenCL1 libstdc++6 libzip5 zlib0
+sdesc: "GTP engine and self-play learning in Go"
+ldesc: "KataGo has begun its first public distributed training run! See
+https://katagotraining.org/ for more details, to download the latest and
+strongest neural nets, or to learn how to contribute if you want to help
+KataGo improve further!"
+

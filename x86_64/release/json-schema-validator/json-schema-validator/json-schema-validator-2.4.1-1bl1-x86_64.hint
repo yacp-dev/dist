@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libnlohmann_json_schema_validator2 libstdc++6
+sdesc: "JSON schema validator for JSON for Modern C++ (utilities)"
+ldesc: "This is a C++ library for validating JSON documents based on a JSON Schema
+which itself should validate with draft-7 of JSON Schema Validation."
+

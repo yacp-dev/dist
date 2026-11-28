@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libacars2_2
+sdesc: "Library for decoding various ACARS message payloads (utilities)"
+ldesc: "Library for decoding various ACARS message payloads"
+

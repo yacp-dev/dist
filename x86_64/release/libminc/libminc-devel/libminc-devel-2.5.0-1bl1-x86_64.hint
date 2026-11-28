@@ -1,0 +1,13 @@
+category: Libs
+requires: libminc5.3.0 libhdf5-devel libnetcdf-devel zlib-devel
+sdesc: "Core library and API of the MINC toolkit (development)"
+ldesc: "The MINC file format is a highly flexible medical image file format built on
+the HDF5 generalized data format. The format is simple, self-describing,
+extensible, portable and N-dimensional, with programming interfaces for both
+low-level data access and high-level volume manipulation. On top of the
+libraries is a suite of generic image-file manipulation tools. The format,
+libraries and tools are designed for use in a medical-imaging research
+environment : they are simple and powerful and make no attempt to provide a
+pretty interface to users."
+external-source: libminc
+

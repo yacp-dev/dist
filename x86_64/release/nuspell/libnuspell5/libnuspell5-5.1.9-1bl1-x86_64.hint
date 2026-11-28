@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libicu76 libstdc++6
+sdesc: "Free and open source C++ spell checking library (runtime)"
+ldesc: "Nuspell is a spell checker library and command-line program designed for
+languages with rich morphology and complex word compounding. Nuspell is a pure
+C++ re-implementation of Hunspell."
+external-source: nuspell
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin zlib0
+sdesc: "Small C library, with a bioinformatic focus (runtime)"
+ldesc: "A C library for various bioinformatics-y tasks. Proper docs will come in time.
+For now, we have reasonable test coverage under ./test/ that demonstrate the
+API."
+external-source: libqes
+

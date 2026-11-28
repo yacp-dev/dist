@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "API for implementing ICAP content analysis and adaptation (runtime)"
+ldesc: "eCAP is a software interface that allows a network application, such as an
+HTTP proxy or an ICAP server, to outsource content analysis and adaptation to
+a loadable module. For each applicable protocol message being processed, an
+eCAP-enabled host application supplies the message details to the adaptation
+module and gets back an adapted message, a not interested response, or a block
+this message now! instruction. These exchanges often include message bodies."
+external-source: libecap
+

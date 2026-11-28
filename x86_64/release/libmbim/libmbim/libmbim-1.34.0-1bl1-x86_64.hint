@@ -1,0 +1,6 @@
+category: Libs
+requires: bash cygwin libglib2.0_0 libmbim-glib4
+sdesc: "Glib-based library for talking to WWAN modems and devices (utilities)"
+ldesc: "libmbim is a glib-based library for talking to WWAN modems and devices which
+speak the Mobile Interface Broadband Model (MBIM) protocol."
+

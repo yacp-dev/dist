@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport liblo-devel
+sdesc: "Library for easy interaction with monome devices (licensing & readmes)"
+ldesc: "libmonome is a library for easy interaction with monome devices. It currently
+runs on Linux (on which it is primarily developed), OpenBSD, and Darwin/OS X."
+skip:
+
+homepage: https://github.com/monome/libmonome
+license: ISC

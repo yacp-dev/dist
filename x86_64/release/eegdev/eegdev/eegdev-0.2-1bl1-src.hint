@@ -1,0 +1,13 @@
+category: Libs
+build-depends: cygport bison flex libexpat-devel libusb1.0-devel libxdffileio-devel
+sdesc: "Library to acquire data from EEG and biosignal acquisition systems (licensing & readmes)"
+ldesc: "eegdev is a library that provides an interface for accessing
+various EEG (and other biosignals) acquisition systems in a unified way. The
+interface has been designed in order to be both flexible and efficient. The
+device specific part is implemented by the means of plugins which makes adding
+new device backend fairly easy even if the library does not support them yet
+officially."
+skip:
+
+homepage: https://sourceforge.net/projects/eegdev/
+license: LGPL-3.0-or-later

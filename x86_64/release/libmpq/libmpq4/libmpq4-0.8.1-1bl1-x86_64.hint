@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbz2_1 liblzma5 zlib0
+sdesc: "Library for reading MPQ files (runtime)"
+ldesc: "libmpq is a library which can be easily used in own applications to extract,
+create or manipulate MoPaQ mpq archives."
+external-source: libmpq
+

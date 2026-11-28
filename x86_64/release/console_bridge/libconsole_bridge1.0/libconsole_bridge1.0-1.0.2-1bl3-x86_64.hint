@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "ROS-independent package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages (runtime)"
+ldesc: "A ROS-independent package for logging that seamlessly pipes into
+rosconsole/rosout for ROS-dependent packages"
+external-source: console_bridge
+

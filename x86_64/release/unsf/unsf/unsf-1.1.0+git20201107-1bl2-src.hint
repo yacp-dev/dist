@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Converts SoundFont .sf2 files into GUS-type instrument patches (licensing & readmes)"
+ldesc: "Converts SoundFont .sf2 files into GUS-type instrument patches"
+skip:
+
+homepage: https://github.com/psi29a/unsf
+license: CC0-1.0

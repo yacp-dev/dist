@@ -1,0 +1,8 @@
+category: Text
+requires: cygwin libapertium3 libgcc1 libicu76 liblttoolbox3 libstdc++6 python312
+sdesc: "Free/open-source machine translation platform (python312 bindings)"
+ldesc: "Apertium is a free/open-source machine translation platform, initially aimed
+at related-language pairs but expanded to deal with more divergent language
+pairs (such as English-Catalan)."
+external-source: apertium
+

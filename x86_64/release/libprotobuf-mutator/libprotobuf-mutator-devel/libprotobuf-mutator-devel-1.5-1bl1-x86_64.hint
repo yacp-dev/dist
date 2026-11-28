@@ -1,0 +1,6 @@
+category: Libs
+requires: libprotobuf-mutator0 pkg-config libprotobuf-devel
+sdesc: "Library for structured fuzzing with protobuffers (development)"
+ldesc: "Library for structured fuzzing with protobuffers (development)"
+external-source: libprotobuf-mutator
+

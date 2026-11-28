@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libfftw3_3 libgcc1 libsamplerate0 libstdc++6
+sdesc: "Audio time-stretching and pitch-shifting library (ladspa plugin)"
+ldesc: "An audio time-stretching and pitch-shifting library and utility program."
+external-source: rubberband
+

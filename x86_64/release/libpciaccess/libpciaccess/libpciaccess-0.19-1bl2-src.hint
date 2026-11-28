@@ -1,0 +1,9 @@
+category: X11
+build-depends: cygport zlib-devel
+sdesc: "Generic PCI access library (utilities)"
+ldesc: "libpciaccess is a library for portable PCI access routines across multiple
+operating systems."
+skip:
+
+homepage: https://gitlab.freedesktop.org/xorg/lib/libpciaccess
+license: X11

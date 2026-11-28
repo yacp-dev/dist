@@ -1,0 +1,6 @@
+category: Libs
+requires: libtomlplusplus3 pkg-config
+sdesc: "TOML config file parser and serializer for C++17 (development)"
+ldesc: "TOML config file parser and serializer for C++17"
+external-source: tomlplusplus
+

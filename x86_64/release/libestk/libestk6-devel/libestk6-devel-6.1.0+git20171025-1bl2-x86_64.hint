@@ -1,0 +1,7 @@
+category: Libs
+requires: libestk6_6 pkg-config
+sdesc: "OpenGL ES Toolkit (development)"
+ldesc: "LibESTK is a utility library ment to make OpenGL ES 2.0 operations easier to
+perform with fewer calls compared to the standard OpenGL library."
+external-source: libestk
+

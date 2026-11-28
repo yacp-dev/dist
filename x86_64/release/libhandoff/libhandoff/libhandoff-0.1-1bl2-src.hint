@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gtk-doc libglib2.0-devel
+sdesc: "Facilitate limiting a program to a single instance per user (licensing & readmes)"
+ldesc: "Facilitate limiting a program to a single instance per user"
+skip:
+
+homepage: https://web.archive.org/web/20171202030104/http://gpe.linuxtogo.org/
+license: GPL-2.0-or-later

@@ -1,0 +1,13 @@
+category: Science
+build-depends: cygport libgsl-devel libqes-devel python3-numpy zlib-devel
+sdesc: "Rapid competitive read demulitplexer"
+ldesc: "AXE very rapidly selects the optimal barcode present in a sequence read, even
+in the presence of sequencing errors. The algorithm is able to handle
+combinatorial barcoding, barcodes of differing length, and several mismatches
+per barcode. Early results indicate far improved accuracy and speed over
+existing de-multiplexers. Unscientific trials show AXE processes more than
+500,000 reads per second."
+skip:
+
+homepage: https://github.com/kdm9/axe
+license: GPL-3.0-or-later

@@ -1,0 +1,10 @@
+category: Science
+build-depends: cygport gcc-fortran
+sdesc: "HF propagation prediction tool"
+ldesc: "This page describes the installation and operation of the VOACAP HF Circuit
+Prediction engine on any machine supporting the GCC compiler. The basic engine
+runs from a command line and requires no graphical interface."
+skip:
+
+homepage: https://github.com/jawatson/voacapl
+license: LicenseRef-voacapl AND CC0-1.0 AND GPL-3.0-only

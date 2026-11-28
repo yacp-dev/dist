@@ -1,0 +1,7 @@
+category: Science
+requires: cygwin libgfortran5
+sdesc: "Packing optimization for molecular dynamics simulations"
+ldesc: "Packmol creates an initial point for molecular dynamics simulations by packing
+molecules in defined regions of space. The packing guarantees that short range
+repulsive interactions do not disrupt the simulations."
+

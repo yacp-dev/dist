@@ -1,0 +1,7 @@
+category: Math
+requires: cygwin libgcc1 libgmp10 libgmpxx4 libstdc++6
+sdesc: "C++ library for arithmetic and algebraic computations (runtime)"
+ldesc: "In the joint CNRS-INRIA / INPG-UJF project APACHE, Givaro is a C++ library for
+arithmetic and algebraic computations."
+external-source: givaro
+

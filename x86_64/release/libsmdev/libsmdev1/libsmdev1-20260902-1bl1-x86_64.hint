@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcdata1 libcerror1 libcfile1 libclocale1 libcnotify1 libuna1
+sdesc: "Library to access to storage media devices (runtime)"
+ldesc: "libsmdev is a library to access to storage media devices."
+external-source: libsmdev
+

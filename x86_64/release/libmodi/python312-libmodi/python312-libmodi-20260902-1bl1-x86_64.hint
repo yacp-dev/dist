@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libmodi1 python312
+sdesc: "Library and tools to access the Mac OS disk image formats (python312 bindings)"
+ldesc: "libmodi is a library to access the Mac OS disk image formats."
+external-source: libmodi
+

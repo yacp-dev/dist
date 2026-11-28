@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport gettext-devel libiconv-devel libusb-devel
+sdesc: "Original command line utility and Midnight Commander plugin"
+ldesc: "Original command line utility and Midnight Commander plugin"
+skip:
+
+homepage: https://sourceforge.net/projects/ifp-driver/
+license: GPL-2.0-or-later

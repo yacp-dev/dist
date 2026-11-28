@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Tree-sitter grammar for embedded template languages like ERB, EJS (licensing & readmes)"
+ldesc: "Tree-sitter grammar for embedded template languages like ERB, EJS"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-embedded-template
+license: MIT

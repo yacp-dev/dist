@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libfsext1 python312
+sdesc: "Library and tools to access the Extended File System (python312 bindings)"
+ldesc: "libfsext is a library to access the Extended File System (ext)."
+external-source: libfsext
+

@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libdumb2 libFLAC14 libfreetype6 libgcc1 libGL1 libglib2.0_0 libgtk3_0 libjpeg8 libogg0 libopenal1 libopenmpt0 libopusfile0 libphysfs1 libpng16 libpulse-simple0 libpulse0 libtheoradec2 libvorbis0 libvorbisfile3 libwebp7 libX11_6 libXcursor1 libXi6 libXinerama1 libXrandr2 libXss1
+sdesc: "Game programming library (runtime)"
+ldesc: "Allegro is a cross-platform library mainly aimed at video game and multimedia
+programming. It handles common, low-level tasks such as creating windows,
+accepting user input, loading data, drawing images, playing sounds, etc. and
+generally abstracting away the underlying platform. However, Allegro is not a
+game engine: you are free to design and structure your program as you like."
+external-source: allegro
+

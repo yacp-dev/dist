@@ -1,0 +1,9 @@
+category: Utils
+build-depends: cygport libansilove-devel
+sdesc: "ANSI and ASCII art to PNG converter in C"
+ldesc: "This is a complete rewrite of AnsiLove/PHP in the C programming language. It
+converts ANSi and artscene related file formats into PNG images."
+skip:
+
+homepage: https://github.com/ansilove/ansilove
+license: BSD-2-Clause AND ISC

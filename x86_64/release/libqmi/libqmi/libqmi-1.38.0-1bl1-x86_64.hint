@@ -1,0 +1,6 @@
+category: Libs
+requires: bash cygwin libglib2.0_0 libmbim-glib4 libqmi-glib5
+sdesc: "QMI modem protocol helper library (utilities)"
+ldesc: "This package contains the libraries that make it easier to use QMI
+functionality from applications that use glib."
+

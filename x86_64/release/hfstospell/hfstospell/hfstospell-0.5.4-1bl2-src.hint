@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libarchive-devel libglib2.0-devel libglibmm2.4-devel libicu-devel libsigc2.0-devel libxml++2.6-devel
+sdesc: "HFST spell checker library and command line tool (utilities)"
+ldesc: "This is a minimal hfst optimized lookup format based spell checker library and
+a demonstrational implementation of command line based spell checker."
+skip:
+
+homepage: https://github.com/hfst/hfst-ospell/
+license: Apache-2.0

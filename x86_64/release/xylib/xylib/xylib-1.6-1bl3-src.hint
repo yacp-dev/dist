@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libboost-devel libbz2-devel zlib-devel
+sdesc: "Library for reading x-y data (utilities)"
+ldesc: "xylib is a portable library for reading files that contain x-y data from
+powder diffraction, spectroscopy and other experimental methods."
+skip:
+
+homepage: https://github.com/wojdyr/xylib
+license: LGPL-2.1-or-later

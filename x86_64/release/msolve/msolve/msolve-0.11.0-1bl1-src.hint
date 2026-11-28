@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libflint-devel libgmp-devel libmpfr-devel
+sdesc: "Library for Polynomial System Solving through Algebraic Methods (licensing & readmes)"
+ldesc: "msolve is an open source C library implementing computer algebra algorithms
+for solving polynomial systems (with rational coefficients or coefficients in
+a prime field)."
+skip:
+
+homepage: https://github.com/algebraic-solving/msolve
+license: GPL-2.0-or-later

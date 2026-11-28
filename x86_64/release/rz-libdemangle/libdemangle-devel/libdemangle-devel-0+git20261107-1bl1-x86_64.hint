@@ -1,0 +1,7 @@
+category: Libs
+requires: libdemangle0 pkg-config
+sdesc: "Rizin Library to demangle symbols (development)"
+ldesc: "This library contains all rizin demanglers and is linked to provide demangling
+support in rizin"
+external-source: rz-libdemangle
+

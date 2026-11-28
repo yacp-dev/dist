@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "Unicode Text C++ library (licensing & readmes)"
+ldesc: "Unicode Text C++ library"
+skip:
+
+homepage: https://github.com/ruoso/u5e
+license: BSD-2-Clause

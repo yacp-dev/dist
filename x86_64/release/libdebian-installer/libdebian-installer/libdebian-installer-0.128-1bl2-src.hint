@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport check
+sdesc: "Library of common debian-installer functions (licensing & readmes)"
+ldesc: "Library of common debian-installer functions."
+skip:
+
+homepage: https://salsa.debian.org/installer-team/libdebian-installer
+license: GPL-2.0-or-later

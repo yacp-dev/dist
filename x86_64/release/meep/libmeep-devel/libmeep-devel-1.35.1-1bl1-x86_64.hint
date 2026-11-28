@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin-devel libfftw3-devel libgsl-devel libharminv-devel libhdf5-devel libiconv-devel libintl-devel liblapack-devel libmeep39 libmpb-devel libpympb39 pkg-config zlib-devel
+sdesc: "Simulation software to model electromagnetic systems (development)"
+ldesc: "Meep (or MEEP) is a free finite-difference time-domain (FDTD) simulation
+software package developed at MIT to model electromagnetic systems."
+external-source: meep
+

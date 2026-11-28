@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Large integer arithmetic library (licensing & readmes)"
+ldesc: "TomsFastMath is a fast public domain, open source, large integer arithmetic
+library written in portable ISO C."
+

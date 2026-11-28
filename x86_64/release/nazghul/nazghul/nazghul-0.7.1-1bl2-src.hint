@@ -1,0 +1,8 @@
+category: Games
+build-depends: cygport libpng-devel libSDL-devel libSDL_image-devel libSDL_mixer-devel
+sdesc: "Computer role-playing game (CRPG) engine with game called HaximA"
+ldesc: "Computer role-playing game (CRPG) engine with game called HaximA"
+skip:
+
+homepage: https://sourceforge.net/projects/nazghul/
+license: GPL-2.0-or-later

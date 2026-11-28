@@ -1,0 +1,8 @@
+category: Security
+requires: cygwin libest3.2.0p libssl3
+sdesc: "Library that implements RFC 7030 (Enrollment over Secure Transport) (utilities)"
+ldesc: "This project is a library that implements RFC 7030 (Enrollment over Secure
+Transport). EST is used to provision certificates from a CA or RA. EST is a
+replacement for SCEP, providing several security enhancements and support for
+ECC certificates."
+

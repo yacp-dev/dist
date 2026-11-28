@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Safe string library (licensing & readmes)"
+ldesc: "The Safe String Library is a C Library providing string and memory buffer
+routines that protect against buffer overflows."
+skip:
+
+homepage: https://github.com/intel/safestringlib
+license: MIT

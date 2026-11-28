@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgcrypt-devel
+sdesc: "C library that generates TOTP and HOTP (licensing & readmes)"
+ldesc: "C library that generates TOTP and HOTP according to RFC-6238"
+skip:
+
+homepage: https://github.com/paolostivanin/libcotp
+license: Apache-2.0

@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libgcc1 libglib2.0_0 libQt5Core5 libstdc++6
+sdesc: "Platform-independent Qt API for storing passwords securely (runtime)"
+ldesc: "QtKeychain is a Qt API to store passwords and other secret data securely."
+external-source: qtkeychain
+

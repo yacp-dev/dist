@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library to access Hokuyo URG laser range finders (licensing & readmes)"
+ldesc: "This library uses the SCIP2.0 protocol to provide access to devices of
+Hokuyo URG laser range finder series."
+

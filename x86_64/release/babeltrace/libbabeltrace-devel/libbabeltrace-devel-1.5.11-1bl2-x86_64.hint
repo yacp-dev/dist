@@ -1,0 +1,8 @@
+category: Libs
+requires: libbabeltrace1 libpopt-devel libuuid-devel pkg-config
+sdesc: "Trace Viewer and Converter, mainly for the Common Trace Format (development)"
+ldesc: "This project provides trace read and write libraries, as well as a trace
+converter. A plugin can be created for any trace format to allow its conversion
+to/from another trace format."
+external-source: babeltrace
+

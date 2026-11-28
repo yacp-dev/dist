@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libatk1.0_0 libcanberra0 libgconf2_4 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk2.0_0 libintl8 libpango1.0_0 libX11_6
+sdesc: "Application framework for Linux operating system mobile devices (runtime)"
+ldesc: "Hildon is an application framework for Linux operating system mobile devices."
+external-source: libhildon
+

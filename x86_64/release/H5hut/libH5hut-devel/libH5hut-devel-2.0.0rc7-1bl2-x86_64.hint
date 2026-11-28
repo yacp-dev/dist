@@ -1,0 +1,6 @@
+category: Libs
+requires: libH5hut2
+sdesc: "HDF5 Utility Toolkit (development)"
+ldesc: "High-Performance I/O Library for Particle-based Simulations"
+external-source: H5hut
+

@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libgfortran5 libhdf5_320
+sdesc: "Library providing a simple mechanism for accessing CBF files and imgCIF files (runtime)"
+ldesc: "CBFLIB is a library of ANSI-C functions providing a simple mechanism for
+accessing Crystallographic Binary Files (CBF files) and Image-supporting CIF
+(imgCIF) files. The CBFLIB API is loosely based on the CIFPARSE API for mmCIF
+files."
+external-source: cbflib
+

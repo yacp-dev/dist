@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1 libopenmpi40 libscalapack2.2 libstdc++6
+sdesc: "Distributed Communication-Optimal Shuffle and Transpose Algorithm (runtime)"
+ldesc: "COSTA is a communication-optimal, highly-optimised algorithm for data
+redistribution accross multiple processors, using MPI and OpenMP and offering
+the possibility to transpose and scale some or all data."
+external-source: costa
+

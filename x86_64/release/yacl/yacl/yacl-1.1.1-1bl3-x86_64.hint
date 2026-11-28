@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Yet Another Crypto Library (licensing & readmes)"
+ldesc: "Basically this is my wrapper around a much better library (libsodium) with
+some functions that libsodium doesn't include. In general, the libsodium
+routines are used with the exception of the algorithms not in NaCl."
+

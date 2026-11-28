@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport mandoc
+sdesc: "Lightweight C library for reading and writing RDF (utilities)"
+ldesc: "Serd is a lightweight C library for working with RDF data."
+skip:
+
+homepage: https://gitlab.com/drobilla/serd
+license: 0BSD

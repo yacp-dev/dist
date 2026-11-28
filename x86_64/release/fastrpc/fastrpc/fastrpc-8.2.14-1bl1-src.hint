@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libxml2-devel
+sdesc: "FastRPC library (licensing & readmes)"
+ldesc: "FastRPC is a XML-RPC based protocol that uses binary data serialization
+format. Includes C++ and Python implementations and a console client."
+skip:
+
+homepage: https://github.com/seznam/fastrpc
+license: LGPL-2.1-or-later

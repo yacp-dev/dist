@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Diet file decompressor (runtime)"
+ldesc: "Diet file decompressor"
+external-source: undiet
+

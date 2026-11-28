@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "URI C++ library (runtime)"
+ldesc: "C++ library for parsing and generating RFC-compliant Uniform Resource
+Identifiers (URI). Contains classes for URI scheme, authority, path, query,
+fragment, and the combined URI."
+external-source: uripp
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport asciidoc libX11-devel libXext-devel libXi-devel xorg-server-devel xorgproto
+sdesc: "Touch Frame Library (utilities)"
+ldesc: "Frame handles the buildup and synchronization of a set of
+simultaneous touches."
+skip:
+
+homepage: https://launchpad.net/frame
+license: GPL-3.0-only AND LGPL-3.0-only

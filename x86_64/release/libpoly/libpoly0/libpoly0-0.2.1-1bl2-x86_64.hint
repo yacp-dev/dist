@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libgmp10 libstdc++6
+sdesc: "C library for manipulating polynomials (runtime)"
+ldesc: "LibPoly is a C library for manipulating polynomials. The target applications
+are symbolic reasoning engines, such as SMT solvers, that need to reason about
+polynomial constraints. It is research software under development, so the
+features and the API might change rapidly."
+external-source: libpoly
+

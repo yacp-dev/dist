@@ -1,0 +1,9 @@
+category: Text
+requires: cygwin
+sdesc: "Decode yEnc archives"
+ldesc: "yydecode is a highly portable decoder for yEnc encoded binaries, which
+unfortunately has recently been spreading like wildfire on Usenet. The name
+yydecode is a play on the infamous uudecode program, although that's not the
+only similarity - yydecode aims to behave like uudecode; in normal
+circumstances it can be used as a direct drop-in replacement."
+

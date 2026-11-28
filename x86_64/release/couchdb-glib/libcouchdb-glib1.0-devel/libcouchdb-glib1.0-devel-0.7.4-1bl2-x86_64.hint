@@ -1,0 +1,6 @@
+category: Libs
+requires: libcouchdb-glib1.0_2 libglib2.0-devel libjson-glib1.0-devel pkg-config
+sdesc: "GLib-based library to allow access to CouchDB (development)"
+ldesc: "GLib-based library to allow access to CouchDB"
+external-source: couchdb-glib
+

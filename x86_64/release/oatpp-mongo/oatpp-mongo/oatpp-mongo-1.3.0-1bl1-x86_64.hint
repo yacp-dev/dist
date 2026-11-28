@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "MongoDB driver and BSON support for oatpp (licensing & readmes)"
+ldesc: "MongoDB driver and BSON support for oatpp"
+

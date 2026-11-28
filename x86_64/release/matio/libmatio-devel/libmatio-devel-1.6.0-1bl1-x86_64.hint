@@ -1,0 +1,6 @@
+category: Libs
+requires: libhdf5-devel libmatio14 pkg-config zlib-devel
+sdesc: "Library for reading and writing matlab files (development)"
+ldesc: "matio is an C library for reading and writing Matlab MAT files."
+external-source: matio
+

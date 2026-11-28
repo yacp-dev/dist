@@ -1,0 +1,6 @@
+category: Archive
+requires: libhdf5sz3_3.4 libSZ3c3.4 hdf5 libaec-devel libhdf5-devel libzstd-devel zlib-devel
+sdesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets (development)"
+ldesc: "Modular Error-bounded Lossy Compression Framework for Scientific Datasets"
+external-source: sz
+

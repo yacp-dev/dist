@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libfusn1
+sdesc: "Library for Transactional NTFS (TxF) data types (runtime)"
+ldesc: "libftxf is a library for Transactional NTFS (TxF) data types."
+external-source: libftxf
+

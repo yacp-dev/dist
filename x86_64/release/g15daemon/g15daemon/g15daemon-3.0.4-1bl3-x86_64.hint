@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libg15render3 libg15_3
+sdesc: "Provides access to extra keys and the LCD available on the logitech G15 keyboard (utilities)"
+ldesc: "G15Daemon allows users access to all extra keys by decoding them and pushing
+them back into the kernel via the linux UINPUT driver. This driver must be
+loaded before g15daemon can be used for keyboard access."
+

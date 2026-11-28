@@ -1,0 +1,6 @@
+category: Libs
+requires: libdebian-installer4 pkg-config
+sdesc: "Library of common debian-installer functions (development)"
+ldesc: "Library of common debian-installer functions."
+external-source: libdebian-installer
+

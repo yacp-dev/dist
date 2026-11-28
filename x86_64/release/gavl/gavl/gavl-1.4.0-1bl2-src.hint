@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgdither-devel
+sdesc: "Library for handling uncompressed audio and video data (licensing & readmes)"
+ldesc: "Library for handling uncompressed audio and video data"
+skip:
+
+homepage: https://sourceforge.net/projects/gmerlin/
+license: GPL-3.0-or-later

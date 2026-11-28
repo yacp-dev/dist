@@ -1,0 +1,7 @@
+category: Libs
+requires: liblexbor3 pkg-config
+sdesc: "HTML Renderer library (development)"
+ldesc: "The lexbor project is being developed using the C language, without
+dependencies."
+external-source: lexbor
+

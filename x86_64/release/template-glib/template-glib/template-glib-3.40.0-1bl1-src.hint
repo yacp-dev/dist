@@ -1,0 +1,10 @@
+category: Gnome
+build-depends: cygport bison flex gettext-devel gobject-introspection libgirepository1.0-devel libglib2.0-devel libintl-devel vala
+sdesc: "Templating library for GLib (licensing & readmes)"
+ldesc: "Template-GLib is a library to help you generate text based on a template and
+user defined state. Template-GLib does not use a language runtime, so it is
+safe to use from any GObject-Introspectable language."
+skip:
+
+homepage: https://www.gnome.org/
+license: LGPL-2.1-or-later

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "WebM demuxer (licensing & readmes)"
+ldesc: "nestegg is a WebM demuxer library."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libbehaviortree_cpp4 pkg-config
+sdesc: "Behavior Trees Library in C++ (development)"
+ldesc: "Behavior Trees Library in C++"
+external-source: BehaviorTree.CPP
+

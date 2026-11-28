@@ -1,0 +1,8 @@
+category: Text
+build-depends: cygport zlib-devel
+sdesc: "Utility to regenerate the GNU info page index"
+ldesc: "Small utility designed to regenerate the GNU info page indexes."
+skip:
+
+homepage: https://codeberg.org/bapt/indexinfo
+license: BSD-2-Clause

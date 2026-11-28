@@ -1,0 +1,6 @@
+category: Libs
+requires: libacvp0 pkg-config
+sdesc: "Client-side implementation of the draft ACVP protocol (development)"
+ldesc: "Client-side implementation of the draft ACVP protocol"
+external-source: libacvp
+

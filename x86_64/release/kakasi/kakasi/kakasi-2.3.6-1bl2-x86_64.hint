@@ -1,0 +1,6 @@
+category: Text
+requires: cygwin libiconv2
+sdesc: "Kanji Kana Simple Inverter (utilities)"
+ldesc: "KAKASI is the language processing filter to convert Kanji characters to
+Hiragana, Katakana or Romaji(1) and may be helpful to read Japanese documents."
+

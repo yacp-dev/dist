@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Embeddable PHP5 Engine (licensing & readmes)"
+ldesc: "PH7 is a in-process software library that implements a highly-efficient
+embeddable bytecode compiler and a virtual machine for the PHP programming
+language."
+

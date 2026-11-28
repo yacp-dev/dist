@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libglib2.0_0 libjson-glib1.0_0 libusb1.0
+sdesc: "GObject wrapper for libusb1 (runtime)"
+ldesc: "GUsb is a GObject wrapper for libusb1 that makes it easy to do asynchronous
+control, bulk and interrupt transfers with proper cancellation and integration
+into a mainloop. This makes it easy to integrate low level USB transfers with
+your high-level application or system daemon."
+external-source: libgusb
+

@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport check libcares-devel libgnutls-devel
+sdesc: "SIP swiss army knife"
+ldesc: "SIP swiss army knife"
+skip:
+
+homepage: https://github.com/nils-ohlmeier/sipsak
+license: GPL-2.0-or-later

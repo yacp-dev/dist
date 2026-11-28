@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libopenal1
+sdesc: "Freealut library for OpenAL (runtime)"
+ldesc: "Freealut is a free implementation of OpenAL's ALUT standard."
+external-source: freealut
+

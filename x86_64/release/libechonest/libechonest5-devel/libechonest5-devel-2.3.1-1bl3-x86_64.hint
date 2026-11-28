@@ -1,0 +1,7 @@
+category: Libs
+requires: libechonest5_2.3 libQt5Core-devel pkg-config
+sdesc: "C++/Qt wrapper around the wonderful Echo Nest Api (development)"
+ldesc: "libechonest is a collection of C++/Qt classes designed to make a developer's
+life easy when trying to use the APIs provided by The Echo Nest."
+external-source: libechonest
+

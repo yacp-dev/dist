@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libgcc1
+sdesc: "A cat(1) clone with wings"
+ldesc: "A cat(1) clone with syntax highlighting and Git integration."
+

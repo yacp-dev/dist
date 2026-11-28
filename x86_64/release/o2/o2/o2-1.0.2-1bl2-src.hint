@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libQt5Core-devel libqt5keychain-devel
+sdesc: "OAuth 2.0 for Qt (licensing & readmes)"
+ldesc: "This library encapsulates the OAuth 1.0 and 2.0 client
+authentication flows, and the sending of authenticated HTTP requests."
+skip:
+
+homepage: https://github.com/pipacs/o2
+license: BSD-2-Clause AND BSD-3-Clause

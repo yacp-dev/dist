@@ -1,0 +1,6 @@
+category: Devel
+requires: 
+sdesc: "TOML for Modern C++"
+ldesc: "toml11 is a C++11 (or later) header-only toml parser/serializer
+library for C++11/14/17/20/23."
+

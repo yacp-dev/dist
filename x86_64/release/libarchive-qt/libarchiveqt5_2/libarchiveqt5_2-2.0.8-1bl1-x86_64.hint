@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libarchive13 libbz2_1 libgcc1 liblzma5 libQt5Core5 libstdc++6 zlib0
+sdesc: "Qt based archiving solution with libarchive backend (runtime)"
+ldesc: "Qt based archiving solution with libarchive backend"
+external-source: libarchive-qt
+

@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin
+sdesc: "Flexible, sensitive and accurate DNA alignment tool"
+ldesc: "Flexible, sensitive and accurate DNA alignment tool designed to
+find optimal split-read mappings on single-end queries from 100bp to 32kb."
+

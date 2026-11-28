@@ -1,0 +1,6 @@
+category: Libs
+requires: libemf2svg1
+sdesc: "Microsoft (MS) EMF to SVG conversion library (development)"
+ldesc: "MS EMF (Enhanced Metafile) to SVG conversion library."
+external-source: libemf2svg
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libdbus-glib_1-devel libglib2.0-devel libhildonmime0 pkg-config
+sdesc: "Library for activating an application to handle a certain mime type (development)"
+ldesc: "Library for activating an application to handle a certain mime type"
+external-source: libhildonmime
+

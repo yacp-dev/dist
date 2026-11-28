@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libglib2.0_0 libjson-glib1.0_0 libsoup-gnome2.4_1 libsoup2.4_1 libssl1.0 libuuid1
+sdesc: "GLib-based library to allow access to CouchDB (runtime)"
+ldesc: "GLib-based library to allow access to CouchDB"
+external-source: couchdb-glib
+

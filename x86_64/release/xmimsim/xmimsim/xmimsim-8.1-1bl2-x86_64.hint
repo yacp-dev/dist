@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libglib2.0_0 libOpenCL1 libxmimsim0 libxrl11
+sdesc: "Monte Carlo simulation of X-ray fluorescence spectrometers (utilities)"
+ldesc: "XMI-MSIM is an open source tool designed for predicting the spectral response
+of energy-dispersive X-ray fluorescence spectrometers using Monte Carlo
+simulations. It comes with a fully functional graphical user interface in
+order to make it as user friendly as possible. Considerable effort has been
+taken to ensure easy installation on all major platforms."
+

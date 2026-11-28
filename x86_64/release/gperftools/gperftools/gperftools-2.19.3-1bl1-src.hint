@@ -1,0 +1,11 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Fast, multi-threaded malloc() and nifty performance analysis tools (licensing & readmes)"
+ldesc: "These tools are for use by developers so that they can create more robust
+applications. Especially of use to those developing multi-threaded
+applications in C++ with templates. Includes TCMalloc, heap-checker,
+heap-profiler and cpu-profiler."
+skip:
+
+homepage: https://github.com/gperftools/gperftools
+license: BSD-3-Clause

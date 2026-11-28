@@ -1,0 +1,7 @@
+category: Libs
+requires: libs2n1 pkg-config libssl-devel
+sdesc: "Implementation of the TLS/SSL protocols (development)"
+ldesc: "s2n-tls is a C99 implementation of the TLS/SSL protocols that is
+designed to be simple, small, fast, and with security as a priority."
+external-source: s2n-tls
+

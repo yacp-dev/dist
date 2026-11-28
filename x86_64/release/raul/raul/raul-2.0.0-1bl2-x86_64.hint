@@ -1,0 +1,6 @@
+category: Audio
+requires: pkg-config
+sdesc: "Realtime Audio Utility Library"
+ldesc: "Raul (Realtime Audio Utility Library) is a C++ utility library primarily aimed
+at audio/musical applications."
+

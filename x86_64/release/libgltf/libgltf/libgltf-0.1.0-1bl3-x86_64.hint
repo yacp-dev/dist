@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++ Library for rendering OpenGL models stored in glTF format (licensing & readmes)"
+ldesc: "LIBGLTF is a C++ library for rendering OpenGL models stored in glTF format."
+

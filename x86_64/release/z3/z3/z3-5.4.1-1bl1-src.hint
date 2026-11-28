@@ -1,0 +1,8 @@
+category: Math
+build-depends: cygport libgmp-devel
+sdesc: "Theorem prover (utilities)"
+ldesc: "Z3 is a theorem prover from Microsoft Research."
+skip:
+
+homepage: https://github.com/Z3Prover/z3
+license: MIT

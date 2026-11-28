@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Fast and Reliable ARQ Protocol (licensing & readmes)"
+ldesc: "KCP is a high-performance, reliable transport protocol designed to
+significantly reduce latency compared to traditional TCP. It can achieve a
+30-40% reduction in average latency and up to three times lower maximum delay,
+costing 10-20% additional bandwidth overhead."
+skip:
+
+homepage: https://github.com/skywind3000/kcp
+license: MIT

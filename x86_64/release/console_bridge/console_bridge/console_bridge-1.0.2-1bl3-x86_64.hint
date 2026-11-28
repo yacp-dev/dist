@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "ROS-independent package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages (licensing & readmes)"
+ldesc: "A ROS-independent package for logging that seamlessly pipes into
+rosconsole/rosout for ROS-dependent packages"
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport autoconf-archive libalut-devel libboost-devel libboost_python3-devel libGL-devel libGLU-devel libglut-devel libopenal-devel libpng-devel libSDL-devel pkgconf python3-devel zlib-devel
+sdesc: "Automotive simulation framework (utilities)"
+ldesc: "Vamos is an automotive simulation framework with an emphasis on thorough
+physical modeling and good C++ design. Vamos includes a real-time,
+first-person, 3D driving application."
+skip:
+
+homepage: https://vamos.sourceforge.net/
+license: GPL-3.0-or-later

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libnng2
+sdesc: "nanomsg-next-generation (utilities)"
+ldesc: "This project is a rewrite of the Scalability Protocols library known as
+libnanomsg, and adds significant new capabilities, while retaining
+compatibility with the original."
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libcamp0 libgcc1 libstdc++6
+sdesc: "Performance Portability Layer (runtime)"
+ldesc: "RAJA is a library of C++ software abstractions, primarily developed at
+Lawrence Livermore National Laboratory (LLNL), that enables architecture and
+programming model portability for HPC applications."
+external-source: RAJA
+

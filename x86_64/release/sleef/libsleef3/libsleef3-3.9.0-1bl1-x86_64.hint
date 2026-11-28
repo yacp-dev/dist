@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libgomp1 libstdc++6
+sdesc: "SIMD Library for Evaluating Elementary Functions, vectorized libm and DFT (runtime)"
+ldesc: "In this library, functions for evaluating some elementary functions are
+implemented. The library also includes DFT subroutines."
+external-source: sleef
+

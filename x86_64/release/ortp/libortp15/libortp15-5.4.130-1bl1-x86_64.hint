@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbctoolbox1 libgcc1 libstdc++6
+sdesc: "C library implementing the RTP protocol (rfc3550) (runtime)"
+ldesc: "oRTP is a GPLv2 licensed C library implementing the RTP protocol (rfc3550)."
+external-source: ortp
+

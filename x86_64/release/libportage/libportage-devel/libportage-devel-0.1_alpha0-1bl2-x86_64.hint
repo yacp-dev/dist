@@ -1,0 +1,9 @@
+category: Libs
+requires: libportage0 pkg-config
+sdesc: "Fast and portable library offering functionality for doing package management in a Gentoo system (development)"
+ldesc: "LibPortage is a fast and portable library offering functionality for doing
+package management in a Gentoo system. This includes ebuilds, binpkgs and
+managing a portage-compatible configuration. The library will provide all the
+functions one may need to write a drop-in replacement for Portage in C."
+external-source: libportage
+

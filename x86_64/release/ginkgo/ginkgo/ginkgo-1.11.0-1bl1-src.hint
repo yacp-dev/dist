@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libgflags-devel libgklib-devel libgtest-devel libmetis-devel libopenmpi-devel libyaml-cpp-devel nlohmann_json
+sdesc: "Numerical linear algebra software package (licensing & readmes)"
+ldesc: "Ginkgo is a high-performance linear algebra library for manycore systems, with
+a focus on sparse solution of linear systems. It is implemented using modern
+C++ (you will need at least C++14 compliant compiler to build it), with GPU
+kernels implemented in CUDA and HIP."
+skip:
+
+homepage: https://github.com/ginkgo-project/ginkgo
+license: BSD-3-Clause AND Apache-2.0

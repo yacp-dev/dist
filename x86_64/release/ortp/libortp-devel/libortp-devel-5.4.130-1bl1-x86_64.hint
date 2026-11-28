@@ -1,0 +1,6 @@
+category: Libs
+requires: libortp15 pkg-config
+sdesc: "C library implementing the RTP protocol (rfc3550) (development)"
+ldesc: "oRTP is a GPLv2 licensed C library implementing the RTP protocol (rfc3550)."
+external-source: ortp
+

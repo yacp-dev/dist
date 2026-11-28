@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "DOM C library developped for the Gnome project (licensing & readmes)"
+ldesc: "DOM C library developped for the Gnome project"
+

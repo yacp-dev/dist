@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport doctest
+sdesc: "TOML for Modern C++"
+ldesc: "toml11 is a C++11 (or later) header-only toml parser/serializer
+library for C++11/14/17/20/23."
+skip:
+
+homepage: https://github.com/ToruNiina/toml11
+license: MIT

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin liblo7
+sdesc: "Lightweight OSC implementation (utilities)"
+ldesc: "liblo is an implementation of the Open Sound Control protocol for POSIX
+systems, started by Steve Harris and now maintained by Stephen Sinclair."
+

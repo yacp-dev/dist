@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Maemo MCE (Mode Control Entity) definitions"
+ldesc: "Maemo MCE (Mode Control Entity) definitions"
+skip:
+
+homepage: https://github.com/sailfishos/mce-dev
+license: LGPL-2.1-or-later

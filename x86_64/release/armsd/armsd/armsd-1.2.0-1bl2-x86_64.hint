@@ -1,0 +1,5 @@
+category: Utils
+requires: bash cygwin libarms0
+sdesc: "ARMS service daemon for Unix"
+ldesc: "ARMS service daemon for Unix"
+

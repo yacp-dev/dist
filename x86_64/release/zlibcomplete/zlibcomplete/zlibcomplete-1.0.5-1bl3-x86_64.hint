@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C++ interface to the ZLib library (licensing & readmes)"
+ldesc: "C++ interface to the ZLib library supporting compression with FLUSH,
+decompression, and std::string. RAII"
+

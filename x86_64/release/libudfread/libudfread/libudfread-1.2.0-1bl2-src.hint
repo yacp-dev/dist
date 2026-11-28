@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "UDF reader library (utilities)"
+ldesc: "This library allows reading UDF filesystems, like raw devices and image files."
+skip:
+
+homepage: https://code.videolan.org/videolan/libudfread
+license: LGPL-2.1-or-later

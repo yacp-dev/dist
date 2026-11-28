@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library for handling the Collins Dictionary database (runtime)"
+ldesc: "Library for handling the Collins Dictionary database"
+external-source: libydpdict
+

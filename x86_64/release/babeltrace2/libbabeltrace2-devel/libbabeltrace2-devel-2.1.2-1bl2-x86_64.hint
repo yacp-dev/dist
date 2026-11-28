@@ -1,0 +1,9 @@
+category: Libs
+requires: libbabeltrace2_0 pkg-config
+sdesc: "Open-source trace manipulation toolkit (development)"
+ldesc: "Babeltrace 2 is also the reference parser implementation of the Common Trace
+Format (CTF), a very versatile trace format followed by various tracers and
+tools such as LTTng and barectf. The Babeltrace 2 library and its Python
+bindings can read and write CTF traces."
+external-source: babeltrace2
+

@@ -1,0 +1,10 @@
+category: Science
+build-depends: cygport 
+sdesc: "Numerical analysis and data processing library (licensing & readmes)"
+ldesc: "ALGLIB is a cross-platform numerical analysis and data processing library. It
+supports several programming languages (C++, C#, Pascal, VBA) and several
+operating systems (Windows, Linux, Solaris)."
+skip:
+
+homepage: https://www.alglib.net/
+license: LGPL-2.0-or-later

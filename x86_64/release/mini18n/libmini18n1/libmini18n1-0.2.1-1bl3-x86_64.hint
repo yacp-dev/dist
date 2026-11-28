@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Minimal internationalization library (runtime)"
+ldesc: "mini18n is a small and non-intrusive translation library, designed for small
+memory and (non-)GNU systems."
+external-source: mini18n
+

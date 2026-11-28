@@ -1,0 +1,6 @@
+category: Libs
+requires: libminpack1 pkg-config
+sdesc: "Software for solving nonlinear equations and nonlinear least squares problems (development)"
+ldesc: "Software for solving nonlinear equations and nonlinear least squares problems"
+external-source: minpack
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin liblo7
+sdesc: "Library for easy interaction with monome devices (runtime)"
+ldesc: "libmonome is a library for easy interaction with monome devices. It currently
+runs on Linux (on which it is primarily developed), OpenBSD, and Darwin/OS X."
+external-source: libmonome
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C and C++ Task Scheduler for creating parallel programs (licensing & readmes)"
+ldesc: "A permissively licensed C and C++ Task Scheduler for creating parallel
+programs. Requires C++11 support."
+skip:
+
+homepage: https://github.com/dougbinks/enkiTS
+license: Zlib

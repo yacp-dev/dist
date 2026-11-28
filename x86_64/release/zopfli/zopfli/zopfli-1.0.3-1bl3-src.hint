@@ -1,0 +1,9 @@
+category: Archive
+build-depends: cygport 
+sdesc: "Zopfli Compression Algorithm (utilities)"
+ldesc: "Zopfli Compression Algorithm is a compression library programmed in C to
+perform very good, but slow, deflate or zlib compression."
+skip:
+
+homepage: https://github.com/google/zopfli
+license: Apache-2.0 AND Zlib

@@ -1,0 +1,7 @@
+category: Libs
+requires: libcpu_features0 pkg-config cpu_features
+sdesc: "Cross platform C99 library to get cpu features at runtime (development)"
+ldesc: "A cross-platform C library to retrieve CPU features (such as available
+instructions) at runtime."
+external-source: cpu_features
+

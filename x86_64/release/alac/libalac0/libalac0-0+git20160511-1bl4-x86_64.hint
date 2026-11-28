@@ -1,0 +1,10 @@
+category: Audio
+requires: cygwin libstdc++6
+sdesc: "Apple Lossless Audio Codec (runtime)"
+ldesc: "The Apple Lossless Audio Codec (ALAC) is an audio codec developed by Apple and
+supported on iPhone, iPad, most iPods, Mac and iTunes. ALAC is a data
+compression method which reduces the size of audio files with no loss of
+information. A decoded ALAC stream is bit-for-bit identical to the original
+uncompressed audio file."
+external-source: alac
+

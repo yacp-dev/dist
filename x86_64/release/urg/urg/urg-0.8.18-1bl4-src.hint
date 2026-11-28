@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libSDL-devel libSDL_net-devel
+sdesc: "Library to access Hokuyo URG laser range finders (licensing & readmes)"
+ldesc: "This library uses the SCIP2.0 protocol to provide access to devices of
+Hokuyo URG laser range finder series."
+skip:
+
+homepage: https://sourceforge.net/p/urgnetwork/wiki/Home/
+license: LGPL-3.0-only

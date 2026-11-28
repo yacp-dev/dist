@@ -1,0 +1,9 @@
+category: Libs
+requires: libjonquil-devel libmctc-lib0 pkg-config
+sdesc: "Modular computation tool chain library (development)"
+ldesc: "This library supports reading and writing in more than ten different geometry
+formats, including general ASCII formats, like xyz, JSON based formats, like
+QCSchema, and program specific formats, for example compatible with Turbomole
+or Vasp."
+external-source: mctc-lib
+

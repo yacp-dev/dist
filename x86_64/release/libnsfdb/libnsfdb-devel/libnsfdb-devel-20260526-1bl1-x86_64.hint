@@ -1,0 +1,7 @@
+category: Libs
+requires: libnsfdb1 pkg-config
+sdesc: "Library and tools to access the Notes Storage Facility (NSF) database file format (development)"
+ldesc: "libnsfdb is a library to access the Notes Storage Facility (NSF) database file
+format."
+external-source: libnsfdb
+

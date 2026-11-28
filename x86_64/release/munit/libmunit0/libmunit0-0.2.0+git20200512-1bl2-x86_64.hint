@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Small testing framework for C (runtime)"
+ldesc: "µnit is a small but full-featured unit testing framework for C. It has no
+dependencies (beyond libc), is permissively licensed (MIT), and is easy to
+include into any project."
+external-source: munit
+

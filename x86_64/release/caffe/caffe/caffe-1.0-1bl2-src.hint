@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport hdf5 libaec-devel libboost-devel libgflags-devel libglog-devel libhdf5-devel liblapack-devel libleveldb-devel liblmdb-devel libopencv-devel libprotobuf-devel libsnappy-devel zlib-devel
+sdesc: "Fast open framework for deep learning (utilities)"
+ldesc: "Caffe is a deep learning framework made with expression, speed, and modularity
+in mind. It is developed by Berkeley AI Research (BAIR)/The Berkeley Vision
+and Learning Center (BVLC) and community contributors."
+skip:
+
+homepage: https://github.com/BVLC/caffe
+license: BSD-2-Clause

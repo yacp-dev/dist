@@ -1,0 +1,5 @@
+category: Games
+requires: cygwin libncursesw10
+sdesc: "Small collection of solitaire/patience games to play in the terminal"
+ldesc: "A small collection of solitaire games implemented in C using ncurses."
+

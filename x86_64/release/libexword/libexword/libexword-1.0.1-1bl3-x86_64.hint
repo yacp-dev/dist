@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libexword1 libreadline8
+sdesc: "Library for transfering files over USB to casio EX-word electronic dictionaries (utilities)"
+ldesc: "libexword is a library that implements the low-level OBEX commands used to
+communicate Casio EX-word dictionaries."
+

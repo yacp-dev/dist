@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbenchmark-devel libcurl-devel libgmock-devel libgtest-devel libopentracing-devel libprometheus-cpp-pull-devel libprotobuf-devel nlohmann_json zlib-devel
+sdesc: "OpenTelemetry C++ Client (licensing & readmes)"
+ldesc: "OpenTelemetry C++ Client"
+skip:
+
+homepage: https://github.com/open-telemetry/opentelemetry-cpp
+license: Apache-2.0

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "Zyan Core Library for C (licensing & readmes)"
+ldesc: "Internal library providing platform independent types, macros and a fallback
+for environments without LibC."
+skip:
+
+homepage: https://github.com/zyantific/zycore-c
+license: MIT

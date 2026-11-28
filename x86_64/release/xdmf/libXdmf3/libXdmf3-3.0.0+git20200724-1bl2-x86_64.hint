@@ -1,0 +1,11 @@
+category: Science
+requires: cygwin libgcc1 libhdf5_320 libstdc++6 libtiff7 libxml2_2
+sdesc: "eXtensible Data Model and Format (runtime)"
+ldesc: "The need for a standardized method to exchange scientific data between High
+Performance Computing codes and tools lead to the development of the
+eXtensible Data Model and Format (XDMF) . Uses for XDMF range from a standard
+format used by HPC codes to take advantage of widely used visualization
+programs like ParaView, to a mechanism for performing coupled calculations
+using multiple, previously stand alone codes."
+external-source: xdmf
+

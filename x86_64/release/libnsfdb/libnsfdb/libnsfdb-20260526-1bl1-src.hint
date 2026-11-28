@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfdatetime-devel libfvalue-devel libuna-devel
+sdesc: "Library and tools to access the Notes Storage Facility (NSF) database file format (utilities)"
+ldesc: "libnsfdb is a library to access the Notes Storage Facility (NSF) database file
+format."
+skip:
+
+homepage: https://github.com/libyal/libnsfdb
+license: LGPL-3.0-or-later

@@ -1,0 +1,7 @@
+category: Libs
+requires: libexpat-devel libicu-devel libinih-devel liblcf0 pkg-config
+sdesc: "Library to handle RPG Maker 2000/2003 and EasyRPG projects (development)"
+ldesc: "liblcf is a library to handle RPG Maker 2000 and 2003 game data.
+It can read and write LCF and XML files."
+external-source: liblcf
+

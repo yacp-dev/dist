@@ -1,0 +1,8 @@
+category: Libs
+requires: libdaala0 libogg-devel pkg-config
+sdesc: "New video compression technology (development)"
+ldesc: "Daala is the code-name for a new video compression technology. The effort is a
+collaboration between Mozilla Foundation, Xiph.Org Foundation and other
+contributors."
+external-source: daala
+

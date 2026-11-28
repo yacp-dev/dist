@@ -1,0 +1,7 @@
+category: Libs
+requires: libaws-c-compression1.0 pkg-config libaws-c-common-devel
+sdesc: "C99 implementation of huffman encoding/decoding (development)"
+ldesc: "This is a cross-platform C99 implementation of compression algorithms such as
+gzip, and huffman encoding/decoding. Currently only huffman is implemented."
+external-source: aws-c-compression
+

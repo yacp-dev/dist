@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libso5 libstdc++6
+sdesc: "Framework for building solid multithreaded applications (licensing & readmes)"
+ldesc: "SObjectizer is a framework for building solid multithreaded applications. It
+is based on async message exchange and uses a mixture high-level
+abstractions: Actor-Model, Publish-Subscribe and Communicating Sequential
+Processes."
+

@@ -1,0 +1,10 @@
+category: Text
+build-depends: cygport gettext-devel libintl-devel libmp3lame-devel libogg-devel libvorbis-devel
+sdesc: "Convert ebooks to Morse MP3s/OGGs"
+ldesc: "ebook2cw is a command line program (optional graphical user interface
+available) which converts a plain text (ASCII, ISO 8859-1 or UTF-8) file
+(e. g. an ebook) to Morse code MP3 or OGG audio files."
+skip:
+
+homepage: https://fkurz.net/ham/ebook2cw.html
+license: GPL-2.0-or-later

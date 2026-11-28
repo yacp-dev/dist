@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libgcc1 libglib2.0_0 libintl8 libreadline8 libstdc++6 zlib0
+sdesc: "StarDict Console Version"
+ldesc: "StarDict Console Version"
+

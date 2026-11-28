@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libgcc1 libicu76 libstdc++6
+sdesc: "Responsive and customizable clock, timer, and stopwatch for the terminal"
+ldesc: "Responsive and customizable clock, timer, and stopwatch for the terminal"
+

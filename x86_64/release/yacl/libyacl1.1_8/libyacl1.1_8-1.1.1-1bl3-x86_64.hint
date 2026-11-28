@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libglib2.0_0 libguile3.0_1 libsodium26
+sdesc: "Yet Another Crypto Library (runtime)"
+ldesc: "Basically this is my wrapper around a much better library (libsodium) with
+some functions that libsodium doesn't include. In general, the libsodium
+routines are used with the exception of the algorithms not in NaCl."
+external-source: yacl
+

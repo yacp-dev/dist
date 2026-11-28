@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport zlib-devel
+sdesc: "Small C library, with a bioinformatic focus (licensing & readmes)"
+ldesc: "A C library for various bioinformatics-y tasks. Proper docs will come in time.
+For now, we have reasonable test coverage under ./test/ that demonstrate the
+API."
+skip:
+
+homepage: https://github.com/kdm9/libqes
+license: GPL-3.0-or-later

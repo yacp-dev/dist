@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libvtls-gnutls0
+sdesc: "Virtual TLS API for clients that wish to support multiple implementations (utilities)"
+ldesc: "Virtual TLS API for clients that wish to support multiple implementations"
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Tree-sitter grammar for embedded template languages like ERB, EJS (licensing & readmes)"
+ldesc: "Tree-sitter grammar for embedded template languages like ERB, EJS"
+

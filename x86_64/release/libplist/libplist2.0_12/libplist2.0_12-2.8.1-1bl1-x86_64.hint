@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Library to handle Apple Property List format in binary or XML (runtime)"
+ldesc: "Library to handle Apple Property List format in binary or XML"
+external-source: libplist
+

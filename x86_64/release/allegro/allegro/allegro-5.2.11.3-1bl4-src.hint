@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport flac-devel libdumb-devel libfreetype-devel libGL-devel libGLU-devel libglib2.0-devel libgtk3-devel libjpeg-devel libogg-devel libopenal-devel libopenmpt-devel libopusfile-devel libphysfs-devel libpng-devel libpulse-devel libtheora-devel libvorbis-devel libwebp-devel libX11-devel libXcursor-devel libXi-devel libXinerama-devel libXrandr-devel libXss-devel p7zip
+sdesc: "Game programming library (licensing & readmes)"
+ldesc: "Allegro is a cross-platform library mainly aimed at video game and multimedia
+programming. It handles common, low-level tasks such as creating windows,
+accepting user input, loading data, drawing images, playing sounds, etc. and
+generally abstracting away the underlying platform. However, Allegro is not a
+game engine: you are free to design and structure your program as you like."
+skip:
+
+homepage: https://liballeg.org/
+license: Zlib AND BSD-3-Clause

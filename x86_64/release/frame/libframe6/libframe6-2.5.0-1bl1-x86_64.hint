@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libX11_6 libXi6
+sdesc: "Touch Frame Library (runtime)"
+ldesc: "Frame handles the buildup and synchronization of a set of
+simultaneous touches."
+external-source: frame
+

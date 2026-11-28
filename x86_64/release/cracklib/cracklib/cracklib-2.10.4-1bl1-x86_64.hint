@@ -1,0 +1,8 @@
+category: Libs
+requires: bash cygwin libcrack2 libintl8
+sdesc: "Password checking library (utilities)"
+ldesc: "CrackLib tests passwords to determine whether they match certain
+security-oriented characteristics, such as being found in a dictionary. It
+provides a library for checking passwords and utilities for building and
+querying the dictionary."
+

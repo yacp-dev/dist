@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "C-sharp Grammar for tree-sitter (runtime)"
+ldesc: "C-sharp Grammar for tree-sitter"
+external-source: tree-sitter-c-sharp
+

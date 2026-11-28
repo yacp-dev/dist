@@ -1,0 +1,10 @@
+category: Text
+build-depends: cygport flex libboost-devel libicu-devel liblttoolbox-devel libxml2 libxml2-devel libxslt python3-devel python3-setuptools swig utf8cpp-devel
+sdesc: "Free/open-source machine translation platform (utilities)"
+ldesc: "Apertium is a free/open-source machine translation platform, initially aimed
+at related-language pairs but expanded to deal with more divergent language
+pairs (such as English-Catalan)."
+skip:
+
+homepage: https://github.com/apertium/apertium
+license: GPL-2.0-or-later

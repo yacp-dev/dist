@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libgcc1 libgomp1 libstdc++6
+sdesc: "Efficient Inference of Recombination in Whole Bacterial Genomes"
+ldesc: "Efficient Inference of Recombination in Whole Bacterial Genomes"
+

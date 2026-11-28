@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gnome-common gobject-introspection libgirepository1.0-devel libglib2.0-devel libgnome-keyring-devel libjson-glib1.0-devel libsoup-gnome2.4-devel libsoup2.4-devel libssl1.0-devel libuuid-devel
+sdesc: "GLib-based library to allow access to CouchDB (licensing & readmes)"
+ldesc: "GLib-based library to allow access to CouchDB"
+skip:
+
+homepage: https://launchpad.net/couchdb-glib
+license: LGPL-2.0-or-later AND MIT

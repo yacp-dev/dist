@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libboost_system1.66 libboost_thread1.66 libgcc1 libhdf5_320 libilmbase2_5_25 libstdc++6 zlib0
+sdesc: "Library for storing voxel data on disk and in memory (runtime)"
+ldesc: "Field3D is an open source library for storing voxel data. It provides C++
+classes that handle in-memory storage and a file format based on HDF5 that
+allows the C++ objects to be written to and read from disk."
+external-source: Field3D
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport bison flex gcc-fortran hdf5 libaec-devel libblosc2-devel libbz2-devel libcurl-devel libgtest-devel libhdf5-devel libpng-devel libsodium-devel libsqlite3-devel libssl-devel libzfp-devel libzmq-devel libzstd-devel python3-devel python312-numpy sz-devel zlib-devel
+sdesc: "Adaptable Input Output System version 2 (utilities, licensing & readmes)"
+ldesc: "ADIOS2 is a unified framework for I/O and in situ data processing of large-scale scientific data, with C, C++ and Fortran bindings."
+skip:
+
+homepage: https://github.com/ornladios/ADIOS2
+license: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND MIT AND Zlib

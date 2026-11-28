@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport asciidoc gettext-devel intltool liblua-devel libssl-devel perl python3-devel
+sdesc: "Library to determine the location of someone on the Internet (utilities)"
+ldesc: "Library to determine the location of someone on the Internet"
+skip:
+
+homepage: https://www.ipfire.org/location/
+license: LGPL-2.1-or-later

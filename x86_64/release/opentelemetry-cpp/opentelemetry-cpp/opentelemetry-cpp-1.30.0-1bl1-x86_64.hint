@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "OpenTelemetry C++ Client (licensing & readmes)"
+ldesc: "OpenTelemetry C++ Client"
+

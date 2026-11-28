@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Fortran 2018 interface bindings to PCRE2 (licensing & readmes)"
+ldesc: "Fortran 2018 interface bindings to PCRE2"
+

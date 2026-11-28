@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Industry-standard navigation-mesh toolset for games (runtime)"
+ldesc: "Recast is state of the art navigation mesh construction toolset for games."
+external-source: recastnavigation
+

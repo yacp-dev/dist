@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libglib2.0_0
+sdesc: "Facilitate limiting a program to a single instance per user (runtime)"
+ldesc: "Facilitate limiting a program to a single instance per user"
+external-source: libhandoff
+

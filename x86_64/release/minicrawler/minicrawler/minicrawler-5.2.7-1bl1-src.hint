@@ -1,0 +1,13 @@
+category: Net
+build-depends: cygport libcares-devel libiconv-devel libicu-devel libnghttp2-devel libssl-devel libtpl-devel php zlib-devel
+sdesc: "Multiplexing web client supporting HTTP/2 and WHATWG URL compliant parser written in C (utilities)"
+ldesc: "Minicrawler parses URLs, executes HTTP (HTTP/2) requests while handling
+cookies, network connection management and SSL/TLS protocols. By default it
+follows redirect locations and returns a full response, final URL, parsed
+cookied and more. It is designed to handle many request in parallel in a
+single thread. It multiplexes connections, running the read/write
+communication asynchronously."
+skip:
+
+homepage: https://github.com/testomato/minicrawler
+license: AGPL-3.0-or-later AND Zlib

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Tree-sitter parser for regular expressions (licensing & readmes)"
+ldesc: "Tree-sitter parser for regular expressions"
+

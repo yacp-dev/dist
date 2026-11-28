@@ -1,0 +1,7 @@
+category: Libs
+requires: liborcania-devel libyder1.4 pkg-config
+sdesc: "Logging library for C applications (development)"
+ldesc: "Simple and easy to use logging library. You can log messages to the console, a
+file, syslog or journald."
+external-source: yder
+

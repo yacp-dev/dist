@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-consul1
+sdesc: "Oatpp client for consul (development)"
+ldesc: "Oatpp client for consul"
+external-source: oatpp-consul
+

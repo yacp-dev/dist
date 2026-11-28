@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libboost_filesystem1.66 libboost_system1.66 libgcc1 libstdc++6
+sdesc: "Tool to check C++ #include dependencies"
+ldesc: "Tool to check C++ #include dependencies (dependency graphs created
+in .dot format)"
+

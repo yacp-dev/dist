@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libusb1.0
+sdesc: "x52 PRO linux library (runtime)"
+ldesc: "User-space library and tools to control the Multi-Function Display
+(MFD) and LEDs on Saitek X52 and X52 Pro joysticks."
+external-source: x52pro
+

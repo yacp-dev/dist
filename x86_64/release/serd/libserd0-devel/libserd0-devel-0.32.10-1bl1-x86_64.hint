@@ -1,0 +1,6 @@
+category: Libs
+requires: libserd0_0 pkg-config
+sdesc: "Lightweight C library for reading and writing RDF (development)"
+ldesc: "Serd is a lightweight C library for working with RDF data."
+external-source: serd
+

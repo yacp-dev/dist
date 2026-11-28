@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport autoconf-archive gcc-fortran libhdf5-devel
+sdesc: "HDF5 Utility Toolkit (licensing & readmes)"
+ldesc: "High-Performance I/O Library for Particle-based Simulations"
+skip:
+
+homepage: https://github.com/H5hut/H5hut
+license: BSD-3-Clause-LBNL AND BSD-4-Clause

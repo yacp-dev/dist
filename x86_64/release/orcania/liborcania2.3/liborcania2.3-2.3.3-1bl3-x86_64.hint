@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Potluck with different functions for different purposes (runtime)"
+ldesc: "Potluck with different functions for different purposes"
+external-source: orcania
+

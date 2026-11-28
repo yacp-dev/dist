@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport CUnit libicu-devel ragel
+sdesc: "Fast C parser using Ragel to generate the state machine (licensing & readmes)"
+ldesc: "Fast C parser using Ragel to generate the state machine"
+skip:
+
+homepage: https://github.com/ajwans/libtoml
+license: BSD-3-Clause

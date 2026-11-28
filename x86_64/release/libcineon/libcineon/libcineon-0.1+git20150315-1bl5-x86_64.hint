@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcineon0 libgcc1 libstdc++6 libtiff7
+sdesc: "Cineon image format reader/writer library (utilities)"
+ldesc: "Cineon image format reader/writer library written in portable C++."
+

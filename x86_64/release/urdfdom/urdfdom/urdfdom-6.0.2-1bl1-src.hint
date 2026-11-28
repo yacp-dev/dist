@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libconsole_bridge-devel libtinyxml2-devel urdfdom_headers
+sdesc: "URDF parser (utilities)"
+ldesc: "URDF (U-Robot Description Format) library provides core data structures and a
+simple XML parsers for populating the class data structures from an URDF file."
+skip:
+
+homepage: https://github.com/ros/urdfdom
+license: BSD-3-Clause

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libglib2.0_0 libresource0
+sdesc: "Libplayback replacement library (utilities)"
+ldesc: "Libplayback replacement library"
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Lua grammar for tree-sitter (licensing & readmes)"
+ldesc: "Lua grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter-grammars/tree-sitter-lua
+license: MIT

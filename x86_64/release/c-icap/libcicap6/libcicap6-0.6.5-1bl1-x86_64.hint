@@ -1,0 +1,8 @@
+category: Utils
+requires: cygwin libatomic1 libbrotlidec1 libbrotlienc1 libbz2_1 libpcre2_8_0 libssl3 libzstd1 zlib0
+sdesc: "Implementation of an ICAP server (runtime)"
+ldesc: "c-icap is an implementation of an ICAP server. It can be used with HTTP
+proxies that support the ICAP protocol to implement content adaptation
+and filtering services."
+external-source: c-icap
+

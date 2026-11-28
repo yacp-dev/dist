@@ -1,0 +1,7 @@
+category: Security
+requires: libeac3 libssl-devel pkg-config
+sdesc: "Cryptographic library for EAC version 2 (development)"
+ldesc: "OpenPACE implements Extended Access Control (EAC) version 2 as specified in
+BSI TR-03110."
+external-source: openpace
+

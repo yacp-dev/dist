@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Buffer based LRU cache (licensing & readmes)"
+ldesc: "libvmemcache is an embeddable and lightweight in-memory caching solution. It's
+designed to fully take advantage of large capacity memory, such as Persistent
+Memory with DAX, through memory mapping in an efficient and scalable way."
+skip:
+
+homepage: https://github.com/pmem/vmemcache
+license: BSD-3-Clause AND MIT

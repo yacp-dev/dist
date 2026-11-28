@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "DSP IIR Realtime C++ filter library (licensing & readmes)"
+ldesc: "DSP IIR Realtime C++ filter library"
+

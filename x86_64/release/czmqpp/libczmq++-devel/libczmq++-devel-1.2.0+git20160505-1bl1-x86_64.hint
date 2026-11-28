@@ -1,0 +1,6 @@
+category: Libs
+requires: libczmq++0 libczmq3-devel pkg-config
+sdesc: "C++ wrapper for czmq (development)"
+ldesc: "C++ wrapper for czmq"
+external-source: czmqpp
+

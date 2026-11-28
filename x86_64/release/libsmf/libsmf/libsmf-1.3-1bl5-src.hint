@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libglib2.0-devel libreadline-devel
+sdesc: "Standard MIDI File format library (utilities)"
+ldesc: "LibSMF is a BSD-licensed C library for handling SMF files. It transparently
+handles conversions between time and pulses, tempo map handling etc."
+skip:
+
+homepage: https://sourceforge.net/projects/libsmf/
+license: BSD-2-Clause

@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libColPack0 libgcc1 libstdc++6
+sdesc: "Algorithms for specialized vertex coloring problems (utilities)"
+ldesc: "ColPack is a package comprising of implementation of algorithms for
+specialized vertex coloring problems that arise in sparse derivative
+computation. It is written in an object-oriented fashion heavily using the
+Standard Template Library (STL).  It is designed to be simple, modular,
+extendable and efficient."
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++ library for working with Win32 PE files (licensing & readmes)"
+ldesc: "This library simplifies the task of working with PE files."
+

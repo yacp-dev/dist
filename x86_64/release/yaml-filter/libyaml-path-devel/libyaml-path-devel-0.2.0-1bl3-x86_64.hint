@@ -1,0 +1,6 @@
+category: Libs
+requires: libyaml-devel libyaml-path0 pkg-config
+sdesc: "YAML document filtering for libyaml (development)"
+ldesc: "YAML document filtering for libyaml"
+external-source: yaml-filter
+

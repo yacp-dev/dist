@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libphdi1 python312
+sdesc: "Library and tools to access the Parallels Hard Disk image format (python312 bindings)"
+ldesc: "libphdi is a library to access the Parallels Hard Disk image (PHDI) format."
+external-source: libphdi
+

@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport libgtest-devel
+sdesc: "Semi-supervised learning for peptide identification from shotgun proteomics datasets"
+ldesc: "Semi-supervised learning for peptide identification from shotgun proteomics
+datasets"
+skip:
+
+homepage: https://github.com/percolator/percolator
+license: Apache-2.0

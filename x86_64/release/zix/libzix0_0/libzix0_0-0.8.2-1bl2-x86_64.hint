@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Lightweight C99 portability and data structure library (runtime)"
+ldesc: "Zix is a lightweight C library of portability wrappers and data structures."
+external-source: zix
+

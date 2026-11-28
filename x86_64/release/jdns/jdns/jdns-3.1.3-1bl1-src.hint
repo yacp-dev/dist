@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport libQt5Core-devel
+sdesc: "Simple DNS implementation (utilities)"
+ldesc: "JDNS is a simple DNS implementation that can perform normal DNS queries of any
+record type (notably SRV), as well as Multicast DNS queries and advertising.
+Multicast support is based on Jeremie Miller's 'mdnsd' implementation."
+skip:
+
+homepage: https://github.com/psi-im/jdns
+license: MIT

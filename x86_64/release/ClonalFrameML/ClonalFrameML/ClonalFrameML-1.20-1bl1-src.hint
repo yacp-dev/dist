@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport 
+sdesc: "Efficient Inference of Recombination in Whole Bacterial Genomes"
+ldesc: "Efficient Inference of Recombination in Whole Bacterial Genomes"
+skip:
+
+homepage: https://github.com/xavierdidelot/ClonalFrameML
+license: GPL-3.0-or-later

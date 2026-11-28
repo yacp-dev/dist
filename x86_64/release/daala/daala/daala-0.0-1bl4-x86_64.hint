@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "New video compression technology (licensing & readmes)"
+ldesc: "Daala is the code-name for a new video compression technology. The effort is a
+collaboration between Mozilla Foundation, Xiph.Org Foundation and other
+contributors."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libdancer-xml0 pkg-config
+sdesc: "Simple non-comformant XML parsing library (development)"
+ldesc: "In the year 2000, I was studying about XML, and I started to feel the need to
+write a library which can parse XML documents. Therefore I wrote one."
+external-source: dancer-xml
+

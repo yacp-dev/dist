@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libglib2.0-devel
+sdesc: "Lightweight C99 portability and data structure library (licensing & readmes)"
+ldesc: "Zix is a lightweight C library of portability wrappers and data structures."
+skip:
+
+homepage: https://gitlab.com/drobilla/zix
+license: ISC

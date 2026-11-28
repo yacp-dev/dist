@@ -1,0 +1,6 @@
+category: Libs
+requires: libvtls-gnutls0 pkg-config
+sdesc: "Virtual TLS API for clients that wish to support multiple implementations (development)"
+ldesc: "Virtual TLS API for clients that wish to support multiple implementations"
+external-source: vtls
+

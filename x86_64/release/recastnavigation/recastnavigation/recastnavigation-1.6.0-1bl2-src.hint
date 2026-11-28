@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libGL-devel libGLU-devel libSDL2-devel
+sdesc: "Industry-standard navigation-mesh toolset for games (utilities)"
+ldesc: "Recast is state of the art navigation mesh construction toolset for games."
+skip:
+
+homepage: https://github.com/recastnavigation/recastnavigation
+license: Zlib AND MIT

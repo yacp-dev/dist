@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libicu-devel
+sdesc: "Responsive and customizable clock, timer, and stopwatch for the terminal"
+ldesc: "Responsive and customizable clock, timer, and stopwatch for the terminal"
+skip:
+
+homepage: https://github.com/octobanana/peaclock
+license: MIT

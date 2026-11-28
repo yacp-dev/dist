@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libcfile1 libclocale1 libcnotify1 libcpath1 libcsplit1 libcthreads1 libfcache1 libfdata1 libfvalue1 libuna1 zlib0
+sdesc: "Library and tools to access the VMware Virtual Disk (VMDK) format (runtime)"
+ldesc: "libvmdk is a library to access the VMware Virtual Disk (VMDK) format."
+external-source: libvmdk
+

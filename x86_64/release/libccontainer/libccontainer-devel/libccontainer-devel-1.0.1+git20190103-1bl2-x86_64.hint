@@ -1,0 +1,6 @@
+category: Libs
+requires: libccontainer0 pkg-config
+sdesc: "Various data structures in plain C (development)"
+ldesc: "Various data structures in plain C"
+external-source: libccontainer
+

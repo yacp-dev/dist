@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport gettext-devel python3-devel zlib-devel
+sdesc: "Password checking library (utilities)"
+ldesc: "CrackLib tests passwords to determine whether they match certain
+security-oriented characteristics, such as being found in a dictionary. It
+provides a library for checking passwords and utilities for building and
+querying the dictionary."
+skip:
+
+homepage: https://github.com/cracklib/cracklib/
+license: LGPL-2.1-only

@@ -1,0 +1,6 @@
+category: Libs
+requires: libwfa2_0 pkg-config
+sdesc: "Wavefront alignment algorithm library v2 (development)"
+ldesc: "Wavefront alignment algorithm library v2"
+external-source: wfa2lib
+

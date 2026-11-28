@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfdatetime-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the executable (EXE) format (utilities)"
+ldesc: "libexe is a library to access the executable (EXE) format."
+skip:
+
+homepage: https://github.com/libyal/libexe
+license: LGPL-3.0-or-later

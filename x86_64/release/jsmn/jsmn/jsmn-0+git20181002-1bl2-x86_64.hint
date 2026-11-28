@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Minimalistic JSON parser in C (licensing & readmes)"
+ldesc: "jsmn is a minimalistic library for parsing JSON data format. It can be easily
+used in small projects or can be integrated into embedded systems."
+

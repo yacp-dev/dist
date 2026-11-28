@@ -1,0 +1,12 @@
+category: Math
+build-depends: cygport 
+sdesc: "Support Vector Machines (utilities)"
+ldesc: "TinySVM is an implementation of Support Vector Machines (SVMs) for the problem
+of pattern recognition. Support Vector Machines is a new generation learning
+algorithms based on recent advances in statistical learning theory, and
+applied to large number of real-world applications, such as text
+categorization, hand-written character recognition."
+skip:
+
+homepage: http://chasen.org/~taku/software/TinySVM/
+license: LGPL-2.1-or-later

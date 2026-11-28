@@ -1,0 +1,7 @@
+category: Devel
+requires: libios_webkit_debug_proxy0 pkg-config
+sdesc: "iOS WebKit Debug Proxy (development)"
+ldesc: "A DevTools proxy (WebKit Remote Debugging Protocol) for iOS devices (Safari
+Remote Web Inspector)."
+external-source: ios-webkit-debug-proxy
+

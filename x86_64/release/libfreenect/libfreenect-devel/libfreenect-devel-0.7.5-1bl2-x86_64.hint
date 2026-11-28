@@ -1,0 +1,6 @@
+category: Libs
+requires: libfreenect0 libusb1.0-devel pkg-config
+sdesc: "Drivers and libraries for the Xbox Kinect device (development)"
+ldesc: "Libfreenect is the core library for accessing the Microsoft Kinect USB camera."
+external-source: libfreenect
+

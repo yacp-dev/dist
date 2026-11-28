@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libczmq3-devel libzmq-devel
+sdesc: "C++ wrapper for czmq (licensing & readmes)"
+ldesc: "C++ wrapper for czmq"
+skip:
+
+homepage: https://github.com/zeromq/czmqpp
+license: AGPL-3.0-or-later AND LicenseRef-czmqpp-exception

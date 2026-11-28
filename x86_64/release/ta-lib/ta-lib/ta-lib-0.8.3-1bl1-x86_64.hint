@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libta-lib1
+sdesc: "Technical Analysis Library (utilities)"
+ldesc: "TA-Lib is widely used by trading software developers requiring to perform
+technical analysis of financial market data."
+

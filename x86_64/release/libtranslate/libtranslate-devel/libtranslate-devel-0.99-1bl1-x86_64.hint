@@ -1,0 +1,8 @@
+category: Libs
+requires: libglib2.0-devel libtranslate0 pkg-config
+sdesc: "Natural language translation library (development)"
+ldesc: "Libtranslate is a library for translating text and web pages
+between natural languages. Its modular infrastructure allows to implement new
+translation services separately from the core library."
+external-source: libtranslate
+

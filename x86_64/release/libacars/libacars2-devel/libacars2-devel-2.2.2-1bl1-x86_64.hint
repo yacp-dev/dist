@@ -1,0 +1,6 @@
+category: Libs
+requires: libacars2_2 pkg-config
+sdesc: "Library for decoding various ACARS message payloads (development)"
+ldesc: "Library for decoding various ACARS message payloads"
+external-source: libacars
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libvsgpt1 pkg-config
+sdesc: "Library to access the GUID Partition Table (GPT) volume system (development)"
+ldesc: "libvsgpt is a library to access the GUID Partition Table (GPT) volume system."
+external-source: libvsgpt
+

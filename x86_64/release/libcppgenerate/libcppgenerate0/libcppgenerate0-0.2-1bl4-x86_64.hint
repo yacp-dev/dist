@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Library for generating C++ code from C++ (runtime)"
+ldesc: "A library for generating C++ code from code."
+external-source: libcppgenerate
+

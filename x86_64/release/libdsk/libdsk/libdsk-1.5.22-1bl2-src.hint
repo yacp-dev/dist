@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbz2-devel zlib-devel
+sdesc: "Library for accessing discs and disc image files (utilities)"
+ldesc: "LIBDSK is a library for accessing discs and disc image files."
+skip:
+
+homepage: https://www.seasip.info/Unix/LibDsk/
+license: LGPL-2.0-or-later AND MIT

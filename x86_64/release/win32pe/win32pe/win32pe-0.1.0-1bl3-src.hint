@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libboost-devel
+sdesc: "C++ library for working with Win32 PE files (licensing & readmes)"
+ldesc: "This library simplifies the task of working with PE files."
+skip:
+
+homepage: https://github.com/nathan-osman/win32pe
+license: MIT

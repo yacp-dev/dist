@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-json14.0 pkg-config
+sdesc: "JSON grammar for tree-sitter (development)"
+ldesc: "JSON grammar for tree-sitter"
+external-source: tree-sitter-json
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libzimg2 pkg-config
+sdesc: "Scaling, colorspace conversion, and dithering library (development)"
+ldesc: "Scaling, colorspace conversion, and dithering library"
+external-source: zimg
+

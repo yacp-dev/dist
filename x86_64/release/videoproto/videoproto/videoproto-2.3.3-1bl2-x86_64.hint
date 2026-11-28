@@ -1,0 +1,5 @@
+category: X11
+requires: pkg-config
+sdesc: "X.Org videoproto component"
+ldesc: "X.org VideoProto protocol headers"
+

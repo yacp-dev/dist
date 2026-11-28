@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "ANSI C API for quaternion arithmetic and rotation (licensing & readmes)"
+ldesc: "CQRlib is an ANSI C implementation of a utility library for quaternion
+arithmetic and quaternion rotation math."
+skip:
+
+homepage: https://github.com/yayahjb/cqrlib
+license: LGPL-2.1-or-later

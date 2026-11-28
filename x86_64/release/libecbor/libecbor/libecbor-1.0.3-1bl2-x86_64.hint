@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libecbor1
+sdesc: "CBOR library (licensing & readmes)"
+ldesc: "CBOR library with no dependencies, small memory footprint and code size,
+developed for both desktop and embedded applications."
+

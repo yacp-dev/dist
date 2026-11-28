@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport libdeflate-devel libhts-devel samtools zlib-devel
+sdesc: "C++ implementation of FastQC for quality control of sequencing data"
+ldesc: "C++ implementation of FastQC for quality control of sequencing data"
+skip:
+
+homepage: https://github.com/smithlabcode/falco
+license: MIT AND GPL-3.0-only AND BSD-3-Clause AND BSL-1.0

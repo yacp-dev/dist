@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libblurhash0.2 libgcc1 libstdc++6
+sdesc: "Simple encoder and decoder for blurhashes (utilities)"
+ldesc: "Simple encoder and decoder for blurhashes"
+

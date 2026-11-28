@@ -1,0 +1,14 @@
+category: Libs
+build-depends: cygport libcurl-devel zlib-devel
+sdesc: "C library for handling bigWig files (licensing & readmes)"
+ldesc: "A C library for reading/parsing local and remote bigWig and bigBed files. While
+Kent's source code is free to use for these purposes, it's really inappropriate
+as library code since it has the unfortunate habit of calling exit() whenever
+there's an error. If that's then used inside of something like python then the
+python interpreter gets killed. This library is aimed at resolving these sorts
+of issues and should also use more standard things like curl and has a
+friendlier license to boot."
+skip:
+
+homepage: https://github.com/dpryan79/libBigWig
+license: MIT

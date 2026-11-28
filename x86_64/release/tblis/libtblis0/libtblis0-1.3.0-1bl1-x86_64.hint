@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libatomic1 libgcc1 libhwloc15 libstdc++6 libtci0
+sdesc: "Library and framework for performing tensor operations (runtime)"
+ldesc: "TBLIS is a library and framework for performing tensor operations,
+especially tensor contraction, using efficient native algorithms."
+external-source: tblis
+

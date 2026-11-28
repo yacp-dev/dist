@@ -1,0 +1,6 @@
+category: Libs
+requires: liblnk1 pkg-config
+sdesc: "Library and tools to access the Windows Shortcut File (LNK) format (development)"
+ldesc: "liblnk is a library to access the Windows Shortcut File (LNK) format."
+external-source: liblnk
+

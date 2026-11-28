@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libaccounts-glib0 libglib2.0_0 libQt5Core5 libstdc++6
+sdesc: "Client library to the accounts database, with a Qt-based API (runtime)"
+ldesc: "This project is a library for managing accounts which can be used from Qt
+applications. It is part of the @accounts-sso project."
+external-source: libaccounts-qt
+

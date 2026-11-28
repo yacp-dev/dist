@@ -1,0 +1,6 @@
+category: Libs
+requires: libopencsg1 pkg-config
+sdesc: "Library for Constructive Solid Geometry using OpenGL (development)"
+ldesc: "OpenCSG is a library that does image-based CSG rendering using OpenGL."
+external-source: opencsg
+

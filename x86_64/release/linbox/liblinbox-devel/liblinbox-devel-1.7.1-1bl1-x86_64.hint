@@ -1,0 +1,8 @@
+category: Math
+requires: bash fflas-ffpack libflint-devel libgivaro-devel libgmp-devel libiml-devel liblapack-devel liblinbox0 libmpfr-devel libntl-devel pkg-config
+sdesc: "C++ library for exact, high-performance linear algebra (development)"
+ldesc: "Linbox is a C++ template library for exact, high-performance linear
+algebra computation with dense, sparse, and structured matrices over the
+integers and over finite fields."
+external-source: linbox
+

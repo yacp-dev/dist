@@ -1,0 +1,8 @@
+category: Text
+build-depends: cygport autoconf-archive libfolia-devel libfrog-devel libicu-devel libmbt-devel libmbtserver-devel libticcutils-devel libtimbl-devel libucto-devel
+sdesc: "Collection of tools to generate datafiles for Frog"
+ldesc: "Collection of tools to generate datafiles for Frog"
+skip:
+
+homepage: https://github.com/LanguageMachines/toad
+license: GPL-3.0-or-later

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcurl-devel libgtest-devel libssl-devel
+sdesc: "Backbone library to support all DMLC projects (licensing & readmes)"
+ldesc: "DMLC-Core is the backbone library to support all DMLC projects, offers the
+bricks to build efficient and scalable distributed machine learning libraries."
+skip:
+
+homepage: https://github.com/dmlc/dmlc-core
+license: Apache-2.0

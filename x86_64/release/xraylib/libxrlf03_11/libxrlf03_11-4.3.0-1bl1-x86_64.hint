@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgfortran5 libxrl11
+sdesc: "Library for X-ray matter interaction cross sections for X-ray fluorescence applications (runtime / fortran)"
+ldesc: "This is xraylib, a library for X-ray matter interactions cross sections for
+X-ray fluorescence applications: core C library"
+external-source: xraylib
+

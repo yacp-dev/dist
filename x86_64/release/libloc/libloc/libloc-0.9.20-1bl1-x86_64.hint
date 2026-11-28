@@ -1,0 +1,5 @@
+category: Libs
+requires: bash python3 python312-libloc
+sdesc: "Library to determine the location of someone on the Internet (utilities)"
+ldesc: "Library to determine the location of someone on the Internet"
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcdirectory-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libexe-devel libfcache-devel libfdata-devel libfdatetime-devel libfguid-devel libfvalue-devel libfwevt-devel libfwnt-devel libregf-devel libuna-devel libwrc-devel python3-devel
+sdesc: "Library and tools to access the Windows Event Log (EVT) format (utilities)"
+ldesc: "libevt is a library to access the Windows Event Log (EVT) format."
+skip:
+
+homepage: https://github.com/libyal/libevt
+license: LGPL-3.0-or-later

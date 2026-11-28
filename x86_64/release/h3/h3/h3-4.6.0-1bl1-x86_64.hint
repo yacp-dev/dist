@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libh3_1
+sdesc: "Hexagonal hierarchical geospatial indexing system (utilities)"
+ldesc: "H3 is a geospatial indexing system using a hexagonal grid that can be
+(approximately) subdivided into finer and finer hexagonal grids, combining the
+benefits of a hexagonal grid with S2's hierarchical subdivisions."
+

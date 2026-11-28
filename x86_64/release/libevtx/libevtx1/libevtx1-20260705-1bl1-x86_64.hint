@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libfcache1 libfdata1 libfwevt1 libintl8
+sdesc: "Library and tools to access the Windows XML Event Log (EVTX) format (runtime)"
+ldesc: "libevtx is a library to access the Windows XML Event Log (EVTX) format."
+external-source: libevtx
+

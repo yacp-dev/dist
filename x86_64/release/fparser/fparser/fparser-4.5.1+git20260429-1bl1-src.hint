@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Function Parser for C++ (licensing & readmes)"
+ldesc: "Function Parser for C++"
+skip:
+
+homepage: https://github.com/thliebig/fparser
+license: LGPL-3.0-or-later

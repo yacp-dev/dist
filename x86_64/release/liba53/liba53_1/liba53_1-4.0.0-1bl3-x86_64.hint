@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "A5/3 Call Encryption Library (runtime)"
+ldesc: "A5/3 Call Encryption Library"
+external-source: liba53
+

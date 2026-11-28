@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gtk-doc libdbus-glib_1-devel libglib2.0-devel libxml2-devel
+sdesc: "Library for activating an application to handle a certain mime type (utilities)"
+ldesc: "Library for activating an application to handle a certain mime type"
+skip:
+
+homepage: https://github.com/maemo-leste/libhildonmime
+license: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later

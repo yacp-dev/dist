@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++11 implementation of Socket.IO client (licensing & readmes)"
+ldesc: "C++11 implementation of Socket.IO client"
+

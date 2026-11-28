@@ -1,0 +1,8 @@
+category: Archive
+requires: cygwin libboost_filesystem1.66 libboost_iostreams1.66 libboost_program_options1.66 libboost_system1.66 libgcc1 libiconv2 liblzma5 libstdc++6
+sdesc: "Tool to unpack installers created by Inno Setup"
+ldesc: "Inno Setup is a tool to create installers for Microsoft Windows applications.
+innoextract allows to extract such installers under non-windows systems
+without running the actual installer using Wine. innoextract currently
+supports installers created by Inno Setup 1.2.10 to 6.0.5."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Python grammar for tree-sitter (runtime)"
+ldesc: "Python grammar for tree-sitter"
+external-source: tree-sitter-python
+

@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport cppunit libboost-devel libcares-devel libdb-devel libfmt-devel libGeoIP-devel libmariadb-devel libNetxx-devel libpopt-devel libpq-devel libpq5 libradcli-devel libssl-devel
+sdesc: "C++ implementation of SIP, ICE, TURN and related protocols (utilities)"
+ldesc: "C++ implementation of SIP, ICE, TURN and related protocols"
+skip:
+
+homepage: https://github.com/resiprocate/resiprocate
+license: VSL-1.0 AND BSD-3-Clause AND BSD-2-Clause AND Zlib

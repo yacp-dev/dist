@@ -1,0 +1,6 @@
+category: Libs
+requires: libcxi-cxidb0 pkg-config
+sdesc: "Library to help read and write CXI files (development)"
+ldesc: "Library to help read and write CXI files"
+external-source: libcxi-cxidb
+

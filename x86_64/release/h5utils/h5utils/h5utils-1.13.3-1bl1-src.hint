@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport libhdf4-devel libhdf5-devel libjpeg-devel libpng-devel octave-devel
+sdesc: "Utilities for HDF5 format"
+ldesc: "h5utils is a set of utilities for visualization and conversion of scientific
+data in the free, portable HDF5 format."
+skip:
+
+homepage: https://github.com/stevengj/h5utils
+license: GPL-2.0-or-later

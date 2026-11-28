@@ -1,0 +1,6 @@
+category: Security
+requires: libbeidpkcs11_0 pkg-config
+sdesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government (development)"
+ldesc: "Electronic Identity Card middleware supplied by the Belgian Federal Government"
+external-source: eid-mw
+

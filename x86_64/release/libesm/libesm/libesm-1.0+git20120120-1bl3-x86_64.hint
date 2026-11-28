@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C library for efficient string matching with Aho-Corasick (licensing & readmes)"
+ldesc: "C library for efficient string matching with Aho-Corasick"
+

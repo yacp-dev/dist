@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport libgtest-devel cppzmq libboost-devel liblmdb-devel libminiupnpc-devel libpcsclite-devel librandomx-devel libreadline-devel libssl-devel libunbound-devel libzmq-devel
+sdesc: "Reference implementation of Safex Blockchain in C++"
+ldesc: "Reference implementation of Safex Blockchain in C++"
+skip:
+
+homepage: https://github.com/safex/safexcore
+license: BSD-3-Clause AND BSD-2-Clause AND MIT

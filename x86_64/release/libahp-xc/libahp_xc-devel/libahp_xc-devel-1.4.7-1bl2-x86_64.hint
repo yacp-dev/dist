@@ -1,0 +1,6 @@
+category: Libs
+requires: libahp_xc1 pkg-config
+sdesc: "Driver library for the AHP® XC Correlators (development)"
+ldesc: "Driver library for the AHP® XC Correlators"
+external-source: libahp-xc
+

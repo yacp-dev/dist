@@ -1,0 +1,6 @@
+category: Libs
+requires: libfsclfs1 pkg-config
+sdesc: "Library and tools to access the Common Log File System (CLFS) (development)"
+ldesc: "libfsclfs is a library to access the Common Log File System (CLFS)."
+external-source: libfsclfs
+

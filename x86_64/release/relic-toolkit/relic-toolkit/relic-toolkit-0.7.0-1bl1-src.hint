@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libgmp-devel
+sdesc: "Modern cryptographic meta-toolkit (licensing & readmes)"
+ldesc: "RELIC is a modern cryptographic meta-toolkit with emphasis on efficiency and
+flexibility. RELIC can be used to build efficient and usable cryptographic
+toolkits tailored for specific security levels and algorithmic choices."
+skip:
+
+homepage: https://github.com/relic-toolkit/relic
+license: (Apache-2.0 OR LGPL-2.1-only) AND CC0-1.0 AND Unlicense

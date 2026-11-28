@@ -1,0 +1,6 @@
+category: Libs
+requires: libcotp4 libgcrypt-devel pkg-config
+sdesc: "C library that generates TOTP and HOTP (development)"
+ldesc: "C library that generates TOTP and HOTP according to RFC-6238"
+external-source: libcotp
+

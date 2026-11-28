@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liblcf0 libstdc++6
+sdesc: "Library to handle RPG Maker 2000/2003 and EasyRPG projects (utilities)"
+ldesc: "liblcf is a library to handle RPG Maker 2000 and 2003 game data.
+It can read and write LCF and XML files."
+

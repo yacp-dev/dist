@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgfortran5
+sdesc: "Suite of libraries to handle XML in Fortran (runtime)"
+ldesc: "Suite of libraries to handle XML in Fortran"
+external-source: xmlf90
+

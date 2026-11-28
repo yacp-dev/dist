@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liboatpp-devel libsqlite3-devel
+sdesc: "SQLite adapter for oatpp ORM (licensing & readmes)"
+ldesc: "SQLite adapter for oatpp ORM"
+skip:
+
+homepage: https://github.com/oatpp/oatpp-sqlite
+license: Apache-2.0

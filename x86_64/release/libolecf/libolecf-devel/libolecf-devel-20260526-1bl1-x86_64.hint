@@ -1,0 +1,6 @@
+category: Libs
+requires: libolecf1 pkg-config
+sdesc: "Library and tools to access the OLE 2 Compound File (OLECF) format (development)"
+ldesc: "libolecf is a library to access the OLE 2 Compound File (OLECF) format."
+external-source: libolecf
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libssl3
+sdesc: "Embedded web server for C/C++ (runtime)"
+ldesc: "Mongoose is the most easy to use web server on the planet. A web server of
+choice for Web developers (PHP, Ruby, Python, etc) and Web designers."
+external-source: mongoose
+

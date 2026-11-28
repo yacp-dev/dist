@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "High-quality QR Code generator library (utilities)"
+ldesc: "This project aims to be the best, clearest QR Code generator library in
+multiple languages. The primary goals are flexible options and absolute
+correctness. Secondary goals are compact implementation size and good
+documentation comments."
+skip:
+
+homepage: https://github.com/nayuki/QR-Code-generator
+license: MIT

@@ -1,0 +1,8 @@
+category: Libs
+requires: libeasylzma0 pkg-config
+sdesc: "C library and command line tools for LZMA compression and decompression (development)"
+ldesc: "Easylzma is a C library and command line tools for LZMA compression and
+decompression. It uses a Igor Pavlov's reference implementation and SDK
+written in C."
+external-source: easylzma
+

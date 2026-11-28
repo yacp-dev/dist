@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport doctest
+sdesc: "Simple encoder and decoder for blurhashes (utilities)"
+ldesc: "Simple encoder and decoder for blurhashes"
+skip:
+
+homepage: https://nheko.im/nheko-reborn/blurhash
+license: BSL-1.0

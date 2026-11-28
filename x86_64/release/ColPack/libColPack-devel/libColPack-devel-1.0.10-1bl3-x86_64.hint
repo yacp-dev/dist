@@ -1,0 +1,10 @@
+category: Libs
+requires: libColPack0 pkg-config
+sdesc: "Algorithms for specialized vertex coloring problems (development)"
+ldesc: "ColPack is a package comprising of implementation of algorithms for
+specialized vertex coloring problems that arise in sparse derivative
+computation. It is written in an object-oriented fashion heavily using the
+Standard Template Library (STL).  It is designed to be simple, modular,
+extendable and efficient."
+external-source: ColPack
+

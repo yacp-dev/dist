@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libicu76
+sdesc: "C reference parsing library for eno notation (runtime)"
+ldesc: "C reference parsing library for eno notation"
+external-source: libeno
+

@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport gettext-devel libcrack-devel python3-devel python312-setuptools
+sdesc: "Library for password generation and password quality checking (utilities)"
+ldesc: "The libpwquality library purpose is to provide common functions for
+password quality checking and also scoring them based on their apparent
+randomness. The library also provides a function for generating random passwords
+with good pronounceability. The library supports reading and parsing of a
+configuration file."
+skip:
+
+homepage: https://github.com/libpwquality/libpwquality
+license: BSD-3-Clause OR GPL-2.0-or-later

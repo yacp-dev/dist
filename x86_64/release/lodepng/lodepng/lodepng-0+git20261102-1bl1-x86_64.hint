@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 liblodepng0 libstdc++6
+sdesc: "PNG image decoder and encoder (utilities)"
+ldesc: "PNG image decoder and encoder"
+

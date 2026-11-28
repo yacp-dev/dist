@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport libboost-devel
+sdesc: "Tool to check C++ #include dependencies"
+ldesc: "Tool to check C++ #include dependencies (dependency graphs created
+in .dot format)"
+skip:
+
+homepage: https://github.com/tomtom-international/cpp-dependencies
+license: Apache-2.0

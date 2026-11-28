@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libetpan26 libsqlite3_0 libssl3 zlib0
+sdesc: "Delta Chat Core Library (runtime)"
+ldesc: "Delta.Chat C-Library with e2e chat-over-email functionality"
+external-source: deltachat-core
+

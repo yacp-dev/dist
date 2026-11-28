@@ -1,0 +1,9 @@
+category: Libs
+requires: libflint-devel libgmp-devel libnormaliz3 pkg-config
+sdesc: "Open source tool for computations in affine monoids, vector configurations, lattice polytopes, and rational cones (development)"
+ldesc: "Normaliz is an open source tool for computations in affine monoids, vector
+configurations, lattice polytopes, and rational cones. Normaliz also computes
+algebraic polyhedra, i.e., polyhedra defined over real algebraic extensions of
+Q."
+external-source: normaliz
+

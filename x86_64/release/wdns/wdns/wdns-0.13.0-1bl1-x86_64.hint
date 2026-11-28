@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libwdns1
+sdesc: "Low-level DNS library (utilities)"
+ldesc: "Low-level DNS library"
+

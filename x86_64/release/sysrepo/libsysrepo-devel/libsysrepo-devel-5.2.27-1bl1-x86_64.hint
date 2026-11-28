@@ -1,0 +1,7 @@
+category: Libs
+requires: libsysrepo8 libyang-devel pkg-config
+sdesc: "YANG-based configuration and operational state data store (development)"
+ldesc: "Sysrepo is a YANG-based configuration and operational state data store for
+Unix/Linux applications."
+external-source: sysrepo
+

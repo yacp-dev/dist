@@ -1,0 +1,6 @@
+category: Libs
+requires: libfusn1 pkg-config
+sdesc: "Library for Update Sequence Number (USN) Journal data types (development)"
+ldesc: "libfusn is a library for Update Sequence Number (USN) Journal data types."
+external-source: libfusn
+

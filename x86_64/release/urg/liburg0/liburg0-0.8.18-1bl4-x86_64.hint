@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libSDL1.2_0 libSDL_net1.2_0 libstdc++6
+sdesc: "Library to access Hokuyo URG laser range finders (runtime)"
+ldesc: "This library uses the SCIP2.0 protocol to provide access to devices of
+Hokuyo URG laser range finder series."
+external-source: urg
+

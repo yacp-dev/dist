@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libuna1
+sdesc: "Library for MAPI data types (runtime)"
+ldesc: "libfmapi is a library for MAPI data types."
+external-source: libfmapi
+

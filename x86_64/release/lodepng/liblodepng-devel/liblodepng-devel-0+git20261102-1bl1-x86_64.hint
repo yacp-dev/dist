@@ -1,0 +1,6 @@
+category: Libs
+requires: liblodepng0 pkg-config
+sdesc: "PNG image decoder and encoder (development)"
+ldesc: "PNG image decoder and encoder"
+external-source: lodepng
+

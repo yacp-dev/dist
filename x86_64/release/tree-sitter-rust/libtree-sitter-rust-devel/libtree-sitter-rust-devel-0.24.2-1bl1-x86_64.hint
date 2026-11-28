@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-rust14.0 pkg-config
+sdesc: "Rust grammar for tree-sitter (development)"
+ldesc: "Rust grammar for tree-sitter"
+external-source: tree-sitter-rust
+

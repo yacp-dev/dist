@@ -1,0 +1,7 @@
+category: Libs
+requires: libigloo0 pkg-config
+sdesc: "Generic framework for C development (development)"
+ldesc: "libigloo is a generic C framework. It is developed and used by the Icecast
+project."
+external-source: libigloo
+

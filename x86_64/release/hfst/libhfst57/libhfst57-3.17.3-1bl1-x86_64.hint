@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libfoma0 libfst27 libgcc1 libicu76 libreadline8 libstdc++6
+sdesc: "Helsinki Finite-State Technology (library and application suite) (runtime)"
+ldesc: "This package contains a bridging library for multiple FST libraries and
+toolkits and set of tools for processing of finite-state automate especially
+for linguistic systems."
+external-source: hfst
+

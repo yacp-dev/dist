@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libhidapi-devel
+sdesc: "Unofficial LED control API for Coolermaster Masterkey keyboards (utilities)"
+ldesc: "Unofficial LED control API for Coolermaster Masterkey keyboards"
+skip:
+
+homepage: https://github.com/chmod222/libcmmk
+license: LGPL-3.0-or-later

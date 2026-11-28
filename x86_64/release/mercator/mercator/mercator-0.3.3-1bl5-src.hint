@@ -1,0 +1,10 @@
+category: Games
+build-depends: cygport libwfmath1.0-devel
+sdesc: "Terrain library for WorldForge client/server (licensing & readmes)"
+ldesc: "Mercator is primarily aimed at terrain for multiplayer online games and forms
+one of the WorldForge core libraries. It is intended to be used as a terrain
+library on the client, while a subset of features are useful on the server."
+skip:
+
+homepage: https://github.com/worldforge/mercator
+license: GPL-2.0-or-later

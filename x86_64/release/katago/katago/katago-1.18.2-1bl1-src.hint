@@ -1,0 +1,11 @@
+category: Science
+build-depends: cygport libOpenCL-devel libzip-devel zlib-devel
+sdesc: "GTP engine and self-play learning in Go"
+ldesc: "KataGo has begun its first public distributed training run! See
+https://katagotraining.org/ for more details, to download the latest and
+strongest neural nets, or to learn how to contribute if you want to help
+KataGo improve further!"
+skip:
+
+homepage: https://github.com/lightvector/KataGo
+license: MIT AND Apache-2.0 AND BSD-3-Clause AND CC0-1.0

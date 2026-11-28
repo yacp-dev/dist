@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libbctoolbox-devel
+sdesc: "C library implementing the RTP protocol (rfc3550) (licensing & readmes)"
+ldesc: "oRTP is a GPLv2 licensed C library implementing the RTP protocol (rfc3550)."
+skip:
+
+homepage: https://github.com/BelledonneCommunications/ortp
+license: AGPL-3.0-or-later

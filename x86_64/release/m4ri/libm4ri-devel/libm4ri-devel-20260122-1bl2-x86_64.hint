@@ -1,0 +1,9 @@
+category: Math
+requires: libm4ri2 libpng-devel pkg-config
+sdesc: "Linear Algebra over F_2 (development)"
+ldesc: "M4RI is a library for fast arithmetic with dense matrices over F_2.
+The name M4RI comes from the first implemented algorithm: The Method
+of the Four Russians inversion algorithm published by Gregory Bard.
+M4RI is used by the Sage mathematics software and the PolyBoRi library."
+external-source: m4ri
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libfftw3_3 libgcc1
+sdesc: "Cross Correlation function for C using FFTW (runtime)"
+ldesc: "Library that provides a Cross Correlation function for C based on FFTW3."
+external-source: libxcorr
+

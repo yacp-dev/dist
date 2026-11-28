@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport check libxxhash-devel libyaml-devel
+sdesc: "Fully feature complete YAML parser (utilities)"
+ldesc: "A fancy 1.2 YAML and JSON parser/writer."
+skip:
+
+homepage: https://github.com/pantoniou/libfyaml
+license: MIT

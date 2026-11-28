@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport libbz2-devel zlib-devel
+sdesc: "PGP packet visualizer"
+ldesc: "pgpdump is a PGP packet visualizer which displays the packet format of OpenPGP
+(RFC 4880) and PGP version 2 (RFC 1991)."
+skip:
+
+homepage: https://github.com/kazu-yamamoto/pgpdump/
+license: BSD-3-Clause

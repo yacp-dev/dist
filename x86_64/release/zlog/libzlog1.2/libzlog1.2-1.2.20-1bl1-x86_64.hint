@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Reliable, high-performance, thread safe, flexsible, clear-model, pure C logging library (runtime)"
+ldesc: "zlog is a reliable, high-performance, thread safe, flexible, clear-model, pure
+C logging library."
+external-source: zlog
+

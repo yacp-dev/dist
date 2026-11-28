@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for generic file value functions (licensing & readmes)"
+ldesc: "libfvalue is a library for generic file value functions."
+

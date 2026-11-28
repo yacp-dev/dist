@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libabseil2608.0.0 libgcc1 libicu76 libstdc++6
+sdesc: "Efficient, principled regular expression library (runtime)"
+ldesc: "RE2 is a fast, safe, thread-friendly alternative to backtracking regular
+expression engines like those used in PCRE, Perl, and Python. It is a C++
+library."
+external-source: re2
+

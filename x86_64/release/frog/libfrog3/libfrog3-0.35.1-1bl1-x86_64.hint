@@ -1,0 +1,16 @@
+category: Libs
+requires: cygwin libfolia22 libgcc1 libgomp1 libicu76 libmbt2 libreadline8 libstdc++6 libticcutils10 libtimbl8 libucto6 libxml2_2
+sdesc: "Advanced Natural Language Processing suite for Dutch (runtime)"
+ldesc: "Frog is an integration of memory-based natural language processing (NLP)
+modules developed for Dutch. All NLP modules are based on Timbl, the Tilburg
+memory-based learning software package. Most modules were created in the 1990s
+at the ILK Research Group (Tilburg University, the Netherlands) and the CLiPS
+Research Centre (University of Antwerp, Belgium). Over the years they have
+been integrated into a single text processing tool, which is currently
+maintained and developed by the Language Machines Research Group and the
+Centre for Language and Speech Technology at Radboud University Nijmegen. A
+dependency parser, a base phrase chunker, and a named-entity recognizer
+module were added more recently. Where possible, Frog makes use of
+multi-processor support to run subtasks in parallel."
+external-source: frog
+

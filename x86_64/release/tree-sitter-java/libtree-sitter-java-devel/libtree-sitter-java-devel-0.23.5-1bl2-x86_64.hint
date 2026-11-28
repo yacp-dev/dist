@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-java14.0 pkg-config
+sdesc: "Java grammar for tree-sitter (development)"
+ldesc: "Java grammar for tree-sitter"
+external-source: tree-sitter-java
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcdata-devel libcerror-devel libcnotify-devel libcthreads-devel libfcache-devel
+sdesc: "Library to provide generic file data functions (licensing & readmes)"
+ldesc: "libfdata is a library to provide generic file data functions."
+skip:
+
+homepage: https://github.com/libyal/libfdata
+license: LGPL-3.0-or-later

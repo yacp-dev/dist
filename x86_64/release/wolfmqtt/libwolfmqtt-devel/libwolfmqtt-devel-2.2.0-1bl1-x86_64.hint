@@ -1,0 +1,9 @@
+category: Net
+requires: bash libwolfmqtt20 pkg-config
+sdesc: "Small, fast, portable MQTT client implementation, including support for TLS 1.3 (development)"
+ldesc: "This is an implementation of the MQTT Client written in C for embedded use,
+which supports SSL/TLS via the wolfSSL library. This library was built from
+the ground up to be multi-platform, space conscience and extensible.
+Integrates with wolfSSL to provide TLS support."
+external-source: wolfmqtt
+

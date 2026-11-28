@@ -1,0 +1,8 @@
+category: Libs
+requires: libtelemetry1 pkg-config
+sdesc: "C++ library for application telemetry exposed as a virtual file tree (development)"
+ldesc: "Telemetry is a C++ library for exposing application metrics,
+counters and state as a tree of virtual directories and files, with aggregation
+of values. The FUSE-based AppFs filesystem interface is not built."
+external-source: telemetry
+

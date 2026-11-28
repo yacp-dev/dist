@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libhwloc-devel libOpenCL-devel libmicrohttpd-devel libssl-devel
+sdesc: "Free Monero RandomX Miner and unified CryptoNight miner"
+ldesc: "Free Monero RandomX Miner and unified CryptoNight miner"
+skip:
+
+homepage: https://github.com/fireice-uk/xmr-stak
+license: GPL-3.0-or-later AND MIT

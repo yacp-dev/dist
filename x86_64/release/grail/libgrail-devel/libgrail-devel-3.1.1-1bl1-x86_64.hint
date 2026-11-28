@@ -1,0 +1,7 @@
+category: Libs
+requires: libgrail6 pkg-config
+sdesc: "Gesture Recognition And Instantiation Library (development)"
+ldesc: "Grail consists of an interface and tools for handling gesture
+recognition and gesture instantiation."
+external-source: grail
+

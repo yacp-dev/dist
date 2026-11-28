@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 zlib0
+sdesc: "C++ API & command-line toolkit for working with BAM data (runtime)"
+ldesc: "BamTools provides both a programmer's API and an end-user's toolkit for
+handling BAM files."
+external-source: bamtools
+

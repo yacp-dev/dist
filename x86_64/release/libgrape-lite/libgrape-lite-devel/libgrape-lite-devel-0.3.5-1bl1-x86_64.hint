@@ -1,0 +1,6 @@
+category: Libs
+requires: libgrape-lite0 pkg-config
+sdesc: "C++ library for parallel graph processing (development)"
+ldesc: "libgrape-lite is a C++ library from Alibaba for parallel graph processing."
+external-source: libgrape-lite
+

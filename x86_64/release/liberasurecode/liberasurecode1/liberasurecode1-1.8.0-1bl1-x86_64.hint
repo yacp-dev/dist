@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin zlib0
+sdesc: "Erasure Code API library written in C with pluggable backends (runtime)"
+ldesc: "An API library for Erasure Code, written in C. It provides a number of
+pluggable backends, such as Intel ISA-L library."
+external-source: liberasurecode
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libpcre2_8_0 libxxhash0
+sdesc: "YANG data modeling language library (runtime)"
+ldesc: "libyang is a YANG data modelling language parser and toolkit written (and
+providing API) in C."
+external-source: libyang
+

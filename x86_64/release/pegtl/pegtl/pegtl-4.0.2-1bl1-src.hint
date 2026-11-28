@@ -1,0 +1,10 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Parsing Expression Grammar Template Library"
+ldesc: "The Parsing Expression Grammar Template Library (PEGTL) is a
+zero-dependency C++ header-only parser combinator library for creating parsers
+according to a Parsing Expression Grammar (PEG)."
+skip:
+
+homepage: https://github.com/taocpp/PEGTL
+license: BSL-1.0

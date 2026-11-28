@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libssl3 zlib0
+sdesc: "Tool and library to extract CAB files from InstallShield installers (runtime)"
+ldesc: "Tool and library to extract CAB files from InstallShield installers"
+external-source: unshield
+

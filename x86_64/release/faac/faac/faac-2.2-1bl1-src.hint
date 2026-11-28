@@ -1,0 +1,8 @@
+category: Audio
+build-depends: cygport 
+sdesc: "MPEG-4 and MPEG-2 AAC encoder (utilities)"
+ldesc: "FAAC is an MPEG-4 and MPEG-2 AAC encoder."
+skip:
+
+homepage: https://github.com/knik0/faac
+license: LGPL-2.1-or-later

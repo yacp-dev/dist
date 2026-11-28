@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgfortran5 libyajl2
+sdesc: "Modern Fortran interface to the YAJL library (runtime)"
+ldesc: "The YAJL-Fort package provides a modern object-oriented Fortran interface to
+the YAJL C library, which is an event-driven parser for JSON data streams.
+JSON is an open standard data interchange format. It is lightweight, easy for
+humans to read and write, and language independent."
+external-source: yajl-fort
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Converts SoundFont .sf2 files into GUS-type instrument patches (runtime)"
+ldesc: "Converts SoundFont .sf2 files into GUS-type instrument patches"
+external-source: unsf
+

@@ -1,0 +1,8 @@
+category: Utils
+requires: cygwin libfolia22 libgcc1 libicu76 libstdc++6 libticcutils10 libxml2_2
+sdesc: "Tools for working with the Format for Linguistic Annotation (FoLiA) (runtime)"
+ldesc: "Command-line utilities for working with the Format for Linguistic Annotation
+(FoLiA), powered by libfolia (C++), written by Ko van der Sloot (TiCC, Tilburg
+University)"
+external-source: foliautils
+

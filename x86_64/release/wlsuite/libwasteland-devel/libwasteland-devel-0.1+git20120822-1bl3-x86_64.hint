@@ -1,0 +1,7 @@
+category: Libs
+requires: libwasteland0 pkg-config
+sdesc: "Library and suite of programs for converting Wasteland game files (development)"
+ldesc: "A shared library and a suite of programs for converting wasteland files into
+standard files and vice versa."
+external-source: wlsuite
+

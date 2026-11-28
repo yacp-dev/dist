@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libpugixml1 libstdc++6
+sdesc: "C++ library for loading multimodal, multi-rate signals stored in XDF files (runtime)"
+ldesc: "LibXDF is a cross-platform C++ library for loading multimodal
+signals stored in XDF (Extensible Data Format) files. It is used in the
+biosignal viewing application SigViewer and the LSL application XDFStreamer and
+can also be integrated into other C++ applications."
+external-source: libxdf
+

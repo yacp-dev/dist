@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libiconv-devel
+sdesc: "C library that removes accents from characters (utilities)"
+ldesc: "C library that removes accents from characters"
+skip:
+
+homepage: https://www.nongnu.org/unac/
+license: GPL-2.0-or-later

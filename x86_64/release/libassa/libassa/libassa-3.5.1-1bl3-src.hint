@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libtirpc-devel
+sdesc: "C++ networking library based on Adaptive Communication Patterns (utilities)"
+ldesc: "libASSA is an object-oriented C++ networking library based on Adaptive
+Communication Patterns."
+skip:
+
+homepage: https://sourceforge.net/projects/libassa/
+license: LGPL-2.0-or-later

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "2D Physics Engine for Games (licensing & readmes)"
+ldesc: "Box2D is an open source C++ engine for simulating rigid bodies in 2D."
+

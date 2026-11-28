@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "RequestExecutor for oatpp's ApiClient based on libcurl (licensing & readmes)"
+ldesc: "RequestExecutor for oatpp's ApiClient based on libcurl"
+

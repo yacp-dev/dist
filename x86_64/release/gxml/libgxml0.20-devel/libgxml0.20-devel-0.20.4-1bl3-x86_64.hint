@@ -1,0 +1,7 @@
+category: Libs
+requires: libgee0.8-devel libglib2.0-devel libgxml0.20_2 libxml2-devel pkg-config
+sdesc: "GObject-based XML DOM API (development)"
+ldesc: "GXml provides a GObject API for manipulating XML and a Serializable framework
+from GObject to XML."
+external-source: gxml
+

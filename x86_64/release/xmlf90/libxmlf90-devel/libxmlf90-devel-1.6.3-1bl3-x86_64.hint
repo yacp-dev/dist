@@ -1,0 +1,6 @@
+category: Libs
+requires: libxmlf90_0 pkg-config
+sdesc: "Suite of libraries to handle XML in Fortran (development)"
+ldesc: "Suite of libraries to handle XML in Fortran"
+external-source: xmlf90
+

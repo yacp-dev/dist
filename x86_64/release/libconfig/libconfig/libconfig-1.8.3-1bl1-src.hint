@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C/C++ configuration file library (licensing & readmes)"
+ldesc: "Libconfig is a simple library for manipulating structured configuration
+files. This file format is more compact and more readable than XML. And
+unlike XML, it is type-aware, so it is not necessary to do string parsing
+in application code."
+skip:
+
+homepage: https://github.com/hyperrealm/libconfig/
+license: LGPL-2.1-or-later

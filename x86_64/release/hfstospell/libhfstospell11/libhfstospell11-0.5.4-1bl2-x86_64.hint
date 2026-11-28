@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libarchive13 libgcc1 libglibmm2.4_1 libstdc++6 libxml++2.6_2
+sdesc: "HFST spell checker library and command line tool (runtime)"
+ldesc: "This is a minimal hfst optimized lookup format based spell checker library and
+a demonstrational implementation of command line based spell checker."
+external-source: hfstospell
+

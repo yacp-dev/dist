@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Javascript grammar for tree-sitter (licensing & readmes)"
+ldesc: "Javascript grammar for tree-sitter"
+

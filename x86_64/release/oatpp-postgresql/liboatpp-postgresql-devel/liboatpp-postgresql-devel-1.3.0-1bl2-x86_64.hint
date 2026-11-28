@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-postgresql1
+sdesc: "PostgreSQL adapter for oatpp ORM (development)"
+ldesc: "PostgreSQL adapter for oatpp ORM"
+external-source: oatpp-postgresql
+

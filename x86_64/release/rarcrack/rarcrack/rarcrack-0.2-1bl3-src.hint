@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport libxml2-devel
+sdesc: "Use brute force algorithm to find the correct password for rar, 7z, zip archives"
+ldesc: "Use brute force algorithm to find the correct password for rar, 7z, zip
+archives."
+skip:
+
+homepage: https://github.com/ziman/rarcrack
+license: GPL-2.0-or-later

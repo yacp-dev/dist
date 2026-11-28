@@ -1,0 +1,12 @@
+category: Audio
+build-depends: cygport 
+sdesc: "Convert CD images from .bin/.cue to .iso/.cdr"
+ldesc: "binchunker converts a CD image in a '.bin / .cue' format (sometimes
+'.raw / .cue') to a set of .iso and .cdr tracks. The bin/cue format is used by
+some popular non-Unix cd-writing software, but is not supported on most other CD
+burning programs. A lot of CD/VCD images distributed on the Internet are in
+BIN/CUE format, I've been told."
+skip:
+
+homepage: http://he.fi/bchunk/
+license: GPL-2.0-or-later

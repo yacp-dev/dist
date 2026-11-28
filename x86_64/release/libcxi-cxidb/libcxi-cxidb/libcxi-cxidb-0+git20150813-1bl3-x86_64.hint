@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library to help read and write CXI files (licensing & readmes)"
+ldesc: "Library to help read and write CXI files"
+

@@ -1,0 +1,8 @@
+category: Text
+build-depends: cygport gobject-introspection gtk-doc libglib2.0-devel libicu-devel libm17n-devel vala
+sdesc: "Transliteration library with multiple backends (licensing & readmes)"
+ldesc: "Transliteration library with multiple backends"
+skip:
+
+homepage: https://github.com/ueno/libtranslit
+license: GPL-3.0-or-later

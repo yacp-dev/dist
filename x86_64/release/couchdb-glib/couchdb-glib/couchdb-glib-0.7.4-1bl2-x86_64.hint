@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "GLib-based library to allow access to CouchDB (licensing & readmes)"
+ldesc: "GLib-based library to allow access to CouchDB"
+

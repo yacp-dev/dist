@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libgmock-devel libgtest-devel
+sdesc: "C++ Common Libraries (licensing & readmes)"
+ldesc: "Abseil is an open-source collection of C++ library code designed to augment
+the C++ standard library. The Abseil library code is collected from Google's
+own C++ code base, has been extensively tested and used in production, and is
+the same code we depend on in our daily coding lives."
+skip:
+
+homepage: https://github.com/abseil/abseil-cpp
+license: Apache-2.0

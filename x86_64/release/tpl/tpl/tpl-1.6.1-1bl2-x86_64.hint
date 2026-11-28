@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Small binary serialization library (licensing & readmes)"
+ldesc: "Small binary serialization library"
+

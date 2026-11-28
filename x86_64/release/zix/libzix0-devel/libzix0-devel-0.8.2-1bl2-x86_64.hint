@@ -1,0 +1,6 @@
+category: Libs
+requires: libzix0_0 pkg-config
+sdesc: "Lightweight C99 portability and data structure library (development)"
+ldesc: "Zix is a lightweight C library of portability wrappers and data structures."
+external-source: zix
+

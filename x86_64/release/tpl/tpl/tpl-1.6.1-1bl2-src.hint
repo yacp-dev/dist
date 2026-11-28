@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Small binary serialization library (licensing & readmes)"
+ldesc: "Small binary serialization library"
+skip:
+
+homepage: https://github.com/troydhanson/tpl
+license: BSD-1-Clause

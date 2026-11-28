@@ -1,0 +1,11 @@
+category: Security
+build-depends: cygport autoconf-archive dbus libcmocka-devel libsqlite3-devel libssl-devel libtss2-esys-devel libtss2-fapi-devel libtss2-mu-devel libtss2-rc-devel libtss2-tctildr-devel libyaml-devel tpm2-tss-devel
+sdesc: "PKCS11 interface for TPM2 hardware (licensing & readmes)"
+ldesc: "PKCS11 is a Public-Key Cryptography Standard that defines a standard method to
+access cryptographic services from tokens/ devices such as hardware security
+modules (HSM), smart cards, etc. In this project we intend to use a TPM2 device
+as the cryptographic token."
+skip:
+
+homepage: https://github.com/tpm2-software/tpm2-pkcs11
+license: BSD-2-Clause

@@ -1,0 +1,8 @@
+category: Libs
+requires: libepp-nicbr1.20_0 pkg-config
+sdesc: "Partially implementation of the Extensible Provisioning Protocol (development)"
+ldesc: "This is the LIBEPP-NICBR C++ library that partially implements the Extensible
+Provisioning Protocol (EPP), as described in the Internet Drafts RFC3730bis to
+RFC3734bis and RFC3735."
+external-source: libepp-nicbr
+

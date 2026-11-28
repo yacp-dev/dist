@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Object oriented C++ wrapper for CURL (licensing & readmes)"
+ldesc: "An object-oriented C++ wrapper for cURL tool"
+

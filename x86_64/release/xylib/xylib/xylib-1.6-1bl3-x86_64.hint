@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libxy3
+sdesc: "Library for reading x-y data (utilities)"
+ldesc: "xylib is a portable library for reading files that contain x-y data from
+powder diffraction, spectroscopy and other experimental methods."
+

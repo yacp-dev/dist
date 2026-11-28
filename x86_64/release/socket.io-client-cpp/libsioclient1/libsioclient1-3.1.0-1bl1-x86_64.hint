@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libssl3 libstdc++6
+sdesc: "C++11 implementation of Socket.IO client (runtime)"
+ldesc: "C++11 implementation of Socket.IO client"
+external-source: socket.io-client-cpp
+

@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin
+sdesc: "Implementations of a fast Elliptic-curve Diffie-Hellman primitive (runtime)"
+ldesc: "curve25519 is an elliptic curve, developed by Dan Bernstein, for fast
+Diffie-Hellman key agreement. DJB's original implementation was written in a
+language of his own devising called qhasm. The original qhasm source isn't
+available, only the x86 32-bit assembly output."
+external-source: curve25519-donna
+

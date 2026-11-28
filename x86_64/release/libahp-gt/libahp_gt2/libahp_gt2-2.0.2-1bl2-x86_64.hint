@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Driver library for the AHP® GT Correlators (runtime)"
+ldesc: "Driver library for the AHP® GT Correlators"
+external-source: libahp-gt
+

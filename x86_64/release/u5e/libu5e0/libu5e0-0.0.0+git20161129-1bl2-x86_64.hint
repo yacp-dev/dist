@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Unicode Text C++ library (runtime)"
+ldesc: "Unicode Text C++ library"
+external-source: u5e
+

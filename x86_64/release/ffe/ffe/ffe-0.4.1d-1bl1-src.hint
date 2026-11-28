@@ -1,0 +1,10 @@
+category: Utils
+build-depends: cygport libgcrypt-devel
+sdesc: "Flat file extractor"
+ldesc: "Flat file extractor (ffe) can be used for parsing different flat file
+structures and printing them in different formats. ffe can also process fixed
+length binary files."
+skip:
+
+homepage: https://github.com/igitur/ffe
+license: GPL-2.0-or-later

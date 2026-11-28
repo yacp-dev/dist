@@ -1,0 +1,13 @@
+category: Science
+build-depends: cygport hdf5 libaec-devel libboost-devel libhdf5-devel libtiff-devel libxml2-devel zlib-devel
+sdesc: "eXtensible Data Model and Format (licensing & readmes)"
+ldesc: "The need for a standardized method to exchange scientific data between High
+Performance Computing codes and tools lead to the development of the
+eXtensible Data Model and Format (XDMF) . Uses for XDMF range from a standard
+format used by HPC codes to take advantage of widely used visualization
+programs like ParaView, to a mechanism for performing coupled calculations
+using multiple, previously stand alone codes."
+skip:
+
+homepage: https://xdmf.org/
+license: BSD-3-Clause

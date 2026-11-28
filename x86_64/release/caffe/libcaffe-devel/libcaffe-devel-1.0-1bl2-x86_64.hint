@@ -1,0 +1,8 @@
+category: Libs
+requires: libcaffe1.0.0 libboost-devel libgflags-devel libglog-devel liblapack-devel libleveldb-devel liblmdb-devel libopencv-devel libprotobuf-devel
+sdesc: "Fast open framework for deep learning (development)"
+ldesc: "Caffe is a deep learning framework made with expression, speed, and modularity
+in mind. It is developed by Berkeley AI Research (BAIR)/The Berkeley Vision
+and Learning Center (BVLC) and community contributors."
+external-source: caffe
+

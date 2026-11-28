@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libglib2.0_0 libintl8 libsoup2.4_1 libxml2_2
+sdesc: "Natural language translation library (runtime)"
+ldesc: "Libtranslate is a library for translating text and web pages
+between natural languages. Its modular infrastructure allows to implement new
+translation services separately from the core library."
+external-source: libtranslate
+

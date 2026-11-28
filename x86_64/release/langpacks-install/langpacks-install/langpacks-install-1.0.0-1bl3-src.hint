@@ -1,0 +1,12 @@
+category: Admin
+build-depends: cygport gettext-devel libglib2.0-devel
+sdesc: "Tool to get auto installed langpacks on session startup"
+ldesc: "This tool will help to automatically install the langpacks on your system.
+It automatically runs at the start of your desktop environment. It will 
+first check if langpacks package for your language is already installed
+or not. If not then ask the PackageKit to install that package. Its then
+upto end user to check the PackageKit notification and install the package."
+skip:
+
+homepage: https://github.com/pnemade/langpacks-install
+license: GPL-3.0-or-later

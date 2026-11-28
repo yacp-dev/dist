@@ -1,0 +1,7 @@
+category: Libs
+requires: libykclient3 pkg-config
+sdesc: "Yubico C client library (development)"
+ldesc: "YubiKey C Client Library (libykclient) is a C library used to validate an
+Yubikey OTP against Yubico’s servers. "
+external-source: ykclient
+

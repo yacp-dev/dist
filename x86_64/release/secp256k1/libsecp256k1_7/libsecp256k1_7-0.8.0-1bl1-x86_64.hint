@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Optimized C library for EC operations on curve secp256k1 (runtime)"
+ldesc: "Optimized C library for EC operations on curve secp256k1"
+external-source: secp256k1
+

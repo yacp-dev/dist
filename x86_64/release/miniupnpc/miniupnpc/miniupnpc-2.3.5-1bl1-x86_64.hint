@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libminiupnpc21
+sdesc: "UPnP IGD control point (utilities)"
+ldesc: "UPnP IGD control point"
+

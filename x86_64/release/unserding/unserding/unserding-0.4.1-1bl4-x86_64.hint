@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libev4 libltdl7 libunserding2
+sdesc: "Framework for ad-hoc networks for financial applications (utilities)"
+ldesc: "Unserding is a simple pub-sub messaging library, much like 0mq or nanomsg,
+without all the transports they support and without the reliability promise,
+made for heavy-duty realtime delivery of time series."
+

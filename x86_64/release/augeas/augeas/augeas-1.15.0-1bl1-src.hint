@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport bison flex libreadline-devel libxml2-devel
+sdesc: "Library for changing configuration files (utilities)"
+ldesc: "Augeas is a configuration editing tool. It parses configuration files in their
+native formats and transforms them into a tree. Configuration changes are made
+by manipulating this tree and saving it back into native config files."
+skip:
+
+homepage: https://github.com/hercules-team/augeas
+license: LGPL-2.1-or-later

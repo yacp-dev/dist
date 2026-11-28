@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcrypt20 libgnutls30
+sdesc: "Virtual TLS API for clients that wish to support multiple implementations (runtime)"
+ldesc: "Virtual TLS API for clients that wish to support multiple implementations"
+external-source: vtls
+

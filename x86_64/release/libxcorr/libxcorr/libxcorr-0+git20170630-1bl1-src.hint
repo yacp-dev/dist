@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libfftw3-devel
+sdesc: "Cross Correlation function for C using FFTW (licensing & readmes)"
+ldesc: "Library that provides a Cross Correlation function for C based on FFTW3."
+skip:
+
+homepage: https://github.com/dMaggot/libxcorr
+license: GPL-3.0-or-later

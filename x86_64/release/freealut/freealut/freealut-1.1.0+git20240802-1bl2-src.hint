@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libopenal-devel
+sdesc: "Freealut library for OpenAL (licensing & readmes)"
+ldesc: "Freealut is a free implementation of OpenAL's ALUT standard."
+skip:
+
+homepage: https://github.com/vancegroup/freealut
+license: LGPL-2.0-only

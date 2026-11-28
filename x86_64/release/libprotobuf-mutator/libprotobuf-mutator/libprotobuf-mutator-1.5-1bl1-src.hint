@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgmock-devel libgtest-devel libprotobuf-devel zlib-devel
+sdesc: "Library for structured fuzzing with protobuffers (licensing & readmes)"
+ldesc: "Library for structured fuzzing with protobuffers (licensing & readmes)"
+skip:
+
+homepage: https://github.com/google/libprotobuf-mutator
+license: Apache-2.0

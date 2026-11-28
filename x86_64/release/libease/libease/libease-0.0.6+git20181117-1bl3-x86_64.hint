@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library for graphical effects or mathematical calculations (licensing & readmes)"
+ldesc: "libease is a shared library containing easing methods that can be used for
+graphical effects or mathematical calculations"
+

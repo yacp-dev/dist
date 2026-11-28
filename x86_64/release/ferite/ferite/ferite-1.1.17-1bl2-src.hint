@@ -1,0 +1,10 @@
+category: Interpreters
+build-depends: cygport libgc-devel libpcre-devel libxml2-devel
+sdesc: "Ferite programming language (utilities)"
+ldesc: "ferite is a modern, lighweight, portable, threadsafe scripting engine with a
+language that is very easy to pick up and leverage for any task. It's been 
+designed for rapid deployment in other programs as well as stand alone use."
+skip:
+
+homepage: https://sourceforge.net/projects/ferite/
+license: BSD-3-Clause AND LicenseRef-ferite-xml

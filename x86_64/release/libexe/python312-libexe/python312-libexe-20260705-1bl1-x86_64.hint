@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libexe1 python312
+sdesc: "Library and tools to access the executable (EXE) format (python312 bindings)"
+ldesc: "libexe is a library to access the executable (EXE) format."
+external-source: libexe
+

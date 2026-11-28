@@ -1,0 +1,11 @@
+category: Database
+build-depends: cygport gettext-devel libdbi-devel libexpat-devel libiconv-devel libreadline-devel
+sdesc: "Reference database and bibliography tool"
+ldesc: "RefDB is a reference database and bibliography tool for SGML, XML, and LaTeX
+documents, sort of a Reference Manager or BibTeX for markup languages. It is
+portable and known to run on Linux, Free/NetBSD, OSX, Solaris, and
+Windows/Cygwin."
+skip:
+
+homepage: https://sourceforge.net/projects/refdb/
+license: GPL-2.0-or-later

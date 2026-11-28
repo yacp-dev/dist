@@ -1,0 +1,6 @@
+category: Libs
+requires: libabpoa1 pkg-config
+sdesc: "SIMD-based C library for fast partial order alignment using adaptive band (development)"
+ldesc: "SIMD-based C library for fast partial order alignment using adaptive band"
+external-source: abpoa
+

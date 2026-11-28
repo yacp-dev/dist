@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcdata-devel libcerror-devel libcthreads-devel libcnotify-devel libfdatetime-devel libfguid-devel libfwnt-devel libuna-devel
+sdesc: "Library for generic file value functions (licensing & readmes)"
+ldesc: "libfvalue is a library for generic file value functions."
+skip:
+
+homepage: https://github.com/libyal/libfvalue
+license: LGPL-3.0-or-later

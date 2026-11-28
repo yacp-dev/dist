@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Lightweight and flexible C++ logging library (runtime)"
+ldesc: "Lightweight and flexible C++ logging library"
+external-source: loguru
+

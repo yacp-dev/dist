@@ -1,0 +1,6 @@
+category: Libs
+requires: libsmraw1 pkg-config
+sdesc: "Library and tools to access the (split) RAW image format (development)"
+ldesc: "libsmraw is a library to access the (split) RAW image format."
+external-source: libsmraw
+

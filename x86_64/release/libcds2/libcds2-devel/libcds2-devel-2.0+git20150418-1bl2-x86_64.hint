@@ -1,0 +1,6 @@
+category: Libs
+requires: libcds2_2 pkg-config
+sdesc: "Compressed Data Structure Library (development)"
+ldesc: "Compressed Data Structure Library"
+external-source: libcds2
+

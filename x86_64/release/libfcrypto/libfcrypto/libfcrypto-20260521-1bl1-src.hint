@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel python3-devel
+sdesc: "Library for encryption formats (licensing & readmes)"
+ldesc: "libfcrypto is a library for encryption formats."
+skip:
+
+homepage: https://github.com/libyal/libfcrypto
+license: LGPL-3.0-or-later

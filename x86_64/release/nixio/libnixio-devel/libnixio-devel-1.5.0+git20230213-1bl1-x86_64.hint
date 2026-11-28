@@ -1,0 +1,6 @@
+category: Science
+requires: libnixio1 pkg-config
+sdesc: "Neuroscience information exchange format (development)"
+ldesc: "C++ library for storing scientific data in the NIX data model."
+external-source: nixio
+

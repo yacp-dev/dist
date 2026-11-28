@@ -1,0 +1,8 @@
+category: Libs
+requires: libvedis0 pkg-config
+sdesc: "Embeddable Datastore Engine (development)"
+ldesc: "Vedis is an embeddable datastore C library built with over 70 commands similar
+in concept to Redis but without the networking layer since Vedis run in the
+same process of the host application."
+external-source: vedis
+

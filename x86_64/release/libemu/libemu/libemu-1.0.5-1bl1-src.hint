@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "X86 emulation and shellcode detection (utilities)"
+ldesc: "X86 emulation and shellcode detection"
+skip:
+
+homepage: https://github.com/buffer/libemu
+license: GPL-2.0-or-later

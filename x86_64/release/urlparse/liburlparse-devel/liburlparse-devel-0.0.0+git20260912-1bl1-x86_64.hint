@@ -1,0 +1,8 @@
+category: Libs
+requires: liburlparse0 pkg-config
+sdesc: "URL parser compatible to url_parser_parse_url() from nodejs/http-parser (development)"
+ldesc: "urlparse is a URL parser compatible to url_parser_parse_url() from
+nodejs/http-parser which has been archived since 2022. urlparse only
+implements the strict mode."
+external-source: urlparse
+

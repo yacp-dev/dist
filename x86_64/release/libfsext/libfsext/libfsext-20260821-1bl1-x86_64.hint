@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libcnotify1 libfdatetime1 libfsext1 libhmac1 libuna1
+sdesc: "Library and tools to access the Extended File System (utilities)"
+ldesc: "libfsext is a library to access the Extended File System (ext)."
+

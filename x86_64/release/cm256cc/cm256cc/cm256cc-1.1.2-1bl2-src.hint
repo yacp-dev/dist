@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Fast GF(256) Cauchy MDS Block Erasure Codec in C++ (utilities)"
+ldesc: "Fast GF(256) Cauchy MDS Block Erasure Codec in C++"
+skip:
+
+homepage: https://github.com/f4exb/cm256cc
+license: GPL-3.0-or-later AND BSD-3-Clause

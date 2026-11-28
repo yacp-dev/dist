@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 zlib0
+sdesc: "C++ library for reading and writing Zip files using streams (runtime)"
+ldesc: "Zipios is a small C++ library for reading and writing zip files.
+The structure and public interface are based (somewhat loosely) on the
+java.util.zip package. The streams created to access the individual entries in a
+zip file are based on the standard iostream library."
+external-source: zipios
+

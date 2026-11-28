@@ -1,0 +1,6 @@
+category: Libs
+requires: libfparser4 pkg-config
+sdesc: "Function Parser for C++ (development)"
+ldesc: "Function Parser for C++"
+external-source: fparser
+

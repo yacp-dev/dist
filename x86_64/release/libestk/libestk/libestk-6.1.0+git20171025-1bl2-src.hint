@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libGLEW-devel libGLESv2-devel libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel
+sdesc: "OpenGL ES Toolkit (licensing & readmes)"
+ldesc: "LibESTK is a utility library ment to make OpenGL ES 2.0 operations easier to
+perform with fewer calls compared to the standard OpenGL library."
+skip:
+
+homepage: https://github.com/carlmartus/libestk
+license: LicenseRef-libestk

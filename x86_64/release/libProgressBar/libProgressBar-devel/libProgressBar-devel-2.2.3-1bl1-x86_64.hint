@@ -1,0 +1,6 @@
+category: Libs
+requires: libProgressBar1 pkg-config
+sdesc: "C++ library to manage Progress bars (development)"
+ldesc: "libProgressBar is a C++ library to manage... Progress bars!!!"
+external-source: libProgressBar
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libavif16 libgcc1 libgif7 libhwy1 libilmbase2_5_25 libIlmImf2_5_26 libjpeg8 libjxl0.13 libpng16 libstdc++6 libwebp7
+sdesc: "JPEG XL image format reference implementation (utilities)"
+ldesc: "JPEG XL image format reference implementation"
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfdatetime-devel libfguid-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the Volume Shadow Snapshot (VSS) format (utilities)"
+ldesc: "libvshadow is a library to access the Volume Shadow Snapshot (VSS) format."
+skip:
+
+homepage: https://github.com/libyal/libvshadow
+license: LGPL-3.0-or-later

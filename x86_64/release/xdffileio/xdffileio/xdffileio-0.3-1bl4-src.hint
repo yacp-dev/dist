@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library to read/write EEG data file formats (licensing & readmes)"
+ldesc: "This library provides a unified interface to read/write EEG file
+format in realtime. It has been designed to provide a consistent and common
+interface to all supported file formats while minimizing the CPU cost on the
+main loop. It thus performs all the expensive operation (scaling, data
+convertion and file operation) in a separated thread."
+skip:
+
+homepage: https://archiveweb.epfl.ch/cnbi.epfl.ch/index.html%3Fp=222.html
+license: LGPL-3.0-or-later

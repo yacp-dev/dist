@@ -1,0 +1,6 @@
+category: Science
+requires: libh4toh5_0 pkg-config
+sdesc: "Tools for converting between HDF4 and HDF5 formats (development)"
+ldesc: "Tools for converting between HDF4 and HDF5 formats"
+external-source: h4h5tools
+

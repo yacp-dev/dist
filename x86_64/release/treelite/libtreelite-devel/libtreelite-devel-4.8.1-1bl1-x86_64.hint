@@ -1,0 +1,7 @@
+category: Libs
+requires: libtreelite4
+sdesc: "Model compiler for decision tree ensembles (development)"
+ldesc: "Treelite is a model compiler for efficient deployment of decision tree
+ensembles."
+external-source: treelite
+

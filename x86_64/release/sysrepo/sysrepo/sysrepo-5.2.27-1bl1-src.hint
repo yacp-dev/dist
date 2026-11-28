@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcmocka-devel libyang-devel
+sdesc: "YANG-based configuration and operational state data store (utilities)"
+ldesc: "Sysrepo is a YANG-based configuration and operational state data store for
+Unix/Linux applications."
+skip:
+
+homepage: https://github.com/sysrepo/sysrepo
+license: BSD-3-Clause

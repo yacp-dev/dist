@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libcamp-devel
+sdesc: "Performance Portability Layer (licensing & readmes)"
+ldesc: "RAJA is a library of C++ software abstractions, primarily developed at
+Lawrence Livermore National Laboratory (LLNL), that enables architecture and
+programming model portability for HPC applications."
+skip:
+
+homepage: https://github.com/LLNL/RAJA
+license: BSD-3-Clause

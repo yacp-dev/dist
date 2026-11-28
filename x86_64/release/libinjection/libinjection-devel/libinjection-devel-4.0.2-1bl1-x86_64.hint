@@ -1,0 +1,6 @@
+category: Libs
+requires: libinjection4 pkg-config
+sdesc: "SQL / SQLI tokenizer parser analyzer (development)"
+ldesc: "SQL / SQLI tokenizer parser analyzer"
+external-source: libinjection
+

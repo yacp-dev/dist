@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libbz2-devel libcurl-devel liblz4-devel liblzma-devel liblzo2-devel libzstd-devel lz4 lzop zlib-devel zstd
+sdesc: "Variety of supported compression methods (utilities)"
+ldesc: "Libwandio is a software library written in C that provides an API for
+transparently reading from and writing to files using a variety of supported
+compression methods. Provided pthreads are available, I/O performance will be
+improved by doing any compression and/or decompression using a separate
+thread."
+skip:
+
+homepage: https://github.com/LibtraceTeam/wandio
+license: LGPL-3.0-or-later AND MIT AND BSD-2-Clause

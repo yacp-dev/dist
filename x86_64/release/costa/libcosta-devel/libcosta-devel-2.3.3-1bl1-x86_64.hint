@@ -1,0 +1,8 @@
+category: Libs
+requires: libcosta2 pkg-config libevent-devel libhwloc-devel libscalapack-devel zlib-devel
+sdesc: "Distributed Communication-Optimal Shuffle and Transpose Algorithm (development)"
+ldesc: "COSTA is a communication-optimal, highly-optimised algorithm for data
+redistribution accross multiple processors, using MPI and OpenMP and offering
+the possibility to transpose and scale some or all data."
+external-source: costa
+

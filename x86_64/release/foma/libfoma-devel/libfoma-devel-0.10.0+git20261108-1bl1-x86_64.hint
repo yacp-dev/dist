@@ -1,0 +1,6 @@
+category: Libs
+requires: libfoma0 pkg-config
+sdesc: "Multi-purpose finite-state toolkit (development)"
+ldesc: "Multi-purpose finite-state toolkit"
+external-source: foma
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran libpcre2-devel
+sdesc: "Fortran 2018 interface bindings to PCRE2 (licensing & readmes)"
+ldesc: "Fortran 2018 interface bindings to PCRE2"
+skip:
+
+homepage: https://github.com/interkosmos/fortran-pcre2
+license: ISC

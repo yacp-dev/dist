@@ -1,0 +1,7 @@
+category: Devel
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Ctags-cscope glue"
+ldesc: "ccglue is intended to be the interfacing app between cscope and ctags. It can
+generate cross-reference tag files that can be interfaced with the Vim CCTree
+plugin"
+

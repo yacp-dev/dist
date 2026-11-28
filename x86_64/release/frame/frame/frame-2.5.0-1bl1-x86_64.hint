@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libframe6 libX11_6 libXi6
+sdesc: "Touch Frame Library (utilities)"
+ldesc: "Frame handles the buildup and synchronization of a set of
+simultaneous touches."
+

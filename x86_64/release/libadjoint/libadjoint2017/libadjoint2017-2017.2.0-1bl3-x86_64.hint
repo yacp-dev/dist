@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Library for the high-level algorithmic differentiation of scientific models (runtime)"
+ldesc: "libadjoint is a library for the high-level algorithmic differentiation of
+scientific models. It's mainly used by dolfin-adjoint."
+external-source: libadjoint
+

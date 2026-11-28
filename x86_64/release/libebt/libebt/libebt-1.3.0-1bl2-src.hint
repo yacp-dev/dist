@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Pure C++ template library that provides a clean way of getting human-readable backtrace messages"
+ldesc: "Pure C++ template library that provides a clean way of getting
+human-readable backtrace messages"
+skip:
+
+homepage: https://sourceforge.net/projects/libebt.berlios/
+license: BSD-3-Clause

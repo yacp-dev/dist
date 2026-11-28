@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Macromolecular coordinate library (licensing & readmes)"
+ldesc: "MMDB is CCP4's macromolecular coordinate library, written by Eugene Krissinel
+of the EBI. The Coordinate Library is designed to assist CCP4 developers in
+working with coordinate files. The major source of coordinate information
+remains the PDB files, although more information becomes available in mmCIF
+format."
+skip:
+
+homepage: https://launchpad.net/mmdb
+license: LGPL-3.0-only

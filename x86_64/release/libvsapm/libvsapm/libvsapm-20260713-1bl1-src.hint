@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the Apple Partition Map (APM) volume system format (utilities)"
+ldesc: "libvsapm is a library to access the Apple Partition Map (APM) volume system
+format."
+skip:
+
+homepage: https://github.com/libyal/libvsapm
+license: LGPL-3.0-or-later

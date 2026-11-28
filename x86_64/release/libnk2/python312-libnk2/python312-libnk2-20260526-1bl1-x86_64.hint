@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libfguid1 libnk2_1 python312
+sdesc: "Library and tools to access the Microsoft Outlook Nickfile (NK2) format (python312 bindings)"
+ldesc: "libnk2 is a library to access the Microsoft Outlook Nickfile (NK2) format."
+external-source: libnk2
+

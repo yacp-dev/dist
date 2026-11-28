@@ -1,0 +1,10 @@
+category: Math
+requires: cygwin-devel libtinysvm1 pkg-config
+sdesc: "Support Vector Machines (development)"
+ldesc: "TinySVM is an implementation of Support Vector Machines (SVMs) for the problem
+of pattern recognition. Support Vector Machines is a new generation learning
+algorithms based on recent advances in statistical learning theory, and
+applied to large number of real-world applications, such as text
+categorization, hand-written character recognition."
+external-source: tinysvm
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libdbus1_3 libglib2.0_0
+sdesc: "Libplayback replacement library (runtime)"
+ldesc: "Libplayback replacement library"
+external-source: libresource
+

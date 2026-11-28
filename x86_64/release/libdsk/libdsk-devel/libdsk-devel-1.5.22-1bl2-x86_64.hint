@@ -1,0 +1,6 @@
+category: Libs
+requires: libdsk5 pkg-config
+sdesc: "Library for accessing discs and disc image files (development)"
+ldesc: "LIBDSK is a library for accessing discs and disc image files."
+external-source: libdsk
+

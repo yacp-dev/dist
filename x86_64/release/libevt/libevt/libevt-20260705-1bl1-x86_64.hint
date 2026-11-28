@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbfio1 libcdirectory1 libcerror1 libclocale1 libcnotify1 libcpath1 libcsplit1 libevt1 libexe1 libfcache1 libfdatetime1 libfwevt1 libregf1 libwrc1
+sdesc: "Library and tools to access the Windows Event Log (EVT) format (utilities)"
+ldesc: "libevt is a library to access the Windows Event Log (EVT) format."
+

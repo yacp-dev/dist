@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin libgcc1 libicu76 libmbt2 libstdc++6 libticcutils10 libtimbl8
+sdesc: "Memory-based tagger (utilities)"
+ldesc: "MBT is a memory-based tagger-generator and tagger in one. The tagger-generator
+part can generate a sequence tagger on the basis of a training set of tagged
+sequences; the tagger part can tag new sequences. MBT can, for instance, be
+used to generate part-of-speech taggers or chunkers for natural language
+processing. It has also been used for named-entity recognition, information
+extraction in domain-specific texts, and disfluency chunking in transcribed
+speech."
+

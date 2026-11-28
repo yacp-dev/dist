@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libcrack2 libintl8 python312
+sdesc: "Password checking library (python312 binding)"
+ldesc: "CrackLib tests passwords to determine whether they match certain
+security-oriented characteristics, such as being found in a dictionary. It
+provides a library for checking passwords and utilities for building and
+querying the dictionary."
+external-source: cracklib
+

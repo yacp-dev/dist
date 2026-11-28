@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbctoolbox1 libgcc1 libstdc++6
+sdesc: "Utilities library used by Belledonne Communications softwares (utilities)"
+ldesc: "Utilities library used by Belledonne Communications softwares like belle-sip,
+mediastreamer2 and linphone."
+

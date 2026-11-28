@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran liblapack-devel python3
+sdesc: "Distributed Block Compressed Sparse Row matrix library (licensing & readmes)"
+ldesc: "DBCSR is a library designed to efficiently perform sparse matrix-matrix
+multiplication, among other operations."
+skip:
+
+homepage: https://github.com/cp2k/dbcsr
+license: GPL-2.0-or-later

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport graphviz simde zlib-devel
+sdesc: "SIMD-based C library for fast partial order alignment using adaptive band (utilities)"
+ldesc: "SIMD-based C library for fast partial order alignment using adaptive band"
+skip:
+
+homepage: https://github.com/yangao07/abPOA
+license: MIT

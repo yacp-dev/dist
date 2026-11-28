@@ -1,0 +1,6 @@
+category: Libs
+requires: libvhdi1 pkg-config
+sdesc: "Library and tools to access the Virtual Hard Disk (VHD) image format (development)"
+ldesc: "libvhdi is a library to access the Virtual Hard Disk (VHD) image format."
+external-source: libvhdi
+

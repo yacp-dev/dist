@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport flac-devel libssl-devel zlib-devel
+sdesc: "C++ library for accessing SONOS devices (licensing & readmes)"
+ldesc: "C++ library for accessing SONOS devices"
+skip:
+
+homepage: https://github.com/janbar/noson
+license: GPL-3.0-or-later AND MIT AND Zlib

@@ -1,0 +1,7 @@
+category: Archive
+requires: libzopfli1 zopfli
+sdesc: "Zopfli Compression Algorithm (development)"
+ldesc: "Zopfli Compression Algorithm is a compression library programmed in C to
+perform very good, but slow, deflate or zlib compression."
+external-source: zopfli
+

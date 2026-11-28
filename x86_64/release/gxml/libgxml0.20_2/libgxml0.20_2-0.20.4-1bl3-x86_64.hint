@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgee0.8_2 libglib2.0_0 libintl8 libxml2_2
+sdesc: "GObject-based XML DOM API (runtime)"
+ldesc: "GXml provides a GObject API for manipulating XML and a Serializable framework
+from GObject to XML."
+external-source: gxml
+

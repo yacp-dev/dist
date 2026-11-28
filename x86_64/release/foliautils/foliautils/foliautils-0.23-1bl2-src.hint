@@ -1,0 +1,10 @@
+category: Utils
+build-depends: cygport autoconf-archive libexttextcat2.0-devel libfolia-devel libicu-devel libticcutils-devel libucto-devel libxml2-devel
+sdesc: "Tools for working with the Format for Linguistic Annotation (FoLiA) (utilities)"
+ldesc: "Command-line utilities for working with the Format for Linguistic Annotation
+(FoLiA), powered by libfolia (C++), written by Ko van der Sloot (TiCC, Tilburg
+University)"
+skip:
+
+homepage: https://github.com/LanguageMachines/foliautils
+license: GPL-3.0-or-later

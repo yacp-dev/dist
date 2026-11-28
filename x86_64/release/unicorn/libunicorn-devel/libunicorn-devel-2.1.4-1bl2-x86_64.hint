@@ -1,0 +1,7 @@
+category: Libs
+requires: libunicorn2 pkg-config
+sdesc: "Unicorn CPU emulator framework (development)"
+ldesc: "Unicorn is a lightweight, multi-platform, multi-architecture CPU emulator
+framework based on QEMU."
+external-source: unicorn
+

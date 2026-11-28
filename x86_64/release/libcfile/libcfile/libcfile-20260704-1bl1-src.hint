@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libclocale-devel libcnotify-devel libuna-devel
+sdesc: "Library for cross-platform C file functions (licensing & readmes)"
+ldesc: "libcfile is a library for cross-platform C file functions."
+skip:
+
+homepage: https://github.com/libyal/libcfile
+license: LGPL-3.0-or-later

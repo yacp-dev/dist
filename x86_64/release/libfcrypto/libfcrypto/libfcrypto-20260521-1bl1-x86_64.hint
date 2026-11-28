@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for encryption formats (licensing & readmes)"
+ldesc: "libfcrypto is a library for encryption formats."
+

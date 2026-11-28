@@ -1,0 +1,11 @@
+category: Net
+build-depends: cygport gettext-devel libglib2.0-devel libkrb5-devel libintl-devel libreadline-devel libssh-devel libssl-devel
+sdesc: "Yet Another FTP Client"
+ldesc: "Yafc is a command-line Linux FTP client, with a bunch of useful features which
+make it easier to use than ftp or sftp. While it's mostly developed on Linux,
+it's been known to work on similar platforms (FreeBSD, OSX), and some
+not-so-similar platforms (Windows), with a bit of effort."
+skip:
+
+homepage: https://github.com/sebastinas/yafc
+license: GPL-2.0-or-later AND BSD-3-Clause

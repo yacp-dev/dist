@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Free PDF library (licensing & readmes)"
+ldesc: "libHaru is a free, cross platform, open source library for generating PDF
+files. At this moment libHaru does not support reading and editing existing
+PDF files and it's unlikely this support will ever appear."
+

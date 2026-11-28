@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libczmq4
+sdesc: "High-level C Binding for ZeroMQ (utilities)"
+ldesc: "CZMQ - High-level C Binding for ZeroMQ"
+

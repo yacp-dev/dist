@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport htslib libhts-devel liblz4-devel libncurses-devel zlib-devel
+sdesc: "Tools for manipulating next-generation sequencing data"
+ldesc: "Tools for manipulating next-generation sequencing data"
+skip:
+
+homepage: https://github.com/samtools/samtools
+license: MIT

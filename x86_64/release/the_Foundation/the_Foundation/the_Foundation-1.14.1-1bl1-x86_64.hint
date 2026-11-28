@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Opinionated C11 library for low-level functionality (licensing & readmes)"
+ldesc: "An object-oriented C library whose API is designed for a particular coding
+style, taking cues from C++ STL and Qt."
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport CUnit docbook-xsl libcairo-devel libgdk_pixbuf2.0-devel libglib2.0-devel libpango1.0-devel libxml2-devel libxslt-devel
+sdesc: "XSL-FO processor (utilities)"
+ldesc: "xmlroff is a fast, free, high-quality, multi-platform XSL formatter that aims
+to excel at DocBook formatting and that integrates easily with other programs
+and with scripting languages."
+skip:
+
+homepage: https://github.com/xmlroff/xmlroff
+license: BSD-3-Clause AND MIT

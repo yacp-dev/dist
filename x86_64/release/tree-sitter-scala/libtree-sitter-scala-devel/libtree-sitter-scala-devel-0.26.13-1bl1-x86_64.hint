@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-scala15.0 pkg-config
+sdesc: "Scala grammar for tree-sitter (development)"
+ldesc: "Scala grammar for tree-sitter"
+external-source: tree-sitter-scala
+

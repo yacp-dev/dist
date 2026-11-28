@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libcifpp10 libgcc1 libmcfp2 libstdc++6 zlib0
+sdesc: "Create DSSP files"
+ldesc: "Create DSSP files"
+

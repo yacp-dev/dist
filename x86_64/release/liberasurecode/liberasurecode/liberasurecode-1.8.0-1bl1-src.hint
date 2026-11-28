@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport autoconf-archive zlib-devel
+sdesc: "Erasure Code API library written in C with pluggable backends (licensing & readmes)"
+ldesc: "An API library for Erasure Code, written in C. It provides a number of
+pluggable backends, such as Intel ISA-L library."
+skip:
+
+homepage: https://github.com/openstack/liberasurecode
+license: BSD-2-Clause

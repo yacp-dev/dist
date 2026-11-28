@@ -1,0 +1,6 @@
+category: Science
+requires: bash cygwin libduktape207 libgcc1 libGL1 libGLEW2.1 libglfw3 libgomp1 libintl8 liblinenoise0 liblodepng0 libstdc++6
+sdesc: "Voronoi diagram-based tool to find atom contacts"
+ldesc: "Voronota is a software tool for analyzing three-dimensional structures of
+biological macromolecules using the Voronoi diagram of atomic balls."
+

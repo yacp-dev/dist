@@ -1,0 +1,16 @@
+category: Libs
+requires: libstrumpack8.1 pkg-config gcc-fortran liblapack-devel libmetis-devel libscotch-devel libzfp-devel
+sdesc: "Structured Matrix Package (development)"
+ldesc: "STRUMPACK - STRUctured Matrix PACKage - is a software library providing linear
+algebra routines and linear system solvers for sparse and for dense
+rank-structured linear systems. Many large dense matrices are rank structured,
+meaning they exhibit some kind of low-rank property, for instance in
+hierarchically defined sub-blocks. In sparse direct solvers based on LU
+factorization, the LU factors can often also be approximated well using
+rank-structured matrix compression, leading to robust preconditioners. The
+sparse solver in STRUMPACK can also be used as an exact direct solver, in
+which case it functions similarly as for instance SuperLU or superlu_dist. The
+STRUMPACK sparse direct solver delivers good performance and distributed
+memory scalability and provides excellent CUDA support."
+external-source: strumpack
+

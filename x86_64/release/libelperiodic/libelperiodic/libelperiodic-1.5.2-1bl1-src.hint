@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport python3-devel python312-setuptools
+sdesc: "Library to run frequent periodic tasks (licensing & readmes)"
+ldesc: "The libElPeriodic is designed to simplify writing control loops that are
+expected to run at constant tick intervals with smallest possible overhead and
+little or no support from the underlying run time environment."
+skip:
+
+homepage: https://github.com/sobomax/libelperiodic
+license: BSD-2-Clause

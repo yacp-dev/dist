@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libGL-devel libGLU-devel libglut-devel
+sdesc: "Library for Constructive Solid Geometry using OpenGL (utilities)"
+ldesc: "OpenCSG is a library that does image-based CSG rendering using OpenGL."
+skip:
+
+homepage: https://www.opencsg.org/
+license: GPL-2.0-or-later AND (WTFPL OR CC0-1.0) AND Apache-2.0

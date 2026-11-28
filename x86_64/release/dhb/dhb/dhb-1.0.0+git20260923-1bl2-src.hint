@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libCatch2-devel
+sdesc: "Dynamic Hashed Blocks (DHB) format (licensing & readmes)"
+ldesc: "DHB (Dynamic Hashed Blocks) is a high-performance data structure designed for
+sparse dynamic graphs and matrices."
+skip:
+
+homepage: https://github.com/hu-macsy/dhb
+license: MIT

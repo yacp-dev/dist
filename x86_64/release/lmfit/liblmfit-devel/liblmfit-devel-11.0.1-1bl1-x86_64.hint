@@ -1,0 +1,8 @@
+category: Math
+requires: liblmfit11 pkg-config
+sdesc: "Levenberg-Marquardt least squares minimization amd curve fitting (development)"
+ldesc: "A self-contained C library for Levenberg-Marquardt least-squares minimization
+and curve fitting. To minimize arbitrary user-provided functions, or to fit
+user-provided data."
+external-source: lmfit
+

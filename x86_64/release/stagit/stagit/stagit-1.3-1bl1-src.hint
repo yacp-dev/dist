@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libgit2-devel
+sdesc: "Static page generator for git"
+ldesc: "stagit is a static page generator for git."
+skip:
+
+homepage: https://codemadness.org/stagit.html
+license: MIT AND ISC

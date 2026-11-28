@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libalut0 libgcc1 libGL1 libGLU1 libglut3 libopenal1 libpng16 libSDL1.2_0 libstdc++6
+sdesc: "Automotive simulation framework (runtime)"
+ldesc: "Vamos is an automotive simulation framework with an emphasis on thorough
+physical modeling and good C++ design. Vamos includes a real-time,
+first-person, 3D driving application."
+external-source: vamos
+

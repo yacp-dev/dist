@@ -1,0 +1,8 @@
+category: Libs
+requires: libxls3 pkg-config
+sdesc: "C/C++ multi-platform library for dynamically generating Excel(TM) files (development)"
+ldesc: "xlsLib is a multiplatform, a C/C++ library for dynamically generating
+Excel(TM) files (*.xls format). It allows the generation of these files
+directly without the need of other assistive software."
+external-source: xlslib
+

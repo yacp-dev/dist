@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "URI Templates expansion and reverse-matching for C++ (licensing & readmes)"
+ldesc: "This library implements URI Template with full support up to Level 4 providing
+expansion and match capabilities. It requires c++17 compiler support and has
+no dependencies."
+skip:
+
+homepage: https://github.com/Tinkoff/uri-template
+license: Apache-2.0

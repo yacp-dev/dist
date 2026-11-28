@@ -1,0 +1,8 @@
+category: Net
+requires: cygwin libcairo2 libglib2.0_0 libguac25 libpango1.0_0
+sdesc: "Server-side, native components that form the Guacamole proxy (runtime /terminal)"
+ldesc: "The guacamole-server package is a set of software which forms the basis of the
+Guacamole stack. It consists of guacd, libguac, and several protocol support
+libraries."
+external-source: guacamole-server
+

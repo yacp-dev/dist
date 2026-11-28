@@ -1,0 +1,6 @@
+category: Libs
+requires: libfvalue1 pkg-config
+sdesc: "Library for generic file value functions (development)"
+ldesc: "libfvalue is a library for generic file value functions."
+external-source: libfvalue
+

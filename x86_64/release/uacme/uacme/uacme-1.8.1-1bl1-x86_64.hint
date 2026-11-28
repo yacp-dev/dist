@@ -1,0 +1,10 @@
+category: Utils
+requires: bash cygwin libcurl4 libev4 libgnutls30
+sdesc: "ACMEv2 client"
+ldesc: "lightweight client for the RFC8555 ACMEv2 protocol, written in plain C code
+with minimal dependencies (libcurl and one of GnuTLS, OpenSSL or mbedTLS). The
+ACMEv2 protocol allows a Certificate Authority (https://letsencrypt.org is a
+popular one) and an applicant to automate the process of verification and
+certificate issuance. The protocol also provides facilities for other
+certificate management functions, such as certificate revocation."
+

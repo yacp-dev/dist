@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libintl8 libncursesw10 libstdc++6
+sdesc: "Curses abstraction used by YAPET (runtime)"
+ldesc: "libyacurs is a curses widget library for fast development of curses
+applications."
+external-source: libyacurs
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Ruby grammar for tree-sitter (licensing & readmes)"
+ldesc: "Ruby grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-ruby
+license: MIT

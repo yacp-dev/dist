@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libgtest-devel ninja
+sdesc: "C++ logging library (licensing & readmes)"
+ldesc: "vxlog is a C++ library for writing messages to log files. Its main feature is
+a printf-like syntax. Messages can be output to file, the console, and using
+syslog. Output messages and journal modules can be filtered. The library is
+thread-safe."
+skip:
+
+homepage: https://sourceforge.net/projects/vxlog/
+license: MIT

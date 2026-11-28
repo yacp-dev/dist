@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-lua15.0 pkg-config
+sdesc: "Lua grammar for tree-sitter (development)"
+ldesc: "Lua grammar for tree-sitter"
+external-source: tree-sitter-lua
+

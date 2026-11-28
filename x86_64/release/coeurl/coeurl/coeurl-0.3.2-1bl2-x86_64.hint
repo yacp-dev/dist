@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Simple async wrapper around CURL for C++ (licensing & readmes)"
+ldesc: "Simple library to do http requests asynchronously via CURL in C++. (Eventually
+as coroutines, once all the compilers I need to support support them.)"
+

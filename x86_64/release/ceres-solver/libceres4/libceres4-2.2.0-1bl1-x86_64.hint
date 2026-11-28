@@ -1,0 +1,10 @@
+category: Math
+requires: cygwin libcholmod5 libgcc1 libglog2 liblapack0 libspqr4 libstdc++6
+sdesc: "Nonlinear Least Squares Minimizer (runtime)"
+ldesc: "Solving nonlinear least squares problems comes up in a broad range of areas
+across science and engineering - from fitting curves in statistics, to
+constructing 3D models from photographs in computer vision. Ceres Solver is a
+portable C++ library that allows for modeling and solving large complicated
+nonlinear least squares problems."
+external-source: ceres-solver
+

@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Double-ARray Trie System"
+ldesc: "C++ Template Library for Double-Array"
+skip:
+
+homepage: http://www.chasen.org/~taku/software/darts/
+license: BSD-3-Clause OR LGPL-2.1-only

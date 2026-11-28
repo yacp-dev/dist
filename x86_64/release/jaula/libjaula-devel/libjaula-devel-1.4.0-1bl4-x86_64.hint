@@ -1,0 +1,7 @@
+category: Libs
+requires: libjaula1 pkg-config
+sdesc: "C++ JSON encoder/decoder library (development)"
+ldesc: "GNU C++ library for coding and decoding JSON (Javascript Object Notation) data
+into or from streams"
+external-source: jaula
+

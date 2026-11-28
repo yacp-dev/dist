@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport help2man libcurl-devel
+sdesc: "Yubico C client library (utilities)"
+ldesc: "YubiKey C Client Library (libykclient) is a C library used to validate an
+Yubikey OTP against Yubico’s servers. "
+skip:
+
+homepage: https://github.com/Yubico/yubico-c-client
+license: BSD-2-Clause

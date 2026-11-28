@@ -1,0 +1,6 @@
+category: Libs
+requires: libggml-devel libwhisper1 pkg-config
+sdesc: "Port of OpenAI's Whisper model in C/C++ (development)"
+ldesc: "Port of OpenAI's Whisper model in C/C++"
+external-source: whisper.cpp
+

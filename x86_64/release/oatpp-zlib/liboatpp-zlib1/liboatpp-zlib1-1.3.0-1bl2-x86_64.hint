@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liboatpp1 libstdc++6 zlib0
+sdesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip (runtime)"
+ldesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip"
+external-source: oatpp-zlib
+

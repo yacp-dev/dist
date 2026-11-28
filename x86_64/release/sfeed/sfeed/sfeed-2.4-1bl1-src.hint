@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libncurses-devel
+sdesc: "Simple RSS and Atom parser"
+ldesc: "Sfeed is a RSS and Atom parser (and some format programs)."
+skip:
+
+homepage: https://codemadness.org/sfeed.html
+license: ISC

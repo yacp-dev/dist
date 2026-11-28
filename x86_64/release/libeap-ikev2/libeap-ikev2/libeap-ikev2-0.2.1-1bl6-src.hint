@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport libssl1.0-devel
+sdesc: "Implementation of the EAP-IKEv2 authentication method (licensing & readmes)"
+ldesc: "EAP-IKEv2 is an EAP authentication method based on the Internet Key
+Exchange Protocol version 2 (IKEv2). It provides mutual authentication
+and session key establishment between an EAP peer and an EAP server.
+It supports authentication techniques that are based on asymmetric key
+pairs, symmetric keys and passwords."
+skip:
+
+homepage: https://sourceforge.net/projects/eap-ikev2/
+license: GPL-2.0-or-later

@@ -1,0 +1,7 @@
+category: Libs
+requires: libpff1 pkg-config
+sdesc: "Library and tools to access the Personal Folder File (PFF) and the Offline Folder File (OFF) format (development)"
+ldesc: "libpff is a library to access the Personal Folder File (PFF) and the Offline
+Folder File (OFF) format."
+external-source: libpff
+

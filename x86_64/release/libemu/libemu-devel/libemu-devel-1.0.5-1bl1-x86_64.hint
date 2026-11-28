@@ -1,0 +1,6 @@
+category: Libs
+requires: libemu2 pkg-config
+sdesc: "X86 emulation and shellcode detection (development)"
+ldesc: "X86 emulation and shellcode detection"
+external-source: libemu
+

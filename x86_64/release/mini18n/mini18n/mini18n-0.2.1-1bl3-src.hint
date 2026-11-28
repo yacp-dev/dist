@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Minimal internationalization library (licensing & readmes)"
+ldesc: "mini18n is a small and non-intrusive translation library, designed for small
+memory and (non-)GNU systems."
+skip:
+
+homepage: https://sourceforge.net/projects/yabause/
+license: GPL-2.0-or-later

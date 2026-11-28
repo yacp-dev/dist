@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libncurses-devel
+sdesc: "Giant text-mode clock"
+ldesc: "vtclock is a text-terminal program that displays a large digital clock."
+skip:
+
+homepage: https://github.com/dse/vtclock
+license: GPL-2.0-or-later

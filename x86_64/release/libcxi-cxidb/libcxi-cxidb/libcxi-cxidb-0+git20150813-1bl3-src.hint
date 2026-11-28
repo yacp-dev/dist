@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport hdf5 libaec-devel libhdf5-devel zlib-devel
+sdesc: "Library to help read and write CXI files (licensing & readmes)"
+ldesc: "Library to help read and write CXI files"
+skip:
+
+homepage: https://github.com/cxidb/libcxi
+license: BSD-2-Clause

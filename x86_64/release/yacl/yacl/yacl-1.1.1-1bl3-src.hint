@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gettext-devel libglib2.0-devel libgmp-devel libguile3.0-devel libsodium-devel
+sdesc: "Yet Another Crypto Library (licensing & readmes)"
+ldesc: "Basically this is my wrapper around a much better library (libsodium) with
+some functions that libsodium doesn't include. In general, the libsodium
+routines are used with the exception of the algorithms not in NaCl."
+skip:
+
+homepage: https://github.com/cryptotronix/yacl
+license: BSD-2-Clause AND BSD-3-Clause

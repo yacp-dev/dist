@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Lightweight Chinese/Cantonese to Pinyin library (licensing & readmes)"
+ldesc: "cpp-pinyin is a lightweight Chinese/Cantonese to Pinyin library."
+

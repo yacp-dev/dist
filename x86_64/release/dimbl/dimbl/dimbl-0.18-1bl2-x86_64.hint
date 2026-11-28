@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libgcc1 libgomp1 libicu76 libstdc++6 libticcutils10 libtimbl8
+sdesc: "Distributed Tilburg Memory Based Learner"
+ldesc: "Distributed Tilburg Memory Based Learner"
+

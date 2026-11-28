@@ -1,0 +1,6 @@
+category: Libs
+requires: libfastjson-devel liblognorm5 pkg-config
+sdesc: "Fast samples-based log normalization library (development)"
+ldesc: "Briefly described, liblognorm is a tool to normalize log data."
+external-source: liblognorm
+

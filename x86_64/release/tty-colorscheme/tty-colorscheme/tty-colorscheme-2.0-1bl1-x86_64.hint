@@ -1,0 +1,5 @@
+category: Utils
+requires: bash
+sdesc: "Simple script to change colors in the linux TTY with 300 colorschemes"
+ldesc: "Simple script to change colors in the linux TTY with 300 colorschemes"
+

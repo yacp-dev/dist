@@ -1,0 +1,9 @@
+category: Games
+build-depends: cygport eigen3 libabseil-devel libgmock-devel libgtest-devel libOpenCL-devel zlib-devel
+sdesc: "Open source neural network based chess engine"
+ldesc: "Lc0 is a UCI-compliant chess engine designed to play chess via neural network,
+specifically those of the LeelaChessZero project."
+skip:
+
+homepage: https://github.com/LeelaChessZero/lc0
+license: GPL-3.0-or-later AND Apache-2.0

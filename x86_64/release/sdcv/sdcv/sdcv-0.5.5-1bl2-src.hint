@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport gettext-devel jq libglib2.0-devel libiconv libintl-devel libreadline-devel zlib-devel
+sdesc: "StarDict Console Version"
+ldesc: "StarDict Console Version"
+skip:
+
+homepage: https://github.com/Dushistov/sdcv
+license: GPL-2.0-or-later

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin liborcania2.3
+sdesc: "Logging library for C applications (runtime)"
+ldesc: "Simple and easy to use logging library. You can log messages to the console, a
+file, syslog or journald."
+external-source: yder
+

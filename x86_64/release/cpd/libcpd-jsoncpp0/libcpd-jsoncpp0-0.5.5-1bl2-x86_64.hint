@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libjsoncpp27 libstdc++6
+sdesc: "C++ implementation of the Coherent Point Drift point set registration algorithm (runtime / jsoncpp)"
+ldesc: "C++ implementation of the Coherent Point Drift point set registration algorithm"
+external-source: cpd
+

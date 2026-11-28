@@ -1,0 +1,7 @@
+category: Libs
+build-depends: cygport libgcrypt-devel libgnutls-devel
+sdesc: "Virtual TLS API for clients that wish to support multiple implementations (utilities)"
+ldesc: "Virtual TLS API for clients that wish to support multiple implementations"
+skip:
+
+homepage: https://github.com/rockdaboot/vtls

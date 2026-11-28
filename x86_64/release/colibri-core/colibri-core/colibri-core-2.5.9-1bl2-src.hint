@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libbz2-devel
+sdesc: "Efficient n-gram & skipgram modelling on text corpora (utilities)"
+ldesc: "Colibri Core is software to quickly and efficiently count and extract patterns
+from large corpus data, to extract various statistics on the extracted
+patterns, and to compute relations between the extracted patterns."
+skip:
+
+homepage: https://github.com/proycon/colibri-core
+license: GPL-3.0-or-later

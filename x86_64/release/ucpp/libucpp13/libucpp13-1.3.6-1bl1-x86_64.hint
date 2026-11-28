@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin
+sdesc: "C preprocessor designed to be embeddable, quick, light and fully compliant to C99 (runtime)"
+ldesc: "A C preprocessor is a part of a C compiler responsible for macro replacement,
+conditional compilation and inclusion of header files. It is often found as a
+stand-alone program on Unix systems."
+external-source: ucpp
+

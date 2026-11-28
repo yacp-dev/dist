@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbz2_1 libgcc1 libjson-c5 libssl3 libstdc++6 zlib0
+sdesc: "High performance C++ OpenPGP library (runtime)"
+ldesc: "High performance C++ OpenPGP library"
+external-source: rnp
+

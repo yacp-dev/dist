@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libboost_filesystem1.66 libboost_program_options1.66 libboost_system1.66 libe57_1 libgcc1 libstdc++6 libxerces-c31
+sdesc: "Software Tools for Managing E57 Files (utilities)"
+ldesc: "The libE57 software is an open source implementation of the ASTM E2807
+Standard Specification for 3D Imaging Data Exchange (known as the E57 format
+hereafter) in the C++ language. It is intended to lower the barrier to
+adoption of the standard and to provide a reference to compare other
+implementations against. It is not expected to be the only implementation, and
+it is not intended to be the fastest possible implementation."
+

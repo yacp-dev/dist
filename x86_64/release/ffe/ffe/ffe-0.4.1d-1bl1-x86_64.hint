@@ -1,0 +1,7 @@
+category: Utils
+requires: cygwin libgcrypt20
+sdesc: "Flat file extractor"
+ldesc: "Flat file extractor (ffe) can be used for parsing different flat file
+structures and printing them in different formats. ffe can also process fixed
+length binary files."
+

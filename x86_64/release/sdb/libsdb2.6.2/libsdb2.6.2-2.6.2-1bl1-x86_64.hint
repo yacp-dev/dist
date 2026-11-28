@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Simple string-based Key/Value database (runtime)"
+ldesc: "Sdb is a simple string key/value database based on djb's cdb disk storage and
+supports JSON and arrays introspection."
+external-source: sdb
+

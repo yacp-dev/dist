@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ library to manage Progress bars (runtime)"
+ldesc: "libProgressBar is a C++ library to manage... Progress bars!!!"
+external-source: libProgressBar
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Unicorn CPU emulator framework (runtime)"
+ldesc: "Unicorn is a lightweight, multi-platform, multi-architecture CPU emulator
+framework based on QEMU."
+external-source: unicorn
+

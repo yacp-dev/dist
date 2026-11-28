@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Buffer based LRU cache (licensing & readmes)"
+ldesc: "libvmemcache is an embeddable and lightweight in-memory caching solution. It's
+designed to fully take advantage of large capacity memory, such as Persistent
+Memory with DAX, through memory mapping in an efficient and scalable way."
+

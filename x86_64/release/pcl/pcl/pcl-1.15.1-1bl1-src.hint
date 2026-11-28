@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport eigen3 libbenchmark-devel libboost-devel libcjson-devel libflann-devel libGL-devel libGLEW-devel libGLU-devel libglut-devel libgtest-devel liblz4-devel libpng-devel libqhull-devel libusb1.0-devel libVTK9.7-devel libX11-devel qhull
+sdesc: "Point Cloud Library (utilities)"
+ldesc: "The Point Cloud Library (PCL) is a standalone, large scale, open project for
+3D point cloud processing."
+skip:
+
+homepage: https://github.com/PointCloudLibrary/pcl
+license: BSD-2-Clause AND BSD-3-Clause

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gettext-devel libiconv-devel libintl-devel libreadline-devel libxml2-devel ocaml ocaml-findlib python3-devel
+sdesc: "Read and write Windows Registry binary hive files (utilities)"
+ldesc: "Hive files are the undocumented binary files that Windows uses to
+store the Windows Registry on disk.  Hivex is a library that can read
+and write to these files."
+skip:
+
+homepage: https://libguestfs.org/
+license: LGPL-2.1-or-later

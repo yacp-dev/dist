@@ -1,0 +1,6 @@
+category: Libs
+requires: libcmmk0 libhidapi-devel pkg-config libhidapi-devel
+sdesc: "Unofficial LED control API for Coolermaster Masterkey keyboards (development)"
+ldesc: "Unofficial LED control API for Coolermaster Masterkey keyboards"
+external-source: libcmmk
+

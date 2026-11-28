@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Source Code Beautifier"
+ldesc: "The goals of this project are simple: Create a highly configurable, easily
+modifiable source code beautifier."
+

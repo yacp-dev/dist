@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libedit0 libssl3 libykhsmauth2 libyubihsm2
+sdesc: "Thin wrapper around libyubihsm providing both an interactive and command-line interface to a YubiHSM (utilities)"
+ldesc: "This repository contains most of the components used to interact with the
+YubiHSM 2 at both a user-facing and programmatic level."
+

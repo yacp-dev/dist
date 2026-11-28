@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "PNG image decoder and encoder (runtime)"
+ldesc: "PNG image decoder and encoder"
+external-source: lodepng
+

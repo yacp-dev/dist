@@ -1,0 +1,5 @@
+category: Security
+requires: cygwin libcairo2 libglib2.0_0 libgtk3_0 libstoken1
+sdesc: "RSA SecurID-compatible software token for Linux/UNIX systems (utilities)"
+ldesc: "RSA SecurID-compatible software token for Linux/UNIX systems"
+

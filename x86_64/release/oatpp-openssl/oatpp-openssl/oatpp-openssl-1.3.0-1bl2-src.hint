@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport liboatpp-devel libssl-devel
+sdesc: "OpenSSL adaptor for Oat++ applications (licensing & readmes)"
+ldesc: "This submodule provides secure server and client connection providers for
+oatpp applications. Based on OpenSSL."
+skip:
+
+homepage: https://github.com/oatpp/oatpp-openssl
+license: Apache-2.0

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libesedb1 python312
+sdesc: "Library and tools to access the Extensible Storage Engine (ESE) Database File (EDB) format (python312 bindings)"
+ldesc: "libesedb is a library to access the Extensible Storage Engine (ESE) Database
+File (EDB) format."
+external-source: libesedb
+

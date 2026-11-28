@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libyaml-devel
+sdesc: "YAML document filtering for libyaml (licensing & readmes)"
+ldesc: "YAML document filtering for libyaml"
+skip:
+
+homepage: https://github.com/OpenSCAP/yaml-filter
+license: MIT

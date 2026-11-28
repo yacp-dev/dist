@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C++ library used to read and write JSON with ease and speed (licensing & readmes)"
+ldesc: "JsonBox is a C++ library used to read and write JSON with ease and speed."
+skip:
+
+homepage: https://github.com/anhero/JsonBox
+license: MIT

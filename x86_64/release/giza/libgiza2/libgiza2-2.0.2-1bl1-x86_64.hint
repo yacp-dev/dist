@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libcairo2 libfontconfig1 libfreetype6 libgfortran5 libX11_6
+sdesc: "Scientific plotting library for C/Fortran (runtime)"
+ldesc: "A 2D scientific plotting library built on cairo. Provides uniform output to
+pdf, ps, png and X-Windows. Written in C with no dependencies (other than
+cairo) as a direct replacement for PGPLOT."
+external-source: giza
+

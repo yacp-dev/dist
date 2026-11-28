@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Zyan Core Library for C (licensing & readmes)"
+ldesc: "Internal library providing platform independent types, macros and a fallback
+for environments without LibC."
+

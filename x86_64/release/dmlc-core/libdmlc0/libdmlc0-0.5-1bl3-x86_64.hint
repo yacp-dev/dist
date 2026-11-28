@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libgomp1 libssl3 libstdc++6
+sdesc: "Backbone library to support all DMLC projects (runtime)"
+ldesc: "DMLC-Core is the backbone library to support all DMLC projects, offers the
+bricks to build efficient and scalable distributed machine learning libraries."
+external-source: dmlc-core
+

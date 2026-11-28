@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "2D Physics Engine for Games (licensing & readmes)"
+ldesc: "Box2D is an open source C++ engine for simulating rigid bodies in 2D."
+skip:
+
+homepage: https://box2d.org/
+license: MIT

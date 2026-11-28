@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libiconv2
+sdesc: "C library that removes accents from characters (runtime)"
+ldesc: "C library that removes accents from characters"
+external-source: unac
+

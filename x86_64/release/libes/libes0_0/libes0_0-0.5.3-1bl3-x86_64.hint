@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Entity System library for C++ (runtime)"
+ldesc: "libes is a library for managing an entity system written in C++."
+external-source: libes
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "YAML document filtering for libyaml (runtime)"
+ldesc: "YAML document filtering for libyaml"
+external-source: yaml-filter
+

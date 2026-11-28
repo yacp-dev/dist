@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libhts3 liblz4_1 libncursesw10 perl_base python3 zlib0
+sdesc: "Tools for manipulating next-generation sequencing data"
+ldesc: "Tools for manipulating next-generation sequencing data"
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: liburdfdom6 pkg-config urdfdom_headers
+sdesc: "URDF parser (development)"
+ldesc: "URDF (U-Robot Description Format) library provides core data structures and a
+simple XML parsers for populating the class data structures from an URDF file."
+external-source: urdfdom
+

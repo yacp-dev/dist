@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Efficient trie implementation (licensing & readmes)"
+ldesc: "This a ANSI C99 implementation of the HAT-trie data structure of Askitis and
+Sinha, an extremely efficient (space and time) modern variant of tries."
+

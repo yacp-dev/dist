@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcerror1 libcfile1 libclocale1 libcnotify1 libcpath1 libfdatetime1 libfguid1 libfvalue1 libnk2_1
+sdesc: "Library and tools to access the Microsoft Outlook Nickfile (NK2) format (utilities)"
+ldesc: "libnk2 is a library to access the Microsoft Outlook Nickfile (NK2) format."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libdbus-cxx2 libexpat1 libgcc1 libpopt0 libstdc++6
+sdesc: "C++ wrapper for dbus (utilities)"
+ldesc: "DBus-cxx is a C++ implementation of the DBus protocol. DBus is a
+Linux-specific RPC(remote procedure call) and IPC(inter-process communications)
+mechanism."
+

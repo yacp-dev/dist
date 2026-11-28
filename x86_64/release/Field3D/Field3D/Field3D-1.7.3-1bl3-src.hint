@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libboost-devel libhdf5-devel libopenexr-devel zlib-devel
+sdesc: "Library for storing voxel data on disk and in memory (utilities)"
+ldesc: "Field3D is an open source library for storing voxel data. It provides C++
+classes that handle in-memory storage and a file format based on HDF5 that
+allows the C++ objects to be written to and read from disk."
+skip:
+
+homepage: https://github.com/imageworks/Field3D
+license: BSD-3-Clause

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ library to run a child process with standard C++ streams (runtime)"
+ldesc: "libexecstream is a C++ library that allows you to run a child process and have
+its input, output and error available as standard C++ streams."
+external-source: libexecstream
+

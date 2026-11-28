@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Reviving cmockery unit test framework from Google (licensing & readmes)"
+ldesc: "Reviving cmockery unit test framework from Google"
+skip:
+
+homepage: https://github.com/lpabon/cmockery2
+license: Apache-2.0

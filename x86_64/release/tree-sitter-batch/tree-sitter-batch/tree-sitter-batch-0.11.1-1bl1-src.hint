@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Windows Batch/CMD grammar for tree-sitter (licensing & readmes)"
+ldesc: "Windows Batch/CMD grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/wharflab/tree-sitter-batch
+license: MIT

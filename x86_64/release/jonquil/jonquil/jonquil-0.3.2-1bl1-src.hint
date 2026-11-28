@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran libtest-drive-devel libtoml-f-devel
+sdesc: "Bringing TOML blooms to JSON land (licensing & readmes)"
+ldesc: "Bringing TOML blooms to JSON land"
+skip:
+
+homepage: https://github.com/toml-f/jonquil
+license: Apache-2.0 OR MIT

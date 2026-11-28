@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libstdc++6
+sdesc: "C/C++ library to scrobble your played tracks on last.fm (runtime)"
+ldesc: "C/C++ library to scrobble your played tracks on last.fm"
+external-source: lastfmlib
+

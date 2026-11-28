@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libglib2.0_0 libintl8 libtranslate0
+sdesc: "Natural language translation library (utilities)"
+ldesc: "Libtranslate is a library for translating text and web pages
+between natural languages. Its modular infrastructure allows to implement new
+translation services separately from the core library."
+

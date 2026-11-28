@@ -1,0 +1,6 @@
+category: Libs
+requires: libesm0 pkg-config
+sdesc: "C library for efficient string matching with Aho-Corasick (development)"
+ldesc: "C library for efficient string matching with Aho-Corasick"
+external-source: libesm
+

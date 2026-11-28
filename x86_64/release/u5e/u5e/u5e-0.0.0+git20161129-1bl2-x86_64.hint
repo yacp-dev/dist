@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Unicode Text C++ library (licensing & readmes)"
+ldesc: "Unicode Text C++ library"
+

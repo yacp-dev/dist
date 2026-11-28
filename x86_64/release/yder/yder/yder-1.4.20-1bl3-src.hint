@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport check liborcania-devel libsubunit-devel
+sdesc: "Logging library for C applications (licensing & readmes)"
+ldesc: "Simple and easy to use logging library. You can log messages to the console, a
+file, syslog or journald."
+skip:
+
+homepage: https://github.com/babelouest/yder
+license: LGPL-2.1-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: libblurhash0.2 pkg-config
+sdesc: "Simple encoder and decoder for blurhashes (development)"
+ldesc: "Simple encoder and decoder for blurhashes"
+external-source: blurhash
+

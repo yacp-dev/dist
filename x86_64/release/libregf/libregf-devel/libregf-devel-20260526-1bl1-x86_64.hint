@@ -1,0 +1,6 @@
+category: Libs
+requires: libregf1 pkg-config
+sdesc: "Library and tools to access the Windows NT Registry File (REGF) format (development)"
+ldesc: "libregf is a library to access the Windows NT Registry File (REGF) format."
+external-source: libregf
+

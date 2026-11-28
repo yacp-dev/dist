@@ -1,0 +1,5 @@
+category: Libs
+requires: libfmt-devel libre2-devel pkg-config
+sdesc: "C++ library for generating LALR(1) parsers"
+ldesc: "Pog is C++17 library for generating LALR(1) parsers."
+

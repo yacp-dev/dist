@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libarchive-devel
+sdesc: "Fast and portable library offering functionality for doing package management in a Gentoo system (licensing & readmes)"
+ldesc: "LibPortage is a fast and portable library offering functionality for doing
+package management in a Gentoo system. This includes ebuilds, binpkgs and
+managing a portage-compatible configuration. The library will provide all the
+functions one may need to write a drop-in replacement for Portage in C."
+skip:
+
+homepage: https://github.com/larsuhartmann/libportage
+license: BSD-2-Clause

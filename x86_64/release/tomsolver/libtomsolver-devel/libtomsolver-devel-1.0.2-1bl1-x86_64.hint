@@ -1,0 +1,6 @@
+category: Libs
+requires: libtomsolver1 pkg-config
+sdesc: "Simplest, Well-tested, Non-linear equations solver library (development)"
+ldesc: "Simplest, Well-tested, Non-linear equations solver library"
+external-source: tomsolver
+

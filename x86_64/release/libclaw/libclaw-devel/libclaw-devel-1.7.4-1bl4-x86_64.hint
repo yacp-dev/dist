@@ -1,0 +1,7 @@
+category: Libs
+requires: bash libclaw1
+sdesc: "C++ Library of various utility functions (development)"
+ldesc: "Claw is a generalist library written in C++ and providing structures and
+algorithms, like containers, string algorithms, tweeners and more."
+external-source: libclaw
+

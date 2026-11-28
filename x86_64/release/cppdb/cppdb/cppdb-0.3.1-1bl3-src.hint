@@ -1,0 +1,10 @@
+category: Database
+build-depends: cygport libiodbc-devel libmariadb-devel libpq-devel libpq5 libsqlite3-devel
+sdesc: "SQL Connectivity Library (licensing & readmes)"
+ldesc: "CppDB is an SQL connectivity library that is designed to provide platform and
+Database independent connectivity API similarly to what JDBC, ODBC and other
+connectivity libraries do."
+skip:
+
+homepage: http://cppcms.com/sql/cppdb/
+license: BSL-1.0

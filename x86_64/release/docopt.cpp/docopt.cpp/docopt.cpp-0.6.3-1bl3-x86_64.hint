@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C++11 port of docopt (licensing & readmes)"
+ldesc: "docopt creates beautiful command-line interfaces"
+

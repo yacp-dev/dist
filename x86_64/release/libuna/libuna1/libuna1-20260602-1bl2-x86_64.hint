@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library to support Unicode and ASCII (byte string) conversions (runtime)"
+ldesc: "libuna is a library to support Unicode and ASCII (byte string) conversions."
+external-source: libuna
+

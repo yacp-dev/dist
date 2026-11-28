@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libavcodec63 libavfilter12 libavformat63 libavutil61 libgcc1 libjpeg8 libpng16 libstdc++6
+sdesc: "Lightweight video thumbnailer (runtime)"
+ldesc: "FFmpegthumbnailer is a lightweight video thumbnailer that can be used by file
+managers to create thumbnails for your video files. The thumbnailer uses
+ffmpeg to decode frames from the video files, so supported videoformats depend
+on the configuration flags of ffmpeg."
+external-source: ffmpegthumbnailer
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libcineon0 pkg-config
+sdesc: "Cineon image format reader/writer library (development)"
+ldesc: "Cineon image format reader/writer library written in portable C++."
+external-source: libcineon
+

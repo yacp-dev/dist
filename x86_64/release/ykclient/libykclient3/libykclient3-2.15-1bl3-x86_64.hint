@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcurl4
+sdesc: "Yubico C client library (runtime)"
+ldesc: "YubiKey C Client Library (libykclient) is a C library used to validate an
+Yubikey OTP against Yubico’s servers. "
+external-source: ykclient
+

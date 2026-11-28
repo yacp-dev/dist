@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport libcurl-devel libjansson-devel
+sdesc: "AEON CPU miner"
+ldesc: "XMRig is high performance AEON CPU miner, with the official full Windows
+support. Based on cpuminer-multi with heavy optimizations/rewrites and
+removing a lot of legacy code."
+skip:
+
+homepage: https://github.com/xmrig/xmrig-aeon
+license: GPL-3.0-or-later

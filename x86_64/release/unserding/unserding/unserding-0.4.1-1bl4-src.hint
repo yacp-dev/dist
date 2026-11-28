@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gengetopt libev-devel
+sdesc: "Framework for ad-hoc networks for financial applications (utilities)"
+ldesc: "Unserding is a simple pub-sub messaging library, much like 0mq or nanomsg,
+without all the transports they support and without the reliability promise,
+made for heavy-duty realtime delivery of time series."
+skip:
+
+homepage: https://github.com/hroptatyr/unserding
+license: BSD-3-Clause

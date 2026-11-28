@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libcurl-devel libxml2-devel
+sdesc: "MPEG-DASH Access Library (licensing & readmes)"
+ldesc: "libdash is the official reference software of the ISO/IEC MPEG-DASH standard
+and is an open-source library that provides an object orient (OO) interface to
+the MPEG-DASH standard, developed by bitmovin."
+skip:
+
+homepage: https://github.com/bitmovin/libdash
+license: LGPL-2.1-or-later

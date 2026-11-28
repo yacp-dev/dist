@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libiconv-devel
+sdesc: "C/C++ multi-platform library for dynamically generating Excel(TM) files (licensing & readmes)"
+ldesc: "xlsLib is a multiplatform, a C/C++ library for dynamically generating
+Excel(TM) files (*.xls format). It allows the generation of these files
+directly without the need of other assistive software."
+skip:
+
+homepage: https://sourceforge.net/projects/xlslib/
+license: BSD-2-Clause

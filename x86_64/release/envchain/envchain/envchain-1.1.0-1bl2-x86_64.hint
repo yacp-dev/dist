@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libglib2.0_0 libreadline8 libsecret1_0
+sdesc: "Environment variables meet macOS Keychain and gnome-keyring <3"
+ldesc: "Secrets for common computing environments, such as AWS_SECRET_ACCESS_KEY, are
+set with environment variables."
+

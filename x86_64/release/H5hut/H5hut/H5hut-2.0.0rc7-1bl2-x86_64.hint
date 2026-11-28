@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "HDF5 Utility Toolkit (licensing & readmes)"
+ldesc: "High-Performance I/O Library for Particle-based Simulations"
+

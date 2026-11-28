@@ -1,0 +1,7 @@
+category: Libs
+requires: libfsntfs1 pkg-config
+sdesc: "Library and tools to access the Windows New Technology File System (NTFS) (development)"
+ldesc: "libfsntfs is a library to access the Windows New Technology File System (NTFS)
+format."
+external-source: libfsntfs
+

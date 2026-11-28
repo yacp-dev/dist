@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Zyan Core Library for C (runtime)"
+ldesc: "Internal library providing platform independent types, macros and a fallback
+for environments without LibC."
+external-source: zycore-c
+

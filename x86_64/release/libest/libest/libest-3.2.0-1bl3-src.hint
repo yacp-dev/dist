@@ -1,0 +1,11 @@
+category: Security
+build-depends: cygport libjsmn-devel libssl-devel
+sdesc: "Library that implements RFC 7030 (Enrollment over Secure Transport) (utilities)"
+ldesc: "This project is a library that implements RFC 7030 (Enrollment over Secure
+Transport). EST is used to provision certificates from a CA or RA. EST is a
+replacement for SCEP, providing several security enhancements and support for
+ECC certificates."
+skip:
+
+homepage: https://github.com/cisco/libest
+license: BSD-3-Clause AND BSD-4-Clause AND MIT AND ISC

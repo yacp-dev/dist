@@ -1,0 +1,7 @@
+category: Libs
+requires: libhsts0 pkg-config
+sdesc: "C library to access the HSTS preload list (development)"
+ldesc: "The HSTS preload list is a list of domains that support HTTPS.
+The list is compiled by Google and is utilised by Chrome, Firefox and others."
+external-source: libhsts
+

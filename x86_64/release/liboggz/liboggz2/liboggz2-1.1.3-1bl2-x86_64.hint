@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libogg0
+sdesc: "C library for reading and writing Ogg files and streams (runtime)"
+ldesc: "C library for reading and writing Ogg files and streams"
+external-source: liboggz
+

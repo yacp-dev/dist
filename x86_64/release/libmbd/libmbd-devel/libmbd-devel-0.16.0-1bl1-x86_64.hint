@@ -1,0 +1,7 @@
+category: Libs
+requires: libmbd0 pkg-config
+sdesc: "Many-body dispersion library (development)"
+ldesc: "Libmbd implements the many-body dispersion (MBD) method in several programming
+languages and frameworks."
+external-source: libmbd
+

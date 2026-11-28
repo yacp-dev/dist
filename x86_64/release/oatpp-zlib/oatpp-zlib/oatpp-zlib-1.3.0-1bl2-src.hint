@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liboatpp-devel zlib-devel
+sdesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip (licensing & readmes)"
+ldesc: "Module oatpp-zlib provides functionality for compressing/decompressing content with deflate and gzip"
+skip:
+
+homepage: https://github.com/oatpp/oatpp-zlib
+license: Apache-2.0

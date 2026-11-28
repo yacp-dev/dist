@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C library for efficient string matching with Aho-Corasick (licensing & readmes)"
+ldesc: "C library for efficient string matching with Aho-Corasick"
+skip:
+
+homepage: https://github.com/wharris/libesm
+license: LGPL-2.1-or-later

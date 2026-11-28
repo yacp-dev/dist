@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "SQLite adapter for oatpp ORM (licensing & readmes)"
+ldesc: "SQLite adapter for oatpp ORM"
+

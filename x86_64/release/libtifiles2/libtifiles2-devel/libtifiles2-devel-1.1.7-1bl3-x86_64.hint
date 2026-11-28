@@ -1,0 +1,7 @@
+category: Libs
+requires: libarchive-devel libglib2.0-devel libticonv-devel libtifiles2_10 pkg-config
+sdesc: "Library for TI calculator files (development)"
+ldesc: "The tifiles library is a library which handles the various TI file formats
+through a set of functions which constitutes a common API."
+external-source: libtifiles2
+

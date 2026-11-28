@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library for Object Linking and Embedding (OLE) data types (runtime)"
+ldesc: "libfole is a library for Object Linking and Embedding (OLE) data types."
+external-source: libfole
+

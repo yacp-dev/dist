@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Lightweight C/C++ library for the E1.31 (sACN) protocol (licensing & readmes)"
+ldesc: "This is a lightweight C/C++ library that provides a simple API for packet,
+client and server programming to be used for communicating with devices
+implementing the E1.31 (sACN) protocol."
+

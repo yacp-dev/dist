@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin
+sdesc: "Generic Security Services Application Programming Interface Library (runtime)"
+ldesc: "Libgssglue provides a GSS-API library, but does not implement any
+mechanisms itself; instead it calls routines in other libraries,
+depending on the mechanism and system configuration."
+external-source: libgssglue
+

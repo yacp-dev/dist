@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran
+sdesc: "C library to access the binary planetary ephemeris files (utilities)"
+ldesc: "This library is designed to access the binary planetary ephemeris files, such
+INPOPxx, JPL DExxx and SPICE ephemeris files."
+skip:
+
+homepage: https://calceph.imcce.fr/
+license: CECILL-2.1 OR CECILL-B OR CECILL-C

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Simplified perturbations models (runtime)"
+ldesc: "Simplified perturbations models"
+external-source: sgp4
+

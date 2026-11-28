@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libfguid1 libfwps1 libuna1 python312
+sdesc: "Library for Windows Property Store data types (python312 bindings)"
+ldesc: "libfwps is a library for Windows Property Store data types."
+external-source: libfwps
+

@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin
+sdesc: "Backup program for disk arrays"
+ldesc: "SnapRAID is a backup program for disk arrays."
+

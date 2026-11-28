@@ -1,0 +1,8 @@
+category: Libs
+requires: 
+sdesc: "ZiLOG Z80 CPU emulation library (licensing & readmes)"
+ldesc: "Z80~Ex is the portable ZiLOG Z80 CPU emulator designed as a library. Goals
+include : precise opcode emulation (documented & undocumented), exact timings
+for each opcode (including I/O operations), multiple CPU contexts.
+disassembler is also included."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgdither1
+sdesc: "Library for handling uncompressed audio and video data (runtime)"
+ldesc: "Library for handling uncompressed audio and video data"
+external-source: gavl
+

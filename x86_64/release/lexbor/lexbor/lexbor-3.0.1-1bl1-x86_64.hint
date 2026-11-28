@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "HTML Renderer library (licensing & readmes)"
+ldesc: "The lexbor project is being developed using the C language, without
+dependencies."
+

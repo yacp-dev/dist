@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport autoconf-archive libfolia libfolia-devel libicu-devel libxml2-devel libticcutils-devel
+sdesc: "Test suite for libfolia"
+ldesc: "This package provides series of tests for libfolia."
+skip:
+
+homepage: https://github.com/LanguageMachines/foliatest
+license: GPL-3.0-or-later

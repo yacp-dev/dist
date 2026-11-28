@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Cooperative gamma library (licensing & readmes)"
+ldesc: "Cooperative gamma library"
+skip:
+
+homepage: https://codeberg.org/maandree/libcoopgamma
+license: ISC

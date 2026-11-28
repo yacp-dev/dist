@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libhidapi0 libusb1.0
+sdesc: "Library for communication with various dive computers (runtime)"
+ldesc: "Libdivecomputer is a cross-platform and open source library for communication
+with dive computers from various manufacturers."
+external-source: libdivecomputer
+

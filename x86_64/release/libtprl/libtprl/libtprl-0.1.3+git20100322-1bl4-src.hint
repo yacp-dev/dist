@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libncurses-devel libreadline-devel
+sdesc: "C++ Readline wrapper (licensing & readmes)"
+ldesc: "This is a Readline library in C++."
+skip:
+
+homepage: https://github.com/thousandparsec/libtprl
+license: GPL-2.0-or-later

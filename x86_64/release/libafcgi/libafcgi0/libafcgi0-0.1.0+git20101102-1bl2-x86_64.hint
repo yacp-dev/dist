@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libev4 libglib2.0_0
+sdesc: "Libev based asynchronous FastCGI library (runtime)"
+ldesc: "Libev based asynchronous FastCGI library"
+external-source: libafcgi
+

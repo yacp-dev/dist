@@ -1,0 +1,9 @@
+category: Devel
+requires: cygwin libarchive13 libcurl4 libgcc1 libintl8 libpcre1 libstdc++6
+sdesc: "Alpm .files metadata explorer"
+ldesc: "pkgfile searches the .files metadata created by repo-add(8) to retrieve file
+information about packages. By default, the provided target is considered to
+be a filename and pkgfile will return the package(s) which contain this file.
+The repos which pkgfile searches is determined by those enabled in
+/etc/pacman.conf."
+

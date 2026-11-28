@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libncursesw10
+sdesc: "Giant text-mode clock"
+ldesc: "vtclock is a text-terminal program that displays a large digital clock."
+

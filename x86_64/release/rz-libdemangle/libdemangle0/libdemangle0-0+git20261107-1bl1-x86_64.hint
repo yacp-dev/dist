@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Rizin Library to demangle symbols (runtime)"
+ldesc: "This library contains all rizin demanglers and is linked to provide demangling
+support in rizin"
+external-source: rz-libdemangle
+

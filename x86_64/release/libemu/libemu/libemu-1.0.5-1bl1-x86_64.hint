@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libemu2
+sdesc: "X86 emulation and shellcode detection (utilities)"
+ldesc: "X86 emulation and shellcode detection"
+

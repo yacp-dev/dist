@@ -1,0 +1,12 @@
+category: Games
+build-depends: cygport libAtlas0.6-devel
+sdesc: "WorldForge client math libraries (licensing & readmes)"
+ldesc: "WFMath provides mathematical functions for WorldForge clients.  The primary
+focus of WFMath is geometric objects. Thus, it includes several shapes (boxes,
+balls, lines), in addition to the basic math objects that are used to build
+these shapes (points, vectors, matrices). WFMath provides a means for other
+system compenents to pass geometric information around in a common format."
+skip:
+
+homepage: https://github.com/worldforge/wfmath
+license: GPL-2.0-or-later AND BSD-3-Clause

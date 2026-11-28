@@ -1,0 +1,6 @@
+category: Text
+requires: cygwin libconfig15 libncursesw10 libxml2_2
+sdesc: "Man-page inspired Markdown pager"
+ldesc: "Need to lookup things from README? Or from manual page? Or perhaps just want
+to install something cool..."
+

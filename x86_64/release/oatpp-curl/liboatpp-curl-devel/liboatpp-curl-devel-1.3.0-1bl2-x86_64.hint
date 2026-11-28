@@ -1,0 +1,6 @@
+category: Libs
+requires: liboatpp-curl1
+sdesc: "RequestExecutor for oatpp's ApiClient based on libcurl (development)"
+ldesc: "RequestExecutor for oatpp's ApiClient based on libcurl"
+external-source: oatpp-curl
+

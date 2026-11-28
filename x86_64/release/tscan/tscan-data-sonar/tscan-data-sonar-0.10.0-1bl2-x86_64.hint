@@ -1,0 +1,10 @@
+category: Text
+requires: 
+sdesc: "Analysis tool for dutch texts (SoNaR data)"
+ldesc: "T-Scan is an analysis tool for dutch texts to assess the complexity of the
+text, and is based on original work by Rogier Kraf (Utrecht University) (see:
+Kraf et al., 2009). The code has been reimplemented and extended by Ko van der
+Sloot (Tilburg University), and is currently maintained and continued by
+Martijn van der Klis (Utrecht University)."
+external-source: tscan
+

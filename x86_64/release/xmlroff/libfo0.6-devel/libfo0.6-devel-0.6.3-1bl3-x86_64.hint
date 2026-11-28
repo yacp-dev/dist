@@ -1,0 +1,8 @@
+category: Libs
+requires: libfo0.6_0 libgdk_pixbuf2.0-devel libglib2.0-devel libxml2-devel pkg-config
+sdesc: "XSL-FO processor (development)"
+ldesc: "xmlroff is a fast, free, high-quality, multi-platform XSL formatter that aims
+to excel at DocBook formatting and that integrates easily with other programs
+and with scripting languages."
+external-source: xmlroff
+

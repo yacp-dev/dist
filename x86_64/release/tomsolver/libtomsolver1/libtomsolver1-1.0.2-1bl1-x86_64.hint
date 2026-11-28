@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Simplest, Well-tested, Non-linear equations solver library (runtime)"
+ldesc: "Simplest, Well-tested, Non-linear equations solver library"
+external-source: tomsolver
+

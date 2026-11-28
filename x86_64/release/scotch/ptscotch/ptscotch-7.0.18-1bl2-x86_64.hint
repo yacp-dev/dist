@@ -1,0 +1,9 @@
+category: Science
+requires: cygwin libopenmpi40 libptscotch7.0 libscotch7.0
+sdesc: "Graph partitioning and sparse matrix ordering library (MPI utilities)"
+ldesc: "Scotch is a software package for graph and mesh/hypergraph
+partitioning, graph clustering, static mapping and sparse matrix ordering.
+PT-Scotch is its parallel, MPI-based version, and libptscotchparmetis provides
+a ParMETIS-compatible interface on top of it."
+external-source: scotch
+

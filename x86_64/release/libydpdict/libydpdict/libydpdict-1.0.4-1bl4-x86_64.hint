@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for handling the Collins Dictionary database (licensing & readmes)"
+ldesc: "Library for handling the Collins Dictionary database"
+

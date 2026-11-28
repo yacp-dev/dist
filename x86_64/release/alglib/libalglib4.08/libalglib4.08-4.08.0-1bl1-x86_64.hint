@@ -1,0 +1,8 @@
+category: Science
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Numerical analysis and data processing library (runtime)"
+ldesc: "ALGLIB is a cross-platform numerical analysis and data processing library. It
+supports several programming languages (C++, C#, Pascal, VBA) and several
+operating systems (Windows, Linux, Solaris)."
+external-source: alglib
+

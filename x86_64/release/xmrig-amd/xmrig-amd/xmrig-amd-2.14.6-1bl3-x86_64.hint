@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libiconv2 libintl8 libmicrohttpd12 libssl3 libuv1
+sdesc: "Monero AMD (OpenCL) miner"
+ldesc: "XMRig is high performance Monero (XMR) OpenCL miner, with the official full
+Windows support."
+

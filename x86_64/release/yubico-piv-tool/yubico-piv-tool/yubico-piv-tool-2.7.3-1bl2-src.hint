@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport check gengetopt help2man libpcsclite-devel libssl-devel zlib-devel
+sdesc: "Command line tool for the YubiKey PIV application (utilities)"
+ldesc: "The Yubico PIV tool is used for interacting with the Privilege and
+Identification Card (PIV) application on a YubiKey."
+skip:
+
+homepage: https://github.com/Yubico/yubico-piv-tool
+license: BSD-2-Clause

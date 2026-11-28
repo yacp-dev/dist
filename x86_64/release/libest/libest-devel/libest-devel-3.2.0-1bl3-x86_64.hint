@@ -1,0 +1,9 @@
+category: Security
+requires: libest3.2.0p pkg-config
+sdesc: "Library that implements RFC 7030 (Enrollment over Secure Transport) (development)"
+ldesc: "This project is a library that implements RFC 7030 (Enrollment over Secure
+Transport). EST is used to provision certificates from a CA or RA. EST is a
+replacement for SCEP, providing several security enhancements and support for
+ECC certificates."
+external-source: libest
+

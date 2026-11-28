@@ -1,0 +1,6 @@
+category: Games
+requires: cygwin libSDL2_2.0_0 libSDL2_image2.0_0 libSDL2_mixer2.0_0 libSDL2_ttf2.0_0 libstdc++6
+sdesc: "Free/Libre Action Roleplaying Engine"
+ldesc: "Flare is an open source, 2D action RPG licensed under the GPL3 license. Its
+game play can be likened to the games in the Diablo series."
+

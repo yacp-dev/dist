@@ -1,0 +1,10 @@
+category: Games
+requires: libwfmath1.0_1 pkg-config
+sdesc: "WorldForge client math libraries (development)"
+ldesc: "WFMath provides mathematical functions for WorldForge clients.  The primary
+focus of WFMath is geometric objects. Thus, it includes several shapes (boxes,
+balls, lines), in addition to the basic math objects that are used to build
+these shapes (points, vectors, matrices). WFMath provides a means for other
+system compenents to pass geometric information around in a common format."
+external-source: wfmath
+

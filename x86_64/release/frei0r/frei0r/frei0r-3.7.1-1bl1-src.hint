@@ -1,0 +1,10 @@
+category: Video
+build-depends: cygport libcairo-devel libgavl-devel libopencv-devel
+sdesc: "Large collection of free and portable video plugins"
+ldesc: "The frei0r project is a collection of free and open source video effects
+plugins that can be used with a variety of video editing and processing
+software."
+skip:
+
+homepage: https://github.com/dyne/frei0r
+license: GPL-2.0-or-later

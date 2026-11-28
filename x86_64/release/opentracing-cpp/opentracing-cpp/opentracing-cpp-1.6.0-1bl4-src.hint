@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "OpenTracing API for C++ (licensing & readmes)"
+ldesc: "C++ implementation of the OpenTracing API"
+skip:
+
+homepage: https://github.com/opentracing/opentracing-cpp
+license: Apache-2.0 AND BSD-3-Clause AND MIT

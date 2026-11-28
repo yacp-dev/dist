@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-css15.0 pkg-config
+sdesc: "CSS grammar for Tree-sitter (development)"
+ldesc: "CSS grammar for Tree-sitter"
+external-source: tree-sitter-css
+

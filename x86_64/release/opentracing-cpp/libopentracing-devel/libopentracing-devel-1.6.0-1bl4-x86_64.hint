@@ -1,0 +1,6 @@
+category: Libs
+requires: libopentracing1
+sdesc: "OpenTracing API for C++ (development)"
+ldesc: "C++ implementation of the OpenTracing API"
+external-source: opentracing-cpp
+

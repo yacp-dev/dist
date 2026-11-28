@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport dbus doxygen libaccounts-glib-devel libglib2.0-devel libQt5Core-devel
+sdesc: "Client library to the accounts database, with a Qt-based API (utilities)"
+ldesc: "This project is a library for managing accounts which can be used from Qt
+applications. It is part of the @accounts-sso project."
+skip:
+
+homepage: https://gitlab.com/accounts-sso/libaccounts-qt
+license: LGPL-2.1-or-later

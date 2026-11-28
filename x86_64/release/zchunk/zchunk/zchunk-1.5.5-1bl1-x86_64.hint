@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libargp libcurl4 libzck1 python3
+sdesc: "File format designed for highly efficient deltas while maintaining good compression (utilities)"
+ldesc: "zchunk is a compressed file format that splits the file into independent
+chunks. This allows you to only download changed chunks when downloading a new
+version of the file, and also makes zchunk files efficient over rsync."
+

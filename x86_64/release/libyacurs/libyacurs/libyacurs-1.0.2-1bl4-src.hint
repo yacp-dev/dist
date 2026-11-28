@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel libintl-devel libncurses-devel util-linux
+sdesc: "Curses abstraction used by YAPET (licensing & readmes)"
+ldesc: "libyacurs is a curses widget library for fast development of curses
+applications."
+skip:
+
+homepage: https://github.com/RafaelOstertag/libyacurs
+license: GPL-3.0-or-later

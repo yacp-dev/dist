@@ -1,0 +1,8 @@
+category: Libs
+requires: libbip39_1 pkg-config
+sdesc: "Portable C++ implementation of BIP39 (development)"
+ldesc: "This is a portable C++ implementation of BIP39. The goal of this project is to
+provide a BIP39 implementation with minimal dependencies and to be compatiable
+with the most number of platforms, including Arduino."
+external-source: bip39
+

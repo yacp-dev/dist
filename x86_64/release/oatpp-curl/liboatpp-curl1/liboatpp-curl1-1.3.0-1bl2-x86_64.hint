@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 liboatpp1 libstdc++6
+sdesc: "RequestExecutor for oatpp's ApiClient based on libcurl (runtime)"
+ldesc: "RequestExecutor for oatpp's ApiClient based on libcurl"
+external-source: oatpp-curl
+

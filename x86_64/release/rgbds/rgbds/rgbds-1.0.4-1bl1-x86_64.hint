@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libpng16 libstdc++6
+sdesc: "Rednex GameBoy Development System"
+ldesc: "RGBDS (Rednex Game Boy Development System) is a free assembler/linker package
+for the Game Boy and Game Boy Color."
+

@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libproc2-devel
+sdesc: "Simple fetch made in C++"
+ldesc: "Simple fetch made in C++"
+skip:
+
+homepage: https://github.com/CallMeEchoCodes/fetcho
+license: MPL-2.0

@@ -1,0 +1,13 @@
+category: Devel
+build-depends: cygport z80asm
+sdesc: "Z80 Disassembler"
+ldesc: "z80dasm is a disassembler for the Zilog Z80 microprocessor and compatibles. It
+can be used to reverse engineer programs and operating systems for 1980's
+microcomputers using this processor architecture (for example ZX81, Spectrum,
+Galaksija and many others).  Generated assembly code can be assembled back
+with a number of Z80 assemblers. Compatibility with z80asm was thoroughly
+tested."
+skip:
+
+homepage: https://www.tablix.org/~avian/blog/articles/z80dasm/
+license: GPL-2.0-or-later

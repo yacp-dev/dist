@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gettext-devel girepository-x11 gobject-introspection libgee0.8-devel libglib2.0-devel libintl-devel libxml2-devel vala
+sdesc: "GObject-based XML DOM API (licensing & readmes)"
+ldesc: "GXml provides a GObject API for manipulating XML and a Serializable framework
+from GObject to XML."
+skip:
+
+homepage: https://gitlab.gnome.org/GNOME/gxml
+license: LGPL-2.1-or-later

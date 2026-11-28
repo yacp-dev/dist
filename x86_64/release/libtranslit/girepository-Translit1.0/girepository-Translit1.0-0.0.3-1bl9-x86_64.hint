@@ -1,0 +1,6 @@
+category: Text
+requires: girepository-GLib2.0 libglib2.0-devel libtranslit0
+sdesc: "Transliteration library with multiple backends (GObject Introspection data)"
+ldesc: "Transliteration library with multiple backends"
+external-source: libtranslit
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: libeasyfc-devel libeasyfc-gobject0 libglib2.0-devel pkg-config
+sdesc: "Easy configuration generator interface for fontconfig (development / GObject)"
+ldesc: "libeasyfc is an interface library to generate fontconfig configuration for
+user preferences. this supports to assign your preferrable fonts to the alias
+fonts, such as sans-serif, serif and monospace per languages."
+external-source: libeasyfc
+

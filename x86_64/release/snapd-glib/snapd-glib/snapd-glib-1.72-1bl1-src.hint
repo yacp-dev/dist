@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gobject-introspection libQt5Core-devel libQt5Quick-devel libglib2.0-devel libjson-glib1.0-devel libsoup2.4-devel vala
+sdesc: "Glib library for communicating with snapd (licensing & readmes)"
+ldesc: "snapd-glib is a library to allow GLib based applications access to snapd, the
+daemon that controls Snaps."
+skip:
+
+homepage: https://github.com/canonical/snapd-glib
+license: LGPL-2.0-only OR LGPL-3.0-only

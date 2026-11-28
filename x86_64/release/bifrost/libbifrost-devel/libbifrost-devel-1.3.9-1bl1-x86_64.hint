@@ -1,0 +1,6 @@
+category: Libs
+requires: libbifrost1 pkg-config
+sdesc: "Highly parallel construction and indexing of colored and compacted de Bruijn graphs (development)"
+ldesc: "Highly parallel construction and indexing of colored and compacted de Bruijn graphs"
+external-source: bifrost
+

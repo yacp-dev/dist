@@ -1,0 +1,8 @@
+category: Libs
+requires: libaegis0 pkg-config
+sdesc: "Portable C implementations of the AEGIS family (development)"
+ldesc: "Portable C implementations of the AEGIS family of high-performance
+authenticated ciphers (AEGIS-128L, AEGIS-128X2, AEGIS-128X4, AEGIS-256,
+AEGIS-256X2, AEGIS-256X4), with runtime CPU detection."
+external-source: libaegis
+

@@ -1,0 +1,5 @@
+category: Text
+requires: 
+sdesc: "Transliteration library with multiple backends (licensing & readmes)"
+ldesc: "Transliteration library with multiple backends"
+

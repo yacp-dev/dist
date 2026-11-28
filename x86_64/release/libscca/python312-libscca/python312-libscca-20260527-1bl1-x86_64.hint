@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libscca1 libuna1 python312
+sdesc: "Library and tools to access the Windows Prefetch File (SCCA) format (python312 bindings)"
+ldesc: "libscca is a library to access the Windows Prefetch File (SCCA) format."
+external-source: libscca
+

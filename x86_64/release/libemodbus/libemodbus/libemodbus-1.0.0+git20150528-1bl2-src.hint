@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport CUnit libccontainer-devel
+sdesc: "Embedded modbus parsing library (utilities)"
+ldesc: "This library depends on libemodbus (uses ring buffer implementation).
+Emodbus is capable of modbus datastructures parsing. Once the structure is
+parsed and confirmed to be valid, the library calls your callback, passing
+parsed version of request or response."
+skip:
+
+homepage: https://github.com/snegovick/libemodbus
+license: GPL-3.0-or-later

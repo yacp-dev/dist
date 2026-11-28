@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liboatpp1 libpq5 libstdc++6
+sdesc: "PostgreSQL adapter for oatpp ORM (runtime)"
+ldesc: "PostgreSQL adapter for oatpp ORM"
+external-source: oatpp-postgresql
+

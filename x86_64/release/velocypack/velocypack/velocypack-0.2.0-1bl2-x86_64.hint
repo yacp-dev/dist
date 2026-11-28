@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libvelocypack0
+sdesc: "Fast and compact format for serialization and storage (utilities)"
+ldesc: "VelocyPack (VPack) - a fast and compact format for serialization and storage."
+

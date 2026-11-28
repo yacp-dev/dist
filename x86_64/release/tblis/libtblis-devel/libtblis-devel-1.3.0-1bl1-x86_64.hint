@@ -1,0 +1,7 @@
+category: Libs
+requires: libhwloc-devel libtblis0 libtci-devel pkg-config
+sdesc: "Library and framework for performing tensor operations (development)"
+ldesc: "TBLIS is a library and framework for performing tensor operations,
+especially tensor contraction, using efficient native algorithms."
+external-source: tblis
+

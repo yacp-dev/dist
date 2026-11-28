@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libserd0_0
+sdesc: "Lightweight C library for reading and writing RDF (utilities)"
+ldesc: "Serd is a lightweight C library for working with RDF data."
+

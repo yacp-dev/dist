@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "SQL / SQLI tokenizer parser analyzer (licensing & readmes)"
+ldesc: "SQL / SQLI tokenizer parser analyzer"
+

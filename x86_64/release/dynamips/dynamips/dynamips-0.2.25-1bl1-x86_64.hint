@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libelf0
+sdesc: "Cisco 7200/3600/3725/3745/2600/1700 Router Emulator"
+ldesc: "Cisco 7200/3600/3725/3745/2600/1700 Router Emulator"
+

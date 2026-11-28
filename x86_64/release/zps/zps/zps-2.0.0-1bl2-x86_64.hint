@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin
+sdesc: "Small utility for listing and reaping zombie processes"
+ldesc: "Small utility for listing and reaping zombie processes"
+

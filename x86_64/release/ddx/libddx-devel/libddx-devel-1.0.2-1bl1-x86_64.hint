@@ -1,0 +1,6 @@
+category: Libs
+requires: libddx1 liblapack-devel pkg-config
+sdesc: "Domain decomposition continuum solvation library (development)"
+ldesc: "Domain decomposition continuum solvation library"
+external-source: ddx
+

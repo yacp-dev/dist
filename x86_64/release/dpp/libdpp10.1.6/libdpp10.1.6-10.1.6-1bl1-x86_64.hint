@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libintl8 libopus0 libssl3 libstdc++6 zlib0
+sdesc: "C++ Discord API Bot Library (runtime)"
+ldesc: "D++ is a lightweight and efficient library for Discord written in modern C++,
+covering as much of the API specification as possible with an incredibly small
+memory footprint even when caching large amounts of data."
+external-source: dpp
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libglib2.0-devel libhandoff0 pkg-config
+sdesc: "Facilitate limiting a program to a single instance per user (development)"
+ldesc: "Facilitate limiting a program to a single instance per user"
+external-source: libhandoff
+

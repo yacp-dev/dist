@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libctl7 libgcc1 libguile3.0_1 libmeep39 libstdc++6
+sdesc: "Simulation software to model electromagnetic systems (utilities)"
+ldesc: "Meep (or MEEP) is a free finite-difference time-domain (FDTD) simulation
+software package developed at MIT to model electromagnetic systems."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libconsole_bridge1.0 pkg-config
+sdesc: "ROS-independent package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages (development)"
+ldesc: "A ROS-independent package for logging that seamlessly pipes into
+rosconsole/rosout for ROS-dependent packages"
+external-source: console_bridge
+

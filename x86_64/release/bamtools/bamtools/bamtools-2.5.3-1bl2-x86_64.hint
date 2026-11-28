@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbamtools2.5.3 libgcc1 libjsoncpp27 libstdc++6
+sdesc: "C++ API & command-line toolkit for working with BAM data (utilities)"
+ldesc: "BamTools provides both a programmer's API and an end-user's toolkit for
+handling BAM files."
+

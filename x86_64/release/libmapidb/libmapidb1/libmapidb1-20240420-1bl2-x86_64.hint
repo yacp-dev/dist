@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1
+sdesc: "Library to access the Exchange MAPI database format (runtime)"
+ldesc: "libmapidb is a library access the Exchange MAPI database format."
+external-source: libmapidb
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library for handling the Collins Dictionary database (licensing & readmes)"
+ldesc: "Library for handling the Collins Dictionary database"
+skip:
+
+homepage: https://github.com/wojtekka/libydpdict/
+license: LGPL-2.1-or-later

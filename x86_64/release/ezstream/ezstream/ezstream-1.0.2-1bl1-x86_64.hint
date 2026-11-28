@@ -1,0 +1,7 @@
+category: Audio
+requires: bash cygwin libiconv2 libshout3 libtag_c2 libxml2_2
+sdesc: "Command line source client for Icecast media streaming servers"
+ldesc: "Ezstream is a command line source client for Icecast media streaming servers.
+It began as the successor of the old shout utility, and has since gained a
+lot of useful features."
+

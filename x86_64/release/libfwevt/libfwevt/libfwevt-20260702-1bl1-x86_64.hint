@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for Windows XML Event Log (EVTX) data types (licensing & readmes)"
+ldesc: "libfwevt is a library for Windows XML Event Log (EVTX) data types."
+

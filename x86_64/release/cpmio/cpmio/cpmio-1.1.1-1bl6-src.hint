@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libncurses-devel libreadline-devel
+sdesc: "Library intended to support the console access functions of an emulated CP/M computer (licensing & readmes)"
+ldesc: "CPMIO is a library intended to support the console access functions of an
+emulated CP/M computer, on a Unix box."
+skip:
+
+homepage: https://www.seasip.info/Unix/Zxcc/
+license: LGPL-2.0-or-later

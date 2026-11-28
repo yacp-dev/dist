@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ high-level yet efficent multithreading library (runtime)"
+ldesc: "Wefts++ is an high-level abstraction C++ threading library, which has also
+seamless integration with low level constructs when raw speed is needed."
+external-source: libwefts
+

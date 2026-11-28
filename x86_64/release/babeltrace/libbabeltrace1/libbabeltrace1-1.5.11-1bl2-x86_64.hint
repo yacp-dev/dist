@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libglib2.0_0 libuuid1
+sdesc: "Trace Viewer and Converter, mainly for the Common Trace Format (runtime)"
+ldesc: "This project provides trace read and write libraries, as well as a trace
+converter. A plugin can be created for any trace format to allow its conversion
+to/from another trace format."
+external-source: babeltrace
+

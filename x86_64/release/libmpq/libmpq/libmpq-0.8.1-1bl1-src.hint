@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libbz2-devel liblzma-devel zlib-devel
+sdesc: "Library for reading MPQ files (licensing & readmes)"
+ldesc: "libmpq is a library which can be easily used in own applications to extract,
+create or manipulate MoPaQ mpq archives."
+skip:
+
+homepage: https://github.com/mbroemme/libmpq
+license: LGPL-2.1-or-later

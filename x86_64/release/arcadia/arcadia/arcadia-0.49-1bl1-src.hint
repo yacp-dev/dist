@@ -1,0 +1,8 @@
+category: Interpreters
+build-depends: cygport libreadline-devel
+sdesc: "Implementation of the Arc programming language"
+ldesc: "Implementation of the Arc programming language"
+skip:
+
+homepage: https://github.com/kimtg/arcadia
+license: Apache-2.0

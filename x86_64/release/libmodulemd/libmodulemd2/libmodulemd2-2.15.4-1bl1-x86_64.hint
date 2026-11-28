@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libglib2.0_0 libyaml0_2 rpm
+sdesc: "C Library for manipulating module metadata files (runtime)"
+ldesc: "C Library for manipulating module metadata files"
+external-source: libmodulemd
+

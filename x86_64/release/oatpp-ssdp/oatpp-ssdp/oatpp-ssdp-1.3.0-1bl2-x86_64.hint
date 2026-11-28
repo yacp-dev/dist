@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Oat++ extension module to work with SSDP protocol (licensing & readmes)"
+ldesc: "Oat++ extension module to work with SSDP protocol"
+

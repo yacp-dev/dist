@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liboatpp-devel
+sdesc: "Oatpp-websocket submodule (licensing & readmes)"
+ldesc: "Oatpp-websocket submodule"
+skip:
+
+homepage: https://github.com/oatpp/oatpp-websocket
+license: Apache-2.0

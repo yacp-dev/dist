@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libprotobuf-devel python3
+sdesc: "Protocol Buffers with small code size (licensing & readmes)"
+ldesc: "Nanopb is a small code-size Protocol Buffers implementation in ansi C. It is
+especially suitable for use in microcontrollers, but fits any memory
+restricted system."
+skip:
+
+homepage: https://github.com/nanopb/nanopb
+license: Zlib

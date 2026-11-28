@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libhwloc-devel libtci-devel
+sdesc: "Library and framework for performing tensor operations (licensing & readmes)"
+ldesc: "TBLIS is a library and framework for performing tensor operations,
+especially tensor contraction, using efficient native algorithms."
+skip:
+
+homepage: https://github.com/MatthewsResearchGroup/tblis
+license: BSD-3-Clause AND BSD-2-Clause

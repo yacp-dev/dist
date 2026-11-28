@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin libfreetype6 libgcc1 libintl8 libQt5Core5 libQt5Gui5 libSDL2_2.0_0 libstdc++6 libX11_6 libXaw7 libXt6
+sdesc: "Open Source 3D Graphics Engine (runtime)"
+ldesc: "OGRE (Object-Oriented Graphics Rendering Engine) is a
+scene-oriented, flexible 3D engine written in C++ designed to make it easier
+and more intuitive for developers to produce games and demos utilising 3D
+hardware. The class library abstracts all the details of using the underlying
+system libraries like Direct3D and OpenGL and provides an interface based on
+world objects and other intuitive classes."
+external-source: ogre
+

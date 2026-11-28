@@ -1,0 +1,6 @@
+category: Libs
+requires: libscn4 pkg-config fast_float
+sdesc: "Scanf for modern C++ (development)"
+ldesc: "Scanf for modern C++"
+external-source: scnlib
+

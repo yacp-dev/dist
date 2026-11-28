@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport cppunit hdf5 libaec-devel libboost-devel libhdf5-devel zlib-devel
+sdesc: "Neuroscience information exchange format (licensing & readmes)"
+ldesc: "C++ library for storing scientific data in the NIX data model."
+skip:
+
+homepage: https://g-node.github.io/nix/
+license: BSD-3-Clause

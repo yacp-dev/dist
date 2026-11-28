@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Entity System library for C++ (licensing & readmes)"
+ldesc: "libes is a library for managing an entity system written in C++."
+

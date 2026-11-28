@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Minimalistic JSON parser in C (licensing & readmes)"
+ldesc: "jsmn is a minimalistic library for parsing JSON data format. It can be easily
+used in small projects or can be integrated into embedded systems."
+skip:
+
+homepage: https://github.com/zserge/jsmn
+license: MIT

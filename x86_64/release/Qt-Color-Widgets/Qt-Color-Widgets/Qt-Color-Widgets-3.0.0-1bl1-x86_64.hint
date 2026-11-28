@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Qt (C++) widgets to manage color inputs (licensing & readmes)"
+ldesc: "Here is a color dialog that is more user-friendly than the default
+QColorDialog and several other color-related widgets."
+

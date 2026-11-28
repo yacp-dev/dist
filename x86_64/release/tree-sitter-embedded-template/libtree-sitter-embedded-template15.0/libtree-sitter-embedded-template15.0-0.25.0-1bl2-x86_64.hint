@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Tree-sitter grammar for embedded template languages like ERB, EJS (runtime)"
+ldesc: "Tree-sitter grammar for embedded template languages like ERB, EJS"
+external-source: tree-sitter-embedded-template
+

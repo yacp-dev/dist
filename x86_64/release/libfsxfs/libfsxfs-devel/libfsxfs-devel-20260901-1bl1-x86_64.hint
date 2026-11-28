@@ -1,0 +1,6 @@
+category: Libs
+requires: libfsxfs1 pkg-config
+sdesc: "Library and tools to access the SGI X File System (XFS) (development)"
+ldesc: "libfsxfs is a library to access the SGI X File System (XFS)."
+external-source: libfsxfs
+

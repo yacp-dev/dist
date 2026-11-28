@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libopenmpi40 libstdc++6 libsuperlu_dist9
+sdesc: "Distributed memory, MPI based SuperLU (utilities)"
+ldesc: "SuperLU_DIST contains a set of subroutines to solve a sparse linear system
+A*X=B. It uses Gaussian elimination with static pivoting (GESP). Static
+pivoting is a technique that combines the numerical stability of partial
+pivoting with the scalability of Cholesky (no pivoting), to run accurately and
+efficiently on large numbers of processors."
+

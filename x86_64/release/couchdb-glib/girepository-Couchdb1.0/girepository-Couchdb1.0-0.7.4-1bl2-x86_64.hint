@@ -1,0 +1,6 @@
+category: Libs
+requires: girepository-GLib2.0 girepository-Json1.0 libcouchdb-glib1.0_2 libglib2.0-devel
+sdesc: "GLib-based library to allow access to CouchDB (GObject Introspection data)"
+ldesc: "GLib-based library to allow access to CouchDB"
+external-source: couchdb-glib
+

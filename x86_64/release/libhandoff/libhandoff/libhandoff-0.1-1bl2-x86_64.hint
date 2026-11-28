@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Facilitate limiting a program to a single instance per user (licensing & readmes)"
+ldesc: "Facilitate limiting a program to a single instance per user"
+

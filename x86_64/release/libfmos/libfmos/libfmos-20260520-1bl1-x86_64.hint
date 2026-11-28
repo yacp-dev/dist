@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for Mac OS data types (licensing & readmes)"
+ldesc: "libfmos is a library for Mac OS data types."
+

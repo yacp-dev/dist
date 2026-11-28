@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Implementation of the mathematical construct of affine arithmetics in C++ (licensing & readmes)"
+ldesc: "The aaflib is an implementation of the mathematical construct of affine
+arithmetics in C++."
+skip:
+
+homepage: https://github.com/foolnotion/aaflib
+license: LGPL-2.1-or-later

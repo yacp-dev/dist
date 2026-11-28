@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcerror-devel libcnotify-devel libfdatetime-devel libuna-devel
+sdesc: "Library for Update Sequence Number (USN) Journal data types (licensing & readmes)"
+ldesc: "libfusn is a library for Update Sequence Number (USN) Journal data types."
+skip:
+
+homepage: https://github.com/libyal/libfusn
+license: LGPL-3.0-or-later

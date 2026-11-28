@@ -1,0 +1,6 @@
+category: Libs
+requires: libfftw3-devel libxcorr0 pkg-config
+sdesc: "Cross Correlation function for C using FFTW (development)"
+ldesc: "Library that provides a Cross Correlation function for C based on FFTW3."
+external-source: libxcorr
+

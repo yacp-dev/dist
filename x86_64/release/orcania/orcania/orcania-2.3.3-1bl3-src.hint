@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport check libsubunit-devel
+sdesc: "Potluck with different functions for different purposes (utilities)"
+ldesc: "Potluck with different functions for different purposes"
+skip:
+
+homepage: https://github.com/babelouest/orcania
+license: LGPL-2.1-or-later

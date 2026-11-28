@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libssl-devel
+sdesc: "C++11 implementation of Socket.IO client (licensing & readmes)"
+ldesc: "C++11 implementation of Socket.IO client"
+skip:
+
+homepage: https://github.com/socketio/socket.io-client-cpp
+license: MIT AND BSL-1.0 AND BSD-3-Clause AND Zlib

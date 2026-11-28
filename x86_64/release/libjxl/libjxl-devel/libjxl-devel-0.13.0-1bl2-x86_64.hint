@@ -1,0 +1,6 @@
+category: Libs
+requires: libbrotli-devel libhwy-devel libjxl0.13 pkg-config
+sdesc: "JPEG XL image format reference implementation (development)"
+ldesc: "JPEG XL image format reference implementation"
+external-source: libjxl
+

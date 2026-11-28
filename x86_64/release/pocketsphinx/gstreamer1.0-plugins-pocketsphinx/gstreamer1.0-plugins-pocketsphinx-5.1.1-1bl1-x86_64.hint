@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libglib2.0_0 libgstreamer1.0_0 libpocketsphinx5
+sdesc: "GStreamer 1.0 pocketsphinx plugin"
+ldesc: "This is PocketSphinx, one of Carnegie Mellon University's open source large
+vocabulary, speaker-independent continuous speech recognition engine. Please
+see the LICENSE file for terms of use."
+external-source: pocketsphinx
+

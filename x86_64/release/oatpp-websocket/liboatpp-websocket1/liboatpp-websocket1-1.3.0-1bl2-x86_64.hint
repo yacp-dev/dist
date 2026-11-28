@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liboatpp1 libstdc++6
+sdesc: "Oatpp-websocket submodule (runtime)"
+ldesc: "Oatpp-websocket submodule"
+external-source: oatpp-websocket
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "IO and data type part of the vista library (licensing & readmes)"
+ldesc: "This library includes the IO and data type part of the vista library."
+skip:
+
+homepage: https://github.com/gerddie/vistaio
+license: HPND-sell-variant

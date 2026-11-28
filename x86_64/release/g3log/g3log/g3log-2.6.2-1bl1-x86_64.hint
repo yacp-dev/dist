@@ -1,0 +1,9 @@
+category: Libs
+requires: 
+sdesc: "Asynchronous, 'crash safe', logger that is easy to use (licensing & readmes)"
+ldesc: "G3log is an asynchronous, 'crash safe', logger that is easy to use with
+default logging sinks or you can add your own. G3log is made with plain C++11
+with no external libraries (except gtest used for unit tests). G3log is made
+to be cross-platform, currently running on OSX, Windows and several Linux
+distros. See Readme below for details of usage."
+

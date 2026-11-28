@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libcsplit1 libcthreads1 libfcache1 libfdata1 libfvalue1
+sdesc: "Library and tools to access the Linux Logical Volume Manager (LVM) volume system format (runtime)"
+ldesc: "libvslvm is a library to access the Linux Logical Volume Manager (LVM) volume
+system format."
+external-source: libvslvm
+

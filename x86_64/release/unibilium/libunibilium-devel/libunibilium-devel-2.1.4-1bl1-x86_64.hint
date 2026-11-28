@@ -1,0 +1,8 @@
+category: Libs
+requires: libunibilium4 pkg-config
+sdesc: "Terminfo parsing library (development)"
+ldesc: "Unibilium is a very basic terminfo library. It doesn't depend on curses or
+any other library. It also doesn't use global variables, so it should be
+thread-safe."
+external-source: unibilium
+

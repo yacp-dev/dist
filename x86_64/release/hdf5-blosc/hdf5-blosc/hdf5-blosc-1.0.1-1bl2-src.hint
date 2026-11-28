@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport hdf5 libaec-devel libblosc-devel libhdf5-devel zlib-devel
+sdesc: "Filter for HDF5 that uses Blosc"
+ldesc: "This is a filter for HDF5 that uses the Blosc compressor; by installing this
+filter, you can read and write HDF5 files with Blosc-compressed datasets."
+skip:
+
+homepage: https://github.com/Blosc/hdf5-blosc
+license: MIT

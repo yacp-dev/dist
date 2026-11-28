@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Binary serialisation format inspired by YAML, MessagePack and nvlists (licensing & readmes)"
+ldesc: "Argdata is a binary serialisation format inspired by YAML, MessagePack and
+nvlists."
+skip:
+
+homepage: https://github.com/NuxiNL/argdata
+license: BSD-2-Clause

@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport 
+sdesc: "Data for Frog, mandatory"
+ldesc: "Data for Frog, mandatory"
+skip:
+
+homepage: https://github.com/LanguageMachines/frogdata
+license: GPL-3.0-or-later

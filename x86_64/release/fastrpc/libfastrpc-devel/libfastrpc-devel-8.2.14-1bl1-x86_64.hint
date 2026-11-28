@@ -1,0 +1,7 @@
+category: Libs
+requires: libfastrpc13 libxml2-devel pkg-config
+sdesc: "FastRPC library (development)"
+ldesc: "FastRPC is a XML-RPC based protocol that uses binary data serialization
+format. Includes C++ and Python implementations and a console client."
+external-source: fastrpc
+

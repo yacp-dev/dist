@@ -1,0 +1,10 @@
+category: Science
+requires: bash libgetfem5
+sdesc: "Generic and transparent finite element library (development)"
+ldesc: "GetFEM is an open source library based on collaborative
+development. It aims to offer the most flexible framework for solving
+potentially coupled systems of linear and nonlinear partial differential
+equations with the finite element method. It works in arbitrary dimension and
+allows to couple 1D, 2D and 3D problems."
+external-source: getfem
+

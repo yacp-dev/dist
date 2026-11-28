@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libmzn2 libstdc++6
+sdesc: "Medium-level constraint modelling language (utilities)"
+ldesc: "MiniZinc is a medium-level constraint modelling language. It is high-level
+enough to express most constraint problems easily, but low-level enough that
+it can be mapped onto existing solvers easily and consistently. It is a subset
+of the higher-level language Zinc. We hope it will be adopted as a standard by
+the Constraint Programming community."
+

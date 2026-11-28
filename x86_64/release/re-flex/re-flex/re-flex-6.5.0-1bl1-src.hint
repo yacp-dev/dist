@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "High-performance C++ regex library and lexical analyzer generator with Unicode support (utilities)"
+ldesc: "High-performance C++ regex library and lexical analyzer generator with Unicode
+support."
+skip:
+
+homepage: https://github.com/Genivia/RE-flex
+license: BSD-3-Clause

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libFLAC14 libspeex1 libvorbis0 libvorbisenc2
+sdesc: "Simple programming interface for decoding and encoding audio data (runtime)"
+ldesc: "libfishsound provides a simple programming interface for decoding and encoding
+audio data using the Xiph.org codecs (FLAC, Speex and Vorbis)."
+external-source: libfishsound
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcc1 libprime_server0 libstdc++6
+sdesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq (utilities)"
+ldesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq"
+

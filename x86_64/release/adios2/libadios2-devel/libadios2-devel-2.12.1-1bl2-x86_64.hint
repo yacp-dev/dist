@@ -1,0 +1,6 @@
+category: Libs
+requires: bash libadios2_2.12 pkg-config
+sdesc: "Adaptable Input Output System version 2 (development)"
+ldesc: "ADIOS2 is a unified framework for I/O and in situ data processing of large-scale scientific data, with C, C++ and Fortran bindings."
+external-source: adios2
+

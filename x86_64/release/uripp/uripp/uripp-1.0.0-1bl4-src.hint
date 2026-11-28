@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libboost-devel
+sdesc: "URI C++ library (licensing & readmes)"
+ldesc: "C++ library for parsing and generating RFC-compliant Uniform Resource
+Identifiers (URI). Contains classes for URI scheme, authority, path, query,
+fragment, and the combined URI."
+skip:
+
+homepage: https://sourceforge.net/projects/uripp/
+license: MIT

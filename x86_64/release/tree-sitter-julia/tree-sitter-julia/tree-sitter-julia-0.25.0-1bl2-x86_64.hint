@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Julia grammar for tree-sitter (licensing & readmes)"
+ldesc: "Julia grammar for tree-sitter"
+

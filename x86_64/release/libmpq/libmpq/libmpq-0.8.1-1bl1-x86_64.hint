@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library for reading MPQ files (licensing & readmes)"
+ldesc: "libmpq is a library which can be easily used in own applications to extract,
+create or manipulate MoPaQ mpq archives."
+

@@ -1,0 +1,8 @@
+category: Text
+build-depends: cygport gettext-devel libao-devel libintl-devel libncurses-devel libydpdict-devel
+sdesc: "Interface for Polish-English Collins Dictionary"
+ldesc: "Interface for Polish-English Collins Dictionary"
+skip:
+
+homepage: https://github.com/wojtekka/ydpdict
+license: GPL-2.0-or-later

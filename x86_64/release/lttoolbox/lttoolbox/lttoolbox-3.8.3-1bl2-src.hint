@@ -1,0 +1,11 @@
+category: Text
+build-depends: cygport libboost-devel libicu-devel libxml2-devel python3-devel swig utf8cpp-devel
+sdesc: "Finite state compiler, processor and helper tools used by apertium (utilities)"
+ldesc: "lttoolbox contains finite state tools for lexical processing, morphological
+analysis and generation of words. Analysis is the process of splitting a word
+like cats into its lemma cat and the grammatical information <n><pl>.
+Generation is the opposite process."
+skip:
+
+homepage: https://github.com/apertium/lttoolbox
+license: GPL-2.0-or-later

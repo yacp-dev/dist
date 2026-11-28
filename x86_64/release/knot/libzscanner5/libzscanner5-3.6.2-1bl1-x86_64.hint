@@ -1,0 +1,8 @@
+category: Net
+requires: cygwin
+sdesc: "High-performance authoritative-only DNS server (runtime / zscanner)"
+ldesc: "Knot DNS is a high-performance authoritative-only DNS server which supports
+all key features of the domain name system including zone transfers and
+DNSSEC."
+external-source: knot
+

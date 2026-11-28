@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libfsfat1 python312
+sdesc: "Library and tools to access the File Allocation Table (FAT) file system (python312 bindings)"
+ldesc: "libfsfat is a library to access the File Allocation Table (FAT) file system
+format."
+external-source: libfsfat
+

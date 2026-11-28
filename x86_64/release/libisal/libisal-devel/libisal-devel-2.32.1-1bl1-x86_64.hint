@@ -1,0 +1,7 @@
+category: Libs
+requires: libisal2 pkg-config
+sdesc: "Intelligent Storage Acceleration Library (development)"
+ldesc: "ISA-L is a collection of optimized low-level functions targeting storage
+applications."
+external-source: libisal
+

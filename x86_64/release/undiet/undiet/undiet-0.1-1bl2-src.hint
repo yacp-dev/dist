@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Diet file decompressor (utilities)"
+ldesc: "Diet file decompressor"
+skip:
+
+homepage: https://github.com/bokic/undiet
+license: MIT

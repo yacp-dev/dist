@@ -1,0 +1,9 @@
+category: Net
+requires: cygwin libbz2_1 libexpat1 libiconv2 libxml2_2 libxslt libyaz5 zlib0
+sdesc: "High-performance, structured text indexing and retrival engine (runtime)"
+ldesc: "Zebra is a high-performance, general-purpose structured text indexing and
+retrieval engine. It reads structured records in a variety of input formats
+(eg. email, XML, MARC) and allows access to them through exact boolean search
+expressions and relevance-ranked free-text queries."
+external-source: idzebra
+

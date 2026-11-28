@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Implementation of the TLS/SSL protocols (licensing & readmes)"
+ldesc: "s2n-tls is a C99 implementation of the TLS/SSL protocols that is
+designed to be simple, small, fast, and with security as a priority."
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Oatpp client for consul (licensing & readmes)"
+ldesc: "Oatpp client for consul"
+

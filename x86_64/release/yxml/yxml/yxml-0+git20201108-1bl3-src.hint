@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Small, fast and mostly-correct XML parser (licensing & readmes)"
+ldesc: "Yxml is a small (6 KiB) non-validating yet mostly conforming XML parser
+written in C. Its primary goals are small binary size, simplicity and
+correctness. It also happens to be pretty fast."
+skip:
+
+homepage: https://dev.yorhel.nl/yxml
+license: MIT

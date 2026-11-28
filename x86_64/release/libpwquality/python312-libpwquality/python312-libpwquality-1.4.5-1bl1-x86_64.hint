@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libpwquality1 python312
+sdesc: "Library for password generation and password quality checking (python312 binding)"
+ldesc: "The libpwquality library purpose is to provide common functions for
+password quality checking and also scoring them based on their apparent
+randomness. The library also provides a function for generating random passwords
+with good pronounceability. The library supports reading and parsing of a
+configuration file."
+external-source: libpwquality
+

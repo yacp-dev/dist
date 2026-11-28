@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libfguid1 libfsapfs1 python312
+sdesc: "Library and tools to access the Apple File System (APFS) (python312 bindings)"
+ldesc: "libfsapfs is a library to access the Apple File System (APFS)."
+external-source: libfsapfs
+

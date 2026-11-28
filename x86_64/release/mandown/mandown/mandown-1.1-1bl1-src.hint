@@ -1,0 +1,9 @@
+category: Text
+build-depends: cygport libconfig-devel libncurses-devel libxml2-devel
+sdesc: "Man-page inspired Markdown pager"
+ldesc: "Need to lookup things from README? Or from manual page? Or perhaps just want
+to install something cool..."
+skip:
+
+homepage: https://github.com/Titor8115/mandown
+license: GPL-3.0-or-later AND ISC

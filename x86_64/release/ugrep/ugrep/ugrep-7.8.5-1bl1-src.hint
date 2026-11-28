@@ -1,0 +1,12 @@
+category: Text
+build-depends: cygport libbrotli-devel libbz2-devel libbzip3-devel liblz4-devel liblzma-devel libpcre2-devel libzstd-devel zlib-devel
+sdesc: "Ultra fast grep with query UI, fuzzy search, archive search, and more"
+ldesc: "An ultra fast, user-friendly, compatible grep. Ugrep combines the best features
+of other grep, adds new features, and searches fast. Includes a TUI and adds
+Google-like search, fuzzy search, hexdumps, searches nested archives (zip, 7z,
+tar, pax, cpio), compressed files (gz, Z, bz2, lzma, xz, lz4, zstd, brotli),
+pdfs, docs, and more"
+skip:
+
+homepage: https://github.com/Genivia/ugrep
+license: BSD-3-Clause

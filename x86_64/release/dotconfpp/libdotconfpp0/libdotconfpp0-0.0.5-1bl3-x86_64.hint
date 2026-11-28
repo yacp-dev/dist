@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Dotconf like configuration file parser written in C++ (runtime)"
+ldesc: "dotconf++ is a dotconf like configuration file parser written in C++. It
+supports macro substitution from the environment or from the file itself,
+config file inclusion, easy handling of XML like tags, checking for required
+tags, and more."
+external-source: dotconfpp
+

@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libgcc1 libgfortran5 libgomp1 liblapack0
+sdesc: "Basic Matrix Library (runtime)"
+ldesc: "The basic matrix library (bml) is a collection of various matrix data formats
+(in dense and sparse) and their associated algorithms for basic matrix
+operations. Application programming interfaces (API) are available for both C
+and FORTRAN. The current status of this library allows us to use two different
+formats for representing matrix data: dense and ELLPACK."
+external-source: bml
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libreadline8 libstdc++6
+sdesc: "C++ Readline wrapper (runtime)"
+ldesc: "This is a Readline library in C++."
+external-source: libtprl
+

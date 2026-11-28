@@ -1,0 +1,6 @@
+category: Libs
+requires: libgtk2.0-devel libhildon1_0 pkg-config
+sdesc: "Application framework for Linux operating system mobile devices (development)"
+ldesc: "Hildon is an application framework for Linux operating system mobile devices."
+external-source: libhildon
+

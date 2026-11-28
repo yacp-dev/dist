@@ -1,0 +1,7 @@
+category: Libs
+requires: libbz2-devel libxy3 pkg-config zlib-devel
+sdesc: "Library for reading x-y data (development)"
+ldesc: "xylib is a portable library for reading files that contain x-y data from
+powder diffraction, spectroscopy and other experimental methods."
+external-source: xylib
+

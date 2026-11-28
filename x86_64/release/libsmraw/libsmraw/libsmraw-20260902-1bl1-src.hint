@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport cygfuse gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfvalue-devel libhmac-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the (split) RAW image format (utilities)"
+ldesc: "libsmraw is a library to access the (split) RAW image format."
+skip:
+
+homepage: https://github.com/libyal/libsmraw
+license: LGPL-3.0-or-later

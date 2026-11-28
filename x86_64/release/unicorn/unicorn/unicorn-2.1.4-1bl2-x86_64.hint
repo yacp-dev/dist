@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Unicorn CPU emulator framework (licensing & readmes)"
+ldesc: "Unicorn is a lightweight, multi-platform, multi-architecture CPU emulator
+framework based on QEMU."
+

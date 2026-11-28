@@ -1,0 +1,6 @@
+category: Science
+requires: libgemmi_cpp0 pkg-config
+sdesc: "Macromolecular crystallography library and utilities (development)"
+ldesc: "Macromolecular crystallography library and utilities"
+external-source: gemmi
+

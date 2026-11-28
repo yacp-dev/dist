@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libfcache1 libfdata1 libfmapi1 libuna1 zlib0
+sdesc: "Library and tools to access the Personal Folder File (PFF) and the Offline Folder File (OFF) format (runtime)"
+ldesc: "libpff is a library to access the Personal Folder File (PFF) and the Offline
+Folder File (OFF) format."
+external-source: libpff
+

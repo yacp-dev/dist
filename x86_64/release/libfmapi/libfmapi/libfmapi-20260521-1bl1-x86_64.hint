@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for MAPI data types (licensing & readmes)"
+ldesc: "libfmapi is a library for MAPI data types."
+

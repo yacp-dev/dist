@@ -1,0 +1,6 @@
+category: Science
+requires: cygwin libgcc1 libgomp1 libstdc++6
+sdesc: "Semi-supervised learning for peptide identification from shotgun proteomics datasets"
+ldesc: "Semi-supervised learning for peptide identification from shotgun proteomics
+datasets"
+

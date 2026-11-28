@@ -1,0 +1,8 @@
+category: Science
+requires: libchemps2_3 pkg-config
+sdesc: "Spin-adapted implementation of DMRG for ab initio quantum chemistry (development)"
+ldesc: "CheMPS2 is a scientific library which contains a spin-adapted implementation
+of the density matrix renormalization group (DMRG) for ab initio quantum
+chemistry."
+external-source: chemps2
+

@@ -1,0 +1,14 @@
+category: X11
+build-depends: cygport gettext-devel gobject-introspection hdf5 libaec-devel libbz2-devel libcairo-devel libcfitsio-devel libfftw3-devel libgdk_pixbuf2.0-devel libgirepository1.0-devel libglib2.0-devel libgtk3-devel libhdf5-devel libintl-devel libjson-glib1.0-devel libopenexr-devel libpango1.0-devel libpng-devel libwebp-devel libxml2-devel libzip-devel libzstd-devel python3-devel zlib-devel
+sdesc: "Modular program for SPM (scanning probe microscopy) data visualization and analysis (utilities)"
+ldesc: "Gwyddion is a modular program for SPM (scanning probe microscopy) data
+visualization and analysis. Primarily it is intended for the analysis of
+height fields obtained by scanning probe microscopy techniques (AFM, MFM, STM,
+SNOM/NSOM) and it supports a lot of SPM data formats. However, it can be used
+for general height field and (greyscale) image processing, for instance for
+the analysis of profilometry data or thickness maps from imaging
+spectrophotometry."
+skip:
+
+homepage: https://gwyddion.net/
+license: GPL-2.0-or-later AND BSD-4-Clause

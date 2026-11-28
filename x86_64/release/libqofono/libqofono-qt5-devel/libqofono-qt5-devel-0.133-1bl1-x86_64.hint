@@ -1,0 +1,7 @@
+category: Libs
+requires: bash cygwin libgcc1 libqofono-qt5_0 libQt5Core5 libQt5Gui5 libQt5Quick5 libstdc++6 pkg-config
+sdesc: "Library for accessing the ofono daemon (development)"
+ldesc: "A library for accessing the ofono daemon, and a declarative plugin for it.
+This allows accessing ofono in qtquick and friends."
+external-source: libqofono
+

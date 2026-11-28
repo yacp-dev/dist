@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Macromolecular coordinate library (runtime)"
+ldesc: "MMDB is CCP4's macromolecular coordinate library, written by Eugene Krissinel
+of the EBI. The Coordinate Library is designed to assist CCP4 developers in
+working with coordinate files. The major source of coordinate information
+remains the PDB files, although more information becomes available in mmCIF
+format."
+external-source: mmdb2
+

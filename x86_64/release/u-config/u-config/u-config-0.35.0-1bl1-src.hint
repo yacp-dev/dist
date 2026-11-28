@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Smaller, simpler, portable pkg-config clone"
+ldesc: "u-config ('micro-config') is a small, highly portable pkg-config and pkgconf
+clone."
+skip:
+
+homepage: https://github.com/skeeto/u-config
+license: Unlicense

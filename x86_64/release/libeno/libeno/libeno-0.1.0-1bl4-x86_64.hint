@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C reference parsing library for eno notation (licensing & readmes)"
+ldesc: "C reference parsing library for eno notation"
+

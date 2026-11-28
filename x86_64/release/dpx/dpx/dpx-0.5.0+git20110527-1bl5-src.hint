@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libtiff-devel
+sdesc: "SMPTE DPX v2 Image Format reader/writer (utilities)"
+ldesc: "DPX image reader / writer library written in portable C++."
+skip:
+
+homepage: https://github.com/patrickpalmer/dpx
+license: BSD-3-Clause

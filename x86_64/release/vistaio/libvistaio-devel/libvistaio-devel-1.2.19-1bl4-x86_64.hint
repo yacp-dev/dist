@@ -1,0 +1,6 @@
+category: Libs
+requires: libvistaio14 pkg-config
+sdesc: "IO and data type part of the vista library (development)"
+ldesc: "This library includes the IO and data type part of the vista library."
+external-source: vistaio
+

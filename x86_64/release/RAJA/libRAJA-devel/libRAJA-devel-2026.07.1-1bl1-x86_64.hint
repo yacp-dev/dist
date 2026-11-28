@@ -1,0 +1,8 @@
+category: Libs
+requires: libRAJA0 pkg-config libcamp-devel
+sdesc: "Performance Portability Layer (development)"
+ldesc: "RAJA is a library of C++ software abstractions, primarily developed at
+Lawrence Livermore National Laboratory (LLNL), that enables architecture and
+programming model portability for HPC applications."
+external-source: RAJA
+

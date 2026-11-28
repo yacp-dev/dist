@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Logging library for C applications (licensing & readmes)"
+ldesc: "Simple and easy to use logging library. You can log messages to the console, a
+file, syslog or journald."
+

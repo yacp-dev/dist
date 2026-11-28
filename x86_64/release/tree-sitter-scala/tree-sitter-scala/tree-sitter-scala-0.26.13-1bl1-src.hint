@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Scala grammar for tree-sitter (licensing & readmes)"
+ldesc: "Scala grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-scala
+license: MIT

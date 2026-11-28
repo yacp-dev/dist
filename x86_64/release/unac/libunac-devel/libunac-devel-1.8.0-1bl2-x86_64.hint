@@ -1,0 +1,6 @@
+category: Libs
+requires: libunac1 pkg-config
+sdesc: "C library that removes accents from characters (development)"
+ldesc: "C library that removes accents from characters"
+external-source: unac
+

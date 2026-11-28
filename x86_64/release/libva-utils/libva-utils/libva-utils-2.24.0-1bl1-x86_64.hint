@@ -1,0 +1,8 @@
+category: X11
+requires: cygwin libdrm2 libgcc1 libgtest0 libstdc++6 libva-drm2 libva-x11_2 libva2 libX11_6
+sdesc: "Collection of tests for VA-API"
+ldesc: "libva-utils is a collection of utilities and examples to exercise VA-API in
+accordance with the libva project. --enable-tests (default = no) provides a
+suite of unit-tests based on Google Test Framework. A driver implementation is
+necessary to properly operate."
+

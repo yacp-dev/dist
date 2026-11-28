@@ -1,0 +1,8 @@
+category: Libs
+requires: libsml1 pkg-config
+sdesc: "Implementation in C of the Smart Message Language (SML) protocol (development)"
+ldesc: "libSML is a library which implements the Smart Message Language (SML) protocol
+specified by VDE's Forum Netztechnik/Netzbetrieb (FNN). It can be utilized to
+communicate to FNN specified Smart Meters or Smart Meter components (EDL/MUC)."
+external-source: libsml
+

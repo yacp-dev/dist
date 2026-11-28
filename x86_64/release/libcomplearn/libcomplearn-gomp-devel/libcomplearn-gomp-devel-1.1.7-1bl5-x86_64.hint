@@ -1,0 +1,6 @@
+category: Libs
+requires: check cygwin cygwin-devel libbz2-devel libcomplearn-gomp1 libglib2.0-devel libglib2.0_0 libgsl-devel libintl8 liblzma-devel libxml2-devel pkg-config zlib-devel
+sdesc: "Machine-learning through data compression (development)"
+ldesc: "An open-source data mining package using data compression."
+external-source: libcomplearn
+

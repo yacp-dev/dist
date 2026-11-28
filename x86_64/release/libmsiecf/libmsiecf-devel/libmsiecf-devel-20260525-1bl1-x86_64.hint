@@ -1,0 +1,7 @@
+category: Libs
+requires: libmsiecf1 pkg-config
+sdesc: "Library and tools to access the Microsoft Internet Explorer (MSIE) Cache File (index.dat) files (development)"
+ldesc: "libmsiecf is a library to access the Microsoft Internet Explorer (MSIE) Cache
+File (index.dat) files."
+external-source: libmsiecf
+

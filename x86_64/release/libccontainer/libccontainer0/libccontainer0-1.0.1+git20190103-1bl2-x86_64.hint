@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Various data structures in plain C (runtime)"
+ldesc: "Various data structures in plain C"
+external-source: libccontainer
+

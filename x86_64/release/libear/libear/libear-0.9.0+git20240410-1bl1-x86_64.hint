@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Recommendation ITU-R BS.2127 core library (licensing & readmes)"
+ldesc: "C++11 library to render ADM content according to Recommendation ITU-R BS.2127"
+

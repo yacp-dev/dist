@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libglib2.0_0 libmbim-glib4
+sdesc: "QMI modem protocol helper library (runtime)"
+ldesc: "This package contains the libraries that make it easier to use QMI
+functionality from applications that use glib."
+external-source: libqmi
+

@@ -1,0 +1,9 @@
+category: Libs
+requires: libaes_siv1 pkg-config
+sdesc: "RFC5297-compliant C implementation of AES-SIV (development)"
+ldesc: "This is an RFC5297-compliant C implementation of AES-SIV written by Daniel
+Franke on behalf of Akamai Technologies. It is published under the Apache
+License (v2.0). It uses OpenSSL for the underlying AES and CMAC
+implementations and follows a similar interface style."
+external-source: libaes_siv
+

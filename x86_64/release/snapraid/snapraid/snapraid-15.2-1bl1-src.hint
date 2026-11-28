@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Backup program for disk arrays"
+ldesc: "SnapRAID is a backup program for disk arrays."
+skip:
+
+homepage: https://github.com/amadvance/snapraid/
+license: GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-2-Clause AND MIT

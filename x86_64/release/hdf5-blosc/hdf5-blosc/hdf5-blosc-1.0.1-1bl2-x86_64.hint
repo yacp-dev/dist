@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libblosc1 libhdf5_320
+sdesc: "Filter for HDF5 that uses Blosc"
+ldesc: "This is a filter for HDF5 that uses the Blosc compressor; by installing this
+filter, you can read and write HDF5 files with Blosc-compressed datasets."
+

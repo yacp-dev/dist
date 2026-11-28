@@ -1,0 +1,8 @@
+category: Games
+build-depends: cygport libSDL2-devel
+sdesc: "Open source Jazz Jackrabit engine"
+ldesc: "OpenJazz is a free, open-source version of the classic Jazz Jackrabbit™ games."
+skip:
+
+homepage: https://github.com/AlisterT/openjazz/
+license: GPL-2.0-or-later AND MIT AND (MIT OR Unlicense)

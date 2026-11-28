@@ -1,0 +1,8 @@
+category: Libs
+requires: libvmemcache0 pkg-config
+sdesc: "Buffer based LRU cache (development)"
+ldesc: "libvmemcache is an embeddable and lightweight in-memory caching solution. It's
+designed to fully take advantage of large capacity memory, such as Persistent
+Memory with DAX, through memory mapping in an efficient and scalable way."
+external-source: vmemcache
+

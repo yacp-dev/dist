@@ -1,0 +1,7 @@
+category: Security
+requires: cygwin libpcsclite1 libssl3 zlib0
+sdesc: "Command line tool for the YubiKey PIV application (runtime)"
+ldesc: "The Yubico PIV tool is used for interacting with the Privilege and
+Identification Card (PIV) application on a YubiKey."
+external-source: yubico-piv-tool
+

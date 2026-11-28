@@ -1,0 +1,8 @@
+category: Libs
+requires: libcypher-parser8 pkg-config
+sdesc: "Cypher Parser Library (development)"
+ldesc: "libcypher-parser is a parser library and validation (lint) tool for Cypher,
+the graph query language. The parser is written in C, and is intended for
+building tools and libraries in various languages."
+external-source: libcypher-parser
+

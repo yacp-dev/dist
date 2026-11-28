@@ -1,0 +1,7 @@
+category: Security
+requires: libssl-devel libykpiv2 pkg-config
+sdesc: "Command line tool for the YubiKey PIV application (development)"
+ldesc: "The Yubico PIV tool is used for interacting with the Privilege and
+Identification Card (PIV) application on a YubiKey."
+external-source: yubico-piv-tool
+

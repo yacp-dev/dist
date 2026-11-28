@@ -1,0 +1,6 @@
+category: Audio
+requires: cygwin
+sdesc: "MPEG-4 and MPEG-2 AAC encoder (runtime)"
+ldesc: "FAAC is an MPEG-4 and MPEG-2 AAC encoder."
+external-source: faac
+

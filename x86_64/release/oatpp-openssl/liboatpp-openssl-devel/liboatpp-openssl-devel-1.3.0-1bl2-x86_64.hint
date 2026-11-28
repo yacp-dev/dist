@@ -1,0 +1,7 @@
+category: Libs
+requires: liboatpp-openssl1
+sdesc: "OpenSSL adaptor for Oat++ applications (development)"
+ldesc: "This submodule provides secure server and client connection providers for
+oatpp applications. Based on OpenSSL."
+external-source: oatpp-openssl
+

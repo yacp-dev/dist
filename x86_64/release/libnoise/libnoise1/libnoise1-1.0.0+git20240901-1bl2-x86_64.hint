@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Portable, open-source, coherent noise-generating library for C++ (runtime)"
+ldesc: "libnoise is a portable C++ library that is used to generate coherent noise, a
+type of smoothly-changing noise. libnoise can generate Perlin noise, ridged
+multifractal noise, and other types of coherent-noise."
+external-source: libnoise
+

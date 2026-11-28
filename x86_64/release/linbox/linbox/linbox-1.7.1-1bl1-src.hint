@@ -1,0 +1,10 @@
+category: Math
+build-depends: cygport fflas-ffpack libflint-devel libgivaro-devel libgmp-devel libiml-devel liblapack-devel libmpfr-devel libntl-devel
+sdesc: "C++ library for exact, high-performance linear algebra (licensing & readmes)"
+ldesc: "Linbox is a C++ template library for exact, high-performance linear
+algebra computation with dense, sparse, and structured matrices over the
+integers and over finite fields."
+skip:
+
+homepage: https://github.com/linbox-team/linbox/
+license: LGPL-2.1-or-later

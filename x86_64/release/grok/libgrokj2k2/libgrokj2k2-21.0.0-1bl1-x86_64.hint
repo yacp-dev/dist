@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libfmt12 libgcc1 libhwy1 libjpeg8 liblcms2_2 libpng16 libstdc++6 libtiff7
+sdesc: "JPEG 2000 codec (runtime)"
+ldesc: "Grok is a high performance open source JPEG 2000 codec."
+external-source: grok
+

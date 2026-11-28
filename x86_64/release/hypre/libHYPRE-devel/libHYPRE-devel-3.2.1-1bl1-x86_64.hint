@@ -1,0 +1,8 @@
+category: Libs
+requires: libHYPRE302 pkg-config libevent-devel libhwloc-devel libopenmpi-devel zlib-devel
+sdesc: "Parallel solvers for sparse linear systems featuring multigrid methods (development)"
+ldesc: "HYPRE is a library of high performance preconditioners and solvers featuring
+multigrid methods for the solution of large, sparse linear systems of
+equations on massively parallel computers."
+external-source: hypre
+

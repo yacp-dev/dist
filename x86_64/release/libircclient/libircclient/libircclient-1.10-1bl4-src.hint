@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libssl-devel
+sdesc: "Small but powerful library implementing the client-server IRC protocol (licensing & readmes)"
+ldesc: "Libircclient is a small but extremely powerful library which implements the
+client IRC protocol. It is designed to be small, fast, portable and compatible
+with the RFC standards as well as non-standard but popular features. It is
+perfect for building the IRC clients and bots."
+skip:
+
+homepage: https://www.ulduzsoft.com/libircclient/
+license: LGPL-2.0-or-later OR LGPL-3.0-or-later

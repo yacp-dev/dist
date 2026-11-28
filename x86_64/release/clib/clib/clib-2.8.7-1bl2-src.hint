@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel
+sdesc: "C package manager-ish"
+ldesc: "Package manager for the C programming language."
+skip:
+
+homepage: https://github.com/clibs/clib
+license: MIT AND Apache-2.0 AND BSD-2-Clause

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfcache-devel libfdata-devel libfdatetime-devel libfguid-devel libftxf-devel libftxr-devel libfusn-devel libfwnt-devel libuna-devel
+sdesc: "Library and tools to access the Common Log File System (CLFS) (utilities)"
+ldesc: "libfsclfs is a library to access the Common Log File System (CLFS)."
+skip:
+
+homepage: https://github.com/libyal/libfsclfs
+license: LGPL-3.0-or-later

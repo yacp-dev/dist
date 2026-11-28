@@ -1,0 +1,7 @@
+category: Libs
+requires: libzlog1.2 pkg-config
+sdesc: "Reliable, high-performance, thread safe, flexsible, clear-model, pure C logging library (development)"
+ldesc: "zlog is a reliable, high-performance, thread safe, flexible, clear-model, pure
+C logging library."
+external-source: zlog
+

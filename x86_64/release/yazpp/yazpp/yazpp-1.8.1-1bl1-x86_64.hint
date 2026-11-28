@@ -1,0 +1,10 @@
+category: Libs
+requires: 
+sdesc: "C++ API to YAZ (licensing & readmes)"
+ldesc: "YAZ++ is an application programming interface (API) to YAZ which supports the
+development of Z39.50/SRU/Solr client and server applications using C++. Like
+YAZ, it supports Z39.50-2003 (version 3) as well as SRU version 1.1 thru 2.0
+in both the client and server roles. YAZ++ includes an implementation of the
+ZOOM C++ binding and a generic client/server API based on the
+Observer/Observable design pattern."
+

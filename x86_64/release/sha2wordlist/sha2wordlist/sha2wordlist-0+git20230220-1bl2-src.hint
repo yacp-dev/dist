@@ -1,0 +1,9 @@
+category: Text
+build-depends: cygport 
+sdesc: "Display SHA-256 as PGP words"
+ldesc: "sha2wordlist digests STDIN and output a SHA-256 checksum displayed as PGP
+words."
+skip:
+
+homepage: https://github.com/kirei/sha2wordlist
+license: BSD-2-Clause AND BSD-3-Clause

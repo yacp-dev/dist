@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport doctest nlohmann_json
+sdesc: "Basic tools (containers, algorithms) used by other quantstack packages"
+ldesc: "Basic tools (containers, algorithms) used by other quantstack packages"
+skip:
+
+homepage: https://github.com/xtensor-stack/xtl
+license: BSD-3-Clause

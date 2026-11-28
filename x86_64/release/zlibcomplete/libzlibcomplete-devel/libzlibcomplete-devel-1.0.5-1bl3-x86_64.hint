@@ -1,0 +1,7 @@
+category: Libs
+requires: libzlibcomplete0 pkg-config zlib-devel
+sdesc: "C++ interface to the ZLib library (development)"
+ldesc: "C++ interface to the ZLib library supporting compression with FLUSH,
+decompression, and std::string. RAII"
+external-source: zlibcomplete
+

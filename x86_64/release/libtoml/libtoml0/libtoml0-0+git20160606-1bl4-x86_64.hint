@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libicu76
+sdesc: "Fast C parser using Ragel to generate the state machine (runtime)"
+ldesc: "Fast C parser using Ragel to generate the state machine"
+external-source: libtoml
+

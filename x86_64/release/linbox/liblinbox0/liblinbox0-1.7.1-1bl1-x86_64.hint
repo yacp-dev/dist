@@ -1,0 +1,8 @@
+category: Math
+requires: cygwin libgcc1 libgivaro9 libstdc++6
+sdesc: "C++ library for exact, high-performance linear algebra (runtime)"
+ldesc: "Linbox is a C++ template library for exact, high-performance linear
+algebra computation with dense, sparse, and structured matrices over the
+integers and over finite fields."
+external-source: linbox
+

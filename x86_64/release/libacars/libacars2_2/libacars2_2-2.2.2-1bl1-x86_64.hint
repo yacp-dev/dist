@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libjansson4 libxml2_2 zlib0
+sdesc: "Library for decoding various ACARS message payloads (runtime)"
+ldesc: "Library for decoding various ACARS message payloads"
+external-source: libacars
+

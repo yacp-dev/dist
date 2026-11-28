@@ -1,0 +1,7 @@
+category: Libs
+requires: bash cygwin libbz2_1 libcolibricore0 libgcc1 libstdc++6
+sdesc: "Efficient n-gram & skipgram modelling on text corpora (utilities)"
+ldesc: "Colibri Core is software to quickly and efficiently count and extract patterns
+from large corpus data, to extract various statistics on the extracted
+patterns, and to compute relations between the extracted patterns."
+

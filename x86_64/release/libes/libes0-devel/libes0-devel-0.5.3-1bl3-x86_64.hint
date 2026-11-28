@@ -1,0 +1,6 @@
+category: Libs
+requires: libes0_0 pkg-config
+sdesc: "Entity System library for C++ (development)"
+ldesc: "libes is a library for managing an entity system written in C++."
+external-source: libes
+

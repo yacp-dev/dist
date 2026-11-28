@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "Library for parsing command line arguments and configuration files (runtime)"
+ldesc: "Library for parsing command line arguments and configuration files"
+external-source: libmcfp
+

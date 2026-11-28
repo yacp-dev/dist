@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin-devel libglib2.0-devel libsmf0 pkg-config
+sdesc: "Standard MIDI File format library (development)"
+ldesc: "LibSMF is a BSD-licensed C library for handling SMF files. It transparently
+handles conversions between time and pulses, tempo map handling etc."
+external-source: libsmf
+

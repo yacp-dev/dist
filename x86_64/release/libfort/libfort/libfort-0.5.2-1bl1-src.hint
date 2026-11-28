@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C/C++ library to create formatted ASCII tables for console applications (licensing & readmes)"
+ldesc: "C/C++ library to create formatted ASCII tables for console applications"
+skip:
+
+homepage: https://github.com/seleznevae/libfort
+license: MIT

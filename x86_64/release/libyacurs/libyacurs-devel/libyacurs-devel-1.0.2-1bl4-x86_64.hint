@@ -1,0 +1,7 @@
+category: Libs
+requires: libyacurs0 pkg-config
+sdesc: "Curses abstraction used by YAPET (development)"
+ldesc: "libyacurs is a curses widget library for fast development of curses
+applications."
+external-source: libyacurs
+

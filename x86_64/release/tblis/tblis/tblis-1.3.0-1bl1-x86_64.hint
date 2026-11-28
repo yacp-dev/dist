@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Library and framework for performing tensor operations (licensing & readmes)"
+ldesc: "TBLIS is a library and framework for performing tensor operations,
+especially tensor contraction, using efficient native algorithms."
+

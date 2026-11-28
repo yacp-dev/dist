@@ -1,0 +1,8 @@
+category: Security
+build-depends: cygport libssl-devel
+sdesc: "Duo two-factor authentication for Unix systems (utilities)"
+ldesc: "Duo two-factor authentication for Unix systems"
+skip:
+
+homepage: https://github.com/duosecurity/duo_unix
+license: GPL-2.0-only WITH Classpath-exception-2.0

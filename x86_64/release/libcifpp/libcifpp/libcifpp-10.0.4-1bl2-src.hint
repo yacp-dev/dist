@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libCatch2-devel libpcre2-devel libsqlite3-devel zlib-devel
+sdesc: "Library containing code to manipulate mmCIF and PDB files (licensing & readmes)"
+ldesc: "Library containing code to manipulate mmCIF and PDB files"
+skip:
+
+homepage: https://github.com/PDB-REDO/libcifpp
+license: BSD-2-Clause

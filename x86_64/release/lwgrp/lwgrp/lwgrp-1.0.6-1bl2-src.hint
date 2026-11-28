@@ -1,0 +1,14 @@
+category: Libs
+build-depends: cygport libopenmpi-devel
+sdesc: "Methods for MPI codes to quickly create and destroy process groups (licensing & readmes)"
+ldesc: "The light-weight group library defines data structures and collective
+operations to group MPI processes as an ordered set. Such groups are useful as
+substitutes for MPI communicators when the overhead of communicator creation
+is too costly. For example, certain sorting algorithms recursively divide
+processes into subgroups as the sort algorithm progresses. These groups may be
+different with each invocation, so that it is inefficient to create and
+destroy communicators during the sort routine."
+skip:
+
+homepage: https://github.com/LLNL/lwgrp
+license: BSD-3-Clause

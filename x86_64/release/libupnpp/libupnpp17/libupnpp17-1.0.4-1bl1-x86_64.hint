@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libnpupnp13 libstdc++6
+sdesc: "C++ wrapper for libupnp (runtime)"
+ldesc: "Libupnpp can be used to implement UPnP devices and services, or Control
+Points."
+external-source: libupnpp
+

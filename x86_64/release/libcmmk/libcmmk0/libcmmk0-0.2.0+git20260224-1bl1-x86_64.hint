@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libhidapi0
+sdesc: "Unofficial LED control API for Coolermaster Masterkey keyboards (runtime)"
+ldesc: "Unofficial LED control API for Coolermaster Masterkey keyboards"
+external-source: libcmmk
+

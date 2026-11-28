@@ -1,0 +1,17 @@
+category: Libs
+build-depends: cygport libgmp-devel libmpfr-devel
+sdesc: "Multiple Precision Floating-point Interval library (licensing & readmes)"
+ldesc: "MPFI is intended to be a portable library written in C for arbitrary precision
+interval arithmetic with intervals represented using MPFR reliable
+floating-point numbers. It is based on the GNU MP library and on the MPFR
+library and is part of the latter. The purpose of an arbitrary precision
+interval arithmetic is on the one hand to get guaranteed results, thanks to
+interval computation, and on the other hand to obtain accurate results, thanks
+to multiple precision arithmetic. The MPFI library is built upon MPFR in order
+to benefit from the correct roundings provided by MPFR. Further advantages of
+using MPFR are its portability and compliance with the IEEE 754 standard for
+floating-point arithmetic."
+skip:
+
+homepage: https://gitlab.inria.fr/mpfi/mpfi
+license: LGPL-3.0-or-later AND LGPL-2.1-or-later

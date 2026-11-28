@@ -1,0 +1,13 @@
+category: Libs
+build-depends: cygport libboost-devel libxerces-c-devel
+sdesc: "Software Tools for Managing E57 Files (utilities)"
+ldesc: "The libE57 software is an open source implementation of the ASTM E2807
+Standard Specification for 3D Imaging Data Exchange (known as the E57 format
+hereafter) in the C++ language. It is intended to lower the barrier to
+adoption of the standard and to provide a reference to compare other
+implementations against. It is not expected to be the only implementation, and
+it is not intended to be the fastest possible implementation."
+skip:
+
+homepage: https://github.com/hlrs-vis/libe57
+license: BSL-1.0

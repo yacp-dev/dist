@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgfortran5 libgomp1 liblapack0 libmctc-lib0
+sdesc: "Electronegativity equilibration model for atomic partial charges (runtime)"
+ldesc: "Electronegativity equilibration model for atomic partial charges"
+external-source: multicharge
+

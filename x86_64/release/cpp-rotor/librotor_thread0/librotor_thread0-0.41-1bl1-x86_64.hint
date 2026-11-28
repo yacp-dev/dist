@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin librotor0 libstdc++6
+sdesc: "Event loop friendly C++ actor micro framework (runtime / thread)"
+ldesc: "Event loop friendly C++ actor micro-framework, supervisable"
+external-source: cpp-rotor
+

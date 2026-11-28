@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libhidapi-devel libusb1.0-devel
+sdesc: "Library for communication with various dive computers (utilities)"
+ldesc: "Libdivecomputer is a cross-platform and open source library for communication
+with dive computers from various manufacturers."
+skip:
+
+homepage: https://www.libdivecomputer.org/
+license: LGPL-2.1-or-later AND Unlicense

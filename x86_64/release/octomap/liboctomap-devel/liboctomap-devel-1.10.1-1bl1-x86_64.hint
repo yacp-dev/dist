@@ -1,0 +1,6 @@
+category: Libs
+requires: liboctomap1.10 pkg-config
+sdesc: "Efficient Probabilistic 3D Mapping Framework Based on Octrees (development)"
+ldesc: "Efficient Probabilistic 3D Mapping Framework Based on Octrees"
+external-source: octomap
+

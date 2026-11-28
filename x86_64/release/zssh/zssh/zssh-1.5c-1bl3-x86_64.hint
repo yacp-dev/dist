@@ -1,0 +1,8 @@
+category: Net
+requires: cygwin libreadline8
+sdesc: "Interactive wrapper for ssh"
+ldesc: "zssh (Zmodem SSH) is a program for interactively transferring files to a
+remote machine while using the secure  shell (ssh).  It  is intended to be a
+convenient alternative to scp , allowing to transfer files without  having  to
+open another session and re-authenticate oneself."
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libboost_system1.66 libboost_thread1.66 libgcc1 libgflags2.2 libglog2 libhdf5hl_320 libhdf5_320 liblapack0 libleveldb1 liblmdb0 libopencv3.4 libprotobuf32 libstdc++6
+sdesc: "Fast open framework for deep learning (runtime)"
+ldesc: "Caffe is a deep learning framework made with expression, speed, and modularity
+in mind. It is developed by Berkeley AI Research (BAIR)/The Berkeley Vision
+and Learning Center (BVLC) and community contributors."
+external-source: caffe
+

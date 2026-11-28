@@ -1,0 +1,5 @@
+category: Text
+requires: cygwin libbrotlidec1 libbz2_1 libgcc1 liblz4_1 liblzma5 libstdc++6 libzstd1 zlib0
+sdesc: "Monotonic indexer to speed up grepping by >10x"
+ldesc: "Monotonic indexer to speed up grepping by >10x"
+

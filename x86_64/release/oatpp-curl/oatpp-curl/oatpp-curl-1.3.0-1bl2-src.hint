@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liboatpp-devel libcurl-devel
+sdesc: "RequestExecutor for oatpp's ApiClient based on libcurl (licensing & readmes)"
+ldesc: "RequestExecutor for oatpp's ApiClient based on libcurl"
+skip:
+
+homepage: https://github.com/oatpp/oatpp-curl
+license: Apache-2.0

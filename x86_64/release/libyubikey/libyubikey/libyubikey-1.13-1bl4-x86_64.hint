@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libyubikey0
+sdesc: "YubiKey C low-level library (utilities)"
+ldesc: "This package make up the low-level C software development kit for the Yubico
+YubiKey authentication device."
+

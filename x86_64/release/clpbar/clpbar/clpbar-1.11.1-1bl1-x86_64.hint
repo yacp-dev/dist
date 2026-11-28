@@ -1,0 +1,8 @@
+category: Utils
+requires: cygwin
+sdesc: "Show information about a data transfer"
+ldesc: "Bar is a simple tool to process a stream of data and print a
+display for the user on stderr showing the amount of data passed, the throughput
+of the data transfer, and, if the total size of the data stream is known,
+estimated time remaining, percent complete, and a progress bar."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: librotor0
+sdesc: "Event loop friendly C++ actor micro framework (development)"
+ldesc: "Event loop friendly C++ actor micro-framework, supervisable"
+external-source: cpp-rotor
+

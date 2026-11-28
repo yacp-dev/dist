@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Simple string-based Key/Value database (utilities)"
+ldesc: "Sdb is a simple string key/value database based on djb's cdb disk storage and
+supports JSON and arrays introspection."
+skip:
+
+homepage: https://github.com/radareorg/sdb
+license: MIT AND Apache-2.0

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport autoconf-archive gobject-introspection libfontconfig-devel libfreetype-devel libglib2.0-devel libharfbuzz-devel libxml2-devel
+sdesc: "Easy configuration generator interface for fontconfig (licensing & readmes)"
+ldesc: "libeasyfc is an interface library to generate fontconfig configuration for
+user preferences. this supports to assign your preferrable fonts to the alias
+fonts, such as sans-serif, serif and monospace per languages."
+skip:
+
+homepage: https://bitbucket.org/tagoh/libeasyfc/
+license: LGPL-3.0-or-later

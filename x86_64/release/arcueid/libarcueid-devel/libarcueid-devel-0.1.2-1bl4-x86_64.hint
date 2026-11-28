@@ -1,0 +1,6 @@
+category: Interpreters
+requires: cygwin-devel libarcueid0 libgmp-devel pkg-config
+sdesc: "C interpreter for Paul Graham's Arc dialect of Lisp (development)"
+ldesc: "This is Arcueid, an implementation of Paul Graham's Arc dialect of Lisp in C."
+external-source: arcueid
+

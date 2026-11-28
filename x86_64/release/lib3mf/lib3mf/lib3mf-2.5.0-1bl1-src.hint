@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport fast_float libssl-devel libzip-devel zlib-devel
+sdesc: "Implementation of the 3D Manufacturing Format file standard (licensing & readmes)"
+ldesc: "Lib3MF is a C++ implementation of the 3D Manufacturing Format file standard."
+skip:
+
+homepage: https://github.com/3MFConsortium/lib3mf
+license: BSD-2-Clause AND Zlib

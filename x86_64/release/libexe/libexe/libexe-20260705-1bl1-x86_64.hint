@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libcnotify1 libexe1
+sdesc: "Library and tools to access the executable (EXE) format (utilities)"
+ldesc: "libexe is a library to access the executable (EXE) format."
+

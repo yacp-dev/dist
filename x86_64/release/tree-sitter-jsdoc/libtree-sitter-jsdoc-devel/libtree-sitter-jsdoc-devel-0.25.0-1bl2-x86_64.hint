@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-jsdoc15.0 pkg-config
+sdesc: "JSDoc grammar for Tree-sitter (development)"
+ldesc: "JSDoc grammar for Tree-sitter"
+external-source: tree-sitter-jsdoc
+

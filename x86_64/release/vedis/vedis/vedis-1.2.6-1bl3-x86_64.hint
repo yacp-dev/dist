@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Embeddable Datastore Engine (licensing & readmes)"
+ldesc: "Vedis is an embeddable datastore C library built with over 70 commands similar
+in concept to Redis but without the networking layer since Vedis run in the
+same process of the host application."
+

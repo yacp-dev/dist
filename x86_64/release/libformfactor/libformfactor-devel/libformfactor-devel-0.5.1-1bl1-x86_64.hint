@@ -1,0 +1,6 @@
+category: Libs
+requires: libformfactor0 pkg-config
+sdesc: "C++ library for the efficient computation of scattering form factors (Fourier shape transforms) of arbitrary polyhedra (development)"
+ldesc: "C++ library for the efficient computation of scattering form factors (Fourier shape transforms) of arbitrary polyhedra"
+external-source: libformfactor
+

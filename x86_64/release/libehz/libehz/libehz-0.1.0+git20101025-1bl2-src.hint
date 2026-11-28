@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Interface to eHZ electricity meters"
+ldesc: "Interface to eHZ electricity meters"
+skip:
+
+homepage: https://github.com/gonium/libehz
+license: GPL-3.0-or-later

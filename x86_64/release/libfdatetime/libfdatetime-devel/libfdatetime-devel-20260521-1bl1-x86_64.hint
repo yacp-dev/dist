@@ -1,0 +1,6 @@
+category: Libs
+requires: libfdatetime1 pkg-config
+sdesc: "Library for date and time data types (development)"
+ldesc: "libfdatetime is a library for date and time data types."
+external-source: libfdatetime
+

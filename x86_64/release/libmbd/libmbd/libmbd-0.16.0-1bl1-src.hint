@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport gcc-fortran liblapack-devel
+sdesc: "Many-body dispersion library (licensing & readmes)"
+ldesc: "Libmbd implements the many-body dispersion (MBD) method in several programming
+languages and frameworks."
+skip:
+
+homepage: https://github.com/libmbd/libmbd
+license: MPL-2.0

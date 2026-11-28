@@ -1,0 +1,7 @@
+category: Libs
+requires: libhfstospell11 pkg-config
+sdesc: "HFST spell checker library and command line tool (development)"
+ldesc: "This is a minimal hfst optimized lookup format based spell checker library and
+a demonstrational implementation of command line based spell checker."
+external-source: hfstospell
+

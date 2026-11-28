@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "C++ high-level yet efficent multithreading library (licensing & readmes)"
+ldesc: "Wefts++ is an high-level abstraction C++ threading library, which has also
+seamless integration with low level constructs when raw speed is needed."
+

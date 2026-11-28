@@ -1,0 +1,6 @@
+category: Libs
+requires: libdpx0 pkg-config
+sdesc: "SMPTE DPX v2 Image Format reader/writer (development)"
+ldesc: "DPX image reader / writer library written in portable C++."
+external-source: dpx
+

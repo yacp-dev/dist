@@ -1,0 +1,7 @@
+category: Libs
+requires: libnbcompat0 pkg-config
+sdesc: "Portable NetBSD-compatibility library (development)"
+ldesc: "libnbcompat is a portable NetBSD-compatibility library that supplies routines
+used by NetBSD bootstrap tools that are missing on other operating systems."
+external-source: libnbcompat
+

@@ -1,0 +1,6 @@
+category: Utils
+requires: cygwin libgcc1 libicu76 libstdc++6 libticcutils10
+sdesc: "Tools for TICCL (runtime)"
+ldesc: "A collection of tools to process ticcl files"
+external-source: ticcltools
+

@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport libbz2-devel libcares-devel libevent-devel liblzma-devel libssl-devel libwrap-devel zlib-devel
+sdesc: "Yet another implementation of an HTTP proxy for Debian/Ubuntu software packages written in C++"
+ldesc: "A caching proxy. Specialized for package files from Linux distributors,
+primarily for Debian (and Debian based) distributions but not limited to
+those. See documentation of Apt-Cacher to learn what it's good for."
+skip:
+
+homepage: https://tracker.debian.org/pkg/apt-cacher-ng
+license: BSD-4-Clause

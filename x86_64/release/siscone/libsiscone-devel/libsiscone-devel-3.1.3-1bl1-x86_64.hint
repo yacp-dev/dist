@@ -1,0 +1,6 @@
+category: Science
+requires: libsiscone0
+sdesc: "Hadron Seedless Infrared-Safe Cone jet algorithm (development)"
+ldesc: "SISCone is a Seedless Infrared Safe Cone jet algorithm."
+external-source: siscone
+

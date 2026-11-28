@@ -1,0 +1,6 @@
+category: Libs
+requires: libogg-devel liboggz2 pkg-config
+sdesc: "C library for reading and writing Ogg files and streams (development)"
+ldesc: "C library for reading and writing Ogg files and streams"
+external-source: liboggz
+

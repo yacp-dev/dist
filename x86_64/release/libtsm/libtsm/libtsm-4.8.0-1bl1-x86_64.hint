@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Terminal-emulator State Machine (licensing & readmes)"
+ldesc: "TSM is a state machine for DEC VT100-VT520 compatible terminal emulators. It
+tries to support all common standards while keeping compatibility to existing
+emulators like xterm, gnome-terminal, konsole, .."
+

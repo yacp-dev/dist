@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Library of common debian-installer functions (runtime)"
+ldesc: "Library of common debian-installer functions."
+external-source: libdebian-installer
+

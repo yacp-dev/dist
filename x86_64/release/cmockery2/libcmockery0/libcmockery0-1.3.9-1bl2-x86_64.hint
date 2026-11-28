@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Reviving cmockery unit test framework from Google (runtime)"
+ldesc: "Reviving cmockery unit test framework from Google"
+external-source: cmockery2
+

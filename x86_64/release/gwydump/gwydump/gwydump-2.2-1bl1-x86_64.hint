@@ -1,0 +1,10 @@
+category: Utils
+requires: cygwin libglib2.0_0
+sdesc: "gwy files dumper"
+ldesc: "gwydump displays the structure and possibly contents of .gwy files in a
+textual form and it can also extract raw data components from them. It is
+useful for getting acquainted with the file strcuture, obtaining overview of
+file contents from command line, debugging problems or writing a program to
+read .gwy files. gwydump can handle both Gwyddion 1 and 2 files and
+tentatively also Gwyddion 3 serialisation format."
+

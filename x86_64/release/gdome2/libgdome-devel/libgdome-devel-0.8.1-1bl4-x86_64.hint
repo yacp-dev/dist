@@ -1,0 +1,6 @@
+category: Libs
+requires: bash libgdome0 libglib2.0-devel libxml2-devel pkg-config
+sdesc: "DOM C library developped for the Gnome project (development)"
+ldesc: "DOM C library developped for the Gnome project"
+external-source: gdome2
+

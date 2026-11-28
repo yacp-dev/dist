@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport CUnit
+sdesc: "Various data structures in plain C (licensing & readmes)"
+ldesc: "Various data structures in plain C"
+skip:
+
+homepage: https://github.com/snegovick/libccontainer
+license: GPL-3.0-or-later

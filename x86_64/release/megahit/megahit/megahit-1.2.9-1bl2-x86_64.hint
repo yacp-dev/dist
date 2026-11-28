@@ -1,0 +1,7 @@
+category: Science
+requires: cygwin libgcc1 libgomp1 libstdc++6 python3 zlib0
+sdesc: "Ultra-fast and memory-efficient (meta-)genome assembler"
+ldesc: "MEGAHIT is an ultra-fast and memory-efficient NGS assembler. It is optimized
+for metagenomes, but also works well on generic single genome assembly (small
+or mammalian size) and single-cell assembly."
+

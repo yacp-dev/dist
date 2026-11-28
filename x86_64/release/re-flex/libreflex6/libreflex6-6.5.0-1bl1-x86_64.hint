@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "High-performance C++ regex library and lexical analyzer generator with Unicode support (runtime)"
+ldesc: "High-performance C++ regex library and lexical analyzer generator with Unicode
+support."
+external-source: re-flex
+

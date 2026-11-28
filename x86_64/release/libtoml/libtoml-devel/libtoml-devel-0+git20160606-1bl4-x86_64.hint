@@ -1,0 +1,6 @@
+category: Libs
+requires: libtoml0 pkg-config
+sdesc: "Fast C parser using Ragel to generate the state machine (development)"
+ldesc: "Fast C parser using Ragel to generate the state machine"
+external-source: libtoml
+

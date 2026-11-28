@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport jq libmtbl-devel libwdns-devel mtbl
+sdesc: "Encoding format, library, and utilities for passive DNS data (utilities)"
+ldesc: "dnstable implements an encoding format for passive DNS data. It consists of a
+C library, libdnstable, and several command line utilities for creating,
+querying, and merging dnstable data files."
+skip:
+
+homepage: https://github.com/farsightsec/dnstable
+license: Apache-2.0

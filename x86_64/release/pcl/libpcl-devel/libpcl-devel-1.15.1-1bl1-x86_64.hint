@@ -1,0 +1,7 @@
+category: Libs
+requires: eigen3 libflann-devel libpcl1.15 pkg-config
+sdesc: "Point Cloud Library (development)"
+ldesc: "The Point Cloud Library (PCL) is a standalone, large scale, open project for
+3D point cloud processing."
+external-source: pcl
+

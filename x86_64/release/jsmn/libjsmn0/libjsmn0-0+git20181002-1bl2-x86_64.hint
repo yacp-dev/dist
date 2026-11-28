@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Minimalistic JSON parser in C (runtime)"
+ldesc: "jsmn is a minimalistic library for parsing JSON data format. It can be easily
+used in small projects or can be integrated into embedded systems."
+external-source: jsmn
+

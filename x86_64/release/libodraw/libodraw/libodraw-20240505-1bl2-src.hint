@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport bison flex gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libhmac-devel libuna-devel
+sdesc: "Library and tools to access to optical disc (split) RAW image files (bin/cue, iso/cue) (utilities)"
+ldesc: "libodraw is a library to access to optical disc (split) RAW image files
+(bin/cue, iso/cue)."
+skip:
+
+homepage: https://github.com/libyal/libodraw
+license: LGPL-3.0-or-later

@@ -1,0 +1,12 @@
+category: Text
+build-depends: cygport tinysvm
+sdesc: "Yet Another Multipurpose CHunk Annotator (utilities)"
+ldesc: "YamCha is a generic, customizable, and open source text chunker oriented
+toward a lot of NLP tasks, such as POS tagging, Named Entity Recognition, base
+NP chunking, and Text Chunking. YamCha is using a state-of-the-art machine
+learning algorithm called Support Vector Machines (SVMs), first introduced by
+Vapnik in 1995."
+skip:
+
+homepage: http://chasen.org/~taku/software/yamcha/
+license: LGPL-2.1-or-later

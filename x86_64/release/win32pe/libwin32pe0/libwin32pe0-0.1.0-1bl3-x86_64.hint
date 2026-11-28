@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ library for working with Win32 PE files (runtime)"
+ldesc: "This library simplifies the task of working with PE files."
+external-source: win32pe
+

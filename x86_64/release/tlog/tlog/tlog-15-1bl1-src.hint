@@ -1,0 +1,10 @@
+category: Utils
+build-depends: cygport libcurl-devel libjson-c-devel
+sdesc: "Terminal I/O logger (utilities)"
+ldesc: "Tlog is a terminal I/O recording and playback package suitable for
+implementing centralized user session recording. At the moment it is not ready
+for production and is to be considered development preview quality."
+skip:
+
+homepage: https://github.com/Scribery/tlog
+license: GPL-2.0-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "JSDoc grammar for Tree-sitter (runtime)"
+ldesc: "JSDoc grammar for Tree-sitter"
+external-source: tree-sitter-jsdoc
+

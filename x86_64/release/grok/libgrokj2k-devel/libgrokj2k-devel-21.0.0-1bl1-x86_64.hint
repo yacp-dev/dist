@@ -1,0 +1,6 @@
+category: Libs
+requires: libgrokj2k2 pkg-config grok
+sdesc: "JPEG 2000 codec (development)"
+ldesc: "Grok is a high performance open source JPEG 2000 codec."
+external-source: grok
+

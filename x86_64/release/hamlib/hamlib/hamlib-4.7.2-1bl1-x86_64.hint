@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libhamlib4 libreadline8 libusb1.0
+sdesc: "Library to control radio transceivers and receivers (utilities)"
+ldesc: "The Hamlib project's purpose is to develop flexible and portable shared
+libraries that offer a standardized API to control any radio oriented
+equipment through a computer interface."
+

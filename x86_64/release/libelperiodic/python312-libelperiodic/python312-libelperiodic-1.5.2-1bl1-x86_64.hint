@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 python312
+sdesc: "Library to run frequent periodic tasks (python312 bindings)"
+ldesc: "The libElPeriodic is designed to simplify writing control loops that are
+expected to run at constant tick intervals with smallest possible overhead and
+little or no support from the underlying run time environment."
+external-source: libelperiodic
+

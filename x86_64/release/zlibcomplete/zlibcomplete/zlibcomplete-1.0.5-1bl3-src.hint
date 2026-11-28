@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport ruby zlib-devel
+sdesc: "C++ interface to the ZLib library (licensing & readmes)"
+ldesc: "C++ interface to the ZLib library supporting compression with FLUSH,
+decompression, and std::string. RAII"
+skip:
+
+homepage: https://github.com/rudi-cilibrasi/zlibcomplete
+license: MIT

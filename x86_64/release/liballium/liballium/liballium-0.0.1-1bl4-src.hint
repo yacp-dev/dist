@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "C Tor Pluggable Transports Utility Library (licensing & readmes)"
+ldesc: "liballium attempts to reduce the amount of boilerplate code required to
+implement pluggable transports for Tor in C or C++."
+skip:
+
+homepage: https://github.com/Yawning/liballium
+license: BSD-2-Clause

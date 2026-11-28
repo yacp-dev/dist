@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libJudy1 libssl3
+sdesc: "DNS and DNSSEC zone file validator"
+ldesc: "DNS and DNSSEC zone file validator"
+

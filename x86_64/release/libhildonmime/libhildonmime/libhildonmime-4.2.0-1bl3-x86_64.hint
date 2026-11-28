@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libglib2.0_0 libintl8 libxml2_2
+sdesc: "Library for activating an application to handle a certain mime type (utilities)"
+ldesc: "Library for activating an application to handle a certain mime type"
+

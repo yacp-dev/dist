@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Python grammar for tree-sitter (licensing & readmes)"
+ldesc: "Python grammar for tree-sitter"
+skip:
+
+homepage: https://github.com/tree-sitter/tree-sitter-python
+license: MIT

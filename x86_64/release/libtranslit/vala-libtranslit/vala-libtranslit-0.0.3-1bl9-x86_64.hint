@@ -1,0 +1,6 @@
+category: Text
+requires: 
+sdesc: "Transliteration library with multiple backends (Vala binding)"
+ldesc: "Transliteration library with multiple backends"
+external-source: libtranslit
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport bison flex libintl-devel
+sdesc: "Community-built parser library for AppArmor profiles (licensing & readmes)"
+ldesc: "Community-built parser library for AppArmor profiles"
+skip:
+
+homepage: https://github.com/jack-ullery/libappanvil
+license: GPL-2.0-only

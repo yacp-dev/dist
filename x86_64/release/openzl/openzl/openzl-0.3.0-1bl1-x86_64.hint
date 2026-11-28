@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Novel data compression framework (licensing & readmes)"
+ldesc: "OpenZL delivers high compression ratios while preserving high speed, a level
+of performance that is out of reach for generic compressors."
+

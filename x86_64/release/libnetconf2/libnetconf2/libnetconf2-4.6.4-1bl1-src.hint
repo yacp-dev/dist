@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libcmocka-devel libcrypt-devel libcurl-devel libssh-devel libssl-devel libyang-devel
+sdesc: "NETCONF library in C intended for building NETCONF clients and servers (licensing & readmes)"
+ldesc: "libnetconf2 is a NETCONF library in C intended for building NETCONF clients
+and servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF."
+skip:
+
+homepage: https://github.com/CESNET/libnetconf2
+license: BSD-3-Clause

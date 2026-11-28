@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libcnotify1 libfguid1 libvsgpt1
+sdesc: "Library to access the GUID Partition Table (GPT) volume system (utilities)"
+ldesc: "libvsgpt is a library to access the GUID Partition Table (GPT) volume system."
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport zlib-devel
+sdesc: "Beautiful stack trace pretty printer for C++ (licensing & readmes)"
+ldesc: "Beautiful stack trace pretty printer for C++"
+skip:
+
+homepage: https://github.com/bombela/backward-cpp
+license: MIT

@@ -1,0 +1,6 @@
+category: Libs
+requires: libnestegg0 pkg-config
+sdesc: "WebM demuxer (development)"
+ldesc: "nestegg is a WebM demuxer library."
+external-source: nestegg
+

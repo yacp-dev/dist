@@ -1,0 +1,6 @@
+category: Text
+requires: cygwin libglib2.0_0 libm17n0 libtranslit0
+sdesc: "Transliteration module using m17n-lib for libtranslit"
+ldesc: "Transliteration library with multiple backends"
+external-source: libtranslit
+

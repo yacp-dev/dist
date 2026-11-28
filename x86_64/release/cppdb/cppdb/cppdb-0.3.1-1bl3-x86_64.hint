@@ -1,0 +1,7 @@
+category: Database
+requires: 
+sdesc: "SQL Connectivity Library (licensing & readmes)"
+ldesc: "CppDB is an SQL connectivity library that is designed to provide platform and
+Database independent connectivity API similarly to what JDBC, ODBC and other
+connectivity libraries do."
+

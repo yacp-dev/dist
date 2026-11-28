@@ -1,0 +1,7 @@
+category: Libs
+requires: libo2_1.0.0 pkg-config
+sdesc: "OAuth 2.0 for Qt (development)"
+ldesc: "This library encapsulates the OAuth 1.0 and 2.0 client
+authentication flows, and the sending of authenticated HTTP requests."
+external-source: o2
+

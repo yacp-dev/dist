@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libimobiledevice-glue1.0_0 libimobiledevice1.0_6 libplist2.0_12 libreadline8 libtatsu0
+sdesc: "Cross-platform protocol library to communicate with iOS devices (utilities)"
+ldesc: "Cross-platform protocol library to communicate with iOS devices"
+

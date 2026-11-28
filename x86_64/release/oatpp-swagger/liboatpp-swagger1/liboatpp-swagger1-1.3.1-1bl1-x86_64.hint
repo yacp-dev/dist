@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liboatpp1 libstdc++6
+sdesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services (runtime)"
+ldesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services"
+external-source: oatpp-swagger
+

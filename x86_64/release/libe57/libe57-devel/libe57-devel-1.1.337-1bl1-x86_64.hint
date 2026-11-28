@@ -1,0 +1,11 @@
+category: Libs
+requires: libe57_1 pkg-config
+sdesc: "Software Tools for Managing E57 Files (development)"
+ldesc: "The libE57 software is an open source implementation of the ASTM E2807
+Standard Specification for 3D Imaging Data Exchange (known as the E57 format
+hereafter) in the C++ language. It is intended to lower the barrier to
+adoption of the standard and to provide a reference to compare other
+implementations against. It is not expected to be the only implementation, and
+it is not intended to be the fastest possible implementation."
+external-source: libe57
+

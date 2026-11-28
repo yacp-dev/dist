@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libtirpc3
+sdesc: "C++ networking library based on Adaptive Communication Patterns (runtime)"
+ldesc: "libASSA is an object-oriented C++ networking library based on Adaptive
+Communication Patterns."
+external-source: libassa
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Fast C parser using Ragel to generate the state machine (licensing & readmes)"
+ldesc: "Fast C parser using Ragel to generate the state machine"
+

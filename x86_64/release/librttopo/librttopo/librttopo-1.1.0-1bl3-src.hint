@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libgeos-devel
+sdesc: "RT Topology Library (licensing & readmes)"
+ldesc: "The RT Topology Library exposes an API to create and manage standard (ISO
+13249 aka SQL/MM) topologies using user-provided data stores and released
+under the GNU GPL license (version 2 or later)."
+skip:
+
+homepage: https://git.osgeo.org/gitea/rttopo/librttopo
+license: GPL-2.0-or-later

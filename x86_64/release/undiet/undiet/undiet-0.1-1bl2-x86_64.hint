@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libundiet0
+sdesc: "Diet file decompressor (utilities)"
+ldesc: "Diet file decompressor"
+

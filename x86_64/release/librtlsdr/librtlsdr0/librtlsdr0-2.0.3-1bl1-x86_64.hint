@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libusb1.0
+sdesc: "Software to turn the RTL2832U into an SDR (runtime)"
+ldesc: "DVB-T dongles based on the Realtek RTL2832U can be used as a cheap SDR, since
+the chip allows transferring the raw I/Q samples to the host, which is
+officially used for DAB/DAB+/FM demodulation."
+external-source: librtlsdr
+

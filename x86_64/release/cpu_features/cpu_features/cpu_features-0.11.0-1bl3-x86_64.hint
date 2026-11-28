@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcpu_features0
+sdesc: "Cross platform C99 library to get cpu features at runtime (utilities)"
+ldesc: "A cross-platform C library to retrieve CPU features (such as available
+instructions) at runtime."
+

@@ -1,0 +1,7 @@
+category: Libs
+requires: libwt4 libboost-devel
+sdesc: "C++ library for developing web applications (development)"
+ldesc: "Wt (pronounced witty) is a C++ library and application server for
+developing and deploying web applications."
+external-source: wt
+

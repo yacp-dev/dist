@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libcnotify1 libvsbsdl1
+sdesc: "Library and tools to access BSD disklabel volume system format (utilities)"
+ldesc: "libvsbsdl is a library to access the BSD disklabel volume system format."
+

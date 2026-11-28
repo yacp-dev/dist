@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "URI C++ library (licensing & readmes)"
+ldesc: "C++ library for parsing and generating RFC-compliant Uniform Resource
+Identifiers (URI). Contains classes for URI scheme, authority, path, query,
+fragment, and the combined URI."
+

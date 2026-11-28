@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport perl
+sdesc: "Terminfo parsing library (licensing & readmes)"
+ldesc: "Unibilium is a very basic terminfo library. It doesn't depend on curses or
+any other library. It also doesn't use global variables, so it should be
+thread-safe."
+skip:
+
+homepage: https://github.com/neovim/unibilium
+license: LGPL-3.0-or-later

@@ -1,0 +1,6 @@
+category: Security
+requires: cygwin libssl3
+sdesc: "Duo two-factor authentication for Unix systems (runtime)"
+ldesc: "Duo two-factor authentication for Unix systems"
+external-source: duo_unix
+

@@ -1,0 +1,7 @@
+category: Games
+requires: cygwin libgcc1 libsamplerate0 libSDL1.2_0 libSDL_mixer1.2_0 libstdc++6
+sdesc: "libeastwood game data library (runtime)"
+ldesc: "This library provides support for handling wsa, shp, icn, cps, pal, adl, voc,
+pak++ data files used in ie. Westwood games."
+external-source: libeastwood
+

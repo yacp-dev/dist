@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Module/tracker based music format parser and player library (runtime)"
+ldesc: "DUMB is a module audio renderer library. It reads module files and outputs
+audio that can be dumped to the actual audio playback library."
+external-source: dumb
+

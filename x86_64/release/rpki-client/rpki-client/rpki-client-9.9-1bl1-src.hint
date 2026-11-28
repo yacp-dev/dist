@@ -1,0 +1,8 @@
+category: Net
+build-depends: cygport libexpat-devel libretls-devel libssl-devel zlib-devel
+sdesc: "OpenBSD portable rpki-client"
+ldesc: "OpenBSD portable rpki-client"
+skip:
+
+homepage: https://www.rpki-client.org/
+license: ISC AND BSD-2-Clause AND BSD-3-Clause

@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport libgmp-devel liblapack-devel
+sdesc: "Integer Matrix Library (licensing & readmes)"
+ldesc: "IML is a free library of C source code which implements algorithms for
+computing exact solutions to dense systems of linear equations over the
+integers. IML is designed to be compiled with a CBLAS library
+(e.g., ATLAS/BLAS) and the GMP bignum library."
+skip:
+
+homepage: https://cs.uwaterloo.ca/~astorjoh/iml.html
+license: BSD-3-Clause

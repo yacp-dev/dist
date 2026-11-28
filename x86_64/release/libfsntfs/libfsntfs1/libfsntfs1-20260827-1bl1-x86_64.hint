@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcdata1 libcerror1 libclocale1 libcnotify1 libcthreads1 libfcache1 libfdata1 libfwnt1 libuna1
+sdesc: "Library and tools to access the Windows New Technology File System (NTFS) (runtime)"
+ldesc: "libfsntfs is a library to access the Windows New Technology File System (NTFS)
+format."
+external-source: libfsntfs
+

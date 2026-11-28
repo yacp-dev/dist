@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport librhash-devel
+sdesc: "Generic framework for C development (licensing & readmes)"
+ldesc: "libigloo is a generic C framework. It is developed and used by the Icecast
+project."
+skip:
+
+homepage: https://gitlab.xiph.org/xiph/icecast-libigloo
+license: LGPL-2.0-only

@@ -1,0 +1,10 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Ctags-cscope glue"
+ldesc: "ccglue is intended to be the interfacing app between cscope and ctags. It can
+generate cross-reference tag files that can be interfaced with the Vim CCTree
+plugin"
+skip:
+
+homepage: https://ccglue.sourceforge.net/
+license: GPL-3.0-or-later AND BSL-1.0 AND MIT

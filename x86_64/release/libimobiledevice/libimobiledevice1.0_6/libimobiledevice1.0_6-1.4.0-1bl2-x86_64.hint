@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libimobiledevice-glue1.0_0 libplist2.0_12 libssl3 libusbmuxd2.0_7
+sdesc: "Cross-platform protocol library to communicate with iOS devices (runtime)"
+ldesc: "Cross-platform protocol library to communicate with iOS devices"
+external-source: libimobiledevice
+

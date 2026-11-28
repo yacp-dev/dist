@@ -1,0 +1,10 @@
+category: Text
+build-depends: cygport libicu-devel liblttoolbox-devel utf8cpp-devel
+sdesc: "Lexicon compiler for non-suffixational morphologies"
+ldesc: "This module compiles lexicons in a format loosely based on hfst-lexc and
+produces transducers in ATT format which are equivalent to those produced
+using the overgenerate-and-constrain approach with hfst-twolc."
+skip:
+
+homepage: https://github.com/apertium/lexd
+license: GPL-3.0-or-later

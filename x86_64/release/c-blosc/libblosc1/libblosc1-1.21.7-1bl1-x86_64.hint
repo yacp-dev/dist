@@ -1,0 +1,10 @@
+category: Archive
+requires: cygwin liblz4_1 libsnappy1 libzstd1 zlib0
+sdesc: "High performance compressor optimized for binary data (runtime)"
+ldesc: "Blosc is a compression library designed to transmit data to the processor
+cache faster than the traditional non-compressed memory fetch.
+Compression ratios are not very high, but the decompression is very fast.
+Blosc is meant not only to reduce the size of large datasets on-disk or
+in-memory, but also to accelerate memory-bound computations."
+external-source: c-blosc
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "WebM demuxer (licensing & readmes)"
+ldesc: "nestegg is a WebM demuxer library."
+skip:
+
+homepage: https://github.com/mozilla/nestegg
+license: ISC

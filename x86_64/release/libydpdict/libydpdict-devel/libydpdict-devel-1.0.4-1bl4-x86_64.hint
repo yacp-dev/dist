@@ -1,0 +1,6 @@
+category: Libs
+requires: libydpdict2 pkg-config
+sdesc: "Library for handling the Collins Dictionary database (development)"
+ldesc: "Library for handling the Collins Dictionary database"
+external-source: libydpdict
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libgpkg0 pkg-config
+sdesc: "SQLite loadable extension to provide GeoPackage file access (development)"
+ldesc: "A SQLite 3 extension that provides a minimal OGC GeoPackage implementation."
+external-source: libgpkg
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "X86 emulation and shellcode detection (runtime)"
+ldesc: "X86 emulation and shellcode detection"
+external-source: libemu
+

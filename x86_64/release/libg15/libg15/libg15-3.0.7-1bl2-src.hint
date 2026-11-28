@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libusb-devel
+sdesc: "Library to handle the LCD and extra keys on the Logitech G15 Gaming Keyboard and similar devices (licensing & readmes)"
+ldesc: "Library to handle the LCD and extra keys on the Logitech G15 Gaming Keyboard
+and similar devices"
+skip:
+
+homepage: https://gitlab.com/menelkir/libg15
+license: GPL-2.0-or-later

@@ -1,0 +1,8 @@
+category: Libs
+requires: python312
+sdesc: "Helsinki Finite-State Technology (library and application suite) (python312 bindings)"
+ldesc: "This package contains a bridging library for multiple FST libraries and
+toolkits and set of tools for processing of finite-state automate especially
+for linguistic systems."
+external-source: hfst
+

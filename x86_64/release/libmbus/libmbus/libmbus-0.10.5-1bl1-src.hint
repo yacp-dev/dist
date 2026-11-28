@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Meter-bus library and utility programs (utilities)"
+ldesc: "libmbus is an open source library for the M-bus (Meter-Bus) protocol."
+skip:
+
+homepage: https://github.com/rscada/libmbus
+license: BSD-3-Clause

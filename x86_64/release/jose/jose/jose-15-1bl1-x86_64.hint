@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libjansson4 libjose0
+sdesc: "Implementation of Javascript Object Signing and Encryption (utilities)"
+ldesc: "Jose is a C-language implementation of the Javascript Object Signing and
+Encryption standards."
+

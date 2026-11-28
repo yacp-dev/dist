@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gettext-devel libexpat-devel
+sdesc: "Ultra lightweight xml-rpc lib for C++ (utilities)"
+ldesc: "ulxmlrpcpp is a library to call methods on a remote server. It's main goal is
+to be as easy to use as possible but be fully compliant. It is object oriented
+and written in C++."
+skip:
+
+homepage: https://sourceforge.net/projects/ulxmlrpcpp/
+license: LGPL-2.0-or-later AND MIT

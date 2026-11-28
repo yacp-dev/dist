@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel libgtest-devel
+sdesc: "C/C++ library to scrobble your played tracks on last.fm (licensing & readmes)"
+ldesc: "C/C++ library to scrobble your played tracks on last.fm"
+skip:
+
+homepage: https://github.com/dirkvdb/lastfmlib
+license: GPL-2.0-or-later AND Zlib

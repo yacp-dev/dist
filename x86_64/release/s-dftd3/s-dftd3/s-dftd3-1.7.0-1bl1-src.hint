@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran libmctc-lib-devel libmstore-devel libtoml-f-devel
+sdesc: "Library first implementation of the D3 dispersion correction (utilities)"
+ldesc: "Library first implementation of the D3 dispersion correction"
+skip:
+
+homepage: https://github.com/dftd3/simple-dftd3
+license: LGPL-3.0-or-later

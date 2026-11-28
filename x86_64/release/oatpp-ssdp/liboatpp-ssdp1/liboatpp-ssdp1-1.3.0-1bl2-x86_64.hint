@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 liboatpp1 libstdc++6
+sdesc: "Oat++ extension module to work with SSDP protocol (runtime)"
+ldesc: "Oat++ extension module to work with SSDP protocol"
+external-source: oatpp-ssdp
+

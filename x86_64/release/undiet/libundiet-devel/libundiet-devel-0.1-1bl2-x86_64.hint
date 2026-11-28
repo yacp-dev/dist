@@ -1,0 +1,6 @@
+category: Libs
+requires: libundiet0 pkg-config
+sdesc: "Diet file decompressor (development)"
+ldesc: "Diet file decompressor"
+external-source: undiet
+

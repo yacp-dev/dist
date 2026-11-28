@@ -1,0 +1,5 @@
+category: Science
+requires: pkg-config
+sdesc: "Data for Frog, mandatory"
+ldesc: "Data for Frog, mandatory"
+

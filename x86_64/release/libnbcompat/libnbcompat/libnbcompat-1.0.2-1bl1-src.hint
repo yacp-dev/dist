@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Portable NetBSD-compatibility library (licensing & readmes)"
+ldesc: "libnbcompat is a portable NetBSD-compatibility library that supplies routines
+used by NetBSD bootstrap tools that are missing on other operating systems."
+skip:
+
+homepage: https://github.com/archiecobbs/libnbcompat
+license: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND RSA-MD AND Beerware

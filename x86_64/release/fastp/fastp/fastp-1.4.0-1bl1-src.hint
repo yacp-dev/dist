@@ -1,0 +1,10 @@
+category: Science
+build-depends: cygport libdeflate-devel libhwy-devel libisal-devel
+sdesc: "Ultra-fast all-in-one FASTQ preprocessor"
+ldesc: "A tool designed to provide fast all-in-one preprocessing for FastQ files. This
+tool is developed in C++ with multithreading supported to afford high
+performance."
+skip:
+
+homepage: https://github.com/OpenGene/fastp
+license: MIT

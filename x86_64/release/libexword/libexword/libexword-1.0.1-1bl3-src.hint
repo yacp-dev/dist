@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libiconv-devel libreadline-devel libusb1.0-devel
+sdesc: "Library for transfering files over USB to casio EX-word electronic dictionaries (utilities)"
+ldesc: "libexword is a library that implements the low-level OBEX commands used to
+communicate Casio EX-word dictionaries."
+skip:
+
+homepage: https://github.com/brijohn/libexword
+license: GPL-2.0-or-later

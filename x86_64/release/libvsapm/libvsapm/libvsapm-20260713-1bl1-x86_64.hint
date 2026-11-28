@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libcnotify1 libvsapm1
+sdesc: "Library and tools to access the Apple Partition Map (APM) volume system format (utilities)"
+ldesc: "libvsapm is a library to access the Apple Partition Map (APM) volume system
+format."
+

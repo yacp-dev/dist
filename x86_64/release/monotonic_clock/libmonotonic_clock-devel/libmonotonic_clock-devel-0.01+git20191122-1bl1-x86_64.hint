@@ -1,0 +1,10 @@
+category: Libs
+requires: libmonotonic_clock0.01_0 pkg-config
+sdesc: "Portable C library for getting monotonic time (development)"
+ldesc: "Provides access to a clock that always increases at the same rate.
+Unlike the system time (e.g. gettimeofday()) this will never decrease.
+
+However, if there's no monotonic clock on your system then this library will
+fall back to gettimeofday()."
+external-source: monotonic_clock
+

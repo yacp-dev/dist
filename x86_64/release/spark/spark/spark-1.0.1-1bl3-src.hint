@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport roundup
+sdesc: "Sparklines for your shell"
+ldesc: "Sparklines for your shell"
+skip:
+
+homepage: https://github.com/holman/spark
+license: MIT

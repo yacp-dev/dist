@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgfortran5 libpcre2_8_0
+sdesc: "Fortran 2018 interface bindings to PCRE2 (runtime)"
+ldesc: "Fortran 2018 interface bindings to PCRE2"
+external-source: fortran-pcre2
+

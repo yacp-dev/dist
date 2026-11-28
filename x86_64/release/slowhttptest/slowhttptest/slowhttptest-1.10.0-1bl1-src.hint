@@ -1,0 +1,10 @@
+category: Net
+build-depends: cygport libssl-devel
+sdesc: "Application Layer DoS attack simulator"
+ldesc: "SlowHTTPTest is a highly configurable tool that simulates some Application
+Layer Denial of Service attacks by prolonging HTTP connections in different
+ways."
+skip:
+
+homepage: https://github.com/shekyan/slowhttptest
+license: Apache-2.0

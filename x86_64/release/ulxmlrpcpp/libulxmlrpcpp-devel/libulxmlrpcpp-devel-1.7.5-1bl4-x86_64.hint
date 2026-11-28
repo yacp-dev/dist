@@ -1,0 +1,8 @@
+category: Libs
+requires: libexpat-devel libulxmlrpcpp24 pkg-config
+sdesc: "Ultra lightweight xml-rpc lib for C++ (development)"
+ldesc: "ulxmlrpcpp is a library to call methods on a remote server. It's main goal is
+to be as easy to use as possible but be fully compliant. It is object oriented
+and written in C++."
+external-source: ulxmlrpcpp
+

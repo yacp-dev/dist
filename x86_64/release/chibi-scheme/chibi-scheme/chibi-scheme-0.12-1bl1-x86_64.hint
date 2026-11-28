@@ -1,0 +1,7 @@
+category: Scheme
+requires: cygwin libchibi-scheme0
+sdesc: "Minimal R7RS Scheme implementation (licensing & readmes)"
+ldesc: "Chibi-Scheme is a very small library intended for use as an
+extension and scripting language in C programs. It aims for fast startup, a
+small footprint, and support for the R7RS standard."
+

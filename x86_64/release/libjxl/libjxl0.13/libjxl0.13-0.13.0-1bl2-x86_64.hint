@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbrotlidec1 libbrotlienc1 libgcc1 libhwy1 libstdc++6
+sdesc: "JPEG XL image format reference implementation (runtime)"
+ldesc: "JPEG XL image format reference implementation"
+external-source: libjxl
+

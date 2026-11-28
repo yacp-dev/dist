@@ -1,0 +1,12 @@
+category: Text
+build-depends: cygport libfolia-devel libfrog-devel libicu-devel libticcutils-devel libtimbl-devel libucto-devel libxml2-devel
+sdesc: "Analysis tool for dutch texts (utilities)"
+ldesc: "T-Scan is an analysis tool for dutch texts to assess the complexity of the
+text, and is based on original work by Rogier Kraf (Utrecht University) (see:
+Kraf et al., 2009). The code has been reimplemented and extended by Ko van der
+Sloot (Tilburg University), and is currently maintained and continued by
+Martijn van der Klis (Utrecht University)."
+skip:
+
+homepage: https://github.com/CentreForDigitalHumanities/tscan
+license: AGPL-3.0-or-later

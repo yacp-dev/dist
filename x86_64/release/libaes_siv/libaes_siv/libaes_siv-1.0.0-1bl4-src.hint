@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport asciidoc libssl-devel
+sdesc: "RFC5297-compliant C implementation of AES-SIV (licensing & readmes)"
+ldesc: "This is an RFC5297-compliant C implementation of AES-SIV written by Daniel
+Franke on behalf of Akamai Technologies. It is published under the Apache
+License (v2.0). It uses OpenSSL for the underlying AES and CMAC
+implementations and follows a similar interface style."
+skip:
+
+homepage: https://github.com/dfoxfranke/libaes_siv
+license: Apache-2.0

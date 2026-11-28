@@ -1,0 +1,5 @@
+category: Science
+requires: cygwin libdeflate0 libgcc1 libhts3 libstdc++6
+sdesc: "C++ implementation of FastQC for quality control of sequencing data"
+ldesc: "C++ implementation of FastQC for quality control of sequencing data"
+

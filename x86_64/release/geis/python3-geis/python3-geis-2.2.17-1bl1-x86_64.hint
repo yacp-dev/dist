@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin python312
+sdesc: "Gesture Engine Interface and Support (Python 3 bindings)"
+ldesc: "GEIS is a library for applications and toolkit programmers which
+provides a consistent platform independent interface for any system-wide input
+gesture recognition mechanism."
+external-source: geis
+

@@ -1,0 +1,5 @@
+category: Devel
+requires: pkg-config
+sdesc: "Easy to use and fast C++ CRC library"
+ldesc: "CRC++ is a portable and lightweight C++ CRC library."
+

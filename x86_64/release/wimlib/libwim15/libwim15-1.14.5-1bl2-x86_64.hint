@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin
+sdesc: "Library to create, extract, and modify Windows Imaging files (runtime)"
+ldesc: "wimlib is a C library for creating, modifying, extracting, and mounting
+Windows Imaging (WIM) files. wimlib and its command-line frontend
+'wimlib-imagex' provide a free and cross-platform alternative to Microsoft's
+WIMGAPI, ImageX, and DISM."
+external-source: wimlib
+

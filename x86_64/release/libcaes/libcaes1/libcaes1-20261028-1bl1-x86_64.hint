@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libssl3
+sdesc: "Library to support cross-platform AES encryption (runtime)"
+ldesc: "libcaes is a library to support cross-platform AES encryption."
+external-source: libcaes
+

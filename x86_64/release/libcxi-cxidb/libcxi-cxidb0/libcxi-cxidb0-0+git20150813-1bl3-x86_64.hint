@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libhdf5_320
+sdesc: "Library to help read and write CXI files (runtime)"
+ldesc: "Library to help read and write CXI files"
+external-source: libcxi-cxidb
+

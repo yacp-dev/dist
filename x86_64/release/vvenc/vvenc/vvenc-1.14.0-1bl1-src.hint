@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Fraunhofer Versatile Video Encoder (utilities)"
+ldesc: "The Fraunhofer Versatile Video Encoder (VVenC) is a fast and efficient
+real-world VVC encoder implementation."
+skip:
+
+homepage: https://github.com/fraunhoferhhi/vvenc
+license: BSD-3-Clause-Clear AND MIT

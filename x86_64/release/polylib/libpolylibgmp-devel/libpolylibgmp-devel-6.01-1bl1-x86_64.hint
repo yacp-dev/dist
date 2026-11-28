@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin-devel libgmp-devel libpolylibgmp10 pkg-config
+sdesc: "Library of polyhedral functions (development)"
+ldesc: "The Polyhedral Library (PolyLib for short) operates on objects made up of
+unions of polyhedra of any dimension."
+external-source: polylib
+

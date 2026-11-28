@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgeos_c1
+sdesc: "SQLite loadable extension to provide GeoPackage file access (runtime)"
+ldesc: "A SQLite 3 extension that provides a minimal OGC GeoPackage implementation."
+external-source: libgpkg
+

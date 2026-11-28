@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcanlock3
+sdesc: "Library for creating and verifying Netnews Cancel-Locks (utilities)"
+ldesc: "libcanlock is a library for creating and verifying RFC 8315
+Netnews Cancel-Locks. It also provides article header parsers and command line
+tools."
+

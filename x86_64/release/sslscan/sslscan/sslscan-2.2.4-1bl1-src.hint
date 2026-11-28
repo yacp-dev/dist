@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport libssl-devel
+sdesc: "Fast SSL/TLS scanner"
+ldesc: "sslscan tests SSL/TLS enabled services to discover supported
+cipher suites."
+skip:
+
+homepage: https://github.com/rbsec/sslscan
+license: GPL-3.0-or-later

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "C++ library used to read and write JSON with ease and speed (runtime)"
+ldesc: "JsonBox is a C++ library used to read and write JSON with ease and speed."
+external-source: JsonBox
+

@@ -1,0 +1,8 @@
+category: Science
+requires: libhdf5-devel libseqdb0 pkg-config
+sdesc: "High-throughput compression of FASTQ data (development)"
+ldesc: "SeqDB is a file format, compressor and storage tool for the raw data produced
+by Next-Generation Sequencing platforms like the Illumina HiSeq 2000 and MiSeq
+and the Life Technologies Ion Torrent PGM."
+external-source: seqdb
+

@@ -1,0 +1,8 @@
+category: Libs
+requires: liburi-template1.2.1 pkg-config
+sdesc: "URI Templates expansion and reverse-matching for C++ (development)"
+ldesc: "This library implements URI Template with full support up to Level 4 providing
+expansion and match capabilities. It requires c++17 compiler support and has
+no dependencies."
+external-source: uri-template
+

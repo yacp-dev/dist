@@ -1,0 +1,7 @@
+category: Libs
+requires: libexword1 libusb1.0-devel pkg-config
+sdesc: "Library for transfering files over USB to casio EX-word electronic dictionaries (development)"
+ldesc: "libexword is a library that implements the low-level OBEX commands used to
+communicate Casio EX-word dictionaries."
+external-source: libexword
+

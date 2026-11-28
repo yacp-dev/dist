@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcerror1 libcnotify1
+sdesc: "Library for Mac OS data types (runtime)"
+ldesc: "libfmos is a library for Mac OS data types."
+external-source: libfmos
+

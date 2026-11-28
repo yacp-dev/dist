@@ -1,0 +1,7 @@
+category: Libs
+build-depends: cygport doxygen
+sdesc: "Library of various useful C++ code (licensing & readmes)"
+ldesc: "Library of various useful C++ code"
+skip:
+
+homepage: https://launchpad.net/libwibble

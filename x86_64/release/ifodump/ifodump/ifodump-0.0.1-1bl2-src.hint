@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport libdvdread-devel
+sdesc: "Dump iFO data from dvd disk"
+ldesc: "Dump iFO data from dvd disk"
+skip:
+
+homepage: https://sourceforge.net/projects/dvd/files/ifodump/
+license: GPL-2.0-or-later

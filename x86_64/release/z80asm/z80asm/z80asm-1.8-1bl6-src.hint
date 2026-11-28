@@ -1,0 +1,13 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Z80 Assembler"
+ldesc: "z80asm is an assembler for the Z80 microprocessor. The assembler aims to be
+portable and complete. Of course it assembles all official mnemonics, but it
+also aims to assemble the unofficial mnemonics. The assembler was written with
+the MSX computer in mind as the target platform, but it can be used for any
+system with a Z80 in it. Some header files with labels of MSX specific
+addresses (BIOS, BDOS, system variables) are included."
+skip:
+
+homepage: https://www.nongnu.org/z80asm/
+license: GPL-3.0-or-later

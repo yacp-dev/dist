@@ -1,0 +1,9 @@
+category: Libs
+requires: libemodbus0 pkg-config
+sdesc: "Embedded modbus parsing library (development)"
+ldesc: "This library depends on libemodbus (uses ring buffer implementation).
+Emodbus is capable of modbus datastructures parsing. Once the structure is
+parsed and confirmed to be valid, the library calls your callback, passing
+parsed version of request or response."
+external-source: libemodbus
+

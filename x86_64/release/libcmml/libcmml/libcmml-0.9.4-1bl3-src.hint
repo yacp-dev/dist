@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libexpat-devel
+sdesc: "Library for handling Continuous Media Markup Language (utilities)"
+ldesc: "Libcmml is a library which enables the handling of documents written in CMML
+(Continuous Media Markup Language) for the Continuous Media Web (CMWeb)."
+skip:
+
+homepage: https://web.archive.org/web/20190211161854/http://www.annodex.net/software/libcmml/
+license: BSD-3-Clause

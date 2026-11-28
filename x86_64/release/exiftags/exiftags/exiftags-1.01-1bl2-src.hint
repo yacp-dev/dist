@@ -1,0 +1,13 @@
+category: Graphics
+build-depends: cygport 
+sdesc: "Utility to read EXIF tags from a digital camera JPEG file"
+ldesc: "The exiftags utility parses a specified JPEG file or, by default, its standard
+input, looking for a JPEG APP1 section containing Exif (Exchangeable Image
+File) image metadata. The properties contained in these data are then printed
+to the standard output. Digital cameras typically add Exif data to the image
+files they produce, containing information about the camera and digitized
+image."
+skip:
+
+homepage: https://johnst.org/sw/exiftags/
+license: BSD-4-Clause AND BSD-2-Clause

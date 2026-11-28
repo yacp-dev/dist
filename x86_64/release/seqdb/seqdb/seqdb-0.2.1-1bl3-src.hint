@@ -1,0 +1,10 @@
+category: Science
+build-depends: cygport libblosc-devel libhdf5-devel
+sdesc: "High-throughput compression of FASTQ data (utilities)"
+ldesc: "SeqDB is a file format, compressor and storage tool for the raw data produced
+by Next-Generation Sequencing platforms like the Illumina HiSeq 2000 and MiSeq
+and the Life Technologies Ion Torrent PGM."
+skip:
+
+homepage: https://bitbucket.org/mhowison/seqdb
+license: MIT

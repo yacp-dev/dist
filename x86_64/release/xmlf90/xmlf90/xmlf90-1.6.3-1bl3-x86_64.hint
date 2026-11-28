@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Suite of libraries to handle XML in Fortran (licensing & readmes)"
+ldesc: "Suite of libraries to handle XML in Fortran"
+

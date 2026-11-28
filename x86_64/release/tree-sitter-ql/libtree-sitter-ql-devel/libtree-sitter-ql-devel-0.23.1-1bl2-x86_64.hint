@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-ql14.0 pkg-config
+sdesc: "Tree-sitter grammar for the CodeQL language (development)"
+ldesc: "Tree-sitter grammar for the CodeQL language"
+external-source: tree-sitter-ql
+

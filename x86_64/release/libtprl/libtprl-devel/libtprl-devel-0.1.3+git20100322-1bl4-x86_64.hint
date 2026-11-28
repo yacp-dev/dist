@@ -1,0 +1,6 @@
+category: Libs
+requires: libncurses-devel libreadline-devel libtprl1 pkg-config
+sdesc: "C++ Readline wrapper (development)"
+ldesc: "This is a Readline library in C++."
+external-source: libtprl
+

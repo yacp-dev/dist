@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Small C library, with a bioinformatic focus (licensing & readmes)"
+ldesc: "A C library for various bioinformatics-y tasks. Proper docs will come in time.
+For now, we have reasonable test coverage under ./test/ that demonstrate the
+API."
+

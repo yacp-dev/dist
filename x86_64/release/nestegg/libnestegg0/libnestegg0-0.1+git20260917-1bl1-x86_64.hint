@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "WebM demuxer (runtime)"
+ldesc: "nestegg is a WebM demuxer library."
+external-source: nestegg
+

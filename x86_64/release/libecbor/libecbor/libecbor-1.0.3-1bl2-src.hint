@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "CBOR library (licensing & readmes)"
+ldesc: "CBOR library with no dependencies, small memory footprint and code size,
+developed for both desktop and embedded applications."
+skip:
+
+homepage: https://github.com/rimio/libecbor
+license: MIT

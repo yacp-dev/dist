@@ -1,0 +1,8 @@
+category: Database
+requires: bash cygwin libdbi1 libexpat1 libiconv2 libreadline8 perl perl_base
+sdesc: "Reference database and bibliography tool"
+ldesc: "RefDB is a reference database and bibliography tool for SGML, XML, and LaTeX
+documents, sort of a Reference Manager or BibTeX for markup languages. It is
+portable and known to run on Linux, Free/NetBSD, OSX, Solaris, and
+Windows/Cygwin."
+

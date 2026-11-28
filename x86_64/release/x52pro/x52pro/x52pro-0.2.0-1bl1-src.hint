@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libusb1.0-devel
+sdesc: "x52 PRO linux library (utilities)"
+ldesc: "User-space library and tools to control the Multi-Function Display
+(MFD) and LEDs on Saitek X52 and X52 Pro joysticks."
+skip:
+
+homepage: https://github.com/seesturm/x52lib
+license: GPL-2.0-or-later AND LGPL-2.1-only

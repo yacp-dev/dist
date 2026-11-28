@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "IO and data type part of the vista library (runtime)"
+ldesc: "This library includes the IO and data type part of the vista library."
+external-source: vistaio
+

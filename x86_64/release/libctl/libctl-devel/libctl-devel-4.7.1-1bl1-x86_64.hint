@@ -1,0 +1,8 @@
+category: Libs
+requires: bash libctl7
+sdesc: "Guile-based support for flexible control files (development)"
+ldesc: "libctl is a free Guile-based library implementing flexible control files for
+scientific simulations. It was written to support our MIT Photonic Bands and
+Meep software, but has proven useful in other programs too."
+external-source: libctl
+

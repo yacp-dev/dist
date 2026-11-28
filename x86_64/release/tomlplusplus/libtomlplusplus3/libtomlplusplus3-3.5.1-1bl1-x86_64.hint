@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "TOML config file parser and serializer for C++17 (runtime)"
+ldesc: "TOML config file parser and serializer for C++17"
+external-source: tomlplusplus
+

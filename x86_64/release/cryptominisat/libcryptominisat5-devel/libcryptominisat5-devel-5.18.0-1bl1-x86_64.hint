@@ -1,0 +1,7 @@
+category: Math
+requires: libcryptominisat5_5.18 pkg-config libgmp-devel
+sdesc: "Advanced SAT solver (development)"
+ldesc: "CryptoMiniSat is a modern, multi-threaded, feature-rich, simplifying SAT
+solver."
+external-source: cryptominisat
+

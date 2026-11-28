@@ -1,0 +1,10 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Limit process's absolute execution time"
+ldesc: "timelimit executes a command and terminates the spawned process after a given
+time with a given signal. A 'warning' signal is sent first, then, after a
+timeout, a 'kill' signal, similar to the way init(8) operates on shutdown."
+skip:
+
+homepage: https://devel.ringlet.net/sysutils/timelimit/
+license: BSD-2-Clause

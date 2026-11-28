@@ -1,0 +1,9 @@
+category: Video
+build-depends: cygport libyaml-devel
+sdesc: "Manipulate Adobe flash video file"
+ldesc: "flvmeta is a command-line utility aimed at manipulating Adobe(tm) Flash Video
+files (FLV)."
+skip:
+
+homepage: https://github.com/noirotm/flvmeta
+license: GPL-2.0-or-later

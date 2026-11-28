@@ -1,0 +1,11 @@
+category: Gnome
+build-depends: cygport libxml2 libxslt
+sdesc: "Database of mobile broadband service providers"
+ldesc: "This package contains mobile broadband settings for different service providers
+in different countries. The Package contains only informational files so it's
+safe for distributions to grab updates even during feature freeze and
+maintenance stages."
+skip:
+
+homepage: https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info
+license: CC-PDDC

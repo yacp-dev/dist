@@ -1,0 +1,9 @@
+category: Games
+build-depends: cygport libSDL-devel libSDL_mixer-devel libsamplerate-devel
+sdesc: "libeastwood game data library (licensing & readmes)"
+ldesc: "This library provides support for handling wsa, shp, icn, cps, pal, adl, voc,
+pak++ data files used in ie. Westwood games."
+skip:
+
+homepage: https://launchpad.net/libeastwood/
+license: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later

@@ -1,0 +1,6 @@
+category: Security
+requires: 
+sdesc: "Pairing-Based Cryptography Library (licensing & readmes)"
+ldesc: "Pairing-based cryptography is a relatively young area of cryptography that
+revolves around a certain function with special properties."
+

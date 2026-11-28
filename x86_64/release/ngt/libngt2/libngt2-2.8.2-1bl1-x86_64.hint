@@ -1,0 +1,9 @@
+category: Math
+requires: cygwin libgcc1 libgomp1 liblapack0 libstdc++6
+sdesc: "Neighborhood Graph and Tree for Indexing High-dimensional Data (runtime)"
+ldesc: "NGT provides commands and a library for performing high-speed approximate
+nearest neighbor searches against a large volume of data (several million to
+several 10 million items of data) in high dimensional vector data space
+(several ten to several thousand dimensions)."
+external-source: ngt
+

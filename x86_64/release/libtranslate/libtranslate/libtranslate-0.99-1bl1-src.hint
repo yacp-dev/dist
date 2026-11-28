@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gtk-doc intltool libglib2.0-devel libsoup2.4-devel libxml2-devel
+sdesc: "Natural language translation library (utilities)"
+ldesc: "Libtranslate is a library for translating text and web pages
+between natural languages. Its modular infrastructure allows to implement new
+translation services separately from the core library."
+skip:
+
+homepage: https://www.nongnu.org/libtranslate/
+license: BSD-3-Clause

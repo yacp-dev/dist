@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport asciidoc liblz4-devel libsnappy-devel libzstd-devel zlib-devel
+sdesc: "Immutable sorted string table library (utilities)"
+ldesc: "mtbl is a C library implementation of the Sorted String Table
+(SSTable) data structure, based on the SSTable implementation in the open source
+Google LevelDB library. An SSTable is a file containing an immutable mapping of
+keys to values. Keys are stored in sorted order, with an index at the end of the
+file allowing keys to be located quickly."
+skip:
+
+homepage: https://github.com/farsightsec/mtbl
+license: Apache-2.0 AND BSD-3-Clause AND Unlicense

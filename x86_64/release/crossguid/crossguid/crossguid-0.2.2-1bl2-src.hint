@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libuuid-devel
+sdesc: "Lightweight cross platform C++ GUID/UUID library (licensing & readmes)"
+ldesc: "CrossGuid is a minimal, cross platform, C++ GUID library. It uses the best
+native GUID/UUID generator on the given platform and has a generic class for
+parsing, stringifying, and comparing IDs."
+skip:
+
+homepage: https://github.com/graeme-hill/crossguid
+license: MIT

@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport halibut libgmp-devel libncurses-devel
+sdesc: "Command-line exact real calculator"
+ldesc: "Spigot is a command-line streaming exact real calculator."
+skip:
+
+homepage: https://www.chiark.greenend.org.uk/~sgtatham/spigot/
+license: MIT

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcerror1 libclocale1 libcnotify1 libvsmbr1
+sdesc: "Library and tools to access the Master Boot Record (MBR) volume system format (utilities)"
+ldesc: "libvsmbr is a library to access the Master Boot Record (MBR) volume system."
+

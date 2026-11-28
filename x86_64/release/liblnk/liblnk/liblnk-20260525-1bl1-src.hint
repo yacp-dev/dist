@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libbfio-devel libcdata-devel libcerror-devel libcfile-devel libclocale-devel libcnotify-devel libcpath-devel libcsplit-devel libcthreads-devel libfdatetime-devel libfguid-devel libfole-devel libfwps-devel libfwsi-devel libuna-devel python3-devel
+sdesc: "Library and tools to access the Windows Shortcut File (LNK) format (utilities)"
+ldesc: "liblnk is a library to access the Windows Shortcut File (LNK) format."
+skip:
+
+homepage: https://github.com/libyal/liblnk
+license: LGPL-3.0-or-later

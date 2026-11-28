@@ -1,0 +1,8 @@
+category: Interpreters
+build-depends: cygport libuvwasi-devel python3
+sdesc: "Fastest WebAssembly interpreter"
+ldesc: "A high performance WebAssembly interpreter written in C."
+skip:
+
+homepage: https://github.com/wasm3/wasm3
+license: MIT

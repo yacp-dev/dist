@@ -1,0 +1,7 @@
+category: Text
+requires: bash cygwin libapertium3 libgcc1 libicu76 libintl8 liblttoolbox3 libstdc++6 libxml2_2 python3
+sdesc: "Free/open-source machine translation platform (utilities)"
+ldesc: "Apertium is a free/open-source machine translation platform, initially aimed
+at related-language pairs but expanded to deal with more divergent language
+pairs (such as English-Catalan)."
+

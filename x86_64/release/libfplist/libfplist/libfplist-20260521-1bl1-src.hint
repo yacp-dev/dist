@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport bison flex gettext-devel libcdata-devel libcerror-devel libcnotify-devel libcthreads-devel libfguid-devel libfvalue-devel libuna-devel
+sdesc: "Library for plist format (licensing & readmes)"
+ldesc: "libfplist is a library for plist formats."
+skip:
+
+homepage: https://github.com/libyal/libfplist
+license: LGPL-3.0-or-later

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "SQL / SQLI tokenizer parser analyzer (licensing & readmes)"
+ldesc: "SQL / SQLI tokenizer parser analyzer"
+skip:
+
+homepage: https://github.com/libinjection/libinjection
+license: BSD-3-Clause

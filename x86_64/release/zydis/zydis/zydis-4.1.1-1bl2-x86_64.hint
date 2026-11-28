@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libZycore1.5 libZydis4.1
+sdesc: "Fast and lightweight x86/x86_64 disassembler library (utilities)"
+ldesc: "Fast and lightweight x86/x86_64 disassembler library"
+

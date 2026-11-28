@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libsimdjson-devel libxxhash-devel rapidjson-devel
+sdesc: "Fast and compact format for serialization and storage (utilities)"
+ldesc: "VelocyPack (VPack) - a fast and compact format for serialization and storage."
+skip:
+
+homepage: https://github.com/arangodb/velocypack
+license: Apache-2.0

@@ -1,0 +1,8 @@
+category: Libs
+requires: python312 python312-gi
+sdesc: "Single signon authentication library for GLib applications (python312 bindings)"
+ldesc: "This project is a library for managing single signon credentials which can be
+used from GLib applications. It is effectively a GLib binding for the D-Bus
+API provided by signond. It is part of the accounts-sso project."
+external-source: libaccounts-glib
+

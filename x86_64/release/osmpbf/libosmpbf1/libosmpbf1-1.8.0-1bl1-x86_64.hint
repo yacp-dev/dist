@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libprotobuf32 libstdc++6
+sdesc: "Tools related to PBF (an alternative to XML format) (runtime)"
+ldesc: "Osmpbf is a Java/C library to read and write OpenStreetMap PBF files. PBF
+(Protocol buffer Binary Format) is a binary file format for OpenStreetMap data
+that uses Google Protocol Buffers as low-level storage."
+external-source: osmpbf
+

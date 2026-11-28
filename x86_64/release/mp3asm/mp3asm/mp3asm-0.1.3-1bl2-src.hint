@@ -1,0 +1,8 @@
+category: Audio
+build-depends: cygport 
+sdesc: "Command line tool to clean and edit mp3 files"
+ldesc: "Command line tool to clean and edit mp3 files"
+skip:
+
+homepage: https://sourceforge.net/projects/mp3asm/
+license: GPL-2.0-or-later

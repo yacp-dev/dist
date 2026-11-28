@@ -1,0 +1,9 @@
+category: Text
+requires: cygwin libgcc1 libicu76 liblttoolbox3 libstdc++6 python312
+sdesc: "Finite state compiler, processor and helper tools used by apertium (python312 bindings)"
+ldesc: "lttoolbox contains finite state tools for lexical processing, morphological
+analysis and generation of words. Analysis is the process of splitting a word
+like cats into its lemma cat and the grammatical information <n><pl>.
+Generation is the opposite process."
+external-source: lttoolbox
+

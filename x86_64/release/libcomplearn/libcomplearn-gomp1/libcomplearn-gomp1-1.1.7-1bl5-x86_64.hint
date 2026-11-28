@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbz2_1 libglib2.0_0 libgomp1 libgsl19 libintl8 libxml2_2
+sdesc: "Machine-learning through data compression (runtime)"
+ldesc: "An open-source data mining package using data compression."
+external-source: libcomplearn
+

@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport check libX11-devel libXext-devel libXi-devel libdbus1-devel libframe-devel libgrail-devel libxcb-devel python3-devel xorg-server-devel xorgproto
+sdesc: "Gesture Engine Interface and Support (utilities)"
+ldesc: "GEIS is a library for applications and toolkit programmers which
+provides a consistent platform independent interface for any system-wide input
+gesture recognition mechanism."
+skip:
+
+homepage: https://launchpad.net/geis
+license: GPL-3.0-only AND LGPL-3.0-only

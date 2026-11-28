@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "URL parser compatible to url_parser_parse_url() from nodejs/http-parser (licensing & readmes)"
+ldesc: "urlparse is a URL parser compatible to url_parser_parse_url() from
+nodejs/http-parser which has been archived since 2022. urlparse only
+implements the strict mode."
+skip:
+
+homepage: https://github.com/ngtcp2/urlparse
+license: MIT

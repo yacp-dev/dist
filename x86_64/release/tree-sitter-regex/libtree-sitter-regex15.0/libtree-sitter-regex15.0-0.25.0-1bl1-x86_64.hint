@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Tree-sitter parser for regular expressions (runtime)"
+ldesc: "Tree-sitter parser for regular expressions"
+external-source: tree-sitter-regex
+

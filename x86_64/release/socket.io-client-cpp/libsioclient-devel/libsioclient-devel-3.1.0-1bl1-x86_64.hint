@@ -1,0 +1,6 @@
+category: Libs
+requires: libsioclient1
+sdesc: "C++11 implementation of Socket.IO client (development)"
+ldesc: "C++11 implementation of Socket.IO client"
+external-source: socket.io-client-cpp
+

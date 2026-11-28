@@ -1,0 +1,6 @@
+category: Libs
+requires: libphdi1 pkg-config
+sdesc: "Library and tools to access the Parallels Hard Disk image format (development)"
+ldesc: "libphdi is a library to access the Parallels Hard Disk image (PHDI) format."
+external-source: libphdi
+

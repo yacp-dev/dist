@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libxxhash0
+sdesc: "Fast and compact format for serialization and storage (runtime)"
+ldesc: "VelocyPack (VPack) - a fast and compact format for serialization and storage."
+external-source: velocypack
+

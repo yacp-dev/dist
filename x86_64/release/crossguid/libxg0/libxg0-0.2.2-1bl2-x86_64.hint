@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libuuid1
+sdesc: "Lightweight cross platform C++ GUID/UUID library (runtime)"
+ldesc: "CrossGuid is a minimal, cross platform, C++ GUID library. It uses the best
+native GUID/UUID generator on the given platform and has a generic class for
+parsing, stringifying, and comparing IDs."
+external-source: crossguid
+

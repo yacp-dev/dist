@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Zlib replacement with optimizations for next generation systems (licensing & readmes)"
+ldesc: "Zlib replacement with optimizations for next generation systems"
+skip:
+
+homepage: https://github.com/zlib-ng/zlib-ng
+license: Zlib

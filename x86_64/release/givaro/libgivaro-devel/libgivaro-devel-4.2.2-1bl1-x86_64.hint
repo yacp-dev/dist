@@ -1,0 +1,7 @@
+category: Math
+requires: bash libgivaro9 libgmp-devel pkg-config
+sdesc: "C++ library for arithmetic and algebraic computations (development)"
+ldesc: "In the joint CNRS-INRIA / INPG-UJF project APACHE, Givaro is a C++ library for
+arithmetic and algebraic computations."
+external-source: givaro
+

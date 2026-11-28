@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin
+sdesc: "Low-level DNS library (runtime)"
+ldesc: "Low-level DNS library"
+external-source: wdns
+

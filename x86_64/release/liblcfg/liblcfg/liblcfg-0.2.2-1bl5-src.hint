@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport check
+sdesc: "Lightweight configuration file library (utilities)"
+ldesc: "liblcfg is a lightweight configuration file library written in C99. The file
+format supports arbitrarily nested simple assignments, lists and maps (aka
+dictionaries)."
+skip:
+
+homepage: https://github.com/DinoTools/liblcfg
+license: BSD-3-Clause

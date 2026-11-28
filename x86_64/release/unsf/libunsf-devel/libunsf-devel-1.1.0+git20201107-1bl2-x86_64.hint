@@ -1,0 +1,6 @@
+category: Libs
+requires: libunsf0 pkg-config
+sdesc: "Converts SoundFont .sf2 files into GUS-type instrument patches (development)"
+ldesc: "Converts SoundFont .sf2 files into GUS-type instrument patches"
+external-source: unsf
+

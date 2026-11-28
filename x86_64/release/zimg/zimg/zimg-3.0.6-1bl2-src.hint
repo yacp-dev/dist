@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libgtest-devel
+sdesc: "Scaling, colorspace conversion, and dithering library (licensing & readmes)"
+ldesc: "Scaling, colorspace conversion, and dithering library"
+skip:
+
+homepage: https://github.com/sekrit-twc/zimg
+license: WTFPL

@@ -1,0 +1,6 @@
+category: Libs
+requires: libdspkg-validator0 pkg-config
+sdesc: "Validator for Synthrt package (development)"
+ldesc: "Validator for Synthrt package"
+external-source: dspkg-validator
+

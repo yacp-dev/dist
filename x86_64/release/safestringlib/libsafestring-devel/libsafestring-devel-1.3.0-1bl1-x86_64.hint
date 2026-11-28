@@ -1,0 +1,7 @@
+category: Libs
+requires: libsafestring1 pkg-config
+sdesc: "Safe string library (development)"
+ldesc: "The Safe String Library is a C Library providing string and memory buffer
+routines that protect against buffer overflows."
+external-source: safestringlib
+

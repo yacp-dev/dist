@@ -1,0 +1,6 @@
+category: Games
+requires: 
+sdesc: "libeastwood game data library (licensing & readmes)"
+ldesc: "This library provides support for handling wsa, shp, icn, cps, pal, adl, voc,
+pak++ data files used in ie. Westwood games."
+

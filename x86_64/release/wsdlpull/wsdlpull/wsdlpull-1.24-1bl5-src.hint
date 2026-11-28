@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport doxygen libcurl-devel
+sdesc: "C++ web services client library (utilities)"
+ldesc: "wsdlpull is a C++ web services client library. It includes a WSDL Parser,a XML
+Schema parser and validator and an XML Parser and serializer. It has an API and
+command line tool for dynamic WSDL inspection and invocation.The command line
+tool is a generic web service client using which you can invoke most web
+services from command line without writing any code."
+skip:
+
+homepage: https://sourceforge.net/projects/wsdlpull/
+license: LGPL-2.1-or-later AND MIT

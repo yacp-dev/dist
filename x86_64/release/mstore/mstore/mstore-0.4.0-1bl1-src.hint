@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran libmctc-lib-devel
+sdesc: "Molecular structure store for testing (utilities)"
+ldesc: "Molecular structure store for testing"
+skip:
+
+homepage: https://github.com/grimme-lab/mstore
+license: Apache-2.0

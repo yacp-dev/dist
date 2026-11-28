@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Blind-ID library for user identification using RSA blind signatures (runtime / rijndael)"
+ldesc: "Cryptographic library to perform identification using Schnorr Identification
+scheme and Blind RSA Signatures"
+external-source: d0_blind_id
+

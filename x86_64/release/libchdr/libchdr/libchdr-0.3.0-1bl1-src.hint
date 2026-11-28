@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libzstd-devel zlib-devel
+sdesc: "Standalone library for reading MAME's CHDv1-v5 formats (licensing & readmes)"
+ldesc: "Standalone library for reading MAME's CHDv1-v5 formats"
+skip:
+
+homepage: https://github.com/rtissera/libchdr
+license: BSD-3-Clause

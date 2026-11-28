@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport cppunit libp11-kit-devel libsqlite3-devel libssl-devel sqlite3
+sdesc: "Software PKCS11 implementation"
+ldesc: "SoftHSM is an implementation of a cryptographic store accessible through a
+PKCS#11 interface."
+skip:
+
+homepage: https://www.softhsm.org/
+license: BSD-2-Clause

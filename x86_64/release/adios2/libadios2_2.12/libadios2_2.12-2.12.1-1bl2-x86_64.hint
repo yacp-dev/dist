@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbz2_1 libcurl4 libgcc1 libgfortran5 libgomp1 libhdf5_320 libpng16 libsodium26 libsqlite3_0 libssl3 libstdc++6 libzfp1 libzmq5 libzstd1 zlib0
+sdesc: "Adaptable Input Output System version 2 (runtime)"
+ldesc: "ADIOS2 is a unified framework for I/O and in situ data processing of large-scale scientific data, with C, C++ and Fortran bindings."
+external-source: adios2
+

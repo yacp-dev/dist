@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Embedded JavaScript engine for C/C++ (licensing & readmes)"
+ldesc: "V7 is a JavaScript engine written in C. It makes it possible to program
+Internet of Things (IoT) devices in JavaScript."
+

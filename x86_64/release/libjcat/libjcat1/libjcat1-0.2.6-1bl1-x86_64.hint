@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libglib2.0_0 libgnutls30 libgpg-error0 libgpgme45 libjson-glib1.0_0 libssl3
+sdesc: "Library for reading and writing Jcat files (runtime)"
+ldesc: "This library allows reading and writing gzip-compressed JSON catalog files,
+which can be used to store GPG, PKCS-7 and SHA-256 checksums for each file."
+external-source: libjcat
+

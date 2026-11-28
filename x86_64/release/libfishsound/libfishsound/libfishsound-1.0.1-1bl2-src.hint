@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport flac-devel liboggz-devel libsndfile-devel libvorbis-devel speex-devel
+sdesc: "Simple programming interface for decoding and encoding audio data (utilities)"
+ldesc: "libfishsound provides a simple programming interface for decoding and encoding
+audio data using the Xiph.org codecs (FLAC, Speex and Vorbis)."
+skip:
+
+homepage: https://xiph.org/fishsound/
+license: BSD-3-Clause

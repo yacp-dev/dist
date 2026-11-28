@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C grammar for tree-sitter (licensing & readmes)"
+ldesc: "C grammar for tree-sitter"
+

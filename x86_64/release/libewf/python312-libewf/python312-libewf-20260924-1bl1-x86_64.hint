@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libewf3 python312
+sdesc: "Library to access the Expert Witness Compression Format (EWF) (python312 bindings)"
+ldesc: "libewf is a library to access the Expert Witness Compression Format (EWF)."
+external-source: libewf
+

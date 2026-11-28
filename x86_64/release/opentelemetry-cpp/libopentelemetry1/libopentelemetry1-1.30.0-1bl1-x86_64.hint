@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libcurl4 libgcc1 libopentracing1 libprometheus-cpp-pull1.3 libprotobuf32 libstdc++6 zlib0
+sdesc: "OpenTelemetry C++ Client (runtime)"
+ldesc: "OpenTelemetry C++ Client"
+external-source: opentelemetry-cpp
+

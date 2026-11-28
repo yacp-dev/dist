@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for cross-platform C data functions (licensing & readmes)"
+ldesc: "libcdata is a library for cross-platform C data functions."
+

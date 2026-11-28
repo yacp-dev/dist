@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcrypt2 libcurl4 libssh4 libssl3 libyang5
+sdesc: "NETCONF library in C intended for building NETCONF clients and servers (runtime)"
+ldesc: "libnetconf2 is a NETCONF library in C intended for building NETCONF clients
+and servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF."
+external-source: libnetconf2
+

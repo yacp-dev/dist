@@ -1,0 +1,8 @@
+category: X11
+build-depends: cygport xorg-util-macros
+sdesc: "X.Org videoproto component"
+ldesc: "X.org VideoProto protocol headers"
+skip:
+
+homepage: https://www.x.org/
+license: MIT

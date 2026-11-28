@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport libcurl-devel libexpat-devel libsqlite3-devel libssl-devel libwx_baseu3.1-devel libwx_gtk3u3.1-devel zlib-devel
+sdesc: "Tool for digitally signing Amateur Radio QSO records (utilities)"
+ldesc: "The TrustedQSL library is used for generating digitally signed QSO records
+(records of Amateur Radio contacts). This package contains the library and
+configuration files needed to run TrustedQSL applications."
+skip:
+
+homepage: https://sourceforge.net/projects/trustedqsl/
+license: LicenseRef-ARRL AND BSD-4-Clause

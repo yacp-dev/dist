@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1
+sdesc: "Safe string library (runtime)"
+ldesc: "The Safe String Library is a C Library providing string and memory buffer
+routines that protect against buffer overflows."
+external-source: safestringlib
+

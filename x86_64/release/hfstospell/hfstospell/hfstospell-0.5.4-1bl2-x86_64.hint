@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libhfstospell11 libicu76 libstdc++6
+sdesc: "HFST spell checker library and command line tool (utilities)"
+ldesc: "This is a minimal hfst optimized lookup format based spell checker library and
+a demonstrational implementation of command line based spell checker."
+

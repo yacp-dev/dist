@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "C implementation of GitHub Flavored Markdown (runtime)"
+ldesc: "cmark-gfm is an extended version of the C reference implementation of
+CommonMark, a rationalized version of Markdown syntax with a spec."
+external-source: cmark-gfm
+

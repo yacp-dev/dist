@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libgcc1 libproc2_1 libstdc++6
+sdesc: "Simple fetch made in C++"
+ldesc: "Simple fetch made in C++"
+

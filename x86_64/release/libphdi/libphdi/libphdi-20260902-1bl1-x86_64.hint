@@ -1,0 +1,5 @@
+category: Libs
+requires: cygfuse cygwin libcdata1 libcerror1 libclocale1 libcnotify1 libfguid1 libphdi1
+sdesc: "Library and tools to access the Parallels Hard Disk image format (utilities)"
+ldesc: "libphdi is a library to access the Parallels Hard Disk image (PHDI) format."
+

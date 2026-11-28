@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library of various useful C++ code (licensing & readmes)"
+ldesc: "Library of various useful C++ code"
+

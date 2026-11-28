@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "TOML config file parser and serializer for C++17 (licensing & readmes)"
+ldesc: "TOML config file parser and serializer for C++17"
+

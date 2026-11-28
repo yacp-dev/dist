@@ -1,0 +1,6 @@
+category: Net
+requires: libresiprocate1.14
+sdesc: "C++ implementation of SIP, ICE, TURN and related protocols (development)"
+ldesc: "C++ implementation of SIP, ICE, TURN and related protocols"
+external-source: resiprocate
+

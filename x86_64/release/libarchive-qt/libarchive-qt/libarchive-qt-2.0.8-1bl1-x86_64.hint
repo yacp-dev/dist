@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libarchiveqt5_2 libgcc1 libQt5Core5 libstdc++6
+sdesc: "Qt based archiving solution with libarchive backend (utilities)"
+ldesc: "Qt based archiving solution with libarchive backend"
+

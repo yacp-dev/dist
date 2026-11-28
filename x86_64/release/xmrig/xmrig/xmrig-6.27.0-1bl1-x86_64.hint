@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libfmt12 libhwloc15 libiconv2 libintl8 libssl3 libuv1
+sdesc: "Monero (XMR) CPU miner"
+ldesc: "XMRig High performance, open source, cross platform RandomX,
+CryptoNight and Argon2 CPU/GPU miner, with official support for Windows."
+

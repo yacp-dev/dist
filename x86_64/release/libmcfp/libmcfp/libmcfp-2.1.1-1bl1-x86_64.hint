@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for parsing command line arguments and configuration files (licensing & readmes)"
+ldesc: "Library for parsing command line arguments and configuration files"
+

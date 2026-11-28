@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libboost-devel libCatch2-devel libev-devel libwx_baseu3.0-devel libwx_gtk3u3.0-devel
+sdesc: "Event loop friendly C++ actor micro framework (licensing & readmes)"
+ldesc: "Event loop friendly C++ actor micro-framework, supervisable"
+skip:
+
+homepage: https://github.com/basiliscos/cpp-rotor
+license: MIT

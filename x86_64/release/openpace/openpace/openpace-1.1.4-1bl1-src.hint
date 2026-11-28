@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport gengetopt help2man libssl-devel
+sdesc: "Cryptographic library for EAC version 2 (utilities)"
+ldesc: "OpenPACE implements Extended Access Control (EAC) version 2 as specified in
+BSI TR-03110."
+skip:
+
+homepage: https://github.com/frankmorgner/openpace
+license: GPL-3.0-or-later

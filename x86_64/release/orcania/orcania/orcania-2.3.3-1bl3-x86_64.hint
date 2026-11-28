@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin liborcania2.3
+sdesc: "Potluck with different functions for different purposes (utilities)"
+ldesc: "Potluck with different functions for different purposes"
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: libvelocypack0 pkg-config
+sdesc: "Fast and compact format for serialization and storage (development)"
+ldesc: "VelocyPack (VPack) - a fast and compact format for serialization and storage."
+external-source: velocypack
+

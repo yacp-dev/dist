@@ -1,0 +1,6 @@
+category: Science
+requires: libfftw3-devel libmpb6 pkg-config
+sdesc: "Computation of photonic band structures in periodic media (development)"
+ldesc: "MPB is a free software package for computing photonic band structures and modes."
+external-source: mpb
+

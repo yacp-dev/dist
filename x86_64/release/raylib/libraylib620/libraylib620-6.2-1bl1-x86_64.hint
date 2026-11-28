@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libglfw3
+sdesc: "Simple and easy-to-use library to learn videogames programming (runtime)"
+ldesc: "raylib is highly inspired by Borland BGI graphics lib and by XNA framework and
+it's specially well suited for prototyping, tooling, graphical applications,
+embedded systems and education."
+external-source: raylib
+

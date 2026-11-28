@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libgd-devel
+sdesc: "Library and suite of programs for converting Wasteland game files (utilities)"
+ldesc: "A shared library and a suite of programs for converting wasteland files into
+standard files and vice versa."
+skip:
+
+homepage: https://github.com/kayahr/wlsuite
+license: MIT

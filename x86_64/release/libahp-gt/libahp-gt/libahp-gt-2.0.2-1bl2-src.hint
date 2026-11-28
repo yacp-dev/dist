@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Driver library for the AHP® GT Correlators (licensing & readmes)"
+ldesc: "Driver library for the AHP® GT Correlators"
+skip:
+
+homepage: https://github.com/ahp-electronics/libahp-gt
+license: MIT

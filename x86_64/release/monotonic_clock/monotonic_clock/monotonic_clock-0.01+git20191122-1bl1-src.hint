@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Portable C library for getting monotonic time (licensing & readmes)"
+ldesc: "Provides access to a clock that always increases at the same rate.
+Unlike the system time (e.g. gettimeofday()) this will never decrease.
+
+However, if there's no monotonic clock on your system then this library will
+fall back to gettimeofday()."
+skip:
+
+homepage: https://github.com/ThomasHabets/monotonic_clock
+license: BSD-3-Clause

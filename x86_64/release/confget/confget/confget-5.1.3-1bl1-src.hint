@@ -1,0 +1,11 @@
+category: Text
+build-depends: cygport libpcre2-devel perl
+sdesc: "Read a variable from a configuration file"
+ldesc: "The confget utility examines a INI-style configuration file and retrieves the
+value of the specified variables from the specified section. Its intended use
+is to let shell scripts use the same INI-style configuration files as other
+programs, to avoid duplication of data."
+skip:
+
+homepage: https://devel.ringlet.net/textproc/confget/
+license: BSD-2-Clause

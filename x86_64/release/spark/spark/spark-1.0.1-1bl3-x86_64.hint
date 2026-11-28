@@ -1,0 +1,5 @@
+category: Utils
+requires: bash
+sdesc: "Sparklines for your shell"
+ldesc: "Sparklines for your shell"
+

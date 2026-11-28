@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libSDL2-devel
+sdesc: "PNG image decoder and encoder (utilities)"
+ldesc: "PNG image decoder and encoder"
+skip:
+
+homepage: https://github.com/lvandeve/lodepng
+license: Zlib

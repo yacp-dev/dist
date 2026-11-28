@@ -1,0 +1,8 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Unix utility for tracking down wasted disk space"
+ldesc: "Unix utility for tracking down wasted disk space"
+skip:
+
+homepage: https://www.chiark.greenend.org.uk/~sgtatham/agedu/
+license: MIT

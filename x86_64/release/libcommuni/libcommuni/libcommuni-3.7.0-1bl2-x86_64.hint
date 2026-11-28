@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "Cross-platform IRC framework written with Qt (licensing & readmes)"
+ldesc: "Communi is a cross-platform IRC framework written with Qt. Communi provides a
+set of tools for enabling IRC connectivity in Qt-based C++ and QML
+applications."
+

@@ -1,0 +1,8 @@
+category: Games
+build-depends: cygport libncurses-devel
+sdesc: "Customizable Tetris(tm) for the terminal"
+ldesc: "Customizable Tetris(tm) for the terminal"
+skip:
+
+homepage: https://github.com/alexdantas/yetris
+license: GPL-3.0-or-later

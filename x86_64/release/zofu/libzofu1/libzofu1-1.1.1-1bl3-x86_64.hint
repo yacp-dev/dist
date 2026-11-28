@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgfortran5 libopenmpifh40
+sdesc: "Object-oriented Fortran Unit-testing (runtime)"
+ldesc: "Zofu (Zofu is Object-oriented Fortran Unit-testing) is a framework for
+carrying out unit testing of Fortran code modules. As the name suggests, it
+makes use of the object-oriented features of Fortran 2003."
+external-source: zofu
+

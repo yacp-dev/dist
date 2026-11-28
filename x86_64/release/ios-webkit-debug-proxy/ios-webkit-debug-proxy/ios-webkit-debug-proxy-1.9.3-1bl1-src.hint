@@ -1,0 +1,9 @@
+category: Devel
+build-depends: cygport libimobiledevice1.0-devel libplist2.0-devel libssl-devel libusbmuxd2.0-devel
+sdesc: "iOS WebKit Debug Proxy (utilities)"
+ldesc: "A DevTools proxy (WebKit Remote Debugging Protocol) for iOS devices (Safari
+Remote Web Inspector)."
+skip:
+
+homepage: https://github.com/google/ios-webkit-debug-proxy
+license: BSD-3-Clause

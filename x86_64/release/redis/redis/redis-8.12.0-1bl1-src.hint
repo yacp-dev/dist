@@ -1,0 +1,14 @@
+category: Net
+build-depends: cygport libxxhash-devel tcl
+sdesc: "In-memory database that persists on disk"
+ldesc: "Redis is an in-memory data structure store, used as a database,
+cache and message broker. It supports data structures such as strings, hashes,
+lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial
+indexes with radius queries and streams. Redis has built-in replication, Lua
+scripting, LRU eviction, transactions and different levels of on-disk
+persistence, and provides high availability via Redis Sentinel and automatic
+partitioning with Redis Cluster."
+skip:
+
+homepage: https://redis.io/
+license: (LicenseRef-RSALv2 OR SSPL-1.0 OR AGPL-3.0-only) AND BSD-3-Clause AND BSD-2-Clause AND MIT AND CC0-1.0 AND BSL-1.0 AND (Apache-2.0 OR MIT)

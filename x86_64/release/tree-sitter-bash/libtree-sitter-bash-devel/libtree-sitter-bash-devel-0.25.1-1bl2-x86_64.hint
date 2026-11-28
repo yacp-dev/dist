@@ -1,0 +1,6 @@
+category: Libs
+requires: libtree-sitter-bash14.0 pkg-config
+sdesc: "Bash grammar for tree-sitter (development)"
+ldesc: "Bash grammar for tree-sitter"
+external-source: tree-sitter-bash
+

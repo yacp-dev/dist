@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libframe6 libgrail6 libX11_6 libXext6 libXi6
+sdesc: "Gesture Recognition And Instantiation Library (utilities)"
+ldesc: "Grail consists of an interface and tools for handling gesture
+recognition and gesture instantiation."
+

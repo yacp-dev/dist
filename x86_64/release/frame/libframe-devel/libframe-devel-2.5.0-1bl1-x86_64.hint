@@ -1,0 +1,7 @@
+category: Libs
+requires: libframe6 pkg-config
+sdesc: "Touch Frame Library (development)"
+ldesc: "Frame handles the buildup and synchronization of a set of
+simultaneous touches."
+external-source: frame
+

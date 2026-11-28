@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library for Transactional Registry (TxR) data types (licensing & readmes)"
+ldesc: "libftxr is a library for Transactional Registry (TxR) data types."
+

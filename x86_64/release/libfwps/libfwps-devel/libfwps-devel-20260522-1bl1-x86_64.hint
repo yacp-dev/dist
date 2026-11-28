@@ -1,0 +1,6 @@
+category: Libs
+requires: libfwps1 pkg-config
+sdesc: "Library for Windows Property Store data types (development)"
+ldesc: "libfwps is a library for Windows Property Store data types."
+external-source: libfwps
+

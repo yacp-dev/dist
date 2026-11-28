@@ -1,0 +1,6 @@
+category: Libs
+requires: libZXing4 pkg-config
+sdesc: "C++ Multi-format 1D/2D barcode image processing library (development)"
+ldesc: "C++ Multi-format 1D/2D barcode image processing library"
+external-source: zxing-cpp
+

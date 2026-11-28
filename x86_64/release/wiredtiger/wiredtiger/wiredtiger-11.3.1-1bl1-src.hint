@@ -1,0 +1,9 @@
+category: Net
+build-depends: cygport liblz4-devel libsnappy-devel libzstd-devel zlib-devel
+sdesc: "High performance NoSQL extensible platform for data management (utilities)"
+ldesc: "WiredTiger is an high performance, scalable, production quality, NoSQL, Open
+Source extensible platform for data management."
+skip:
+
+homepage: https://github.com/wiredtiger/wiredtiger
+license: GPL-2.0-only OR GPL-3.0-only

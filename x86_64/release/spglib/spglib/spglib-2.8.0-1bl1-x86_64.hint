@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "C library for finding and handling crystal symmetries (licensing & readmes)"
+ldesc: "Spglib is a C library for finding and handling crystal symmetries."
+

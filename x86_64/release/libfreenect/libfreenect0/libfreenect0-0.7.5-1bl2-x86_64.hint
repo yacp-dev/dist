@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libopencv3.4 libusb1.0
+sdesc: "Drivers and libraries for the Xbox Kinect device (runtime)"
+ldesc: "Libfreenect is the core library for accessing the Microsoft Kinect USB camera."
+external-source: libfreenect
+

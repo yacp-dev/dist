@@ -1,0 +1,7 @@
+category: Libs
+requires: libyubikey0 pkg-config
+sdesc: "YubiKey C low-level library (development)"
+ldesc: "This package make up the low-level C software development kit for the Yubico
+YubiKey authentication device."
+external-source: libyubikey
+

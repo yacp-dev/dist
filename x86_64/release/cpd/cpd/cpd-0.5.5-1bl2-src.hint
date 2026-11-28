@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport eigen3 libfgt-devel libgtest-devel libjsoncpp-devel
+sdesc: "C++ implementation of the Coherent Point Drift point set registration algorithm (licensing & readmes)"
+ldesc: "C++ implementation of the Coherent Point Drift point set registration algorithm"
+skip:
+
+homepage: https://github.com/gadomski/cpd
+license: GPL-2.0-or-later

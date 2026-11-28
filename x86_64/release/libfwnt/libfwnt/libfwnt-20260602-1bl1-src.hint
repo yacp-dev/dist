@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gettext-devel libcdata-devel libcerror-devel libcnotify-devel libcthreads-devel python3-devel
+sdesc: "Library for Windows NT data types (licensing & readmes)"
+ldesc: "libfwnt is a library for Windows NT data types."
+skip:
+
+homepage: https://github.com/libyal/libfwnt
+license: LGPL-3.0-or-later

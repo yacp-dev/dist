@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libavif-devel libbrotli-devel libgif-devel libgtest-devel libhwy-devel libjpeg-devel libopenexr-devel libpng-devel libwebp-devel
+sdesc: "JPEG XL image format reference implementation (utilities)"
+ldesc: "JPEG XL image format reference implementation"
+skip:
+
+homepage: https://github.com/libjxl/libjxl
+license: Apache-2.0 AND BSD-3-Clause AND Zlib

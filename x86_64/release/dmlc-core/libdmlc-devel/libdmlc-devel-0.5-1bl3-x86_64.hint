@@ -1,0 +1,7 @@
+category: Libs
+requires: libdmlc0 pkg-config
+sdesc: "Backbone library to support all DMLC projects (development)"
+ldesc: "DMLC-Core is the backbone library to support all DMLC projects, offers the
+bricks to build efficient and scalable distributed machine learning libraries."
+external-source: dmlc-core
+

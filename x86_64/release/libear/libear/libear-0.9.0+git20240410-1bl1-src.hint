@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport eigen3 libboost-devel xsimd
+sdesc: "Recommendation ITU-R BS.2127 core library (licensing & readmes)"
+ldesc: "C++11 library to render ADM content according to Recommendation ITU-R BS.2127"
+skip:
+
+homepage: https://github.com/ebu/libear
+license: Apache-2.0 AND BSD-3-Clause

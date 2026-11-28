@@ -1,0 +1,5 @@
+category: Utils
+requires: cygwin libcpmio0 libcpmredir0
+sdesc: "Two-purpose CP/M 2/3 emulator"
+ldesc: "ZXCC is a two-purpose CP/M 2/3 emulator."
+

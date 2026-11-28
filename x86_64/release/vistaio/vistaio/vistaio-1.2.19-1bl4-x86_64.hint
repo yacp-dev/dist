@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "IO and data type part of the vista library (licensing & readmes)"
+ldesc: "This library includes the IO and data type part of the vista library."
+

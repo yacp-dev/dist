@@ -1,0 +1,7 @@
+category: Utils
+requires: cygwin libbz2_1 libexpat1 libgcc1 liblua5.3 libpq5 libproj25 libstdc++6 python3 zlib0
+sdesc: "OpenStreetMap data to PostgreSQL converter"
+ldesc: "osm2pgsql is a tool for loading OpenStreetMap data into a PostgreSQL / PostGIS
+database suitable for applications like rendering into a map, geocoding with
+Nominatim, or general analysis."
+

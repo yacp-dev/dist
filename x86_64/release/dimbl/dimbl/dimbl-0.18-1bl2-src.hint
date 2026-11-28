@@ -1,0 +1,8 @@
+category: Science
+build-depends: cygport autoconf-archive libicu-devel libticcutils-devel libtimbl-devel
+sdesc: "Distributed Tilburg Memory Based Learner"
+ldesc: "Distributed Tilburg Memory Based Learner"
+skip:
+
+homepage: https://github.com/LanguageMachines/dimbl
+license: GPL-3.0-or-later

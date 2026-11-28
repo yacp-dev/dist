@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel liblz4-devel libmicrohttpd-devel libuuid-devel libzmq-devel
+sdesc: "High-level C Binding for ZeroMQ (utilities)"
+ldesc: "CZMQ - High-level C Binding for ZeroMQ"
+skip:
+
+homepage: https://czmq.zeromq.org/
+license: MPL-2.0 AND BSD-3-Clause

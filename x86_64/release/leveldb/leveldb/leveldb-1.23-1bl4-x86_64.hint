@@ -1,0 +1,6 @@
+category: Database
+requires: 
+sdesc: "Fast and lightweight key/value database library by Google (licensing & readmes)"
+ldesc: "LevelDB is a fast key-value storage library written at Google that provides an
+ordered mapping from string keys to string values."
+

@@ -1,0 +1,11 @@
+category: Science
+build-depends: cygport gcc-fortran hdf5 libCQRlib-devel libaec-devel libhdf5-devel libtiff-devel
+sdesc: "Library providing a simple mechanism for accessing CBF files and imgCIF files (utilities)"
+ldesc: "CBFLIB is a library of ANSI-C functions providing a simple mechanism for
+accessing Crystallographic Binary Files (CBF files) and Image-supporting CIF
+(imgCIF) files. The CBFLIB API is loosely based on the CIFPARSE API for mmCIF
+files."
+skip:
+
+homepage: https://github.com/dials/cbflib
+license: GPL-2.0-or-later OR LGPL-2.1-or-later

@@ -1,0 +1,14 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Fastest RISC-V sandbox (licensing & readmes)"
+ldesc: "libriscv is a simple, slim and complete sandbox that is highly embeddable and
+configurable. It is a specialty emulator that specializes in low-latency,
+low-footprint emulation. libriscv may be the only one of its kind. Where other
+solutions routinely require ~50-150ns to call a VM function and return,
+libriscv requires 3ns. libriscv is also routinely faster than other
+interpreters, JIT-compilers and binary translators. libriscv has specialized
+APIs that make passing data in and out of the sandbox safe and low-latency."
+skip:
+
+homepage: https://github.com/libriscv/libriscv
+license: BSD-3-Clause AND LGPL-2.1-or-later

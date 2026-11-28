@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libssl3
+sdesc: "Library to generate Amazon Web Services Key Management Service (KMS) requests (runtime)"
+ldesc: "The companion C library for client side encryption in drivers."
+external-source: libmongocrypt
+

@@ -1,0 +1,6 @@
+category: System
+requires: cygwin libssl3
+sdesc: "M(easuring)buffer is a replacement for buffer with additional functionality"
+ldesc: "Measuring Buffer is an enhanced version of buffer. It features display of
+throughput, memory-mapped file I/O for huge buffers, and multithreading."
+

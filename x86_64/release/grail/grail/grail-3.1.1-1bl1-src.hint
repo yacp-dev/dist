@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libX11-devel libXext-devel libXi-devel libframe-devel xorgproto
+sdesc: "Gesture Recognition And Instantiation Library (utilities)"
+ldesc: "Grail consists of an interface and tools for handling gesture
+recognition and gesture instantiation."
+skip:
+
+homepage: https://launchpad.net/grail
+license: GPL-3.0-only AND LGPL-3.0-only

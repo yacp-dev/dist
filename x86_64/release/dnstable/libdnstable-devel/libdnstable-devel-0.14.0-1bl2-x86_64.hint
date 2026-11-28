@@ -1,0 +1,8 @@
+category: Libs
+requires: libdnstable0 libmtbl-devel pkg-config
+sdesc: "Encoding format, library, and utilities for passive DNS data (development)"
+ldesc: "dnstable implements an encoding format for passive DNS data. It consists of a
+C library, libdnstable, and several command line utilities for creating,
+querying, and merging dnstable data files."
+external-source: dnstable
+

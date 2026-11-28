@@ -1,0 +1,7 @@
+category: Libs
+requires: libeasyRNG0 pkg-config
+sdesc: "BSD licensed random number generators and distributions for C and Fortran (development)"
+ldesc: "A lightweight and easy-to-use library that wraps C++11's random number
+generators, making them available from C and Fortran."
+external-source: easyRNG
+

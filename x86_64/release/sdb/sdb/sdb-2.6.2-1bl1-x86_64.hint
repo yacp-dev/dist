@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libsdb2.6.2
+sdesc: "Simple string-based Key/Value database (utilities)"
+ldesc: "Sdb is a simple string key/value database based on djb's cdb disk storage and
+supports JSON and arrays introspection."
+

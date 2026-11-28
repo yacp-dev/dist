@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libhdf5_320
+sdesc: "HDF5 Utility Toolkit (runtime)"
+ldesc: "High-Performance I/O Library for Particle-based Simulations"
+external-source: H5hut
+

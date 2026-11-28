@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "HTML grammar for Tree-sitter (licensing & readmes)"
+ldesc: "HTML grammar for Tree-sitter"
+

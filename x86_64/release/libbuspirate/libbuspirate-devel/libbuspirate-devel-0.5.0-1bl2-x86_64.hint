@@ -1,0 +1,8 @@
+category: Libs
+requires: libbuspirate0 pkg-config
+sdesc: "C library to talk with the bus pirate hardware (development)"
+ldesc: "The libbuspirate is a C library to talk with the bus pirate
+hardware in raw, binary scripting mode. The libbuspirate allows to quickly
+write a short C program to test interfacing with your favorite hardware."
+external-source: libbuspirate
+

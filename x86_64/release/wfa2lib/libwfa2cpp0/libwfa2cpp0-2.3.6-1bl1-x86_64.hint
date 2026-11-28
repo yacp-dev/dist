@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6 libwfa2_0
+sdesc: "Wavefront alignment algorithm library v2 (runtime / cpp)"
+ldesc: "Wavefront alignment algorithm library v2"
+external-source: wfa2lib
+

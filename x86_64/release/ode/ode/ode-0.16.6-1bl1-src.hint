@@ -1,0 +1,13 @@
+category: Libs
+build-depends: cygport libGL-devel libGLU-devel libX11-devel
+sdesc: "High performance library for simulating rigid body dynamics (licensing & readmes)"
+ldesc: "ODE is an open source, high performance library for simulating rigid body
+dynamics. It is fully featured, stable, mature and platform independent with
+an easy to use C/C++ API. It has advanced joint types and integrated collision
+detection with friction. ODE is useful for simulating vehicles, objects in
+virtual reality environments and virtual creatures. It is currently used in
+many computer games, 3D authoring tools and simulation tools."
+skip:
+
+homepage: https://bitbucket.org/odedevs/ode
+license: (LGPL-2.1-or-later OR BSD-3-Clause) AND BSD-3-Clause AND (LGPL-3.0-or-later OR BSD-3-Clause OR Zlib)

@@ -1,0 +1,6 @@
+category: Libs
+requires: libcurl-devel libczmq-devel libprime_server0 libzmq-devel pkg-config
+sdesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq (development)"
+ldesc: "Non-blocking (web)server API for distributed computing and SOA based on zeromq"
+external-source: prime_server
+

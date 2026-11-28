@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbson2_2 libssl3
+sdesc: "C library for Client Side Encryption (runtime)"
+ldesc: "The companion C library for client side encryption in drivers."
+external-source: libmongocrypt
+

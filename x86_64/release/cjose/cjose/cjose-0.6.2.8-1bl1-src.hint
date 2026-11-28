@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libjansson-devel libssl-devel
+sdesc: "C library implementing the Javascript Object Signing and Encryption (licensing & readmes)"
+ldesc: "C library implementing the Javascript Object Signing and Encryption"
+skip:
+
+homepage: https://github.com/OpenIDC/cjose
+license: MIT

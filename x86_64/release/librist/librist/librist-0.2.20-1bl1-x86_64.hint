@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libcjson1 libmbedcrypto5 libmicrohttpd12 librist4
+sdesc: "Library that can be used to add the RIST protocol to applications (utilities)"
+ldesc: "Library that can be used to add the RIST protocol to applications"
+

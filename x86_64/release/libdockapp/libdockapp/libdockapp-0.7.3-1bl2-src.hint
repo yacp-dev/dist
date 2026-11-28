@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport font-util fontconfig libX11-devel libXext-devel libXpm-devel mkfontscale
+sdesc: "Library that provides a framework for developing dockapps (licensing & readmes)"
+ldesc: "Library that provides a framework for developing dockapps"
+skip:
+
+homepage: https://www.dockapps.net/libdockapp
+license: MIT

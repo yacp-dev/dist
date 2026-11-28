@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "Scala grammar for tree-sitter (runtime)"
+ldesc: "Scala grammar for tree-sitter"
+external-source: tree-sitter-scala
+

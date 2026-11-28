@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libczmq3 libgcc1 libstdc++6
+sdesc: "C++ wrapper for czmq (runtime)"
+ldesc: "C++ wrapper for czmq"
+external-source: czmqpp
+

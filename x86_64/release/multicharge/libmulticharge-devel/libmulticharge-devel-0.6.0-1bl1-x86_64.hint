@@ -1,0 +1,6 @@
+category: Libs
+requires: liblapack-devel libmctc-lib-devel libmulticharge0 pkg-config
+sdesc: "Electronegativity equilibration model for atomic partial charges (development)"
+ldesc: "Electronegativity equilibration model for atomic partial charges"
+external-source: multicharge
+

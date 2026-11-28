@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcerror1 libhmac1 python312
+sdesc: "Library to support various Hash-based Message Authentication Codes (HMAC) (python312 bindings)"
+ldesc: "libhmac is a library to support various Hash-based Message Authentication
+Codes (HMAC)."
+external-source: libhmac
+

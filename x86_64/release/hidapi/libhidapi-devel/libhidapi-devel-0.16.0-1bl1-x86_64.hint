@@ -1,0 +1,10 @@
+category: Libs
+requires: libhidapi0 pkg-config
+sdesc: "Simple cross-platform library for communicating with HID devices (development)"
+ldesc: "HIDAPI is a multi-platform library which allows an application to interface
+with USB and Bluetooth HID-Class devices on Windows, Linux, FreeBSD, and
+macOS. HIDAPI can be either built as a shared library (.so, .dll or .dylib) or
+can be embedded directly into a target application by adding a single source
+file (per platform) and a single header."
+external-source: hidapi
+

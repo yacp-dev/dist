@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "PHP grammar for tree-sitter (runtime)"
+ldesc: "PHP grammar for tree-sitter"
+external-source: tree-sitter-php
+

@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libSDL2-devel libargtable2-devel
+sdesc: "Module/tracker based music format parser and player library (utilities)"
+ldesc: "DUMB is a module audio renderer library. It reads module files and outputs
+audio that can be dumped to the actual audio playback library."
+skip:
+
+homepage: https://github.com/kode54/dumb
+license: Zlib

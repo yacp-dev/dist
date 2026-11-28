@@ -1,0 +1,8 @@
+category: Libs
+requires: libgwyfile0 pkg-config
+sdesc: "Read and write Gwyddion GWY files (development)"
+ldesc: "Libgwyfile is a small, embeddable library for reading and writing of Gwyddion
+GWY files as foreign data. This means independently of Gwyddon and without
+adopting its data object model."
+external-source: libgwyfile
+

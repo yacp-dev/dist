@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbfio1 libcerror1 libclocale1 libmsiecf1 python312
+sdesc: "Library and tools to access the Microsoft Internet Explorer (MSIE) Cache File (index.dat) files (python312 bindings)"
+ldesc: "libmsiecf is a library to access the Microsoft Internet Explorer (MSIE) Cache
+File (index.dat) files."
+external-source: libmsiecf
+

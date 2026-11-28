@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Efficient trie implementation (runtime)"
+ldesc: "This a ANSI C99 implementation of the HAT-trie data structure of Askitis and
+Sinha, an extremely efficient (space and time) modern variant of tries."
+external-source: hat-trie
+

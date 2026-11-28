@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Scala grammar for tree-sitter (licensing & readmes)"
+ldesc: "Scala grammar for tree-sitter"
+

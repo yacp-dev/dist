@@ -1,0 +1,7 @@
+category: Libs
+requires: libaccounts-qt5_1 libQt5Core-devel pkg-config
+sdesc: "Client library to the accounts database, with a Qt-based API (development)"
+ldesc: "This project is a library for managing accounts which can be used from Qt
+applications. It is part of the @accounts-sso project."
+external-source: libaccounts-qt
+

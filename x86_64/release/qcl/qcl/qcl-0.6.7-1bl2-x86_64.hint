@@ -1,0 +1,11 @@
+category: Devel
+requires: cygwin libgcc1 libplotter2 libreadline8 libstdc++6
+sdesc: "Programming Language for Quantum Computers"
+ldesc: "Despite many common concepts with classical computer science, quantum
+computing is still widely considered as a special discipline within the broad
+field of theoretical physics. One reason for the slow adoption of QC by the
+computer science community is the confusing variety of formalisms (Dirac
+notation, matrices, gates, operators, etc.), none of which has any similarity
+with classical programming languages, as well as the rather physical
+terminology in most of the available literature."
+

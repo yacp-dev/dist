@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport libxxhash-devel
+sdesc: "LiteSpeed HPACK (RFC7541) Library (licensing & readmes)"
+ldesc: "LS-HPACK provides functionality to encode and decode HTTP headers using HPACK
+compression mechanism specified in RFC 7541."
+skip:
+
+homepage: https://github.com/litespeedtech/ls-hpack
+license: MIT

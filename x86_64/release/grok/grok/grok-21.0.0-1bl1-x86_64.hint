@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgrokj2k2
+sdesc: "JPEG 2000 codec (utilities)"
+ldesc: "Grok is a high performance open source JPEG 2000 codec."
+

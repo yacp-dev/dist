@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport 
+sdesc: "AY/YM sound chip emulator library (licensing & readmes)"
+ldesc: "This is the AY/YM sound chip emulator. This chip was used in wide range of old
+popular machines as Sinclair ZX Spectrum 128, Amstrad, Atari ST and others.
+With this library you can hear music from these 21 computers games or add
+AY/YM music to your own games/demoz/etc."
+skip:
+
+homepage: https://sourceforge.net/projects/libayemu/
+license: GPL-2.0-or-later

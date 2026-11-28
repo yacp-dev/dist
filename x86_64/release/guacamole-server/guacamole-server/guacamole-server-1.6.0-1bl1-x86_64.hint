@@ -1,0 +1,7 @@
+category: Net
+requires: bash cygwin libavcodec63 libavformat63 libavutil61 libcairo2 libguac25 libjpeg8 libssl3 libswscale10 libwebp7
+sdesc: "Server-side, native components that form the Guacamole proxy (utilities)"
+ldesc: "The guacamole-server package is a set of software which forms the basis of the
+Guacamole stack. It consists of guacd, libguac, and several protocol support
+libraries."
+

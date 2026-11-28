@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport gcc-fortran
+sdesc: "Suite of libraries to handle XML in Fortran (licensing & readmes)"
+ldesc: "Suite of libraries to handle XML in Fortran"
+skip:
+
+homepage: https://gitlab.com/siesta-project/libraries/xmlf90
+license: BSD-2-Clause

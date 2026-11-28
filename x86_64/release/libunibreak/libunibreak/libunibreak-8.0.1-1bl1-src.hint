@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library to implement Unicode algorithms for line and word breaking (licensing & readmes)"
+ldesc: "Library to implement Unicode algorithms for line and word breaking"
+skip:
+
+homepage: https://github.com/adah1972/libunibreak
+license: Zlib

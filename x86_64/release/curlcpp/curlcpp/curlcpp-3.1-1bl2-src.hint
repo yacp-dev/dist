@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libcurl-devel
+sdesc: "Object oriented C++ wrapper for CURL (licensing & readmes)"
+ldesc: "An object-oriented C++ wrapper for cURL tool"
+skip:
+
+homepage: https://github.com/JosephP91/curlcpp
+license: MIT

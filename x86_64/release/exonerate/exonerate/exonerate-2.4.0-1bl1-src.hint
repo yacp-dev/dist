@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport libglib2.0-devel
+sdesc: "Generic tool for biological sequence comparison"
+ldesc: "Exonerate is a generic tool for sequence alignment, allowing rapid
+comparison of biological sequences using many alignment models."
+skip:
+
+homepage: https://github.com/nathanweeks/exonerate
+license: GPL-3.0-only

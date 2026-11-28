@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libtiff-devel
+sdesc: "Cineon image format reader/writer library (utilities)"
+ldesc: "Cineon image format reader/writer library written in portable C++."
+skip:
+
+homepage: https://github.com/inequation/libcineon
+license: BSD-3-Clause

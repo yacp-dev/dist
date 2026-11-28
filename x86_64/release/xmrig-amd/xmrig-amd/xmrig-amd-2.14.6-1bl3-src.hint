@@ -1,0 +1,9 @@
+category: Net
+build-depends: cygport libmicrohttpd-devel libssl-devel libuv-devel
+sdesc: "Monero AMD (OpenCL) miner"
+ldesc: "XMRig is high performance Monero (XMR) OpenCL miner, with the official full
+Windows support."
+skip:
+
+homepage: https://github.com/xmrig/xmrig-amd
+license: GPL-3.0-or-later AND Apache-2.0 AND MIT

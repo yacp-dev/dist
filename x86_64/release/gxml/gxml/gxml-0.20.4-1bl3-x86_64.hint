@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "GObject-based XML DOM API (licensing & readmes)"
+ldesc: "GXml provides a GObject API for manipulating XML and a Serializable framework
+from GObject to XML."
+

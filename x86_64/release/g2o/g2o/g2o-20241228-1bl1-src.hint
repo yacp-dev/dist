@@ -1,0 +1,12 @@
+category: Libs
+build-depends: cygport eigen3 libcamd-devel libcholmod-devel libcxsparse-devel libGL-devel libGLU-devel libgmock-devel libgtest-devel
+sdesc: "General Framework for Graph Optimization (utilities)"
+ldesc: "g2o is an open-source C++ framework for optimizing graph-based nonlinear error
+functions. g2o has been designed to be easily extensible to a wide range of
+problems and a new problem typically can be specified in a few lines of code.
+The current implementation provides solutions to several variants of SLAM and
+BA."
+skip:
+
+homepage: https://github.com/RainerKuemmerle/g2o
+license: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND MIT

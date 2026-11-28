@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libyaml-path0 libyaml0_2
+sdesc: "YAML document filtering for libyaml (licensing & readmes)"
+ldesc: "YAML document filtering for libyaml"
+

@@ -1,0 +1,14 @@
+category: Libs
+build-depends: cygport hdf5 libaec-devel libboost-devel libfftw3-devel libhdf5-devel libpugixml-devel zlib-devel
+sdesc: "ISMRM Raw Data Format (utilities)"
+ldesc: "A prerequisite for sharing magnetic resonance (imaging) reconstruction
+algorithms and code is a common raw data format. This document describes such
+a common raw data format and attempts to capture the data fields that are
+require to describe enough details about the magnetic resonance experiment to
+reconstruct images from the data. This standard was developed by a
+subcommittee of the ISMRM Sedona 2013 workshop. Please see the ISMRMRD
+Documentation for more information."
+skip:
+
+homepage: https://github.com/ismrmrd/ismrmrd
+license: LicenseRef-ismrmrd

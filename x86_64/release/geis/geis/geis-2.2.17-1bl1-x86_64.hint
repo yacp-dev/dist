@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgeis1 libxcb1 python3 python3-geis
+sdesc: "Gesture Engine Interface and Support (utilities)"
+ldesc: "GEIS is a library for applications and toolkit programmers which
+provides a consistent platform independent interface for any system-wide input
+gesture recognition mechanism."
+

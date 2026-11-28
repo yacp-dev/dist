@@ -1,0 +1,5 @@
+category: Text
+requires: cygwin libao4 libintl8 libncursesw10 libydpdict2
+sdesc: "Interface for Polish-English Collins Dictionary"
+ldesc: "Interface for Polish-English Collins Dictionary"
+

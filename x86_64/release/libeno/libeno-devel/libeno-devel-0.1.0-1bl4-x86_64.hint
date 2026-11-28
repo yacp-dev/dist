@@ -1,0 +1,6 @@
+category: Libs
+requires: libeno0 libicu-devel pkg-config
+sdesc: "C reference parsing library for eno notation (development)"
+ldesc: "C reference parsing library for eno notation"
+external-source: libeno
+

@@ -1,0 +1,11 @@
+category: Libs
+build-depends: cygport gcc-fortran
+sdesc: "Multidimensional B-Spline Interpolation of Data on a Regular Grid (licensing & readmes)"
+ldesc: "The library provides subroutines for 1D-6D interpolation and extrapolation
+using B-splines. The code is written in modern Fortran (i.e., Fortran 2003+).
+There are two ways to use the module, via a basic subroutine interface and an
+object-oriented interface. Both are thread safe."
+skip:
+
+homepage: https://github.com/jacobwilliams/bspline-fortran
+license: BSD-3-Clause

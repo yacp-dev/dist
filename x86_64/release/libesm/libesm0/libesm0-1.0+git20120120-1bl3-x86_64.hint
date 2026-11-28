@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin
+sdesc: "C library for efficient string matching with Aho-Corasick (runtime)"
+ldesc: "C library for efficient string matching with Aho-Corasick"
+external-source: libesm
+

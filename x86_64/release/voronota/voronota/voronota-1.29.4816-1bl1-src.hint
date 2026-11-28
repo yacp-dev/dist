@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport libduktape-devel libGL-devel libGLEW-devel libglfw-devel glm-devel liblinenoise-devel liblodepng-devel libXrandr-devel
+sdesc: "Voronoi diagram-based tool to find atom contacts"
+ldesc: "Voronota is a software tool for analyzing three-dimensional structures of
+biological macromolecules using the Voronoi diagram of atomic balls."
+skip:
+
+homepage: https://github.com/kliment-olechnovic/voronota
+license: MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND Unlicense AND Zlib

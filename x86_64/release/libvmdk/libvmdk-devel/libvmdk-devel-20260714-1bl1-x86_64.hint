@@ -1,0 +1,6 @@
+category: Libs
+requires: libvmdk1 pkg-config
+sdesc: "Library and tools to access the VMware Virtual Disk (VMDK) format (development)"
+ldesc: "libvmdk is a library to access the VMware Virtual Disk (VMDK) format."
+external-source: libvmdk
+

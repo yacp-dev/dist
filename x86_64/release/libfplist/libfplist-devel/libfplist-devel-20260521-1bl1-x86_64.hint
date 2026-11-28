@@ -1,0 +1,6 @@
+category: Libs
+requires: libfplist1 pkg-config
+sdesc: "Library for plist format (development)"
+ldesc: "libfplist is a library for plist formats."
+external-source: libfplist
+

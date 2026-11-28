@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libfishsound1 liboggz2 libsndfile1
+sdesc: "Simple programming interface for decoding and encoding audio data (utilities)"
+ldesc: "libfishsound provides a simple programming interface for decoding and encoding
+audio data using the Xiph.org codecs (FLAC, Speex and Vorbis)."
+

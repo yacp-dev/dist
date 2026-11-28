@@ -1,0 +1,9 @@
+category: Science
+build-depends: cygport 
+sdesc: "Flexible, sensitive and accurate DNA alignment tool"
+ldesc: "Flexible, sensitive and accurate DNA alignment tool designed to
+find optimal split-read mappings on single-end queries from 100bp to 32kb."
+skip:
+
+homepage: https://github.com/GregoryFaust/yaha
+license: MIT

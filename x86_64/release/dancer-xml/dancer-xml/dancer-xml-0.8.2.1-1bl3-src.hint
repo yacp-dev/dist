@@ -1,0 +1,9 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Simple non-comformant XML parsing library (utilities)"
+ldesc: "In the year 2000, I was studying about XML, and I started to feel the need to
+write a library which can parse XML documents. Therefore I wrote one."
+skip:
+
+homepage: https://www.netfort.gr.jp/~dancer/software/dancer-xml.html
+license: GPL-2.0-or-later

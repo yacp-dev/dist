@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "HTML Renderer library (runtime)"
+ldesc: "The lexbor project is being developed using the C language, without
+dependencies."
+external-source: lexbor
+

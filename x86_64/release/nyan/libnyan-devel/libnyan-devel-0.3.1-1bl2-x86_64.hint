@@ -1,0 +1,6 @@
+category: Database
+requires: libnyan1 pkg-config nyan
+sdesc: "Typesafe hierarchical key-value database with inheritance and dynamic patching (development)"
+ldesc: "Typesafe hierarchical key-value database with inheritance and dynamic patching"
+external-source: nyan
+

@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport libfaad-devel libfftw3-devel libmp3lame-devel libmpg123-devel xxd
+sdesc: "DAB/DAB+ Software Defined Radio (SDR)"
+ldesc: "DAB/DAB+ Software Defined Radio (SDR)"
+skip:
+
+homepage: https://github.com/AlbrechtL/welle.io
+license: GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT

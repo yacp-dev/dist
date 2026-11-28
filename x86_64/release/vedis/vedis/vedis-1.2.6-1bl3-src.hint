@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Embeddable Datastore Engine (licensing & readmes)"
+ldesc: "Vedis is an embeddable datastore C library built with over 70 commands similar
+in concept to Redis but without the networking layer since Vedis run in the
+same process of the host application."
+skip:
+
+homepage: https://vedis.symisc.net/
+license: BSD-2-Clause

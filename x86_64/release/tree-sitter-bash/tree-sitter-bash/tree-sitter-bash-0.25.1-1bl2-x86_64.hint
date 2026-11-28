@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Bash grammar for tree-sitter (licensing & readmes)"
+ldesc: "Bash grammar for tree-sitter"
+

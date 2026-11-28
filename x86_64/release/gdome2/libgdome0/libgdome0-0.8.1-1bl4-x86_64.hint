@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libglib2.0_0 libxml2_2
+sdesc: "DOM C library developped for the Gnome project (runtime)"
+ldesc: "DOM C library developped for the Gnome project"
+external-source: gdome2
+

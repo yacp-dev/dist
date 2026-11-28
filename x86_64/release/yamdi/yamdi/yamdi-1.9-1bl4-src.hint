@@ -1,0 +1,9 @@
+category: Utils
+build-depends: cygport 
+sdesc: "Yet Another MetaData Injector for FLV"
+ldesc: "yamdi stands for Yet Another MetaData Injector and is a metadata injector for
+FLV files. It adds the onMetaData event to your FLV files."
+skip:
+
+homepage: https://sourceforge.net/projects/yamdi/
+license: BSD-3-Clause

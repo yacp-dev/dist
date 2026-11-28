@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Library for some string essentials (licensing & readmes)"
+ldesc: "Some essentials for string handling (and a bit more)."
+skip:
+
+homepage: https://libestr.adiscon.com/
+license: LGPL-2.1-or-later

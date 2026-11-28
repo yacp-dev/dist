@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Pure C++ template library that provides a clean way of getting human-readable backtrace messages"
+ldesc: "Pure C++ template library that provides a clean way of getting
+human-readable backtrace messages"
+

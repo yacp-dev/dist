@@ -1,0 +1,7 @@
+category: Libs
+requires: libxxtea1 pkg-config
+sdesc: "XXTEA encryption algorithm library for C (development)"
+ldesc: "XXTEA is a fast and secure encryption algorithm. This is a XXTEA library for
+C."
+external-source: xxtea-c
+

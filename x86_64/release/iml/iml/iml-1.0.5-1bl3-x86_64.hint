@@ -1,0 +1,8 @@
+category: Libs
+requires: 
+sdesc: "Integer Matrix Library (licensing & readmes)"
+ldesc: "IML is a free library of C source code which implements algorithms for
+computing exact solutions to dense systems of linear equations over the
+integers. IML is designed to be compiled with a CBLAS library
+(e.g., ATLAS/BLAS) and the GMP bignum library."
+

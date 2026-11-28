@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "OpenGL ES Toolkit (licensing & readmes)"
+ldesc: "LibESTK is a utility library ment to make OpenGL ES 2.0 operations easier to
+perform with fewer calls compared to the standard OpenGL library."
+

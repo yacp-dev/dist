@@ -1,0 +1,7 @@
+category: Libs
+requires: 
+sdesc: "MPEG-DASH Access Library (licensing & readmes)"
+ldesc: "libdash is the official reference software of the ISO/IEC MPEG-DASH standard
+and is an open-source library that provides an object orient (OO) interface to
+the MPEG-DASH standard, developed by bitmovin."
+

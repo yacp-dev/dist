@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libczmq3
+sdesc: "High-level C Binding for ZeroMQ (3.x API) (utilities)"
+ldesc: "CZMQ - High-level C Binding for ZeroMQ. This is the 3.x API, which
+czmq 4.x no longer provides (zctx, zauth, zsocket, ...). It installs beside
+czmq: headers in /usr/include/czmq3, libczmq3.pc and libczmq3.dll.a."
+

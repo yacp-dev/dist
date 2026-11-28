@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin
+sdesc: "Cryptographic library for ed25519 and curve25519 (runtime)"
+ldesc: "This is a small cryptographic library for signatures with ed25519 and
+diffie-hellman key exchange with x25519."
+external-source: libeddsa
+

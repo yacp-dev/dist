@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libstdc++6
+sdesc: "URI Templates expansion and reverse-matching for C++ (runtime)"
+ldesc: "This library implements URI Template with full support up to Level 4 providing
+expansion and match capabilities. It requires c++17 compiler support and has
+no dependencies."
+external-source: uri-template
+

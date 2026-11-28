@@ -1,0 +1,12 @@
+category: Games
+build-depends: cygport 
+sdesc: "CHEss OPponent Simulator"
+ldesc: "CHEOPS (CHEss OPponent Simulator) is a fully-functional chess program capable
+of human-vs-human, human-vs-computer, and computer-vs-computer play. It uses a
+64-square linear array board representation. The game tree search is
+alpha–beta, and the static evaluation function considers material, mobility,
+and motif features."
+skip:
+
+homepage: https://logological.org/cheops
+license: GPL-3.0-or-later

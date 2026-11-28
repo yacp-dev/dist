@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport cmake
+sdesc: "TOML config file parser and serializer for C++17 (licensing & readmes)"
+ldesc: "TOML config file parser and serializer for C++17"
+skip:
+
+homepage: https://github.com/marzer/tomlplusplus
+license: MIT

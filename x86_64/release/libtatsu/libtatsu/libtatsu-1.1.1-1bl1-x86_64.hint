@@ -1,0 +1,5 @@
+category: Libs
+requires: 
+sdesc: "Library handling the communication with Apple's Tatsu Signing Server (licensing & readmes)"
+ldesc: "Library handling the communication with Apple's Tatsu Signing Server"
+

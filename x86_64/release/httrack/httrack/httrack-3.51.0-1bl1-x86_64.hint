@@ -1,0 +1,8 @@
+category: Net
+requires: bash cygwin libhttrack3 zlib0
+sdesc: "HTTrack Website Copier, copy websites to your computer (utilities)"
+ldesc: "HTTrack is an offline browser utility, allowing you to download a World Wide
+website from the Internet to a local directory, building recursively all
+directories, getting html, images, and other files from the server to your
+computer."
+

@@ -1,0 +1,6 @@
+category: Libs
+requires: 
+sdesc: "Curses abstraction used by YAPET (licensing & readmes)"
+ldesc: "libyacurs is a curses widget library for fast development of curses
+applications."
+

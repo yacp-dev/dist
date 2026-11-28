@@ -1,0 +1,6 @@
+category: Libs
+requires: libqcow1 pkg-config
+sdesc: "Library and tools to access the QEMU Copy-On-Write (QCOW) image format (development)"
+ldesc: "libqcow is a library to access the QEMU Copy-On-Write (QCOW) image format."
+external-source: libqcow
+

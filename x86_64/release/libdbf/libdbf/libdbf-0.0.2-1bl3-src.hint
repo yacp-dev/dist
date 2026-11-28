@@ -1,0 +1,10 @@
+category: Libs
+build-depends: cygport gettext-devel intltool libglib2.0-devel libintl-devel
+sdesc: "Library for reading DBF files (licensing & readmes)"
+ldesc: "This is a C library to read DBF files. The code is originally from
+https://sourceforge.net/projects/dbf.berlios/. While the dbf code from that
+source compiles just fine, the underlying library doesn't."
+skip:
+
+homepage: https://github.com/quentindemetz/libdbf
+license: GPL-2.0-or-later

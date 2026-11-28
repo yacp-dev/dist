@@ -1,0 +1,6 @@
+category: Libs
+requires: libcifpp10 pkg-config libsqlite3-devel zlib-devel
+sdesc: "Library containing code to manipulate mmCIF and PDB files (development)"
+ldesc: "Library containing code to manipulate mmCIF and PDB files"
+external-source: libcifpp
+

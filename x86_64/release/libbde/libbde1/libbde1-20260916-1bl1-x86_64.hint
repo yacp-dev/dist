@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbfio1 libcaes1 libcdata1 libcerror1 libclocale1 libcnotify1 libcthreads1 libfcache1 libfvalue1 libhmac1 libuna1
+sdesc: "Library and tools to access the BitLocker Drive Encryption (BDE) encrypted volumes (runtime)"
+ldesc: "libbde is a library to access the BitLocker Drive Encryption (BDE) format."
+external-source: libbde
+

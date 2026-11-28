@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin
+sdesc: "Fast and Reliable ARQ Protocol (runtime)"
+ldesc: "KCP is a high-performance, reliable transport protocol designed to
+significantly reduce latency compared to traditional TCP. It can achieve a
+30-40% reduction in average latency and up to three times lower maximum delay,
+costing 10-20% additional bandwidth overhead."
+external-source: kcp
+

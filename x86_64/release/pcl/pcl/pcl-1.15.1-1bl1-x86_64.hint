@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libboost_system1.66 libgcc1 libGL1 libglut3 libgomp1 libpcl1.15 libstdc++6 libVTK9.7_1
+sdesc: "Point Cloud Library (utilities)"
+ldesc: "The Point Cloud Library (PCL) is a standalone, large scale, open project for
+3D point cloud processing."
+

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgpkg0 libreadline8 libsqlite3_0
+sdesc: "SQLite loadable extension to provide GeoPackage file access (utilities)"
+ldesc: "A SQLite 3 extension that provides a minimal OGC GeoPackage implementation."
+

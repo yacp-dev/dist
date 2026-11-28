@@ -1,0 +1,7 @@
+category: Libs
+requires: libargdata1 pkg-config
+sdesc: "Binary serialisation format inspired by YAML, MessagePack and nvlists (development)"
+ldesc: "Argdata is a binary serialisation format inspired by YAML, MessagePack and
+nvlists."
+external-source: argdata
+

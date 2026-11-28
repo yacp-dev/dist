@@ -1,0 +1,6 @@
+category: Libs
+requires: libfdata1 pkg-config
+sdesc: "Library to provide generic file data functions (development)"
+ldesc: "libfdata is a library to provide generic file data functions."
+external-source: libfdata
+

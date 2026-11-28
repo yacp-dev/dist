@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport liboatpp-devel
+sdesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services (licensing & readmes)"
+ldesc: "OpenApi 3.0.0 docs + Swagger UI for oatpp services"
+skip:
+
+homepage: https://github.com/oatpp/oatpp-swagger
+license: Apache-2.0

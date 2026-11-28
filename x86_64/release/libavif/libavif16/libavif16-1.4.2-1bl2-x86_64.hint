@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libaom3 libdav1d7 libsvtav1enc4 libwebp7 libyuv0
+sdesc: "Library for encoding and decoding .avif files (runtime)"
+ldesc: "This library aims to be a friendly, portable C implementation of the AV1 Image
+File Format."
+external-source: libavif
+

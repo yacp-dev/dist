@@ -1,0 +1,6 @@
+category: Libs
+requires: libJsonBox0 pkg-config
+sdesc: "C++ library used to read and write JSON with ease and speed (development)"
+ldesc: "JsonBox is a C++ library used to read and write JSON with ease and speed."
+external-source: JsonBox
+

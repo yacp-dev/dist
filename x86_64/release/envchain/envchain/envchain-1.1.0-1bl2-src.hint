@@ -1,0 +1,9 @@
+category: Security
+build-depends: cygport libglib2.0-devel libreadline-devel libsecret1-devel
+sdesc: "Environment variables meet macOS Keychain and gnome-keyring <3"
+ldesc: "Secrets for common computing environments, such as AWS_SECRET_ACCESS_KEY, are
+set with environment variables."
+skip:
+
+homepage: https://github.com/sorah/envchain
+license: MIT

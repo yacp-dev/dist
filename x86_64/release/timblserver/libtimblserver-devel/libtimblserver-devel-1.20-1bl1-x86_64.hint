@@ -1,0 +1,6 @@
+category: Libs
+requires: libtimbl-devel libtimblserver5 libxml2-devel pkg-config
+sdesc: "For server functionality around Timbl (development)"
+ldesc: "For server functionality around Timbl"
+external-source: timblserver
+

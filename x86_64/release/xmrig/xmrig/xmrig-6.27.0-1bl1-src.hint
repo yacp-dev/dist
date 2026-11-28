@@ -1,0 +1,9 @@
+category: Net
+build-depends: cygport libfmt-devel libhwloc-devel libiconv-devel libintl-devel libOpenCL-devel libssl-devel libuv-devel
+sdesc: "Monero (XMR) CPU miner"
+ldesc: "XMRig High performance, open source, cross platform RandomX,
+CryptoNight and Argon2 CPU/GPU miner, with official support for Windows."
+skip:
+
+homepage: https://github.com/xmrig/xmrig
+license: GPL-3.0-or-later AND MIT AND BSD-3-Clause AND CC0-1.0 AND Apache-2.0
